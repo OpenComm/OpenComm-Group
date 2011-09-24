@@ -1,4 +1,4 @@
 == OpenComm Group / 2009 - 2010 == README.TXT ==
-modified by Risa (9/24/2011)
+== modified by Risa (rn96) (9/24/2011)
 
-Original git repository: moki80/OpenCommJava
+Original git repository: https://github.com/moki80/OpenComm
