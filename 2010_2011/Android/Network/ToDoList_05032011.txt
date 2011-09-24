@@ -1,0 +1,13 @@
+Risa:
+- log in to the network (COMPLETED)
+- create PS
+- receive creation of PS
+- delete PS
+- receive deletion PS
+
+Han-wei:
+- add user to PS
+- receive addition of user to PS
+- remove user from PS
+- receive removal of user from PS
+

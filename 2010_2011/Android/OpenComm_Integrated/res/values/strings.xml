@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, MainApplication!</string>
+    <string name="app_name">OpenComm6</string>
+	<string name="trash_button_text">Trash</string>
+	<string name="main_button_text">Main</string>
+	<string name="add_button_text">Add</string>
+    <string name="networkGUI">Welcome to\nOpenComm\nNetwork GUI.\nRefer to LogCat with tags\nXMPPService, NetworkGUI, and MUCGUI</string>
+    <string name="mucGUI">Welcome to\nOpenComm\nNetwork\'s MUC GUI.\nRefer to LogCat with tags\nXMPPService, NetworkGUI, and MUCGUI</string>
+    <string name="login_name">Login to XMPP</string>
+    <string name="login_welcome">Welcome to\nOpenComm!</string>
+    <string name="label_username">Username</string>
+    <string name="label_password">Password</string>
+    <string name="rememberLogin">Remember Me</string>
+    <string name="signIn">Sign In</string>
+</resources>
