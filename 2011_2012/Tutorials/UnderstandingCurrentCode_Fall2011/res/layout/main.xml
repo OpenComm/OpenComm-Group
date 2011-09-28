@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/light_gray"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:weightSum="25"
+    >
+    <edu.cornell.opencomm.SpaceView 
+    android:id="@+id/space_view"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="24"
+    android:background="@color/main_background" 
+    />
+    <LinearLayout
+    android:background="@color/gray"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:layout_gravity="center"
+    >
+    	<Button android:id="@+id/main_button"
+    		android:padding="5dip"
+    		android:text="@string/main_button_text"
+    		android:layout_width="wrap_content"
+    		android:layout_height="fill_parent" 
+    		android:layout_weight="1"
+    		android:minWidth="80dip"
+    		/>
+    	<Button android:id="@+id/add_button"
+    		android:padding="5dip"
+    		android:text="@string/add_button_text"
+    		android:layout_width="wrap_content"
+    		android:layout_height="fill_parent" 
+    		android:layout_weight="1"
+    		android:minWidth="50dip"
+    		/>
+    	<HorizontalScrollView 
+    			android:layout_width="wrap_content"
+	    		android:layout_height="fill_parent"
+	    		android:layout_weight="3"
+	    		android:measureAllChildren="false"
+	    		android:background="@color/scroll_background"  >
+	    		<LinearLayout android:id="@+id/privateSpaceLinearLayout"
+    			
+	    		android:layout_width="wrap_content"
+	    		android:layout_height="fill_parent"
+    			android:gravity="center" >
+    			
+    			</LinearLayout>
+	    </HorizontalScrollView>
+	    <Button android:id="@+id/trash_button"
+    		android:paddingLeft="5dip"
+    		android:paddingRight="5dip"
+    		android:text="@string/trash_button_text"
+    		android:layout_width="wrap_content"
+    		android:layout_height="fill_parent" 
+    		android:layout_weight="1"
+    		android:minWidth="75dip"
+    		/>
+    </LinearLayout>
+</LinearLayout>

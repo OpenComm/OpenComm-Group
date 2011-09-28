@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, MainApplication!</string>
+    <string name="app_name">OpenComm6</string>
+<string name="trash_button_text">Trash</string>
+<string name="main_button_text">Main</string>
+<string name="add_button_text">Add</string>
+</resources>
