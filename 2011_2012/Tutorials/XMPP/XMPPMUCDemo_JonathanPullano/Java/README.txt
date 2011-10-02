@@ -1,4 +1,4 @@
-== Jonathan Pullano (jp938) == XMPP MultiUserChat Demo == README.TXT ==
+== Jonathan Pullano (jp938) == XMPP MultiUserChat Demo (Android) == README.TXT ==
 
 	Set up [SETUP]
 	Documentations [DOC]
@@ -32,11 +32,13 @@
 
 ========================================
 
-	Chat.java: main method, runs the XMPP MultiUserChat demo:
+	Test.java: main method, runs the XMPP MultiUserChat demo:
 		1. Logs in with mucopencomm
 		2. Attempts to create superhappyfunroom (if it already exists, joins)
 		3. Joins as bigsmiley
-		4. Every 30 seconds, prints out the buddy list
+		4. Says hello
+		5. devoices and revoices another user
+		6. leaves and disconnects
 	
 ================================================================================
 ================================================================================
@@ -46,6 +48,7 @@
 ========================================
 
 	1.0: Connects to room and prints users
+	1.1: Seperated Chat into it's own class, delegated behavior to functions, added voicing support
 
 ================================================================================
 ================================================================================
