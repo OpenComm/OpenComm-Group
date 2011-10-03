@@ -1,10 +1,4 @@
-== Jonathan Pullano (jp938) == XMPP MultiUserChat Demo == README.TXT ==
-
-	Set up [SETUP]
-	Documentations [DOC]
-	JAVA Files [JAVA]
-	Version Information [VER]
-	Changes to Implement [CHANGE]
+== Risa Naka (rn96) == XMPP Multiuser Chat Room Test == README.TXT ==
 
 ================================================================================
 ================================================================================
@@ -13,7 +7,17 @@
 	
 ========================================
 
-	1. Run Chat.java
+	1. Download and unzip Smack, a Java XMPP client library
+	(http://www.igniterealtime.org/downloads/index.jsp#smack)
+	
+	2. Download and install Pidgin, a universal chat client
+	(http://www.pidgin.im/)
+	
+	3. In Eclipse, right-click on the project:
+	Build Path -> Add External Archives
+	Add both smack.jar and smackx.jar
+	
+	4. Run MUCDemo.java
 	
 ================================================================================
 ================================================================================
@@ -22,8 +26,8 @@
 
 ========================================
 
-	Hello World Tutorial from Android Developers:
-	http://www.igniterealtime.org/builds/smack/docs/latest/documentation/
+	SMACK Extensions: Multi User Chat
+	http://www.igniterealtime.org/builds/smack/docs/latest/documentation/extensions/muc.html
 	
 ================================================================================
 ================================================================================
@@ -32,12 +36,19 @@
 
 ========================================
 
-	Chat.java: main method, runs the XMPP MultiUserChat demo:
-		1. Logs in with mucopencomm
-		2. Attempts to create superhappyfunroom (if it already exists, joins)
-		3. Joins as bigsmiley
-		4. Every 30 seconds, prints out the buddy list
+	MUCDemo.java: main method, runs the MUC demo:
+		1. Creates a XMPP connection to jabber.org through port 5222
+		2. Logs in as opencommss@jabber.org
+		3. Creates an multiuser chat room with default configurations
+		4. Prints out the buddy list of the XMPP connection every 30 seconds 4 times
+		6. Destroys the MUC room
+		7. Disconnects from the server
+		
+	XMPPUser.java: a pre-created XMPP user; its username and password is stored
 	
+	XMPPConnectConfig.java: creates a configured XMPP connection to a specified
+		host server through a specified post
+		
 ================================================================================
 ================================================================================
 
@@ -45,7 +56,7 @@
 	
 ========================================
 
-	1.0: Connects to room and prints users
+	1.0: For tutorial purpose
 
 ================================================================================
 ================================================================================
@@ -56,3 +67,5 @@
 
 	None
 			
+	
+	
