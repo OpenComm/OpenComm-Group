@@ -90,7 +90,7 @@ public class Space{
     }
     
 	/* Add this Person to this Space (room), also create a new icon (PersonView) for 
-     * add it to this Space's corresponding SpaceView */
+     * add it to this Space's corresponding SpaceView 
 	public void addPerson(Person newPerson){
         // Check to make sure this person is not already in this space
 		boolean already_have = false;
@@ -100,6 +100,30 @@ public class Space{
         		already_have = true;	
         	counter++;
         }
+        if(!already_have){
+        	allPeople.add(newPerson);
+        	PersonView icon = new PersonView(context, newPerson, newPerson.getImage());
+        	allIcons.add(icon);
+        	if(screen_on)
+        		(MainApplication.screen).addPerson(icon);
+        }
+        else{
+        	Log.i( "Person already present", "Check your code" );
+        }
+		
+	}*/
+    
+    // TODO : Add users
+    public void addPerson(Person newPerson){
+        // Check to make sure this person is not already in this space
+		boolean already_have = false;
+        int counter=0;
+        while(!already_have && counter<allPeople.size()){
+        	if(allPeople.get(counter).username==newPerson.username)
+        		already_have = true;	
+        	counter++;
+        }
+        
         if(!already_have){
         	allPeople.add(newPerson);
         	PersonView icon = new PersonView(context, newPerson, newPerson.getImage());
