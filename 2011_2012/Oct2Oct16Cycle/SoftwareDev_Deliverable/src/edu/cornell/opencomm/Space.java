@@ -97,7 +97,7 @@ public class Space{
         int counter=0;
         while(!already_have && counter<allPeople.size()){
         	if(allPeople.get(counter)==newPerson)
-        		already_have = true;
+        		already_have = true;	
         	counter++;
         }
         if(!already_have){
@@ -106,6 +106,9 @@ public class Space{
         	allIcons.add(icon);
         	if(screen_on)
         		(MainApplication.screen).addPerson(icon);
+        }
+        else{
+        	Log.i( "Person already present", "Check your code" );
         }
 		
 	}

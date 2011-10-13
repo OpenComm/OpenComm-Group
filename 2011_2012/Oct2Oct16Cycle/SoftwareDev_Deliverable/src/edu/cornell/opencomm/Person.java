@@ -26,6 +26,7 @@ public class Person{
 		2)Add this to linkedlist of all people created (allPeople)
 		3)Add this to the MainSpace's list of people  TODO: I'm thinking maybe I should do this step AFTER I create this person
 		4)Add (username, person) and (nickname, person) pairs to hashmap */
+	
 	public Person(String username, String nickname, int imageInt, String description){
         Log.v(LOG_TAG, "Made a person for the user " + username);
 		// (1)

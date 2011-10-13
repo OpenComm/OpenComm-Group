@@ -1,11 +1,14 @@
 package edu.cornell.opencomm;
 
 import java.util.LinkedList;
+
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.util.Log;
 
@@ -134,7 +137,6 @@ import android.util.Log;
     	 }
      }
      
-     
      /* Handle Touch events... MANY cases to consider 
       * A PS icon = private space icon, squares that represent another private space
       * at the bottom bar of the gui 
@@ -164,10 +166,11 @@ import android.util.Log;
        
        
        
-       int eventaction = event.getAction();
+        int eventaction = event.getAction();
 		int mouseX = (int) event.getX();
 		int mouseY = (int) event.getY();
-
+		boolean clickOnIcon = false;
+		
 		switch (eventaction) {
 		case MotionEvent.ACTION_DOWN:
 			selectedIcon = null;
@@ -176,10 +179,17 @@ import android.util.Log;
 					selectedIcon = icon;
 					initialX = icon.getX();
 					initialY = icon.getY();
+					clickOnIcon = true;
 				}
 			}
 			// TODO CRYSTAL detect touch of icon
+			
 			// TODO RAHUL detect touch of empty screen
+			if(!clickOnIcon){
+				Log.v(LOG_TAG, "Clicked outside");
+				getActivity().showBuddyList();
+				//(MainApplication)context)
+			}
 			break;
 
 		case MotionEvent.ACTION_MOVE:

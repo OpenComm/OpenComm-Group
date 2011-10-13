@@ -1,9 +1,17 @@
 package edu.cornell.opencomm;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +52,7 @@ public class MainApplication extends Activity{
 			R.drawable.mak, "Makoto's xmppID");
 	Person risa = new Person("Risa", "Is destined to marry her dog",
 			R.drawable.risa, "Risa's xmppID");
+	
     
 	// A counter for spaces (to generate SpaceID's). TODO Will use for now, takeout later when add network 
 	public static int space_counter= -1;
@@ -84,6 +93,8 @@ public class MainApplication extends Activity{
         	init_addPerson(mainspace, nora);
         	init_addPerson(mainspace, najla);
         	init_addPerson(mainspace, risa);
+        	init_addPerson(mainspace, makoto);
+        	init_addPerson(mainspace, makoto);
         	init_addPerson(mainspace, makoto);
         }
         // (3)
@@ -320,4 +331,56 @@ public class MainApplication extends Activity{
 			}
 		});
 	}     
+	
+	
+	// TODO :: Buddylist
+	final CharSequence[] _options = {"Rahul", "Nora", "Najla","Risa"};
+	final boolean[] _selections =  new boolean[_options.length];
+	
+	public void showBuddyList(){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	    
+		class DialogSelectionClickHandler implements DialogInterface.OnMultiChoiceClickListener
+		{
+			public void onClick( DialogInterface dialog, int clicked, boolean selected )
+			{
+				//Do Nothing
+			}
+		}
+		
+
+		class DialogButtonClickHandler implements DialogInterface.OnClickListener
+		{
+			public void onClick( DialogInterface dialog, int clicked )
+			{
+				switch( clicked )
+				{
+					case DialogInterface.BUTTON_POSITIVE:
+//						for( int i = 0; i < _options.length; i++ ){
+//							Log.i( "ME", _options[i] + " selected: " + _selections[i] );
+//						}
+						addFromBuddyList();
+						
+						break;
+				}
+			}
+		}
+			
+		builder.setTitle( "Buddylist" )
+    		    .setMultiChoiceItems( _options, _selections, new DialogSelectionClickHandler() )
+    		    .setPositiveButton( "OK", new DialogButtonClickHandler() )
+    		    .create();
+		AlertDialog alert = builder.create();
+		alert.show();
+	}
+	
+	public void addFromBuddyList(){
+		for( int i = 0; i < _selections.length; i++ ){
+			if(_selections[i]){
+				username = (String) _options[i];
+				Person p = new Person(username, "We rock", R.drawable.question, "xmppID");
+	        	init_addPerson(mainspace, p);
+			}
+		}
+	}
 }
