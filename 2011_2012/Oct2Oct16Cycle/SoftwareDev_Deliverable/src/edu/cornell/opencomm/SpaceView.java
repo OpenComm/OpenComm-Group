@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.util.Log;
 
@@ -164,8 +165,6 @@ import android.util.Log;
        * 7) Be able to drag multiple highlighted icons as a unit 
        */
        
-       
-       
         int eventaction = event.getAction();
 		int mouseX = (int) event.getX();
 		int mouseY = (int) event.getY();
@@ -184,9 +183,9 @@ import android.util.Log;
 			}
 			// TODO CRYSTAL detect touch of icon
 			
-			// TODO RAHUL detect touch of empty screen
+			// It detects whether free space is clicked and runs showBuddyList
 			if(!clickOnIcon){
-				Log.v(LOG_TAG, "Clicked outside");
+				Log.v(LOG_TAG, "Clicked on free space");
 				getActivity().showBuddyList();
 				//(MainApplication)context)
 			}
@@ -252,7 +251,15 @@ import android.util.Log;
 					if(p.contains(mouseX, mouseY)){
 						p.setHighlighted(false);
 						(p.getSpace()).addPerson(selectedIcon.getPerson());
+						/* Detect if icon was dropped into the empty PS or an existing PS.
+						 */
 						// TODO JUSTIN detect if an icon was dropped into the empty PS and decide if need to make another
+						//if first icon dropped in space, make a new space
+						if((p.getSpace()).getAllIcons().size()==1){
+							int newspaceID= (p.getSpace()).getSpaceID()+1;
+							new Space((MainApplication)context,false,newspaceID,null);
+							break;
+						}
 					}
 				}
 				// if released icon over the privatespace bar, then move icon back to original position

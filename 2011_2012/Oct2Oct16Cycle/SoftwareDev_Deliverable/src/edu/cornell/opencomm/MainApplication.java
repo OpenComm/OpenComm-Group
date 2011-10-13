@@ -1,23 +1,16 @@
 package edu.cornell.opencomm;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.MotionEvent;
 import android.widget.Button;
-import android.widget.EditText;
 import android.util.Log;
 
 import android.widget.LinearLayout;
@@ -32,6 +25,7 @@ public class MainApplication extends Activity{
     public static Person user_you;// the person object that is YOU, the user of this program 
     public static Space mainspace= null; // the official mainSpace, the one space that has EVERYBODY in it
     public static SpaceView screen; // the screen that shows all of the icons 
+    public static PrivateSpaceView emptyspace;
     
     public static String username=""; // the username of this account
     public static String password=""; // the password to this account 
@@ -84,8 +78,9 @@ public class MainApplication extends Activity{
         	mainspace = init_createPrivateSpace(true);
         	screen.setSpace(mainspace);
         	mainspace.setScreenOn(true);
-        	// TODO JUSTIN create another empty space
-        	        	
+        	
+        	init_createPrivateSpace(false); // Justin : Create another empty space        	
+        	
         // (2) Initialize the people in the chat
         	allBuddies = new LinkedList<Person>();
         	addPerson(mainspace, user_you);
@@ -333,10 +328,11 @@ public class MainApplication extends Activity{
 	}     
 	
 	
-	// TODO :: Buddylist
+	/* Implementation of BuddyList */
 	final CharSequence[] _options = {"Rahul", "Nora", "Najla","Risa"};
 	final boolean[] _selections =  new boolean[_options.length];
 	
+	/* This function builds a dialog for buddylist*/
 	public void showBuddyList(){
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 	    
@@ -374,6 +370,7 @@ public class MainApplication extends Activity{
 		alert.show();
 	}
 	
+	/* This function adds users from the buddylist dialog*/
 	public void addFromBuddyList(){
 		for( int i = 0; i < _selections.length; i++ ){
 			if(_selections[i]){
