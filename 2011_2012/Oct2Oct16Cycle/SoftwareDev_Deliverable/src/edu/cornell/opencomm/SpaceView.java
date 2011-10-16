@@ -1,7 +1,11 @@
 package edu.cornell.opencomm;
 
 import java.util.LinkedList;
+
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -134,7 +138,6 @@ import android.util.Log;
     	 }
      }
      
-     
      /* Handle Touch events... MANY cases to consider 
       * A PS icon = private space icon, squares that represent another private space
       * at the bottom bar of the gui 
@@ -162,12 +165,11 @@ import android.util.Log;
        * 7) Be able to drag multiple highlighted icons as a unit 
        */
        
-       
-       
-       int eventaction = event.getAction();
+        int eventaction = event.getAction();
 		int mouseX = (int) event.getX();
 		int mouseY = (int) event.getY();
-
+		boolean clickOnIcon = false;
+		
 		switch (eventaction) {
 		case MotionEvent.ACTION_DOWN:
 			selectedIcon = null;
@@ -176,10 +178,17 @@ import android.util.Log;
 					selectedIcon = icon;
 					initialX = icon.getX();
 					initialY = icon.getY();
+					clickOnIcon = true;
 				}
 			}
 			// TODO CRYSTAL detect touch of icon
-			// TODO RAHUL detect touch of empty screen
+			
+			// It detects whether free space is clicked and runs showBuddyList
+			if(!clickOnIcon){
+				Log.v(LOG_TAG, "Clicked on free space");
+				getActivity().showBuddyList();
+				//(MainApplication)context)
+			}
 			break;
 
 		case MotionEvent.ACTION_MOVE:
@@ -242,7 +251,15 @@ import android.util.Log;
 					if(p.contains(mouseX, mouseY)){
 						p.setHighlighted(false);
 						(p.getSpace()).addPerson(selectedIcon.getPerson());
+						/* Detect if icon was dropped into the empty PS or an existing PS.
+						 */
 						// TODO JUSTIN detect if an icon was dropped into the empty PS and decide if need to make another
+						//if first icon dropped in space, make a new space
+						if((p.getSpace()).getAllIcons().size()==1){
+							int newspaceID= (p.getSpace()).getSpaceID()+1;
+							new Space((MainApplication)context,false,newspaceID,null);
+							break;
+						}
 					}
 				}
 				// if released icon over the privatespace bar, then move icon back to original position

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="match_parent"
+	android:layout_height="match_parent" android:padding="25dp">
+	<TextView android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:text="Add/Delete Spaces Demo" />
+	<TextView android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:text="Private Spaces:" />
+	<ListView android:id="@+id/lvPrivateSpaces"
+		android:layout_width="fill_parent" android:layout_height="140dp"
+		android:stackFromBottom="false" />
+	<TextView android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:text="Conferences: " />
+	<ListView android:id="@+id/lvConferences"
+		android:layout_width="fill_parent" android:layout_height="140dp"
+		android:stackFromBottom="false" />
+	<EditText android:id="@+id/etSpaceName" android:layout_height="wrap_content"
+		android:layout_width="fill_parent" />
+	<LinearLayout android:orientation="horizontal"
+		android:layout_height="wrap_content" android:layout_width="fill_parent">
+		<Button android:id="@+id/bAdd" android:layout_height="wrap_content"
+			android:layout_width="fill_parent" android:layout_weight="1"
+			android:text="Add Space" />
+		<Button android:id="@+id/bDelete" android:layout_height="wrap_content"
+			android:layout_width="fill_parent" android:layout_weight="1"
+			android:text="Delete Space" />
+	</LinearLayout>
+</LinearLayout>

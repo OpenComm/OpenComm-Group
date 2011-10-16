@@ -1,15 +1,16 @@
 package edu.cornell.opencomm;
 
 import java.util.LinkedList;
+
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.Bundle;
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.MotionEvent;
 import android.widget.Button;
-import android.widget.EditText;
 import android.util.Log;
 
 import android.widget.LinearLayout;
@@ -24,6 +25,7 @@ public class MainApplication extends Activity{
     public static Person user_you;// the person object that is YOU, the user of this program 
     public static Space mainspace= null; // the official mainSpace, the one space that has EVERYBODY in it
     public static SpaceView screen; // the screen that shows all of the icons 
+    public static PrivateSpaceView emptyspace;
     
     public static String username=""; // the username of this account
     public static String password=""; // the password to this account 
@@ -44,6 +46,7 @@ public class MainApplication extends Activity{
 			R.drawable.mak, "Makoto's xmppID");
 	Person risa = new Person("Risa", "Is destined to marry her dog",
 			R.drawable.risa, "Risa's xmppID");
+	
     
 	// A counter for spaces (to generate SpaceID's). TODO Will use for now, takeout later when add network 
 	public static int space_counter= -1;
@@ -75,8 +78,9 @@ public class MainApplication extends Activity{
         	mainspace = init_createPrivateSpace(true);
         	screen.setSpace(mainspace);
         	mainspace.setScreenOn(true);
-        	// TODO JUSTIN create another empty space
-        	        	
+        	
+        	init_createPrivateSpace(false); // Justin : Create another empty space        	
+        	
         // (2) Initialize the people in the chat
         	allBuddies = new LinkedList<Person>();
         	addPerson(mainspace, user_you);
@@ -84,6 +88,8 @@ public class MainApplication extends Activity{
         	init_addPerson(mainspace, nora);
         	init_addPerson(mainspace, najla);
         	init_addPerson(mainspace, risa);
+        	init_addPerson(mainspace, makoto);
+        	init_addPerson(mainspace, makoto);
         	init_addPerson(mainspace, makoto);
         }
         // (3)
@@ -320,4 +326,58 @@ public class MainApplication extends Activity{
 			}
 		});
 	}     
+	
+	
+	/* Implementation of BuddyList */
+	final CharSequence[] _options = {"Rahul", "Nora", "Najla","Risa"};
+	final boolean[] _selections =  new boolean[_options.length];
+	
+	/* This function builds a dialog for buddylist*/
+	public void showBuddyList(){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	    
+		class DialogSelectionClickHandler implements DialogInterface.OnMultiChoiceClickListener
+		{
+			public void onClick( DialogInterface dialog, int clicked, boolean selected )
+			{
+				//Do Nothing
+			}
+		}
+		
+
+		class DialogButtonClickHandler implements DialogInterface.OnClickListener
+		{
+			public void onClick( DialogInterface dialog, int clicked )
+			{
+				switch( clicked )
+				{
+					case DialogInterface.BUTTON_POSITIVE:
+//						for( int i = 0; i < _options.length; i++ ){
+//							Log.i( "ME", _options[i] + " selected: " + _selections[i] );
+//						}
+						addFromBuddyList();
+						
+						break;
+				}
+			}
+		}
+			
+		builder.setTitle( "Buddylist" )
+    		    .setMultiChoiceItems( _options, _selections, new DialogSelectionClickHandler() )
+    		    .setPositiveButton( "OK", new DialogButtonClickHandler() )
+    		    .create();
+		AlertDialog alert = builder.create();
+		alert.show();
+	}
+	
+	/* This function adds users from the buddylist dialog*/
+	public void addFromBuddyList(){
+		for( int i = 0; i < _selections.length; i++ ){
+			if(_selections[i]){
+				username = (String) _options[i];
+				Person p = new Person(username, "We rock", R.drawable.question, "xmppID");
+	        	init_addPerson(mainspace, p);
+			}
+		}
+	}
 }

@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.NinePatchDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
@@ -139,10 +140,14 @@ public class PrivateSpaceView extends ImageButton{
 		 canvas.drawColor(backgroundColor);
 		 //(2)
 		 RectShape rect = new RectShape();
-		 ShapeDrawable normalShape = new ShapeDrawable(rect);
-		 normalShape.getPaint().setColor(color);
-		 normalShape.setBounds(2, 2, this.getWidth() - 2, this.getHeight() - 2);
-		 normalShape.draw(canvas);
+		 /* This function checks for people in the space. If there are atleast 1 person, 
+		  * then the function draws a filled space at the bottom of the mainview */
+		 if(this.getSpace().getAllPeople().size()>0){
+			 ShapeDrawable normalShape = new ShapeDrawable(rect);
+			 normalShape.getPaint().setColor(color);
+			 normalShape.setBounds(2, 2, this.getWidth() - 2, this.getHeight() - 2);
+			 normalShape.draw(canvas);
+		 }
 		 //(3)
 		 RectShape rect2 = new RectShape();
 		 if (!(this.isSelected || this.isHighlighted)) {
@@ -151,7 +156,20 @@ public class PrivateSpaceView extends ImageButton{
 			s.setBounds(6, 6, this.getHeight() - 4, this.getHeight() - 6);
 			s.draw(canvas);
 		 } 
-		 //(4) TODO JUSTIN: figure out how to draw an empty privatespace button image
+		 
+		 RectShape rect3 = new RectShape();
+		 /* This function checks for people in the space. If there are no person, 
+		  * then the function draws a empty space at the bottom of the mainview*/
+		 if(this.getSpace().getAllPeople().size()==0){					
+			ShapeDrawable sq = new ShapeDrawable(rect3);
+			sq.getPaint().setStyle(Paint.Style.FILL);
+			sq.getPaint().setColor(Color.TRANSPARENT);
+			sq.getPaint().setStyle(Paint.Style.STROKE);
+			sq.getPaint().setStrokeWidth(3);
+			sq.getPaint().setColor(Color.BLACK);
+			sq.setBounds(2,2,this.getWidth() - 2, this.getHeight() - 2);
+			sq.draw(canvas);
+		 }
 		 //(5)
 		 if(showPreview){
 			 // TODO VINAY you could draw the preview here if you like
