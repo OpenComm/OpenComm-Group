@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent" 
+android:layout_height="fill_parent" 
+android:background="#FFFFFF" 
+android:padding="10px" 
+android:orientation="vertical" android:weightSum="1" android:isScrollContainer="true" android:clickable="true">
+    <LinearLayout 
+    android:id="@+id/private_space_preview_popup_layout" 
+    android:layout_height="136dp" 
+    android:layout_width="128dp" 
+    android:weightSum="1" 
+    android:orientation="vertical" 
+    android:padding="10px" 
+    android:background="@color/gray" 
+    android:layout_weight="0.02">
+        <TextView 
+        android:layout_height="wrap_content" 
+        android:textSize="10dp" 
+        android:layout_width="170dp" 
+        android:text="Private Space Preview" 
+        android:textColor="#FFFFFF" 
+        android:id="@+id/popup_header_text">
+        </TextView>
+        <edu.cornell.opencomm.popups.PrivateSpacePreviewPopup 
+        android:id="@+id/private_space_preview_popup" 
+        android:layout_height="80dp" 
+        android:layout_width="112dp" 
+        android:weightSum="1" 
+        android:orientation="horizontal" 
+        android:padding="10px" 
+        android:background="#444444" 
+        android:layout_weight="0.42">
+        </edu.cornell.opencomm.popups.PrivateSpacePreviewPopup>
+        <Button 
+        android:soundEffectsEnabled="true" 
+        android:clickable="true" 
+        android:id="@+id/cancel_button" 
+        android:text="Cancel" 
+        android:layout_width="wrap_content" 
+        android:shadowRadius="0" 
+        android:textSize="10dp" 
+        android:layout_height="15dp"></Button>
+    </LinearLayout>
+</LinearLayout>
