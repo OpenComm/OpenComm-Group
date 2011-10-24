@@ -42,6 +42,7 @@ public class Space{
     private MultiUserChat muc;
     private String roomID;
 	
+    
 	/* Constructor: A completely NEW space
      * isMainSpace is true if this is a mainspace, mainspaces should be 
      * initiated in the beginning and should initialize allSpaces
