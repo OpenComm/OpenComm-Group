@@ -13,7 +13,7 @@
   	
  <TextView
  	android:id="@+id/version_text"
- 	android:text="CommonLisp_Dylan Version"
+ 	android:text="Eiffel_Forth Version"
  	android:layout_width="wrap_content"
  	android:layout_height="wrap_content"
  	android:layout_centerHorizontal="true"
