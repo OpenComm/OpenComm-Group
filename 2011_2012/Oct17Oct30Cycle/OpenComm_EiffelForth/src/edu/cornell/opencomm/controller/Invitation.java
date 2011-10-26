@@ -4,6 +4,7 @@ import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smackx.muc.InvitationListener;
+import org.jivesoftware.smackx.muc.InvitationRejectionListener;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 
 /**
@@ -11,7 +12,7 @@ import org.jivesoftware.smackx.muc.MultiUserChat;
  * @author jonathan
  *
  */
-public class Invitation implements InvitationListener {
+public class Invitation implements InvitationListener, InvitationRejectionListener {
 	private edu.cornell.opencomm.model.Invitation invitation;
 	
 	/**
@@ -50,5 +51,13 @@ public class Invitation implements InvitationListener {
 	 */
 	public edu.cornell.opencomm.model.Invitation getInvitation() {
 		return this.invitation;
+	}
+
+	/**
+	 * Automagically called when an invitation this client sent was rejected (oh snap!)
+	 */
+	@Override
+	public void invitationDeclined(String invitee, String reason) {
+		//TODO: Trigger update to view (if any)
 	}
 }
