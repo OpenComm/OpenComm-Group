@@ -100,8 +100,9 @@ public class SpaceController {
 	 * (format: (Network.REQUEST_INVITE)@inviter(Inviter username)@invitee
 	 * (Invitee username)@reason(Invitation reason)*/
 	public void declineInvitationRequest(String inviteRequest) {
-		// TODO decline invitation request
-	} // end declineInvitationRequest method
+		String inviter = inviteRequest.split("@")[1];
+		this.muc.decline(Login.xmppConnection, this.muc.getRoom(), inviter, Network.DEFAULT_DECLINE);
+	}
 	
 	public void kickout() {
 		// TODO if owner, kickout user

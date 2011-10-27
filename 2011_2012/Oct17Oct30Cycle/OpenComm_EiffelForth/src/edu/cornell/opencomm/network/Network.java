@@ -50,4 +50,7 @@ public class Network {
 	/** = default reason for banning a person */
 	public static final String DEFAULT_BAN = "You have been banned";
 	
+	/** = default reason for declined an invited */
+	public static final String DEFAULT_DECLINE = "Your invitation was declined";
+	
 }
