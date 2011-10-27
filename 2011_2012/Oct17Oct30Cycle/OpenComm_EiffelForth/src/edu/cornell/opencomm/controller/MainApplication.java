@@ -236,14 +236,17 @@ public class MainApplication extends Activity{
      * as deletePrivateSpace except in addition needs to notify the network
      * of this deletion, the network will delete this privatespace for everyone.
      * You cannot delete a mainspace */
-    public void init_deletePrivateSpace(Space SpaceToDelete){
-    	if(SpaceToDelete.getOwner()==user_primary && SpaceToDelete.isMainSpace()==false){
+    public void init_deletePrivateSpace(Space spaceToDelete){
+    	if(spaceToDelete.getOwner().getUsername().equals(user_primary.getUsername()) && spaceToDelete.isMainSpace()==false){
+    		spaceToDelete.getMUC().getOccupants();
     		/* TODO network: 
     		 * 1) Delete this PrivateSpace
     		 * 2) Notify each person in the space to be removed (can use deletePrivateSpace() for other people)
     		 * deletePrivateSpace (called below) already removes this space for YOU
     		 */
-            deletePrivateSpace(SpaceToDelete);
+            deletePrivateSpace(spaceToDelete);
+    	} else {
+    		Log.w(TAG, "Cannot delete main private space, or user does not have authority");
     	}
     }
     
@@ -251,9 +254,9 @@ public class MainApplication extends Activity{
      * PrivateSpace's corresponding PrivateSpaceIconView and SpaceView. 
      * This method also called (by network) if someone else deleted a PrivateSpace that you
      * were a part of, or if you decided to leave but are not moderator of the space*/
-    public void deletePrivateSpace(Space SpaceToDelete){
+    public void deletePrivateSpace(Space spaceToDelete){
         try {
-			SpaceToDelete.deletePrivateSpace();
+			spaceToDelete.deletePrivateSpace();
 		} catch (XMPPException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
