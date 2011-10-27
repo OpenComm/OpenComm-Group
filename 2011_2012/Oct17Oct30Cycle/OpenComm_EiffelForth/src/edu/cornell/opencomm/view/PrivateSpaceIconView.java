@@ -157,7 +157,7 @@ public class PrivateSpaceIconView extends ImageButton{
 		 RectShape rect = new RectShape();
 		 /* This function checks for people in the space. If there are atleast 1 person, 
 		  * then the function draws a filled space at the bottom of the mainview */
-		 if(this.getSpace().getAllPeople().size()>0){
+		 if(this.getSpace().getAllUsers().size()>0){
 			 ShapeDrawable normalShape = new ShapeDrawable(rect);
 			 normalShape.getPaint().setColor(color);
 			 normalShape.setBounds(2, 2, this.getWidth() - 2, this.getHeight() - 2);
@@ -175,7 +175,7 @@ public class PrivateSpaceIconView extends ImageButton{
 		 RectShape rect3 = new RectShape();
 		 /* This function checks for people in the space. If there are no person, 
 		  * then the function draws a empty space at the bottom of the mainview*/
-		 if(this.getSpace().getAllPeople().size()==0){					
+		 if(this.getSpace().getAllUsers().size()==0){					
 			ShapeDrawable sq = new ShapeDrawable(rect3);
 			sq.getPaint().setStyle(Paint.Style.FILL);
 			sq.getPaint().setColor(Color.TRANSPARENT);
@@ -195,7 +195,7 @@ public class PrivateSpaceIconView extends ImageButton{
      /** Open a different space to the screen */
      // NORA- updated 9/3
      public void openPrivateSpace(){
-    	 Log.v(LOG_TAG, "Trying to open this space " + space.getSpaceID() + ". Screen on is " + space.isScreenOn());
+    	 Log.v(LOG_TAG, "Trying to open this space " + space.getRoomID() + ". Screen on is " + space.isScreenOn());
     	 if(!space.isScreenOn()){
     		 ((MainApplication)context).changeSpace(space);
     	 }

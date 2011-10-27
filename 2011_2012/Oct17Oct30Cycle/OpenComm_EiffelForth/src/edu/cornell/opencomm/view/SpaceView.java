@@ -2,6 +2,8 @@ package edu.cornell.opencomm.view;
 
 import java.util.LinkedList;
 
+import org.jivesoftware.smack.XMPPException;
+
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.R.color;
@@ -307,13 +309,18 @@ import android.graphics.BitmapFactory;
 				for(PrivateSpaceIconView p : PrivateSpaceIconView.allPSIcons){
 					if(p.contains(mouseX, mouseY)){
 						p.setHighlighted(false);
-						(p.getSpace()).addPerson(selectedIcon.getPerson());
+						(p.getSpace()).addUser(selectedIcon.getPerson());
 						/* Detect if icon was dropped into the empty PS or an existing PS.
 						 */
 						//if first icon dropped in space, make a new space
 						if((p.getSpace()).getAllIcons().size()==1){
-							int newspaceID= Integer.parseInt(p.getSpace().getSpaceID()) + 1;
-							new Space((MainApplication)context,false,String.valueOf(newspaceID),null);
+							int newspaceID= Integer.parseInt(p.getSpace().getRoomID()) + 1;
+							try {
+								new Space((MainApplication)context,false,String.valueOf(newspaceID),null, null);
+							} catch (XMPPException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 							break;
 						}
 					}

@@ -17,10 +17,6 @@ public class NetworkService {
 	private XMPPConnection xmppConn = null;
 	private ConnectionConfiguration xmppConfig = null;
 	
-	// Status of Connection
-	private int connStatus = Network.STATE_NONE;
-	// Handler between UI activities
-	private Handler xmppHandler;
 	
 	/** Constructor: a network service for the application that creates and 
 	 * maintains an XMPP connection for a specific host and port
@@ -35,7 +31,6 @@ public class NetworkService {
 		xmppConn = new XMPPConnection(xmppConfig);
 		xmppConn.connect();
 		if (xmppConn.isConnected()) {
-			connStatus = Network.STATE_CONNECTED;
 			if (D) {
 				Log.d(TAG, "XMPP connection established to " + 
 						host + " through " + port);
@@ -53,11 +48,6 @@ public class NetworkService {
 		return this.xmppConn;
 	} // end getXMPPConnection method
 	
-	/** = the status of the XMPP connection */
-	public int getConnectionStatus() {
-		return this.connStatus;
-	} // end getConnectionStatus method
-	
 	/** Logs in to the server using the strongest authentication mode 
 	 * supported by the server, then sets presence to available
 	 * 
@@ -68,7 +58,6 @@ public class NetworkService {
 	public void login(String uname, String pwd) throws XMPPException {
 		xmppConn.login(uname, pwd);
 		if (xmppConn.isAuthenticated()) {
-			connStatus = Network.STATE_LOGIN;
 			if (D) Log.d(TAG, "Logged in as " + uname);
 		}
 		else {

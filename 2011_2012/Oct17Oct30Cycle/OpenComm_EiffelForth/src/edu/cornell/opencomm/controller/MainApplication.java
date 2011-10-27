@@ -101,16 +101,26 @@ public class MainApplication extends Activity{
         // (1) Create a mainspace, put yourself in it
         if (mainspace == null){
         	// YOU are the moderator of this new space
-        	user_you = new User(username, username.split("@")[0], R.drawable.question, "I'm awesome!"); 
-        	mainspace = init_createPrivateSpace(true);
+        	user_you = new User(username, username.split("@")[0], R.drawable.question); 
+        	try {
+				mainspace = init_createPrivateSpace(true);
+			} catch (XMPPException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         	screen.setSpace(mainspace);
         	mainspace.setScreenOn(true);
         	
-        	init_createPrivateSpace(false); // Justin : Create another empty space        	
+        	try {
+				init_createPrivateSpace(false);
+			} catch (XMPPException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} // Justin : Create another empty space        	
         	
         // (2) Initialize the people in the chat
         	allBuddies = new LinkedList<User>();
-        	addPerson(mainspace, user_you);
+        	//addPerson(mainspace, user_you);
         }
         // (3)
         initializeButtons();
@@ -180,8 +190,9 @@ public class MainApplication extends Activity{
     
     /** YOU created a new PrivateSpace, therefore can call createPrivateSpace
      * however in addition need to notify the network of the newly created
-     * Private Space */
-    public Space init_createPrivateSpace(boolean isMainSpace){
+     * Private Space 
+     * @throws XMPPException */
+    public Space init_createPrivateSpace(boolean isMainSpace) throws XMPPException{
     	
         /* TODO network: 
          * 1) Notify network of new private space to create
@@ -190,7 +201,7 @@ public class MainApplication extends Activity{
          * can keep the space_counter that is already implemented
          */
         int newSpaceID=space_counter++;
-        return createPrivateSpace(true, isMainSpace, null, String.valueOf(newSpaceID), user_you);
+		return createPrivateSpace(true, isMainSpace, null, String.valueOf(newSpaceID), user_you);
     }
     
     /** Create a new Private Space, makes sure to put yourself (User) in the 
@@ -210,14 +221,15 @@ public class MainApplication extends Activity{
      * Then existing_buddies will hold all the people already in that PrivateSpace. 
      * 
      * 2) Called by init_createPrivateSpace() if YOU created this privateSpace with intention, 
-     * then existing buddies should be null and ICreatedThis should be true */ 
-	public Space createPrivateSpace(boolean ICreatedThis, boolean isMainSpace, LinkedList<User> existing_buddies, String spaceID, User moderator){
+     * then existing buddies should be null and ICreatedThis should be true 
+     * @throws XMPPException */ 
+	public Space createPrivateSpace(boolean ICreatedThis, boolean isMainSpace, LinkedList<User> existing_buddies, String spaceID, User moderator) throws XMPPException{
 		// Either your first space (mainspace) or a newly created space
 		if (ICreatedThis) 
-            return new Space(this, isMainSpace, spaceID, moderator);
+            return new Space(this, isMainSpace, spaceID, moderator, null);
 		// An already existing space that somebody else put you in.
         else
-            return new Space(this, existing_buddies, spaceID, moderator);
+            return new Space(this, false, spaceID, moderator, existing_buddies);
     }
     
     /** YOU remove an existing PrivateSpace, with the intention of deleting this 
@@ -227,7 +239,7 @@ public class MainApplication extends Activity{
      * of this deletion, the network will delete this privatespace for everyone.
      * You cannot delete a mainspace */
     public void init_deletePrivateSpace(Space SpaceToDelete){
-    	if(SpaceToDelete.getModerator()==user_you && SpaceToDelete.isMainSpace()==false){
+    	if(SpaceToDelete.getOwner()==user_you && SpaceToDelete.isMainSpace()==false){
     		/* TODO network: 
     		 * 1) Delete this PrivateSpace
     		 * 2) Notify each person in the space to be removed (can use deletePrivateSpace() for other people)
@@ -242,7 +254,12 @@ public class MainApplication extends Activity{
      * This method also called (by network) if someone else deleted a PrivateSpace that you
      * were a part of, or if you decided to leave but are not moderator of the space*/
     public void deletePrivateSpace(Space SpaceToDelete){
-        SpaceToDelete.deletePrivateSpace();
+        try {
+			SpaceToDelete.deletePrivateSpace();
+		} catch (XMPPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
     /** Change the space whose contents the screen (spaceview) is showing. 
@@ -373,7 +390,7 @@ public class MainApplication extends Activity{
      * this person to the privatespace and s/he accepted. This method will usually be called by the 
      * Network itself */
     public void addPerson(Space space, User person){
-        space.addPerson(person);
+        space.addUser(person);
     }
     
     /** Set the moderator of this space to this person. The moderator gets special privelege and control
@@ -382,7 +399,12 @@ public class MainApplication extends Activity{
     	/* TODO network:
     	 * 1) Change the space's moderator to this new person
     	 */
-    	space.setModerator(person);
+    	try {
+			space.setOwner(person);
+		} catch (XMPPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
     /** Accept invitation to join a PrivateSpace. Network needs to know to tell everyone
@@ -409,7 +431,7 @@ public class MainApplication extends Activity{
     /** YOU kick this person out of the PrivateSpace, BUT only if you are moderator,
      * make sure to tell the network */
     public void initDeletePerson(Space space, User person){
-        if(space.getModerator()==user_you){
+        if(space.getOwner()==user_you){
             /*TODO network: 
              * 1) Remove this person from the space (in the network)
              * 2) Update all the people's (who are in that space) spaces to remove this person (deletePerson()) 
@@ -424,11 +446,11 @@ public class MainApplication extends Activity{
      * you kicked someone out of the group (if you are moderator) */
     public void deletePerson(Space space, User person){
         try {
-			space.removePerson(person);
+			space.deleteUser(person);
 	        LinearLayout screen = (LinearLayout)findViewById(R.id.space_view);
 	        screen.invalidate();
 		} catch (XMPPException e) {
-			Log.e(LOG_TAG, "Cannot kick out person " + person.getUsername() + " from space " + space.getSpaceID()
+			Log.e(LOG_TAG, "Cannot kick out person " + person.getUsername() + " from space " + space.getRoomID()
 					+ "\nXMPPException error: " + e.getXMPPError().getCode());
 			e.printStackTrace();
 		}
@@ -532,7 +554,7 @@ public class MainApplication extends Activity{
 		for( int i = 0; i < buddySelection.length; i++ ){
 			if(buddySelection[i]){
 				username = (String) buddyList[i];
-				User p = new User(username + "@jabber.org", username, R.drawable.question, "xmppID");
+				User p = new User(username + "@jabber.org", username, R.drawable.question);
 				if (D) Log.d(LOG_TAG, "Adding person " + username + " to mainspace");
 	        	initAddPerson(mainspace, p);
 			}

@@ -2,6 +2,7 @@ package edu.cornell.opencomm.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.Form;
@@ -11,15 +12,21 @@ import org.jivesoftware.smackx.muc.MultiUserChat;
 import edu.cornell.opencomm.controller.Login;
 import edu.cornell.opencomm.controller.MainApplication;
 import edu.cornell.opencomm.network.Network;
+import edu.cornell.opencomm.view.UserView;
+import android.content.Context;
 import android.util.Log;
 
-/**
+/** TODO Kris - fix the model class to reflect not actions taking w/ user input
+ * but simply the information of the model object itself in accordance to the MVC model
  * A Space is a chat room that holds a group of people who can talk to one
  * another. There are two types of Spaces: a single main space and many private
  * spaces. The main space is the default space controlled by the primary user.
  * Private spaces are controlled by their owner.
  */
 public class Space {
+	// Debugging
+	private static String TAG = "Model.Space"; // for error checking
+	private static boolean D = true;
 
 	// All the Spaces in use
 	public static ArrayList<Space> allSpaces = new ArrayList<Space>();
@@ -30,19 +37,23 @@ public class Space {
 	boolean isMainSpace; // if true, this is a main space
 	User owner; // the User who has the privilege to manage the Space
 
+	//Not sure these are actually part of model
+	Context context;
+	boolean screen_on;
+	LinkedList<UserView> allIcons = new LinkedList<UserView>();
+	
+	
 	// Network variables
 	private MultiUserChat muc;
 	private String roomID;
 
-	// Debugging
-	private static String LOG_TAG = "Model.Space"; // for error checking
-	private static boolean D = true;
 
 	/**
 	 * CONSTRUCTOR: = a completely new Space. If a main space, also initializes
 	 * allSpaces
 	 * 
-	 * @param context
+	 * @param context - does this belong in model?
+	 * 
 	 * @param isMainSpace
 	 *            - if true, this is a main space
 	 * @param roomID
@@ -54,8 +65,8 @@ public class Space {
 	 * @throws XMPPException
 	 *             - thrown if the room cannot be created or configured
 	 */
-	public Space(boolean isMainSpace, String roomID, User owner,
-			ArrayList<User> existingUsers) throws XMPPException {
+	public Space(Context context, boolean isMainSpace, String roomID, User owner,
+			Collection<User> existingUsers) throws XMPPException {
 		this.roomID = roomID; // probably more useful than the spaceID
 		this.isMainSpace = isMainSpace;
 		if (isMainSpace) {
@@ -82,7 +93,7 @@ public class Space {
 		allSpaces.add(this);
 	}
 
-	/*
+	/* TODO this should be in 
 	 * Deletes this private space from the static list of existing Spaces
 	 * (allSpaces) unless the Space is a main space. Also calls network to
 	 * destroy the associated MultiUserChat.
@@ -105,7 +116,7 @@ public class Space {
 
 			// DEBUG
 			if (D) {
-				Log.d(LOG_TAG,
+				Log.d(TAG,
 						"addUser: inviting user " + newUser.getUsername()
 								+ " to room " + this.roomID);
 			}
@@ -139,12 +150,12 @@ public class Space {
 		if (allUsers.contains(username)) {
 			allUsers.remove(username);
 			if (D) {
-				Log.d(LOG_TAG, "Attempt to kick out " + username.getUsername());
+				Log.d(TAG, "Attempt to kick out " + username.getUsername());
 			}
 			this.muc.kickParticipant(username.getNickname(),
 					Network.DEFAULT_KICKOUT);
 			if (D) {
-				Log.d(LOG_TAG, "Kicked out " + username.getUsername());
+				Log.d(TAG, "Kicked out " + username.getUsername());
 			}
 		} else {
 			Log.i("User not present", "Check your code!");
@@ -207,5 +218,23 @@ public class Space {
 	/** @return - the moderator of this space. */
 	public User getOwner() {
 		return owner;
+	}
+	
+	/** @return - the MultiUserChat room */
+	public MultiUserChat getMUC() {
+		return muc;
+	}
+	
+	//not sure these are in model
+	public boolean isScreenOn(){
+		return screen_on;
+	}
+	
+	public void setScreenOn(boolean isIt){
+		screen_on = isIt;
+	}
+	
+	public LinkedList<UserView> getAllIcons(){
+		return allIcons;
 	}
 }
