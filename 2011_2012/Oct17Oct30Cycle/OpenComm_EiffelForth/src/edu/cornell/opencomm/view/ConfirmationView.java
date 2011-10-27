@@ -5,50 +5,118 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.R.layout;
 import edu.cornell.opencomm.Values;
+import edu.cornell.opencomm.controller.ConfirmationController;
 import edu.cornell.opencomm.model.Space;
 
-public class ConfirmationView{
+public class ConfirmationView {
 	private static String LOG_TAG = "OC_ConfirmationView"; // for error checking
 	private Context context;
 	private LayoutInflater inflater;
-	PopupWindow window = null;
-
-	public ConfirmationView(Context ctx) {
-		context = ctx;
-	}
+	private PopupWindow window = null;
+	private ConfirmationController confirmationController = new ConfirmationController(
+			this);
+	private View confirmationLayout = null;
 
 	public ConfirmationView(LayoutInflater inflater) {
 		this.inflater = inflater;
+		initEventsAndProperties();
 	}
 
-	public void launch() {
-		// LayoutInflater inflater = LayoutInflater.from(context);
-		if (inflater == null)
-			Log.v(LOG_TAG, "inflater null");
-		else
-			Log.v(LOG_TAG, "inflater not null");
-		View confirmationLayout = inflater.inflate(
-				R.layout.confirmation_layout, null);
-		if (confirmationLayout != null) {
-			Log.v(LOG_TAG, "confirmationLayout not null");
-			confirmationLayout.setVisibility(View.VISIBLE);
-			confirmationLayout.bringToFront();
+	private void initEventsAndProperties() {
+		// create property confirmationLayout from infalter and store it as a
+		// property
+		if (inflater != null) {
+			View confirmationLayoutFromInflater = inflater.inflate(
+					R.layout.confirmation_layout, null);
+			if (confirmationLayoutFromInflater != null) {
+				this.confirmationLayout = confirmationLayoutFromInflater;
+			}
+		}
+		initializeAcceptButtonHoverEvent();
+		initializeCancelButtonHoverEvent();
+	}
 
+	private void initializeCancelButtonHoverEvent() {
+		Button cancelButton = getAcceptButton();
+		if (cancelButton != null) {
+			cancelButton.setOnTouchListener(onCancelButtonTouchListener);
+		}
+	}
+
+	private void initializeAcceptButtonHoverEvent() {
+		Button acceptButton = getAcceptButton();
+		if (acceptButton != null) {
+			acceptButton.setOnTouchListener(onAcceptButtonTouchListener);
+		}
+	}
+
+	public Button getAcceptButton() {
+		Button acceptButton = null;
+		if (confirmationLayout != null) {
+			acceptButton = (Button) confirmationLayout
+					.findViewById(R.id.buttonAcceptConfirmation);
+		}
+
+		return acceptButton;
+	}
+
+	public Button getCancelButton() {
+		Button cancelButton = null;
+		if (confirmationLayout != null) {
+			cancelButton = (Button) confirmationLayout
+					.findViewById(R.id.buttonCancelConfirmation);
+		}
+
+		return cancelButton;
+	}
+
+	public Context getContext() {
+		return context;
+	}
+
+	public void setContext(Context context) {
+		this.context = context;
+	}
+
+	public LayoutInflater getInflater() {
+		return inflater;
+	}
+
+	public void setInflater(LayoutInflater inflater) {
+		this.inflater = inflater;
+	}
+
+	public PopupWindow getWindow() {
+		return window;
+	}
+
+	public void setWindow(PopupWindow window) {
+		this.window = window;
+	}
+
+	/*
+	 * this method launches the confirmation layout on a popupwindiw, can be
+	 * changed later to launch like a normal view
+	 */
+	public void launch() {
+		if (inflater != null && confirmationLayout != null) {
 			window = new PopupWindow(confirmationLayout, Values.screenW,
 					Values.screenH, true);
 			window.showAtLocation(confirmationLayout, 0, 1, 1);
-
 			confirmationLayout.setOnClickListener(onClickListener);
 		} else {
-			Log.v(LOG_TAG, "confirmationLayout null");
+			Log.v(LOG_TAG,
+					"Cannot launch confirmation view as inflater/confirmation layout is nul");
 		}
 	}
 
@@ -56,21 +124,25 @@ public class ConfirmationView{
 
 		@Override
 		public void onClick(View v) {
-			window.dismiss();
+			confirmationController.handlePopupWindowClicked();
+		}
+	};
 
+	private View.OnTouchListener onAcceptButtonTouchListener = new View.OnTouchListener() {
+
+		@Override
+		public boolean onTouch(View v, MotionEvent event) {
+			confirmationController.handleAcceptButtonHover();
+			return true;
 		}
 	};
 	
-	/*protected void dispatchDraw(Canvas canvas) {
+	private View.OnTouchListener onCancelButtonTouchListener = new View.OnTouchListener() {
 
-		canvas.se
-		RectF drawRect = new RectF();
-		drawRect.set(0,0, getMeasuredWidth(), getMeasuredHeight());
-
-		canvas.drawRoundRect(drawRect, 5, 5, innerPaint);
-		canvas.drawRoundRect(drawRect, 5, 5, borderPaint);
-
-		super.dispatchDraw(canvas);
-
-		}*/
+		@Override
+		public boolean onTouch(View v, MotionEvent event) {
+			confirmationController.handleCancelButtonHover();
+			return true;
+		}
+	};
 }
