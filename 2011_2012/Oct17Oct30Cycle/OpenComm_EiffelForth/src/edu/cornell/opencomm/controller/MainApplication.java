@@ -17,6 +17,7 @@ import edu.cornell.opencomm.R.layout;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.network.Network;
+import edu.cornell.opencomm.view.ConfirmationView;
 import edu.cornell.opencomm.view.PrivateSpacePreviewPopup;
 import edu.cornell.opencomm.view.UserView;
 import edu.cornell.opencomm.view.PrivateSpaceIconView;
@@ -28,6 +29,7 @@ import android.os.Bundle;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -112,7 +114,31 @@ public class MainApplication extends Activity{
         }
         // (3)
         initializeButtons();
+        
+        //records keypad events 
+        screen.setOnKeyListener(onKeyListener);
     }
+    
+    public View.OnKeyListener onKeyListener = new View.OnKeyListener() {
+
+		@Override
+		public boolean onKey(View v, int keyCode, KeyEvent event) {
+			switch (keyCode) {
+			case KeyEvent.KEYCODE_1: {
+				Log.v(LOG_TAG, "pressed 1 key - confirmation screen");
+				LayoutInflater inflater = (LayoutInflater) MainApplication.this
+						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				ConfirmationView confirmationView = new ConfirmationView(inflater);
+				confirmationView.launch();
+				break;
+			}
+			}
+			;
+			return true;
+		}
+	};
+
+
     
     /** Adjust the parameters of the main layout according to the Values class.
      * For situations when the phone size is different */
