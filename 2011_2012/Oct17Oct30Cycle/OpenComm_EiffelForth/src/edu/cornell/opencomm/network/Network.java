@@ -10,6 +10,8 @@ public class Network {
 	/** = name of the cycle during which this app is created */
 	public static final String cycleName = "eiffel_forth";
 	
+	// ====================================================================== //
+	// ====================================================================== //
 	
 	// CONNECTION CONSTANTS
 	/** = default host server */
@@ -24,6 +26,8 @@ public class Network {
 	/** = debug password */
 	public static final String DEBUG_PASSWORD = "ssopencomm";
 	
+	// ====================================================================== //
+	// ====================================================================== //
 	
 	// LOGIN INTENT CONSTANTS
 	/** = action that calls the MainApplication from Login */
@@ -32,13 +36,21 @@ public class Network {
 	/** = key of the username that is passed through intent from Login */
 	public static final String KEY_USERNAME = packageName + "KEY_USERNAME";
 
+	// ====================================================================== //
+	// ====================================================================== //
 	
 	// ROOM NAME CONSTANT
 	/** = prefix of all opencomm rooms created during this cycle */
 	public static final String ROOM_NAME = "opencomm_" + cycleName + "_";
 	
+	// ====================================================================== //
+	// ====================================================================== //
+	
 	// INVITATION AND KICKOUT REQUEST MESSAGES
 	public static final String REQUEST_INVITE = packageName + cycleName + ".REQUEST_INVITE";
+	
+	// ====================================================================== //
+	// ====================================================================== //
 	
 	// DEFAULT REASONS
 	/** = default reason for inviting a person */
@@ -50,4 +62,19 @@ public class Network {
 	/** = default reason for banning a person */
 	public static final String DEFAULT_BAN = "You have been banned";
 	
+	// ====================================================================== //
+	// ====================================================================== //
+	
+	// ROLE AFFILIATION CONSTANT
+	/** = owner role */
+	public static final String ROLE_OWNER = "owner";
+	
+	/** = admin role */
+	public static final String ROLE_ADMIN = "admin";
+	
+	/** = member role */
+	public static final String ROLE_MEMBER = "member";
+	
+	/** = outcast role */
+	public static final String ROLE_OUTCAST = "outcast";
 }

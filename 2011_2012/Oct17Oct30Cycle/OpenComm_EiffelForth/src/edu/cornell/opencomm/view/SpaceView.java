@@ -162,7 +162,7 @@ import android.graphics.BitmapFactory;
     	 if(!dim){ 
     		 for (UserView p : allIcons){
     	 
-    		 if(p.getPerson()!=MainApplication.user_you)
+    		 if(p.getPerson()!=MainApplication.user_primary)
     			 p.draw(canvas);
     		 }
     	 //(3) 
@@ -246,7 +246,7 @@ import android.graphics.BitmapFactory;
 			// It detects whether free space is clicked and runs showBuddyList
 			if(!clickOnIcon){
 				Log.v(LOG_TAG, "Clicked on free space");
-				getActivity().showBuddyList();
+				// getActivity().showBuddyList();
 				//(MainApplication)context)
 			}
 			break;
@@ -309,14 +309,14 @@ import android.graphics.BitmapFactory;
 				for(PrivateSpaceIconView p : PrivateSpaceIconView.allPSIcons){
 					if(p.contains(mouseX, mouseY)){
 						p.setHighlighted(false);
-						(p.getSpace()).addUser(selectedIcon.getPerson());
+						(p.getSpace()).getSpaceController().inviteUser(selectedIcon.getPerson(), null);
 						/* Detect if icon was dropped into the empty PS or an existing PS.
 						 */
 						//if first icon dropped in space, make a new space
 						if((p.getSpace()).getAllIcons().size()==1){
 							int newspaceID= Integer.parseInt(p.getSpace().getRoomID()) + 1;
 							try {
-								new Space((MainApplication)context,false,String.valueOf(newspaceID),null, null);
+								new Space((MainApplication)context,false,String.valueOf(newspaceID),null);
 							} catch (XMPPException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();

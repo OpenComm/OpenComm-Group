@@ -65,7 +65,7 @@ public class PrivateSpacePreviewPopup extends LinearLayout{
    	 canvas.drawColor(getColor());
    	 //(2)
    	 for (UserView p : personViews)
-   		 if(p.getPerson()!=MainApplication.user_you)
+   		 if(p.getPerson()!=MainApplication.user_primary)
    			 p.draw(canvas);
     }
     

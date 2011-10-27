@@ -8,6 +8,9 @@ import android.util.Log;
 /* An object representing a user who is taking part in the conversation */
 
 public class User {
+	// DEBUGGING
+	private static String LOG_TAG = "Model.User"; // for error checking
+	private static boolean D = true;
 	
 	String username; // The User's JID
 	String nickname; // The User's chat nickname
@@ -15,7 +18,7 @@ public class User {
 	int image; // icon - will be replaced by vCard
 	
 	// List of all Users initialized
-	public static ArrayList<User> allUsers = new ArrayList<User>();
+	private static HashMap<String, User> allUsers = new HashMap<String, User>();
 	
 	// Maps username to User
 	public static HashMap<String,User> username_to_person = 
@@ -23,10 +26,7 @@ public class User {
 	
 	// Maps nickname to User
 	public static HashMap<String,User> nickname_to_person = 
-			new HashMap<String,User>(); 
-	
-	private static String LOG_TAG = "Model.User"; // for error checking
-	private static boolean D = true;
+			new HashMap<String,User>();
     
 	/** CONSTRUCTOR: = a new User
 	 * 
@@ -42,7 +42,7 @@ public class User {
         this.username = username;
         this.nickname = nickname;
         this.image = image;
-        allUsers.add(this);
+        allUsers.put(username, this);
         username_to_person.put(username, this);
         nickname_to_person.put(nickname, this);
 	}
@@ -59,8 +59,13 @@ public class User {
         return nickname;
 	}
 
-	/* Change the user's nickname */
+	/** Change the user's nickname */
 	public void setNickname(String new_nickname){
 	   nickname = new_nickname;
 	}
+	
+	/** All users with their JID as the key */
+	public static HashMap<String, User> getAllUsers() {
+		return allUsers;
+	} // end getAllUsers method
 }
