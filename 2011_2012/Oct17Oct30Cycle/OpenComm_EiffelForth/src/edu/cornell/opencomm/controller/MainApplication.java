@@ -1,19 +1,12 @@
 package edu.cornell.opencomm.controller;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedList;
 
-import org.jivesoftware.smack.Roster;
-import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.XMPPException;
 
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
-import edu.cornell.opencomm.R.drawable;
-import edu.cornell.opencomm.R.id;
-import edu.cornell.opencomm.R.layout;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.network.Network;
@@ -24,9 +17,7 @@ import edu.cornell.opencomm.view.PrivateSpaceIconView;
 import edu.cornell.opencomm.view.SpaceView;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.os.Bundle;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -35,11 +26,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.MotionEvent;
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.widget.Button;
 import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.util.Log;
 
