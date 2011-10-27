@@ -104,9 +104,12 @@ public class SpaceController {
 		MultiUserChat.decline(Login.xmppConnection, this.muc.getRoom(), inviteRequest.split("@")[1], Network.DEFAULT_DECLINE);
 	}
 	
-	public void kickoutUser(User invitee, String reason) {
-		// TODO if owner, kickout user
-		// TODO if not, send kickout request
+	public void kickoutUser(User invitee, String reason) throws XMPPException {
+		if(this.space.getOwner().getUsername().equals(MainApplication.user_primary.getUsername())) {
+			this.muc.kickParticipant(invitee.getNickname(), reason);
+		} else {
+			// TODO if not, send kickout request
+		}
 	}
 	
 	public void confirmKickoutRequest() {

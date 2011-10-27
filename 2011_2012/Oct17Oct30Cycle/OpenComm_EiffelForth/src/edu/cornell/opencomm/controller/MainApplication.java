@@ -358,9 +358,10 @@ public class MainApplication extends Activity{
     /** Remove this person from this space, take away that person's icon from the SpaceView
      * as well. Could be situations where: you do not want this person in your mainspace,
      * this person removed him/herself from the privatespace, the privatespace got deleted, 
-     * you kicked someone out of the group (if you are moderator) */
-    public void deletePerson(Space space, User person){
-		space.getSpaceController().kickoutUser(person, null);
+     * you kicked someone out of the group (if you are moderator) 
+     * @throws XMPPException */
+    public void deletePerson(Space space, User person) throws XMPPException{
+		space.getSpaceController().kickoutUser(person, Network.DEFAULT_KICKOUT);
         LinearLayout screen = (LinearLayout)findViewById(R.id.space_view);
         screen.invalidate();
     }
