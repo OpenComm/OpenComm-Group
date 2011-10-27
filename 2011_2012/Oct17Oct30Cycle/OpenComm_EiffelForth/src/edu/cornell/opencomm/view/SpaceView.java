@@ -182,7 +182,12 @@ import android.graphics.BitmapFactory;
      /*doubleclick the button to delete it--Crystal Q*/     
      public void doubleClicktoDelete(UserView toDelete){
     	 // this.invalidate(); TO-DO later
-    	 ((MainApplication)context).deletePerson(space, toDelete.getPerson());
+    	 try {
+			((MainApplication)context).deletePerson(space, toDelete.getPerson());
+		} catch (XMPPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
   	   	 dim=false; 
   	   	 this.invalidate();
      }    
