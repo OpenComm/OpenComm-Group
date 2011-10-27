@@ -2,6 +2,7 @@ package edu.cornell.opencomm.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.Form;
@@ -11,6 +12,8 @@ import org.jivesoftware.smackx.muc.MultiUserChat;
 import edu.cornell.opencomm.controller.Login;
 import edu.cornell.opencomm.controller.MainApplication;
 import edu.cornell.opencomm.network.Network;
+import edu.cornell.opencomm.view.UserView;
+import android.content.Context;
 import android.util.Log;
 
 /** TODO Kris - fix the model class to reflect not actions taking w/ user input
@@ -34,6 +37,12 @@ public class Space {
 	boolean isMainSpace; // if true, this is a main space
 	User owner; // the User who has the privilege to manage the Space
 
+	//Not sure these are actually part of model
+	Context context;
+	boolean screen_on;
+	LinkedList<UserView> allIcons = new LinkedList<UserView>();
+	
+	
 	// Network variables
 	private MultiUserChat muc;
 	private String roomID;
@@ -43,7 +52,8 @@ public class Space {
 	 * CONSTRUCTOR: = a completely new Space. If a main space, also initializes
 	 * allSpaces
 	 * 
-	 * @param context
+	 * @param context - does this belong in model?
+	 * 
 	 * @param isMainSpace
 	 *            - if true, this is a main space
 	 * @param roomID
@@ -55,8 +65,8 @@ public class Space {
 	 * @throws XMPPException
 	 *             - thrown if the room cannot be created or configured
 	 */
-	public Space(boolean isMainSpace, String roomID, User owner,
-			ArrayList<User> existingUsers) throws XMPPException {
+	public Space(Context context, boolean isMainSpace, String roomID, User owner,
+			Collection<User> existingUsers) throws XMPPException {
 		this.roomID = roomID; // probably more useful than the spaceID
 		this.isMainSpace = isMainSpace;
 		if (isMainSpace) {
@@ -213,5 +223,18 @@ public class Space {
 	/** @return - the MultiUserChat room */
 	public MultiUserChat getMUC() {
 		return muc;
+	}
+	
+	//not sure these are in model
+	public boolean isScreenOn(){
+		return screen_on;
+	}
+	
+	public void setScreenOn(boolean isIt){
+		screen_on = isIt;
+	}
+	
+	public LinkedList<UserView> getAllIcons(){
+		return allIcons;
 	}
 }

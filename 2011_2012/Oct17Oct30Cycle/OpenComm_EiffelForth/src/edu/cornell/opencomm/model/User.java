@@ -12,6 +12,7 @@ public class User {
 	String username; // The User's JID
 	String nickname; // The User's chat nickname
 	File vCard; // The User's vCard, used to pass image
+	int image; // icon - will be replaced by vCard
 	
 	// List of all Users initialized
 	public static ArrayList<User> allUsers = new ArrayList<User>();
@@ -31,14 +32,16 @@ public class User {
 	 * 
 	 * @param username - the JID of the User
 	 * @param nickname - the User's chosen nickname
+	 * @param image - will be replaced by vCard
 	 */
 	
-	public User(String username, String nickname){
+	public User(String username, String nickname, int image){
         if (D){
         	Log.v(LOG_TAG, "Made a person for the user " + username);
         }
         this.username = username;
         this.nickname = nickname;
+        this.image = image;
         allUsers.add(this);
         username_to_person.put(username, this);
         nickname_to_person.put(nickname, this);
