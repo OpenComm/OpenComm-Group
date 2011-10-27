@@ -30,6 +30,9 @@ public class Network {
 	/** = default reason for kicking out a person */
 	public static final String DEFAULT_KICKOUT = "Go away";
 	
+	/** = default reason for banning a person */
+	public static final String DEFAULT_BAN = "You have been banned";
+	
 	/* Establishing XMPP Connections and logging in:
 	 * When calling XMPP Service to connect to a specific host through a specific 
 	 * port and logging in using a specific username and password, store these 
