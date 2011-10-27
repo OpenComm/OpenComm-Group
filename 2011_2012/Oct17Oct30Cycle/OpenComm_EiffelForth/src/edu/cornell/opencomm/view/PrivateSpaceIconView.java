@@ -156,8 +156,10 @@ public class PrivateSpaceIconView extends ImageButton{
 		 //(2)
 		 RectShape rect = new RectShape();
 		 /* This function checks for people in the space. If there are atleast 1 person, 
-		  * then the function draws a filled space at the bottom of the mainview */
-		 if(this.getSpace().getAllUsers().size()>0){
+		  * then the function draws a filled space at the bottom of the mainview 
+		  * TODO: vthe user always exist in the space, the participants roster stored 
+		  * under space contains at least 1 person*/
+		 if(this.getSpace().getAllParticipants().size()> 1){
 			 ShapeDrawable normalShape = new ShapeDrawable(rect);
 			 normalShape.getPaint().setColor(color);
 			 normalShape.setBounds(2, 2, this.getWidth() - 2, this.getHeight() - 2);
@@ -174,8 +176,10 @@ public class PrivateSpaceIconView extends ImageButton{
 		 
 		 RectShape rect3 = new RectShape();
 		 /* This function checks for people in the space. If there are no person, 
-		  * then the function draws a empty space at the bottom of the mainview*/
-		 if(this.getSpace().getAllUsers().size()==0){					
+		  * then the function draws a empty space at the bottom of the mainview
+		  * TODO: (From Network team) the user always exist in the space, the participants roster stored 
+		  * under space contains at least 1 person */
+		 if(this.getSpace().getAllParticipants().size()< 1){					
 			ShapeDrawable sq = new ShapeDrawable(rect3);
 			sq.getPaint().setStyle(Paint.Style.FILL);
 			sq.getPaint().setColor(Color.TRANSPARENT);

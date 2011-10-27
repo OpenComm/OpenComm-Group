@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Hello</string>
-    <string name="app_name">OpenComm_CommonLispDylan</string>
+    <string name="app_name">OpenComm_EiffelForth</string>
     <string name="delete_text">Delete?</string>
 <string name="trash_button_text">Trash</string>
 <string name="main_button_text">Main</string>

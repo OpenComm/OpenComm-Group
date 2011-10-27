@@ -18,7 +18,7 @@ import android.widget.EditText;
 /** An instance of this class starts the Network version of the application */
 public class Login extends Activity {
 	// Debugging
-	private static final String TAG = "OC_Login";
+	private static final String TAG = "Controller.Login";
 	private static final boolean D = true;
 	
 	// Layout Views
@@ -66,16 +66,22 @@ public class Login extends Activity {
 	public void handleLogin(View view){
 		if (D) Log.d(TAG, "handleLogin: Attempt log in");
 		try {
-			// log in using the username and password inputted by primary user
-			xmppService.login(usernameEdit.getText().toString(), 
+			if (D) {
+				xmppService.login(Network.DEBUG_USERNAME, 
+						Network.DEBUG_PASSWORD);
+			}
+			else {
+				// log in using the username and password inputted by primary user			
+				xmppService.login(usernameEdit.getText().toString(), 
 					passwordEdit.getText().toString());
+			}
 		}
 		catch (XMPPException e) {
 			Log.e(TAG, "handleLogin: Log in failed");
 			return;
 		}
 		Intent i = new Intent(Login.this, MainApplication.class);
-		i.putExtra(Network.KEY_USERNAME, usernameEdit.getText().toString());
+		i.putExtra(Network.KEY_USERNAME, (D ? Network.DEBUG_USERNAME : usernameEdit.getText().toString()));
 		i.setAction(Network.ACTION_LOGIN);
 		startActivity(i);
 	} // end handleLogin method

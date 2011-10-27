@@ -51,11 +51,11 @@ import android.widget.LinearLayout;
  * updates the data of the private space, and talks with the network. */
 public class MainApplication extends Activity{
 	// Debugging
-	private static String LOG_TAG = "OC_MainApplication"; // for error checking with logcat
+	private static String TAG = "Controller.MainApplication"; // for error checking with logcat
 	private static boolean D = true;
 	
     public static LinkedList allBuddies; // Your buddy list! Has been previously saved from the network 	
-    public static User user_you;// the person object that is YOU, the user of this program 
+    public static User user_primary;// the user of this program 
     public static Space mainspace= null; // the official mainSpace, the one space that has EVERYBODY in it
     public static SpaceView screen; // the screen that shows all of the icons 
     public static PrivateSpaceIconView emptyspace;
@@ -63,8 +63,7 @@ public class MainApplication extends Activity{
     public static CharSequence[] buddyList; // list of the user's buddies in their username form
     public static boolean[] buddySelection; // array of boolean for buddy selection
     
-    public static String username=""; // the username of this account
-    public static String password=""; // the password to this account 
+    private static String username=""; // the username of this account
     
     // Parameters needed to describe the objects created in the XML code
     LinearLayout.LayoutParams PSparams = new LinearLayout.LayoutParams(
@@ -77,52 +76,54 @@ public class MainApplication extends Activity{
 	// A counter for spaces (to generate SpaceID's). TODO Will use for now, takeout later when add network 
 	public static int space_counter= -1;
     
-    /** Start the application! You have already been connected to the Network,
-     * XMPP server, and the MUCGUI activity. You have been 
-     * given the user's id (username), so...
-     * 1) Open first Space (the mainspace) and put this user in it
-     * 2) Fetch the buddy list from network and put chosen people in mainspace 
-     * 3) Initialize button functionality: main button  */
+
+	/** Called when application is first created.
+	 * <b>Set up:</b>
+	 * <ol>
+	 * <li>Create and open the main space and put the primary user (the user 
+	 * that started this application) into the space</li>
+	 * <li>Initialize button functinality: main button</li>
+	 * </ol>
+	 * <b>Assumptions:</b>
+	 * <ul>
+	 * <li>The main space is created by the primary user</li>
+	 * <li>XMPPConnection is established and authorized before this 
+	 * Activity is called
+	 * </ul>
+	 */
     public void onCreate(Bundle savedInstanceState) {
-    	Log.v(LOG_TAG,"Started the a MainApplication activity!");
+    	if (D) Log.d(TAG,"onCreate - Started the MainApplication activity");
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.main);
         adjustLayoutParams();
         
-        /* For now you are just given the username and password,
-         * as if all went well with the network */
-        Intent start_intent= getIntent();
-        username=start_intent.getStringExtra(Network.KEY_USERNAME);
-        
         // The spaceview already created for you in the XML file, so retrieve it
         screen = (SpaceView)findViewById(R.id.space_view);
         
-        // (1) Create a mainspace, put yourself in it
+        // Check if the mainspace was already created
         if (mainspace == null){
-        	// YOU are the moderator of this new space
-        	user_you = new User(username, username.split("@")[0], R.drawable.question); 
+        	// Obtain username used to log into the application
+            Intent start_intent= getIntent();
+            username = start_intent.getStringExtra(Network.KEY_USERNAME);
+        	// Create instance of primary user
+        	user_primary = new User(username, username.split("@")[0], R.drawable.question); 
         	try {
-				mainspace = init_createPrivateSpace(true);
+        		// create the mainspace
+				mainspace = new Space(this, true, String.valueOf(space_counter++), user_primary);
+				
+				// create an empty private space
+				new Space(this, false, String.valueOf(space_counter++), user_primary);
+				
+				// TODO add private space preview
 			} catch (XMPPException e) {
-				// TODO Auto-generated catch block
+				Log.e(TAG, "onCreate - Error (" + e.getXMPPError().getCode() 
+						+ ") " + e.getXMPPError().getMessage());
 				e.printStackTrace();
 			}
         	screen.setSpace(mainspace);
-        	mainspace.setScreenOn(true);
-        	
-        	try {
-				init_createPrivateSpace(false);
-			} catch (XMPPException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} // Justin : Create another empty space        	
-        	
-        // (2) Initialize the people in the chat
-        	allBuddies = new LinkedList<User>();
-        	//addPerson(mainspace, user_you);
+        	mainspace.setScreenOn(true);    	
         }
-        // (3)
         initializeButtons();
         
         //records keypad events 
@@ -135,7 +136,7 @@ public class MainApplication extends Activity{
 		public boolean onKey(View v, int keyCode, KeyEvent event) {
 			switch (keyCode) {
 			case KeyEvent.KEYCODE_1: {
-				Log.v(LOG_TAG, "pressed 1 key - confirmation screen");
+				Log.v(TAG, "pressed 1 key - confirmation screen");
 				LayoutInflater inflater = (LayoutInflater) MainApplication.this
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				ConfirmationView confirmationView = new ConfirmationView(inflater);
@@ -188,7 +189,8 @@ public class MainApplication extends Activity{
          */
     }
     
-    /** YOU created a new PrivateSpace, therefore can call createPrivateSpace
+    /** TODO: UI/Network - is this still necessary?
+     * YOU created a new PrivateSpace, therefore can call createPrivateSpace
      * however in addition need to notify the network of the newly created
      * Private Space 
      * @throws XMPPException */
@@ -201,7 +203,7 @@ public class MainApplication extends Activity{
          * can keep the space_counter that is already implemented
          */
         int newSpaceID=space_counter++;
-		return createPrivateSpace(true, isMainSpace, null, String.valueOf(newSpaceID), user_you);
+		return createPrivateSpace(true, isMainSpace, null, String.valueOf(newSpaceID), user_primary);
     }
     
     /** Create a new Private Space, makes sure to put yourself (User) in the 
@@ -225,11 +227,7 @@ public class MainApplication extends Activity{
      * @throws XMPPException */ 
 	public Space createPrivateSpace(boolean ICreatedThis, boolean isMainSpace, LinkedList<User> existing_buddies, String spaceID, User moderator) throws XMPPException{
 		// Either your first space (mainspace) or a newly created space
-		if (ICreatedThis) 
-            return new Space(this, isMainSpace, spaceID, moderator, null);
-		// An already existing space that somebody else put you in.
-        else
-            return new Space(this, false, spaceID, moderator, existing_buddies);
+		return new Space(this, isMainSpace, spaceID, moderator);
     }
     
     /** YOU remove an existing PrivateSpace, with the intention of deleting this 
@@ -239,7 +237,7 @@ public class MainApplication extends Activity{
      * of this deletion, the network will delete this privatespace for everyone.
      * You cannot delete a mainspace */
     public void init_deletePrivateSpace(Space SpaceToDelete){
-    	if(SpaceToDelete.getOwner()==user_you && SpaceToDelete.isMainSpace()==false){
+    	if(SpaceToDelete.getOwner()==user_primary && SpaceToDelete.isMainSpace()==false){
     		/* TODO network: 
     		 * 1) Delete this PrivateSpace
     		 * 2) Notify each person in the space to be removed (can use deletePrivateSpace() for other people)
@@ -331,7 +329,7 @@ public class MainApplication extends Activity{
 
 			} catch (Exception e) {
 				//System.out.println(e.getMessage());
-				Log.v(LOG_TAG, "Exception while inflating popup:\n" + e.getMessage());
+				Log.v(TAG, "Exception while inflating popup:\n" + e.getMessage());
 			}
 		}
 	};
@@ -355,105 +353,16 @@ public class MainApplication extends Activity{
 		bottomBar.invalidate();
 		PrivateSpaceIconView.allPSIcons.remove(psv);
     }
-    
-    /** YOU invited this person to the PrivateSpace, so invite them over the network, you must 
-     * still wait for their response though (through accept_invite() or decline_invite()) before you
-     * can take any further action. 
-     * If is a mainspace then no need for an invitation, just add it to your own (addPerson). TODO ask Risa about this
-     * Make sure every time you add a person to confirm if this person is real in your buddylist */
-    public void initAddPerson(Space space, User person){
-        if(space.isMainSpace())
-            addPerson(space, person); 
-        else
-        	sendInvite(space, person);
-    }
-    
-    /** You want to invite someone to chat in this group, so invite them over the network, you must
-     * still wait for their response though (through accept_invite() or decline_invite()) before you
-     * can take any action */
-    public void sendInvite(Space ourspace, User newPerson){
-        /* TODO network: 
-         * 1) Notify network that you have invited newPerson to ourspace, and put in some pending invite queue
-         * 2) Send newPerson an invite:
-         * 2a) If they accept (they used accept_invite()) then add newPerson to space in network, send updates to 
-         * all people in that space to add a new person (addPerson()), create a new Space for newPerson (createPrivateSpace())
-         * 2b) If they decline (they used decline_invite()) then take the invite out of the pending invite queue (in the network)
-         */
-    	
-    	//Nora: For now am just going to pretend like the person accepted the request
-    	addPerson(ourspace, newPerson);
-    }
-    
-    /** Add this new person to this Space, make sure to also make an icon for this person and add it.
-     * Could be situations where: you added this person to mainspace through buddylist,
-     * this person joined a privatespace you are in (without you knowing), you invited this
-     * this person to the privatespace and s/he accepted. This method will usually be called by the 
-     * Network itself */
-    public void addPerson(Space space, User person){
-        space.addUser(person);
-    }
-    
-    /** Set the moderator of this space to this person. The moderator gets special privelege and control
-     * for a private space. If you used init_createPrivateSpace() then YOU are automatically moderator */
-    public void setModerator(Space space, User person){
-    	/* TODO network:
-    	 * 1) Change the space's moderator to this new person
-    	 */
-    	try {
-			space.setOwner(person);
-		} catch (XMPPException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    }
-    
-    /** Accept invitation to join a PrivateSpace. Network needs to know to tell everyone
-     * that you joined and needs to update the privatespace */
-    public void acceptInvite(Space space){
-        /* TODO network: (Same as part 2a of send_invite())
-         * 1) Notify network that you accepted the invitation
-         * 2) Create a new space for YOU and add you to the space (createPrivateSpace()), network
-         * has to initiate these methods so that it can put in existing people in the privatespace
-         * 3) Send updates to all people in this space to add you to their space (addPerson())
-         * 4) Take pending invite out of the waiting queue
-         */
-    }
-    
-    /** Decline invitation to join a PrivateSpace. Network needs to know so that it can stop
-     * waiting for your response */
-    public void delineInvite(Space space){
-        /* TODO network: (Same as part 2b of send_invite())
-         * 1) Notify network that you declined the invitation
-         * 2) Take pending invite out of the waiting queue
-         */
-    }
-    
-    /** YOU kick this person out of the PrivateSpace, BUT only if you are moderator,
-     * make sure to tell the network */
-    public void initDeletePerson(Space space, User person){
-        if(space.getOwner()==user_you){
-            /*TODO network: 
-             * 1) Remove this person from the space (in the network)
-             * 2) Update all the people's (who are in that space) spaces to remove this person (deletePerson()) 
-             */          
-            deletePerson(space, person);
-        }
-    }
-    
+   
+  
     /** Remove this person from this space, take away that person's icon from the SpaceView
      * as well. Could be situations where: you do not want this person in your mainspace,
      * this person removed him/herself from the privatespace, the privatespace got deleted, 
      * you kicked someone out of the group (if you are moderator) */
     public void deletePerson(Space space, User person){
-        try {
-			space.deleteUser(person);
-	        LinearLayout screen = (LinearLayout)findViewById(R.id.space_view);
-	        screen.invalidate();
-		} catch (XMPPException e) {
-			Log.e(LOG_TAG, "Cannot kick out person " + person.getUsername() + " from space " + space.getRoomID()
-					+ "\nXMPPException error: " + e.getXMPPError().getCode());
-			e.printStackTrace();
-		}
+		space.getSpaceController().kickoutUser(person, null);
+        LinearLayout screen = (LinearLayout)findViewById(R.id.space_view);
+        screen.invalidate();
     }
     
     /** Notify the network with the icon you moved so that it can update the sound simulation */
@@ -466,9 +375,9 @@ public class MainApplication extends Activity{
     /*delete the specific privatespaceview psv--Crystal Qin*/
     public void deletePrivateSpaceView(Space psv){
     	Button check=(Button) findViewById(R.id.delete_button);
-	       Log.v(LOG_TAG, "check button " +check);
+	       Log.v(TAG, "check button " +check);
 			check.setVisibility(View.VISIBLE);
-			Log.v(LOG_TAG, "SEE A BUTTON");
+			Log.v(TAG, "SEE A BUTTON");
 			final Space sp= psv;
 			check.setOnClickListener(new OnClickListener(){
                     
@@ -505,9 +414,16 @@ public class MainApplication extends Activity{
 		});
 	}     
 	
-	
-	
-	/* This function builds a dialog for buddylist*/
+	/** ========================================================================
+	 * =========================================================================
+	 * ========================================================================
+	 * ========================================================================
+	 * ========================================================================
+	 * 
+	 * Move code below to appropriate Model and Controller classes
+	 */
+	/** 
+	// This function builds a dialog for buddylist
 	public void showBuddyList(){
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 	    
@@ -549,7 +465,8 @@ public class MainApplication extends Activity{
 		alert.show();
 	}
 	
-	/* Add users from the buddylist dialog to the main space*/
+	
+	// Add users from the buddylist dialog to the main space
 	public void addFromBuddyList() throws XMPPException{
 		for( int i = 0; i < buddySelection.length; i++ ){
 			if(buddySelection[i]){
@@ -561,7 +478,7 @@ public class MainApplication extends Activity{
 		}
 	} // end addFromBuddyList method
 	
-	/** Updates the buddylist and the boolean selection array */
+	// Updates the buddylist and the boolean selection array
 	public void updateBuddyList() {
 		// obtain current buddylist from server
 		Roster xmppRoster = Login.xmppService.getXMPPConnection().getRoster();
@@ -574,4 +491,5 @@ public class MainApplication extends Activity{
 		}
 		buddySelection = new boolean[buddyList.length];
 	} // end updateBuddyList method
+	*/
 }

@@ -2,10 +2,10 @@ package edu.cornell.opencomm.controller;
 
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
+import org.jivesoftware.smackx.muc.InvitationRejectionListener;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.muc.Occupant;
 import org.jivesoftware.smackx.muc.ParticipantStatusListener;
-import org.jivesoftware.smackx.pubsub.Affiliation;
 
 import android.util.Log;
 
@@ -36,6 +36,7 @@ public class SpaceController {
 		this.space = space;
 		this.muc = this.space.getMUC();
 		this.muc.addParticipantStatusListener(this.configParticipantStatusListener());
+		this.muc.addInvitationRejectionListener(this.configInvitationRejectionListener());
 	} // end SpaceController method
 	
 	/** Invites user to a room. If the primary user is the owner of the room, 
@@ -47,10 +48,10 @@ public class SpaceController {
 	 * (Network.REQUEST_INVITE); when it's shown, do not show the message; 
 	 * rather, call the method confirmInvitationRequest method</p> */
 	public void inviteUser(User invitee, String reason) {
-		Occupant userOcc = this.muc.getOccupant(MainApplication.user_you.getUsername() 
-				+ "/" + MainApplication.user_you.getNickname());
+		Occupant userOcc = this.muc.getOccupant(MainApplication.user_primary.getUsername() 
+				+ "/" + MainApplication.user_primary.getNickname());
 		// if the primary user is the room's owner
-		if (userOcc.getAffiliation().equals(Affiliation.Type.owner)) {
+		if (userOcc.getAffiliation().equals(Network.ROLE_OWNER)) {
 			this.muc.invite(invitee.getUsername(), ((reason == null) ? Network.DEFAULT_INVITE : reason));
 		}
 		// send message to owner invitation request
@@ -58,7 +59,7 @@ public class SpaceController {
 			// message containing invite request tag, the username of the inviter, 
 			// the username of the invitee, and the reason
 			Message msg = new Message(Network.REQUEST_INVITE + "@inviter" + 
-					MainApplication.user_you.getUsername() + "@invitee" + 
+					MainApplication.user_primary.getUsername() + "@invitee" + 
 					invitee.getUsername() + "@reason" + 
 					((reason == null) ? Network.DEFAULT_INVITE : reason), 
 					Message.Type.groupchat);
@@ -104,7 +105,7 @@ public class SpaceController {
 		this.muc.decline(Login.xmppConnection, this.muc.getRoom(), inviter, Network.DEFAULT_DECLINE);
 	}
 	
-	public void kickout() {
+	public void kickoutUser(User invitee, String reason) {
 		// TODO if owner, kickout user
 		// TODO if not, send kickout request
 	}
@@ -116,6 +117,20 @@ public class SpaceController {
 	public void declineKickoutRequest() {
 		// TODO decline kickout request
 	}
+	
+	/** */
+	private InvitationRejectionListener configInvitationRejectionListener() {
+		InvitationRejectionListener inviteRejectListener = new InvitationRejectionListener() {
+
+			@Override
+			public void invitationDeclined(String invitee, String reason) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		};
+		return inviteRejectListener;
+	} // end configInvitationRejectionListener method
 	
 	
 	/** @return - A ParticipantStatusListener that listens for the change in status of participants 
