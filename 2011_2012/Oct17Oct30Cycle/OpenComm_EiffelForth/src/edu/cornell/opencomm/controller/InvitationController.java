@@ -12,7 +12,7 @@ import org.jivesoftware.smackx.muc.MultiUserChat;
  * @author jonathan
  *
  */
-public class Invitation implements InvitationListener, InvitationRejectionListener {
+public class InvitationController implements InvitationListener, InvitationRejectionListener {
 	private edu.cornell.opencomm.model.Invitation invitation;
 	
 	/**
@@ -47,7 +47,7 @@ public class Invitation implements InvitationListener, InvitationRejectionListen
 	
 	/**
 	 * Returns the most recent invitation received
-	 * @return Invitation
+	 * @return InvitationController
 	 */
 	public edu.cornell.opencomm.model.Invitation getInvitation() {
 		return this.invitation;

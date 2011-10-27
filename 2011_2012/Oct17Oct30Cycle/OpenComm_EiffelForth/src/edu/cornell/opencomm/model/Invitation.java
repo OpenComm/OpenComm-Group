@@ -16,7 +16,7 @@ public class Invitation {
 	private Message message;
 
 	/**
-	 * Creates a Invitation
+	 * Creates a InvitationController
 	 * @param connection - the Connection that received the invitation.
 	 * @param room - the room that invitation refers to.
 	 * @param inviter - the inviter that sent the invitation. (e.g. crone1@shakespeare.lit).

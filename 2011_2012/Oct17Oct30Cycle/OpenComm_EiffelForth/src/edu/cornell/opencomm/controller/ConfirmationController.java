@@ -1,5 +1,5 @@
 package edu.cornell.opencomm.controller;
 
-public class Invitiation {
+public class ConfirmationController {
 
 }
