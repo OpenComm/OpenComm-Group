@@ -11,8 +11,8 @@ import org.jivesoftware.smackx.muc.MultiUserChat;
 import edu.cornell.opencomm.controller.Login;
 import edu.cornell.opencomm.controller.MainApplication;
 import edu.cornell.opencomm.network.Network;
-import edu.cornell.opencomm.view.PersonView;
-import edu.cornell.opencomm.view.PrivateSpaceView;
+import edu.cornell.opencomm.view.UserView;
+import edu.cornell.opencomm.view.PrivateSpaceIconView;
 import android.util.Log;
 import android.content.Context;
 
@@ -29,31 +29,30 @@ public class Space{
 	private static boolean D = true;
 	
 	Context context;
-	LinkedList<Person> allPeople= new LinkedList<Person>(); // The people who are in this Space
-	LinkedList<PersonView> allIcons= new LinkedList<PersonView>(); // The icons of all the people in this space
+	LinkedList<User> allPeople= new LinkedList<User>(); // The people who are in this Space
+	LinkedList<UserView> allIcons= new LinkedList<UserView>(); // The icons of all the people in this space
     String spaceID; // the ID # that the network will use to identify this space
     boolean isMainSpace; // Is true if this is a mainspace and NOT a privateSpace
-    Person moderator; // the person who has the power to manage the PrivateSpace, this person has special priveleges
+    User moderator; // the person who has the power to manage the PrivateSpace, this person has special priveleges
 	boolean screen_on; // The SpaceView object(UI screen) that shows this Space (room) on the UI screen
-    PrivateSpaceView bottomIcon; // The icon at the scrollable bottom that represents this Space
+    PrivateSpaceIconView bottomIcon; // The icon at the scrollable bottom that represents this Space
     public static LinkedList<Space> allSpaces= new LinkedList<Space>(); // All the rooms that have been created ever
     
     // Network variables
     private MultiUserChat muc;
     private String roomID;
 	
-    
 	/* Constructor: A completely NEW space
      * isMainSpace is true if this is a mainspace, mainspaces should be 
      * initiated in the beginning and should initialize allSpaces
 	 * 1) Initialize all variables - create a new 
        2) Add this space to the list of all spaces
-       3) Set up a PrivateSpaceView */
-	public Space(Context context, boolean isMainSpace, String spaceID, Person moderator){
+       3) Set up a PrivateSpaceIconView */
+	public Space(Context context, boolean isMainSpace, String spaceID, User moderator){
 		//Log.v(LOG_TAG, "Creating a self-created SPACE");
 		this.context = context;
         // (1)
-		//allPeople = new LinkedList<Person>();
+		//allPeople = new LinkedList<User>();
         this.spaceID = spaceID;
         this.roomID = Network.ROOM_NAME + this.spaceID + "@conference.jabber.org";
         this.isMainSpace = isMainSpace;
@@ -80,15 +79,15 @@ public class Space{
         // (2)
         allSpaces.add(this);
         // (3) 
-        bottomIcon = new PrivateSpaceView(context, this);
+        bottomIcon = new PrivateSpaceIconView(context, this);
 	}
     
     /* Constructor: An already existing privateSpace that YOU have just joined
      * 1) existingPeople - list of people who are already in the privatespace
      * 2) the ID of the privatespace so that the network can identify it with the others
      * Make sure to still make a SpaceView object and pass the existingPeople in,
-     * also add this space to allSpaces. Don't forget to set up a PrivateSpaceView */
-    public Space(Context context, LinkedList<Person> existingPeople, String roomID, Person moderator){
+     * also add this space to allSpaces. Don't forget to set up a PrivateSpaceIconView */
+    public Space(Context context, LinkedList<User> existingPeople, String roomID, User moderator){
     	//Log.v(LOG_TAG, "Creating an already existing SPACE");
     	this.context = context;
         //allPeople = existingPeople;
@@ -105,7 +104,7 @@ public class Space{
 			e.printStackTrace();
 		}
         allSpaces.add(this);
-        bottomIcon = new PrivateSpaceView(context, this);
+        bottomIcon = new PrivateSpaceIconView(context, this);
     }
     
     /* Create the SpaceView (screen) for this space */
@@ -131,10 +130,10 @@ public class Space{
     }
     
     /* Add many people to this Space, make sure to add icons to the SpaceView for all these people */
-    public void addManyPeople(LinkedList<Person> people){
-        for(Person person : people){
+    public void addManyPeople(LinkedList<User> people){
+        for(User person : people){
            /* allPeople.add(person);
-            PersonView icon = new PersonView(context, person, person.getImage());
+            UserView icon = new UserView(context, person, person.getImage());
             allIcons.add(icon);
             if(screen_on)
             	(MainApplication.screen).addPerson(icon); */
@@ -142,9 +141,9 @@ public class Space{
         }
     }
     
-	/* Add this Person to this Space (room), also create a new icon (PersonView) for 
+	/* Add this User to this Space (room), also create a new icon (UserView) for 
      * add it to this Space's corresponding SpaceView 
-	public void addPerson(Person newPerson){
+	public void addPerson(User newPerson){
         // Check to make sure this person is not already in this space
 		boolean already_have = false;
         int counter=0;
@@ -155,18 +154,18 @@ public class Space{
         }
         if(!already_have){
         	allPeople.add(newPerson);
-        	PersonView icon = new PersonView(context, newPerson, newPerson.getImage());
+        	UserView icon = new UserView(context, newPerson, newPerson.getImage());
         	allIcons.add(icon);
         	if(screen_on)
         		(MainApplication.screen).addPerson(icon);
         }
         else{
-        	Log.i( "Person already present", "Check your code" );
+        	Log.i( "User already present", "Check your code" );
         }
 		
 	}*/
     
-    public void addPerson(Person newPerson){
+    public void addPerson(User newPerson){
         // Check to make sure this person is not already in this space
 		boolean already_have = false;
         int counter=0;
@@ -180,23 +179,23 @@ public class Space{
         	allPeople.add(newPerson);
         	if (D) Log.d(LOG_TAG, "addPerson: inviting user " + newPerson.getUsername() + " to room " + this.roomID);
         	this.muc.invite(newPerson.getUsername(), Network.DEFAULT_INVITE);
-        	PersonView icon = new PersonView(context, newPerson, newPerson.getImage());
+        	UserView icon = new UserView(context, newPerson, newPerson.getImage());
         	allIcons.add(icon);
         	if(screen_on)
         		(MainApplication.screen).addPerson(icon);
         }
         else{
-        	Log.i( "Person already present", "Check your code" );
+        	Log.i( "User already present", "Check your code" );
         }
 		
 	}
     
-	/* Remove a Person from this Space (room), make sure to delete the icon (PersonView)
+	/* Remove a User from this Space (room), make sure to delete the icon (UserView)
      * from this Space's corresponding SpaceView*/
-	public void removePerson(Person badPerson) throws XMPPException{
+	public void removePerson(User badPerson) throws XMPPException{
         allPeople.remove(badPerson);
         
-        PersonView found_icon = null;
+        UserView found_icon = null;
    	    int counter = 0;
    	    while(found_icon==null && counter<allIcons.size()){
    		    if(allIcons.get(counter).getPerson()==badPerson)
@@ -218,7 +217,7 @@ public class Space{
 	
 	/* Set the moderator of this space. Cannot change the moderator from YOU if 
 	 * this space is a mainspace */
-	public void setModerator(Person moderator){
+	public void setModerator(User moderator){
 		if(!isMainSpace())
 			this.moderator = moderator;
 			try {
@@ -237,11 +236,11 @@ public class Space{
     //GETTERS
     
     /* Return the list of all the people who are in this space */
-    public LinkedList<Person> getAllPeople(){
+    public LinkedList<User> getAllPeople(){
         return allPeople;
     }
     /* Return the list of all the icons that are being drawn in this space */
-    public LinkedList<PersonView> getAllIcons(){
+    public LinkedList<UserView> getAllIcons(){
     	return allIcons;
     }
     /* Return true if this Space is a mainspace, false otherwise */
@@ -253,15 +252,15 @@ public class Space{
     	return spaceID;
     }
     /* Return the moderator of this space, (will be YOU if this is a mainspace) */
-    public Person getModerator(){
+    public User getModerator(){
         return moderator;
     }
     /* Return true if this space is being shown on the screen */
     public boolean isScreenOn(){
         return screen_on;
     }
-    /* Return the bottomIcon (PrivateSpaceView) for this Space */
-    public PrivateSpaceView getPSView(){
+    /* Return the bottomIcon (PrivateSpaceIconView) for this Space */
+    public PrivateSpaceIconView getPSView(){
         return bottomIcon;
     }
 
