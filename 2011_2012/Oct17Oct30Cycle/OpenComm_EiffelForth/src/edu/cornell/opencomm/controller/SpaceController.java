@@ -25,10 +25,11 @@ public class SpaceController {
 	 * @param space - the space to be controlled */
 	public SpaceController(Space space) {
 		this.space = space;
-		this.space.getMUC().addParticipantStatusListener(this.configUserStatusListener());
+		this.space.getMUC().addParticipantStatusListener(this.configParticipantStatusListener());
 	} // end SpaceController method
 	
-	/** @return - A ParticipantStatusListener that listens for the change in status of users
+	/** @return - A ParticipantStatusListener that listens for the change in status of participants 
+	 * (does not include the primary user -- for primary user, use UserStatusListener)
 	 * within a space.
 	 * <p>TODO - alter the internal methods with any necessary UI changes to reflect
 	 * the network changes that call the methods</p>
@@ -42,8 +43,8 @@ public class SpaceController {
 	 * </li>
 	 * </ul>
 	 */
-	private ParticipantStatusListener configUserStatusListener() {
-		ParticipantStatusListener userStatListener = new ParticipantStatusListener() {
+	private ParticipantStatusListener configParticipantStatusListener() {
+		ParticipantStatusListener participantStatListener = new ParticipantStatusListener() {
 
 			/** Called when administrator privilege is granted to a user in the room 
 			 * @param userRoomInfo - the user receiving privilege<br>
@@ -371,6 +372,6 @@ public class SpaceController {
 				return userRoomInfoSplit;
 			} // end splitUserRoomInfo method			
 		};
-		return userStatListener;
-	} // configUserStatusListener method
+		return participantStatListener;
+	} // configParticipantStatusListener method
 } // end Class SpaceController
