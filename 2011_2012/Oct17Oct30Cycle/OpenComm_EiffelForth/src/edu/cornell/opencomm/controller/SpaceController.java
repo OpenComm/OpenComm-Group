@@ -1,10 +1,16 @@
 package edu.cornell.opencomm.controller;
 
+import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.packet.Message;
+import org.jivesoftware.smackx.muc.MultiUserChat;
+import org.jivesoftware.smackx.muc.Occupant;
 import org.jivesoftware.smackx.muc.ParticipantStatusListener;
+import org.jivesoftware.smackx.pubsub.Affiliation;
 
 import android.util.Log;
 
 import edu.cornell.opencomm.model.Space;
+import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.Network;
 
 /** An instance of this class is a space controller for each space (main space 
@@ -20,13 +26,96 @@ public class SpaceController {
 	// Model objects
 	private Space space; // the space that is controlled
 	
+	// Network objects
+	private MultiUserChat muc;
+	
 	/** Constructor: a new instance of SpaceController that controls a specific 
 	 * space
 	 * @param space - the space to be controlled */
 	public SpaceController(Space space) {
 		this.space = space;
-		this.space.getMUC().addParticipantStatusListener(this.configParticipantStatusListener());
+		this.muc = this.space.getMUC();
+		this.muc.addParticipantStatusListener(this.configParticipantStatusListener());
 	} // end SpaceController method
+	
+	/** Invites user to a room. If the primary user is the owner of the room, 
+	 * it sends the invitee an invitation to the space. If the primary user is not, 
+	 * the user sends a request to the room requesting an invitation request
+	 * @param invitee - user to invite
+	 * @param reason - reason for inviting the user to the space
+	 * <p>TODO when receiving messages, check all messages for the InviteRequest tag
+	 * (Network.REQUEST_INVITE); when it's shown, do not show the message; 
+	 * rather, call the method confirmInvitationRequest method</p> */
+	public void inviteUser(User invitee, String reason) {
+		Occupant userOcc = this.muc.getOccupant(MainApplication.user_you.getUsername() 
+				+ "/" + MainApplication.user_you.getNickname());
+		// if the primary user is the room's owner
+		if (userOcc.getAffiliation().equals(Affiliation.Type.owner)) {
+			this.muc.invite(invitee.getUsername(), ((reason == null) ? Network.DEFAULT_INVITE : reason));
+		}
+		// send message to owner invitation request
+		else {
+			// message containing invite request tag, the username of the inviter, 
+			// the username of the invitee, and the reason
+			Message msg = new Message(Network.REQUEST_INVITE + "@inviter" + 
+					MainApplication.user_you.getUsername() + "@invitee" + 
+					invitee.getUsername() + "@reason" + 
+					((reason == null) ? Network.DEFAULT_INVITE : reason), 
+					Message.Type.groupchat);
+			try {
+				this.muc.sendMessage(msg);
+			} catch (XMPPException e) {
+				if (D) Log.d(TAG, "inviteUser - message not sent: "
+						+ e.getXMPPError().getCode() + " - " + e.getXMPPError().getMessage());
+				e.printStackTrace();
+			}
+		}
+	} // end inviteUser method
+	
+	/** Confirm an invitation request
+	 * @param inviteRequest - message sent to the room when a non-owner tries to 
+	 * invite a user to a room. Contains the InviteRequest Tag<br>
+	 * (format: (Network.REQUEST_INVITE)@inviter(Inviter username)@invitee
+	 * (Invitee username)@reason(Invitation reason)*/
+	public void confirmInvitationRequest(String inviteRequest) {
+		// Check the inviteRequest is accurate
+		if (inviteRequest.contains(Network.REQUEST_INVITE)) {
+			// extract invitation request info
+			String inviteRequestInfo = inviteRequest.split(Network.REQUEST_INVITE)[0];
+			String inviter = (inviteRequestInfo.split("@inviter")[0]).split("@invitee")[0];
+			String invitee = (inviteRequestInfo.split("@inviter" + inviter + "@invitee")[0]).split("@reason")[0];
+			String reason = inviteRequestInfo.split("@reason")[0];
+			// invite the invitee
+			this.muc.invite(invitee, reason);
+			// DEBUG
+			if (D) Log.d(TAG, "confirmInvitationRequest - invitation request from " 
+					+ inviter + " for room " + this.space.getRoomID() + " for user "
+					+ invitee + ": reason - " + reason);
+		}
+	} // end confirmInvitationRequest method
+	
+	/** Decline invitation request
+	 * @param inviteRequest - message sent to the room when a non-owner tries to 
+	 * invite a user to a room. Contains the InviteRequest Tag<br>
+	 * (format: (Network.REQUEST_INVITE)@inviter(Inviter username)@invitee
+	 * (Invitee username)@reason(Invitation reason)*/
+	public void declineInvitationRequest(String inviteRequest) {
+		// TODO decline invitation request
+	} // end declineInvitationRequest method
+	
+	public void kickout() {
+		// TODO if owner, kickout user
+		// TODO if not, send kickout request
+	}
+	
+	public void confirmKickoutRequest() {
+		// TODO confirm kickout request
+	}
+	
+	public void declineKickoutRequest() {
+		// TODO decline kickout request
+	}
+	
 	
 	/** @return - A ParticipantStatusListener that listens for the change in status of participants 
 	 * (does not include the primary user -- for primary user, use UserStatusListener)
