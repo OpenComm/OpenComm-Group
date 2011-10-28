@@ -15,7 +15,7 @@ import edu.cornell.opencomm.network.Network;
 
 /** An instance of this class is a space controller for each space (main space 
  * or private space), such as adding/deleting people from a space.
- * @author OpenComm (cuopencomm@gmail.com), Risa Naka (rn96@cornell.edu)
+ * @author OpenComm (cuopencomm@gmail.com)
  *
  */
 public class SpaceController {
@@ -38,8 +38,23 @@ public class SpaceController {
 		this.muc.addParticipantStatusListener(this.configParticipantStatusListener());
 		this.muc.addInvitationRejectionListener(this.configInvitationRejectionListener());
 	} // end SpaceController method
+
 	
-	/** Invites user to a room. If the primary user is the owner of the room, 
+	/** ============================================================================================
+	 * =============================================================================================
+	 * 
+	 * REQUESTS:
+	 * inviteUser - send invitation to user
+	 * confirmInvitationRequest - confirm invitation request from another user
+	 * declineInvitationRequest - decline invitation request from another user
+	 * confirmKickoutRequest - confirm kickout request from another user
+	 * declineKickoutRequest - decline kickout request from another user
+	 * 
+	 * ===========================================
+	 * ===========================================
+	 */
+	
+	/** Sends an invitation user to a room. If the primary user is the owner of the room, 
 	 * it sends the invitee an invitation to the space. If the primary user is not, 
 	 * the user sends a request to the room requesting an invitation request
 	 * @param invitee - user to invite
@@ -73,61 +88,128 @@ public class SpaceController {
 		}
 	} // end inviteUser method
 	
-	/** Confirm an invitation request
+	public void kickoutUser(User invitee, String reason) {
+		// TODO Jonathan - if owner, kickout user
+		// TODO Jonathan - if not, send kickout request
+	}
+	
+	public static void deleteSpace() {
+		// TODO Jonathan - if owner, delete space
+	}
+	
+	public static void addSpace() {
+		// TODO Jonathan - add space
+	}
+	
+	/** END REQUESTS
+	 * 
+	 * =============================================================================================
+	 * =============================================================================================
+	 * =============================================================================================
+	 * =============================================================================================
+	 * 
+	 * CONFIGURATION OF LISTENERS:
+	 * receiveInvitationRequest
+	 * confirmInvitationRequest
+	 * rejectInvitationRequest
+	 * receiveInvitationRequestRejection
+	 * receiveKickoutRequest
+	 * confirmKickoutRequest
+	 * rejectKickoutRequest
+	 * receiveKickoutRequestRejection
+	 * configInvitationRejectionListener
+	 * configParticipantStatusListener
+	 * 
+	 * ===========================================
+	 * ===========================================
+	 */
+	
+	/** = Information of invitation request received when a non-owner tries to invite a user to a 
+	 * space in String array format {requesterJID, inviteeJID, inviteReason}
 	 * @param inviteRequest - message sent to the room when a non-owner tries to 
 	 * invite a user to a room. Contains the InviteRequest Tag<br>
-	 * (format: (Network.REQUEST_INVITE)@inviter(Inviter username)@invitee
-	 * (Invitee username)@reason(Invitation reason)*/
-	public void confirmInvitationRequest(String inviteRequest) {
+	 * (format: (Network.REQUEST_INVITE)@requester(Requester's JID)@invitee
+	 * (Invitee's JID)@reason(Invitation reason)
+	 */
+	public String[] receiveInvitationRequest(String inviteRequest) {
 		// Check the inviteRequest is accurate
 		if (inviteRequest.contains(Network.REQUEST_INVITE)) {
 			// extract invitation request info
 			String inviteRequestInfo = inviteRequest.split(Network.REQUEST_INVITE)[0];
-			String inviter = (inviteRequestInfo.split("@inviter")[0]).split("@invitee")[0];
-			String invitee = (inviteRequestInfo.split("@inviter" + inviter + "@invitee")[0]).split("@reason")[0];
-			String reason = inviteRequestInfo.split("@reason")[0];
-			// invite the invitee
-			this.muc.invite(invitee, reason);
+			String requester = (inviteRequestInfo.split("@requester")[0]).split("@invitee")[0];
+			String invitee = (inviteRequestInfo.split("@requester" + requester + "@invitee")[0]).split("@reason")[0];
+			String reason = (inviteRequestInfo.split("@reason").length == 0 ? Network.DEFAULT_INVITE : inviteRequestInfo.split("@reason")[0]);
+			String[] inviteInfo = {requester, invitee, reason};
 			// DEBUG
-			if (D) Log.d(TAG, "confirmInvitationRequest - invitation request from " 
-					+ inviter + " for room " + this.space.getRoomID() + " for user "
-					+ invitee + ": reason - " + reason);
+			if (D) Log.d(TAG, "receiveInvitationRequest - received invitation request from " 
+					+ inviteInfo[0] + " for room " + this.space.getRoomID() + " for user "
+					+ inviteInfo[1] + ": reason - " + inviteInfo[2]);
+			return inviteInfo;
+		}
+		// else
+		Log.e(TAG, "receiveInvitationRequest - incorrectly called");
+		return null;
+	} // end receiveInvitationRequest method
+	
+	/** Confirm an invitation request. Invite the invitee with the reaosn given by the requester
+	 * @param inviteInfo - String array: {requesterJID, inviteeJID, inviteReason}
+	 */
+	public void confirmInvitationRequest(String[] inviteInfo) {
+		// Check the inviteInfo is not null and length 3
+		if (inviteInfo != null && inviteInfo.length == 3) {
+			// invite the invitee
+			this.muc.invite(inviteInfo[1], inviteInfo[2]);
+			// DEBUG
+			if (D) Log.d(TAG, "confirmInvitationRequest - confirmed invitation request from " 
+					+ inviteInfo[0] + " for room " + this.space.getRoomID() + " for user "
+					+ inviteInfo[1] + " (reason - " + inviteInfo[2] + ")");
 		}
 	} // end confirmInvitationRequest method
 	
-	/** Decline invitation request
-	 * @param inviteRequest - message sent to the room when a non-owner tries to 
-	 * invite a user to a room. Contains the InviteRequest Tag<br>
-	 * (format: (Network.REQUEST_INVITE)@inviter(Inviter username)@invitee
-	 * (Invitee username)@reason(Invitation reason)*/
-	public void declineInvitationRequest(String inviteRequest) {
-		MultiUserChat.decline(Login.xmppConnection, this.muc.getRoom(), inviteRequest.split("@")[1], Network.DEFAULT_DECLINE);
-	}
-	
-	public void kickoutUser(User invitee, String reason) throws XMPPException {
-		if(this.space.getOwner().getUsername().equals(MainApplication.user_primary.getUsername())) {
-			this.muc.kickParticipant(invitee.getNickname(), reason);
-		} else {
-			// TODO if not, send kickout request
+	/** Reject invitation request. Sends a message to the room rejecting the invitation request 
+	 * along with the reason for the rejection
+	 * @param inviteInfo - inviteInfo - String array: {requesterJID, inviteeJID, inviteReason}
+	 * @param reason - reason for the rejection
+	 */
+	public void rejectInvitationRequest(String[] inviteInfo, String reason) {
+		// Check that the inviteInfo is valid
+		if (inviteInfo != null && inviteInfo.length == 3) {
+			// send the room the rejection notification
+			Message msg = new Message(Network.REJECT_INVITE + "@requester" + 
+					inviteInfo[0] + "@invitee" + inviteInfo[1] + "@reason" + 
+					inviteInfo[2] + "@rejectreason" +
+					(reason == null ? Network.DEFAULT_REJECT : reason),
+					Message.Type.groupchat);
 		}
+		// DEBUG
+		if (D) Log.d(TAG, "rejectInvitationRequest - rejected invitation request from " 
+				+ inviteInfo[0] + " for room " + this.space.getRoomID() + " for user "
+				+ inviteInfo[1] + "(reason - " + inviteInfo[2] + ") : rejection reason - " + reason);
+	} // end rejectInvitationRequest method
+	
+	public void receiveInvitationRejectionRequest(){
+		// TODO Risa - receive rejection of invitation request
 	}
 	
+	public void receiveKickoutRequest() {
+		// TODO Risa - receive kickout request
+	}
 	public void confirmKickoutRequest() {
-		// TODO confirm kickout request
+		// TODO Risa - confirm kickout request
+	}
+	public void rejectKickoutRequest() {
+		// TODO Risa - reject kickout request
+	}
+	public void receiveKickoutRequestRejection() {
+		// TODO Risa - receive rejection of kickout request
 	}
 	
-	public void declineKickoutRequest() {
-		// TODO decline kickout request
-	}
-	
-	/** */
 	private InvitationRejectionListener configInvitationRejectionListener() {
 		InvitationRejectionListener inviteRejectListener = new InvitationRejectionListener() {
 
 			@Override
 			public void invitationDeclined(String invitee, String reason) {
-				// TODO Auto-generated method stub
-				
+				// TODO UI - invitation declined
 			}
 			
 		};
@@ -481,4 +563,10 @@ public class SpaceController {
 		};
 		return participantStatListener;
 	} // configParticipantStatusListener method
+	
+	/** END CONFIGURATION OF LISTENERS
+	 * 
+	 * =============================================================================================
+	 * =============================================================================================
+	 */
 } // end Class SpaceController

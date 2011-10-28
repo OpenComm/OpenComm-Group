@@ -48,23 +48,27 @@ public class Network {
 	
 	// INVITATION AND KICKOUT REQUEST MESSAGES
 	public static final String REQUEST_INVITE = packageName + cycleName + ".REQUEST_INVITE";
+	public static final String REQUEST_KICKOUT = packageName + cycleName + ".REQUEST_KICKOUT";
+	
+	// INVITATION AND KICKOUT REQUEST REJECTION MESSAGES
+	public static final String REJECT_INVITE = packageName + cycleName + ".REJECT_INVITE";
+	public static final String REJECT_KICKOUT = packageName + cycleName + ".REJECT_KICKOUT";
 	
 	// ====================================================================== //
 	// ====================================================================== //
 	
 	// DEFAULT REASONS
-	/** = default reason for inviting a person */
+	/** = default reason for inviting a user */
 	public static final String DEFAULT_INVITE = "You have been invited";
 	
-	/** = default reason for kicking out a person */
+	/** = default reason for kicking out a user */
 	public static final String DEFAULT_KICKOUT = "You have been kicked out";
 	
-	/** = default reason for banning a person */
+	/** = default reason for banning a user */
 	public static final String DEFAULT_BAN = "You have been banned";
 	
-	/** = default reason for declined an invited */
-	public static final String DEFAULT_DECLINE = "Your invitation was declined";
-	
+	/** = default reason for rejecting a user */
+	public static final String DEFAULT_REJECT = "Your request has been rejected";
 	// ====================================================================== //
 	// ====================================================================== //
 	
