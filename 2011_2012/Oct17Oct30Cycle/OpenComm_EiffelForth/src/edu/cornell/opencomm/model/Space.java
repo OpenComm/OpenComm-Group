@@ -101,7 +101,7 @@ public class Space {
 		Iterator<String> occItr = this.muc.getOccupants();
 		while (occItr.hasNext()) {
 			String occJID = occItr.next().split("@jabber.org/")[0] + "@jabber.org";
-			// if there is no instance of User already created
+			// if there is an instance of User already created
 			if (User.getAllUsers().get(occJID) != null) {
 				this.allParticipants.put(occJID, (User.getAllUsers().get(occJID)));
 			}
