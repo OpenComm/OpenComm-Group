@@ -279,7 +279,7 @@ public class MainApplication extends Activity{
 		psv.setOnClickListener(onClickListener);
     }
     
-    PopupWindow pirvateSpacePreviewPopupWindow = null;
+    PopupWindow privateSpacePreviewPopupWindow = null;
 	private View.OnClickListener onClickListener = new View.OnClickListener() {
 
 		@Override
@@ -295,7 +295,7 @@ public class MainApplication extends Activity{
 				
 				PrivateSpacePreviewPopup popupLayout = (PrivateSpacePreviewPopup)layout.findViewById(R.id.private_space_preview_popup);
 							
-				pirvateSpacePreviewPopupWindow = new PopupWindow(layout, 150, 158, true);
+				privateSpacePreviewPopupWindow = new PopupWindow(layout, 150, 158, true);
 
 				PrivateSpaceIconView psv = (PrivateSpaceIconView) view;
 				if (view != null) {
@@ -309,7 +309,7 @@ public class MainApplication extends Activity{
 
 				// display the popup in the center
 				
-				pirvateSpacePreviewPopupWindow.showAtLocation(layout, Gravity.CENTER_HORIZONTAL, psv.getLeft() - 55, 68/*115*/);
+				privateSpacePreviewPopupWindow.showAtLocation(layout, Gravity.CENTER_HORIZONTAL, psv.getLeft() - 55, 68/*115*/);
 				
 				Button cancelButton = (Button) layout
 						.findViewById(R.id.cancel_button);
@@ -332,7 +332,7 @@ public class MainApplication extends Activity{
 			// ViewGroup popup =
 			// (ViewGroup)v.findViewById(R.id.popup_inner_layout);
 			//PopupWindow pw = (PopupWindow) v.getParent().getParent();
-			pirvateSpacePreviewPopupWindow.dismiss();
+			privateSpacePreviewPopupWindow.dismiss();
 		}
 	};
 
