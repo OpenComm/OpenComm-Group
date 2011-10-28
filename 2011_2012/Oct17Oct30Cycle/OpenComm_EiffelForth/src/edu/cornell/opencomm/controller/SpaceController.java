@@ -91,17 +91,25 @@ public class SpaceController {
 		}
 	} // end inviteUser method
 	
-	public void kickoutUser(User invitee, String reason) {
-		// TODO Jonathan - if owner, kickout user
-		// TODO Jonathan - if not, send kickout request
+	public void kickoutUser(User kickMe, String reason) throws XMPPException {
+		if(kickMe.getUsername().equals(MainApplication.user_primary.getUsername())) {
+			this.muc.kickParticipant(kickMe.getNickname(), reason);
+		} else {
+			// TODO Jonathan - if not, send kickout request
+		}
+		
 	}
 	
-	public static void deleteSpace() {
-		// TODO Jonathan - if owner, delete space
+	public void deleteSpace() {
+		if(MainApplication.user_primary.getUsername().equals(this.space.getOwner().getUsername())) {
+			
+		}
 	}
 	
-	public static void addSpace() {
-		// TODO Jonathan - add space
+	public void addSpace() {
+		if(MainApplication.user_primary.getUsername().equals(this.space.getOwner().getUsername())) {
+			
+		}
 	}
 	
 	/** END REQUESTS
