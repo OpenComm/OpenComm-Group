@@ -14,8 +14,10 @@ import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.pubsub.Affiliation;
 
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.controller.InvitationController;
 import edu.cornell.opencomm.controller.Login;
 import edu.cornell.opencomm.controller.MainApplication;
+import edu.cornell.opencomm.controller.MessageController;
 import edu.cornell.opencomm.controller.SpaceController;
 import edu.cornell.opencomm.network.Network;
 import edu.cornell.opencomm.view.SpaceView;
@@ -58,8 +60,11 @@ public class Space {
 	// Network variables
 	private MultiUserChat muc;
 	private String roomID;
+	
+	// Controller variables
 	private SpaceController spaceCtrl;
-
+	private MessageController msgCtrl;
+	private InvitationController inviteCtrl;
 
 	/** CONSTRUCTOR: new space. Creates the SpaceController and, either creates or
 	 * identifies the SpaceView associated with this space.
@@ -97,6 +102,8 @@ public class Space {
 		}
 		this.owner = owner;
 		this.spaceCtrl = new SpaceController(this);
+		this.msgCtrl = new MessageController(this);
+		this.inviteCtrl = new InvitationController();
 		// Create and instantiate all existing users
 		Iterator<String> occItr = this.muc.getOccupants();
 		while (occItr.hasNext()) {
@@ -124,7 +131,7 @@ public class Space {
 	} // end Space method
 
 
-	/* TODO this should be in 
+	/* TODO REMOVE and move to SpaceController - this should be in 
 	 * Deletes this private space from the static list of existing Spaces
 	 * (allSpaces) unless the Space is a main space. Also calls network to
 	 * destroy the associated MultiUserChat.
@@ -168,6 +175,11 @@ public class Space {
 	public SpaceController getSpaceController() {
 		return this.spaceCtrl;
 	} // end getSpaceController method
+	
+	/** @return - the Invitation Controller */
+	public InvitationController geInvitationController() {
+		return this.inviteCtrl;
+	} // end getInvitationController method
 	
 	//not sure these are in model
 	public boolean isScreenOn(){

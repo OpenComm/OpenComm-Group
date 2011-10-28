@@ -75,4 +75,6 @@ public class Invitation {
 	public Message getMessage() {
 		return message;
 	}
+	
+	//TODO Jonathan - add methods to send invitations
 }

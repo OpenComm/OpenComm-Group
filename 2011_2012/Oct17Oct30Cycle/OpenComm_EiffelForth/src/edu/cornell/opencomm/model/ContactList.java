@@ -56,4 +56,9 @@ public class ContactList {
 					_roster.getPresence(re.getUser()).toString());
 		}
 	}
+	
+	// TODO Kris - get roster
+	public Roster getRoster() {
+		return _roster;
+	}
 }
