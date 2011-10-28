@@ -31,12 +31,16 @@ public class SpaceController {
 	// Network objects
 	private MultiUserChat muc;
 	
+	// View objects
+	SpaceView view;
+	
 	/** Constructor: a new instance of SpaceController that controls a specific 
 	 * space
 	 * @param space - the space to be controlled */
-	public SpaceController(Space space) {
+	public SpaceController(Space space, SpaceView view) {
 		this.space = space;
 		this.muc = this.space.getMUC();
+		this.view = view;
 
 	} // end SpaceController method
 

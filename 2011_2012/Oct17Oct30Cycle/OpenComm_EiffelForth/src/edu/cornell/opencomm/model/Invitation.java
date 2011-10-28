@@ -76,5 +76,5 @@ public class Invitation {
 		return message;
 	}
 	
-	//TODO Jonathan - add methods to send invitations
+	//TODO: add setters if needed
 }

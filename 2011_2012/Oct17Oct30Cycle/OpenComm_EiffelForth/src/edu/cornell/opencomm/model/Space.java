@@ -14,10 +14,8 @@ import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.pubsub.Affiliation;
 
 import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.controller.InvitationController;
 import edu.cornell.opencomm.controller.Login;
 import edu.cornell.opencomm.controller.MainApplication;
-import edu.cornell.opencomm.controller.MessageController;
 import edu.cornell.opencomm.controller.SpaceController;
 import edu.cornell.opencomm.network.Network;
 import edu.cornell.opencomm.view.SpaceView;
@@ -26,9 +24,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
-/** TODO Kris - fix the model class to reflect not actions taking w/ user input
- * but simply the information of the model object itself in accordance to the MVC model
- * A Space is a chat room that holds a group of people who can talk to one
+/** A Space is a chat room that holds a group of people who can talk to one
  * another. There are two types of Spaces: a single main space and many private
  * spaces. The main space is the default space controlled by the primary user.
  * Private spaces are controlled by their owner.
@@ -40,31 +36,28 @@ public class Space {
 
 	// All the Spaces in use
 	public static ArrayList<Space> allSpaces = new ArrayList<Space>();
-	private static Space mainSpace;
+	private static Space mainSpace; //the primary user's main space
 
 	// The users who are in this Space
 	private HashMap<String, User> allParticipants = new HashMap<String, User>();
-	String spaceID; // the ID # that the network will use to identify this space
 	boolean isMainSpace; // if true, this is a main space
 	User owner; // the User who has the privilege to manage the Space
 
-	// TODO UI Team: is this still necessary?
-	// Not sure these are actually part of model
+	// TODO UI Team: is this still necessary? Where does it go?
 	Context context;
 	boolean screen_on;
 	LinkedList<UserView> allIcons = new LinkedList<UserView>();
 	
-	// View variables
-	private SpaceView spaceView;
-	
 	// Network variables
 	private MultiUserChat muc;
 	private String roomID;
-	
-	// Controller variables
 	private SpaceController spaceCtrl;
-	private MessageController msgCtrl;
-	private InvitationController inviteCtrl;
+	
+	//Listeners (four of them)
+	private InvitationRejectionListener listener1;
+	private ParticipantStatusListener listener2;
+	private MessageListener listener3;
+
 
 	/** CONSTRUCTOR: new space. Creates the SpaceController and, either creates or
 	 * identifies the SpaceView associated with this space.
@@ -84,8 +77,9 @@ public class Space {
 	 * </ul>
 	 * @throws XMPPException - thrown if the room cannot be created, or configured
 	 */
-	public Space(Context context, boolean isMainSpace, String roomID, User owner) throws XMPPException {
-		// If the primary user is creating the space
+	public Space(Context context, boolean isMainSpace, String roomID, User owner) 
+			throws XMPPException {
+		// If the primary user is creating the space, join as owner
 		if (MainApplication.user_primary.equals(owner)) {
 			this.roomID = Network.ROOM_NAME + roomID + "@conference.jabber.org";
 			this.muc = new MultiUserChat(Login.xmppService.getXMPPConnection(),
@@ -93,7 +87,7 @@ public class Space {
 			this.muc.join(owner.getNickname());
 			this.muc.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
 		}
-		// otherwise
+		// otherwise join as participant
 		else {
 			this.roomID = roomID;
 			this.muc = new MultiUserChat(Login.xmppService.getXMPPConnection(),
@@ -101,9 +95,15 @@ public class Space {
 			this.muc.join(MainApplication.user_primary.getNickname());
 		}
 		this.owner = owner;
-		this.spaceCtrl = new SpaceController(this);
-		this.msgCtrl = new MessageController(this);
-		this.inviteCtrl = new InvitationController();
+		// create controller and associate view
+		if (isMainSpace()) {
+			this.spaceCtrl = new SpaceController(this,
+					(SpaceView)((Activity) context).findViewById(R.id.space_view));
+			Space.mainSpace = this;
+		} else{
+			this.spaceCtrl = new SpaceController(this,
+					new SpaceView(context, Space.mainSpace));
+		}
 		// Create and instantiate all existing users
 		Iterator<String> occItr = this.muc.getOccupants();
 		while (occItr.hasNext()) {
@@ -117,40 +117,17 @@ public class Space {
 					occJID.split("@")[0], R.drawable.question));
 			}
 		}
-		// if this is a main space
-		if (isMainSpace()) {
-			// set spaceview to the one precreated by the XML file
-			this.spaceView = (SpaceView)((Activity) context).findViewById(R.id.space_view);
-			Space.mainSpace = this;
-		}
-		// otherwise
-		else {
-			this.spaceView = new SpaceView(context, Space.mainSpace);
-		}
 		allSpaces.add(this);
-	} // end Space method
-
-
-	/* TODO REMOVE and move to SpaceController - this should be in 
-	 * Deletes this private space from the static list of existing Spaces
-	 * (allSpaces) unless the Space is a main space. Also calls network to
-	 * destroy the associated MultiUserChat.
-	 */
-	public void deletePrivateSpace() throws XMPPException {
-		if (!isMainSpace) {
-			allSpaces.remove(this);
-			this.muc.destroy(null, null);
-		}
-	}
+	} // end Space constructor
 
 	// GETTERS
 
-	/** @return - hashmap of all of the users who are in this space */
+	/** @return - all participants in Space, maps JID to User */
 	public HashMap<String, User> getAllParticipants() {
 		return allParticipants;
 	} // end getAllParticipants method
 	
-	/** @return - the id of this space */
+	/** @return - the id of this Space */
 	public String getRoomID() {
 		return roomID;
 	} // end getRoomID method
@@ -166,22 +143,17 @@ public class Space {
 		return this.owner;
 	} // end getOwner method
 	
-	/** @return - the MultiUserChat room */
+	/** @return - the MultiUserChat associated with this Space */
 	public MultiUserChat getMUC() {
 		return muc;
 	}
 	
-	/** @return - the Space Controller */
+	/** @return - the Space Controller associated with this Space */
 	public SpaceController getSpaceController() {
 		return this.spaceCtrl;
 	} // end getSpaceController method
 	
-	/** @return - the Invitation Controller */
-	public InvitationController geInvitationController() {
-		return this.inviteCtrl;
-	} // end getInvitationController method
-	
-	//not sure these are in model
+	//TODO: move to Controller?
 	public boolean isScreenOn(){
 		return screen_on;
 	}
@@ -193,4 +165,6 @@ public class Space {
 	public LinkedList<UserView> getAllIcons(){
 		return allIcons;
 	}
+	
+	//add getters for four listeners
 }

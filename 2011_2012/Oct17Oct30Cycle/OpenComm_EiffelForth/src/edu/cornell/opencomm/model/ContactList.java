@@ -5,7 +5,7 @@ import org.jivesoftware.smack.*;
 import android.util.Log;
 
 /**
- * A user's contact list. This is a roster of users for which the network
+ * A user's contact list. This is a Roster of users for which the network
  * will send the primary user status updates. A user can add and/or delete
  * other users from their contact list.
  *
@@ -49,16 +49,16 @@ public class ContactList {
 		}
 	}
 	
+	/** @return - the Roster object held by this ContactList */
+	public Roster getRoster(){
+		return _roster;
+	}
+	
 	/** DEBUG: Prints the current list of contacts. */
 	public void printList(){
 		for (RosterEntry re : _roster.getEntries()){
 			Log.d(TAG, re.getUser() + " , " + re.getName() + " , " +
 					_roster.getPresence(re.getUser()).toString());
 		}
-	}
-	
-	// TODO Kris - get roster
-	public Roster getRoster() {
-		return _roster;
 	}
 }

@@ -3,6 +3,8 @@ package edu.cornell.opencomm.model;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import edu.cornell.opencomm.R;
 import android.util.Log;
 
 /* An object representing a user who is taking part in the conversation */
@@ -17,15 +19,11 @@ public class User {
 	File vCard; // The User's vCard, used to pass image
 	int image; // icon - will be replaced by vCard
 	
-	// List of all Users initialized
+	// Maps JID to User
 	private static HashMap<String, User> allUsers = new HashMap<String, User>();
 	
-	// Maps username to User
-	public static HashMap<String,User> username_to_person = 
-			new HashMap<String,User>(); 
-	
-	// Maps nickname to User
-	public static HashMap<String,User> nickname_to_person = 
+	// Maps nickname to User -- TODO: delete if not needed by UI
+	public static HashMap<String,User> nickname_to_user = 
 			new HashMap<String,User>();
     
 	/** CONSTRUCTOR: = a new User
@@ -34,17 +32,19 @@ public class User {
 	 * @param nickname - the User's chosen nickname
 	 * @param image - will be replaced by vCard
 	 */
-	
 	public User(String username, String nickname, int image){
         if (D){
         	Log.v(LOG_TAG, "Made a person for the user " + username);
         }
         this.username = username;
         this.nickname = nickname;
-        this.image = image;
+        if (image == 0){
+        	this.image = R.drawable.question;
+        } else{
+            this.image = image;	
+        }
         allUsers.put(username, this);
-        username_to_person.put(username, this);
-        nickname_to_person.put(nickname, this);
+        nickname_to_user.put(nickname, this);
 	}
 	
 	// SETTERS AND GETTERS
@@ -58,13 +58,26 @@ public class User {
 	public String getNickname(){
         return nickname;
 	}
+	
+	/** @return - the int representation of the User's image */
+	public int getImage(){
+		return image;
+	}
+	
+	/** @return - the User's vCard */
+	public File getVCard(){
+		return vCard;
+	}
 
-	/** Change the user's nickname */
+	/** Change the user's nickname 
+	 * @param new_nickname - the User's new nickname
+	 */
+	// TODO: ask Design if we want this/if a User can have different nicks for each Space
 	public void setNickname(String new_nickname){
 	   nickname = new_nickname;
 	}
 	
-	/** All users with their JID as the key */
+	/** @return - all users with their JID as the key */
 	public static HashMap<String, User> getAllUsers() {
 		return allUsers;
 	} // end getAllUsers method
