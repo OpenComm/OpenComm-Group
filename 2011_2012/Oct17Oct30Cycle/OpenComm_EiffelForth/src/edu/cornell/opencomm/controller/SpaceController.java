@@ -14,6 +14,7 @@ import android.util.Log;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.Network;
+import edu.cornell.opencomm.view.SpaceView;
 
 /** An instance of this class is a space controller for each space (main space 
  * or private space), such as adding/deleting people from a space.

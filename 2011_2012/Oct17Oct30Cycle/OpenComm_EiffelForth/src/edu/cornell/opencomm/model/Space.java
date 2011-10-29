@@ -54,9 +54,9 @@ public class Space {
 	private SpaceController spaceCtrl;
 	
 	//Listeners (four of them)
-	private InvitationRejectionListener listener1;
+	/*private InvitationRejectionListener listener1;
 	private ParticipantStatusListener listener2;
-	private MessageListener listener3;
+	private MessageListener listener3;*/
 
 
 	/** CONSTRUCTOR: new space. Creates the SpaceController and, either creates or

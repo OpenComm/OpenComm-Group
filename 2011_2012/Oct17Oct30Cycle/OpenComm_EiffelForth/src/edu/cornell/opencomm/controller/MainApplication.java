@@ -238,17 +238,18 @@ public class MainApplication extends Activity{
     	}
     }
     
+    //TODO: uncomment try/catch once deleteSpace() is implemented
     /** Remove an existing PrivateSpace for yourself. Make sure to also delete the 
      * PrivateSpace's corresponding PrivateSpaceIconView and SpaceView. 
      * This method also called (by network) if someone else deleted a PrivateSpace that you
      * were a part of, or if you decided to leave but are not moderator of the space*/
     public void deletePrivateSpace(Space spaceToDelete){
-        try {
-			spaceToDelete.deletePrivateSpace();
-		} catch (XMPPException e) {
+        //try {
+			spaceToDelete.getSpaceController().deleteSpace();
+		//} catch (XMPPException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			//e.printStackTrace();
+		//}
     }
     
     /** Change the space whose contents the screen (spaceview) is showing. 
