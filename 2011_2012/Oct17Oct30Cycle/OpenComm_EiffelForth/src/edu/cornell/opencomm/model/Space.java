@@ -95,17 +95,19 @@ public class Space {
 			this.muc.join(MainApplication.user_primary.getNickname());
 		}
 		this.owner = owner;
-		// create controller and associate view
+		// create controllers and associate view
 		if (isMainSpace()) {
-			this.sController = new SpaceController(this,
+			sController = new SpaceController(this,
 					(SpaceView)((Activity) context).findViewById(R.id.space_view));
 			Space.mainSpace = this;
-			this.mController = new MessageController(this);
-			this.pController = new ParticipantController(this);
 		} else{
-			this.sController = new SpaceController(this,
+			sController = new SpaceController(this,
 					new SpaceView(context, Space.mainSpace));
 		}
+		this.mController = new MessageController(this);
+		this.pController = new ParticipantController(this);
+		this.iController = new InvitationController(this);
+		this.kController = new KickoutController(this);
 		// Create and instantiate all existing users
 		Iterator<String> occItr = this.muc.getOccupants();
 		while (occItr.hasNext()) {
@@ -152,7 +154,7 @@ public class Space {
 
 	/** @return - the Space Controller associated with this Space */
 	public SpaceController getSpaceController() {
-		return this.sController;
+		return sController;
 	} // end getSpaceController method
 
 	/** @return the KickoutController associated with this Space */
