@@ -20,7 +20,6 @@ import edu.cornell.opencomm.network.Network;
 public class InvitationController implements InvitationListener, InvitationRejectionListener {
 	private edu.cornell.opencomm.model.Invitation invitation;
 
-	
 	// Model variables
 	private Space mSpace;
 
@@ -34,7 +33,6 @@ public class InvitationController implements InvitationListener, InvitationRejec
 	public InvitationController(Space mSpace) {
 		this.mSpace = mSpace;
 	}
-
 
 	/** =============================================================================================
 	 * =============================================================================================
@@ -86,7 +84,7 @@ public class InvitationController implements InvitationListener, InvitationRejec
 	 * = Information of invitation request received when a non-owner tries to
 	 * invite a user to a space in String array format {requesterJID,
 	 * inviteeJID, inviteReason}
-	 * 
+	 *
 	 * @param inviteRequest
 	 *            - message sent to the room when a non-owner tries to invite a
 	 *            user to a room. Contains the InviteRequest Tag<br>
@@ -123,7 +121,7 @@ public class InvitationController implements InvitationListener, InvitationRejec
 	/**
 	 * Confirm an invitation request. Invite the invitee with the reaosn given
 	 * by the requester
-	 * 
+	 *
 	 * @param inviteInfo
 	 *            - String array: {requesterJID, inviteeJID, inviteReason}
 	 */
@@ -146,7 +144,7 @@ public class InvitationController implements InvitationListener, InvitationRejec
 	/**
 	 * Reject invitation request. Sends a message to the room rejecting the
 	 * invitation request along with the reason for the rejection
-	 * 
+	 *
 	 * @param inviteInfo
 	 *            - inviteInfo - String array: {requesterJID, inviteeJID,
 	 *            inviteReason}
@@ -185,17 +183,17 @@ public class InvitationController implements InvitationListener, InvitationRejec
 	/**
 	 * Called when a user who is not the owner of the room receives a rejection
 	 * for its invitation requests.
-	 * 
+	 *
 	 * @param inviteRequest
-	 *            - message sent to the room when a owner rejects an invitiation request
+	 *            - message sent to the room when a owner rejects an invitation request
 	 *            user to a room. Contains the Reject_Invite Tag<br>
 	 *            (format: (Network.REJECTT_INVITE)@requester(Requester's JID)@invitee
-	 *            (Invitee's JID)@reason(Invitation reason)@rejectionreason(Rejection 
+	 *            (Invitee's JID)@reason(Invitation reason)@rejectionreason(Rejection
 	 *            reason)
-	 *            
-	 * @return Information of rejection of invitation request received from the 
+	 *
+	 * @return Information of rejection of invitation request received from the
 	 * owner of the room in String array format {requesterJID,
-	 * inviteeJID, inviteReason, rejectionReason} 
+	 * inviteeJID, inviteReason, rejectionReason}
 	 */
 	public String[] receiveInvitationRequestRejection(String requestReject) {
 		// Check that the requestReject is valid

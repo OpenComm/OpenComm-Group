@@ -58,8 +58,6 @@ public class MainApplication extends Activity{
     		ViewGroup.LayoutParams.WRAP_CONTENT, 0.0f);
     public static final String PS_ID = "edu.cornell.opencomm.which_ps";
 
-
-
 	// A counter for spaces (to generate SpaceID's). TODO Will use for now, takeout later when add network
 	public static int space_counter= -1;
 
@@ -69,7 +67,7 @@ public class MainApplication extends Activity{
 	 * <ol>
 	 * <li>Create and open the main space and put the primary user (the user
 	 * that started this application) into the space</li>
-	 * <li>Initialize button functinality: main button</li>
+	 * <li>Initialize button functionality: main button</li>
 	 * </ol>
 	 * <b>Assumptions:</b>
 	 * <ul>
