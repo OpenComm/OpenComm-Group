@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  	xmlns:android="http://schemas.android.com/apk/res/android"
+  	android:layout_width="fill_parent"
+  	android:layout_height="fill_parent">
+   
+	<TextView 
+    	android:text = "Welcome to Opencomm!" 
+    	android:textAppearance="?android:attr/textAppearanceLarge" 
+    	android:layout_width="wrap_content" 
+    	android:layout_height="wrap_content" 
+   		android:id="@+id/welcome_text" 
+    	android:layout_alignParentTop="true" 
+    	android:layout_centerHorizontal="true" 
+   		android:layout_marginTop="22sp">
+    </TextView>
+    
+    <TextView 
+    	android:text="CommonLisp_Dylan Version" 
+    	android:textAppearance="?android:attr/textAppearanceMedium" 
+    	android:layout_width="wrap_content" 
+    	android:layout_height="wrap_content" 
+    	android:id="@+id/version_text" 
+    	android:layout_below="@+id/welcome_text" 
+    	android:layout_centerHorizontal="true">
+    </TextView>
+    
+    <TextView 
+    	android:text="Username" 
+    	android:textAppearance="?android:attr/textAppearanceLarge" 
+    	android:layout_width="wrap_content" 
+    	android:layout_height="wrap_content" 
+    	android:id="@+id/username_text" 
+    	android:layout_below="@+id/version_text" 
+    	android:layout_alignLeft="@+id/input_username" 
+    	android:layout_marginTop="32dp">
+    </TextView>
+    
+    <EditText 
+    	android:layout_width="wrap_content" 
+    	android:id="@+id/input_username" 
+    	android:layout_height="wrap_content" 
+    	android:layout_below="@+id/version_text" 
+    	android:layout_alignLeft="@+id/welcome_text" 
+    	android:layout_marginTop="59dp" 
+    	android:layout_alignRight="@+id/welcome_text">
+    </EditText>
+    
+    <TextView 
+    	android:text="Password" 
+    	android:textAppearance="?android:attr/textAppearanceLarge" 
+    	android:layout_width="wrap_content" 
+    	android:layout_height="wrap_content" 
+    	android:id="@+id/password_text" 
+    	android:layout_below="@+id/input_username" 
+    	android:layout_alignLeft="@+id/input_username">
+    </TextView>
+    
+    <EditText 
+    	android:inputType="textPassword" 
+    	android:layout_width="wrap_content"
+    	android:id="@+id/input_password" 
+    	android:layout_height="wrap_content" 
+    	android:layout_below="@+id/password_text" 
+    	android:layout_alignLeft="@+id/password_text" 
+    	android:layout_alignRight="@+id/input_username">
+    </EditText>
+    
+    <Button 
+    	android:text="Login" 
+    	android:layout_width="wrap_content" 
+    	android:id="@+id/login_button" 
+    	android:layout_height="wrap_content" 
+    	android:layout_below="@+id/input_password" 
+    	android:layout_alignLeft="@+id/input_password" 
+    	android:layout_marginTop="18dp" 
+    	android:layout_alignRight="@+id/input_password"
+    	android:onClick="handleLogin">
+    </Button>
+    
+</RelativeLayout>
