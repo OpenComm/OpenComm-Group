@@ -49,35 +49,35 @@ public class MessageController {
 					// if it is a invitation request:
 					if (body.contains(Network.REQUEST_INVITE)) {
 						if (D) Log.d(TAG, "configMessageListener - invitation request received");
-						String[] inviteInfo = mSpace.getSpaceController().receiveInvitationRequest(body);
+						String[] inviteInfo = mSpace.getInvitationController().receiveInvitationRequest(body);
 						// TODO - UI: some form of confirmation or rejection
 						boolean userDecision = true;
 						if (userDecision) {
 							// invite user to the room
-							mSpace.getSpaceController().confirmInvitationRequest(inviteInfo);
+							mSpace.getInvitationController().confirmInvitationRequest(inviteInfo);
 						}
 						else {
 							// Reject the invitation request
 							// TODO - UI: permit user to type reason for rejection
 							String reason = Network.DEFAULT_REJECT;
-							mSpace.getSpaceController().rejectInvitationRequest(inviteInfo, reason);
+							mSpace.getInvitationController().rejectInvitationRequest(inviteInfo, reason);
 						}
 					}
 					// if it is a kickout request:
 					else if (body.contains(Network.REQUEST_KICKOUT)) {
 						if (D) Log.d(TAG, "configMessageListener - kickout request received");
-						String[] kickoutInfo = mSpace.getSpaceController().receiveKickoutRequest(body);
+						String[] kickoutInfo = mSpace.getKickoutController().receiveKickoutRequest(body);
 						// TODO - UI: some form of confirmation or rejection
 						boolean userDecision = true;
 						if (userDecision) {
 							// kickout user from room
-							mSpace.getSpaceController().confirmKickoutRequest(kickoutInfo);
+							mSpace.getKickoutController().confirmKickoutRequest(kickoutInfo);
 						}
 						else {
 							// Reject the kickout request
 							// TODO - UI: permit user to type reason for rejection
 							String reason = Network.DEFAULT_REJECT;
-							mSpace.getSpaceController().rejectKickoutRequest(kickoutInfo, reason);
+							mSpace.getKickoutController().rejectKickoutRequest(kickoutInfo, reason);
 						}
 					}
 					// normal messages

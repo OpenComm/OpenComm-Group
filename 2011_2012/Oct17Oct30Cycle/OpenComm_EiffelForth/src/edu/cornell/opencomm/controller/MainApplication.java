@@ -353,7 +353,7 @@ public class MainApplication extends Activity{
      * you kicked someone out of the group (if you are moderator) 
      * @throws XMPPException */
     public void deletePerson(Space space, User person) throws XMPPException{
-		space.getSpaceController().kickoutUser(person, Network.DEFAULT_KICKOUT);
+		space.getKickoutController().kickoutUser(person, Network.DEFAULT_KICKOUT);
         LinearLayout screen = (LinearLayout)findViewById(R.id.space_view);
         screen.invalidate();
     }

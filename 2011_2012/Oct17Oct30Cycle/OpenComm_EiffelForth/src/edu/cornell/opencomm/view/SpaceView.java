@@ -314,7 +314,7 @@ import android.graphics.BitmapFactory;
 				for(PrivateSpaceIconView p : PrivateSpaceIconView.allPSIcons){
 					if(p.contains(mouseX, mouseY)){
 						p.setHighlighted(false);
-						(p.getSpace()).getSpaceController().inviteUser(selectedIcon.getPerson(), null);
+						(p.getSpace()).getInvitationController().inviteUser(selectedIcon.getPerson(), null);
 						/* Detect if icon was dropped into the empty PS or an existing PS.
 						 */
 						//if first icon dropped in space, make a new space

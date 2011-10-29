@@ -1,28 +1,25 @@
 package edu.cornell.opencomm.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.Form;
-import org.jivesoftware.smackx.muc.Affiliate;
-import org.jivesoftware.smackx.muc.InvitationRejectionListener;
 import org.jivesoftware.smackx.muc.MultiUserChat;
-import org.jivesoftware.smackx.pubsub.Affiliation;
 
+import android.app.Activity;
+import android.content.Context;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.controller.InvitationController;
+import edu.cornell.opencomm.controller.KickoutController;
 import edu.cornell.opencomm.controller.Login;
 import edu.cornell.opencomm.controller.MainApplication;
 import edu.cornell.opencomm.controller.SpaceController;
 import edu.cornell.opencomm.network.Network;
 import edu.cornell.opencomm.view.SpaceView;
 import edu.cornell.opencomm.view.UserView;
-import android.app.Activity;
-import android.content.Context;
-import android.util.Log;
 
 /** A Space is a chat room that holds a group of people who can talk to one
  * another. There are two types of Spaces: a single main space and many private
@@ -47,12 +44,14 @@ public class Space {
 	Context context;
 	boolean screen_on;
 	LinkedList<UserView> allIcons = new LinkedList<UserView>();
-	
+
 	// Network variables
 	private MultiUserChat muc;
 	private String roomID;
 	private SpaceController spaceCtrl;
-	
+	private KickoutController kickCtrl;
+	private InvitationController inviteCtrl;
+
 	//Listeners (four of them)
 	/*private InvitationRejectionListener listener1;
 	private ParticipantStatusListener listener2;
@@ -77,7 +76,7 @@ public class Space {
 	 * </ul>
 	 * @throws XMPPException - thrown if the room cannot be created, or configured
 	 */
-	public Space(Context context, boolean isMainSpace, String roomID, User owner) 
+	public Space(Context context, boolean isMainSpace, String roomID, User owner)
 			throws XMPPException {
 		// If the primary user is creating the space, join as owner
 		if (MainApplication.user_primary.equals(owner)) {
@@ -113,7 +112,7 @@ public class Space {
 				this.allParticipants.put(occJID, (User.getAllUsers().get(occJID)));
 			}
 			else {
-				this.allParticipants.put(occJID, new User(occJID, 
+				this.allParticipants.put(occJID, new User(occJID,
 					occJID.split("@")[0], R.drawable.question));
 			}
 		}
@@ -126,7 +125,7 @@ public class Space {
 	public HashMap<String, User> getAllParticipants() {
 		return allParticipants;
 	} // end getAllParticipants method
-	
+
 	/** @return - the id of this Space */
 	public String getRoomID() {
 		return roomID;
@@ -137,34 +136,42 @@ public class Space {
 		return isMainSpace;
 	} // end isMainSpace method
 
-	/** @return - the owner of this space. We assume there is only one owner 
+	/** @return - the owner of this space. We assume there is only one owner
 	 * and that there is no discrepancy of information between network and local */
 	public User getOwner() {
 		return this.owner;
 	} // end getOwner method
-	
+
 	/** @return - the MultiUserChat associated with this Space */
 	public MultiUserChat getMUC() {
 		return muc;
 	}
-	
+
 	/** @return - the Space Controller associated with this Space */
 	public SpaceController getSpaceController() {
 		return this.spaceCtrl;
 	} // end getSpaceController method
-	
+
+	public KickoutController getKickoutController() {
+		return this.kickCtrl;
+	}
+
+	public InvitationController getInvitationController() {
+		return this.inviteCtrl;
+	}
+
 	//TODO: move to Controller?
 	public boolean isScreenOn(){
 		return screen_on;
 	}
-	
+
 	public void setScreenOn(boolean isIt){
 		screen_on = isIt;
 	}
-	
+
 	public LinkedList<UserView> getAllIcons(){
 		return allIcons;
 	}
-	
+
 	//add getters for four listeners
 }
