@@ -40,7 +40,7 @@ public class User {
         this.nickname = nickname;
         if (image == 0){
         	this.image = R.drawable.question;
-        } else{
+        } else {
             this.image = image;	
         }
         allUsers.put(username, this);

@@ -15,7 +15,7 @@ import edu.cornell.opencomm.network.Network;
 
 /**
  * Controller class for MultiUserChat invitations
- * @author jonathanpullano, risanaka
+ * @author jonathanpullano, risanaka, kriskooi
  */
 public class InvitationController implements InvitationListener, InvitationRejectionListener {
 	private edu.cornell.opencomm.model.Invitation invitation;
@@ -55,8 +55,10 @@ public class InvitationController implements InvitationListener, InvitationRejec
 	 * (Network.REQUEST_INVITE); when it's shown, do not show the message;
 	 * rather, call the method confirmInvitationRequest method</p> */
 	public void inviteUser(User invitee, String reason) {
-		Occupant userOcc = this.mSpace.getMUC().getOccupant(MainApplication.user_primary.getUsername()
-				+ "/" + MainApplication.user_primary.getNickname());
+		Occupant userOcc = mSpace.getAllOccupants().get(MainApplication.user_primary.getUsername());
+		//DEBUG
+		Log.v(TAG, "Is userOcc valid for " + MainApplication.user_primary.getUsername()
+				+ (userOcc != null));
 		// if the primary user is the room's owner
 		if (userOcc.getAffiliation().equals(Network.ROLE_OWNER)) {
 			this.mSpace.getMUC().invite(invitee.getUsername(), ((reason == null) ? Network.DEFAULT_INVITE : reason));

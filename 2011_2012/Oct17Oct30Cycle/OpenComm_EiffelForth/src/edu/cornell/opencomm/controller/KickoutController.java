@@ -11,7 +11,7 @@ import edu.cornell.opencomm.network.Network;
 
 /**
  * Class to handle kickouts/kickout requests
- * @author jonathanpullano, risanaka
+ * @author jonathanpullano, risanaka, kriskooi
  *
  */
 public class KickoutController {
@@ -50,8 +50,10 @@ public class KickoutController {
 	 * @throws XMPPException
 	 */
 	public void kickoutUser(User kickMe, String reason) throws XMPPException {
-		Occupant userOcc = this.mSpace.getMUC().getOccupant(MainApplication.user_primary.getUsername()
-				+ "/" + MainApplication.user_primary.getNickname());
+		Occupant userOcc = mSpace.getAllOccupants().get(MainApplication.user_primary.getUsername());
+		//DEBUG
+		Log.v(TAG, "Is userOcc valid for " + MainApplication.user_primary.getUsername()
+				+ (userOcc != null));
 		// if the primary user is the room's owner
 		if (userOcc.getAffiliation().equals(Network.ROLE_OWNER)) {
 			this.mSpace.getMUC().kickParticipant(kickMe.getNickname(), reason);

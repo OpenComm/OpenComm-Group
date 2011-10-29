@@ -40,6 +40,8 @@ public class MainApplication extends Activity{
 	// Debugging
 	private static String TAG = "Controller.MainApplication"; // for error checking with logcat
 	private static boolean D = true;
+	private User debug;
+	private User debug1;
 
     public static LinkedList allBuddies; // Your buddy list! Has been previously saved from the network
     public static User user_primary;// the user of this program
@@ -56,6 +58,7 @@ public class MainApplication extends Activity{
     LinearLayout.LayoutParams PSparams = new LinearLayout.LayoutParams(
     		ViewGroup.LayoutParams.WRAP_CONTENT,
     		ViewGroup.LayoutParams.WRAP_CONTENT, 0.0f);
+
     public static final String PS_ID = "edu.cornell.opencomm.which_ps";
 
 	// A counter for spaces (to generate SpaceID's). TODO Will use for now, takeout later when add network
@@ -114,19 +117,47 @@ public class MainApplication extends Activity{
 
         //records keypad events
         screen.setOnKeyListener(onKeyListener);
+        
+		//DEBUG: create User object to test invitations and kickouts
+		debug = new User("opencommsec@jabber.org", "opencommsec", 0);
+		//for (Space s : Space.allSpaces) Log.v(TAG, s.getRoomID());
+		debug1 = new User("mucopencomm@jabber.org", "mucopencomm", 0);
     }
 
     public View.OnKeyListener onKeyListener = new View.OnKeyListener() {
 
 		@Override
 		public boolean onKey(View v, int keyCode, KeyEvent event) {
+			if (event.getAction()!=KeyEvent.ACTION_DOWN) {
+				return true;
+			}
 			switch (keyCode) {
 			case KeyEvent.KEYCODE_1: {
-				Log.v(TAG, "pressed 1 key - confirmation screen");
+				Log.v(TAG, "pressed M key - confirmation screen");
 				LayoutInflater inflater = (LayoutInflater) MainApplication.this
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				ConfirmationView confirmationView = new ConfirmationView(inflater);
 				confirmationView.launch();
+				break;
+			}
+			case KeyEvent.KEYCODE_M: {
+				// invite a user to the mainspace. Assume inviter is owner
+				int i = 0;
+				Log.v(TAG, "pressed N key - invitation" + i++);
+				(MainApplication.mainspace.getInvitationController()).inviteUser(debug, "You're fun!");
+				break;
+			}
+			case KeyEvent.KEYCODE_N: {
+				Log.v(TAG, "pressed B key - kickout");
+				try {
+					(MainApplication.mainspace.getKickoutController()).kickoutUser(debug, "You suck!");
+				} catch (XMPPException e) {
+					Log.d(TAG, "Couldn't kick!");
+				}
+				break;
+			}
+			case KeyEvent.KEYCODE_V: {
+				//Log.v(TAG, "pressed V key - participant controller");
 				break;
 			}
 			}
