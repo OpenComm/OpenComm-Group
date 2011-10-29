@@ -148,7 +148,7 @@ public class Space {
 	/** @return - the MultiUserChat associated with this Space */
 	public MultiUserChat getMUC() {
 		return muc;
-	}
+	} // end getMUC method
 
 	/** @return - the Space Controller associated with this Space */
 	public SpaceController getSpaceController() {
@@ -158,27 +158,27 @@ public class Space {
 	/** @return the KickoutController associated with this Space */
 	public KickoutController getKickoutController() {
 		return kController;
-	}
+	} // end getKickoutController method
 
 	/** @return the MessageController associated with this Space */
 	public MessageController getMessageController(){
 		return mController;
-	}
+	} // end getMessageController method
 
 	/** @return the InvitationController associated with this Space */
 	public InvitationController getInvitationController(){
 		return iController;
-	}
+	} // end getInvitationController method
 
 	/** @return the ParticipantController associated with this Space */
 	public ParticipantController getParticipantController(){
 		return pController;
-	}
+	} // end getParticipantController method
 
 	//TODO: move to Controller?
 	public boolean isScreenOn(){
 		return screen_on;
-	}
+	} // end isScreenOn method
 
 	public void setScreenOn(boolean isIt){
 		screen_on = isIt;

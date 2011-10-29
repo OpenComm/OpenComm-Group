@@ -37,16 +37,22 @@ public class KickoutController {
 	 */
 	public KickoutController(Space space) {
 		this.space = space;
-	}
+	} // end KickoutController constructor
 
+	/**
+	 * If you are the owner, kick the user from the chat
+	 * Otherwise, send out an invitation request
+	 * @param kickMe - The user to be kicked
+	 * @param reason - The reason string associated with the kick
+	 * @throws XMPPException
+	 */
 	public void kickoutUser(User kickMe, String reason) throws XMPPException {
 		if(kickMe.getUsername().equals(MainApplication.user_primary.getUsername())) {
 			this.space.getMUC().kickParticipant(kickMe.getNickname(), reason);
 		} else {
 			// TODO Jonathan - if not, send kickout request
 		}
-
-	}
+	} // end kickOutUser method
 
 	public String[] receiveKickoutRequest(String kickoutRequest) {
 		// Check the kickoutRequest is accurate
@@ -67,6 +73,7 @@ public class KickoutController {
 		Log.e(TAG, "receiveInvitationRequest - incorrectly called");
 		return null;
 	}
+
 	public void confirmKickoutRequest(String[] kickoutInfo) {
 		// TODO Risa - confirm kickout request
 	}
