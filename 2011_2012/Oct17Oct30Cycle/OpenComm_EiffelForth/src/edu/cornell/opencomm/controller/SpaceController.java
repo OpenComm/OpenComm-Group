@@ -3,6 +3,7 @@ package edu.cornell.opencomm.controller;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 
+import android.content.Context;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.view.SpaceView;
 
@@ -45,14 +46,9 @@ public class SpaceController {
 		}
 	} // end of deleteSpace method
 
-
-	/**
-	 *
-	 */
-	public void addSpace() {
-		if(MainApplication.user_primary.getUsername().equals(this.space.getOwner().getUsername())) {
-			//TODO: What do I do here? :X
-		}
+	public static void addSpace(Context context) throws XMPPException {
+		Space space = new Space(context, false, String.valueOf(MainApplication.space_counter++), MainApplication.user_primary);
+		Space.allSpaces.add(space);
 	} // end of addSpace method
 
 } // end Class SpaceController

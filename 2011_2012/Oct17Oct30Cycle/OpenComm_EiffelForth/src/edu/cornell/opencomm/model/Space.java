@@ -100,7 +100,7 @@ public class Space {
 			sController = new SpaceController(this,
 					(SpaceView)((Activity) context).findViewById(R.id.space_view));
 			Space.mainSpace = this;
-		} else{
+		} else {
 			sController = new SpaceController(this,
 					new SpaceView(context, Space.mainSpace));
 		}
