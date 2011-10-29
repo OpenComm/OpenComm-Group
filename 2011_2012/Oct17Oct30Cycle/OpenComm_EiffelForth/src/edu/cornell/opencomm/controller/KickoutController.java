@@ -1,6 +1,8 @@
 package edu.cornell.opencomm.controller;
 
 import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.packet.Message;
+import org.jivesoftware.smackx.muc.Occupant;
 
 import android.util.Log;
 import edu.cornell.opencomm.model.Space;
@@ -47,10 +49,26 @@ public class KickoutController {
 	 * @throws XMPPException
 	 */
 	public void kickoutUser(User kickMe, String reason) throws XMPPException {
-		if(kickMe.getUsername().equals(MainApplication.user_primary.getUsername())) {
+		Occupant userOcc = this.space.getMUC().getOccupant(MainApplication.user_primary.getUsername()
+				+ "/" + MainApplication.user_primary.getNickname());
+		// if the primary user is the room's owner
+		if (userOcc.getAffiliation().equals(Network.ROLE_OWNER)) {
 			this.space.getMUC().kickParticipant(kickMe.getNickname(), reason);
 		} else {
-			// TODO Jonathan - if not, send kickout request
+			// message containing kickout request tag, the username of the kicker,
+			// the username of the kickee, and the reason
+			Message msg = new Message(Network.REQUEST_KICKOUT + "@requester" +
+					MainApplication.user_primary.getUsername() + "@kickee" +
+					kickMe.getUsername() + "@reason" +
+					((reason == null) ? Network.DEFAULT_KICKOUT : reason),
+					Message.Type.groupchat);
+			try {
+				this.space.getMUC().sendMessage(msg);
+			} catch (XMPPException e) {
+				if (D) Log.d(TAG, "inviteUser - message not sent: "
+						+ e.getXMPPError().getCode() + " - " + e.getXMPPError().getMessage());
+				e.printStackTrace();
+			}
 		}
 	} // end kickOutUser method
 
