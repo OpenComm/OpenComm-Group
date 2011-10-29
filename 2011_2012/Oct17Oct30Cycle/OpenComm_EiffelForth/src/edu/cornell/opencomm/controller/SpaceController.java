@@ -1,5 +1,6 @@
 package edu.cornell.opencomm.controller;
 
+import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 
 import edu.cornell.opencomm.model.Space;
@@ -34,16 +35,24 @@ public class SpaceController {
 
 	} // end SpaceController method
 
-	public void deleteSpace() {
-		if(MainApplication.user_primary.getUsername().equals(this.space.getOwner().getUsername())) {
-			// TODO - Jonathan - Delete that misbehavin' space
+	/**
+	 * If you are the Owner, deletes the space.
+	 * @throws XMPPException
+	 */
+	public void deleteSpace() throws XMPPException {
+		if(MainApplication.user_primary.getUsername().equals(this.space.getOwner().getUsername()) && !this.space.isMainSpace()) {
+			this.space.getMUC().destroy(null, null);
 		}
-	}
+	} // end of deleteSpace method
 
+
+	/**
+	 *
+	 */
 	public void addSpace() {
 		if(MainApplication.user_primary.getUsername().equals(this.space.getOwner().getUsername())) {
-			// TODO - Jonathan - Add the space
+			//TODO: What do I do here? :X
 		}
-	}
+	} // end of addSpace method
 
 } // end Class SpaceController

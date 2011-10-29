@@ -10,20 +10,20 @@ import android.util.Log;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.network.Network;
 
-/** An instance of this class controls the messages sent to/from participants 
+/** An instance of this class controls the messages sent to/from participants
  * within a space.
  */
 public class MessageController {
 	// Debugging
 	private static final String TAG = "Controller.MessageController";
 	private static final boolean D = true;
-	
+
 	// Model variables
 	private Space mSpace;
-	
+
 	// Network variable
 	private MultiUserChat muc;
-	
+
 	/** Constructor: a new message controller for a specified space
 	 * @param mSpace - the space within which the messages are sent and received
 	 */
@@ -32,17 +32,18 @@ public class MessageController {
 		this.muc = this.mSpace.getMUC();
 		this.muc.addMessageListener(this.configMessageListener());
 	}
-	
+
 	/** = configuration of message listener */
 	public PacketListener configMessageListener() {
 		PacketListener messageListener = new PacketListener() {
 			/** Process the messages coming in in packets */
+			@Override
 			public void processPacket(Packet packet) {
 				Message message = (Message) packet;
 				String from = message.getFrom();
 				String body = message.getBody();
 				// if the primary user is the owner of the room
-				Occupant userOcc = muc.getOccupant(MainApplication.user_primary.getUsername() 
+				Occupant userOcc = muc.getOccupant(MainApplication.user_primary.getUsername()
 						+ "/" + MainApplication.user_primary.getNickname());
 				// if the primary user is the room's owner
 				if (userOcc.getAffiliation().equals(Network.ROLE_OWNER)) {
@@ -80,32 +81,37 @@ public class MessageController {
 							mSpace.getKickoutController().rejectKickoutRequest(kickoutInfo, reason);
 						}
 					}
-					// normal messages
-					else {
-						if (D) Log.d(TAG, "Regular message received");
-					}
+
 				}
 				// if the primary user is not the owner of the room
 				else {
 					// listen for rejection of invitation request
 					if (body.contains(Network.REJECT_INVITE)) {
-						
+
 					}
 					// listen for rejection of invitation request
 					else if (body.contains(Network.REJECT_INVITE)) {
-						
+
+					}
+					// listen for delete requests
+					else if (body.contains(Network.REQUEST_DELETE)) {
+						if (D) Log.d(TAG, "configMessageListener - delete request received");
+						String requester = (body.split("@requester")[0]).split("@deletee")[0];
+						if(mSpace.getOwner().getUsername().equals(requester)) {
+
+						}
 					}
 					// normal messages
 					else {
 						if (D) Log.d(TAG, "Regular message received");
 					}
 				}
-				
 
-				
+
+
 			}
 		};
 		return messageListener;
-		
+
 	} // end configMessageListener method
 } // end Class MessageController
