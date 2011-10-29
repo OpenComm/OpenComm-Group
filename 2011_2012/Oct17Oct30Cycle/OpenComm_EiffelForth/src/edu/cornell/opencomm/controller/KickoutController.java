@@ -11,7 +11,7 @@ import edu.cornell.opencomm.network.Network;
 
 /**
  * Class to handle kickouts/kickout requests
- * @author jonathanpullano
+ * @author jonathanpullano, risanaka
  *
  */
 public class KickoutController {
@@ -19,7 +19,7 @@ public class KickoutController {
 	private static final String TAG = "KickoutController";
 	private static final boolean D = true;
 
-	private Space space;
+	private Space mSpace;
 
 
 	/** ==========================================
@@ -35,10 +35,11 @@ public class KickoutController {
 
 	/**
 	 * Constructor
-	 * @param space - The space associated with this control
+	 * @param mSpace - The space associated with this control
 	 */
+
 	public KickoutController(Space space) {
-		this.space = space;
+		this.mSpace = space;
 	} // end KickoutController constructor
 
 	/**
@@ -49,11 +50,14 @@ public class KickoutController {
 	 * @throws XMPPException
 	 */
 	public void kickoutUser(User kickMe, String reason) throws XMPPException {
-		Occupant userOcc = this.space.getMUC().getOccupant(MainApplication.user_primary.getUsername()
+		Occupant userOcc = this.mSpace.getMUC().getOccupant(MainApplication.user_primary.getUsername()
 				+ "/" + MainApplication.user_primary.getNickname());
 		// if the primary user is the room's owner
 		if (userOcc.getAffiliation().equals(Network.ROLE_OWNER)) {
-			this.space.getMUC().kickParticipant(kickMe.getNickname(), reason);
+			this.mSpace.getMUC().kickParticipant(kickMe.getNickname(), reason);
+		}
+		if(kickMe.getUsername().equals(MainApplication.user_primary.getUsername())) {
+			this.mSpace.getMUC().kickParticipant(kickMe.getNickname(), reason);
 		} else {
 			// message containing kickout request tag, the username of the kicker,
 			// the username of the kickee, and the reason
@@ -63,7 +67,7 @@ public class KickoutController {
 					((reason == null) ? Network.DEFAULT_KICKOUT : reason),
 					Message.Type.groupchat);
 			try {
-				this.space.getMUC().sendMessage(msg);
+				this.mSpace.getMUC().sendMessage(msg);
 			} catch (XMPPException e) {
 				if (D) Log.d(TAG, "inviteUser - message not sent: "
 						+ e.getXMPPError().getCode() + " - " + e.getXMPPError().getMessage());
@@ -104,7 +108,7 @@ public class KickoutController {
 				Log.d(TAG,
 						"receiveKickoutRequest - received kickout request from "
 								+ kickoutInfo[0] + " for room "
-								+ this.space.getRoomID() + " for user "
+								+ this.mSpace.getRoomID() + " for user "
 								+ kickoutInfo[1] + ": reason - "
 								+ kickoutInfo[2]);
 			return kickoutInfo;
@@ -131,7 +135,7 @@ public class KickoutController {
 				Log.d(TAG,
 						"confirmKickoutRequest - confirmed kickout request from "
 								+ kickoutInfo[0] + " for room "
-								+ this.space.getRoomID() + " for user "
+								+ this.mSpace.getRoomID() + " for user "
 								+ kickoutInfo[1] + " (reason - "
 								+ kickoutInfo[2] + ")");
 		}
@@ -147,7 +151,7 @@ public class KickoutController {
 					+ (reason == null ? Network.DEFAULT_REJECT : reason),
 					Message.Type.groupchat);
 			try {
-				space.getMUC().sendMessage(msg);
+				this.mSpace.getMUC().sendMessage(msg);
 			} catch (XMPPException e) {
 				if (D)
 					Log.d(TAG, "rejectKickoutRequest - message not sent: "
@@ -161,7 +165,7 @@ public class KickoutController {
 			Log.d(TAG,
 					"rejectKickoutRequest - rejected kickout request from "
 							+ kickoutInfo[0] + " for room "
-							+ space.getRoomID() + " for user "
+							+ mSpace.getRoomID() + " for user "
 							+ kickoutInfo[1] + "(reason - " + kickoutInfo[2]
 							+ ") : rejection reason - " + reason);
 	} // end rejectKickoutRequest method
@@ -187,7 +191,7 @@ public class KickoutController {
 				if (D)
 					Log.d(TAG, "receiveKickoutRequestRejection - received "
 							+ "rejection of kickout request " + " for room "
-							+ space.getRoomID() + " for user "
+							+ mSpace.getRoomID() + " for user "
 							+ rejectInfo[1] + "(reason - " + rejectInfo[2]
 							+ ": reason - " + rejectInfo[3]);
 				return rejectInfo;
