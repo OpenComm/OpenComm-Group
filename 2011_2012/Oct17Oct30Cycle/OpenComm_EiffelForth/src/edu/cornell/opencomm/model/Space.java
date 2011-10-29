@@ -16,6 +16,8 @@ import edu.cornell.opencomm.controller.InvitationController;
 import edu.cornell.opencomm.controller.KickoutController;
 import edu.cornell.opencomm.controller.Login;
 import edu.cornell.opencomm.controller.MainApplication;
+import edu.cornell.opencomm.controller.MessageController;
+import edu.cornell.opencomm.controller.ParticipantController;
 import edu.cornell.opencomm.controller.SpaceController;
 import edu.cornell.opencomm.network.Network;
 import edu.cornell.opencomm.view.SpaceView;
@@ -48,14 +50,13 @@ public class Space {
 	// Network variables
 	private MultiUserChat muc;
 	private String roomID;
-	private SpaceController spaceCtrl;
-	private KickoutController kickCtrl;
-	private InvitationController inviteCtrl;
 
-	//Listeners (four of them)
-	/*private InvitationRejectionListener listener1;
-	private ParticipantStatusListener listener2;
-	private MessageListener listener3;*/
+	//Controllers
+	private MessageController mController;
+	private ParticipantController pController;
+	private InvitationController iController;
+	private SpaceController sController;
+	private KickoutController kController;
 
 
 	/** CONSTRUCTOR: new space. Creates the SpaceController and, either creates or
@@ -96,11 +97,13 @@ public class Space {
 		this.owner = owner;
 		// create controller and associate view
 		if (isMainSpace()) {
-			this.spaceCtrl = new SpaceController(this,
+			this.sController = new SpaceController(this,
 					(SpaceView)((Activity) context).findViewById(R.id.space_view));
 			Space.mainSpace = this;
+			this.mController = new MessageController(this);
+			this.pController = new ParticipantController(this);
 		} else{
-			this.spaceCtrl = new SpaceController(this,
+			this.sController = new SpaceController(this,
 					new SpaceView(context, Space.mainSpace));
 		}
 		// Create and instantiate all existing users
@@ -149,15 +152,27 @@ public class Space {
 
 	/** @return - the Space Controller associated with this Space */
 	public SpaceController getSpaceController() {
-		return this.spaceCtrl;
+		return this.sController;
 	} // end getSpaceController method
 
+	/** @return the KickoutController associated with this Space */
 	public KickoutController getKickoutController() {
-		return this.kickCtrl;
+		return kController;
 	}
 
-	public InvitationController getInvitationController() {
-		return this.inviteCtrl;
+	/** @return the MessageController associated with this Space */
+	public MessageController getMessageController(){
+		return mController;
+	}
+
+	/** @return the InvitationController associated with this Space */
+	public InvitationController getInvitationController(){
+		return iController;
+	}
+
+	/** @return the ParticipantController associated with this Space */
+	public ParticipantController getParticipantController(){
+		return pController;
 	}
 
 	//TODO: move to Controller?
@@ -174,4 +189,5 @@ public class Space {
 	}
 
 	//add getters for four listeners
-}
+} // end Class Space
+
