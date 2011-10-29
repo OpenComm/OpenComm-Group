@@ -1,6 +1,7 @@
 package edu.cornell.opencomm.controller;
 
 import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.packet.Message;
 
 import android.util.Log;
 import edu.cornell.opencomm.model.Space;
@@ -9,7 +10,7 @@ import edu.cornell.opencomm.network.Network;
 
 /**
  * Class to handle kickouts/kickout requests
- * @author jonathanpullano
+ * @author jonathanpullano, risanaka
  *
  */
 public class KickoutController {
@@ -17,7 +18,7 @@ public class KickoutController {
 	private static final String TAG = "KickoutController";
 	private static final boolean D = true;
 
-	private Space space;
+	private Space mSpace;
 
 
 	/** ==========================================
@@ -33,15 +34,15 @@ public class KickoutController {
 
 	/**
 	 * Constructor
-	 * @param space - The space associated with this control
+	 * @param mSpace - The space associated with this control
 	 */
-	public KickoutController(Space space) {
-		this.space = space;
+	public KickoutController(Space mSpace) {
+		this.mSpace = mSpace;
 	}
 
 	public void kickoutUser(User kickMe, String reason) throws XMPPException {
 		if(kickMe.getUsername().equals(MainApplication.user_primary.getUsername())) {
-			this.space.getMUC().kickParticipant(kickMe.getNickname(), reason);
+			this.mSpace.getMUC().kickParticipant(kickMe.getNickname(), reason);
 		} else {
 			// TODO Jonathan - if not, send kickout request
 		}
@@ -123,7 +124,7 @@ public class KickoutController {
 					+ (reason == null ? Network.DEFAULT_REJECT : reason),
 					Message.Type.groupchat);
 			try {
-				this.muc.sendMessage(msg);
+				this.mSpace.getMUC().sendMessage(msg);
 			} catch (XMPPException e) {
 				if (D)
 					Log.d(TAG, "rejectKickoutRequest - message not sent: "

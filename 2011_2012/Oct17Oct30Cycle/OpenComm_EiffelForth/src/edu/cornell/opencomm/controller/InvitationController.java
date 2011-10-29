@@ -15,23 +15,24 @@ import edu.cornell.opencomm.network.Network;
 
 /**
  * Controller class for MultiUserChat invitations
- * @author jonathan
- *
+ * @author jonathanpullano, risanaka
  */
 public class InvitationController implements InvitationListener, InvitationRejectionListener {
 	private edu.cornell.opencomm.model.Invitation invitation;
 
-	private Space space;
+	
+	// Model variables
+	private Space mSpace;
 
 	private static final String TAG = "SpaceController";
 	private static final boolean D = true;
 
 	/**
 	 * Constructor
-	 * @param space - The space associated with this controller
+	 * @param mSpace - The space associated with this controller
 	 */
-	public InvitationController(Space space) {
-		this.space = space;
+	public InvitationController(Space mSpace) {
+		this.mSpace = mSpace;
 	}
 
 
@@ -56,11 +57,11 @@ public class InvitationController implements InvitationListener, InvitationRejec
 	 * (Network.REQUEST_INVITE); when it's shown, do not show the message;
 	 * rather, call the method confirmInvitationRequest method</p> */
 	public void inviteUser(User invitee, String reason) {
-		Occupant userOcc = this.space.getMUC().getOccupant(MainApplication.user_primary.getUsername()
+		Occupant userOcc = this.mSpace.getMUC().getOccupant(MainApplication.user_primary.getUsername()
 				+ "/" + MainApplication.user_primary.getNickname());
 		// if the primary user is the room's owner
 		if (userOcc.getAffiliation().equals(Network.ROLE_OWNER)) {
-			this.space.getMUC().invite(invitee.getUsername(), ((reason == null) ? Network.DEFAULT_INVITE : reason));
+			this.mSpace.getMUC().invite(invitee.getUsername(), ((reason == null) ? Network.DEFAULT_INVITE : reason));
 		}
 		// send message to owner invitation request
 		else {
@@ -72,7 +73,7 @@ public class InvitationController implements InvitationListener, InvitationRejec
 					((reason == null) ? Network.DEFAULT_INVITE : reason),
 					Message.Type.groupchat);
 			try {
-				this.space.getMUC().sendMessage(msg);
+				this.mSpace.getMUC().sendMessage(msg);
 			} catch (XMPPException e) {
 				if (D) Log.d(TAG, "inviteUser - message not sent: "
 						+ e.getXMPPError().getCode() + " - " + e.getXMPPError().getMessage());
@@ -162,7 +163,7 @@ public class InvitationController implements InvitationListener, InvitationRejec
 					+ (reason == null ? Network.DEFAULT_REJECT : reason),
 					Message.Type.groupchat);
 			try {
-				this.muc.sendMessage(msg);
+				this.mSpace.getMUC().sendMessage(msg);
 			} catch (XMPPException e) {
 				if (D)
 					Log.d(TAG, "rejectInvitationRequest - message not sent: "
