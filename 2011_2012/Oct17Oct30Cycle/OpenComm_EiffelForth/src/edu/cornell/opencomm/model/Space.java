@@ -14,8 +14,11 @@ import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.pubsub.Affiliation;
 
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.controller.InvitationController;
 import edu.cornell.opencomm.controller.Login;
 import edu.cornell.opencomm.controller.MainApplication;
+import edu.cornell.opencomm.controller.MessageController;
+import edu.cornell.opencomm.controller.ParticipantController;
 import edu.cornell.opencomm.controller.SpaceController;
 import edu.cornell.opencomm.network.Network;
 import edu.cornell.opencomm.view.SpaceView;
@@ -51,12 +54,12 @@ public class Space {
 	// Network variables
 	private MultiUserChat muc;
 	private String roomID;
-	private SpaceController spaceCtrl;
 	
-	//Listeners (four of them)
-	/*private InvitationRejectionListener listener1;
-	private ParticipantStatusListener listener2;
-	private MessageListener listener3;*/
+	//Controllers
+	private MessageController mController;
+	private ParticipantController pController;
+	private InvitationController iController;
+	private SpaceController spaceCtrl;
 
 
 	/** CONSTRUCTOR: new space. Creates the SpaceController and, either creates or
@@ -152,6 +155,21 @@ public class Space {
 	public SpaceController getSpaceController() {
 		return this.spaceCtrl;
 	} // end getSpaceController method
+	
+	/** @return the MessageController associated with this Space */
+	public MessageController getMessageController(){
+		return mController;
+	}
+	
+	/** @return the InvitationController associated with this Space */
+	public InvitationController getInvitationController(){
+		return iController;
+	}
+	
+	/** @return the ParticipantController associated with this Space */
+	public ParticipantController getParticipantController(){
+		return pController;
+	}
 	
 	//TODO: move to Controller?
 	public boolean isScreenOn(){
