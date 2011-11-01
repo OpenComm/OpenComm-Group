@@ -9,11 +9,25 @@ public class PrivateSpaceIconController {
 		this.PSIcon = icon;
 	}
 
-	/** If simply clicked a PrivateSpace Icon without dragging it then 
-	 * toggle between highlighted and unhighlighted
+	/** If clicked a first time (down AND up), then...
+	 * 1) Set the icon to a selected state
+	 * 2) Notify the PrivatespacePreviewPopupController to open up
+	 * a PrivateSpacePreviewPopup for this space 
 	 */
-	public void handleSimpleClick(){
-		PSIcon.toggleSelected();
+	public void handleFirstClick(){
+		PSIcon.setSelected(true);
+		// TODO (2)
+	}
+	
+	/** If clicked a second time (down AND up) after the button has already been
+	 * selected, then...
+	 *  1) Set the icon to an unselected state
+	 *  2) notify the PrivateSpacePreviewPopupController to close the
+	 *  PrivateSpacePreviewPopup
+	 */
+	public void handleSecondClick(){
+		PSIcon.setSelected(false);
+		// TODO (2)
 	}
 	
 	/** If a UserView was dragged on top of a Private Space Icon
