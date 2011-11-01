@@ -250,4 +250,10 @@ public class PrivateSpaceIconView extends ImageButton{
     public void setPreview(boolean open){
     	showPreview= open;
     }
+    
+    /** Toggle between being selected and not selected */
+    public void toggleSelected(){
+    	isSelected = !isSelected;
+    }
+   
 }

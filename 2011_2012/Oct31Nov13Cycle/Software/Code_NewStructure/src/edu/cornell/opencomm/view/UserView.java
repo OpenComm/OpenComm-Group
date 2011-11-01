@@ -138,6 +138,11 @@ public class UserView extends ImageButton{
         y = newY;
 	}
 	
+	public void setXY(int newX, int newY){
+		x = newX;
+		y = newY;
+	}
+	
 	/* Create paint */
 	public void setPaint(){
 		paint = new Paint();
