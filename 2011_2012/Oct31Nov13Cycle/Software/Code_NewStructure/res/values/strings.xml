@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello</string>
+    <string name="app_name">OpenComm_EiffelForth</string>
+    <string name="delete_text">Delete?</string>
+<string name="trash_button_text">Trash</string>
+<string name="main_button_text">Main</string>
+<string name="add_button_text">Add</string>
+<color name="light_gray">#ffcccccc</color>
+<color name="gray">#ff888888</color>
+<color name="scroll_background">#FAB10000</color>
+<color name="main_background">#747574</color>
+
+<color name="black">#000000</color>
+<color name="transparent_black">#DA000000</color>
+
+<color name="dark_grey">#333333</color>
+<color name="light_grey">#878787</color>
+<color name="off_white">#F5F5F5</color>
+<color name="green">#AEE278</color>
+<color name="orange">#FFAB63</color>
+<color name="blue">#94C4FF</color>
+<color name="teal">#9DF6FF</color>
+
+<string name="font_chosen">Datum</string>
+ 
+</resources>
