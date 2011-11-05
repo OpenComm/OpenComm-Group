@@ -5,6 +5,7 @@ import org.jivesoftware.smackx.muc.MultiUserChat;
 
 import android.content.Context;
 import edu.cornell.opencomm.model.Space;
+import edu.cornell.opencomm.view.PrivateSpaceIconView;
 import edu.cornell.opencomm.view.SpaceView;
 
 /** An instance of this class is a space controller for each space (main space
@@ -49,6 +50,7 @@ public class SpaceController {
 	public static void addSpace(Context context) throws XMPPException {
 		Space space = new Space(context, false, String.valueOf(MainApplication.space_counter++), MainApplication.user_primary);
 		Space.allSpaces.add(space);
+		PrivateSpaceIconView psiv= new PrivateSpaceIconView(context, space);
 	} // end of addSpace method
 	 
 

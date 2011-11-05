@@ -175,6 +175,15 @@ public class MainApplication extends Activity{
 				} */
 				break;
 			}
+			case KeyEvent.KEYCODE_S: {
+				Log.v(TAG, "Pressed S key - create a new private space");
+				try{
+				SpaceController.addSpace((Context)MainApplication.screen.getContext());
+				} catch (XMPPException e){
+					Log.v(TAG, "Can't create another private space :(");
+				}
+				break;
+			}
 			}
 			;
 			return true;
@@ -226,7 +235,7 @@ public class MainApplication extends Activity{
      * however in addition need to notify the network of the newly created
      * Private Space
      * @throws XMPPException */
-    public Space init_createPrivateSpace(boolean isMainSpace) throws XMPPException{
+  //  public Space init_createPrivateSpace(boolean isMainSpace) throws XMPPException{
 
         /* TODO network:
          * 1) Notify network of new private space to create
@@ -234,9 +243,9 @@ public class MainApplication extends Activity{
          * 3) Should perhaps return an id# for this space? Put it in the newSpaceID variable, or you
          * can keep the space_counter that is already implemented
          */
-        int newSpaceID=space_counter++;
+    /*    int newSpaceID=space_counter++;
 		return createPrivateSpace(true, isMainSpace, null, String.valueOf(newSpaceID), user_primary);
-    }
+    } */
 
     /** Create a new Private Space, makes sure to put yourself (User) in the
      * Private Space. The creation can be done in the PrivateSpace constructor,

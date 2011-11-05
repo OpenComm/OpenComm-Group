@@ -248,9 +248,7 @@ import android.graphics.BitmapFactory;
 					clickOnIcon = true;
 					//Crystal Q
 					if(initialIcon == selectedIcon){
-						dim=true;
 						Log.v(LOG_TAG, "Double CLICK");
-						//doubleClicktoDelete(selectedIcon);
 						// TODO Crystal - need to change this to a press and hold
 						// not a double click
 						if(MainApplication.user_primary == MainApplication.screen.getSpace().getOwner()){

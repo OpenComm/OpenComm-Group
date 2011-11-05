@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.R.color;
 import edu.cornell.opencomm.controller.MainApplication;
+import edu.cornell.opencomm.controller.PrivateSpaceIconController;
 import edu.cornell.opencomm.model.Space;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -34,6 +35,9 @@ public class PrivateSpaceIconView extends ImageButton{
     public static int colorInt = -1; // the current color
     private int color = Color.BLUE; // this icons color
     
+    /** PrivateSpaceIconController */
+    PrivateSpaceIconController privateSpaceIconController;
+    
     /** States of the icon */
     boolean isSelected=false; // if this is true, then the icon should appear highlighted/darkened
     boolean isHighlighted=false; // if this is true, should also provide some feedback
@@ -46,6 +50,7 @@ public class PrivateSpaceIconView extends ImageButton{
     	super(context);
     	this.context = context;
         this.space = space;
+        privateSpaceIconController = new PrivateSpaceIconController(this);
         addThisPSView();
         initColors();
         initTouch();
@@ -56,6 +61,7 @@ public class PrivateSpaceIconView extends ImageButton{
     	super(context, attrs, defStyle);
     	this.context = context;
     	this.space = parent;
+    	 privateSpaceIconController = new PrivateSpaceIconController(this);
         addThisPSView();
         initColors();
         initTouch();
@@ -66,6 +72,7 @@ public class PrivateSpaceIconView extends ImageButton{
     	super(context, attrs);
     	this.context = context;
     	this.space = parent;
+    	 privateSpaceIconController = new PrivateSpaceIconController(this);
         addThisPSView();
         initColors();
         initTouch();

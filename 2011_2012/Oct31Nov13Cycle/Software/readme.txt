@@ -9,7 +9,7 @@ Nora
 
 ********For Integration Team 11/5/11 - Risa and Nora*********
 
-ISSUES:
+ISSUES and NOTES:
 
 1) When I call inviteUser() from the invitationController class, it gives a popup on the network to the user to accept or decline the invitation, which is as expected. However, 80% of the time it will not call join() after I have accepted the invite using Pidgin. Please, make sure join() is always called. 
 
@@ -18,4 +18,6 @@ Thus, I made a semi-hack. I created a new joined() method within the Participant
 To call joined(), all you need to do is press the J key, which should add mucopencomm to the mainspace.
 
 2) UI team has not yet changed the double click to a press and hold, however it will be done soon. In the meantime, once we have double-clicked we call kickoutUser() from KickoutListener class. Everytime we try and delete a person however, we keep on getting an XMPP Exception with my error message "Darn, can't kick this person out!". Could you take a look at this?
+
+3) I made it so that the S key would initiate new private spaces. 
 
