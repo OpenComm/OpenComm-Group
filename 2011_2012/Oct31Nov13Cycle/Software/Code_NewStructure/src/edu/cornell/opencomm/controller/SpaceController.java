@@ -50,5 +50,6 @@ public class SpaceController {
 		Space space = new Space(context, false, String.valueOf(MainApplication.space_counter++), MainApplication.user_primary);
 		Space.allSpaces.add(space);
 	} // end of addSpace method
+	 
 
 } // end Class SpaceController

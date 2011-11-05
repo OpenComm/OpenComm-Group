@@ -23,7 +23,7 @@ public class InvitationController implements InvitationListener, InvitationRejec
 	// Model variables
 	private Space mSpace;
 
-	private static final String TAG = "SpaceController";
+	private static final String TAG = "InvitationController";
 	private static final boolean D = true;
 
 	/**

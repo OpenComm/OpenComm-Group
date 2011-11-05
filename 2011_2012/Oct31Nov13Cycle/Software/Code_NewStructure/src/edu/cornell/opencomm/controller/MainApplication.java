@@ -1,13 +1,19 @@
 package edu.cornell.opencomm.controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
 
+import org.jivesoftware.smack.Roster;
+import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -158,6 +164,15 @@ public class MainApplication extends Activity{
 			}
 			case KeyEvent.KEYCODE_V: {
 				//Log.v(TAG, "pressed V key - participant controller");
+				break;
+			}
+			case KeyEvent.KEYCODE_J: {
+				Log.v(TAG, "Pressed J key - join");
+				//try{
+					MainApplication.mainspace.getParticipantController().joined("roomname@conference.jabber.org/" + debug1.getNickname());
+				/*}catch (XMPPException e){
+					Log.d(TAG, "Couldn't join!");
+				} */
 				break;
 			}
 			}
@@ -444,83 +459,5 @@ public class MainApplication extends Activity{
 			}
 		});
 	}
-
-	/** ========================================================================
-	 * =========================================================================
-	 * ========================================================================
-	 * ========================================================================
-	 * ========================================================================
-	 *
-	 * Move code below to appropriate Model and Controller classes
-	 */
-	/**
-	// This function builds a dialog for buddylist
-	public void showBuddyList(){
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-		class DialogSelectionClickHandler implements DialogInterface.OnMultiChoiceClickListener
-		{
-			public void onClick( DialogInterface dialog, int clicked, boolean selected )
-			{
-				//Do Nothing
-			}
-		}
-
-
-		class DialogButtonClickHandler implements DialogInterface.OnClickListener
-		{
-			public void onClick( DialogInterface dialog, int clicked )
-			{
-				switch( clicked )
-				{
-					case DialogInterface.BUTTON_POSITIVE:
-//						for( int i = 0; i < _options.length; i++ ){
-//							Log.i( "ME", _options[i] + " selected: " + _selections[i] );
-//						}
-					try {
-						addFromBuddyList();
-					} catch (XMPPException e) {
-						e.printStackTrace();
-					}
-
-						break;
-				}
-			}
-		}
-		updateBuddyList();
-		builder.setTitle( "Buddylist" )
-    		    .setMultiChoiceItems( buddyList, buddySelection, new DialogSelectionClickHandler() )
-    		    .setPositiveButton( "OK", new DialogButtonClickHandler() )
-    		    .create();
-		AlertDialog alert = builder.create();
-		alert.show();
-	}
-
-
-	// Add users from the buddylist dialog to the main space
-	public void addFromBuddyList() throws XMPPException{
-		for( int i = 0; i < buddySelection.length; i++ ){
-			if(buddySelection[i]){
-				username = (String) buddyList[i];
-				User p = new User(username + "@jabber.org", username, R.drawable.question);
-				if (D) Log.d(LOG_TAG, "Adding person " + username + " to mainspace");
-	        	initAddPerson(mainspace, p);
-			}
-		}
-	} // end addFromBuddyList method
-
-	// Updates the buddylist and the boolean selection array
-	public void updateBuddyList() {
-		// obtain current buddylist from server
-		Roster xmppRoster = Login.xmppService.getXMPPConnection().getRoster();
-		Collection<RosterEntry> entryCollection = xmppRoster.getEntries();
-		Iterator<RosterEntry> entryItr = entryCollection.iterator();
-		buddyList = new CharSequence[entryCollection.size()];
-		int i = 0;
-		while (entryItr.hasNext()) {
-			buddyList[i++] = entryItr.next().getUser().split("@")[0];
-		}
-		buddySelection = new boolean[buddyList.length];
-	} // end updateBuddyList method
-	*/
+	
 }

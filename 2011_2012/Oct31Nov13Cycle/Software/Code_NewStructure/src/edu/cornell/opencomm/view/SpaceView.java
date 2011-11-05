@@ -7,7 +7,9 @@ import org.jivesoftware.smack.XMPPException;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.R.color;
+import edu.cornell.opencomm.controller.ContactListController;
 import edu.cornell.opencomm.controller.MainApplication;
+import edu.cornell.opencomm.controller.SpaceViewController;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.model.Space;
 
@@ -48,6 +50,10 @@ import android.graphics.BitmapFactory;
     UserView initialIcon;
     private boolean dim=false;
     
+    // Controllers
+    SpaceViewController spaceViewController = new SpaceViewController(this);
+    ContactListController contactListController;
+    
     
     /* Constructor: This one is used by the XML file to automatically generate
      * a SpaceView
@@ -57,6 +63,7 @@ import android.graphics.BitmapFactory;
     	this.context = context;
     	setFocusable(true);
     	setFocusableInTouchMode(true);
+    	contactListController = new ContactListController(context, this);
     	Log.v(LOG_TAG, "Made SpaceView for XML file");
     	Log.v(LOG_TAG, "New allIcons attri");
     	setupImage();
@@ -70,6 +77,7 @@ import android.graphics.BitmapFactory;
         space = parent_space;
         setFocusable(true);
         setFocusableInTouchMode(true);
+    	contactListController = new ContactListController(context, this);
         Log.v(LOG_TAG, "Made SpaceView for a self-created space");
         Log.v(LOG_TAG, "New allIcons normal");
         setupImage();
@@ -152,6 +160,7 @@ import android.graphics.BitmapFactory;
       * 5) Trashcan icon // -changed to a delete button
       */
      protected void onDraw(Canvas canvas){
+		  Log.v(LOG_TAG, "In SpaceView's onDraw");
     	 //(1)
     	 canvas.drawColor(getColor());
     	 //(1b)
@@ -179,6 +188,10 @@ import android.graphics.BitmapFactory;
     	 }
      
  }
+     public SpaceViewController getSpaceViewController(){
+    	 return spaceViewController;
+     }
+     
      /*doubleclick the button to delete it--Crystal Q*/     
      public void doubleClicktoDelete(UserView toDelete){
     	 // this.invalidate(); TO-DO later
@@ -191,6 +204,7 @@ import android.graphics.BitmapFactory;
   	   	 dim=false; 
   	   	 this.invalidate();
      }    
+     
      
      /* Handle Touch events... MANY cases to consider 
       * A PS icon = private space icon, squares that represent another private space
@@ -230,14 +244,21 @@ import android.graphics.BitmapFactory;
 			for (UserView icon : allIcons) {
 				if (icon.clickedInside(mouseX, mouseY)) {
 					selectedIcon = icon;
-					initialX = icon.getX();
-					initialY = icon.getY();
+					icon.getUserViewController().handleClickDown(icon.getX(), icon.getY());
 					clickOnIcon = true;
 					//Crystal Q
 					if(initialIcon == selectedIcon){
 						dim=true;
 						Log.v(LOG_TAG, "Double CLICK");
-						doubleClicktoDelete(selectedIcon);
+						//doubleClicktoDelete(selectedIcon);
+						// TODO Crystal - need to change this to a press and hold
+						// not a double click
+						if(MainApplication.user_primary == MainApplication.screen.getSpace().getOwner()){
+							try{
+							space.getKickoutController().kickoutUser(selectedIcon.getPerson(), "Because I said so!");
+							} catch(XMPPException e){
+								Log.v(LOG_TAG, "Darn, can't kick this person out"); }
+						}
 					    initialIcon=null;
 					   	break;
 					}
@@ -253,6 +274,10 @@ import android.graphics.BitmapFactory;
 				Log.v(LOG_TAG, "Clicked on free space");
 				// getActivity().showBuddyList();
 				//(MainApplication)context)
+				// TODO show buddy list
+				//((MainApplication)context).showBuddyList();
+				
+				contactListController.showBuddyList();
 			}
 			break;
 
@@ -260,9 +285,7 @@ import android.graphics.BitmapFactory;
 			// If a person icon is selected, then move the icon to the current
 			// position
 			if (selectedIcon != null) {
-				selectedIcon.setMoved(true);
-				selectedIcon.setX(mouseX - (selectedIcon.getImage().getWidth() / 2));
-				selectedIcon.setY(mouseY - (selectedIcon.getImage().getHeight() / 2));
+				selectedIcon.getUserViewController().handleMoved(mouseX, mouseY);
 
 				// if icon is dragged over private space, then highlight that
 				// private space icon
@@ -300,16 +323,8 @@ import android.graphics.BitmapFactory;
 				}
 			}
 			if (selectedIcon != null) {
-				// if you did not move the icon and just clicked it, then
-				// highlite it, or unhighlite it if already highlited
-				if (!selectedIcon.getMoved()) {
-					selectedIcon.toggleSelected();
-				}
-				// if you did move the icon, then notify the network so it can update sound spatialization
-				else{
-					((MainApplication)context).movedPersonIcon(space, selectedIcon, mouseX, mouseY);
-				}
-				selectedIcon.setMoved(false);
+				selectedIcon.getUserViewController().handleClickUp(mouseX, mouseY);
+				
 				// if released icon over an privatespace icon, then add that person to the private space
 				for(PrivateSpaceIconView p : PrivateSpaceIconView.allPSIcons){
 					if(p.contains(mouseX, mouseY)){
@@ -329,11 +344,6 @@ import android.graphics.BitmapFactory;
 							break;
 						}
 					}
-				}
-				// if released icon over the privatespace bar, then move icon back to original position
-				if (mouseY >= screenHeight) {
-					selectedIcon.setX(initialX);
-					selectedIcon.setY(initialY);
 				}
 				selectedIcon = null;
 				

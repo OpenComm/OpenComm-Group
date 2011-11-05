@@ -3,7 +3,9 @@ package edu.cornell.opencomm.controller;
 import org.jivesoftware.smackx.muc.ParticipantStatusListener;
 
 import android.util.Log;
+import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.model.Space;
+import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.Network;
 /** An instance of this class controls participants (users) in a specific space */
 public class ParticipantController {
@@ -22,6 +24,47 @@ public class ParticipantController {
 		this.mSpace = mSpace;
 		this.mSpace.getMUC().addParticipantStatusListener(this.configParticipantStatusListener());
 	}
+	
+	public void joined(String userRoomInfo){
+		// UI Team - Nora 11/4
+		
+		Log.v(TAG, "In the joined() method");
+		// (1) Retrieve User object
+		String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
+		User newUser = User.getAllUsers().get(userSplit[1]);
+		// (2) Add this user to this space - but first check if it is already there
+		if(newUser!=null){
+			boolean has = mSpace.getAllParticipants().containsKey(newUser.getUsername());
+			Log.v(TAG, "Space " + mSpace + " already has person " + newUser.getNickname() + " : " + has);
+		}
+		else{
+			/* TODO Network - Not entirely sure where to get the JID for the username
+			 * For now just put in the nickname for both, please change this
+			 * - Nora 11/4
+			 */
+			newUser = new User(userSplit[1], userSplit[1], R.drawable.question);
+			mSpace.getAllParticipants().put(userSplit[1], newUser);
+		}
+		/* (3) If this Space is also the SpaceView then tell its SpaceViewController
+		 * to handle adding an icon to the SpaceView
+		 */
+		if(mSpace==MainApplication.screen.getSpace()){
+			SpaceViewController sc = MainApplication.screen.getSpaceViewController();
+			sc.addIconToSpaceView(newUser);
+			Log.v(TAG, "Adding UserView " + newUser.getNickname() + " to SpaceView");
+		}
+	}
+	
+	public String[] splitUserRoomInfo(String info) {
+		String[] userRoomInfoSplit = info.split("@conference.jabber.org/");
+		// check the result of split for an array with length 2
+		if (userRoomInfoSplit == null || userRoomInfoSplit.length != 2) {
+			Log.e(TAG, "addUserStatusListener/splitUserRoomInfo - " + 
+					"given string does not contain sequence \"@conference.jabber.org\"");
+			return null;
+		}
+		return userRoomInfoSplit;
+	} // end splitUserRoomInfo method	
 	
 	/** @return - A ParticipantStatusListener that listens for the change in 
 	 * status of participants (does not include the primary user -- for primary 
@@ -126,6 +169,7 @@ public class ParticipantController {
 								+ " joined room " + roomname);
 					}
 				}
+				
 			} // end joined method
 
 			/** Called when a user kicks another user from a room 

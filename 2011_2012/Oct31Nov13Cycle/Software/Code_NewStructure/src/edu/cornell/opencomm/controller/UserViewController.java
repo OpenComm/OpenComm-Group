@@ -1,23 +1,39 @@
 package edu.cornell.opencomm.controller;
 
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.view.PrivateSpaceIconView;
 import edu.cornell.opencomm.view.SpaceView;
 import edu.cornell.opencomm.view.UserView;
-
+/**
+ *  Class to handle user's touch input on the UserView. 
+ *  Only modifies the UserVIew class. 
+ * 
+ * @author Nora 11/4 
+ * 
+ */
 public class UserViewController {
-
+	/** The position of the icon on clickdown */
+	int initialX, initialY; 
+	/** True if the icon has been dragged 
+	 * (as opposed to a simple click up and down with no movement) */
+	boolean dragged;
+	/** The userView object that this controller responds to */
 	private UserView userView = null;
+	
+	/** Constructor: a UserViewController oject */
 	public UserViewController(UserView uv){
 		this.userView = uv;
 	}
 	
-	
-	/** If simply clicked a UserView without dragging it then 
-	 * toggle between highlighted and unhighlighted
+	/** When a user presses down on a UserView,
+	 * save the initial icon position 
+	 * @param clickX - initial position of icon 
+	 * @param clickY - initial position of icon
 	 */
-	public void handleSimpleClick(){
-		userView.toggleSelected();
+	public void handleClickDown(int clickX, int clickY){
+		this.initialX = clickX;
+		this.initialY = clickY;
 	}
 	
 	/** If double clicked on a UserView, then...
@@ -27,44 +43,47 @@ public class UserViewController {
 	 *  
 	 *  Make sure this icon is not highlighted
 	 */
-	public void doubleClick(SpaceView space){
-		// TODO NORA
-	}
+/*	public void handlePressAndHold(){
+		if(MainApplication.user_primary == MainApplication.screen.getSpace().getOwner())
+			
+	} */
 	
-	/** If dragged, then change the icon's position. 
+	/** If moved, then change the icon's position. 
 	 * 
-	 * @param x - position of icon center 
-	 * @param y - position of icon center
+	 * @param clickX - position of finger click
+	 * @param clickY - position of finger click
 	 */
-	public void handleDragging(int x, int y){
-		userView.setXY(x,y);
+	public void handleMoved(int clickX, int clickY){
+		dragged = true;
+		int newX = clickX - (userView.getImage().getWidth() / 2);
+		int newY = clickY - (userView.getImage().getWidth() / 2);
+		userView.setXY(newX,newY);
 	}
 	
-	/** After dragging an icon and lifting up, then place then
-	 * set the icon's position. If dragged in an inappropriate place,
+	/** After a click up on an icon. If was a simple click then
+	 * toggle the icon's highlite. If had dragged the icon
+	 * before lifting up, then change the icon's position. 
+	 * If dragged in an inappropriate place,
 	 * then return to original position.
 	 * 
-	 * @param x - start position of icon center before dragging
-	 * @param y - start position of icon center before dragging
+	 * @param clickX - start position of icon center before dragging
+	 * @param clickY - start position of icon center before dragging
 	 * @param newX - placed position of icon center after dragging
 	 * @param newY - placed position of icon center after dragging
 	 */
-	public void handleFinishedDragging(int startX, int startY, int newX, int newY){
-		userView.setXY(newX, newY);
-		// TODO NORA - check to make sure within bounds
-	}
-	
-	/** If dragged on top of a PrivateSpaceIconView, then...
-	 * 1) Set the position of the icon back to its initial position before dragging
-	 * 2) Give this task over to SpaceController (or whoever) so that it may add this 
-	 * person to this space that the PrivateSpaceIcon represents
-	 *  
-	 * @param PSIcon - the PrivateSpaceIconView that the UserView was dropped over
-	 * @param startX - the start position of UserView center before dragging
-	 * @param startY - the start position of UserView center before dragging
-	 */
-	public void handleDroppedOntoPSIcon(PrivateSpaceIconView PSIcon, int startX, int startY){
-		userView.setXY(startX, startY);
-		// TODO NETWORK - task (2), not sure which class will do this
+	public void handleClickUp(int clickX, int clickY){
+		int newX, newY;
+		if(!dragged)
+			userView.toggleSelected();
+		else{
+			if(clickY>Values.spaceViewH)
+				userView.setXY(initialX, initialY);
+			else{
+				newX = clickX - (userView.getImage().getWidth() / 2);
+				newY = clickY - (userView.getImage().getWidth() / 2);
+				userView.setXY(newX, newY);
+			}
+		}
+		dragged = false;
 	}
 }

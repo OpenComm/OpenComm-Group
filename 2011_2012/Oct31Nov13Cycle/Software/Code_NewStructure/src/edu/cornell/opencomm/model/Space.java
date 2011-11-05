@@ -40,7 +40,7 @@ public class Space {
 	public static ArrayList<Space> allSpaces = new ArrayList<Space>();
 	private static Space mainSpace; // the primary user's main space
 
-	// The users who are in this Space
+	// The users who are in this Space, <username, User>
 	private HashMap<String, User> allParticipants = new HashMap<String, User>();
 	// Occupant objects for all Users in Space
 	private HashMap<String, Occupant> allOccupants = new HashMap<String, Occupant>();
@@ -90,6 +90,7 @@ public class Space {
 	 */
 	public Space(Context context, boolean isMainSpace, String roomID, User owner)
 			throws XMPPException {
+		this.context = context;
 		// If the primary user is creating the space, join as owner
 		if (MainApplication.user_primary.equals(owner)) {
 			this.roomID = Network.ROOM_NAME + roomID + "@conference.jabber.org";
