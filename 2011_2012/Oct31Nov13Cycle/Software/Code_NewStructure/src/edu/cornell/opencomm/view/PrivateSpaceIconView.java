@@ -132,11 +132,17 @@ public class PrivateSpaceIconView extends ImageButton{
     				boolean showPopup = privateSpaceIconController.handleClickUp();
     				Log.v("PSIconView", "Clicked up, highlight " + showPopup);
     				if (showPopup)
+    					// UI Team - for now do not do anything
+    					;
+    				
     					// if the highlight is on, then show the popup preview
-    					privateSpacePreviewPopupController.openPopupPreview();
+    					//privateSpacePreviewPopupController.openPopupPreview();
     				else
+    					// UI Team - for now will change the screen of the spaceview
+    					MainApplication.screen.getSpaceViewController().changeSpace(space);
+    				
     					// if not, then close the popup preview
-    					privateSpacePreviewPopupController.closePopupPreview();
+    					//privateSpacePreviewPopupController.closePopupPreview();
 
     				break;
     			}
