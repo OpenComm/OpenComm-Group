@@ -9,6 +9,7 @@ import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
+import org.jivesoftware.smackx.Form;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -52,8 +53,6 @@ public class MainApplication extends Activity{
 	private User debug;
 	private User debug1;
 
-	/** TODO Network - Do you need this?  -Nora 11/6 */
-    public static LinkedList<User> allBuddies; 
     /** The user of this program (You, the person holding the phone) */
     public static User user_primary;
     /** The space that holds everybody in the conference */
@@ -63,21 +62,32 @@ public class MainApplication extends Activity{
     /** The empty private space icon at the bottom of the screen */
     public static PrivateSpaceIconView emptyspace;
 
+	/** TODO Network - Do you need any of these?  -Nora 11/6 */
+    public static LinkedList<User> allBuddies; 
     public static CharSequence[] buddyList; // list of the user's buddies in their username form
     public static boolean[] buddySelection; // array of boolean for buddy selection
-
     private static String username=""; // the username of this account
-
-    // Parameters needed to describe the objects created in the XML code
+    public static final String PS_ID = "edu.cornell.opencomm.which_ps";
+	public static int space_counter= -1; // A counter for spaces (to generate SpaceID's)
+    
+    /** Parameters needed to describe the objects created in the XML code */
     LinearLayout.LayoutParams PSparams = new LinearLayout.LayoutParams(
     		ViewGroup.LayoutParams.WRAP_CONTENT,
     		ViewGroup.LayoutParams.WRAP_CONTENT, 0.0f);
 
-    public static final String PS_ID = "edu.cornell.opencomm.which_ps";
 
-	// A counter for spaces (to generate SpaceID's). TODO Will use for now, takeout later when add network
-	public static int space_counter= -1;
-
+    /** TODO Network - There are many times when the the onCreate method failes to create a 
+     * space and therefore make the rest of this code crash. This usually gives an 
+     * error 80% of the time, so it is probably linked to the network service. 
+     * The source of the error is the line:
+     * this.muc.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
+     * in the Space class. Please fix this so that it works 100% of the time.
+     * 
+     * -Nora 11/6
+     * 
+     */
+    
+    
 
 	/** Called when application is first created.
 	 * <b>Set up:</b>
@@ -97,14 +107,13 @@ public class MainApplication extends Activity{
 	public void onCreate(Bundle savedInstanceState) {
     	if (D) Log.d(TAG,"onCreate - Started the MainApplication activity");
         super.onCreate(savedInstanceState);
-
+        
+        // Open up the layout specified by the main XML
         setContentView(R.layout.main);
+        // Change the parameters of the appearance according to screen size
         adjustLayoutParams();
-
-        // The spaceview already created for you in the XML file, so retrieve it
+        // This spaceview already created for you in the XML file, so retrieve it
         screen = (SpaceView)findViewById(R.id.space_view);
-
-        // Check if the mainspace was already created
         if (mainspace == null){
         	// Obtain username used to log into the application
             Intent start_intent= getIntent();
@@ -114,22 +123,20 @@ public class MainApplication extends Activity{
         	try {
         		// create the mainspace
 				mainspace = new Space(this, true, String.valueOf(space_counter++), user_primary);
-
 				// create an empty private space
 				new Space(this, false, String.valueOf(space_counter++), user_primary);
-
-				// TODO add private space preview
 			} catch (XMPPException e) {
 				Log.e(TAG, "onCreate - Error (" + e.getXMPPError().getCode()
 						+ ") " + e.getXMPPError().getMessage());
 				e.printStackTrace();
 			}
+			// Set the initial screen to the mainspace
         	screen.setSpace(mainspace);
         	mainspace.setScreenOn(true);
         }
         initializeButtons();
 
-        //records keypad events
+        //Initializes the onKeyListener to record keypad events
         screen.setOnKeyListener(onKeyListener);
         
 		//DEBUG: create User object to test invitations and kickouts
@@ -138,6 +145,9 @@ public class MainApplication extends Activity{
 		debug1 = new User("mucopencomm@jabber.org", "mucopencomm", 0);
     }
 
+    /** An onKeyListner to listen to any key events.
+     * Will be used mainly for debugging purposes.
+     */
     public View.OnKeyListener onKeyListener = new View.OnKeyListener() {
 
 		@Override
@@ -200,13 +210,12 @@ public class MainApplication extends Activity{
 
 
 
-    /** Adjust the parameters of the main layout according to the Values class.
-     * For situations when the phone size is different */
+    /** Adjust the parameters of the main layout according to the Values class
+     * according to different phone screen sizes */
     public void adjustLayoutParams(){
     	// Calculations
     	Values.spaceViewH = Values.screenH - Values.bottomBarH;
     	Values.privateSpaceButtonW = Values.bottomBarH - 5;
-
 
     	// Adjust the space view
     	View sv = findViewById(R.id.space_view);
@@ -224,6 +233,30 @@ public class MainApplication extends Activity{
     	mb.setLayoutParams(lp);
 
     }
+    
+	/** Initialize the buttons declared in the xml. In this case just the MAIN button.
+     * Main button: add a touch listener, when clicked should take you back to the main conversation */
+	public void initializeButtons() {
+		// set listener to main button
+		Button mainButton = (Button) findViewById(R.id.main_button);
+		mainButton.setOnTouchListener(new View.OnTouchListener() {
+			@Override
+			public boolean onTouch(View view, MotionEvent evt) {
+				switch (evt.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					break;
+				case MotionEvent.ACTION_MOVE:
+					break;
+				case MotionEvent.ACTION_UP:
+					if(!(screen.getSpace()==mainspace)){
+						changeSpace(mainspace);
+					}
+					break;
+				}
+				return false;
+			}
+		});
+	}
 
     /** You are exiting the application! Definitely tell the network so it can tell
      * EVERYONE else and remove you from rooms that you were in. Save any history
@@ -453,28 +486,6 @@ public class MainApplication extends Activity{
 
     }
 
-			/** Initialize the buttons declared in the xml. In this case just the MAIN button.
-     * Main button: add a touch listener, when clicked should take you back to the main conversation */
-	public void initializeButtons() {
-		// set listener to main button
-		Button mainButton = (Button) findViewById(R.id.main_button);
-		mainButton.setOnTouchListener(new View.OnTouchListener() {
-			@Override
-			public boolean onTouch(View view, MotionEvent evt) {
-				switch (evt.getAction()) {
-				case MotionEvent.ACTION_DOWN:
-					break;
-				case MotionEvent.ACTION_MOVE:
-					break;
-				case MotionEvent.ACTION_UP:
-					if(!(screen.getSpace()==mainspace)){
-						changeSpace(mainspace);
-					}
-					break;
-				}
-				return false;
-			}
-		});
-	}
+
 	
 }
