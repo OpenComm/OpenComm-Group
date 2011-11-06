@@ -22,71 +22,90 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-/** An icon representing a private space room, will appear at the bottom scrollable bar of the screen */ 
+/** An icon representing a private space room (or sidechat)
+ *  Appears at the bottom scrollable bar of the screen 
+ *  
+ *  @author - noranq 11/5
+ */   
 public class PrivateSpaceIconView extends ImageButton{
-	private static String LOG_TAG="OC_PrivateSpaceView"; // for error checking 
+	/** LOG_TAG to be used with LOGCAT */
+	private static String LOG_TAG="OC_PrivateSpaceView"; 
+	/** Context - instance of MainApplication */
     Context context;
-    
-	public Space space; // the private space that this icon represents
+    /** The private space that this icon represents */
+	public Space space; 
+	/** The list of all current privatespace icons in existence */
     public static LinkedList<PrivateSpaceIconView> allPSIcons
-    = new LinkedList<PrivateSpaceIconView>(); // the list of all current privatespace icons
+    = new LinkedList<PrivateSpaceIconView>(); 
     
+    /** Colors offered for private spaces */
     public static int[]COLORS = {Color.BLUE, Color.YELLOW, Color.GREEN, 
-    	Color.MAGENTA, Color.CYAN, Color.DKGRAY}; // the colors offered for private spaces
-    public static int colorInt = -1; // the current color
-    private int color = Color.BLUE; // this icons color
+    	Color.MAGENTA, Color.CYAN, Color.DKGRAY}; 
+    /** The current color int */
+    public static int colorInt = -1; 
+    /** The current color to use for an icon */
+    private int color = Color.BLUE; 
     
     /** Controllers */
     PrivateSpaceIconController privateSpaceIconController;
     PrivateSpacePreviewPopupController privateSpacePreviewPopupController;
     
     /** States of the icon */
-    boolean isSelected=false; // if this is true, then the icon should appear highlighted/darkened
-    boolean isHighlighted=false; // if this is true, should also provide some feedback
-    boolean showPreview = false; // true if the preview is open
-    boolean clickedOnce=false; // true if you have already clicked this icon once (and should be highlighted)
-   boolean clickDownOnce=false;
-    /** Initialize all variables 
-     * Set up a touch listener (call init) */
+    boolean isSelected=false; // if true, icon should appear highlighted
+    boolean isHighlighted=false; // if true, is also highlighted, but will not be "selected" for deletion
+
+    
+    /** Constructor: Private Space Icon View
+     * @param context - instance of the activity (MainApplication)
+     * @param space - space object that this private space icon represents
+     */
     public PrivateSpaceIconView(Context context, Space space){
     	super(context);
-    	this.context = context;
-        this.space = space;
-        privateSpaceIconController = new PrivateSpaceIconController(this);
-        privateSpacePreviewPopupController = new PrivateSpacePreviewPopupController(context, this);
-        addThisPSView();
-        initColors();
-        initTouch();
+    	initializeIcon(context, space);
     }
     
-    /** Constructor for XML file */
-    public PrivateSpaceIconView(Context context, AttributeSet attrs, int defStyle, Space parent){
+    /** Constructor: Private Space Icon View - constructed from XML file 
+     *  @param context - instance of the activity (MainApplication)
+     *  @param attrs - AttributeSet of XML parameters
+     *  @param defStyle - XML stuff 
+     *  @param parent - space object that this private space icon represents
+     */
+    public PrivateSpaceIconView(Context context, AttributeSet attrs, int defStyle, Space space){
     	super(context, attrs, defStyle);
-    	this.context = context;
-    	this.space = parent;
-    	 privateSpaceIconController = new PrivateSpaceIconController(this);
-        addThisPSView();
-        initColors();
-        initTouch();
+    	initializeIcon(context, space);
     }
     
-    /** Another constructor for XML file */
-    public PrivateSpaceIconView(Context context, AttributeSet attrs, Space parent){
+    /** Constructor: Private Space Icon View - constructed from XML file 
+     *  @param context - instance of the activity (MainApplication)
+     *  @param attrs - AttributeSet of XML parameters
+     *  @param parent - space object that this private space icon represents
+     */
+    public PrivateSpaceIconView(Context context, AttributeSet attrs, Space space){
     	super(context, attrs);
-    	this.context = context;
-    	this.space = parent;
-    	 privateSpaceIconController = new PrivateSpaceIconController(this);
-    	 privateSpacePreviewPopupController = new PrivateSpacePreviewPopupController(context, this);
-        addThisPSView();
-        initColors();
-        initTouch();
+    	initializeIcon(context, space);
     }
     
-    /** Add this PrivateSpace Icon officially to the XML and add to the static list of 
-     * all PS icons */
-    public void addThisPSView(){
-        allPSIcons.add(this);
-        ((MainApplication)context).addPrivateSpaceButton(this); 
+    /** Method called by all PrivateSpaceIconView constructors.
+     * (1) Initialize all variable.
+     * (2) Initiatlizes PrivateSpaceIconController and PrivateSpacePreviewPopupController
+     * (3) Adds the icon to the xml file so that it will show
+     * (4) Initializes colors
+     * (5) Initializes touch listener
+     */
+    public void initializeIcon(Context context, Space space){
+    	this.context = context;
+    	this.space = space;
+    	privateSpaceIconController = new PrivateSpaceIconController(this);
+    	privateSpacePreviewPopupController = new PrivateSpacePreviewPopupController(context, this);
+    	// adds this PS Icon View to the static list of all PS Icons
+    	allPSIcons.add(this);
+    	// adds this PS Icon View to the XML so that it may show on screen
+    	((MainApplication)context).addPrivateSpaceButton(this); 
+    	// Initializes the icon's color
+    	colorInt++;
+    	this.color = PrivateSpaceIconView.COLORS[colorInt % PrivateSpaceIconView.COLORS.length];
+    	// Initialize the touch listener
+    	initTouch();
     }
     
     /** Delete this PrivateSpace Icon officially from the XML. Remove from the static list of 
@@ -94,12 +113,6 @@ public class PrivateSpaceIconView extends ImageButton{
     public void deleteThisPSView(){
         allPSIcons.remove(this);
         ((MainApplication)context).delPrivateSpaceButton(this); 
-    }
-    
-    /** Initialize this icon's color */
-    public void initColors(){
-    	colorInt++;
-    	this.color = PrivateSpaceIconView.COLORS[colorInt % PrivateSpaceIconView.COLORS.length];
     }
     
     /* Set up a touch listener that will adjust the selections and highlights according
@@ -132,11 +145,6 @@ public class PrivateSpaceIconView extends ImageButton{
     	});
     	invalidate();
     }
-    
-
-    
-
-    
 
     /** Draw this icon, draw darker (or brighter) if this PrivateSpaceIconView is highlighted or selected. 
      * 
@@ -192,9 +200,9 @@ public class PrivateSpaceIconView extends ImageButton{
 			sq.draw(canvas);
 		 }
 		 //(5)
-		 if(showPreview){
+	/*	 if(showPreview){
 			 // TODO VINAY you could draw the preview here if you like
-	     }
+	     } */
     
     } 
      
@@ -217,27 +225,29 @@ public class PrivateSpaceIconView extends ImageButton{
  				&& y > location[1] - this.getHeight() && y < location[1]
  				+ this.getHeight());
  	}
-    
-     /* Toggle a icon if you touch it */
-     protected synchronized void toggle(View arg0){
-     	this.isSelected = !isSelected;
-     	this.invalidate();
-     }
      
     // GETTERS
+    /** Returns the space this object represents */
     public Space getSpace(){
         return space;
     }
+    /** Returns true if this object is highlighted but not selected */
     public boolean isHighlighted(){
         return isHighlighted;
     }
+    /** Returns true if this object is selected. Users may perform 
+     * actions such as deletion on objects that are selected */
     public boolean isSelected(){
         return isSelected;
     }
+    /** Returns the PrivateSpaceIconController of this icon. 
+     * This controls the appearance of the privatespaceiconview */
     public PrivateSpaceIconController getPrivateSpaceIconController(){
     	return privateSpaceIconController;
     }
-    
+    /** Returns the PrivateSpacePreviewPopupController of this icon. 
+     * This controls the appearance and touch interactions of the popup preview 
+     * representing this room */
     public PrivateSpacePreviewPopupController getPrivateSpacePreviewPopupController(){
     	return privateSpacePreviewPopupController;
     }
@@ -256,9 +266,9 @@ public class PrivateSpaceIconView extends ImageButton{
         invalidate();
     }
     /** Set if the preview of this icon is open */
-    public void setPreview(boolean open){
+  /*  public void setPreview(boolean open){
     	showPreview= open;
-    }
+    } */
     
     /** Toggle between being selected and not selected */
     public void toggleSelected(){
