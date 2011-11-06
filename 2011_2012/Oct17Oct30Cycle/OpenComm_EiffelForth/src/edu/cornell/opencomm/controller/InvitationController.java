@@ -7,10 +7,6 @@ import org.jivesoftware.smackx.muc.InvitationListener;
 import org.jivesoftware.smackx.muc.InvitationRejectionListener;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 
-import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.view.ConfirmationView;
-import edu.cornell.opencomm.view.InvitationView;
-
 /**
  * Controller class for MultiUserChat invitations
  * @author jonathan
@@ -18,22 +14,6 @@ import edu.cornell.opencomm.view.InvitationView;
  */
 public class InvitationController implements InvitationListener, InvitationRejectionListener {
 	private edu.cornell.opencomm.model.Invitation invitation;
-	
-	private InvitationView invitationView = null;
-	public InvitationController(InvitationView invitationView) {
-		this.invitationView = invitationView;
-	}
-	public void handlePopupWindowClicked() {
-		invitationView.getWindow().dismiss();		
-	}
-	public void handleAcceptButtonHover() {
-		invitationView.getAcceptButton().setBackgroundColor(R.color.light_grey);
-		
-	}
-	public void handleCancelButtonHover() {
-		invitationView.getCancelButton().setBackgroundColor(R.color.light_grey);
-	}
-
 	
 	/**
 	 * Decline the invitation
