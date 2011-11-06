@@ -1,6 +1,7 @@
 package edu.cornell.opencomm.controller;
 
 import android.content.Context;
+import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.view.SpaceView;
 import edu.cornell.opencomm.view.UserView;
@@ -20,5 +21,10 @@ public class SpaceViewController {
 		UserView newUserView = new UserView(spaceView.getContext(), user, user.getImage());
 		spaceView.getAllIcons().add(newUserView);
 		spaceView.invalidate();
+	}
+	
+	
+	public void changeSpace(Space space){
+		
 	}
 }

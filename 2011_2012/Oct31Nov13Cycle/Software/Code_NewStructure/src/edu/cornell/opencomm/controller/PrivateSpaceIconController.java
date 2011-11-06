@@ -9,15 +9,6 @@ public class PrivateSpaceIconController {
 	public PrivateSpaceIconController(PrivateSpaceIconView icon){
 		this.PSIcon = icon;
 	}
-
-	/** If clicked a first time (down AND up), then...
-	 * 1) Set the icon to a selected state
-	 * 2) Notify the PrivatespacePreviewPopupController to open up
-	 * a PrivateSpacePreviewPopup for this space 
-	 */
-	public void handleClickDown(){
-		
-	}
 	
 	/** Handle when a PrivateSpaceIcon is clicked up. Keep track of 
 	 * if it has been clicked once or a second time. 
@@ -27,17 +18,6 @@ public class PrivateSpaceIconController {
 	public boolean handleClickUp(){
 		clickedOnce= !clickedOnce;
 		return clickedOnce;
-	}
-	
-	/** If clicked a second time (down AND up) after the button has already been
-	 * selected, then...
-	 *  1) Set the icon to an unselected state
-	 *  2) notify the PrivateSpacePreviewPopupController to close the
-	 *  PrivateSpacePreviewPopup
-	 */
-	public void handleSecondClick(){
-		PSIcon.setSelected(false);
-		// TODO (2)
 	}
 	
 	/** If a UserView was dragged on top of a Private Space Icon
