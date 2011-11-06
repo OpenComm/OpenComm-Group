@@ -43,16 +43,24 @@ import edu.cornell.opencomm.view.UserView;
  * User involved. Receives its notifications from the GUI, and then
  * updates the data of the private space, and talks with the network. */
 public class MainApplication extends Activity{
-	// Debugging
-	private static String TAG = "Controller.MainApplication"; // for error checking with logcat
+	/** String identifier for error checking with LOGCAT */
+	private static String TAG = "Controller.MainApplication"; 
+	/** TODO Network - what is this? True if in debug mode? - Nora 11/6 */
 	private static boolean D = true;
+	
+	/** Dummy people for debugging */
 	private User debug;
 	private User debug1;
 
-    public static LinkedList allBuddies; // Your buddy list! Has been previously saved from the network
-    public static User user_primary;// the user of this program
-    public static Space mainspace= null; // the official mainSpace, the one space that has EVERYBODY in it
-    public static SpaceView screen; // the screen that shows all of the icons
+	/** TODO Network - Do you need this?  -Nora 11/6 */
+    public static LinkedList<User> allBuddies; 
+    /** The user of this program (You, the person holding the phone) */
+    public static User user_primary;
+    /** The space that holds everybody in the conference */
+    public static Space mainspace= null; 
+    /** The SpaceView object (UI) representing the space that the user is currently talking to */
+    public static SpaceView screen; 
+    /** The empty private space icon at the bottom of the screen */
     public static PrivateSpaceIconView emptyspace;
 
     public static CharSequence[] buddyList; // list of the user's buddies in their username form
