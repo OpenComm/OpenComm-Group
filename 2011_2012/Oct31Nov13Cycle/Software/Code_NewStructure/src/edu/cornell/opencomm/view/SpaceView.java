@@ -291,13 +291,15 @@ import android.graphics.BitmapFactory;
 					for (PrivateSpaceIconView p : PrivateSpaceIconView.allPSIcons) {
 						if (p.contains(mouseX, mouseY)) {
 							//p.setHovered(true);
-							p.setHighlighted(true);
+							p.getPrivateSpaceIconController().handleIconHovered();
+							//p.setHighlighted(true);
 							hoveredPrivSpace = p;
 						}
 					}
 				} else if (hoveredPrivSpace != null) {
 					if (!hoveredPrivSpace.contains(mouseX, mouseY)) {
-						hoveredPrivSpace.setHighlighted(false);
+						hoveredPrivSpace.getPrivateSpaceIconController().handleIconNotHovered();
+						//hoveredPrivSpace.setHighlighted(false);
 						hoveredPrivSpace = null;
 					}
 				} 

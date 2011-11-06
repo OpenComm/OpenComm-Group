@@ -6,6 +6,7 @@ import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.R.color;
 import edu.cornell.opencomm.controller.MainApplication;
 import edu.cornell.opencomm.controller.PrivateSpaceIconController;
+import edu.cornell.opencomm.controller.PrivateSpacePreviewPopupController;
 import edu.cornell.opencomm.model.Space;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -35,8 +36,9 @@ public class PrivateSpaceIconView extends ImageButton{
     public static int colorInt = -1; // the current color
     private int color = Color.BLUE; // this icons color
     
-    /** PrivateSpaceIconController */
+    /** Controllers */
     PrivateSpaceIconController privateSpaceIconController;
+    PrivateSpacePreviewPopupController privateSpacePreviewPopupController;
     
     /** States of the icon */
     boolean isSelected=false; // if this is true, then the icon should appear highlighted/darkened
@@ -51,6 +53,7 @@ public class PrivateSpaceIconView extends ImageButton{
     	this.context = context;
         this.space = space;
         privateSpaceIconController = new PrivateSpaceIconController(this);
+        privateSpacePreviewPopupController = new PrivateSpacePreviewPopupController(context, this);
         addThisPSView();
         initColors();
         initTouch();
@@ -73,6 +76,7 @@ public class PrivateSpaceIconView extends ImageButton{
     	this.context = context;
     	this.space = parent;
     	 privateSpaceIconController = new PrivateSpaceIconController(this);
+    	 privateSpacePreviewPopupController = new PrivateSpacePreviewPopupController(context, this);
         addThisPSView();
         initColors();
         initTouch();
@@ -106,30 +110,21 @@ public class PrivateSpaceIconView extends ImageButton{
     	this.setOnTouchListener(new View.OnTouchListener(){
     		public boolean onTouch(View view, MotionEvent evt){
     			switch(evt.getAction()){
-    			case MotionEvent.ACTION_DOWN:
-    				if(!clickDownOnce){
-    					clickDownOnce =true;
-    					Log.v(LOG_TAG, "CLICK ONCE");
-    				}else{
-    				((MainApplication)context).deletePrivateSpaceView(space);
-    				clickDownOnce=false;
-						};
-    					
-    				
-    					break;
-    			case MotionEvent.ACTION_MOVE:
-    				break;
+    			/* TODO VINAY - this is where the clicking of the private space
+    			 * icon is happening, and it seems to freeze right after opening up a 
+    			 * popup preview! - NORA
+    			 */
     			case MotionEvent.ACTION_UP:
-    				toggle(view);
-    				if(!clickedOnce){
-    					clickedOnce = true;
-    					showPreview = true;
-    				}
-    				else if (clickedOnce){
-    					clickedOnce = false;
-    					showPreview = false;
-    					openPrivateSpace();
-    				}
+    				// Highlight the icon on or off, and return true if on
+    				boolean showPopup = privateSpaceIconController.handleClickUp();
+    				Log.v("PSIconView", "Clicked up, highlight " + showPopup);
+    				if (showPopup)
+    					// if the highlight is on, then show the popup preview
+    					privateSpacePreviewPopupController.openPopupPreview();
+    				else
+    					// if not, then close the popup preview
+    					privateSpacePreviewPopupController.closePopupPreview();
+
     				break;
     			}
     			return false;
@@ -238,6 +233,13 @@ public class PrivateSpaceIconView extends ImageButton{
     }
     public boolean isSelected(){
         return isSelected;
+    }
+    public PrivateSpaceIconController getPrivateSpaceIconController(){
+    	return privateSpaceIconController;
+    }
+    
+    public PrivateSpacePreviewPopupController getPrivateSpacePreviewPopupController(){
+    	return privateSpacePreviewPopupController;
     }
     
     // SETTERS
