@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+android:id="@+id/invitation_view"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent" android:background="@color/transparent_black" android:fadingEdge="horizontal">
+    <EditText android:textSize="47dp" android:layout_width="wrap_content" android:height="84dp" android:textColor="@color/green" android:width="480dp" android:layout_alignParentTop="true" android:layout_alignParentLeft="true" android:layout_marginTop="68dp" android:clickable="false" android:cursorVisible="false" android:paddingLeft="30dp" android:background="@color/dark_grey" android:layout_height="70dp" android:id="@+id/textboxInvitation" android:text="invitation"></EditText>
+    <Button android:textColor="@color/blue" android:maxHeight="56dp" android:text="accept" android:textSize="31dp" android:layout_alignParentBottom="true" android:layout_alignParentLeft="true" android:layout_marginBottom="70dp" android:layout_width="158dp" android:clickable="true" android:background="@color/dark_grey" android:layout_height="48dp" android:id="@+id/buttonAcceptConfirmation"></Button>
+    <Button android:maxHeight="56dp" android:textSize="31dp" android:layout_alignParentRight="true" android:text="cancel" android:textColor="@color/orange" android:layout_width="158dp" android:clickable="true" android:background="@color/dark_grey" android:layout_height="48dp" android:id="@+id/buttonCancelConfirmation" android:layout_alignBaseline="@+id/buttonAcceptConfirmation" android:layout_alignBottom="@+id/buttonAcceptConfirmation"></Button>
+    <ImageView android:src="@drawable/nora" android:layout_alignParentLeft="true" android:layout_marginTop="16dp" android:layout_marginLeft="35dp" android:layout_width="85dp" android:layout_height="85dp" android:id="@+id/iconImage" android:layout_below="@+id/textboxInvitation"></ImageView>
+    <EditText android:textSize="26dp" android:layout_height="wrap_content" android:visibility="visible" android:clickable="false" android:layout_width="wrap_content" android:background="@color/transparent_black" android:textColor="@color/off_white" android:layout_below="@+id/iconImage" android:layout_alignLeft="@+id/iconImage" android:layout_marginTop="20dp" android:text="invitation text" android:id="@+id/textInvitation"></EditText>
+    <EditText android:textSize="20dp" android:layout_height="wrap_content" android:visibility="visible" android:text="extra text" android:clickable="false" android:id="@+id/textHeaderIconRight" android:layout_width="wrap_content" android:background="@color/transparent_black" android:textColor="@color/off_white" android:layout_alignTop="@+id/iconImage" android:layout_alignParentRight="true" android:layout_marginRight="34dp"></EditText>
+    <EditText android:textSize="16dp" android:lines="2" android:layout_height="wrap_content" android:visibility="visible" android:text="more text and more" android:clickable="false" android:id="@+id/textBelowExtra" android:layout_width="80dp" android:background="@color/transparent_black" android:textColor="@color/off_white" android:layout_alignBottom="@+id/iconImage" android:layout_alignRight="@+id/textHeaderIconRight" android:cursorVisible="false">
+        <requestFocus></requestFocus>
+    </EditText>
+  </RelativeLayout>
