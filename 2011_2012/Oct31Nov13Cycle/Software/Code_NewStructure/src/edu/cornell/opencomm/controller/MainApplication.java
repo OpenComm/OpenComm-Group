@@ -1,13 +1,20 @@
 package edu.cornell.opencomm.controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
 
+import org.jivesoftware.smack.Roster;
+import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
+import org.jivesoftware.smackx.Form;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,33 +44,50 @@ import edu.cornell.opencomm.view.UserView;
  * User involved. Receives its notifications from the GUI, and then
  * updates the data of the private space, and talks with the network. */
 public class MainApplication extends Activity{
-	// Debugging
-	private static String TAG = "Controller.MainApplication"; // for error checking with logcat
+	/** String identifier for error checking with LOGCAT */
+	private static String TAG = "Controller.MainApplication"; 
+	/** TODO Network - what is this? True if in debug mode? - Nora 11/6 */
 	private static boolean D = true;
+	
+	/** Dummy people for debugging */
 	private User debug;
 	private User debug1;
 
-    public static LinkedList allBuddies; // Your buddy list! Has been previously saved from the network
-    public static User user_primary;// the user of this program
-    public static Space mainspace= null; // the official mainSpace, the one space that has EVERYBODY in it
-    public static SpaceView screen; // the screen that shows all of the icons
+    /** The user of this program (You, the person holding the phone) */
+    public static User user_primary;
+    /** The space that holds everybody in the conference */
+    public static Space mainspace= null; 
+    /** The SpaceView object (UI) representing the space that the user is currently talking to */
+    public static SpaceView screen; 
+    /** The empty private space icon at the bottom of the screen */
     public static PrivateSpaceIconView emptyspace;
 
+	/** TODO Network - Do you need any of these?  -Nora 11/6 */
+    public static LinkedList<User> allBuddies; 
     public static CharSequence[] buddyList; // list of the user's buddies in their username form
     public static boolean[] buddySelection; // array of boolean for buddy selection
-
     private static String username=""; // the username of this account
-
-    // Parameters needed to describe the objects created in the XML code
+    public static final String PS_ID = "edu.cornell.opencomm.which_ps";
+	public static int space_counter= -1; // A counter for spaces (to generate SpaceID's)
+    
+    /** Parameters needed to describe the objects created in the XML code */
     LinearLayout.LayoutParams PSparams = new LinearLayout.LayoutParams(
     		ViewGroup.LayoutParams.WRAP_CONTENT,
     		ViewGroup.LayoutParams.WRAP_CONTENT, 0.0f);
 
-    public static final String PS_ID = "edu.cornell.opencomm.which_ps";
 
-	// A counter for spaces (to generate SpaceID's). TODO Will use for now, takeout later when add network
-	public static int space_counter= -1;
-
+    /** TODO Network - There are many times when the the onCreate method failes to create a 
+     * space and therefore make the rest of this code crash. This usually gives an 
+     * error 80% of the time, so it is probably linked to the network service. 
+     * The source of the error is the line:
+     * this.muc.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
+     * in the Space class. Please fix this so that it works 100% of the time.
+     * 
+     * -Nora 11/6
+     * 
+     */
+    
+    
 
 	/** Called when application is first created.
 	 * <b>Set up:</b>
@@ -83,14 +107,13 @@ public class MainApplication extends Activity{
 	public void onCreate(Bundle savedInstanceState) {
     	if (D) Log.d(TAG,"onCreate - Started the MainApplication activity");
         super.onCreate(savedInstanceState);
-
+        
+        // Open up the layout specified by the main XML
         setContentView(R.layout.main);
+        // Change the parameters of the appearance according to screen size
         adjustLayoutParams();
-
-        // The spaceview already created for you in the XML file, so retrieve it
+        // This spaceview already created for you in the XML file, so retrieve it
         screen = (SpaceView)findViewById(R.id.space_view);
-
-        // Check if the mainspace was already created
         if (mainspace == null){
         	// Obtain username used to log into the application
             Intent start_intent= getIntent();
@@ -100,22 +123,20 @@ public class MainApplication extends Activity{
         	try {
         		// create the mainspace
 				mainspace = new Space(this, true, String.valueOf(space_counter++), user_primary);
-
 				// create an empty private space
 				new Space(this, false, String.valueOf(space_counter++), user_primary);
-
-				// TODO add private space preview
 			} catch (XMPPException e) {
 				Log.e(TAG, "onCreate - Error (" + e.getXMPPError().getCode()
 						+ ") " + e.getXMPPError().getMessage());
 				e.printStackTrace();
 			}
+			// Set the initial screen to the mainspace
         	screen.setSpace(mainspace);
         	mainspace.setScreenOn(true);
         }
         initializeButtons();
 
-        //records keypad events
+        //Initializes the onKeyListener to record keypad events
         screen.setOnKeyListener(onKeyListener);
         
 		//DEBUG: create User object to test invitations and kickouts
@@ -124,6 +145,9 @@ public class MainApplication extends Activity{
 		debug1 = new User("mucopencomm@jabber.org", "mucopencomm", 0);
     }
 
+    /** An onKeyListner to listen to any key events.
+     * Will be used mainly for debugging purposes.
+     */
     public View.OnKeyListener onKeyListener = new View.OnKeyListener() {
 
 		@Override
@@ -160,6 +184,24 @@ public class MainApplication extends Activity{
 				//Log.v(TAG, "pressed V key - participant controller");
 				break;
 			}
+			case KeyEvent.KEYCODE_J: {
+				Log.v(TAG, "Pressed J key - join");
+				//try{
+					MainApplication.mainspace.getParticipantController().joined("roomname@conference.jabber.org/" + debug1.getNickname());
+				/*}catch (XMPPException e){
+					Log.d(TAG, "Couldn't join!");
+				} */
+				break;
+			}
+			case KeyEvent.KEYCODE_S: {
+				Log.v(TAG, "Pressed S key - create a new private space");
+				try{
+				SpaceController.addSpace((Context)MainApplication.screen.getContext());
+				} catch (XMPPException e){
+					Log.v(TAG, "Can't create another private space :(");
+				}
+				break;
+			}
 			}
 			;
 			return true;
@@ -168,13 +210,12 @@ public class MainApplication extends Activity{
 
 
 
-    /** Adjust the parameters of the main layout according to the Values class.
-     * For situations when the phone size is different */
+    /** Adjust the parameters of the main layout according to the Values class
+     * according to different phone screen sizes */
     public void adjustLayoutParams(){
     	// Calculations
     	Values.spaceViewH = Values.screenH - Values.bottomBarH;
     	Values.privateSpaceButtonW = Values.bottomBarH - 5;
-
 
     	// Adjust the space view
     	View sv = findViewById(R.id.space_view);
@@ -192,6 +233,30 @@ public class MainApplication extends Activity{
     	mb.setLayoutParams(lp);
 
     }
+    
+	/** Initialize the buttons declared in the xml. In this case just the MAIN button.
+     * Main button: add a touch listener, when clicked should take you back to the main conversation */
+	public void initializeButtons() {
+		// set listener to main button
+		Button mainButton = (Button) findViewById(R.id.main_button);
+		mainButton.setOnTouchListener(new View.OnTouchListener() {
+			@Override
+			public boolean onTouch(View view, MotionEvent evt) {
+				switch (evt.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					break;
+				case MotionEvent.ACTION_MOVE:
+					break;
+				case MotionEvent.ACTION_UP:
+					if(!(screen.getSpace()==mainspace)){
+						changeSpace(mainspace);
+					}
+					break;
+				}
+				return false;
+			}
+		});
+	}
 
     /** You are exiting the application! Definitely tell the network so it can tell
      * EVERYONE else and remove you from rooms that you were in. Save any history
@@ -211,7 +276,7 @@ public class MainApplication extends Activity{
      * however in addition need to notify the network of the newly created
      * Private Space
      * @throws XMPPException */
-    public Space init_createPrivateSpace(boolean isMainSpace) throws XMPPException{
+  //  public Space init_createPrivateSpace(boolean isMainSpace) throws XMPPException{
 
         /* TODO network:
          * 1) Notify network of new private space to create
@@ -219,9 +284,9 @@ public class MainApplication extends Activity{
          * 3) Should perhaps return an id# for this space? Put it in the newSpaceID variable, or you
          * can keep the space_counter that is already implemented
          */
-        int newSpaceID=space_counter++;
+    /*    int newSpaceID=space_counter++;
 		return createPrivateSpace(true, isMainSpace, null, String.valueOf(newSpaceID), user_primary);
-    }
+    } */
 
     /** Create a new Private Space, makes sure to put yourself (User) in the
      * Private Space. The creation can be done in the PrivateSpace constructor,
@@ -421,106 +486,6 @@ public class MainApplication extends Activity{
 
     }
 
-			/** Initialize the buttons declared in the xml. In this case just the MAIN button.
-     * Main button: add a touch listener, when clicked should take you back to the main conversation */
-	public void initializeButtons() {
-		// set listener to main button
-		Button mainButton = (Button) findViewById(R.id.main_button);
-		mainButton.setOnTouchListener(new View.OnTouchListener() {
-			@Override
-			public boolean onTouch(View view, MotionEvent evt) {
-				switch (evt.getAction()) {
-				case MotionEvent.ACTION_DOWN:
-					break;
-				case MotionEvent.ACTION_MOVE:
-					break;
-				case MotionEvent.ACTION_UP:
-					if(!(screen.getSpace()==mainspace)){
-						changeSpace(mainspace);
-					}
-					break;
-				}
-				return false;
-			}
-		});
-	}
 
-	/** ========================================================================
-	 * =========================================================================
-	 * ========================================================================
-	 * ========================================================================
-	 * ========================================================================
-	 *
-	 * Move code below to appropriate Model and Controller classes
-	 */
-	/**
-	// This function builds a dialog for buddylist
-	public void showBuddyList(){
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-		class DialogSelectionClickHandler implements DialogInterface.OnMultiChoiceClickListener
-		{
-			public void onClick( DialogInterface dialog, int clicked, boolean selected )
-			{
-				//Do Nothing
-			}
-		}
-
-
-		class DialogButtonClickHandler implements DialogInterface.OnClickListener
-		{
-			public void onClick( DialogInterface dialog, int clicked )
-			{
-				switch( clicked )
-				{
-					case DialogInterface.BUTTON_POSITIVE:
-//						for( int i = 0; i < _options.length; i++ ){
-//							Log.i( "ME", _options[i] + " selected: " + _selections[i] );
-//						}
-					try {
-						addFromBuddyList();
-					} catch (XMPPException e) {
-						e.printStackTrace();
-					}
-
-						break;
-				}
-			}
-		}
-		updateBuddyList();
-		builder.setTitle( "Buddylist" )
-    		    .setMultiChoiceItems( buddyList, buddySelection, new DialogSelectionClickHandler() )
-    		    .setPositiveButton( "OK", new DialogButtonClickHandler() )
-    		    .create();
-		AlertDialog alert = builder.create();
-		alert.show();
-	}
-
-
-	// Add users from the buddylist dialog to the main space
-	public void addFromBuddyList() throws XMPPException{
-		for( int i = 0; i < buddySelection.length; i++ ){
-			if(buddySelection[i]){
-				username = (String) buddyList[i];
-				User p = new User(username + "@jabber.org", username, R.drawable.question);
-				if (D) Log.d(LOG_TAG, "Adding person " + username + " to mainspace");
-	        	initAddPerson(mainspace, p);
-			}
-		}
-	} // end addFromBuddyList method
-
-	// Updates the buddylist and the boolean selection array
-	public void updateBuddyList() {
-		// obtain current buddylist from server
-		Roster xmppRoster = Login.xmppService.getXMPPConnection().getRoster();
-		Collection<RosterEntry> entryCollection = xmppRoster.getEntries();
-		Iterator<RosterEntry> entryItr = entryCollection.iterator();
-		buddyList = new CharSequence[entryCollection.size()];
-		int i = 0;
-		while (entryItr.hasNext()) {
-			buddyList[i++] = entryItr.next().getUser().split("@")[0];
-		}
-		buddySelection = new boolean[buddyList.length];
-	} // end updateBuddyList method
-	*/
+	
 }

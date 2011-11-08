@@ -1,6 +1,7 @@
 package edu.cornell.opencomm.view;
 
 import edu.cornell.opencomm.Values;
+import edu.cornell.opencomm.controller.UserViewController;
 import edu.cornell.opencomm.model.User;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -28,6 +29,7 @@ public class UserView extends ImageButton{
 	boolean isSelected=false; // true if image selected (should show highlight around it)
 	boolean isMoved; // true if image was dragged and not simply tapped
 	Paint paint;
+	UserViewController userViewController;
 	
 	/** Constructor:
 	 * 1)Initialize all variables
@@ -54,6 +56,9 @@ public class UserView extends ImageButton{
 		setImage(imageID);
 		setNameBoxImage(Values.icon_namebox);
 		setPaint(); // set paint
+		Log.v(LOG_TAG, "Made a UserView for person " + person);
+		
+		userViewController = new UserViewController(this);
 	}
 	
 	/*
@@ -125,6 +130,10 @@ public class UserView extends ImageButton{
 	/* Returns true if this icon was moved and not just pressed */
 	public boolean getMoved(){
 		return isMoved;
+	}
+	/** Returns this UserView's userViewController */
+	public UserViewController getUserViewController(){
+		return userViewController;
 	}
 	
 	// SETTERS
