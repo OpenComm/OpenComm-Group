@@ -9,9 +9,11 @@ import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.muc.Occupant;
 
 import android.util.Log;
+import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.Network;
+import edu.cornell.opencomm.view.InvitationView;
 
 /**
  * Controller class for MultiUserChat invitations
@@ -19,6 +21,21 @@ import edu.cornell.opencomm.network.Network;
  */
 public class InvitationController implements InvitationListener, InvitationRejectionListener {
 	private edu.cornell.opencomm.model.Invitation invitation;
+
+	private InvitationView invitationView = null;
+	public InvitationController(InvitationView invitationView) {
+		this.invitationView = invitationView;
+	}
+	public void handlePopupWindowClicked() {
+		invitationView.getWindow().dismiss();		
+	}
+	public void handleAcceptButtonHover() {
+		invitationView.getAcceptButton().setBackgroundColor(R.color.light_grey);
+		
+	}
+	public void handleCancelButtonHover() {
+		invitationView.getCancelButton().setBackgroundColor(R.color.light_grey);
+	}
 
 	// Model variables
 	private Space mSpace;

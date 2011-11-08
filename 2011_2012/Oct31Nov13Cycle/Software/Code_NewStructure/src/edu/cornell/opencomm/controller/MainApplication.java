@@ -34,6 +34,8 @@ import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.Network;
 import edu.cornell.opencomm.view.ConfirmationView;
+import edu.cornell.opencomm.view.InvitationView;
+import edu.cornell.opencomm.view.LoginView;
 import edu.cornell.opencomm.view.PrivateSpaceIconView;
 import edu.cornell.opencomm.view.PrivateSpacePreviewPopup;
 import edu.cornell.opencomm.view.SpaceView;
@@ -162,6 +164,22 @@ public class MainApplication extends Activity{
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				ConfirmationView confirmationView = new ConfirmationView(inflater);
 				confirmationView.launch();
+				break;
+			}
+			case KeyEvent.KEYCODE_2: {
+				Log.v(TAG, "pressed 2 key - invitation screen");
+				LayoutInflater inflater = (LayoutInflater) MainApplication.this
+						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				InvitationView invitationView = new InvitationView(inflater);
+				invitationView.launch();
+				break;
+			}
+			case KeyEvent.KEYCODE_3: {
+				Log.v(TAG, "pressed 3 key - login screen");
+				LayoutInflater inflater = (LayoutInflater) MainApplication.this
+						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				LoginView loginView = new LoginView(inflater);
+				loginView.launch();
 				break;
 			}
 			case KeyEvent.KEYCODE_M: {
