@@ -26,48 +26,65 @@ public final class R {
         public static final int transparent_black=0x7f050005;
     }
     public static final class drawable {
-        public static final int description_bubble=0x7f020000;
-        public static final int icon=0x7f020001;
-        public static final int iconbox=0x7f020002;
-        public static final int mak=0x7f020003;
-        public static final int naj=0x7f020004;
-        public static final int nora=0x7f020005;
-        public static final int question=0x7f020006;
-        public static final int risa=0x7f020007;
-        public static final int yousmall=0x7f020008;
+        public static final int arrow=0x7f020000;
+        public static final int description_bubble=0x7f020001;
+        public static final int icon=0x7f020002;
+        public static final int iconbox=0x7f020003;
+        public static final int mak=0x7f020004;
+        public static final int naj=0x7f020005;
+        public static final int nora=0x7f020006;
+        public static final int question=0x7f020007;
+        public static final int risa=0x7f020008;
+        public static final int yousmall=0x7f020009;
     }
     public static final class id {
-        public static final int bottom_bar=0x7f060011;
+        public static final int bottom_bar=0x7f06001f;
         public static final int buttonAcceptConfirmation=0x7f060002;
+        public static final int buttonAcceptInvitation=0x7f06000a;
         public static final int buttonCancelConfirmation=0x7f060003;
-        public static final int cancel_button=0x7f060018;
+        public static final int buttonCancelInvitation=0x7f06000b;
+        public static final int buttonLogin=0x7f06001b;
+        public static final int cancel_button=0x7f060026;
         public static final int confirmation_view=0x7f060000;
-        public static final int delete_button=0x7f060014;
+        public static final int delete_button=0x7f060022;
+        public static final int editTextPassword=0x7f060018;
+        public static final int editTextUsername=0x7f060017;
         public static final int iconImage=0x7f060004;
-        public static final int input_password=0x7f06000d;
-        public static final int input_username=0x7f06000b;
-        public static final int login_button=0x7f06000e;
-        public static final int main_button=0x7f060012;
-        public static final int main_screen=0x7f06000f;
-        public static final int password_text=0x7f06000c;
-        public static final int popup_header_text=0x7f060016;
-        public static final int privateSpaceLinearLayout=0x7f060013;
-        public static final int private_space_preview_popup=0x7f060017;
-        public static final int private_space_preview_popup_layout=0x7f060015;
-        public static final int space_view=0x7f060010;
+        public static final int imageButton1=0x7f06001a;
+        public static final int input_password=0x7f060012;
+        public static final int input_username=0x7f060010;
+        public static final int invitation_view=0x7f060008;
+        public static final int loginLowerPanel=0x7f060019;
+        public static final int login_button=0x7f060013;
+        public static final int main_button=0x7f060020;
+        public static final int main_screen=0x7f06001d;
+        public static final int password_text=0x7f060011;
+        public static final int popup_header_text=0x7f060024;
+        public static final int privateSpaceLinearLayout=0x7f060021;
+        public static final int private_space_preview_popup=0x7f060025;
+        public static final int private_space_preview_popup_layout=0x7f060023;
+        public static final int space_view=0x7f06001e;
         public static final int textBelowExtra=0x7f060007;
         public static final int textConfirmation=0x7f060005;
         public static final int textHeaderIconRight=0x7f060006;
+        public static final int textInvitation=0x7f06000c;
+        public static final int textLabelPassword=0x7f060016;
+        public static final int textLabelUsername=0x7f060015;
+        public static final int textLogin=0x7f06001c;
+        public static final int textViewMain=0x7f060014;
         public static final int textboxConfirm=0x7f060001;
-        public static final int username_text=0x7f06000a;
-        public static final int version_text=0x7f060009;
-        public static final int welcome_text=0x7f060008;
+        public static final int textboxInvitation=0x7f060009;
+        public static final int username_text=0x7f06000f;
+        public static final int version_text=0x7f06000e;
+        public static final int welcome_text=0x7f06000d;
     }
     public static final class layout {
         public static final int confirmation_layout=0x7f030000;
-        public static final int login=0x7f030001;
-        public static final int main=0x7f030002;
-        public static final int space_preview_popup=0x7f030003;
+        public static final int invitation_layout=0x7f030001;
+        public static final int login=0x7f030002;
+        public static final int login_layout=0x7f030003;
+        public static final int main=0x7f030004;
+        public static final int space_preview_popup=0x7f030005;
     }
     public static final class string {
         public static final int add_button_text=0x7f040005;
