@@ -121,7 +121,7 @@ public class KickoutController {
 	} // end receiveKickoutRequest method
 
 	/**
-	 * Confirm an kickout request. Kick out th euser with the reason given
+	 * Confirm an kickout request. Kick out the user with the reason given
 	 * by the requester
 	 *
 	 * @param kickoutInfo

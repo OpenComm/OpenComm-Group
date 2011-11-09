@@ -23,7 +23,7 @@ public class InvitationController implements InvitationListener, InvitationRejec
 	// Model variables
 	private Space mSpace;
 
-	private static final String TAG = "SpaceController";
+	private static final String TAG = "InvitationController";
 	private static final boolean D = true;
 
 	/**
@@ -32,6 +32,12 @@ public class InvitationController implements InvitationListener, InvitationRejec
 	 */
 	public InvitationController(Space mSpace) {
 		this.mSpace = mSpace;
+		this.mSpace.getMUC();
+		this.mSpace.getMUC().addInvitationRejectionListener(this);
+		
+		//TODO: Move this somewhere where it will only get called once (NetworkService?)
+		MultiUserChat.addInvitationListener(
+				Login.xmppService.getXMPPConnection(), this);
 	}
 
 	/** =============================================================================================
@@ -61,7 +67,8 @@ public class InvitationController implements InvitationListener, InvitationRejec
 				+ (userOcc != null));
 		// if the primary user is the room's owner
 		if (userOcc.getAffiliation().equals(Network.ROLE_OWNER)) {
-			this.mSpace.getMUC().invite(invitee.getUsername(), ((reason == null) ? Network.DEFAULT_INVITE : reason));
+			this.mSpace.getMUC().invite(invitee.getUsername(), ((reason == null)
+					? Network.DEFAULT_INVITE : reason));
 		}
 		// send message to owner invitation request
 		else {
@@ -260,6 +267,10 @@ public class InvitationController implements InvitationListener, InvitationRejec
 		this.invitation = new edu.cornell.opencomm.model.Invitation(connection, room, inviter, reason, password, message);
 
 		//TODO: Trigger update to the view!
+		
+		//DEBUG
+		Log.v(TAG, "invitationReceived - Invitation received from: " + inviter 
+				+ " to join room: " + room);
 	}
 
 	/**
@@ -276,5 +287,9 @@ public class InvitationController implements InvitationListener, InvitationRejec
 	@Override
 	public void invitationDeclined(String invitee, String reason) {
 		//TODO: Trigger update to view (if any)
+		
+		//DEBUG
+		Log.v(TAG, "invitationDeclined - Invitee: " + invitee + 
+				" declined invitation because: " + reason);
 	}
 }

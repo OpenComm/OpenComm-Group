@@ -133,7 +133,7 @@ public class ParticipantController {
 			 * (ex: roomname@conference.jabber.org/nickname)
 			 * @param kickingUser - the user who is kicking the kicked_user from the room<br>
 			 * (ex: user@host.org)
-			 * @param reason - the reason given by the kickng user for kicking 
+			 * @param reason - the reason given by the kicking user for kicking 
 			 * the kicked user from the room
 			 */
 			public void kicked(String kickedUserRoomInfo, String kickingUser, String reason) {
@@ -169,7 +169,7 @@ public class ParticipantController {
 						// extract the user's nickname
 						String nickname = userSplit[1];
 						if (D) Log.d(TAG, "addUserStatusListener - " + nickname + 
-								" joined room " + roomname);
+								" left room " + roomname);
 					}
 				}
 			} // end left method
