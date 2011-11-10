@@ -18,6 +18,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -66,6 +67,8 @@ public class MainApplication extends Activity{
     public static SpaceView screen; 
     /** The empty private space icon at the bottom of the screen */
     public static PrivateSpaceIconView emptyspace;
+    
+    public static Values viewDimensions = new Values();
 
 	/** TODO Network - Do you need any of these?  -Nora 11/6 */
     public static LinkedList<User> allBuddies; 
@@ -255,28 +258,29 @@ public class MainApplication extends Activity{
 
 
 
-    /** Adjust the parameters of the main layout according to the Values class
-     * according to different phone screen sizes */
+	/** Adjust the parameters of the main layout according to the Values class.
+     * For situations when the phone size is different */
     public void adjustLayoutParams(){
     	// Calculations
-    	Values.spaceViewH = Values.screenH - Values.bottomBarH;
-    	Values.privateSpaceButtonW = Values.bottomBarH - 5;
-
+    	Display display = getWindowManager().getDefaultDisplay();
+ 
+    	viewDimensions.setValues(display.getWidth(), display.getHeight());
+    	
     	// Adjust the space view
     	View sv = findViewById(R.id.space_view);
-    	LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(Values.screenW , Values.spaceViewH);
+    	LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(viewDimensions.screenW , viewDimensions.spaceViewH);
     	sv.setLayoutParams(lp);
-
+    	
     	// Adjust the bottom bar
     	View bb = findViewById(R.id.bottom_bar);
-    	lp = new LinearLayout.LayoutParams(Values.screenW, Values.bottomBarH);
+    	lp = new LinearLayout.LayoutParams(viewDimensions.screenW, viewDimensions.bottomBarH);
     	bb.setLayoutParams(lp);
-
+    	
     	// Adjust the main button
     	View mb = findViewById(R.id.main_button);
-    	lp = new LinearLayout.LayoutParams(Values.bottomBarH, Values.bottomBarH);
+    	lp = new LinearLayout.LayoutParams(viewDimensions.bottomBarH, viewDimensions.bottomBarH);
     	mb.setLayoutParams(lp);
-
+    	
     }
     
 	/** Initialize the buttons declared in the xml. In this case just the MAIN button.
@@ -423,7 +427,7 @@ public class MainApplication extends Activity{
 		/*
 		 * Displaying preview of private space when clicked on it
 		 */
-		psv.setOnClickListener(onClickListener);
+		//psv.setOnClickListener(onClickListener);
     }
 
     PopupWindow privateSpacePreviewPopupWindow = null;
@@ -527,10 +531,5 @@ public class MainApplication extends Activity{
 					}
 				}
 			});
-
-
     }
-
-
-	
 }

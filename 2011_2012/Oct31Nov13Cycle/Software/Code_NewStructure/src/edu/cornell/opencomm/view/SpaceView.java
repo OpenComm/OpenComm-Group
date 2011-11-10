@@ -8,6 +8,8 @@ import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.R.color;
 import edu.cornell.opencomm.controller.ContactListController;
+import edu.cornell.opencomm.controller.EmptySpaceMenuController;
+import edu.cornell.opencomm.controller.IconMenuController;
 import edu.cornell.opencomm.controller.MainApplication;
 import edu.cornell.opencomm.controller.SpaceViewController;
 import edu.cornell.opencomm.model.User;
@@ -52,8 +54,9 @@ import android.graphics.BitmapFactory;
     
     // Controllers
     SpaceViewController spaceViewController = new SpaceViewController(this);
-    ContactListController contactListController;
-    
+    //ContactListController contactListController;
+    EmptySpaceMenuController empytSpaceMenuController;
+    IconMenuController iconMenuController;
     
     /* Constructor: This one is used by the XML file to automatically generate
      * a SpaceView
@@ -63,7 +66,9 @@ import android.graphics.BitmapFactory;
     	this.context = context;
     	setFocusable(true);
     	setFocusableInTouchMode(true);
-    	contactListController = new ContactListController(context, this);
+    	//contactListController = new ContactListController(context, this);
+    	empytSpaceMenuController = new EmptySpaceMenuController(context,this);
+    	iconMenuController = new IconMenuController(context,this);
     	Log.v(LOG_TAG, "Made SpaceView for XML file");
     	Log.v(LOG_TAG, "New allIcons attri");
     	setupImage();
@@ -77,7 +82,9 @@ import android.graphics.BitmapFactory;
         space = parent_space;
         setFocusable(true);
         setFocusableInTouchMode(true);
-    	contactListController = new ContactListController(context, this);
+    	//contactListController = new ContactListController(context, this);
+        empytSpaceMenuController = new EmptySpaceMenuController(context,this);
+        iconMenuController = new IconMenuController(context,this);
         Log.v(LOG_TAG, "Made SpaceView for a self-created space");
         Log.v(LOG_TAG, "New allIcons normal");
         setupImage();
@@ -270,12 +277,12 @@ import android.graphics.BitmapFactory;
 			// It detects whether free space is clicked and runs showBuddyList
 			if(!clickOnIcon){
 				Log.v(LOG_TAG, "Clicked on free space");
-				// getActivity().showBuddyList();
-				//(MainApplication)context)
-				// TODO show buddy list
-				//((MainApplication)context).showBuddyList();
-				
-				contactListController.showBuddyList();
+				EmptySpaceMenuController.showFreeSpaceMenu();
+				//ContactListController.showBuddyList();
+			}
+			else{
+				Log.v(LOG_TAG, "Clicked on icon");
+				IconMenuController.showIconMenu();
 			}
 			break;
 
@@ -309,9 +316,10 @@ import android.graphics.BitmapFactory;
 
 		case MotionEvent.ACTION_UP:
 			/*
-			 * If you highlited an icon, then clicked on nothing on screen, it
-			 * should unhighlite all the other icons and PrivateSpaceIconView icons
+			 * If you highlighted an icon, then clicked on nothing on screen, it
+			 * should unhighlight all the other icons and PrivateSpaceIconView icons
 			 */
+			
 			if (selectedIcon == null && mouseY < screenHeight) {
 				for(UserView p : allIcons){
 					if(p.getIsSelected()){
@@ -352,9 +360,7 @@ import android.graphics.BitmapFactory;
 		}
 		invalidate();
 		return true;
-       
-       
-       
+      
      }
      
  }

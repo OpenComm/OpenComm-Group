@@ -31,7 +31,7 @@ public class ContactListController {
 	
 	
 	private SpaceView spaceView = null;
-	private Context context;
+	private static Context context;
 	public ContactListController(Context context, SpaceView spaceView) {
 		this.spaceView = spaceView;
 		this.context = context;
@@ -39,9 +39,9 @@ public class ContactListController {
 	}
 
 	
-	public void showBuddyList(){
+	public static void showBuddyList(){
 		if (context == null)
-			Log.v("ShowBUddyLIst", "NULLL");
+			Log.v("ShowBUddyLIst", "NULL");
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
 		class DialogSelectionClickHandler implements DialogInterface.OnMultiChoiceClickListener
@@ -84,7 +84,7 @@ public class ContactListController {
 
 
 	// Add users from the buddylist dialog to the main space
-	public void addFromBuddyList() throws XMPPException{
+	public static void addFromBuddyList() throws XMPPException{
 		for( int i = 0; i < buddySelection.length; i++ ){
 			if(buddySelection[i]){
 				username = (String) buddyList[i];
@@ -97,7 +97,7 @@ public class ContactListController {
 	} // end addFromBuddyList method
 
 	// Updates the buddylist and the boolean selection array
-	public void updateBuddyList() {
+	public static void updateBuddyList() {
 		// obtain current buddylist from server
 		Roster xmppRoster = Login.xmppService.getXMPPConnection().getRoster();
 		Collection<RosterEntry> entryCollection = xmppRoster.getEntries();
