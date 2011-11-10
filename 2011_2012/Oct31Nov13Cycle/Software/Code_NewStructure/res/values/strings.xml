@@ -6,10 +6,13 @@
 <string name="trash_button_text">Trash</string>
 <string name="main_button_text">Main</string>
 <string name="add_button_text">Add</string>
+<string name="tip">to add contacts, just send  a request to the admin.               press and hold on the background to get started</string>
+<string name = "admin_tip">to start adding contacts, press and hold on the background</string>
 <color name="light_gray">#ffcccccc</color>
 <color name="gray">#ff888888</color>
 <color name="scroll_background">#FAB10000</color>
 <color name="main_background">#747574</color>
+
 
 <color name="black">#000000</color>
 <color name="transparent_black">#DA000000</color>
