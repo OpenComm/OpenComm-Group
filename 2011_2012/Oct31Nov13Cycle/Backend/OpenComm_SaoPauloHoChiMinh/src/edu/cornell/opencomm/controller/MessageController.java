@@ -42,8 +42,7 @@ public class MessageController {
 				Message message = (Message) packet;
 				String from = message.getFrom();
 				String body = message.getBody();
-				// if the primary user is the owner of the room
-				Occupant userOcc = muc.getOccupant(MainApplication.user_primary.getUsername()
+				Occupant userOcc = muc.getOccupant(mSpace.getRoomID()
 						+ "/" + MainApplication.user_primary.getNickname());
 				// if the primary user is the room's owner
 				if (userOcc.getAffiliation().equals(Network.ROLE_OWNER)) {
@@ -81,6 +80,12 @@ public class MessageController {
 							mSpace.getKickoutController().rejectKickoutRequest(kickoutInfo, reason);
 						}
 					}
+					
+					// normal messages
+					else {
+						if (D) Log.d(TAG, "Regular message receive from " + from
+								+ ": " + body);
+					}
 
 				}
 				// if the primary user is not the owner of the room
@@ -101,14 +106,13 @@ public class MessageController {
 
 						}
 					}
+					
 					// normal messages
 					else {
-						if (D) Log.d(TAG, "Regular message received");
+						if (D) Log.d(TAG, "Regular message receive from " + from
+								+ ": " + body);
 					}
 				}
-
-
-
 			}
 		};
 		return messageListener;

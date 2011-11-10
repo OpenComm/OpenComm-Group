@@ -15,52 +15,54 @@ import android.widget.RelativeLayout;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.R.layout;
 import edu.cornell.opencomm.Values;
+import edu.cornell.opencomm.controller.AdminTipController;
 import edu.cornell.opencomm.controller.ConfirmationController;
 import edu.cornell.opencomm.controller.LoginController;
+import edu.cornell.opencomm.controller.TipController;
 import edu.cornell.opencomm.model.Space;
 
-public class LoginView {
-	private static String LOG_TAG = "OC_LoginView"; // for error checking
+public class AdminTipView {
+	private static String LOG_TAG = "OC_AdminTipView"; // for error checking
 	private Context context;
 	private LayoutInflater inflater;
 	private PopupWindow window = null;
-	private LoginController loginController = new LoginController(this);
-	private View loginLayout = null;
+	private AdminTipController adminTipController = new AdminTipController(this);
+	private View adminTipLayout = null;
 
-	public LoginView(LayoutInflater inflater) {
+	public AdminTipView(LayoutInflater inflater) {
 		this.inflater = inflater;
 		initEventsAndProperties();
 	}
 
 	private void initEventsAndProperties() {
-		// create property loginLayout from infalter and store it as a
+		// create property adminTipLayout from infalter and store it as a
 		// property
 		if (inflater != null) {
-			View loginViewFromInflater = inflater.inflate(
-					R.layout.login_layout, null);
-			if (loginViewFromInflater != null) {
-				this.loginLayout = loginViewFromInflater;
+			View tipViewFromInflater = inflater.inflate(
+					R.layout.admintip_layout, null);
+			if (tipViewFromInflater != null) {
+				this.adminTipLayout = tipViewFromInflater;
 			}
 		}
-		initializeLoginButtonClickedEvent();
+		initializeTipButtonClickedEvent();
 
 	}
 
-	private void initializeLoginButtonClickedEvent() {
-		Button loginButton = getLoginButton();
-		if (loginButton != null) {
-			loginButton.setOnTouchListener(onLoginButtonClickedListener);
+	private void initializeTipButtonClickedEvent() {
+		Button acceptButton = getAcceptButton();
+		if (acceptButton != null) {
+			acceptButton.setOnTouchListener(onAcceptButtonClickedListener);
 		}
 	}
 
-	public Button getLoginButton() {
-		Button loginButton = null;
-		if (loginLayout != null) {
-			loginButton = (Button) loginLayout
-					.findViewById(R.id.buttonAcceptConfirmation);
+	public Button getAcceptButton() {
+		Button acceptButton = null;
+		if (adminTipLayout != null) {
+			acceptButton = (Button) adminTipLayout
+					.findViewById(R.id.buttonAcceptAdminTip);
 		}
 
-		return loginButton;
+		return acceptButton;
 	}
 
 	public Context getContext() {
@@ -92,14 +94,14 @@ public class LoginView {
 	 * changed later to launch like a normal view
 	 */
 	public void launch() {
-		if (inflater != null && loginLayout != null) {
-			window = new PopupWindow(loginLayout, Values.screenW,
+		if (inflater != null && adminTipLayout != null) {
+			window = new PopupWindow(adminTipLayout, Values.screenW,
 					Values.screenH, true);
-			window.showAtLocation(loginLayout, 0, 1, 1);
-			loginLayout.setOnClickListener(onClickListener);
+			window.showAtLocation(adminTipLayout, 0, 1, 1);
+			adminTipLayout.setOnClickListener(onClickListener);
 		} else {
 			Log.v(LOG_TAG,
-					"Cannot launch login view as inflater layout is null");
+					"Cannot launch admin tip view as inflater layout is null");
 		}
 	}
 
@@ -107,15 +109,15 @@ public class LoginView {
 
 		@Override
 		public void onClick(View v) {
-			loginController.handlePopupWindowClicked();
+			adminTipController.handlePopupWindowClicked();
 		}
 	};
 
-	private View.OnTouchListener onLoginButtonClickedListener = new View.OnTouchListener() {
+	private View.OnTouchListener onAcceptButtonClickedListener = new View.OnTouchListener() {
 
 		@Override
 		public boolean onTouch(View v, MotionEvent event) {
-			// loginController.handleLoginButtonClick();
+			adminTipController.handleAcceptButtonClicked();
 			return true;
 		}
 	};

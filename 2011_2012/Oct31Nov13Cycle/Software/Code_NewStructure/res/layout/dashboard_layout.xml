@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+android:id="@+id/dashboard_view"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent" android:fadingEdge="horizontal" android:background="@color/transparent_black">
+    <TextView android:layout_alignParentBottom="true" android:cursorVisible="false" android:layout_height="100dp" android:layout_marginBottom="0dp" android:layout_width="480dp" android:layout_alignParentLeft="true" android:background="@color/dark_grey" android:id="@+id/dashboardLowerPanel"></TextView>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentRight="true" android:layout_alignParentBottom="true" android:textSize="35dp" android:background="@color/light_grey" android:textColor="@color/off_white" android:paddingLeft="4dp" android:id="@+id/textViewConference" android:paddingTop="2dp" android:text=" start conference" android:layout_alignTop="@+id/buttonStartConference" android:layout_toRightOf="@+id/buttonStartConference"></TextView>
+    <Button android:layout_width="wrap_content" android:textSize="35dp" android:textColor="@color/orange" android:background="@color/dark_grey" android:id="@+id/buttonContacts" android:text="contacts" android:layout_alignParentTop="true" android:layout_alignParentLeft="true" android:layout_alignParentRight="true" android:layout_height="56dp" android:layout_marginTop="50dp"></Button>
+    <Button android:layout_width="wrap_content" android:layout_height="56dp" android:textSize="35dp" android:background="@color/dark_grey" android:layout_below="@+id/buttonContacts" android:layout_alignParentLeft="true" android:layout_alignParentRight="true" android:layout_marginTop="20dp" android:id="@+id/buttonHistory" android:text="history" android:textColor="@color/green"></Button>
+    <Button android:layout_width="wrap_content" android:layout_height="56dp" android:textSize="35dp" android:background="@color/dark_grey" android:layout_below="@+id/buttonHistory" android:layout_alignParentLeft="true" android:layout_alignParentRight="true" android:id="@+id/buttonAccount" android:text="account" android:textColor="@color/blue" android:layout_marginTop="20dp"></Button>
+    <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/buttonStartConference" android:background="@color/dark_grey" android:src="@drawable/sidechatplus1" android:layout_alignParentBottom="true" android:layout_alignParentLeft="true"></ImageButton>
+  </RelativeLayout>

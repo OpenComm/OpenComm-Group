@@ -1,5 +1,6 @@
 package edu.cornell.opencomm.controller;
 
+import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.muc.ParticipantStatusListener;
 
 import android.util.Log;
@@ -133,7 +134,7 @@ public class ParticipantController {
 			 * (ex: roomname@conference.jabber.org/nickname)
 			 * @param kickingUser - the user who is kicking the kicked_user from the room<br>
 			 * (ex: user@host.org)
-			 * @param reason - the reason given by the kickng user for kicking 
+			 * @param reason - the reason given by the kicking user for kicking 
 			 * the kicked user from the room
 			 */
 			public void kicked(String kickedUserRoomInfo, String kickingUser, String reason) {
@@ -169,7 +170,7 @@ public class ParticipantController {
 						// extract the user's nickname
 						String nickname = userSplit[1];
 						if (D) Log.d(TAG, "addUserStatusListener - " + nickname + 
-								" joined room " + roomname);
+								" left room " + roomname);
 					}
 				}
 			} // end left method
@@ -382,6 +383,21 @@ public class ParticipantController {
 			} // end splitUserRoomInfo method			
 		};
 		return participantStatListener;
-	} // configParticipantStatusListener method
+	} // end configParticipantStatusListener method
+	
+	
+	/** Removes the primary user from the Space associated with this controller.
+	 * If this is the conference, then the view changes to the splash screen. 
+	 * If this is a side chat, then the user is returned to the conference.
+	 */
+	public void leaveSpace(){
+		mSpace.getMUC().leave();
+		if (mSpace.equals(MainApplication.mainspace)) {
+			//TODO: update View to splash screen
+		}
+		else {
+			//TODO: update View to conference
+		}
+	}
 	
 } // end Class ParticipantController

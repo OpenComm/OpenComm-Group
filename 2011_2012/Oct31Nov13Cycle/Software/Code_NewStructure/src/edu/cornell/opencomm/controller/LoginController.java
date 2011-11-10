@@ -8,4 +8,8 @@ public class LoginController {
 	public LoginController(LoginView loginView) {
 		this.loginView = loginView;
 	}
+	
+	public void handlePopupWindowClicked() {
+		loginView.getWindow().dismiss();		
+	}
 }

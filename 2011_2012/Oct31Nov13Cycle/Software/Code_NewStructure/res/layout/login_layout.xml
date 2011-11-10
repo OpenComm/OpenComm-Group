@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-android:id="@+id/confirmation_view"
+android:id="@+id/login_view"
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent" android:fadingEdge="horizontal" android:background="@color/transparent_black">

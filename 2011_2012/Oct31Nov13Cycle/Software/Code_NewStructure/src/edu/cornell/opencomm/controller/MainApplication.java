@@ -33,12 +33,15 @@ import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.Network;
+import edu.cornell.opencomm.view.AdminTipView;
 import edu.cornell.opencomm.view.ConfirmationView;
+import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.InvitationView;
 import edu.cornell.opencomm.view.LoginView;
 import edu.cornell.opencomm.view.PrivateSpaceIconView;
 import edu.cornell.opencomm.view.PrivateSpacePreviewPopup;
 import edu.cornell.opencomm.view.SpaceView;
+import edu.cornell.opencomm.view.TipView;
 import edu.cornell.opencomm.view.UserView;
 
 
@@ -180,6 +183,30 @@ public class MainApplication extends Activity{
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				LoginView loginView = new LoginView(inflater);
 				loginView.launch();
+				break;
+			}
+			case KeyEvent.KEYCODE_4: {
+				Log.v(TAG, "pressed 4 key - tip screen");
+				LayoutInflater inflater = (LayoutInflater) MainApplication.this
+						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				TipView tipView = new TipView(inflater);
+				tipView.launch();
+				break;
+			}
+			case KeyEvent.KEYCODE_5: {
+				Log.v(TAG, "pressed 5 key - admin tip screen");
+				LayoutInflater inflater = (LayoutInflater) MainApplication.this
+						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				AdminTipView adminTipView = new AdminTipView(inflater);
+				adminTipView.launch();
+				break;
+			}
+			case KeyEvent.KEYCODE_6: {
+				Log.v(TAG, "pressed 6 key - dashboard screen");
+				LayoutInflater inflater = (LayoutInflater) MainApplication.this
+						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				DashboardView dashboardView = new DashboardView(inflater);
+				dashboardView.launch();
 				break;
 			}
 			case KeyEvent.KEYCODE_M: {
