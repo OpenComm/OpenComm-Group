@@ -156,12 +156,7 @@ public class MainApplication extends Activity{
 				}
 				break;
 			}
-			case KeyEvent.KEYCODE_V: {
-				//Log.v(TAG, "pressed V key - participant controller");
-				break;
-			}
-			}
-			;
+			};
 			return true;
 		}
 	};

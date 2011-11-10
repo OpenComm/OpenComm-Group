@@ -1,5 +1,6 @@
 package edu.cornell.opencomm.controller;
 
+import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.muc.ParticipantStatusListener;
 
 import android.util.Log;
@@ -382,6 +383,21 @@ public class ParticipantController {
 			} // end splitUserRoomInfo method			
 		};
 		return participantStatListener;
-	} // configParticipantStatusListener method
+	} // end configParticipantStatusListener method
+	
+	
+	/** Removes the primary user from the Space associated with this controller.
+	 * If this is the conference, then the view changes to the splash screen. 
+	 * If this is a side chat, then the user is returned to the conference.
+	 */
+	public void leaveSpace(){
+		mSpace.getMUC().leave();
+		if (mSpace.equals(MainApplication.mainspace)) {
+			//TODO: update View to splash screen
+		}
+		else {
+			//TODO: update View to conference
+		}
+	}
 	
 } // end Class ParticipantController
