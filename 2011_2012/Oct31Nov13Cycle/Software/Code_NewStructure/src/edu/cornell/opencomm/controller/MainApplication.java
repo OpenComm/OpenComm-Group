@@ -68,6 +68,9 @@ public class MainApplication extends Activity{
     /** The empty private space icon at the bottom of the screen */
     public static PrivateSpaceIconView emptyspace;
     
+    //Controllers
+    SideChatIconMenuController sideChatIconMenuController;
+    
     public static Values viewDimensions = new Values();
 
 	/** TODO Network - Do you need any of these?  -Nora 11/6 */
@@ -134,8 +137,7 @@ public class MainApplication extends Activity{
 				// create an empty private space
 				new Space(this, false, String.valueOf(space_counter++), user_primary);
 			} catch (XMPPException e) {
-				Log.e(TAG, "onCreate - Error (" + e.getXMPPError().getCode()
-						+ ") " + e.getXMPPError().getMessage());
+				//Log.e(TAG, "onCreate - Error (" + e.getXMPPError().getCode()+ ") " + e.getXMPPError().getMessage());
 				e.printStackTrace();
 			}
 			// Set the initial screen to the mainspace

@@ -4,9 +4,12 @@ import java.util.LinkedList;
 
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.R.color;
+import edu.cornell.opencomm.controller.EmptySpaceMenuController;
 import edu.cornell.opencomm.controller.MainApplication;
 import edu.cornell.opencomm.controller.PrivateSpaceIconController;
 import edu.cornell.opencomm.controller.PrivateSpacePreviewPopupController;
+import edu.cornell.opencomm.controller.SideChatIconMenuController;
+import edu.cornell.opencomm.controller.UserIconMenuController;
 import edu.cornell.opencomm.model.Space;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -49,6 +52,7 @@ public class PrivateSpaceIconView extends ImageButton{
     /** Controllers */
     PrivateSpaceIconController privateSpaceIconController;
     PrivateSpacePreviewPopupController privateSpacePreviewPopupController;
+    SideChatIconMenuController sideChatIconMenuController;
     
     /** States of the icon */
     boolean isSelected=false; // if true, icon should appear highlighted
@@ -97,6 +101,7 @@ public class PrivateSpaceIconView extends ImageButton{
     	this.space = space;
     	privateSpaceIconController = new PrivateSpaceIconController(this);
     	privateSpacePreviewPopupController = new PrivateSpacePreviewPopupController(context, this);
+    	sideChatIconMenuController = new SideChatIconMenuController(context,this);
     	// adds this PS Icon View to the static list of all PS Icons
     	allPSIcons.add(this);
     	// adds this PS Icon View to the XML so that it may show on screen
@@ -115,10 +120,15 @@ public class PrivateSpaceIconView extends ImageButton{
         ((MainApplication)context).delPrivateSpaceButton(this); 
     }
     
+    
     /* Set up a touch listener that will adjust the selections and highlights according
      * to if you touched the icon. 
      * 1) Click once should highlight button and open preview (close other previews) TODO VINAY
      * 2) Click a second time should open up that private space (call method from main application), and unhighlight the button */
+    
+    long startTime = 0;
+    long endTime = 0;
+	
     public void initTouch(){
     	this.setOnTouchListener(new View.OnTouchListener(){
     		public boolean onTouch(View view, MotionEvent evt){
@@ -127,25 +137,37 @@ public class PrivateSpaceIconView extends ImageButton{
     			 * icon is happening, and it seems to freeze right after opening up a 
     			 * popup preview! - NORA
     			 */
-    			case MotionEvent.ACTION_UP:
-    				// Highlight the icon on or off, and return true if on
-    				boolean showPopup = privateSpaceIconController.handleClickUp();
-    				Log.v("PSIconView", "Clicked up, highlight " + showPopup);
-    				if (showPopup)
-    					// UI Team - for now do not do anything
-    					;
-    				
-    					// if the highlight is on, then show the popup preview
-    					//privateSpacePreviewPopupController.openPopupPreview();
-    				else
-    					// UI Team - for now will change the screen of the spaceview
-    					MainApplication.screen.getSpaceViewController().changeSpace(space);
-    				
-    					// if not, then close the popup preview
-    					//privateSpacePreviewPopupController.closePopupPreview();
 
+    				case MotionEvent.ACTION_DOWN:
+    					startTime = evt.getEventTime();
     				break;
+    				
+    				case MotionEvent.ACTION_UP:
+    					// Highlight the icon on or off, and return true if on
+    					boolean showPopup = privateSpaceIconController.handleClickUp();
+    					Log.v("PSIconView", "Clicked up, highlight " + showPopup);
+    					endTime = evt.getEventTime();
+    					if (showPopup)
+    						// UI Team - for now do not do anything
+    						;
+    				
+    						// if the highlight is on, then show the popup preview
+    						//privateSpacePreviewPopupController.openPopupPreview();
+    					else
+    						// UI Team - for now will change the screen of the spaceview
+    						MainApplication.screen.getSpaceViewController().changeSpace(space);
+    				
+    						// if not, then close the popup preview
+    						//privateSpacePreviewPopupController.closePopupPreview();
+    				
+    				break;
+
     			}
+    			Log.v(LOG_TAG, "TimeDiff : "+Long.toString(endTime - startTime));
+    			if(endTime - startTime > 200){
+    	        	SideChatIconMenuController.showSideChatMenu(); 
+    	 			return true;
+    	        }
     			return false;
     		}
     	});

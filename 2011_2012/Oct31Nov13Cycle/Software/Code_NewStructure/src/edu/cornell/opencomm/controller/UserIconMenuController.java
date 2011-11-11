@@ -7,13 +7,18 @@ import android.util.Log;
 import android.widget.Toast;
 import edu.cornell.opencomm.view.SpaceView;
 
-public class IconMenuController {
+/** When a user press and hold an icon of the mainscreen, this controller
+ *  is invoked. It displays a dialog menu.
+ *  
+ *  @author - rahularora
+ */  
+public class UserIconMenuController {
 	final static CharSequence[] items = {"Delete User", "Cancel"};
 	
 	private SpaceView spaceView = null;
 	private static Context context;
 
-	public IconMenuController(Context context, SpaceView spaceView) {
+	public UserIconMenuController(Context context, SpaceView spaceView) {
 		this.spaceView = spaceView;
 		this.context = context;
 	}
@@ -21,12 +26,17 @@ public class IconMenuController {
 	
 	public static void showIconMenu(){
 		if (context == null)
-			Log.v("Icon Menu", "NULLL");
+			Log.v("User Icon Menu", "NULLL");
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
 		builder.setItems(items, new DialogInterface.OnClickListener() {
 		    public void onClick(DialogInterface dialog, int item) {
-		        Toast.makeText(context, items[item], Toast.LENGTH_SHORT).show();
+		    	if (items[item].equals("Delete User")){
+		    		//Do something if user clicks on Delete User
+		    	}
+		    	else if (items[item].equals("Cancel")){
+		    		//Do something if user clicks on Cancel
+		    	}
 		    }
 		});
 

@@ -16,6 +16,11 @@ import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.view.SpaceView;
 
+/** When a user press and hold an empty space of the mainscreen, this controller
+ *  is invoked. It displays a dialog menu.
+ *  
+ *  @author - rahularora
+ */   
 public class EmptySpaceMenuController {
   
 	final static CharSequence[] items = {"Add Users", "Delete Users", 
@@ -33,7 +38,7 @@ public class EmptySpaceMenuController {
 
 	public static void showFreeSpaceMenu(){
 		if (context == null)
-			Log.v("Free Space Menu", "NULLL");
+			Log.v("Empty Space Menu", "NULLL");
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
 		builder.setItems(items, new DialogInterface.OnClickListener() {
@@ -42,12 +47,13 @@ public class EmptySpaceMenuController {
 		    	if (items[item].equals("Add Users")){
 		    		contactListController.showBuddyList();
 		    	}
-		    	if (items[item].equals("Delete Users")){
+		    	else if (items[item].equals("Delete Users")){
 		    		//Do something if user clicks on Delete Users
 		    	}
-		    	if (items[item].equals("Leave Chat")){
+		    	else if (items[item].equals("Leave Chat")){
 		    		//Do something if user clicks on Leave Chat
-		    	}if (items[item].equals("Cancel")){
+		    	}
+		    	else if (items[item].equals("Cancel")){
 		    		//Do something if user clicks on Cancel
 		    	}
 		    }

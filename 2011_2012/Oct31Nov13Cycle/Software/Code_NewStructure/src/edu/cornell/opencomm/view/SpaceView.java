@@ -9,7 +9,7 @@ import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.R.color;
 import edu.cornell.opencomm.controller.ContactListController;
 import edu.cornell.opencomm.controller.EmptySpaceMenuController;
-import edu.cornell.opencomm.controller.IconMenuController;
+import edu.cornell.opencomm.controller.UserIconMenuController;
 import edu.cornell.opencomm.controller.MainApplication;
 import edu.cornell.opencomm.controller.SpaceViewController;
 import edu.cornell.opencomm.model.User;
@@ -56,7 +56,7 @@ import android.graphics.BitmapFactory;
     SpaceViewController spaceViewController = new SpaceViewController(this);
     //ContactListController contactListController;
     EmptySpaceMenuController empytSpaceMenuController;
-    IconMenuController iconMenuController;
+    UserIconMenuController userIconMenuController;
     
     /* Constructor: This one is used by the XML file to automatically generate
      * a SpaceView
@@ -68,7 +68,7 @@ import android.graphics.BitmapFactory;
     	setFocusableInTouchMode(true);
     	//contactListController = new ContactListController(context, this);
     	empytSpaceMenuController = new EmptySpaceMenuController(context,this);
-    	iconMenuController = new IconMenuController(context,this);
+    	userIconMenuController = new UserIconMenuController(context,this);
     	Log.v(LOG_TAG, "Made SpaceView for XML file");
     	Log.v(LOG_TAG, "New allIcons attri");
     	setupImage();
@@ -84,7 +84,7 @@ import android.graphics.BitmapFactory;
         setFocusableInTouchMode(true);
     	//contactListController = new ContactListController(context, this);
         empytSpaceMenuController = new EmptySpaceMenuController(context,this);
-        iconMenuController = new IconMenuController(context,this);
+        userIconMenuController = new UserIconMenuController(context,this);
         Log.v(LOG_TAG, "Made SpaceView for a self-created space");
         Log.v(LOG_TAG, "New allIcons normal");
         setupImage();
@@ -240,11 +240,12 @@ import android.graphics.BitmapFactory;
      
      long startTime = 0;
 	 long endTime = 0;
+	 boolean clickOnIcon = false;
 	 
      public boolean onTouchEvent(MotionEvent event) {
     	 int mouseX = (int) event.getX();
     	 int mouseY = (int) event.getY();
-    	 boolean clickOnIcon = false;
+    	 
     	 if(event.getAction() == MotionEvent.ACTION_DOWN){
     		 //record the start time
     		 startTime = event.getEventTime();
@@ -347,15 +348,12 @@ import android.graphics.BitmapFactory;
         	 }
  			 else{
  				 Log.v(LOG_TAG, "Clicked on icon");
- 				 IconMenuController.showIconMenu();
+ 				 UserIconMenuController.showIconMenu();
+ 				 clickOnIcon = false;
  			}
  			return true;
          }
          
          return true;
      }
-     
-
-
-     
-}
+ }
