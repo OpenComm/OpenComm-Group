@@ -99,10 +99,10 @@ public class MainApplication extends Activity{
         	user_primary = new User(username, username.split("@")[0], R.drawable.question);
         	try {
         		// create the mainspace
-				mainspace = new Space(this, true, String.valueOf(space_counter++), user_primary);
+				SpaceController.createMainSpace(this);
 
 				// create an empty private space
-				new Space(this, false, String.valueOf(space_counter++), user_primary);
+				SpaceController.addSpace(this);
 
 				// TODO add private space preview
 			} catch (XMPPException e) {
