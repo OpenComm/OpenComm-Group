@@ -133,7 +133,7 @@ public class MainApplication extends Activity{
 			}
 			switch (keyCode) {
 			case KeyEvent.KEYCODE_1: {
-				Log.v(TAG, "pressed 1 key - confirmation screen");
+				Log.v(TAG, "pressed M key - confirmation screen");
 				LayoutInflater inflater = (LayoutInflater) MainApplication.this
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				ConfirmationView confirmationView = new ConfirmationView(inflater);
@@ -143,22 +143,17 @@ public class MainApplication extends Activity{
 			case KeyEvent.KEYCODE_M: {
 				// invite a user to the mainspace. Assume inviter is owner
 				int i = 0;
-				Log.v(TAG, "pressed M key - invitation" + i++);
+				Log.v(TAG, "pressed N key - invitation" + i++);
 				(MainApplication.mainspace.getInvitationController()).inviteUser(debug, "You're fun!");
 				break;
 			}
 			case KeyEvent.KEYCODE_N: {
-				Log.v(TAG, "pressed N key - kickout");
+				Log.v(TAG, "pressed B key - kickout");
 				try {
 					(MainApplication.mainspace.getKickoutController()).kickoutUser(debug, "You suck!");
 				} catch (XMPPException e) {
 					Log.d(TAG, "Couldn't kick!");
 				}
-				break;
-			}
-			case KeyEvent.KEYCODE_B: {
-				Log.v(TAG, "pressed B key - leave space");
-				MainApplication.mainspace.getParticipantController().leaveSpace();
 				break;
 			}
 			};
