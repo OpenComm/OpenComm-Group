@@ -212,13 +212,11 @@ import android.graphics.BitmapFactory;
   	   	 this.invalidate();
      }    
      
-     
-     /* Handle Touch events... MANY cases to consider 
+	 /* Handle Touch events... MANY cases to consider 
       * A PS icon = private space icon, squares that represent another private space
       * at the bottom bar of the gui 
-      * Only adding people to privatespaces and */
-     public boolean onTouchEvent(MotionEvent event){
-     /* Need to be able to do all of this:
+      * Only adding people to privatespaces and 
+      * Need to be able to do all of this:
       * 1) Drag a person's icon around the screen (but only within screen
       * and not past the buttons), make sure to notify network to update spatialization
       * 2) Highlight a person's icon by tapping once (later perhaps open miniprofile)
@@ -239,128 +237,125 @@ import android.graphics.BitmapFactory;
        * while drawing, and once released should highlight all encircled icons 
        * 7) Be able to drag multiple highlighted icons as a unit 
        */
-       
-        int eventaction = event.getAction();
-		int mouseX = (int) event.getX();
-		int mouseY = (int) event.getY();
-		boolean clickOnIcon = false;
-		
-		switch (eventaction) {
-		case MotionEvent.ACTION_DOWN:
-			selectedIcon = null;
-			for (UserView icon : allIcons) {
-				if (icon.clickedInside(mouseX, mouseY)) {
-					selectedIcon = icon;
-					icon.getUserViewController().handleClickDown(icon.getX(), icon.getY());
-					clickOnIcon = true;
-					//Crystal Q
-					if(initialIcon == selectedIcon){
-						Log.v(LOG_TAG, "Double CLICK");
-						// TODO Crystal - need to change this to a press and hold
-						// not a double click
-						if(MainApplication.user_primary == MainApplication.screen.getSpace().getOwner()){
-							try{
-							space.getKickoutController().kickoutUser(selectedIcon.getPerson(), "Because I said so!");
-							} catch(XMPPException e){
-								Log.v(LOG_TAG, "Darn, can't kick this person out"); }
-						}
-					    initialIcon=null;
-					   	break;
-					}
-					else{  
-						Log.v(LOG_TAG, "SINGLE CLICK");
-						initialIcon=selectedIcon;
-					}
-				}
-			}
-			
-			// It detects whether free space is clicked and runs showBuddyList
-			if(!clickOnIcon){
-				Log.v(LOG_TAG, "Clicked on free space");
-				EmptySpaceMenuController.showFreeSpaceMenu();
-				//ContactListController.showBuddyList();
-			}
-			else{
-				Log.v(LOG_TAG, "Clicked on icon");
-				IconMenuController.showIconMenu();
-			}
-			break;
+     
+     long startTime = 0;
+	 long endTime = 0;
+	 
+     public boolean onTouchEvent(MotionEvent event) {
+    	 int mouseX = (int) event.getX();
+    	 int mouseY = (int) event.getY();
+    	 boolean clickOnIcon = false;
+    	 if(event.getAction() == MotionEvent.ACTION_DOWN){
+    		 //record the start time
+    		 startTime = event.getEventTime();
+    		 selectedIcon = null;
+    		 for (UserView icon : allIcons) {
+    			 if (icon.clickedInside(mouseX, mouseY)) {
+    				 selectedIcon = icon;
+ 					 icon.getUserViewController().handleClickDown(icon.getX(), icon.getY());
+ 					 clickOnIcon = true;
+ 					 //Crystal Q
+ 					 if(initialIcon == selectedIcon){
+ 						 Log.v(LOG_TAG, "Double CLICK");
+ 						 // TODO Crystal - need to change this to a press and hold
+ 						 // not a double click
+ 						 if(MainApplication.user_primary == MainApplication.screen.getSpace().getOwner()){
+ 							 try{
+ 								 space.getKickoutController().kickoutUser(selectedIcon.getPerson(), "Because I said so!");
+ 							 }catch(XMPPException e){
+ 								 Log.v(LOG_TAG, "Darn, can't kick this person out"); }
+ 						 }
+ 						 initialIcon=null;
+ 					   	 break;
+ 					 }
+ 					 else{  
+ 						 Log.v(LOG_TAG, "SINGLE CLICK");
+ 						 initialIcon=selectedIcon;
+ 					 }
+    			 }
+    		 }
+         }else if(event.getAction() == MotionEvent.ACTION_UP){
+        	 //record the end time
+        	 endTime = event.getEventTime();
+        	 
+        	 if (selectedIcon == null && mouseY < screenHeight) {
+        		 for(UserView p : allIcons){
+        			 if(p.getIsSelected()){
+        				 p.setIsSelected(false);
+        			 }
+        		 }
+        		 for(PrivateSpaceIconView icon: PrivateSpaceIconView.allPSIcons){
+        			 icon.setSelected(false);
+ 				 }
+        	 }
+ 			
+        	 if (selectedIcon != null) {
+        		 selectedIcon.getUserViewController().handleClickUp(mouseX, mouseY);
+ 				
+ 				 // if released icon over an privatespace icon, then add that person to the private space
+ 				 for(PrivateSpaceIconView p : PrivateSpaceIconView.allPSIcons){
+ 					 if(p.contains(mouseX, mouseY)){
+ 						 p.setHighlighted(false);
+ 						 (p.getSpace()).getInvitationController().inviteUser(selectedIcon.getPerson(), null);
+ 						 /* Detect if icon was dropped into the empty PS or an existing PS.
+ 						    if first icon dropped in space, make a new space*/
+ 						 if((p.getSpace()).getAllIcons().size()==1){
+ 							 int newspaceID= Integer.parseInt(p.getSpace().getRoomID()) + 1;
+ 							 try {
+ 								 new Space((MainApplication)context,false,String.valueOf(newspaceID),null);
+ 							 } catch (XMPPException e) {
+ 								 // TODO Auto-generated catch block
+ 								 e.printStackTrace();
+ 							 }
+ 							 break;
+ 						 }
+ 					 }
+ 				 }
+ 				 selectedIcon = null;
+ 				
+        	 	}
+         }else if(event.getAction() == MotionEvent.ACTION_MOVE){
+        	 // If a person icon is selected, then move the icon to the current position
+ 			 if (selectedIcon != null) {
+ 				 selectedIcon.getUserViewController().handleMoved(mouseX, mouseY);
 
-		case MotionEvent.ACTION_MOVE:
-			// If a person icon is selected, then move the icon to the current
-			// position
-			if (selectedIcon != null) {
-				selectedIcon.getUserViewController().handleMoved(mouseX, mouseY);
+ 				 // if icon is dragged over private space, then highlight that private space icon
+ 				 if (hoveredPrivSpace == null) {
+ 					 for (PrivateSpaceIconView p : PrivateSpaceIconView.allPSIcons) {
+ 						 if (p.contains(mouseX, mouseY)) {
+ 							 //p.setHovered(true);
+ 							 p.getPrivateSpaceIconController().handleIconHovered();
+ 							 //p.setHighlighted(true);
+ 							 hoveredPrivSpace = p;
+ 						 }
+ 					 }
+ 				 } else if (hoveredPrivSpace != null) {
+ 					 if (!hoveredPrivSpace.contains(mouseX, mouseY)) {
+ 						 hoveredPrivSpace.getPrivateSpaceIconController().handleIconNotHovered();
+ 						 //hoveredPrivSpace.setHighlighted(false);
+ 						 hoveredPrivSpace = null;
+ 					 }
+ 				 } 
+ 			 }
+         }
 
-				// if icon is dragged over private space, then highlight that
-				// private space icon
-				if (hoveredPrivSpace == null) {
-					for (PrivateSpaceIconView p : PrivateSpaceIconView.allPSIcons) {
-						if (p.contains(mouseX, mouseY)) {
-							//p.setHovered(true);
-							p.getPrivateSpaceIconController().handleIconHovered();
-							//p.setHighlighted(true);
-							hoveredPrivSpace = p;
-						}
-					}
-				} else if (hoveredPrivSpace != null) {
-					if (!hoveredPrivSpace.contains(mouseX, mouseY)) {
-						hoveredPrivSpace.getPrivateSpaceIconController().handleIconNotHovered();
-						//hoveredPrivSpace.setHighlighted(false);
-						hoveredPrivSpace = null;
-					}
-				} 
-			}
-			
-			break;
-
-		case MotionEvent.ACTION_UP:
-			/*
-			 * If you highlighted an icon, then clicked on nothing on screen, it
-			 * should unhighlight all the other icons and PrivateSpaceIconView icons
-			 */
-			
-			if (selectedIcon == null && mouseY < screenHeight) {
-				for(UserView p : allIcons){
-					if(p.getIsSelected()){
-						p.setIsSelected(false);
-					}
-				}
-				for(PrivateSpaceIconView icon: PrivateSpaceIconView.allPSIcons){
-					icon.setSelected(false);
-				}
-			}
-			if (selectedIcon != null) {
-				selectedIcon.getUserViewController().handleClickUp(mouseX, mouseY);
-				
-				// if released icon over an privatespace icon, then add that person to the private space
-				for(PrivateSpaceIconView p : PrivateSpaceIconView.allPSIcons){
-					if(p.contains(mouseX, mouseY)){
-						p.setHighlighted(false);
-						(p.getSpace()).getInvitationController().inviteUser(selectedIcon.getPerson(), null);
-						/* Detect if icon was dropped into the empty PS or an existing PS.
-						 */
-						//if first icon dropped in space, make a new space
-						if((p.getSpace()).getAllIcons().size()==1){
-							int newspaceID= Integer.parseInt(p.getSpace().getRoomID()) + 1;
-							try {
-								new Space((MainApplication)context,false,String.valueOf(newspaceID),null);
-							} catch (XMPPException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							break;
-						}
-					}
-				}
-				selectedIcon = null;
-				
-			}
-			break;
-		}
-		invalidate();
-		return true;
-      
+    	 Log.v(LOG_TAG, "TimeDiff : "+Long.toString(endTime - startTime));
+         if(endTime - startTime > 200){
+        	 if(!clickOnIcon){
+ 				 Log.v(LOG_TAG, "Clicked on free space");
+ 				 EmptySpaceMenuController.showFreeSpaceMenu();
+        	 }
+ 			 else{
+ 				 Log.v(LOG_TAG, "Clicked on icon");
+ 				 IconMenuController.showIconMenu();
+ 			}
+ 			return true;
+         }
+         
+         return true;
      }
      
- }
+
+
+     
+}
