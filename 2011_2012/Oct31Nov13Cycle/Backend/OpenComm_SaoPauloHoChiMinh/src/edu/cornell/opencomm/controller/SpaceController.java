@@ -68,13 +68,13 @@ public class SpaceController {
 	 * @throws XMPPException
 	 */
 	public static Space createMainSpace(Context context) throws XMPPException {
-		if(MainApplication.mainspace != null) {
+		if(Space.getMainSpace() != null) {
 			if(D) Log.d(TAG, "Tried to create main space when one already exists");
 			return null;
 		}
 		int spaceID = MainApplication.space_counter++;
 		Space mainSpace = new Space(context, true, String.valueOf(spaceID), MainApplication.user_primary);
-		MainApplication.mainspace = mainSpace;
+		Space.setMainSpace(mainSpace);
 		if(D) Log.d(TAG, "Created a new main space with ID:" + spaceID);
 		return mainSpace;
 	} // end of createMainSpace method

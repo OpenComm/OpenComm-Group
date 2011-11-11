@@ -34,10 +34,6 @@ public class InvitationController implements InvitationListener, InvitationRejec
 		this.mSpace = mSpace;
 		this.mSpace.getMUC();
 		this.mSpace.getMUC().addInvitationRejectionListener(this);
-		
-		//TODO: Move this somewhere where it will only get called once (NetworkService?)
-		MultiUserChat.addInvitationListener(
-				Login.xmppService.getXMPPConnection(), this);
 	}
 
 	/** =============================================================================================
