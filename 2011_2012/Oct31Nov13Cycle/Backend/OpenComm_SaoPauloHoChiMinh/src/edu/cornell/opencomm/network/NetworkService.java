@@ -1,13 +1,20 @@
 package edu.cornell.opencomm.network;
 
+import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.provider.*;
 import org.jivesoftware.smackx.GroupChatInvitation;
 import org.jivesoftware.smackx.PrivateDataManager;
+import org.jivesoftware.smackx.muc.InvitationListener;
+import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.packet.ChatStateExtension;
 import org.jivesoftware.smackx.provider.*;
+
+import edu.cornell.opencomm.model.Invitation;
+import edu.cornell.opencomm.model.Space;
 
 import android.os.Handler;
 import android.util.Log;
@@ -49,6 +56,36 @@ public class NetworkService {
 				Log.d(TAG, "XMPP connection not established");
 			}
 		}
+		MultiUserChat.addInvitationListener(xmppConn, new InvitationListener(){
+
+			/**
+			 * Automagically called when this client receives an invitation to join a MUC
+			 */
+			@Override
+			public void invitationReceived(Connection connection, String room, 
+					String inviter, String reason, String password, Message message) {
+				Invitation invitation = new edu.cornell.opencomm.model.Invitation(
+						connection, room, inviter, reason, password, message);
+				
+				Log.v("InvitationController", "How is room formatted?" + room);
+				//answer: room@server (ex. hellokitty@conference.jabber.org)
+
+				for (Space s : Space.allSpaces){
+					if (room.equals(s.getRoomID())){
+						s.getInvitationController().setInvitation(invitation);
+						Log.v("InvitationController", "The invitation received exists! " +
+								"It is: " + s.getInvitationController().getInvitation().toString());
+						break;
+					}
+				}
+				//TODO: Trigger update to the view!
+				
+				//DEBUG
+				Log.v("InvitationController", "invitationReceived - Invitation " +
+						"received from: " + inviter + " to join room: " + room);
+			}
+			
+		});
 	} // end NetworkService method
 	
 	/** = the XMPP connection */

@@ -36,7 +36,8 @@ public class ParticipantController {
 	public void leaveSpace(){
 		if (MainApplication.user_primary.equals(mSpace.getOwner())){
 			//TODO: update View with a prompt asking for new Owner by nickname.
-			String newOwnerNick = ""; //TODO: Set new Owner nickname to newOwnerNick
+			//TODO: Set new Owner nickname to newOwnerNick
+			String newOwnerNick = "opencommsec"; 
 			String newOwner = "";
 			Collection<User> inSpace = mSpace.getAllParticipants().values();
 			for (User u : inSpace){
@@ -63,6 +64,7 @@ public class ParticipantController {
 			this.mSpace.getMUC().grantOwnership(newOwner);
 		} catch (XMPPException e) {
 			Log.v(TAG, "Could not grant ownership to: " + newOwner);
+			Log.v(TAG, "exception: " + e.getMessage());
 		}
 	}
 } // end Class ParticipantController
