@@ -4,6 +4,7 @@ import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 
 import android.content.Context;
+import android.util.Log;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.view.PrivateSpaceIconView;
 import edu.cornell.opencomm.view.SpaceView;
@@ -47,11 +48,36 @@ public class SpaceController {
 		}
 	} // end of deleteSpace method
 
-	public static void addSpace(Context context) throws XMPPException {
-		Space space = new Space(context, false, String.valueOf(MainApplication.space_counter++), MainApplication.user_primary);
+	/**
+	 * Creates a new Space
+	 * @param context The context this space belongs to (i.e. MainApplication)
+	 * @return the newly created space
+	 * @throws XMPPException
+	 */
+	public static Space addSpace(Context context) throws XMPPException {
+		int spaceID = MainApplication.space_counter++;
+		Space space = new Space(context, false, String.valueOf(spaceID), MainApplication.user_primary);
 		Space.allSpaces.add(space);
-		PrivateSpaceIconView psiv= new PrivateSpaceIconView(context, space);
+		if(D) Log.d(TAG, "Created a new space with ID:" + spaceID);
+		return space;
 	} // end of addSpace method
-	 
+	
+	/**
+	 * Creates a new mainspace
+	 * @param context The context this space belongs to (i.e. MainApplication)
+	 * @return the newly created space
+	 * @throws XMPPException
+	 */
+	public static Space createMainSpace(Context context) throws XMPPException {
+		if(Space.getMainSpace() != null) {
+			if(D) Log.d(TAG, "Tried to create main space when one already exists");
+			return null;
+		}
+		int spaceID = MainApplication.space_counter++;
+		Space mainSpace = new Space(context, true, String.valueOf(spaceID), MainApplication.user_primary);
+		Space.setMainSpace(mainSpace);
+		if(D) Log.d(TAG, "Created a new main space with ID:" + spaceID);
+		return mainSpace;
+	} // end of createMainSpace method
 
 } // end Class SpaceController

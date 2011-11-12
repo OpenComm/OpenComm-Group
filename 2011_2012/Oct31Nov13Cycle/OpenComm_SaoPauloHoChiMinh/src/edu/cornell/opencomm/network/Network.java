@@ -8,7 +8,7 @@ public class Network {
 	public static final String packageName = "edu.cornell.opencomm.network.";
 
 	/** = name of the cycle during which this app is created */
-	public static final String cycleName = "eiffel_forth";
+	public static final String cycleName = "saopaulo_hochiminh";
 
 	// ====================================================================== //
 	// ====================================================================== //

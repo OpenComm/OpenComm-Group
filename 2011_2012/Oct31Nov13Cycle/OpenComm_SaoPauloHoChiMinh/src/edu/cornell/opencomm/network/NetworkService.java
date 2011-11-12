@@ -1,27 +1,22 @@
 package edu.cornell.opencomm.network;
 
+import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
-import org.jivesoftware.smack.provider.PrivacyProvider;
-import org.jivesoftware.smack.provider.ProviderManager;
+import org.jivesoftware.smack.packet.Message;
+import org.jivesoftware.smack.provider.*;
 import org.jivesoftware.smackx.GroupChatInvitation;
 import org.jivesoftware.smackx.PrivateDataManager;
+import org.jivesoftware.smackx.muc.InvitationListener;
+import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.packet.ChatStateExtension;
-import org.jivesoftware.smackx.provider.AdHocCommandDataProvider;
-import org.jivesoftware.smackx.provider.DataFormProvider;
-import org.jivesoftware.smackx.provider.DelayInformationProvider;
-import org.jivesoftware.smackx.provider.DiscoverInfoProvider;
-import org.jivesoftware.smackx.provider.DiscoverItemsProvider;
-import org.jivesoftware.smackx.provider.MUCAdminProvider;
-import org.jivesoftware.smackx.provider.MUCOwnerProvider;
-import org.jivesoftware.smackx.provider.MUCUserProvider;
-import org.jivesoftware.smackx.provider.MessageEventProvider;
-import org.jivesoftware.smackx.provider.MultipleAddressesProvider;
-import org.jivesoftware.smackx.provider.RosterExchangeProvider;
-import org.jivesoftware.smackx.provider.VCardProvider;
-import org.jivesoftware.smackx.provider.XHTMLExtensionProvider;
+import org.jivesoftware.smackx.provider.*;
 
+import edu.cornell.opencomm.model.Invitation;
+import edu.cornell.opencomm.model.Space;
+
+import android.os.Handler;
 import android.util.Log;
 
 /** An instance of this class is the XMPP connection */
@@ -61,6 +56,37 @@ public class NetworkService {
 				Log.d(TAG, "XMPP connection not established");
 			}
 		}
+		MultiUserChat.addInvitationListener(xmppConn, new InvitationListener(){
+
+			/**
+			 * Automagically called when this client receives an invitation to join a MUC
+			 */
+			@Override
+			public void invitationReceived(Connection connection, String room, 
+					String inviter, String reason, String password, Message message) {
+				Invitation invitation = new edu.cornell.opencomm.model.Invitation(
+						connection, room, inviter, reason, password, message);
+				
+				Log.v("InvitationController", "How is room formatted?" + room);
+				//answer: room@server (ex. hellokitty@conference.jabber.org)
+
+				for (Space s : Space.allSpaces){
+					if (room.equals(s.getRoomID())){
+						s.getInvitationController().setInvitation(invitation);
+						Log.v("InvitationController", "The invitation received exists! " +
+								"It is: " + s.getInvitationController().getInvitation().toString());
+						break;
+					}
+				}
+				//TODO: Trigger update to the view!
+				//TODO: call InvitationController.accept, or InvitationController.decline
+				
+				//DEBUG
+				Log.v("InvitationController", "invitationReceived - Invitation " +
+						"received from: " + inviter + " to join room: " + room);
+			}
+			
+		});
 	} // end NetworkService method
 	
 	/** = the XMPP connection */
@@ -91,7 +117,6 @@ public class NetworkService {
 	} // end disconnect method
 	
 	/** = String representation of the network service */
-	@Override
 	public String toString() {
 		String temp = "";
 		temp += "XMPP Connection to host server " + this.xmppConfig.getHost();

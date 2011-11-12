@@ -21,8 +21,7 @@ import edu.cornell.opencomm.view.InvitationView;
  * Controller class for MultiUserChat invitations
  * @author jonathanpullano, risanaka, kriskooi
  */
-public class InvitationController implements InvitationListener, InvitationRejectionListener {
-	private edu.cornell.opencomm.model.Invitation invitation;
+public class InvitationController implements InvitationRejectionListener {
 
 	private InvitationView invitationView = null;
 	public InvitationController(InvitationView invitationView) {
@@ -42,6 +41,8 @@ public class InvitationController implements InvitationListener, InvitationRejec
 	// Model variables
 	private Space mSpace;
 
+	private Invitation invitation;
+
 	private static final String TAG = "InvitationController";
 	private static final boolean D = true;
 
@@ -51,6 +52,8 @@ public class InvitationController implements InvitationListener, InvitationRejec
 	 */
 	public InvitationController(Space mSpace) {
 		this.mSpace = mSpace;
+		this.mSpace.getMUC();
+		this.mSpace.getMUC().addInvitationRejectionListener(this);
 	}
 
 	/** =============================================================================================
@@ -80,7 +83,8 @@ public class InvitationController implements InvitationListener, InvitationRejec
 				+ (userOcc != null));
 		// if the primary user is the room's owner
 		if (userOcc.getAffiliation().equals(Network.ROLE_OWNER)) {
-			this.mSpace.getMUC().invite(invitee.getUsername(), ((reason == null) ? Network.DEFAULT_INVITE : reason));
+			this.mSpace.getMUC().invite(invitee.getUsername(), ((reason == null)
+					? Network.DEFAULT_INVITE : reason));
 		}
 		// send message to owner invitation request
 		else {
@@ -140,7 +144,7 @@ public class InvitationController implements InvitationListener, InvitationRejec
 	} // end receiveInvitationRequest method
 
 	/**
-	 * Confirm an invitation request. Invite the invitee with the reaosn given
+	 * Confirm an invitation request. Invite the invitee with the reason given
 	 * by the requester
 	 *
 	 * @param inviteInfo
@@ -149,12 +153,8 @@ public class InvitationController implements InvitationListener, InvitationRejec
 	public void confirmInvitationRequest(String[] inviteInfo) {
 		// Check the inviteInfo is not null and length 3
 		if (inviteInfo != null && inviteInfo.length == 3) {
-			// invite the invitee
-			// TODO Risa - enter Jonathan's invite code
-			// DEBUG
-			if (D)
-				Log.d(TAG,
-						"confirmInvitationRequest - confirmed invitation request from "
+			this.mSpace.getMUC().invite(inviteInfo[1], inviteInfo[2]);
+			if (D) Log.d(TAG, "confirmInvitationRequest - confirmed invitation request from "
 								+ inviteInfo[0] + " for room "
 								+ this.mSpace.getRoomID() + " for user "
 								+ inviteInfo[1] + " (reason - " + inviteInfo[2]
@@ -184,17 +184,14 @@ public class InvitationController implements InvitationListener, InvitationRejec
 			try {
 				this.mSpace.getMUC().sendMessage(msg);
 			} catch (XMPPException e) {
-				if (D)
-					Log.d(TAG, "rejectInvitationRequest - message not sent: "
+				if (D) Log.d(TAG, "rejectInvitationRequest - message not sent: "
 							+ e.getXMPPError().getCode() + " - "
 							+ e.getXMPPError().getMessage());
 				e.printStackTrace();
 			}
 		}
 		// DEBUG
-		if (D)
-			Log.d(TAG,
-					"rejectInvitationRequest - rejected invitation request from "
+		if (D) Log.d(TAG, "rejectInvitationRequest - rejected invitation request from "
 							+ inviteInfo[0] + " for room "
 							+ this.mSpace.getRoomID() + " for user "
 							+ inviteInfo[1] + "(reason - " + inviteInfo[2]
@@ -234,16 +231,14 @@ public class InvitationController implements InvitationListener, InvitationRejec
 						rejectReason };
 				// TODO UI - send information around request reject to screen?
 				// DEBUG
-				if (D)
-					Log.d(TAG, "receiveInvitationRequestRejection - received "
+				if (D) Log.d(TAG, "receiveInvitationRequestRejection - received "
 							+ "rejection of invitation request " + " for room "
 							+ this.mSpace.getRoomID() + " for user "
 							+ rejectInfo[1] + "(reason - " + rejectInfo[2]
 							+ ": reason - " + rejectInfo[3]);
 				return rejectInfo;
 			}
-			if (D)
-				Log.d(TAG, "receiveInvitationRequestRejection - primary user "
+			if (D) Log.d(TAG, "receiveInvitationRequestRejection - primary user "
 						+ "did not submit this request");
 		} else {
 			Log.e(TAG, "receiveInvitationRequestRejection - wrong tag");
@@ -256,7 +251,7 @@ public class InvitationController implements InvitationListener, InvitationRejec
 	 * @param inviter - Person who invited you to the chat
 	 */
 	public void decline(String inviter) {
-		MultiUserChat.decline(this.invitation.getConnection(), this.invitation.getRoom(), inviter, Network.DEFAULT_REJECT);
+		MultiUserChat.decline(this.invitation.getConnection(), this.invitation.getRoom(), inviter, null);
 	}
 
 	/**
@@ -272,21 +267,16 @@ public class InvitationController implements InvitationListener, InvitationRejec
 	}
 
 	/**
-	 * Automagically called when this client receives an invitation to join a MUC
-	 */
-	@Override
-	public void invitationReceived(Connection connection, String room, String inviter, String reason, String password, Message message) {
-		this.invitation = new Invitation(connection, room, inviter, reason, password, message);
-
-		//TODO: Trigger update to the view!
-	}
-
-	/**
 	 * Returns the most recent invitation received
 	 * @return InvitationController
 	 */
-	public edu.cornell.opencomm.model.Invitation getInvitation() {
+	public Invitation getInvitation() {
 		return this.invitation;
+	}
+	
+	/** Sets invitation */
+	public void setInvitation(Invitation i){
+		invitation = i;
 	}
 
 	/**
@@ -295,5 +285,9 @@ public class InvitationController implements InvitationListener, InvitationRejec
 	@Override
 	public void invitationDeclined(String invitee, String reason) {
 		//TODO: Trigger update to view (if any)
+		
+		//DEBUG
+		Log.v(TAG, "invitationDeclined - Invitee: " + invitee + 
+				" declined invitation because: " + reason);
 	}
 }

@@ -69,19 +69,21 @@ public class MainApplication extends Activity{
     public static Values viewDimensions = new Values();
 
 	/** TODO Network - Do you need any of these?  -Nora 11/6 */
-    public static LinkedList<User> allBuddies; 
+    public static LinkedList<User> allBuddies; // Your buddy list! Has been previously saved from the network
     public static CharSequence[] buddyList; // list of the user's buddies in their username form
     public static boolean[] buddySelection; // array of boolean for buddy selection
     private static String username=""; // the username of this account
     public static final String PS_ID = "edu.cornell.opencomm.which_ps";
-	public static int space_counter= -1; // A counter for spaces (to generate SpaceID's)
-    
+	
     /** Parameters needed to describe the objects created in the XML code */
     LinearLayout.LayoutParams PSparams = new LinearLayout.LayoutParams(
     		ViewGroup.LayoutParams.WRAP_CONTENT,
     		ViewGroup.LayoutParams.WRAP_CONTENT, 0.0f);
 
+ // A counter for spaces (to generate SpaceID's). TODO Will use for now, takeout later when add network
+ 	public static int space_counter= -1;
 
+    
     /** TODO Network - There are many times when the the onCreate method failes to create a 
      * space and therefore make the rest of this code crash. This usually gives an 
      * error 80% of the time, so it is probably linked to the network service. 
@@ -120,7 +122,8 @@ public class MainApplication extends Activity{
         adjustLayoutParams();
         // This spaceview already created for you in the XML file, so retrieve it
         screen = (SpaceView)findViewById(R.id.space_view);
-        if (mainspace == null){
+     // Check if the mainspace was already created
+        if (Space.getMainSpace() == null){
         	// Obtain username used to log into the application
             Intent start_intent= getIntent();
             username = start_intent.getStringExtra(Network.KEY_USERNAME);
@@ -129,16 +132,19 @@ public class MainApplication extends Activity{
         	this.plusButtonSetUp();
         	try {
         		// create the mainspace
-				mainspace = new Space(this, true, String.valueOf(space_counter++), user_primary);
+				SpaceController.createMainSpace(this);
+
 				// create an empty private space
-				new Space(this, false, String.valueOf(space_counter++), user_primary);
+				SpaceController.addSpace(this);
+
+				// TODO add private space preview
 			} catch (XMPPException e) {
-				//Log.e(TAG, "onCreate - Error (" + e.getXMPPError().getCode()+ ") " + e.getXMPPError().getMessage());
+			//	Log.e(TAG, "onCreate - Error (" + e.getXMPPError().getCode()
+			//			+ ") " + e.getXMPPError().getMessage());
 				e.printStackTrace();
 			}
-			// Set the initial screen to the mainspace
-        	screen.setSpace(mainspace);
-        	mainspace.setScreenOn(true);
+        	screen.setSpace(Space.getMainSpace());
+        	Space.getMainSpace().setScreenOn(true);
         }
         initializeButtons();
 
@@ -213,32 +219,34 @@ public class MainApplication extends Activity{
 			case KeyEvent.KEYCODE_M: {
 				// invite a user to the mainspace. Assume inviter is owner
 				int i = 0;
-				Log.v(TAG, "pressed N key - invitation" + i++);
-				(MainApplication.mainspace.getInvitationController()).inviteUser(debug, "You're fun!");
+				Log.v(TAG, "pressed M key - invitation" + i++);
+				(Space.getMainSpace().getInvitationController()).inviteUser(debug, "You're fun!");
 				break;
 			}
 			case KeyEvent.KEYCODE_N: {
-				Log.v(TAG, "pressed B key - kickout");
+				Log.v(TAG, "pressed N key - kickout");
 				try {
-					(MainApplication.mainspace.getKickoutController()).kickoutUser(debug, "You suck!");
+					(Space.getMainSpace().getKickoutController()).kickoutUser(debug, "You suck!");
 				} catch (XMPPException e) {
 					Log.d(TAG, "Couldn't kick!");
 				}
 				break;
 			}
 			case KeyEvent.KEYCODE_V: {
-				//Log.v(TAG, "pressed V key - participant controller");
-				break;
+				Log.v(TAG, "pressed V key - change owner");
+				Space.getMainSpace().getParticipantController().grantOwnership(
+						"opencommsec@jabber.org");
 			}
-			case KeyEvent.KEYCODE_J: {
+			/* Ask Nora -- What does it do?
+			 * case KeyEvent.KEYCODE_J: {
 				Log.v(TAG, "Pressed J key - join");
 				//try{
 					MainApplication.mainspace.getParticipantController().joined("roomname@conference.jabber.org/" + debug1.getNickname());
-				/*}catch (XMPPException e){
+				}catch (XMPPException e){
 					Log.d(TAG, "Couldn't join!");
-				} */
+				} 
 				break;
-			}
+			}*/
 			case KeyEvent.KEYCODE_S: {
 				Log.v(TAG, "Pressed S key - create a new private space");
 				try{
@@ -254,6 +262,11 @@ public class MainApplication extends Activity{
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				MenuView menuView = new MenuView(inflater2);
 				menuView.launch();
+				break;
+			}
+			case KeyEvent.KEYCODE_B: {
+				Log.v(TAG, "pressed B key - leave space");
+				Space.getMainSpace().getParticipantController().leaveSpace();
 				break;
 			}
 			}
@@ -530,7 +543,7 @@ public class MainApplication extends Activity{
  			public void onClick(View v) {
  				// TODO NORA - might need to change to mainspace in Space class
  				try{
- 				MainApplication.mainspace.getSpaceController().addSpace(MainApplication.mainspace.getContext());
+ 					MainApplication.mainspace.getSpaceController().addSpace(MainApplication.mainspace.getContext());
  				}
  				catch(XMPPException e){
  					Log.d("MainApplication plusButtonSetUp()", "Could not add a Space");
