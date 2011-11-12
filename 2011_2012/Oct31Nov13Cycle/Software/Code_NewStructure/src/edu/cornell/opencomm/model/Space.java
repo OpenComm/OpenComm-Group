@@ -216,6 +216,10 @@ public class Space {
 	public HashMap<String, Occupant> getAllOccupants() {
 		return allOccupants;
 	}
+	
+	public Context getContext(){
+		return context;
+	}
 
 	// add getters for four listeners
 } // end Class Space

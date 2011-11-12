@@ -1,8 +1,10 @@
 package edu.cornell.opencomm.view;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.R.color;
 import edu.cornell.opencomm.controller.EmptySpaceMenuController;
 import edu.cornell.opencomm.controller.MainApplication;
@@ -11,10 +13,13 @@ import edu.cornell.opencomm.controller.PrivateSpacePreviewPopupController;
 import edu.cornell.opencomm.controller.SideChatIconMenuController;
 import edu.cornell.opencomm.controller.UserIconMenuController;
 import edu.cornell.opencomm.model.Space;
+import edu.cornell.opencomm.model.User;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.drawable.NinePatchDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
@@ -24,6 +29,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 /** An icon representing a private space room (or sidechat)
  *  Appears at the bottom scrollable bar of the screen 
@@ -121,6 +127,32 @@ public class PrivateSpaceIconView extends ImageButton{
     }
     
     
+    public static ImageView plusSpaceButton(int color, Context context){
+        Log.v(LOG_TAG, "PLUS BUTTON");
+        int w=Values.privateSpaceButtonW;
+        int h=Values.privateSpaceButtonW;
+        Bitmap plus = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+         Canvas c = new Canvas(plus);
+         Paint p= new Paint();
+         p.setColor(color);
+         //c.drawRect(w/9, (3*h)/7, (8*w)/9, (4*h)/7, p);
+         //c.drawRect((3*w)/7, h/9, (4*w)/7, (8*h)/9,p);
+      
+         c.drawRect((w-Values.plusButtonLength)/2, (h-Values.plusButtonWidth)/2, 
+        		 (w-Values.plusButtonLength)/2+Values.plusButtonLength,
+        		 (h-Values.plusButtonWidth)/2+Values.plusButtonWidth,p);
+         c.drawRect((w-Values.plusButtonWidth)/2, (h-Values.plusButtonLength)/2,
+        		 (w-Values.plusButtonWidth)/2+Values.plusButtonWidth,
+        		 (h-Values.plusButtonLength)/2+Values.plusButtonLength,p);
+         //canvas.drawBitmap(plus,0, 0, null);
+         final ImageView iv=new ImageView(context);
+         iv.setImageBitmap(plus);
+     	 
+     	
+      return  iv;
+    }
+    
+    
     /* Set up a touch listener that will adjust the selections and highlights according
      * to if you touched the icon. 
      * 1) Click once should highlight button and open preview (close other previews) TODO VINAY
@@ -179,60 +211,75 @@ public class PrivateSpaceIconView extends ImageButton{
      * This particular version will draw a square for the PS icon and then will fill in the square 
      * if highlighted or selected with color
      */
-     public void draw(Canvas canvas){
-    	 super.onDraw(canvas);
-		/* Draw...:
-		 * 1. Draw background to erase old state
-		 * 2. Draw this private space's color square
-		 * 3. Draw smaller darker square if the private space isn't open or being previewed
-		 * 4. Draw the image for an empty privatespace button
-		 * 5. Draw the preview if open */
-    	
-    	 //(1)
-		 int backgroundColor = R.color.scroll_background;
-		 canvas.drawColor(backgroundColor);
-		 //(2)
-		 RectShape rect = new RectShape();
-		 /* This function checks for people in the space. If there are atleast 1 person, 
-		  * then the function draws a filled space at the bottom of the mainview 
-		  * TODO: vthe user always exist in the space, the participants roster stored 
-		  * under space contains at least 1 person*/
-		 if(this.getSpace().getAllParticipants().size()> 1){
-			 ShapeDrawable normalShape = new ShapeDrawable(rect);
-			 normalShape.getPaint().setColor(color);
-			 normalShape.setBounds(2, 2, this.getWidth() - 2, this.getHeight() - 2);
-			 normalShape.draw(canvas);
-		 }
-		 //(3)
-		 RectShape rect2 = new RectShape();
-		 if (!(this.isSelected || this.isHighlighted)) {
-			ShapeDrawable s = new ShapeDrawable(rect2);
-			s.getPaint().setColor(backgroundColor);
-			s.setBounds(6, 6, this.getHeight() - 4, this.getHeight() - 6);
-			s.draw(canvas);
-		 } 
-		 
-		 RectShape rect3 = new RectShape();
-		 /* This function checks for people in the space. If there are no person, 
-		  * then the function draws a empty space at the bottom of the mainview
-		  * TODO: (From Network team) the user always exist in the space, the participants roster stored 
-		  * under space contains at least 1 person */
-		 if(this.getSpace().getAllParticipants().size()< 1){					
-			ShapeDrawable sq = new ShapeDrawable(rect3);
-			sq.getPaint().setStyle(Paint.Style.FILL);
-			sq.getPaint().setColor(Color.TRANSPARENT);
-			sq.getPaint().setStyle(Paint.Style.STROKE);
-			sq.getPaint().setStrokeWidth(3);
-			sq.getPaint().setColor(Color.BLACK);
-			sq.setBounds(2,2,this.getWidth() - 2, this.getHeight() - 2);
-			sq.draw(canvas);
-		 }
-		 //(5)
-	/*	 if(showPreview){
-			 // TODO VINAY you could draw the preview here if you like
-	     } */
-    
-    } 
+    public void draw(Canvas canvas){
+        super.onDraw(canvas);
+        /* Draw...:
+         * 1. Draw background to erase old state
+         * 2. Draw this private space's color square
+         * 3. Draw smaller darker square if the private space isn't open or being previewed TO-DO:Crystal: SHOULD BE DELETED
+         * 4. Draw the image for an empty privatespace button
+         * 5. Draw the preview if open */
+       
+        Log.v(LOG_TAG, "THIS HEIGHT"+this.getHeight());
+        //(1)
+       
+         int backgroundColor = (getResources().getColor(R.color.darkgray)); 
+         canvas.drawColor(backgroundColor);
+        //(2)Crystal   
+         /* This function checks for people in the space. If there are at least 1 person,
+          * then the function draws a filled space at the bottom of the mainview */
+       
+             Bitmap subview = Bitmap.createBitmap(this.getWidth()-2*Values.selectedBorder
+            		 , this.getHeight()-2*Values.selectedBorder, Bitmap.Config.ARGB_8888);
+             Canvas c = new Canvas(subview);
+             if(this.getSpace().getAllParticipants().size()>0){
+             int size=this.space.getAllParticipants().size();
+             Rect[] layoutArray=this.getLayout((size>9? 9:size), subview.getWidth(),subview.getHeight());
+             int counter=0;
+             
+             HashMap<String, User> allPeople = this.space.getAllParticipants();
+             Object[] people = allPeople.values().toArray();
+             for (Object p : people){
+                       Log.v(LOG_TAG, "add people square");
+                       if((User)p != MainApplication.user_primary){ Paint pan= new Paint();
+                        pan.setStyle(Paint.Style.FILL);
+                        pan.setColor(getResources().getColor(((User)p).user_color));
+                        c.drawRect(layoutArray[counter], pan);
+                        counter++;
+                       if(counter> 9) {
+                       break;
+                   }
+                       }
+            }
+             }
+             RectShape r= new RectShape();
+             ShapeDrawable myPaint = new ShapeDrawable(r);
+           
+             myPaint.getPaint().setStyle(Paint.Style.STROKE);
+             myPaint.getPaint().setStrokeWidth(2);
+             myPaint.getPaint().setColor(Color.BLACK);
+             myPaint.setBounds(0,0,this.getWidth(), this.getHeight());
+             myPaint.draw(canvas);
+             canvas.drawBitmap(subview, Values.selectedBorder, Values.selectedBorder, null);
+         
+         
+        
+         //(5)
+      /*   if(showPreview){
+             // TODO VINAY you could draw the preview here if you like
+         } *
+   
+       /*  if(this.isSelected){
+             Log.v(LOG_TAG, "IS SELECTED");
+             RectShape rect = new RectShape();
+                ShapeDrawable s = new ShapeDrawable(rect);
+                s.getPaint().setColor(Color.YELLOW);
+                s.setBounds(0,0,this.getWidth(),this.getHeight());//Crystal change
+                s.getPaint().setStyle(Paint.Style.STROKE);
+                s.getPaint().setStrokeWidth(Values.selectedBorder);
+                s.draw(canvas);
+         }*/
+   } 
      
      /** Open a different space to the screen */
      // NORA- updated 9/3
@@ -255,6 +302,31 @@ public class PrivateSpaceIconView extends ImageButton{
  	}
      
     // GETTERS
+     //Crystal
+     public Rect[] getLayout(int size,int w, int h){
+    	 Rect[] layout=new Rect[9];
+    	 //int w= this.getWidth();
+    	 //int h=this.getHeight();
+    	 int d=Values.squarePadding;// the distance between squares
+    	 if(size<5){
+    		 layout[0]=new Rect(d, d, w/2-1,h/2-1);
+    		 layout[1]=new Rect(w/2-1+d, d, w-d, h/2-1);
+    		 layout[2]=new Rect(d,h/2-1+d,w/2-1,h-d );
+    		 layout[3]=new Rect(w/2-1+d, h/2-1+d,w-d,h-d);
+    		 }else{
+    			for(int r=0; r<3; r++){
+    				for(int c=0;c<3;c++){
+    					layout[3*r+c]=new Rect(d*(c+1)+((w-4*d)/3)*c, d*(r+1)+((h-4*d)/3)*r,
+    							d*(c+1)+((w-4*d)/3)*(c+1),  d*(r+1)+((h-4*d)/3)*(r+1));
+    				}
+    			}
+    		 //layout[0]= new Rect(d,d,(w-d*4)/3+d,(h-d*4)/4+d);
+    		 //layout[1]= new Rect((w-d*4)/3+2*d,d,(h-d*4)/3+2*d, )
+    		 }
+    	 return layout;
+     }
+     
+     
     /** Returns the space this object represents */
     public Space getSpace(){
         return space;

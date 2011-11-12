@@ -22,11 +22,14 @@ import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import edu.cornell.opencomm.R;
@@ -44,6 +47,7 @@ import edu.cornell.opencomm.view.PrivateSpacePreviewPopup;
 import edu.cornell.opencomm.view.SpaceView;
 import edu.cornell.opencomm.view.TipView;
 import edu.cornell.opencomm.view.UserView;
+import edu.cornell.opencomm.view.MenuView;
 
 
 /** The MainApplication handles and manages the PrivateSpaces for every
@@ -131,6 +135,7 @@ public class MainApplication extends Activity{
             username = start_intent.getStringExtra(Network.KEY_USERNAME);
         	// Create instance of primary user
         	user_primary = new User(username, username.split("@")[0], R.drawable.question);
+        	this.plusButtonSetUp();
         	try {
         		// create the mainspace
 				mainspace = new Space(this, true, String.valueOf(space_counter++), user_primary);
@@ -250,6 +255,14 @@ public class MainApplication extends Activity{
 				} catch (XMPPException e){
 					Log.v(TAG, "Can't create another private space :(");
 				}
+				break;
+			}
+			case KeyEvent.KEYCODE_MENU:{
+				Log.v(TAG, "Clicked on MENU key");
+				LayoutInflater inflater2 = (LayoutInflater) MainApplication.this
+						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				MenuView menuView = new MenuView(inflater2);
+				menuView.launch();
 				break;
 			}
 			}
@@ -421,15 +434,17 @@ public class MainApplication extends Activity{
     /** Need to add the new PrivateSpace button to the bottom GUI by altering the XML code */
     public void addPrivateSpaceButton(PrivateSpaceIconView psv){
         LinearLayout bottomBar = (LinearLayout) findViewById(R.id.privateSpaceLinearLayout);
-		psv.setLayoutParams(new LinearLayout.LayoutParams(Values.privateSpaceButtonW,  Values.privateSpaceButtonW));
-		psv.setPadding(Values.privateSpacePadding, 0, Values.privateSpacePadding, 0);
-		bottomBar.addView(psv);
-		bottomBar.invalidate();
+        
+        //Crystal
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(viewDimensions.privateSpaceButtonW,  viewDimensions.privateSpaceButtonW);
+        lp.setMargins(0, 0, Values.iconBorderPaddingH, 0);
+        
+        
+		psv.setLayoutParams(new LinearLayout.LayoutParams(viewDimensions.privateSpaceButtonW,  viewDimensions.privateSpaceButtonW));
+		psv.setPadding(Values.iconBorderPaddingH, Values.iconBorderPaddingV,Values.iconBorderPaddingH, Values.iconBorderPaddingV);
+		bottomBar.addView(psv,lp);
+		bottomBar.invalidate(); 
 
-		/*
-		 * Displaying preview of private space when clicked on it
-		 */
-		//psv.setOnClickListener(onClickListener);
     }
 
     PopupWindow privateSpacePreviewPopupWindow = null;
@@ -509,6 +524,32 @@ public class MainApplication extends Activity{
         LinearLayout screen = (LinearLayout)findViewById(R.id.space_view);
         screen.invalidate();
     }
+    
+    /**Crystal: add the plus button to the bottom bar*/
+    public void plusButtonSetUp(){
+    	LinearLayout bottomBar = (LinearLayout) findViewById(R.id.privateSpaceLinearLayout);
+    	 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(viewDimensions.privateSpaceButtonW,  viewDimensions.privateSpaceButtonW);
+         lp.setMargins(0, 0, Values.iconBorderPaddingH, 0); 
+    	ImageView plus=PrivateSpaceIconView.plusSpaceButton(getResources().getColor(R.color.off_white),this);
+    	 plus.setBackgroundColor(getResources().getColor(R.color.darkgray));
+    	
+    	 plus.setOnClickListener(new OnClickListener(){
+
+ 			public void onClick(View v) {
+ 				// TODO NORA - might need to change to mainspace in Space class
+ 				try{
+ 				MainApplication.mainspace.getSpaceController().addSpace(MainApplication.mainspace.getContext());
+ 				}
+ 				catch(XMPPException e){
+ 					Log.d("MainApplication plusButtonSetUp()", "Could not add a Space");
+ 				}
+ 			// MainApplication.this.init_createPrivateSpace(false);
+ 			}
+ 				
+ 			});
+    	bottomBar.addView(plus,lp);
+		bottomBar.invalidate(); 
+    }
 
     /** Notify the network with the icon you moved so that it can update the sound simulation */
     public void movedPersonIcon(Space space, UserView icon, int x, int y){
@@ -519,7 +560,7 @@ public class MainApplication extends Activity{
 
     /*delete the specific privatespaceview psv--Crystal Qin*/
     public void deletePrivateSpaceView(Space psv){
-    	Button check=(Button) findViewById(R.id.delete_button);
+    	/*Button check=(Button) findViewById(R.id.delete_button);
 	       Log.v(TAG, "check button " +check);
 			check.setVisibility(View.VISIBLE);
 			Log.v(TAG, "SEE A BUTTON");
@@ -532,6 +573,6 @@ public class MainApplication extends Activity{
 						deletePrivateSpace(sp);
 					}
 				}
-			});
-    }
+			}); */
+    } 
 }

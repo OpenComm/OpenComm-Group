@@ -163,7 +163,7 @@ public class MainApplication extends Activity{
 			case KeyEvent.KEYCODE_V: {
 				Log.v(TAG, "pressed V key - change owner");
 				Space.getMainSpace().getParticipantController().grantOwnership(
-						"opencommsec");
+						"opencommsec@jabber.org");
 			}
 			};
 			return true;

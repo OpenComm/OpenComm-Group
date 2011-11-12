@@ -1,5 +1,7 @@
 package edu.cornell.opencomm.controller;
 
+import java.util.ArrayList;
+
 import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
@@ -9,6 +11,7 @@ import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.muc.Occupant;
 
 import android.util.Log;
+import edu.cornell.opencomm.model.Invitation;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.Network;
@@ -17,11 +20,13 @@ import edu.cornell.opencomm.network.Network;
  * Controller class for MultiUserChat invitations
  * @author jonathanpullano, risanaka, kriskooi
  */
-public class InvitationController implements InvitationListener, InvitationRejectionListener {
-	private edu.cornell.opencomm.model.Invitation invitation;
+public class InvitationController implements InvitationRejectionListener {
+	public ArrayList<Invitation> invitations;
 
 	// Model variables
 	private Space mSpace;
+
+	private Invitation invitation;
 
 	private static final String TAG = "InvitationController";
 	private static final boolean D = true;
@@ -268,6 +273,11 @@ public class InvitationController implements InvitationListener, InvitationRejec
 	 */
 	public Invitation getInvitation() {
 		return this.invitation;
+	}
+	
+	/** Sets invitation */
+	public void setInvitation(Invitation i){
+		invitation = i;
 	}
 
 	/**
