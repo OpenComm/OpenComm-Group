@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+android:id="@+id/admintip_view"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent" android:background="@color/transparent_black" android:fadingEdge="horizontal">
+    <EditText android:layout_width="wrap_content" android:height="84dp" android:textColor="@color/green" android:width="480dp" android:layout_alignParentTop="true" android:layout_alignParentLeft="true" android:clickable="false" android:cursorVisible="false" android:paddingLeft="30dp" android:background="@color/dark_grey" android:text="admin tip" android:id="@+id/textLabelAdminTip" android:textSize="40dp" android:layout_height="60dp" android:layout_marginTop="85dp"></EditText>
+    <Button android:textColor="@color/blue" android:maxHeight="56dp" android:text="accept" android:layout_alignParentBottom="true" android:layout_alignParentLeft="true" android:layout_width="158dp" android:clickable="true" android:background="@color/dark_grey" android:drawableLeft="@drawable/sidechatplus2" android:id="@+id/buttonAcceptAdminTip" android:textSize="26dp" android:layout_height="36dp" android:layout_marginBottom="120dp"></Button>
+    <EditText android:layout_width="wrap_content" android:layout_height="70dp" android:paddingLeft="30dp" android:textColor="@color/green" android:height="84dp" android:id="@+id/textViewBlank" android:cursorVisible="false" android:width="100dp" android:textSize="47dp" android:clickable="false" android:background="@color/dark_grey" android:layout_alignTop="@+id/buttonAcceptAdminTip" android:layout_alignParentRight="true" android:layout_toRightOf="@+id/buttonAcceptAdminTip" android:layout_alignBottom="@+id/buttonAcceptAdminTip">
+        <requestFocus></requestFocus>
+    </EditText>
+    <EditText android:clickable="false" android:cursorVisible="false" android:background="@color/transparent_black" android:lines="4" android:layout_height="70dp" android:layout_width="230dp" android:visibility="visible" android:text="@string/admin_tip" android:textColor="@color/off_white" android:textSize="16dp" android:id="@+id/textViewAdminTip" android:layout_below="@+id/textLabelAdminTip" android:layout_alignParentLeft="true" android:layout_marginTop="26dp" android:layout_marginLeft="30dp"></EditText>
+  </RelativeLayout>
