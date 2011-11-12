@@ -79,6 +79,7 @@ public class NetworkService {
 					}
 				}
 				//TODO: Trigger update to the view!
+				//TODO: call InvitationController.accept, or InvitationController.decline
 				
 				//DEBUG
 				Log.v("InvitationController", "invitationReceived - Invitation " +

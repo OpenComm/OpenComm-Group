@@ -57,9 +57,6 @@ public class KickoutController {
 		// if the primary user is the room's owner
 		if (userOcc.getAffiliation().equals(Network.ROLE_OWNER)) {
 			this.mSpace.getMUC().kickParticipant(kickMe.getNickname(), reason);
-		}
-		if(kickMe.getUsername().equals(MainApplication.user_primary.getUsername())) {
-			this.mSpace.getMUC().kickParticipant(kickMe.getNickname(), reason);
 		} else {
 			// message containing kickout request tag, the username of the kicker,
 			// the username of the kickee, and the reason
@@ -127,11 +124,11 @@ public class KickoutController {
 	 * @param kickoutInfo
 	 *            - String array: {requesterJID, kickeeJID, kickoutReason}
 	 */
-	public void confirmKickoutRequest(String[] kickoutInfo) {
+	public void confirmKickoutRequest(String[] kickoutInfo) throws XMPPException {
 		// Check the kickoutInfo is not null and length 3
 		if (kickoutInfo != null && kickoutInfo.length == 3) {
 			// kickout the user
-			// TODO Risa - enter Jonathan's kickout code
+			this.mSpace.getMUC().kickParticipant(kickoutInfo[1], kickoutInfo[2]);
 			// DEBUG
 			if (D)
 				Log.d(TAG,
