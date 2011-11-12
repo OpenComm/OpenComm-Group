@@ -3,6 +3,7 @@ package edu.cornell.opencomm.view;
 import java.util.LinkedList;
 
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.R.color;
 import edu.cornell.opencomm.controller.EmptySpaceMenuController;
 import edu.cornell.opencomm.controller.MainApplication;
@@ -12,6 +13,7 @@ import edu.cornell.opencomm.controller.SideChatIconMenuController;
 import edu.cornell.opencomm.controller.UserIconMenuController;
 import edu.cornell.opencomm.model.Space;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -24,6 +26,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 /** An icon representing a private space room (or sidechat)
  *  Appears at the bottom scrollable bar of the screen 
@@ -118,6 +121,32 @@ public class PrivateSpaceIconView extends ImageButton{
     public void deleteThisPSView(){
         allPSIcons.remove(this);
         ((MainApplication)context).delPrivateSpaceButton(this); 
+    }
+    
+    
+    public static ImageView plusSpaceButton(int color, Context context){
+        Log.v(LOG_TAG, "PLUS BUTTON");
+        int w=Values.privateSpaceButtonW;
+        int h=Values.privateSpaceButtonW;
+        Bitmap plus = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+         Canvas c = new Canvas(plus);
+         Paint p= new Paint();
+         p.setColor(color);
+         //c.drawRect(w/9, (3*h)/7, (8*w)/9, (4*h)/7, p);
+         //c.drawRect((3*w)/7, h/9, (4*w)/7, (8*h)/9,p);
+      
+         c.drawRect((w-Values.plusButtonLength)/2, (h-Values.plusButtonWidth)/2, 
+        		 (w-Values.plusButtonLength)/2+Values.plusButtonLength,
+        		 (h-Values.plusButtonWidth)/2+Values.plusButtonWidth,p);
+         c.drawRect((w-Values.plusButtonWidth)/2, (h-Values.plusButtonLength)/2,
+        		 (w-Values.plusButtonWidth)/2+Values.plusButtonWidth,
+        		 (h-Values.plusButtonLength)/2+Values.plusButtonLength,p);
+         //canvas.drawBitmap(plus,0, 0, null);
+         final ImageView iv=new ImageView(context);
+         iv.setImageBitmap(plus);
+     	 
+     	
+      return  iv;
     }
     
     

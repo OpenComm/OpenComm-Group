@@ -10,17 +10,25 @@ public class Values {
 	// Section heights
 	public static int actionBarH = 72;
 	public static int spaceViewH = 350;
-	public static int bottomBarH = 70;
+	public static int bottomBarH = 138;
 	
 	// PrivateSpace buttons in bottom bar
-	public static int privateSpaceButtonW = 94;
+	public static int privateSpaceButtonW = 116;
 	public static int privateSpacePadding = 3;
+	public static int selectedBorder=2;
+	public static int squarePadding=4;
+	public static int iconBorderPaddingV = 11;
+	public static int iconBorderPaddingH=11;
+	public static int plusButtonLength=83;
+	public static int plusButtonWidth=12;
 		
 	// User icon
-	public static int userIconW = 80;
-	public static int userIconH = 80;
-	public static int iconTextH = userIconH/4;
-	public static int iconTextPadding = 5;
+	public static int userIconW = 100;
+	public static int userIconH = 100;
+	public static int iconTextH = userIconH/5;
+	public static int iconBorderPadding=5;
+	public static int adminTextSize=13;
+	public static int textAdjust=2;
 		
 	// Pop User Icon
 	public static int popUserIconW = 42;
@@ -91,11 +99,11 @@ public class Values {
 			this.screenW = 480;
 			this.screenH = 800;
 			
-			this.spaceViewH = this.screenH - this.bottomBarH - 70;
-			this.privateSpaceButtonW = this.bottomBarH - 5;
+			this.spaceViewH = this.screenH - this.bottomBarH - 87;
+			this.privateSpaceButtonW = this.privateSpaceButtonW;
 			
-			this.userIconW = 80;
-			this.userIconH = 80;
+			this.userIconW = 100;
+			this.userIconH = 100;
 
 		}
 		

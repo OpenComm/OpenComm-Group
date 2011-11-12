@@ -100,8 +100,8 @@ public class UserView extends ImageButton{
 		canvas.drawBitmap(image, x, y, null);
 		if(nameBoxImage!=null){
 			canvas.drawBitmap(nameBoxImage, x, y + Values.userIconH - Values.iconTextH, null);
-			canvas.drawText(person.getUsername(), 0, Math.min(11,(person.getUsername()).length()), x + Values.iconTextPadding, 
-				y + Values.userIconH - Values.iconTextPadding, paint);
+			canvas.drawText(person.getUsername(), 0, Math.min(11,(person.getUsername()).length()), x + Values.textAdjust, 
+				y + Values.userIconH - Values.textAdjust, paint);
 		}
     }
 		
