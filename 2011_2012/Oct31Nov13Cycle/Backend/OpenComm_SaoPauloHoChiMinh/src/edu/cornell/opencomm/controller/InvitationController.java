@@ -124,7 +124,7 @@ public class InvitationController implements InvitationListener, InvitationRejec
 	} // end receiveInvitationRequest method
 
 	/**
-	 * Confirm an invitation request. Invite the invitee with the reaosn given
+	 * Confirm an invitation request. Invite the invitee with the reason given
 	 * by the requester
 	 *
 	 * @param inviteInfo
@@ -133,12 +133,8 @@ public class InvitationController implements InvitationListener, InvitationRejec
 	public void confirmInvitationRequest(String[] inviteInfo) {
 		// Check the inviteInfo is not null and length 3
 		if (inviteInfo != null && inviteInfo.length == 3) {
-			// invite the invitee
-			// TODO Risa - enter Jonathan's invite code
-			// DEBUG
-			if (D)
-				Log.d(TAG,
-						"confirmInvitationRequest - confirmed invitation request from "
+			this.mSpace.getMUC().invite(inviteInfo[1], inviteInfo[2]);
+			if (D) Log.d(TAG, "confirmInvitationRequest - confirmed invitation request from "
 								+ inviteInfo[0] + " for room "
 								+ this.mSpace.getRoomID() + " for user "
 								+ inviteInfo[1] + " (reason - " + inviteInfo[2]
@@ -168,17 +164,14 @@ public class InvitationController implements InvitationListener, InvitationRejec
 			try {
 				this.mSpace.getMUC().sendMessage(msg);
 			} catch (XMPPException e) {
-				if (D)
-					Log.d(TAG, "rejectInvitationRequest - message not sent: "
+				if (D) Log.d(TAG, "rejectInvitationRequest - message not sent: "
 							+ e.getXMPPError().getCode() + " - "
 							+ e.getXMPPError().getMessage());
 				e.printStackTrace();
 			}
 		}
 		// DEBUG
-		if (D)
-			Log.d(TAG,
-					"rejectInvitationRequest - rejected invitation request from "
+		if (D) Log.d(TAG, "rejectInvitationRequest - rejected invitation request from "
 							+ inviteInfo[0] + " for room "
 							+ this.mSpace.getRoomID() + " for user "
 							+ inviteInfo[1] + "(reason - " + inviteInfo[2]
@@ -218,16 +211,14 @@ public class InvitationController implements InvitationListener, InvitationRejec
 						rejectReason };
 				// TODO UI - send information around request reject to screen?
 				// DEBUG
-				if (D)
-					Log.d(TAG, "receiveInvitationRequestRejection - received "
+				if (D) Log.d(TAG, "receiveInvitationRequestRejection - received "
 							+ "rejection of invitation request " + " for room "
 							+ this.mSpace.getRoomID() + " for user "
 							+ rejectInfo[1] + "(reason - " + rejectInfo[2]
 							+ ": reason - " + rejectInfo[3]);
 				return rejectInfo;
 			}
-			if (D)
-				Log.d(TAG, "receiveInvitationRequestRejection - primary user "
+			if (D) Log.d(TAG, "receiveInvitationRequestRejection - primary user "
 						+ "did not submit this request");
 		} else {
 			Log.e(TAG, "receiveInvitationRequestRejection - wrong tag");
@@ -264,6 +255,8 @@ public class InvitationController implements InvitationListener, InvitationRejec
 
 		//TODO: Trigger update to the view!
 		
+		//call accept or decline
+
 		//DEBUG
 		Log.v(TAG, "invitationReceived - Invitation received from: " + inviter 
 				+ " to join room: " + room);
