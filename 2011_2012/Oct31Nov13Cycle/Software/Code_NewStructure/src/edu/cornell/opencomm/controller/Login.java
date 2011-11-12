@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 /** An instance of this class starts the Network version of the application */
 public class Login extends Activity {
@@ -40,6 +41,7 @@ public class Login extends Activity {
         passwordEdit = (EditText)findViewById(R.id.input_password);
         
         loginButton = (Button)findViewById(R.id.login_button);
+		
     } // end onCreate method
 	
 	/** Called when the activity is becoming visible to the user. */
