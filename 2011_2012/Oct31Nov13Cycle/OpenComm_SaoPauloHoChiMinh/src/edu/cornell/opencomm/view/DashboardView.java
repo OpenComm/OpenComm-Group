@@ -1,10 +1,15 @@
 package edu.cornell.opencomm.view;
 
+import android.content.Context;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.PopupWindow;
+import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
-import edu.cornell.opencomm.controller.ConfirmationController;
 import edu.cornell.opencomm.controller.DashboardController;
-import edu.cornell.opencomm.controller.LoginController;
-import edu.cornell.opencomm.model.Space;
 
 public class DashboardView {
 	private static String LOG_TAG = "OC_DashboardView"; // for error checking

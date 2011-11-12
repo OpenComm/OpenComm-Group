@@ -1,13 +1,25 @@
 package edu.cornell.opencomm.view;
 
+import java.util.LinkedList;
+
+import org.jivesoftware.smack.XMPPException;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.widget.LinearLayout;
+import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
-import edu.cornell.opencomm.controller.ContactListController;
 import edu.cornell.opencomm.controller.EmptySpaceMenuController;
-import edu.cornell.opencomm.controller.UserIconMenuController;
 import edu.cornell.opencomm.controller.MainApplication;
 import edu.cornell.opencomm.controller.SpaceViewController;
-import edu.cornell.opencomm.model.User;
+import edu.cornell.opencomm.controller.UserIconMenuController;
 import edu.cornell.opencomm.model.Space;
+import edu.cornell.opencomm.model.User;
 
 /* A SpaceView is the graphical representation of a space, aka the screen you see on the monitor
  * showing all the icons of the people in the space (above the privatespace bar). 

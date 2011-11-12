@@ -1,8 +1,6 @@
 package edu.cornell.opencomm.controller;
 
 import edu.cornell.opencomm.Values;
-import edu.cornell.opencomm.view.PrivateSpaceIconView;
-import edu.cornell.opencomm.view.SpaceView;
 import edu.cornell.opencomm.view.UserView;
 /**
  *  Class to handle user's touch input on the UserView. 

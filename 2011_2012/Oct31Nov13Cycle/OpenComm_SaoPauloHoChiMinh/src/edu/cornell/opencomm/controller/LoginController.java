@@ -1,5 +1,8 @@
 package edu.cornell.opencomm.controller;
 
+import org.jivesoftware.smack.ConnectionConfiguration;
+import org.jivesoftware.smack.XMPPConnection;
+
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.LoginView;
 

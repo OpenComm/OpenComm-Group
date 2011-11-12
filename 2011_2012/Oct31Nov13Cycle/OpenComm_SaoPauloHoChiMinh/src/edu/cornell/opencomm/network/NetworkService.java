@@ -91,6 +91,7 @@ public class NetworkService {
 	} // end disconnect method
 	
 	/** = String representation of the network service */
+	@Override
 	public String toString() {
 		String temp = "";
 		temp += "XMPP Connection to host server " + this.xmppConfig.getHost();

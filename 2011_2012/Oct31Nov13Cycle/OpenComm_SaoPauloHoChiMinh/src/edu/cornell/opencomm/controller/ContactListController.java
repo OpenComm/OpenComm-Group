@@ -1,5 +1,17 @@
 package edu.cornell.opencomm.controller;
 
+import java.util.Collection;
+import java.util.Iterator;
+
+import org.jivesoftware.smack.Roster;
+import org.jivesoftware.smack.RosterEntry;
+import org.jivesoftware.smack.XMPPException;
+
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.util.Log;
+import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.view.SpaceView;
 

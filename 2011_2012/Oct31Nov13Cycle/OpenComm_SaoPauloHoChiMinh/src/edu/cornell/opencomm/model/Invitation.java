@@ -1,5 +1,12 @@
 package edu.cornell.opencomm.model;
 
+
+
+import org.jivesoftware.smack.Connection;
+import org.jivesoftware.smack.packet.Message;
+
+
+
 /**
  * Immutable Model representation of an invitation
  * @author jonathan

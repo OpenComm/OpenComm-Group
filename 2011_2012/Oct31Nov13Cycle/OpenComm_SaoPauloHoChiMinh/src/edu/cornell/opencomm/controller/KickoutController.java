@@ -1,5 +1,10 @@
 package edu.cornell.opencomm.controller;
 
+import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.packet.Message;
+import org.jivesoftware.smackx.muc.Occupant;
+
+import android.util.Log;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.Network;

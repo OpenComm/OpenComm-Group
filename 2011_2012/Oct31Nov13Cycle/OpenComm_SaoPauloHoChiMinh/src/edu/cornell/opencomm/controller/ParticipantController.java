@@ -1,5 +1,9 @@
 package edu.cornell.opencomm.controller;
 
+import org.jivesoftware.smackx.muc.ParticipantStatusListener;
+
+import android.util.Log;
+import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.Network;

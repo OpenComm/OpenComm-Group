@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.PopupWindow;
+import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.AdminTipController;
 import edu.cornell.opencomm.controller.ConfirmationController;
@@ -31,8 +32,7 @@ public class AdminTipView {
 		// create property adminTipLayout from infalter and store it as a
 		// property
 		if (inflater != null) {
-			View tipViewFromInflater = inflater.inflate(
-					R.layout.admintip_layout, null);
+			View tipViewFromInflater = inflater.inflate(R.layout.admintip_layout, null);
 			if (tipViewFromInflater != null) {
 				this.adminTipLayout = tipViewFromInflater;
 			}

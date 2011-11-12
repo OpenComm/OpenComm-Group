@@ -1,5 +1,29 @@
 package edu.cornell.opencomm.controller;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.packet.Message;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Display;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
@@ -9,12 +33,12 @@ import edu.cornell.opencomm.view.ConfirmationView;
 import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.InvitationView;
 import edu.cornell.opencomm.view.LoginView;
+import edu.cornell.opencomm.view.MenuView;
 import edu.cornell.opencomm.view.PrivateSpaceIconView;
 import edu.cornell.opencomm.view.PrivateSpacePreviewPopup;
 import edu.cornell.opencomm.view.SpaceView;
 import edu.cornell.opencomm.view.TipView;
 import edu.cornell.opencomm.view.UserView;
-import edu.cornell.opencomm.view.MenuView;
 
 
 /** The MainApplication handles and manages the PrivateSpaces for every
@@ -500,6 +524,7 @@ public class MainApplication extends Activity{
     	ImageView plus=PrivateSpaceIconView.plusSpaceButton(getResources().getColor(R.color.off_white),this);
     	 plus.setBackgroundColor(getResources().getColor(R.color.darkgray));
     	
+   
     	 plus.setOnClickListener(new OnClickListener(){
 
  			public void onClick(View v) {

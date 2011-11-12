@@ -1,5 +1,11 @@
 package edu.cornell.opencomm.model;
 
+import java.io.File;
+import java.util.HashMap;
+
+import android.util.Log;
+import edu.cornell.opencomm.R;
+
 /* An object representing a user who is taking part in the conversation */
 
 public class User {

@@ -1,8 +1,11 @@
 package edu.cornell.opencomm.controller;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.util.Log;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.view.PrivateSpaceIconView;
-import edu.cornell.opencomm.view.SpaceView;
 
 /** When a user press and hold a SideChat Icon, this controller
  *  is invoked. It displays a dialog menu.

@@ -1,5 +1,16 @@
 package edu.cornell.opencomm.view;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
+import android.util.Log;
+import android.widget.ImageButton;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.UserViewController;
 import edu.cornell.opencomm.model.Space;

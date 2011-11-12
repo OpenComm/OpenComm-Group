@@ -1,5 +1,6 @@
 package edu.cornell.opencomm.controller;
 
+import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.view.MenuView;
 
 public class MenuController {

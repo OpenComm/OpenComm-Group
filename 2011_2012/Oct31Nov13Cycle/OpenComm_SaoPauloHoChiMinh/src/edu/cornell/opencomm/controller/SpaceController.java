@@ -1,5 +1,9 @@
 package edu.cornell.opencomm.controller;
 
+import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smackx.muc.MultiUserChat;
+
+import android.content.Context;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.view.PrivateSpaceIconView;
 import edu.cornell.opencomm.view.SpaceView;

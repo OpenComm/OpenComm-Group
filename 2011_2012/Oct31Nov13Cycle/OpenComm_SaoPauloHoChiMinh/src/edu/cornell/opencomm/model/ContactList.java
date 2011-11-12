@@ -1,5 +1,13 @@
 package edu.cornell.opencomm.model;
 
+
+import org.jivesoftware.smack.Connection;
+import org.jivesoftware.smack.Roster;
+import org.jivesoftware.smack.RosterEntry;
+import org.jivesoftware.smack.XMPPException;
+
+import android.util.Log;
+
 /**
  * A user's contact list. This is a Roster of users for which the network
  * will send the primary user status updates. A user can add and/or delete

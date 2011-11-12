@@ -1,5 +1,6 @@
 package edu.cornell.opencomm.controller;
 
+import android.util.Log;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;

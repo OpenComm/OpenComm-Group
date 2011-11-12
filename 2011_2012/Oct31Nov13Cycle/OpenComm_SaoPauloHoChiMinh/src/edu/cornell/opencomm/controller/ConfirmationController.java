@@ -1,8 +1,8 @@
 package edu.cornell.opencomm.controller;
 
 //import android.R;
+import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.view.ConfirmationView;
-import edu.cornell.opencomm.Values;
 /** Handles the actions performed on an confirmation popup screen
  * 
  * @author vinay

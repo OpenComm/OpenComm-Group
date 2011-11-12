@@ -1,5 +1,19 @@
 package edu.cornell.opencomm.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+
+import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smackx.Form;
+import org.jivesoftware.smackx.muc.MultiUserChat;
+import org.jivesoftware.smackx.muc.Occupant;
+
+import android.app.Activity;
+import android.content.Context;
+import android.util.Log;
+import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.InvitationController;
 import edu.cornell.opencomm.controller.KickoutController;
 import edu.cornell.opencomm.controller.Login;

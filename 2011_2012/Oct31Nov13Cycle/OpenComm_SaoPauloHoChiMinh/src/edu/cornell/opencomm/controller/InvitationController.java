@@ -1,5 +1,17 @@
 package edu.cornell.opencomm.controller;
 
+
+import org.jivesoftware.smack.Connection;
+import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.packet.Message;
+import org.jivesoftware.smackx.muc.InvitationListener;
+import org.jivesoftware.smackx.muc.InvitationRejectionListener;
+import org.jivesoftware.smackx.muc.MultiUserChat;
+import org.jivesoftware.smackx.muc.Occupant;
+
+import android.util.Log;
+import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.model.Invitation;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.Network;
@@ -244,7 +256,7 @@ public class InvitationController implements InvitationListener, InvitationRejec
 	 * @param inviter - Person who invited you to the chat
 	 */
 	public void decline(String inviter) {
-		MultiUserChat.decline(this.invitation.getConnection(), this.invitation.getRoom(), inviter, null);
+		MultiUserChat.decline(this.invitation.getConnection(), this.invitation.getRoom(), inviter, Network.DEFAULT_REJECT);
 	}
 
 	/**
@@ -264,7 +276,7 @@ public class InvitationController implements InvitationListener, InvitationRejec
 	 */
 	@Override
 	public void invitationReceived(Connection connection, String room, String inviter, String reason, String password, Message message) {
-		this.invitation = new edu.cornell.opencomm.model.Invitation(connection, room, inviter, reason, password, message);
+		this.invitation = new Invitation(connection, room, inviter, reason, password, message);
 
 		//TODO: Trigger update to the view!
 	}

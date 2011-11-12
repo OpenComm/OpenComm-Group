@@ -1,12 +1,28 @@
 package edu.cornell.opencomm.view;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
-import edu.cornell.opencomm.controller.EmptySpaceMenuController;
 import edu.cornell.opencomm.controller.MainApplication;
 import edu.cornell.opencomm.controller.PrivateSpaceIconController;
 import edu.cornell.opencomm.controller.PrivateSpacePreviewPopupController;
 import edu.cornell.opencomm.controller.SideChatIconMenuController;
-import edu.cornell.opencomm.controller.UserIconMenuController;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
 

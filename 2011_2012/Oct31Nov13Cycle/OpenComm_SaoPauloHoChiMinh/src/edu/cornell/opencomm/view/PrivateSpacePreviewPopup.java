@@ -1,5 +1,12 @@
 package edu.cornell.opencomm.view;
 
+import java.util.ArrayList;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.util.AttributeSet;
+import android.widget.LinearLayout;
+import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.MainApplication;
 
 public class PrivateSpacePreviewPopup extends LinearLayout{
