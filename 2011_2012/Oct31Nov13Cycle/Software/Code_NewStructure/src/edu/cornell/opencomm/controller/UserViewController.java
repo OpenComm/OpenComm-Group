@@ -1,5 +1,6 @@
 package edu.cornell.opencomm.controller;
 
+import android.util.Log;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.view.PrivateSpaceIconView;
@@ -13,6 +14,8 @@ import edu.cornell.opencomm.view.UserView;
  * 
  */
 public class UserViewController {
+	long startTime=-1, endTime=-1;
+	boolean pressAndHold=false;
 	/** The position of the icon on clickdown */
 	int initialX, initialY; 
 	/** True if the icon has been dragged 
@@ -31,22 +34,12 @@ public class UserViewController {
 	 * @param clickX - initial position of icon 
 	 * @param clickY - initial position of icon
 	 */
-	public void handleClickDown(int clickX, int clickY){
+	public void handleClickDown(int clickX, int clickY, long time){
+		startTime = time;
+		dragged = false;
 		this.initialX = clickX;
 		this.initialY = clickY;
 	}
-	
-	/** If double clicked on a UserView, then...
-	 *  1) First check if you are the moderator of this space
-	 *  2) If you are the moderator, then give control to SpaceController 
-	 *  (is this right?) so that it may kick out this person
-	 *  
-	 *  Make sure this icon is not highlighted
-	 */
-/*	public void handlePressAndHold(){
-		if(MainApplication.user_primary == MainApplication.screen.getSpace().getOwner())
-			
-	} */
 	
 	/** If moved, then change the icon's position. 
 	 * 
@@ -54,6 +47,7 @@ public class UserViewController {
 	 * @param clickY - position of finger click
 	 */
 	public void handleMoved(int clickX, int clickY){
+		Log.v("UserViewController", "handleMOved");
 		dragged = true;
 		int newX = clickX - (userView.getImage().getWidth() / 2);
 		int newY = clickY - (userView.getImage().getWidth() / 2);
@@ -71,12 +65,17 @@ public class UserViewController {
 	 * @param newX - placed position of icon center after dragging
 	 * @param newY - placed position of icon center after dragging
 	 */
-	public void handleClickUp(int clickX, int clickY){
+	public boolean handleClickUp(int clickX, int clickY, long time){
 		int newX, newY;
-		if(!dragged)
-			userView.toggleSelected();
+		if(!dragged){
+			dragged = false;
+			if((time - startTime)>Values.pressAndHold){
+				return true;
+			}
+			return false;
+		}
 		else{
-			if(clickY>Values.spaceViewH)
+			if(clickY>(Values.spaceViewH-Values.userIconH/2))
 				userView.setXY(initialX, initialY);
 			else{
 				newX = clickX - (userView.getImage().getWidth() / 2);
@@ -84,6 +83,14 @@ public class UserViewController {
 				userView.setXY(newX, newY);
 			}
 		}
-		dragged = false;
+		return false;
+		
 	}
-}
+	
+	/*public void handleLongPress(int clickX, int clickY){
+		if(dragged)
+			handleClickUp(clickX, clickY);
+		else
+			UserIconMenuController.showIconMenu();
+	}*/
+} 

@@ -22,9 +22,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
+import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.GestureDetector.SimpleOnGestureListener;
 import android.widget.LinearLayout;
 import android.util.Log;
 import android.graphics.Bitmap;
@@ -51,6 +54,7 @@ import android.graphics.BitmapFactory;
     PrivateSpaceIconView hoveredPrivSpace= null;
     UserView initialIcon;
     private boolean dim=false;
+    
     
     // Controllers
     SpaceViewController spaceViewController = new SpaceViewController(this);
@@ -89,6 +93,7 @@ import android.graphics.BitmapFactory;
         Log.v(LOG_TAG, "New allIcons normal");
         setupImage();
      }
+   
      
      /* Add the image of the voice coming from you */
      public void setupImage(){
@@ -238,8 +243,6 @@ import android.graphics.BitmapFactory;
        * 7) Be able to drag multiple highlighted icons as a unit 
        */
      
-     long startTime = 0;
-	 long endTime = 0;
 	 boolean clickOnIcon = false;
 	 
      public boolean onTouchEvent(MotionEvent event) {
@@ -247,51 +250,32 @@ import android.graphics.BitmapFactory;
     	 int mouseY = (int) event.getY();
     	 
     	 if(event.getAction() == MotionEvent.ACTION_DOWN){
-    		 //record the start time
-    		 startTime = event.getEventTime();
+    		 // If clicked on an icon
     		 selectedIcon = null;
     		 for (UserView icon : allIcons) {
     			 if (icon.clickedInside(mouseX, mouseY)) {
     				 selectedIcon = icon;
- 					 icon.getUserViewController().handleClickDown(icon.getX(), icon.getY());
+ 					 icon.getUserViewController().handleClickDown(icon.getX(), icon.getY(), event.getEventTime());
  					 clickOnIcon = true;
- 					 //Crystal Q
- 					 if(initialIcon == selectedIcon){
- 						 Log.v(LOG_TAG, "Double CLICK");
- 						 // TODO Crystal - need to change this to a press and hold
- 						 // not a double click
- 						 if(MainApplication.user_primary == MainApplication.screen.getSpace().getOwner()){
- 							 try{
- 								 space.getKickoutController().kickoutUser(selectedIcon.getPerson(), "Because I said so!");
- 							 }catch(XMPPException e){
- 								 Log.v(LOG_TAG, "Darn, can't kick this person out"); }
- 						 }
- 						 initialIcon=null;
- 					   	 break;
- 					 }
- 					 else{  
- 						 Log.v(LOG_TAG, "SINGLE CLICK");
- 						 initialIcon=selectedIcon;
- 					 }
     			 }
     		 }
-         }else if(event.getAction() == MotionEvent.ACTION_UP){
-        	 //record the end time
-        	 endTime = event.getEventTime();
-        	 
-        	 if (selectedIcon == null && mouseY < screenHeight) {
-        		 for(UserView p : allIcons){
-        			 if(p.getIsSelected()){
-        				 p.setIsSelected(false);
-        			 }
-        		 }
-        		 for(PrivateSpaceIconView icon: PrivateSpaceIconView.allPSIcons){
-        			 icon.setSelected(false);
- 				 }
+    		 // If clicked on an empty space
+    		 if(!clickOnIcon)
+    			 this.getSpaceViewController().handleClickDown(event.getEventTime());
+         }
+    	 else if(event.getAction() == MotionEvent.ACTION_UP){
+        	 // If clicked on an empty space
+        	 if(!clickOnIcon){
+        		 boolean show_popup = this.getSpaceViewController().handleClickUp(event.getEventTime());
+        		 if(show_popup)
+        			 EmptySpaceMenuController.showFreeSpaceMenu();
         	 }
- 			
-        	 if (selectedIcon != null) {
-        		 selectedIcon.getUserViewController().handleClickUp(mouseX, mouseY);
+        	 
+ 			// if clicked on an icon
+        	 else{
+        		 boolean showIconMenu = selectedIcon.getUserViewController().handleClickUp(mouseX, mouseY, event.getEventTime());
+        		 if(showIconMenu)
+        			 this.userIconMenuController.showIconMenu();
  				
  				 // if released icon over an privatespace icon, then add that person to the private space
  				 for(PrivateSpaceIconView p : PrivateSpaceIconView.allPSIcons){
@@ -313,13 +297,13 @@ import android.graphics.BitmapFactory;
  					 }
  				 }
  				 selectedIcon = null;
+ 				 clickOnIcon = false;
  				
         	 	}
          }else if(event.getAction() == MotionEvent.ACTION_MOVE){
-        	 // If a person icon is selected, then move the icon to the current position
  			 if (selectedIcon != null) {
+ 				// If a person icon is selected, then move the icon to the current position
  				 selectedIcon.getUserViewController().handleMoved(mouseX, mouseY);
-
  				 // if icon is dragged over private space, then highlight that private space icon
  				 if (hoveredPrivSpace == null) {
  					 for (PrivateSpaceIconView p : PrivateSpaceIconView.allPSIcons) {
@@ -339,21 +323,7 @@ import android.graphics.BitmapFactory;
  				 } 
  			 }
          }
-
-    	 Log.v(LOG_TAG, "TimeDiff : "+Long.toString(endTime - startTime));
-         if(endTime - startTime > 200){
-        	 if(!clickOnIcon){
- 				 Log.v(LOG_TAG, "Clicked on free space");
- 				 EmptySpaceMenuController.showFreeSpaceMenu();
-        	 }
- 			 else{
- 				 Log.v(LOG_TAG, "Clicked on icon");
- 				 UserIconMenuController.showIconMenu();
- 				 clickOnIcon = false;
- 			}
- 			return true;
-         }
-         
+         invalidate();
          return true;
-     }
+     } 
  }

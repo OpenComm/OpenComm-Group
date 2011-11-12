@@ -3,6 +3,9 @@ package edu.cornell.opencomm;
 public class Values {
 	/** These values will be changed in MainApplication's adjustLayoutParams() */
 	
+	// Time
+	public static int pressAndHold = 200;
+	
 	// Cellphone screen dimensions
 	public static int screenW = 320;
 	public static int screenH = 430;

@@ -433,17 +433,7 @@ public class MainApplication extends Activity{
 		psv.setPadding(Values.iconBorderPaddingH, Values.iconBorderPaddingV,Values.iconBorderPaddingH, Values.iconBorderPaddingV);
 		bottomBar.addView(psv,lp);
 		bottomBar.invalidate(); 
-        
-      /*  
-		psv.setLayoutParams(new LinearLayout.LayoutParams(Values.privateSpaceButtonW,  Values.privateSpaceButtonW));
-		psv.setPadding(Values.privateSpacePadding, 0, Values.privateSpacePadding, 0);
-		bottomBar.addView(psv);
-		bottomBar.invalidate(); */
 
-		/*
-		 * Displaying preview of private space when clicked on it
-		 */
-		//psv.setOnClickListener(onClickListener);
     }
 
     PopupWindow privateSpacePreviewPopupWindow = null;
