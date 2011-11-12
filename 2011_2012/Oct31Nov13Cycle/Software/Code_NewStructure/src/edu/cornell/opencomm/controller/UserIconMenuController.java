@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.util.Log;
 import android.widget.Toast;
+import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.view.SpaceView;
 
 /** When a user press and hold an icon of the mainscreen, this controller
@@ -13,34 +14,34 @@ import edu.cornell.opencomm.view.SpaceView;
  *  @author - rahularora
  */  
 public class UserIconMenuController {
-	final static CharSequence[] items = {"Delete User", "Cancel"};
+
 	
 	private SpaceView spaceView = null;
 	private static Context context;
 
+	/** Constructor: UserIconMenuController */
 	public UserIconMenuController(Context context, SpaceView spaceView) {
 		this.spaceView = spaceView;
 		this.context = context;
 	}
 
-	
+	/** Show a menu after long-pressing on a user icon (UserView)
+	 * Menu options are: Delete User, Cancel */
 	public static void showIconMenu(){
 		if (context == null)
 			Log.v("User Icon Menu", "NULLL");
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-		builder.setItems(items, new DialogInterface.OnClickListener() {
+		builder.setItems(Values.userviewMenu, new DialogInterface.OnClickListener() {
 		    public void onClick(DialogInterface dialog, int item) {
-		    	if (items[item].equals("Delete User")){
+		    	if (Values.userviewMenu[item].equals("Delete User")){
 		    		//Do something if user clicks on Delete User
 		    	}
-		    	else if (items[item].equals("Cancel")){
+		    	else if (Values.userviewMenu[item].equals("Cancel")){
 		    		//Do something if user clicks on Cancel
 		    	}
 		    }
 		});
-
-		
 		builder.setTitle( "Icon Menu" )
     		    .create();
 		AlertDialog alert = builder.create();

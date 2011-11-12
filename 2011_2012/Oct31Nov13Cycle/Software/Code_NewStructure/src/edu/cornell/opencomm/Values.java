@@ -4,16 +4,22 @@ public class Values {
 	/** These values will be changed in MainApplication's adjustLayoutParams() */
 	
 	// Time
-	public static int pressAndHold = 200;
+	public static int pressAndHold = 200; // amount of time for a touch to be considered a long press
+	
+	// Menu options
+	public static CharSequence[] userviewMenu = {"Delete User", "Cancel"}; // after longpressing a user icon
+	public static CharSequence[] emptyspaceMenu = {"Add Users", "Delete Users", 
+		"Leave chat","Cancel"}; // after longpressing the empty space in a spaceview
+	public static CharSequence[] privatespaceiconMenu = {"Go to", "Leave chat","Cancel"};
 	
 	// Cellphone screen dimensions
 	public static int screenW = 320;
 	public static int screenH = 430;
 	
 	// Section heights
-	public static int actionBarH = 72;
-	public static int spaceViewH = 350;
-	public static int bottomBarH = 138;
+	public static int actionBarH = 72; // Upper strip at top that says "OpenComm"
+	public static int spaceViewH = 350; // Area where user icons are shown
+	public static int bottomBarH = 138; // Bottom strip that holds private space icons
 	
 	// PrivateSpace buttons in bottom bar
 	public static int privateSpaceButtonW = 116;

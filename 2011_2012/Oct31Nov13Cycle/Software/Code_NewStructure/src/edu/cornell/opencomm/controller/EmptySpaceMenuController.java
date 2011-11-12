@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.util.Log;
 import android.widget.Toast;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.view.SpaceView;
 
@@ -23,9 +24,6 @@ import edu.cornell.opencomm.view.SpaceView;
  */   
 public class EmptySpaceMenuController {
   
-	final static CharSequence[] items = {"Add Users", "Delete Users", 
-		"Leave chat","Cancel"};
-	
 	static ContactListController contactListController;
 	
 	private SpaceView spaceView = null;
@@ -41,19 +39,19 @@ public class EmptySpaceMenuController {
 			Log.v("Empty Space Menu", "NULLL");
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-		builder.setItems(items, new DialogInterface.OnClickListener() {
+		builder.setItems(Values.emptyspaceMenu, new DialogInterface.OnClickListener() {
 		    public void onClick(DialogInterface dialog, int item) {
 		        //Toast.makeText(context, items[item], Toast.LENGTH_SHORT).show();
-		    	if (items[item].equals("Add Users")){
+		    	if (Values.emptyspaceMenu[item].equals("Add Users")){
 		    		contactListController.showBuddyList();
 		    	}
-		    	else if (items[item].equals("Delete Users")){
+		    	else if (Values.emptyspaceMenu[item].equals("Delete Users")){
 		    		//Do something if user clicks on Delete Users
 		    	}
-		    	else if (items[item].equals("Leave Chat")){
+		    	else if (Values.emptyspaceMenu[item].equals("Leave Chat")){
 		    		//Do something if user clicks on Leave Chat
 		    	}
-		    	else if (items[item].equals("Cancel")){
+		    	else if (Values.emptyspaceMenu[item].equals("Cancel")){
 		    		//Do something if user clicks on Cancel
 		    	}
 		    }

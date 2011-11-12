@@ -1,5 +1,6 @@
 package edu.cornell.opencomm.controller;
 
+import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.view.PrivateSpaceIconView;
 import edu.cornell.opencomm.view.SpaceView;
 import android.app.AlertDialog;
@@ -14,8 +15,6 @@ import android.util.Log;
  */  
 
 public class SideChatIconMenuController {
-
-	final static CharSequence[] items = {"Go to", "Leave chat","Cancel"};
 	
 	static ContactListController contactListController;
 	
@@ -32,15 +31,15 @@ public class SideChatIconMenuController {
 			Log.v("Side Chat Icon Menu", "NULL");
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-		builder.setItems(items, new DialogInterface.OnClickListener() {
+		builder.setItems(Values.privatespaceiconMenu, new DialogInterface.OnClickListener() {
 		    public void onClick(DialogInterface dialog, int item) {
-		    	if (items[item].equals("Go to")){
+		    	if (Values.privatespaceiconMenu[item].equals("Go to")){
 		    		//Do something if user clicks on Go to 
 		    	}
-		    	else if (items[item].equals("Leave chat")){
+		    	else if (Values.privatespaceiconMenu[item].equals("Leave chat")){
 		    		//Do something if user clicks on Leave Chat
 		    	}
-		    	else if (items[item].equals("Cancel")){
+		    	else if (Values.privatespaceiconMenu[item].equals("Cancel")){
 		    		//Do something if user clicks on Cancel
 		    	}
 		    }

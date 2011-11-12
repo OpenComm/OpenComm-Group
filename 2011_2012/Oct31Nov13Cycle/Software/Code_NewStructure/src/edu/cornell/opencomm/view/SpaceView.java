@@ -282,6 +282,7 @@ import android.graphics.BitmapFactory;
  					 if(p.contains(mouseX, mouseY)){
  						 p.setHighlighted(false);
  						 (p.getSpace()).getInvitationController().inviteUser(selectedIcon.getPerson(), null);
+ 						 
  						 /* Detect if icon was dropped into the empty PS or an existing PS.
  						    if first icon dropped in space, make a new space*/
  						 if((p.getSpace()).getAllIcons().size()==1){

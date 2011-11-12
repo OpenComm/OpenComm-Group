@@ -22,6 +22,8 @@ import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -45,6 +47,7 @@ import edu.cornell.opencomm.view.PrivateSpacePreviewPopup;
 import edu.cornell.opencomm.view.SpaceView;
 import edu.cornell.opencomm.view.TipView;
 import edu.cornell.opencomm.view.UserView;
+import edu.cornell.opencomm.view.MenuView;
 
 
 /** The MainApplication handles and manages the PrivateSpaces for every
@@ -252,6 +255,14 @@ public class MainApplication extends Activity{
 				} catch (XMPPException e){
 					Log.v(TAG, "Can't create another private space :(");
 				}
+				break;
+			}
+			case KeyEvent.KEYCODE_MENU:{
+				Log.v(TAG, "Clicked on MENU key");
+				LayoutInflater inflater2 = (LayoutInflater) MainApplication.this
+						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				MenuView menuView = new MenuView(inflater2);
+				menuView.launch();
 				break;
 			}
 			}
