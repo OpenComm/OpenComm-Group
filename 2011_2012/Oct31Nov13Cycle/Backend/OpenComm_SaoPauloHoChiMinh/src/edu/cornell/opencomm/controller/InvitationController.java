@@ -266,7 +266,7 @@ public class InvitationController implements InvitationListener, InvitationRejec
 	 * Returns the most recent invitation received
 	 * @return InvitationController
 	 */
-	public edu.cornell.opencomm.model.Invitation getInvitation() {
+	public Invitation getInvitation() {
 		return this.invitation;
 	}
 

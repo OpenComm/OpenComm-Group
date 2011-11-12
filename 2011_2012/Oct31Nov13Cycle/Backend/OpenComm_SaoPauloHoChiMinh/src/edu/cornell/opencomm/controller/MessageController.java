@@ -1,6 +1,7 @@
 package edu.cornell.opencomm.controller;
 
 import org.jivesoftware.smack.PacketListener;
+import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Packet;
 import org.jivesoftware.smackx.muc.MultiUserChat;
@@ -71,7 +72,11 @@ public class MessageController {
 						boolean userDecision = true;
 						if (userDecision) {
 							// kickout user from room
-							mSpace.getKickoutController().confirmKickoutRequest(kickoutInfo);
+							try {
+								mSpace.getKickoutController().confirmKickoutRequest(kickoutInfo);
+							} catch(XMPPException e) {
+								Log.e(TAG, "Failed to kickout user");
+							}
 						}
 						else {
 							// Reject the kickout request
