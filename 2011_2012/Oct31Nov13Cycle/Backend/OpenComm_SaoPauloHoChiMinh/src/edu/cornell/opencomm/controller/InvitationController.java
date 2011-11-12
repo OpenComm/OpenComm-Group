@@ -252,22 +252,6 @@ public class InvitationController implements InvitationRejectionListener {
 	}
 
 	/**
-	 * Automagically called when this client receives an invitation to join a MUC
-	 */
-	@Override
-	public void invitationReceived(Connection connection, String room, String inviter, String reason, String password, Message message) {
-		this.invitation = new edu.cornell.opencomm.model.Invitation(connection, room, inviter, reason, password, message);
-
-		//TODO: Trigger update to the view!
-		
-		//call accept or decline
-
-		//DEBUG
-		Log.v(TAG, "invitationReceived - Invitation received from: " + inviter 
-				+ " to join room: " + room);
-	}
-
-	/**
 	 * Returns the most recent invitation received
 	 * @return InvitationController
 	 */
