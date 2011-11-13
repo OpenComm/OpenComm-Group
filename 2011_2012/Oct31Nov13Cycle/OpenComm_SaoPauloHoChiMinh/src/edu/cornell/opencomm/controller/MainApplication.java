@@ -56,8 +56,7 @@ public class MainApplication extends Activity{
 
     /** The user of this program (You, the person holding the phone) */
     public static User user_primary;
-    /** The space that holds everybody in the conference */
-    public static Space mainspace= null; 
+    
     /** The SpaceView object (UI) representing the space that the user is currently talking to */
     public static SpaceView screen; 
     /** The empty private space icon at the bottom of the screen */
@@ -79,6 +78,7 @@ public class MainApplication extends Activity{
     LinearLayout.LayoutParams PSparams = new LinearLayout.LayoutParams(
     		ViewGroup.LayoutParams.WRAP_CONTENT,
     		ViewGroup.LayoutParams.WRAP_CONTENT, 0.0f);
+	protected ParticipantStatusController PsController;
 
  // A counter for spaces (to generate SpaceID's). TODO Will use for now, takeout later when add network
  	public static int space_counter= -1;
@@ -237,16 +237,16 @@ public class MainApplication extends Activity{
 				Space.getMainSpace().getParticipantController().grantOwnership(
 						"opencommsec@jabber.org");
 			}
-			/* Ask Nora -- What does it do?
-			 * case KeyEvent.KEYCODE_J: {
+			case KeyEvent.KEYCODE_J: {
 				Log.v(TAG, "Pressed J key - join");
-				//try{
-					MainApplication.mainspace.getParticipantController().joined("roomname@conference.jabber.org/" + debug1.getNickname());
-				}catch (XMPPException e){
-					Log.d(TAG, "Couldn't join!");
-				} 
+				/*ParticipantStatusController psController = new ParticipantStatusController(mainspace);
+				String test = "roomname@conference.jabber.org/" + debug1.getNickname();
+				psController.joined(test);*/
+				
+				
+				Space.getMainSpace().getPsController().joined("roomname@conference.jabber.org/" + debug1.getNickname());
 				break;
-			}*/
+			}
 			case KeyEvent.KEYCODE_S: {
 				Log.v(TAG, "Pressed S key - create a new private space");
 				try{
@@ -316,8 +316,8 @@ public class MainApplication extends Activity{
 				case MotionEvent.ACTION_MOVE:
 					break;
 				case MotionEvent.ACTION_UP:
-					if(!(screen.getSpace()==mainspace)){
-						changeSpace(mainspace);
+					if(!(screen.getSpace()==Space.getMainSpace())){
+						changeSpace(Space.getMainSpace());
 					}
 					break;
 				}
@@ -543,7 +543,7 @@ public class MainApplication extends Activity{
  			public void onClick(View v) {
  				// TODO NORA - might need to change to mainspace in Space class
  				try{
- 					MainApplication.mainspace.getSpaceController().addSpace(MainApplication.mainspace.getContext());
+ 					Space.getMainSpace().getSpaceController().addSpace(Space.getMainSpace().getContext());
  				}
  				catch(XMPPException e){
  					Log.d("MainApplication plusButtonSetUp()", "Could not add a Space");

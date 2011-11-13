@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.util.Log;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.view.SpaceView;
 
@@ -91,7 +92,7 @@ public class ContactListController {
 				User p = new User(username + "@jabber.org", username, R.drawable.question);
 				//if (D) Log.d(LOG_TAG, "Adding person " + username + " to mainspace");
 	        	//initAddPerson(MainApplication.mainspace, p);
-				MainApplication.mainspace.getInvitationController().inviteUser(p, "Because you're cool");
+				Space.getMainSpace().getInvitationController().inviteUser(p, "Because you're cool");
 			}
 		}
 	} // end addFromBuddyList method
