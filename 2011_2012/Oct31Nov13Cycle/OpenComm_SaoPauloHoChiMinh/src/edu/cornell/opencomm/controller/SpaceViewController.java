@@ -10,7 +10,7 @@ import edu.cornell.opencomm.view.UserView;
 public class SpaceViewController {
 	public long startTime=-1;
 	
-	SpaceView spaceView = null;
+	static SpaceView spaceView = null;
 	public SpaceViewController(SpaceView spaceView){
 		this.spaceView = spaceView;
 	}
@@ -19,7 +19,7 @@ public class SpaceViewController {
 	 * the SpaceView
 	 * @param user - the new user object  
 	 */
-	public void addIconToSpaceView(User user){
+	public static void addIconToSpaceView(User user){
 		UserView newUserView = new UserView(spaceView.getContext(), user, user.getImage(), spaceView.getSpace());
 		spaceView.getAllIcons().add(newUserView);
 		spaceView.invalidate();
