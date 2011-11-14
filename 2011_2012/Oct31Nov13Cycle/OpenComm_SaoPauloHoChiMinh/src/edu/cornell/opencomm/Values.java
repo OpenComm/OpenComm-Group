@@ -13,8 +13,8 @@ public class Values {
 	public static CharSequence[] privatespaceiconMenu = {"Go to", "Leave chat","Cancel"};
 	
 	// Cellphone screen dimensions
-	public static int screenW = 320;
-	public static int screenH = 430;
+	public static int screenW = 480;
+	public static int screenH = 800;
 	
 	// Section heights
 	public static int actionBarH = 72; // Upper strip at top that says "OpenComm"

@@ -2,6 +2,7 @@ package edu.cornell.opencomm.network;
 
 import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.ConnectionConfiguration;
+import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
@@ -41,7 +42,7 @@ public class NetworkService {
 	public NetworkService(String host, int port) throws XMPPException {
         // BUGFIX
         configure(ProviderManager.getInstance());
-        
+        SmackConfiguration.setPacketReplyTimeout(100000);
 		xmppConfig = new ConnectionConfiguration(host, port);
 		xmppConn = new XMPPConnection(xmppConfig);
 		xmppConn.connect();

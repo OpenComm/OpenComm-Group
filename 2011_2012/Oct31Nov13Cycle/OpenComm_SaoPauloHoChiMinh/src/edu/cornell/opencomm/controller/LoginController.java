@@ -4,13 +4,16 @@ import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.widget.EditText;
 
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.network.Network;
 import edu.cornell.opencomm.network.NetworkService;
+import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.LoginView;
 
 public class LoginController {
@@ -47,10 +50,16 @@ public class LoginController {
 			Log.e(LOG_TAG, "handleLogin: Log in failed");
 			//return;
 		}
-		Intent i = new Intent(loginView, MainApplication.class);
+	
+		/*Intent i = new Intent(loginView, MainApplication.class);
 		i.putExtra(Network.KEY_USERNAME, (D ? Network.DEBUG_USERNAME : usernameEdit.getText().toString()));
 		i.setAction(Network.ACTION_LOGIN);
-		loginView.startActivity(i);
+		loginView.startActivity(i);*/
+		LayoutInflater inflater = (LayoutInflater) loginView
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		DashboardView dashboardView = new DashboardView(inflater);
+		//loginView.dismissDialog(0);
+		dashboardView.launch();
 	}
 
 	public void handleLoginActivityStart() {
