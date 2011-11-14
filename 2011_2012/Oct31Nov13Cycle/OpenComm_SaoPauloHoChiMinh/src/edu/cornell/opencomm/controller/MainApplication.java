@@ -188,8 +188,8 @@ public class MainApplication extends Activity{
 				Log.v(TAG, "pressed 3 key - login screen");
 				LayoutInflater inflater = (LayoutInflater) MainApplication.this
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				LoginView loginView = new LoginView(inflater);
-				loginView.launch();
+				//LoginView loginView = new LoginView(inflater);
+				//loginView.launch();
 				break;
 			}
 			case KeyEvent.KEYCODE_4: {
