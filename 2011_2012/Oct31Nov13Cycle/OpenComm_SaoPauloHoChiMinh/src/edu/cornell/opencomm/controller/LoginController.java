@@ -35,6 +35,25 @@ public class LoginController {
 	public void handleLoginButtonClick(EditText usernameEdit, EditText passwordEdit) {
 		loginView.getLoginButton().setBackgroundColor(R.color.light_grey);
 		if (D) Log.d(LOG_TAG, "handleLogin: Attempt log in");
+        // check if there is a connection
+		if (xmppService == null) {
+			try {
+				xmppService = new NetworkService(Network.DEFAULT_HOST,
+						Network.DEFAULT_PORT);
+				if (D)
+					Log.d(LOG_TAG, xmppService.toString());
+			} catch (XMPPException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				Log.e(LOG_TAG, "onStart: XMPP Connection not established");
+				// finish the activity
+				loginView.finish();
+			}
+			if (D)
+				Log.d(LOG_TAG, "onStart: Network service started");
+			if (D)
+				Log.d(LOG_TAG, xmppService.toString());
+		}
 		try {
 			if (D) {
 				xmppService.login(Network.DEBUG_USERNAME, 
@@ -59,27 +78,5 @@ public class LoginController {
 		DashboardView dashboardView = new DashboardView(inflater);
 		loginView.finish();
 		dashboardView.launch();*/
-	}
-
-	public void handleLoginActivityStart() {
-		// check if there is a connection
-		if (xmppService == null) {
-			try {
-				xmppService = new NetworkService(Network.DEFAULT_HOST,
-						Network.DEFAULT_PORT);
-				if (D)
-					Log.d(LOG_TAG, xmppService.toString());
-			} catch (XMPPException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				Log.e(LOG_TAG, "onStart: XMPP Connection not established");
-				// finish the activity
-				loginView.finish();
-			}
-			if (D)
-				Log.d(LOG_TAG, "onStart: Network service started");
-			if (D)
-				Log.d(LOG_TAG, xmppService.toString());
-		}
 	}
 }
