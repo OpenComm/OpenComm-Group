@@ -64,13 +64,6 @@ public class LoginView extends Activity {
 		loginController = new LoginController(this);
 	} // end onCreate method
 
-	/** Called when the activity is becoming visible to the user. */
-	public void onStart() {
-		super.onStart();
-
-		loginController.handleLoginActivityStart();
-	} // end onStart method
-
 	private void initializeLoginButtonClickedEvent() {
 		ImageButton loginButton = getLoginButton();
 		if (loginButton != null) {
