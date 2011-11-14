@@ -41,7 +41,7 @@ public class Network {
 
 	// ROOM NAME CONSTANT
 	/** = prefix of all opencomm rooms created during this cycle */
-	public static final String ROOM_NAME = "opencomm_" + cycleName + "_";
+	public static final String ROOM_NAME = "opencomm_" + cycleName + "_" + Math.random() * 100 + "_";
 
 	// ====================================================================== //
 	// ====================================================================== //
