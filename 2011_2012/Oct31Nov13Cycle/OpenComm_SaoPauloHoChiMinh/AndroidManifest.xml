@@ -14,6 +14,7 @@
         </activity>
 
     <activity android:name=".controller.MainApplication"></activity>
+    <activity android:name=".view.DashboardView"></activity>
 </application>
 <uses-permission android:name="android.permission.INTERNET" />
 

@@ -1,28 +1,43 @@
 package edu.cornell.opencomm.view;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.DashboardController;
+import edu.cornell.opencomm.controller.LoginController;
 
-public class DashboardView {
+public class DashboardView extends Activity {
 	private static String LOG_TAG = "OC_DashboardView"; // for error checking
 	private Context context;
 	private LayoutInflater inflater;
 	private PopupWindow window = null;
-	private DashboardController dashboardController = new DashboardController(this);
+	private DashboardController dashboardController = new DashboardController(
+			this);
 	private View dashboardLayout = null;
 
-	public DashboardView(LayoutInflater inflater) {
+	/*public DashboardView(LayoutInflater inflater) {
 		this.inflater = inflater;
 		initEventsAndProperties();
-	}
+	}*/
+
+	/*
+	 * /** Called when an activity is first created
+	 */
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.dashboard_layout);
+		initEventsAndProperties();
+		dashboardController = new DashboardController(this);
+	} // end onCreate method
 
 	private void initEventsAndProperties() {
 		// create property dashboardLayout from infalter and store it as a
@@ -34,14 +49,15 @@ public class DashboardView {
 				this.dashboardLayout = dashboardViewFromInflater;
 			}
 		}
-		initializeLoginButtonClickedEvent();
+		initializeConferenceButtonClickedEvent();
 
 	}
 
-	private void initializeLoginButtonClickedEvent() {
+	private void initializeConferenceButtonClickedEvent() {
 		ImageButton startConferenceButton = getStartConferenceButton();
 		if (startConferenceButton != null) {
-			startConferenceButton.setOnTouchListener(onStartConferenceButtonClickedListener);
+			startConferenceButton
+					.setOnTouchListener(onStartConferenceButtonClickedListener);
 		}
 	}
 
@@ -71,9 +87,9 @@ public class DashboardView {
 		this.inflater = inflater;
 	}
 
-	public PopupWindow getWindow() {
+	/*public PopupWindow getWindow() {
 		return window;
-	}
+	}*/
 
 	public void setWindow(PopupWindow window) {
 		this.window = window;
@@ -94,12 +110,17 @@ public class DashboardView {
 					"Cannot launch dashboard view as inflater layout is null");
 		}
 	}
+	
+	public void onStart() {
+		super.onStart();
+	} // end onStart method
+
 
 	private View.OnClickListener onClickListener = new View.OnClickListener() {
 
 		@Override
 		public void onClick(View v) {
-			dashboardController.handlePopupWindowClicked();
+			//dashboardController.handlePopupWindowClicked();
 		}
 	};
 
