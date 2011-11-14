@@ -25,7 +25,6 @@ import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.R.layout;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.ConfirmationController;
-import edu.cornell.opencomm.controller.Login;
 import edu.cornell.opencomm.controller.LoginController;
 import edu.cornell.opencomm.controller.MainApplication;
 import edu.cornell.opencomm.model.Space;

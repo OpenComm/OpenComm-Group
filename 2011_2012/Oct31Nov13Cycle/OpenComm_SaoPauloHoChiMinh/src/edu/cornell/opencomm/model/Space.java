@@ -16,7 +16,7 @@ import android.util.Log;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.InvitationController;
 import edu.cornell.opencomm.controller.KickoutController;
-import edu.cornell.opencomm.controller.Login;
+import edu.cornell.opencomm.controller.LoginController;
 import edu.cornell.opencomm.controller.MainApplication;
 import edu.cornell.opencomm.controller.MessageController;
 import edu.cornell.opencomm.controller.ParticipantController;
@@ -96,7 +96,7 @@ public class Space {
 		// If the primary user is creating the space, join as owner
 		if (MainApplication.user_primary.equals(owner)) {
 			this.roomID = Network.ROOM_NAME + roomID + "@conference.jabber.org";
-			this.muc = new MultiUserChat(Login.xmppService.getXMPPConnection(),
+			this.muc = new MultiUserChat(LoginController.xmppService.getXMPPConnection(),
 					this.roomID);
 			this.muc.join(owner.getNickname());
 			this.muc.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
@@ -104,7 +104,7 @@ public class Space {
 		// otherwise join as participant
 		else {
 			this.roomID = roomID;
-			this.muc = new MultiUserChat(Login.xmppService.getXMPPConnection(),
+			this.muc = new MultiUserChat(LoginController.xmppService.getXMPPConnection(),
 					this.roomID);
 			this.muc.join(MainApplication.user_primary.getNickname());
 		}
