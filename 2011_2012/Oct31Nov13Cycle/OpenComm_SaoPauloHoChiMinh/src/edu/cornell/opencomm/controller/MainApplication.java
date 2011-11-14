@@ -44,7 +44,7 @@ import edu.cornell.opencomm.view.UserView;
 /** The MainApplication handles and manages the PrivateSpaces for every
  * User involved. Receives its notifications from the GUI, and then
  * updates the data of the private space, and talks with the network. */
-public class MainApplication extends Activity{
+public final class MainApplication extends Activity{
 	/** String identifier for error checking with LOGCAT */
 	private static String TAG = "Controller.MainApplication"; 
 	/** TODO Network - what is this? True if in debug mode? - Nora 11/6 */
@@ -212,8 +212,8 @@ public class MainApplication extends Activity{
 				Log.v(TAG, "pressed 6 key - dashboard screen");
 				LayoutInflater inflater = (LayoutInflater) MainApplication.this
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				DashboardView dashboardView = new DashboardView(inflater);
-				dashboardView.launch();
+				//DashboardView dashboardView = new DashboardView(inflater);
+				//dashboardView.launch();
 				break;
 			}
 			case KeyEvent.KEYCODE_M: {

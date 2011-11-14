@@ -9,7 +9,9 @@ import org.jivesoftware.smackx.muc.InvitationRejectionListener;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.muc.Occupant;
 
+import android.content.Context;
 import android.util.Log;
+import android.view.LayoutInflater;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.model.Invitation;
 import edu.cornell.opencomm.model.Space;
@@ -129,6 +131,8 @@ public class InvitationController implements InvitationRejectionListener {
 			String reason = (inviteRequestInfo.split("@reason").length == 0 ? Network.DEFAULT_INVITE
 					: inviteRequestInfo.split("@reason")[0]);
 			String[] inviteInfo = { requester, invitee, reason };
+			
+			
 			// DEBUG
 			if (D)
 				Log.d(TAG,
@@ -143,6 +147,7 @@ public class InvitationController implements InvitationRejectionListener {
 		return null;
 	} // end receiveInvitationRequest method
 
+	
 	/**
 	 * Confirm an invitation request. Invite the invitee with the reason given
 	 * by the requester

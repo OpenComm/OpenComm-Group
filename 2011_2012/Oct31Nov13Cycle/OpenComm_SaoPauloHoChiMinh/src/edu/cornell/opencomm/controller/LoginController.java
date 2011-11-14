@@ -51,15 +51,14 @@ public class LoginController {
 			//return;
 		}
 	
-		/*Intent i = new Intent(loginView, MainApplication.class);
-		i.putExtra(Network.KEY_USERNAME, (D ? Network.DEBUG_USERNAME : usernameEdit.getText().toString()));
+		Intent i = new Intent(loginView, DashboardView.class);
 		i.setAction(Network.ACTION_LOGIN);
-		loginView.startActivity(i);*/
-		LayoutInflater inflater = (LayoutInflater) loginView
+		loginView.startActivity(i);
+		/*LayoutInflater inflater = (LayoutInflater) loginView
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		DashboardView dashboardView = new DashboardView(inflater);
-		//loginView.dismissDialog(0);
-		dashboardView.launch();
+		loginView.finish();
+		dashboardView.launch();*/
 	}
 
 	public void handleLoginActivityStart() {

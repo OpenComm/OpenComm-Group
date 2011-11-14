@@ -7,9 +7,13 @@ import org.jivesoftware.smack.packet.Packet;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.muc.Occupant;
 
+import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
+import android.view.LayoutInflater;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.network.Network;
+import edu.cornell.opencomm.view.InvitationView;
 
 /** An instance of this class controls the messages sent to/from participants
  * within a space.
@@ -33,6 +37,17 @@ public class MessageController {
 		this.muc = this.mSpace.getMUC();
 		this.muc.addMessageListener(this.configMessageListener());
 	}
+	
+	/*
+	 * this launches an invitation for the user
+	 */
+	private boolean launchInvitationView() {
+			/*LayoutInflater inflater = (LayoutInflater) 
+					MainApplication.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			InvitationView invitationView = new InvitationView(inflater);
+			invitationView.launch();*/
+		return true;
+	}
 
 	/** = configuration of message listener */
 	public PacketListener configMessageListener() {
@@ -52,7 +67,8 @@ public class MessageController {
 						if (D) Log.d(TAG, "configMessageListener - invitation request received");
 						String[] inviteInfo = mSpace.getInvitationController().receiveInvitationRequest(body);
 						// TODO - UI: some form of confirmation or rejection
-						boolean userDecision = true;
+						
+						boolean userDecision = launchInvitationView();
 						if (userDecision) {
 							// invite user to the room
 							mSpace.getInvitationController().confirmInvitationRequest(inviteInfo);

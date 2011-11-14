@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import edu.cornell.opencomm.R;
@@ -20,8 +21,8 @@ public class DashboardView extends Activity {
 	private Context context;
 	private LayoutInflater inflater;
 	private PopupWindow window = null;
-	private DashboardController dashboardController = new DashboardController(
-			this);
+	private DashboardController dashboardController;
+
 	private View dashboardLayout = null;
 
 	/*public DashboardView(LayoutInflater inflater) {
@@ -49,26 +50,81 @@ public class DashboardView extends Activity {
 				this.dashboardLayout = dashboardViewFromInflater;
 			}
 		}
-		initializeConferenceButtonClickedEvent();
 
+		initializeContactsButtonClickedEvent();
+		initializeHistoryButtonClickedEvent();
+		initializeAccountButtonClickedEvent();
+		initializeConferenceButtonClickedEvent();
+		dashboardController = new DashboardController(this);
+	}
+	
+	public Button getContactsButton() {
+		Button startContactsButton = null;
+		if (dashboardLayout != null) {
+			startContactsButton = (Button) dashboardLayout.findViewById(R.id.buttonContacts);
+		}
+		
+		return startContactsButton;
 	}
 
+	
+	public Button getHistoryButton() {
+		Button startHistoryButton = null;
+		if (dashboardLayout != null) {
+			startHistoryButton = (Button) dashboardLayout.findViewById(R.id.buttonHistory);
+		}
+
+		return startHistoryButton;
+	}
+	
+	public Button getAccountButton() {
+		Button startAccountButton = null;
+		if (dashboardLayout != null) {
+			startAccountButton = (Button) dashboardLayout.findViewById(R.id.buttonAccount);
+		}
+
+		return startAccountButton;
+	}
+	
+	public ImageButton getStartConferenceButton() {
+		ImageButton startConferenceButton = null;
+		//if (dashboardLayout != null) {
+		startConferenceButton = (ImageButton) findViewById(R.id.buttonStartConference);
+		//}
+
+		return startConferenceButton;
+	}
+	
+	
+	private void initializeContactsButtonClickedEvent() {
+		Button startContactsButton = getContactsButton();
+		if (startContactsButton != null) {
+			Log.d(LOG_TAG, "Initialize Contacts Button");
+			//startContactsButton.setOnTouchListener(onStartConferenceButtonClickedListener);
+		}
+	}
+	
+	private void initializeHistoryButtonClickedEvent() {
+		Button startHistoryButton = getHistoryButton();
+		if (startHistoryButton != null) {
+			Log.d(LOG_TAG, "Initialize History Button");
+			//startHistoryButton.setOnTouchListener(onStartConferenceButtonClickedListener);
+		}
+	}
+	
+	private void initializeAccountButtonClickedEvent() {
+		Button startAccountButton = getAccountButton();
+		if (startAccountButton != null) {
+			Log.d(LOG_TAG, "Initialize Account Button");
+			//startAccountButton.setOnTouchListener(onStartConferenceButtonClickedListener);
+		}
+	}
+	
 	private void initializeConferenceButtonClickedEvent() {
 		ImageButton startConferenceButton = getStartConferenceButton();
 		if (startConferenceButton != null) {
-			startConferenceButton
-					.setOnTouchListener(onStartConferenceButtonClickedListener);
+			startConferenceButton.setOnClickListener(onStartConferenceButtonClickedListener);
 		}
-	}
-
-	public ImageButton getStartConferenceButton() {
-		ImageButton startConferenceButton = null;
-		if (dashboardLayout != null) {
-			startConferenceButton = (ImageButton) dashboardLayout
-					.findViewById(R.id.buttonStartConference);
-		}
-
-		return startConferenceButton;
 	}
 
 	public Context getContext() {
@@ -124,12 +180,11 @@ public class DashboardView extends Activity {
 		}
 	};
 
-	private View.OnTouchListener onStartConferenceButtonClickedListener = new View.OnTouchListener() {
+	private View.OnClickListener onStartConferenceButtonClickedListener = new View.OnClickListener() {
 
 		@Override
-		public boolean onTouch(View v, MotionEvent event) {
+		public void onClick(View v) {
 			dashboardController.handleStartConferenceButtonClicked();
-			return true;
 		}
 	};
 }
