@@ -100,7 +100,7 @@ public class ContactListController {
 	// Updates the buddylist and the boolean selection array
 	public static void updateBuddyList() {
 		// obtain current buddylist from server
-		Roster xmppRoster = Login.xmppService.getXMPPConnection().getRoster();
+		Roster xmppRoster = LoginController.xmppService.getXMPPConnection().getRoster();
 		Collection<RosterEntry> entryCollection = xmppRoster.getEntries();
 		Iterator<RosterEntry> entryItr = entryCollection.iterator();
 		buddyList = new CharSequence[entryCollection.size()];
