@@ -103,12 +103,20 @@ public class NetworkService {
 	 * @throws XMPPException - if an error occurs
 	 */
 	public void login(String uname, String pwd) throws XMPPException {
-		xmppConn.login(uname, pwd);
-		if (xmppConn.isAuthenticated()) {
-			if (D) Log.d(TAG, "Logged in as " + uname);
+		// check that the connection is not already authenticated
+		if (!xmppConn.isAuthenticated()) {
+			xmppConn.login(uname, pwd);
+			if (D) {
+				if (xmppConn.isAuthenticated()) {
+					Log.d(TAG, "Logged in as " + uname);
+				}
+				else {
+					Log.d(TAG, "login: Log in attempt failed");
+				}
+			}
 		}
 		else {
-			if (D) Log.d(TAG, "login: Log in attempt failed");
+			Log.e(TAG, "login: Already logged in as " + xmppConn.getUser());
 		}
 	} // end login method
 	
