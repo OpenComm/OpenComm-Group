@@ -25,4 +25,12 @@ public class DashboardController {
 		i.setAction(Network.ACTION_LOGIN);
 		dashboardView.startActivity(i);
 	}
+	
+	public void handleContactsButtonClicked(){
+	}
+	public void handleAccountButtonClicked(){
+	}
+	public void handleHistoryButtonClicked(){
+	}
+	
 }
