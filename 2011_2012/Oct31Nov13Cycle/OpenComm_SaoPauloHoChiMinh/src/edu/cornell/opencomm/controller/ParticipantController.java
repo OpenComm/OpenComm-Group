@@ -27,27 +27,37 @@ public class ParticipantController {
 	}
 	
 	/** Removes the primary user from the Space associated with this controller.
-	 * If the primary user is this Space's owner, they will be prompted to give
-	 * the nickname of a User to pass ownership to. Ownership passes before the
-	 * primary user leaves the Space. If this is the conference, then the view 
-	 * updates to the splash screen. If this is a side chat, then the user is 
-	 * returned to the conference.
+	 * If the primary user is this Space's owner, they will be asked if they 
+	 * want to destroy the chat or pass ownership. If they choose to pass 
+	 * ownership, then they will be asked to select who to pass ownership to.
+	 * If this is the conference, then the view updates to the splash screen. 
+	 * If this is a side chat, then the user is returned to the conference.
 	 */
 	public void leaveSpace(){
 		if (MainApplication.user_primary.equals(mSpace.getOwner())){
-			//TODO: update View with a prompt asking for new Owner by nickname.
-			//TODO: Set new Owner nickname to newOwnerNick
-			String newOwnerNick = "opencommsec"; 
-			String newOwner = "";
-			Collection<User> inSpace = mSpace.getAllParticipants().values();
-			for (User u : inSpace){
-				if (u.getNickname().equals(newOwnerNick)){
-					newOwner = u.getUsername();
+			//TODO: give prompt to destroy or pass ownership
+			boolean destroy = false;
+			if (destroy){
+				try {
+					mSpace.getSpaceController().deleteSpace();
+				} catch (XMPPException e) {
+					Log.v(TAG, "Can't destroy space!");
 				}
+			} else{
+				//TODO: update View with a prompt asking for new Owner by nickname.
+				//TODO: Set new Owner nickname to newOwnerNick
+				String newOwnerNick = "opencommsec"; 
+				String newOwner = "";
+				Collection<User> inSpace = mSpace.getAllParticipants().values();
+				for (User u : inSpace){
+					if (u.getNickname().equals(newOwnerNick)){
+						newOwner = u.getUsername();
+					}
+				}
+				grantOwnership(newOwner);
+				mSpace.getMUC().leave();
 			}
-			grantOwnership(newOwner);
 		}
-		mSpace.getMUC().leave();
 		if (mSpace.equals(Space.getMainSpace())) {
 			//TODO: update View to splash screen
 		}
