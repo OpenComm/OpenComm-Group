@@ -38,7 +38,7 @@ public class Space {
 	private static boolean D = true;
 
 	// All the Spaces in use
-	public static ArrayList<Space> allSpaces = new ArrayList<Space>();
+	public static HashMap<String,Space> allSpaces = new HashMap<String,Space>();
 	private static Space mainSpace; // the primary user's main space
 
 	// The users who are in this Space, <JID, User>
@@ -148,7 +148,7 @@ public class Space {
 					+ (this.muc.getOccupant(occ) != null));
 			allOccupants.put(occJID, this.muc.getOccupant(occ));
 		}
-		allSpaces.add(this);
+		allSpaces.put(this.roomID, this);
 	} // end Space constructor
 
 	// GETTERS
@@ -242,6 +242,10 @@ public class Space {
 		return allNicks;
 	}
 
+	public static HashMap<String, Space> getAllSpaces(){
+		return allSpaces;
+	}
+	
 	public Context getContext() {
 		return context;
 	}
