@@ -38,13 +38,14 @@ public class Space {
 	private static boolean D = true;
 
 	// All the Spaces in use
-	public static ArrayList<Space> allSpaces = new ArrayList<Space>();
+	public static HashMap<String,Space> allSpaces = new HashMap<String,Space>();
 	private static Space mainSpace; // the primary user's main space
 
-	// The users who are in this Space, <username, User>
+	// The users who are in this Space, <JID, User>
 	private HashMap<String, User> allParticipants = new HashMap<String, User>();
 	// Occupant objects for all Users in Space
 	private HashMap<String, Occupant> allOccupants = new HashMap<String, Occupant>();
+	private HashMap<String, User> allNicks = new HashMap<String, User>();
 	boolean isMainSpace; // if true, this is a main space
 	User owner; // the User who has the privilege to manage the Space
 
@@ -135,17 +136,19 @@ public class Space {
 			if (User.getAllUsers().get(occJID) != null) {
 				this.allParticipants.put(occJID,
 						(User.getAllUsers().get(occJID)));
+				this.allNicks.put(User.getAllUsers().get(occJID).getNickname(),
+						User.getAllUsers().get(occJID));
 			} else {
-				this.allParticipants.put(
-						occJID,
-						new User(occJID, occJID.substring(0,
-								occJID.indexOf('@')), R.drawable.question));
+				User u = new User(occJID, occJID.substring(0,
+						occJID.indexOf('@')), R.drawable.question);
+				this.allParticipants.put(occJID, u);
+				this.allNicks.put(u.getNickname(), u);
 			}
 			Log.d(TAG, "Is get Occupant for occJID " + occJID + " valid? "
 					+ (this.muc.getOccupant(occ) != null));
 			allOccupants.put(occJID, this.muc.getOccupant(occ));
 		}
-		allSpaces.add(this);
+		allSpaces.put(this.roomID, this);
 	} // end Space constructor
 
 	// GETTERS
@@ -234,7 +237,15 @@ public class Space {
 	public HashMap<String, Occupant> getAllOccupants() {
 		return allOccupants;
 	}
+	
+	public HashMap<String, User> getAllNicksnames() {
+		return allNicks;
+	}
 
+	public static HashMap<String, Space> getAllSpaces(){
+		return allSpaces;
+	}
+	
 	public Context getContext() {
 		return context;
 	}

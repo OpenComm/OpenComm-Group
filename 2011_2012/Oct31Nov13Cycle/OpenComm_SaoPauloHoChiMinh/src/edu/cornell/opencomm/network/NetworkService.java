@@ -71,14 +71,13 @@ public class NetworkService {
 				Log.v("InvitationController", "How is room formatted?" + room);
 				//answer: room@server (ex. hellokitty@conference.jabber.org)
 
-				for (Space s : Space.allSpaces){
-					if (room.equals(s.getRoomID())){
-						s.getInvitationController().setInvitation(invitation);
-						Log.v("InvitationController", "The invitation received exists! " +
-								"It is: " + s.getInvitationController().getInvitation().toString());
-						break;
-					}
-				}
+				
+				Space inviteSpace = Space.allSpaces.get(room);
+				inviteSpace.getInvitationController().setInvitation(invitation);
+				Log.v("InvitationController", "The invitation received exists! " +
+						"It is: " + inviteSpace.getInvitationController().
+						getInvitation().toString());
+				
 				//TODO: Trigger update to the view!
 				//TODO: call InvitationController.accept, or InvitationController.decline
 				

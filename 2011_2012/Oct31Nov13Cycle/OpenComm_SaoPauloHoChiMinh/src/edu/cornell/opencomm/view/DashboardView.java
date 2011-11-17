@@ -41,7 +41,7 @@ public class DashboardView extends Activity {
 	} // end onCreate method
 
 	private void initEventsAndProperties() {
-		// create property dashboardLayout from infalter and store it as a
+		// create property dashboardLayout from inflater and store it as a
 		// property
 		if (inflater != null) {
 			View dashboardViewFromInflater = inflater.inflate(
@@ -95,6 +95,14 @@ public class DashboardView extends Activity {
 		return startConferenceButton;
 	}
 	
+	public Button getStartConferenceTextButton(){
+		Button startConferenceTextButton = null;
+		if (dashboardLayout != null){
+			startConferenceTextButton = (Button) findViewById(R.id.textViewConference);
+		}
+		
+		return startConferenceTextButton;
+	}
 	
 	private void initializeContactsButtonClickedEvent() {
 		Button startContactsButton = getContactsButton();
@@ -124,6 +132,11 @@ public class DashboardView extends Activity {
 		ImageButton startConferenceButton = getStartConferenceButton();
 		if (startConferenceButton != null) {
 			startConferenceButton.setOnClickListener(onStartConferenceButtonClickedListener);
+		}
+		
+		Button startConferenceTextButton = getStartConferenceTextButton();
+		if (startConferenceTextButton != null){
+			startConferenceTextButton.setOnClickListener(onStartConferenceButtonClickedListener);
 		}
 	}
 
