@@ -57,7 +57,7 @@ public class SpaceController {
 	public static Space addSpace(Context context) throws XMPPException {
 		int spaceID = MainApplication.space_counter++;
 		Space space = new Space(context, false, String.valueOf(spaceID), MainApplication.user_primary);
-		Space.allSpaces.add(space);
+		Space.allSpaces.put(space.getRoomID(), space);
 		if(D) Log.d(TAG, "Created a new space with ID:" + spaceID);
 		return space;
 	} // end of addSpace method
