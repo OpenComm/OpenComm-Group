@@ -44,6 +44,7 @@ public class SpaceController {
 	 */
 	public void deleteSpace() throws XMPPException {
 		if(MainApplication.user_primary.getUsername().equals(this.space.getOwner().getUsername()) && !this.space.isMainSpace()) {
+			//TO-DO need to pop-up a conformation dialogue
 			this.space.getMUC().destroy(null, null);
 		}
 	} // end of deleteSpace method

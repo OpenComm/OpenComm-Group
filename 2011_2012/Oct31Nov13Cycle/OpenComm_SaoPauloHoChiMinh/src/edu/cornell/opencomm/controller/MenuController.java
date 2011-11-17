@@ -1,5 +1,8 @@
 package edu.cornell.opencomm.controller;
 
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.view.MenuView;
 
@@ -19,8 +22,10 @@ public class MenuController {
 		menuView.getDeleteUserButton().setBackgroundColor(R.color.light_grey);
 	}
 	public void handleLeaveChatButtonHover() {
-		menuView.getLeaveChatButton().setBackgroundColor(R.color.light_grey);
+	   menuView.getLeaveChatButton().setBackgroundColor(R.color.light_grey);
+	    
 	}
+	
 	public void handleSettingsButtonHover() {
 		menuView.getSettingsButton().setBackgroundColor(R.color.light_grey);
 	}

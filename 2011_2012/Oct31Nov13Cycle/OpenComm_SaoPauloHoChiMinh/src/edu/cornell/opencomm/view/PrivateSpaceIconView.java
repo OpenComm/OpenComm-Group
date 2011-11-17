@@ -192,7 +192,8 @@ public class PrivateSpaceIconView extends ImageButton{
     			}
     			Log.v(LOG_TAG, "TimeDiff : "+Long.toString(endTime - startTime));
     			if(endTime - startTime > 200){
-    	        	SideChatIconMenuController.showSideChatMenu(); 
+    	        	//SideChatIconMenuController
+    				sideChatIconMenuController.showSideChatMenu(); 
     	 			return true;
     	        }
     			return false;
