@@ -415,8 +415,11 @@ public final class MainApplication extends Activity{
      * were a part of, or if you decided to leave but are not moderator of the space*/
     public void deletePrivateSpace(Space spaceToDelete){
         try {
-			spaceToDelete.getSpaceController().deleteSpace();
-		} catch (XMPPException e) {
+			
+        	spaceToDelete.getSpaceController().deleteSpace();
+			
+        
+        } catch (XMPPException e) {
 			Log.w(TAG, "Failed to delete space with ID:" + spaceToDelete.getRoomID());
 		}
     }
@@ -543,7 +546,9 @@ public final class MainApplication extends Activity{
  			public void onClick(View v) {
  				// TODO NORA - might need to change to mainspace in Space class
  				try{
- 					Space.getMainSpace().getSpaceController().addSpace(Space.getMainSpace().getContext());
+ 					//Space.getMainSpace().getSpaceController().addSpace(Space.getMainSpace().getContext());
+ 					Space newSpace=Space.getMainSpace().getSpaceController().addSpace(Space.getMainSpace().getContext());
+ 					new PrivateSpaceIconView(Space.getMainSpace().getContext(),newSpace);
  				}
  				catch(XMPPException e){
  					Log.d("MainApplication plusButtonSetUp()", "Could not add a Space");
