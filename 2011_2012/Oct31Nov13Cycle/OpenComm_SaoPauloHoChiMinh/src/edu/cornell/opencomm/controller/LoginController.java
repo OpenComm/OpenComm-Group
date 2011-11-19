@@ -71,6 +71,7 @@ public class LoginController {
 		}
 	
 		Intent i = new Intent(loginView, DashboardView.class);
+		i.putExtra(Network.KEY_USERNAME, (D ? Network.DEBUG_USERNAME : usernameEdit.getText().toString()));
 		i.setAction(Network.ACTION_LOGIN);
 		loginView.startActivity(i);
 		/*LayoutInflater inflater = (LayoutInflater) loginView

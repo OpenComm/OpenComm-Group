@@ -1,11 +1,15 @@
 package edu.cornell.opencomm.controller;
 
 import android.content.Intent;
+import android.util.Log;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.network.Network;
 import edu.cornell.opencomm.view.DashboardView;
 
 public class DashboardController {
+	// Debugging
+	private static String TAG = "Controller.DashboardController";
+	private static boolean D = true;
 	private DashboardView dashboardView;
 
 	public DashboardController(DashboardView dashboardView) {
@@ -17,11 +21,10 @@ public class DashboardController {
 	}*/
 	
 	public void handleStartConferenceButtonClicked() {
+		String username = this.dashboardView.getIntent().getStringExtra(Network.KEY_USERNAME);
 		dashboardView.getStartConferenceButton().setBackgroundColor(R.color.light_grey);	
-		
 		Intent i = new Intent(dashboardView, MainApplication.class);
-		//i.putExtra(Network.KEY_USERNAME, (D ? Network.DEBUG_USERNAME : usernameEdit.getText().toString()));
-		i.putExtra(Network.KEY_USERNAME, Network.DEBUG_USERNAME);
+		i.putExtra(Network.KEY_USERNAME, username);
 		i.setAction(Network.ACTION_LOGIN);
 		dashboardView.startActivity(i);
 	}
