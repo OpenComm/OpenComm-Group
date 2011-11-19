@@ -21,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.R.layout;
 import edu.cornell.opencomm.Values;
@@ -46,6 +47,7 @@ public class LoginView extends Activity {
 	// Layout Views
 	private static EditText usernameEdit;
 	private static EditText passwordEdit;
+	private static TextView loginText;
 	private static ImageButton loginButton;
 
 
@@ -58,7 +60,7 @@ public class LoginView extends Activity {
 
 		usernameEdit = (EditText) findViewById(R.id.editTextUsername);
 		passwordEdit = (EditText) findViewById(R.id.editTextPassword);
-
+		loginText = (TextView) findViewById(R.id.textLogin);
 		loginButton = (ImageButton) findViewById(R.id.buttonLogin);
 		initializeLoginButtonClickedEvent();
 		loginController = new LoginController(this);
@@ -68,6 +70,9 @@ public class LoginView extends Activity {
 		ImageButton loginButton = getLoginButton();
 		if (loginButton != null) {
 			loginButton.setOnClickListener(onLoginButtonClickedListener);
+		}
+		if (loginText != null) {
+			loginText.setOnClickListener(onLoginButtonClickedListener);
 		}
 	}
 
