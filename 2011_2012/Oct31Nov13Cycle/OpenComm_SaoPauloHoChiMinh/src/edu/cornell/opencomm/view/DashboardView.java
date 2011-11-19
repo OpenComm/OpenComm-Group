@@ -2,6 +2,7 @@ package edu.cornell.opencomm.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,27 +16,29 @@ import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.DashboardController;
 import edu.cornell.opencomm.controller.LoginController;
+import edu.cornell.opencomm.network.Network;
 
 public class DashboardView extends Activity {
-	private static String LOG_TAG = "OC_DashboardView"; // for error checking
+	
+	// Debugging
+	private static String TAG = "View.DashboardView";
+	private static boolean D = true;
+
+	// Layout
 	private Context context;
-	private LayoutInflater inflater;
+	private LayoutInflater inflater = null;
 	private PopupWindow window = null;
 	private DashboardController dashboardController;
 
-	private View dashboardLayout = null;
-
-	/*public DashboardView(LayoutInflater inflater) {
-		this.inflater = inflater;
-		initEventsAndProperties();
-	}*/
-
+	private View dashboardLayout;
+	
 	/*
 	 * /** Called when an activity is first created
 	 */
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dashboard_layout);
+		inflater = this.getLayoutInflater();
 		initEventsAndProperties();
 		dashboardController = new DashboardController(this);
 	} // end onCreate method
@@ -44,10 +47,13 @@ public class DashboardView extends Activity {
 		// create property dashboardLayout from inflater and store it as a
 		// property
 		if (inflater != null) {
+			if (D) Log.d(TAG, "initEaP: inflater");
 			View dashboardViewFromInflater = inflater.inflate(
 					R.layout.dashboard_layout, null);
+			if (D) Log.d(TAG, "initEaP: dashboardInflator -- null?: " + (dashboardViewFromInflater == null));
 			if (dashboardViewFromInflater != null) {
 				this.dashboardLayout = dashboardViewFromInflater;
+				if (D) Log.d(TAG, "initEaP: dashboardLayout -- null?: " + (this.dashboardLayout == null));
 			}
 		}
 
@@ -97,17 +103,18 @@ public class DashboardView extends Activity {
 	
 	public Button getStartConferenceTextButton(){
 		Button startConferenceTextButton = null;
-		if (dashboardLayout != null){
+		if (this.dashboardLayout != null){
 			startConferenceTextButton = (Button) findViewById(R.id.textViewConference);
 		}
-		
+		if (D) Log.d(TAG, "dashboardLayout -- null?: " + (this.dashboardLayout == null));
+		if (D) Log.d(TAG, "confTextView -- null?: " + (startConferenceTextButton == null));
 		return startConferenceTextButton;
 	}
 	
 	private void initializeContactsButtonClickedEvent() {
 		Button startContactsButton = getContactsButton();
 		if (startContactsButton != null) {
-			Log.d(LOG_TAG, "Initialize Contacts Button");
+			Log.d(TAG, "Initialize Contacts Button");
 			//startContactsButton.setOnTouchListener(onStartConferenceButtonClickedListener);
 		}
 	}
@@ -115,7 +122,7 @@ public class DashboardView extends Activity {
 	private void initializeHistoryButtonClickedEvent() {
 		Button startHistoryButton = getHistoryButton();
 		if (startHistoryButton != null) {
-			Log.d(LOG_TAG, "Initialize History Button");
+			Log.d(TAG, "Initialize History Button");
 			//startHistoryButton.setOnTouchListener(onStartConferenceButtonClickedListener);
 		}
 	}
@@ -123,7 +130,7 @@ public class DashboardView extends Activity {
 	private void initializeAccountButtonClickedEvent() {
 		Button startAccountButton = getAccountButton();
 		if (startAccountButton != null) {
-			Log.d(LOG_TAG, "Initialize Account Button");
+			Log.d(TAG, "Initialize Account Button");
 			//startAccountButton.setOnTouchListener(onStartConferenceButtonClickedListener);
 		}
 	}
@@ -136,6 +143,7 @@ public class DashboardView extends Activity {
 		
 		Button startConferenceTextButton = getStartConferenceTextButton();
 		if (startConferenceTextButton != null){
+			if (D) Log.d(TAG, "initConfButtonClickedEvent: setting onClick for conference text");
 			startConferenceTextButton.setOnClickListener(onStartConferenceButtonClickedListener);
 		}
 	}
@@ -175,7 +183,7 @@ public class DashboardView extends Activity {
 			window.showAtLocation(dashboardLayout, 0, 1, 1);
 			dashboardLayout.setOnClickListener(onClickListener);
 		} else {
-			Log.v(LOG_TAG,
+			Log.v(TAG,
 					"Cannot launch dashboard view as inflater layout is null");
 		}
 	}
