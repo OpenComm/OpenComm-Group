@@ -1,10 +1,12 @@
 package edu.cornell.opencomm.controller;
 
+import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.muc.ParticipantStatusListener;
 
 import android.util.Log;
 
 import edu.cornell.opencomm.model.Space;
+import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.Network;
 
 /** A ParticipantStatusListener that listens for the change in 
@@ -103,6 +105,15 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 						 ((reason == null) ? Network.DEFAULT_BAN : reason));
 			}
 		}
+		String[] userSplit = this.splitUserRoomInfo(bannedUserRoomInfo);
+		if(userSplit != null){
+			User u = User.getAllNicknames().get(userSplit[1]);
+			Space s = Space.getAllSpaces().get(userSplit[0]);
+			if (u != null && s != null){
+				s.getAllParticipants().remove(u.getUsername());
+				s.getAllNicksnames().remove(u.getNickname());
+			}
+		}
 	} // end banned method
 
 	@Override
@@ -124,6 +135,23 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 						+ " joined room " + roomname);
 			}
 		}
+		String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
+		if(userSplit != null){
+			User u = User.getAllNicknames().get(userSplit[1]);
+			Space s = Space.getAllSpaces().get(userSplit[0]);
+			if (u != null && s != null){
+				s.getAllParticipants().put(u.getUsername(), u);
+				s.getAllNicksnames().put(u.getNickname(), u);
+				Log.v(TAG, s.getMUC().getOccupant(s.getRoomID() + "/" + u.getNickname()).getAffiliation());
+				try {
+					s.getMUC().grantMembership(u.getUsername());
+				} catch (XMPPException e) {
+					Log.v(TAG, "The universe hates us...");
+				}
+				Log.v(TAG, s.getMUC().getOccupant(s.getRoomID() + "/" + u.getNickname()).getAffiliation());
+			}
+		}
+		
 	} // end joined method
 
 	@Override
@@ -151,6 +179,15 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 						 ((reason == null) ? Network.DEFAULT_KICKOUT : reason));
 			}
 		}
+		String[] userSplit = this.splitUserRoomInfo(kickedUserRoomInfo);
+		if(userSplit != null){
+			User u = User.getAllNicknames().get(userSplit[1]);
+			Space s = Space.getAllSpaces().get(userSplit[0]);
+			if (u != null && s != null){
+				s.getAllParticipants().remove(u.getUsername());
+				s.getAllNicksnames().remove(u.getNickname());
+			}
+		}
 	} // end kicked method
 
 	@Override
@@ -170,6 +207,15 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 				String nickname = userSplit[1];
 				if (D) Log.d(TAG, "addUserStatusListener - " + nickname + 
 						" left room " + roomname);
+			}
+		}
+		String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
+		if(userSplit != null){
+			User u = User.getAllNicknames().get(userSplit[1]);
+			Space s = Space.getAllSpaces().get(userSplit[0]);
+			if (u != null && s != null){
+				s.getAllParticipants().remove(u.getUsername());
+				s.getAllNicksnames().remove(u.getNickname());
 			}
 		}
 	} // end left method
@@ -387,6 +433,7 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 					"given string does not contain sequence \"@conference.jabber.org\"");
 			return null;
 		}
+		userRoomInfoSplit[0] += "@conference.jabber.org";
 		return userRoomInfoSplit;
 	} // end splitUserRoomInfo method
 

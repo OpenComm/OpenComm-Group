@@ -1,10 +1,15 @@
 package edu.cornell.opencomm.controller;
 
+import org.jivesoftware.smack.XMPPException;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.util.Log;
 import edu.cornell.opencomm.Values;
+import edu.cornell.opencomm.model.Space;
+import edu.cornell.opencomm.network.Network;
+import edu.cornell.opencomm.view.ParticipantView;
 import edu.cornell.opencomm.view.SpaceView;
 
 /** When a user press and hold an empty space of the mainscreen, this controller
@@ -14,35 +19,41 @@ import edu.cornell.opencomm.view.SpaceView;
  */   
 public class EmptySpaceMenuController {
   
+	protected static final String TAG = "EmptySpaceMenuController";
+
 	static ContactListController contactListController;
 	
-	private SpaceView spaceView = null;
+	private static SpaceView spaceView = null;
 	private static Context context;
 	public EmptySpaceMenuController(Context context, SpaceView spaceView) {
-		this.spaceView = spaceView;
+		EmptySpaceMenuController.spaceView = spaceView;
 		EmptySpaceMenuController.context = context;
 		contactListController = new ContactListController(context, spaceView);
 	}
 
 	public static void showFreeSpaceMenu(){
 		if (context == null)
-			Log.v("Empty Space Menu", "NULLL");
+			Log.v("Empty Space Menu", "NULL");
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
 		builder.setItems(Values.emptyspaceMenu, new DialogInterface.OnClickListener() {
-		    public void onClick(DialogInterface dialog, int item) {
-		        //Toast.makeText(context, items[item], Toast.LENGTH_SHORT).show();
-		    	if (Values.emptyspaceMenu[item].equals("Add Users")){
-		    		contactListController.showBuddyList();
-		    	}
-		    	else if (Values.emptyspaceMenu[item].equals("Delete Users")){
-		    		//Do something if user clicks on Delete Users
-		    	}
+			public void onClick(DialogInterface dialog, int item) {
+				//Toast.makeText(context, items[item], Toast.LENGTH_SHORT).show();
+				if (Values.emptyspaceMenu[item].equals("Add Users")){
+					Log.v(TAG, "pressed Add Users");
+					ContactListController.showBuddyList();
+				}
+				else if (Values.emptyspaceMenu[item].equals("Delete Users")){
+					Log.v(TAG, "pressed Delete Users");
+					ParticipantView.deleteParticipants();
+				}
 		    	else if (Values.emptyspaceMenu[item].equals("Leave Chat")){
-		    		//Do something if user clicks on Leave Chat
+		    		Log.v(TAG, "pressed Leave Chat");
+		    		spaceView.getSpace().getParticipantController().leaveSpace();
 		    	}
 		    	else if (Values.emptyspaceMenu[item].equals("Cancel")){
-		    		//Do something if user clicks on Cancel
+		    		Log.v(TAG, "pressed Cancel");
+		    		//Do nothing
 		    	}
 		    }
 		});

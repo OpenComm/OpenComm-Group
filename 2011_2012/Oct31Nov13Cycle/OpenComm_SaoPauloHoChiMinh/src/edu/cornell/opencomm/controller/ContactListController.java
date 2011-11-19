@@ -14,6 +14,7 @@ import android.util.Log;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
+import edu.cornell.opencomm.network.Network;
 import edu.cornell.opencomm.view.SpaceView;
 
 /** The class that controls the contacts list.
@@ -31,7 +32,7 @@ public class ContactListController {
     private static String username=""; // the username of this account
 	
 	
-	private SpaceView spaceView = null;
+	private static SpaceView spaceView = null;
 	private static Context context;
 	public ContactListController(Context context, SpaceView spaceView) {
 		this.spaceView = spaceView;
@@ -92,7 +93,7 @@ public class ContactListController {
 				User p = new User(username + "@jabber.org", username, R.drawable.question);
 				//if (D) Log.d(LOG_TAG, "Adding person " + username + " to mainspace");
 	        	//initAddPerson(MainApplication.mainspace, p);
-				Space.getMainSpace().getInvitationController().inviteUser(p, "Because you're cool");
+				Space.getMainSpace().getInvitationController().inviteUser(p, Network.DEFAULT_INVITE);
 			}
 		}
 	} // end addFromBuddyList method

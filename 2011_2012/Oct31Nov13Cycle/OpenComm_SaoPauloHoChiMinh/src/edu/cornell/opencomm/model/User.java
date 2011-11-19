@@ -85,4 +85,10 @@ public class User {
 	public static HashMap<String, User> getAllUsers() {
 		return allUsers;
 	} // end getAllUsers method
+	
+	/** @return - all Users with their nickname as the key */
+	public static HashMap<String, User> getAllNicknames(){
+		return nickname_to_user;
+	}
 }
+

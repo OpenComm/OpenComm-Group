@@ -9,8 +9,10 @@ public class Values {
 	// Menu options
 	public static CharSequence[] userviewMenu = {"Delete User", "Cancel"}; // after longpressing a user icon
 	public static CharSequence[] emptyspaceMenu = {"Add Users", "Delete Users", 
-		"Leave chat","Cancel"}; // after longpressing the empty space in a spaceview
+		"Leave Chat","Cancel"}; // after longpressing the empty space in a spaceview
 	public static CharSequence[] privatespaceiconMenu = {"Go to", "Leave chat","Cancel"};
+	//when chat owner decides to leave
+	public static CharSequence[] whatHappen = {"Destroy chat", "Pass ownership"};
 	
 	// Cellphone screen dimensions
 	public static int screenW = 480;

@@ -6,6 +6,7 @@ import org.jivesoftware.smackx.muc.MultiUserChat;
 import android.content.Context;
 import android.util.Log;
 import edu.cornell.opencomm.model.Space;
+import edu.cornell.opencomm.network.Network;
 import edu.cornell.opencomm.view.PrivateSpaceIconView;
 import edu.cornell.opencomm.view.SpaceView;
 
@@ -43,10 +44,9 @@ public class SpaceController {
 	 * @throws XMPPException
 	 */
 	public void deleteSpace() throws XMPPException {
-		if(MainApplication.user_primary.getUsername().equals(this.space.getOwner().getUsername()) && !this.space.isMainSpace()) {
 			//TO-DO need to pop-up a conformation dialogue
+			Log.v(TAG, "Trying to destroy space " + space.getRoomID());
 			this.space.getMUC().destroy(null, null);
-		}
 	} // end of deleteSpace method
 
 	/**

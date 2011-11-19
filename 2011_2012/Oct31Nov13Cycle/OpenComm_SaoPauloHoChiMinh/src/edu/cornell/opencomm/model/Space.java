@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.Form;
+import org.jivesoftware.smackx.FormField;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.muc.Occupant;
 
@@ -37,7 +39,7 @@ public class Space {
 	private static String TAG = "Model.Space"; // for error checking
 	private static boolean D = true;
 
-	// All the Spaces in use
+	// All the Spaces in use (roomID -> Space)
 	public static HashMap<String,Space> allSpaces = new HashMap<String,Space>();
 	private static Space mainSpace; // the primary user's main space
 
@@ -100,7 +102,32 @@ public class Space {
 			this.muc = new MultiUserChat(LoginController.xmppService.getXMPPConnection(),
 					this.roomID);
 			this.muc.join(owner.getNickname());
-			this.muc.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
+			//muc.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
+			
+			Form form = muc.getConfigurationForm();
+			Form answerForm = form.createAnswerForm();
+			answerForm.setAnswer("muc#roomconfig_moderatedroom", true);
+			muc.sendConfigurationForm(answerForm);
+
+			
+			/*// Get the the room's configuration form
+		      Form form = muc.getConfigurationForm();
+		      // Create a new form to submit based on the original form
+		      Form submitForm = form.createAnswerForm();
+		      // Add default answers to the form to submit
+		      for (Iterator fields = form.getFields(); fields.hasNext();) {
+		          FormField field = (FormField) fields.next();
+		          if (!FormField.TYPE_HIDDEN.equals(field.getType()) && field.getVariable() != null) {
+		              // Sets the default value as the answer
+		              submitForm.setDefaultAnswer(field.getVariable());
+		          }
+		      }
+		      // Sets the new owner of the room
+		      List owners = new ArrayList();
+		      owners.add(owner.getNickname());
+		      submitForm.setAnswer("muc#roomconfig_roomowners", owners);
+		      // Send the completed form (with default values) to the server to configure the room
+		      muc.sendConfigurationForm(submitForm);*/
 		}
 		// otherwise join as participant
 		else {

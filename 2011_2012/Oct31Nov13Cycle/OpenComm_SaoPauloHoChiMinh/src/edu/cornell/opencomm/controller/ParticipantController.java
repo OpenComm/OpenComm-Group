@@ -9,6 +9,8 @@ import android.util.Log;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.Network;
+import edu.cornell.opencomm.network.NetworkService;
+import edu.cornell.opencomm.view.ParticipantView;
 /** An instance of this class controls participants (users) in a specific space */
 public class ParticipantController {
 	
@@ -35,28 +37,7 @@ public class ParticipantController {
 	 */
 	public void leaveSpace(){
 		if (MainApplication.user_primary.equals(mSpace.getOwner())){
-			//TODO: give prompt to destroy or pass ownership
-			boolean destroy = false;
-			if (destroy){
-				try {
-					mSpace.getSpaceController().deleteSpace();
-				} catch (XMPPException e) {
-					Log.v(TAG, "Can't destroy space!");
-				}
-			} else{
-				//TODO: update View with a prompt asking for new Owner by nickname.
-				//TODO: Set new Owner nickname to newOwnerNick
-				String newOwnerNick = "opencommsec"; 
-				String newOwner = "";
-				Collection<User> inSpace = mSpace.getAllParticipants().values();
-				for (User u : inSpace){
-					if (u.getNickname().equals(newOwnerNick)){
-						newOwner = u.getUsername();
-					}
-				}
-				grantOwnership(newOwner);
-				mSpace.getMUC().leave();
-			}
+			ParticipantView.whatHappen();
 		}
 		if (mSpace.equals(Space.getMainSpace())) {
 			//TODO: update View to splash screen
@@ -71,8 +52,9 @@ public class ParticipantController {
 	 */
 	public void grantOwnership(String newOwner){
 		try {
-			this.mSpace.getMUC().grantOwnership(newOwner);
+			this.mSpace.getMUC().grantAdmin(newOwner);
 		} catch (XMPPException e) {
+			Log.d(TAG, "XMPP Exception: " + NetworkService.printXMPPError(e));
 			Log.v(TAG, "Could not grant ownership to: " + newOwner);
 			Log.v(TAG, "exception: " + e.getMessage());
 		}

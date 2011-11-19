@@ -50,6 +50,8 @@ import edu.cornell.opencomm.model.User;
     EmptySpaceMenuController empytSpaceMenuController;
     UserIconMenuController userIconMenuController;
     
+    ParticipantView pView;
+    
     /* Constructor: This one is used by the XML file to automatically generate
      * a SpaceView
      */
@@ -64,6 +66,8 @@ import edu.cornell.opencomm.model.User;
     	Log.v(LOG_TAG, "Made SpaceView for XML file");
     	Log.v(LOG_TAG, "New allIcons attri");
     	setupImage();
+    	pView = new ParticipantView(this.context, this);
+    	
     }
     
     /* Constructor: Create a screen for a NEW privatespace that is empty (except for you) 
@@ -80,6 +84,7 @@ import edu.cornell.opencomm.model.User;
         Log.v(LOG_TAG, "Made SpaceView for a self-created space");
         Log.v(LOG_TAG, "New allIcons normal");
         setupImage();
+        pView = new ParticipantView(this.context, this);
      }
    
      
@@ -263,7 +268,7 @@ import edu.cornell.opencomm.model.User;
         	 else{
         		 boolean showIconMenu = selectedIcon.getUserViewController().handleClickUp(mouseX, mouseY, event.getEventTime());
         		 if(showIconMenu)
-        			 UserIconMenuController.showIconMenu();
+        			 UserIconMenuController.showIconMenu(selectedIcon);
  				
  				 // if released icon over an privatespace icon, then add that person to the private space
  				 for(PrivateSpaceIconView p : PrivateSpaceIconView.allPSIcons){
