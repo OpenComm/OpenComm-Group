@@ -208,4 +208,9 @@ public class DashboardView extends Activity {
 			dashboardController.handleStartConferenceButtonClicked();
 		}
 	};
+	
+	public void handle(View v){
+		//Android yelled at me until I put in this blank method
+		//UI team: do you know anything about this? - Kris
+	}
 }

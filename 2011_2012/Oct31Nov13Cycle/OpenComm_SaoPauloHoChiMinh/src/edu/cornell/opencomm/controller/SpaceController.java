@@ -44,9 +44,13 @@ public class SpaceController {
 	 * @throws XMPPException
 	 */
 	public void deleteSpace() throws XMPPException {
-			//TO-DO need to pop-up a conformation dialogue
+			//TO-DO need to pop-up a confirmation dialogue
 			Log.v(TAG, "Trying to destroy space " + space.getRoomID());
 			this.space.getMUC().destroy(null, null);
+			
+			if(space.equals(Space.getMainSpace())){
+				Space.setMainSpace(null);
+			}
 	} // end of deleteSpace method
 
 	/**

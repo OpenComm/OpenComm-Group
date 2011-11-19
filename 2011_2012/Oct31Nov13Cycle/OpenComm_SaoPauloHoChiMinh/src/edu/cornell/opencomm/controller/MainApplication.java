@@ -128,14 +128,17 @@ public final class MainApplication extends Activity{
             Intent start_intent= getIntent();
             username = start_intent.getStringExtra(Network.KEY_USERNAME);
         	// Create instance of primary user
-        	user_primary = new User(username, username.split("@")[0], R.drawable.question);
+            if(user_primary == null){
+            	user_primary = new User(username, username.split("@")[0], 
+            			R.drawable.question);
+            }
         	this.plusButtonSetUp();
         	try {
         		// create the mainspace
 				SpaceController.createMainSpace(this);
 
 				// create an empty private space
-				SpaceController.addSpace(this);
+				//SpaceController.addSpace(this);
 
 				// TODO add private space preview
 			} catch (XMPPException e) {
@@ -235,7 +238,7 @@ public final class MainApplication extends Activity{
 			case KeyEvent.KEYCODE_V: {
 				Log.v(TAG, "pressed V key - change owner");
 				Space.getMainSpace().getParticipantController().grantOwnership(
-						"opencommsec@jabber.org");
+						"opencommsec@jabber.org", false);
 			}
 			case KeyEvent.KEYCODE_J: {
 				Log.v(TAG, "Pressed J key - join");
@@ -266,7 +269,7 @@ public final class MainApplication extends Activity{
 			}
 			case KeyEvent.KEYCODE_B: {
 				Log.v(TAG, "pressed B key - leave space");
-				Space.getMainSpace().getParticipantController().leaveSpace();
+				Space.getMainSpace().getParticipantController().leaveSpace(false);
 				break;
 			}
 			}

@@ -7,12 +7,14 @@ import org.jivesoftware.smack.XMPPException;
 
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.MainApplication;
+import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.Network;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 
 /**
@@ -111,6 +113,14 @@ public class ParticipantView {
 					} catch (XMPPException e) {
 						Log.v(TAG, "Can't destroy the space!");
 					}
+					//if (spaceView.getSpace().equals(Space.getMainSpace())){
+						Intent i = new Intent(spaceView.getSpace().getContext(),
+								DashboardView.class);
+						spaceView.getSpace().getContext().startActivity(i);
+					//}
+					//else{
+						//TODO: update View to conferenc
+					//}
 					break;
 				case (1):
 					grantOwnership();
@@ -160,6 +170,6 @@ public class ParticipantView {
 		String newOwner = spaceView.getSpace().getAllNicksnames()
 				.get(usersInSpace[clicked]).getUsername();
 		spaceView.getSpace().getParticipantController()
-				.grantOwnership(newOwner);
+				.grantOwnership(newOwner, true);
 	} // end makeOwner method
 }

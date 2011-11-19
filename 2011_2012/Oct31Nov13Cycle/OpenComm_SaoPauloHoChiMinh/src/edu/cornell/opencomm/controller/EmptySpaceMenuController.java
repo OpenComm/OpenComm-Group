@@ -49,7 +49,14 @@ public class EmptySpaceMenuController {
 				}
 		    	else if (Values.emptyspaceMenu[item].equals("Leave Chat")){
 		    		Log.v(TAG, "pressed Leave Chat");
-		    		spaceView.getSpace().getParticipantController().leaveSpace();
+		    		if(MainApplication.user_primary.equals(
+		    				spaceView.getSpace().getOwner())){
+		    			ParticipantView.whatHappen();
+		    		}
+		    		else{
+		    			spaceView.getSpace().getParticipantController().leaveSpace(
+		    					spaceView.getSpace().equals(Space.getMainSpace()));
+		    		}
 		    	}
 		    	else if (Values.emptyspaceMenu[item].equals("Cancel")){
 		    		Log.v(TAG, "pressed Cancel");
