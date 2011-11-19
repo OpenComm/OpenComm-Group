@@ -263,7 +263,7 @@ import edu.cornell.opencomm.model.User;
         	 else{
         		 boolean showIconMenu = selectedIcon.getUserViewController().handleClickUp(mouseX, mouseY, event.getEventTime());
         		 if(showIconMenu)
-        			 UserIconMenuController.showIconMenu();
+        			 UserIconMenuController.showIconMenu(selectedIcon);
  				
  				 // if released icon over an privatespace icon, then add that person to the private space
  				 for(PrivateSpaceIconView p : PrivateSpaceIconView.allPSIcons){
