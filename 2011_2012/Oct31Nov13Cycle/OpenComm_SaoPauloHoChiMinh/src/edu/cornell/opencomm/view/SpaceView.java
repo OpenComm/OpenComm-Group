@@ -167,9 +167,14 @@ import edu.cornell.opencomm.model.User;
       */
      protected void onDraw(Canvas canvas){
 		 Log.v(LOG_TAG, "In SpaceView's onDraw");
-    	 for(UserView p : space.getAllIcons()){
+    	 if (canvas != null && space != null && space.getAllIcons() != null) {
+    		 Log.d(LOG_TAG, "onDraw: draw people");
+		 for(UserView p : space.getAllIcons()){
     		 if(p.getPerson()!=MainApplication.user_primary)
     			 p.draw(canvas);
+    	 }}
+    	 else {
+    		 Log.d(LOG_TAG, "No one to draw");
     	 }
     	 
     	/* if(!dim){ 
