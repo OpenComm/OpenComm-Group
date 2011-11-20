@@ -1,5 +1,6 @@
 package edu.cornell.opencomm.controller;
 
+import android.view.View;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.view.AdminTipView;
 /** Handles the actions performed on an admin tip popup screen
@@ -24,7 +25,8 @@ public class AdminTipController {
 	
 	/** Handle when the accept button is pressed */
 	public void handleAcceptButtonClicked() {
-		// Turn the button grey for now
-		adminTipView.getAcceptButton().setBackgroundColor(R.color.light_gray);
+		adminTipView.getAcceptBarOverlay().setVisibility(View.VISIBLE);
+		// Dismisses the window for now
+		adminTipView.getWindow().dismiss();	
 	}
 }

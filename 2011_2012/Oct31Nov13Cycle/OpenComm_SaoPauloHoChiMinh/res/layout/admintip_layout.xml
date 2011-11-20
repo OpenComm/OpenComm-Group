@@ -1,13 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-android:id="@+id/admintip_view"
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent" android:background="@color/transparent_black" android:fadingEdge="horizontal">
-    <EditText android:layout_width="wrap_content" android:height="84dp" android:textColor="@color/green" android:width="480dp" android:layout_alignParentTop="true" android:layout_alignParentLeft="true" android:clickable="false" android:cursorVisible="false" android:paddingLeft="30dp" android:background="@color/dark_grey" android:text="admin tip" android:id="@+id/textLabelAdminTip" android:textSize="40dp" android:layout_height="60dp" android:layout_marginTop="85dp"></EditText>
-    <Button android:textColor="@color/blue" android:maxHeight="56dp" android:text="accept" android:layout_alignParentBottom="true" android:layout_alignParentLeft="true" android:layout_width="158dp" android:clickable="true" android:background="@color/dark_grey" android:drawableLeft="@drawable/sidechatplus2" android:id="@+id/buttonAcceptAdminTip" android:textSize="26dp" android:layout_height="36dp" android:layout_marginBottom="120dp"></Button>
-    <EditText android:layout_width="wrap_content" android:layout_height="70dp" android:paddingLeft="30dp" android:textColor="@color/green" android:height="84dp" android:id="@+id/textViewBlank" android:cursorVisible="false" android:width="100dp" android:textSize="47dp" android:clickable="false" android:background="@color/dark_grey" android:layout_alignTop="@+id/buttonAcceptAdminTip" android:layout_alignParentRight="true" android:layout_toRightOf="@+id/buttonAcceptAdminTip" android:layout_alignBottom="@+id/buttonAcceptAdminTip">
-        <requestFocus></requestFocus>
-    </EditText>
-    <EditText android:clickable="false" android:cursorVisible="false" android:background="@color/transparent_black" android:lines="4" android:layout_height="70dp" android:layout_width="230dp" android:visibility="visible" android:text="@string/admin_tip" android:textColor="@color/off_white" android:textSize="16dp" android:id="@+id/textViewAdminTip" android:layout_below="@+id/textLabelAdminTip" android:layout_alignParentLeft="true" android:layout_marginTop="26dp" android:layout_marginLeft="30dp"></EditText>
-  </RelativeLayout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:background="@color/black_translucent">
+	<TextView android:id="@+id/textLabelAdminTip"
+		android:paddingLeft="46.67dp" android:text="admin tip"
+		android:textColor="@color/green" android:layout_height="56dp"
+		android:layout_width="fill_parent" android:gravity="center_vertical"
+		android:background="@color/grey_dark_translucent" android:textSize="35sp"
+		android:layout_marginTop="93.33dp" />
+	<TextView android:id="@+id/textViewAdminTip" android:text="@string/admin_tip"
+		android:layout_marginTop="30dp" android:paddingLeft="46.67dp"
+		android:paddingRight="24dp" android:textColor="@color/off_white"
+		android:textSize="20dp" android:layout_width="fill_parent"
+		android:layout_height="175.33dp" />
+	<FrameLayout android:id="@+id/adminTipBarFrame"
+		android:layout_height="37.33dp" android:layout_width="fill_parent">
+		<LinearLayout android:id="@+id/adminTipBar"
+			android:orientation="horizontal"
+			android:layout_height="fill_parent" android:layout_width="fill_parent">
+			<ImageButton android:id="@+id/acceptAdminTip"
+				android:src="@drawable/acceptplus" android:background="@color/grey_dark_translucent"
+				android:layout_gravity="center" android:layout_height="fill_parent"
+				android:paddingBottom="5.33dp" android:paddingTop="5.33dp"
+				android:scaleType="centerInside" android:paddingLeft="20dp"
+				android:paddingRight="12dp" android:layout_width="69.33dp" />
+			<Button android:background="@color/grey_dark_translucent" android:id="@+id/buttonAcceptAdminTip"
+				android:text="accept" android:textColor="@color/blue"
+				android:layout_height="fill_parent" android:layout_width="fill_parent"
+				android:clickable="true" android:gravity="left|center_vertical"
+				android:textSize="25sp" />
+		</LinearLayout>
+		<ImageView android:id="@+id/adminTipOverlay"
+			android:layout_height="fill_parent" android:layout_width="fill_parent"
+			android:src="@drawable/overlay_white" android:scaleType="fitXY"
+			android:visibility="invisible" />
+	</FrameLayout>
+</LinearLayout>

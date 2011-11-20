@@ -6,6 +6,9 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
@@ -43,11 +46,32 @@ public class AdminTipView {
 
 	private void initializeTipButtonClickedEvent() {
 		Button acceptButton = getAcceptButton();
+		ImageButton acceptImageButton = getAcceptImageButton();
 		if (acceptButton != null) {
-			acceptButton.setOnTouchListener(onAcceptButtonClickedListener);
+			Log.d(LOG_TAG, "initializing tip button clicked");
+			acceptButton.setOnClickListener(onAcceptButtonClickedListener);
+		}
+		if (acceptImageButton != null) {
+			Log.d(LOG_TAG, "initializing tip button clicked");
+			acceptImageButton.setOnClickListener(onAcceptButtonClickedListener);
 		}
 	}
+	
+	public ImageView getAcceptBarOverlay() {
+		ImageView acceptOverlay = null;
+		if (adminTipLayout != null) {
+			acceptOverlay = (ImageView) adminTipLayout.findViewById(R.id.adminTipOverlay);
+		}
+		return acceptOverlay;
+	}
+	public ImageButton getAcceptImageButton() {
+		ImageButton acceptButton = null;
+		if (adminTipLayout != null) {
+			acceptButton = (ImageButton) adminTipLayout.findViewById(R.id.acceptAdminTip);
+		}
 
+		return acceptButton;
+	}
 	public Button getAcceptButton() {
 		Button acceptButton = null;
 		if (adminTipLayout != null) {
@@ -106,12 +130,12 @@ public class AdminTipView {
 		}
 	};
 
-	private View.OnTouchListener onAcceptButtonClickedListener = new View.OnTouchListener() {
+	private View.OnClickListener onAcceptButtonClickedListener = new View.OnClickListener() {
 
 		@Override
-		public boolean onTouch(View v, MotionEvent event) {
+		public void onClick(View v) {
+			Log.d(LOG_TAG, "onClickAcceptBar");
 			adminTipController.handleAcceptButtonClicked();
-			return true;
 		}
 	};
 }

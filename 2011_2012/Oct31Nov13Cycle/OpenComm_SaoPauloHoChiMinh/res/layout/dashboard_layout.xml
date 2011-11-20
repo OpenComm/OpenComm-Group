@@ -11,24 +11,24 @@
 		android:layout_marginTop="50dp" android:layout_width="fill_parent"
 		android:layout_height="56dp" android:layout_below="@+id/ocActionBar"
 		android:background="@color/dark_grey" android:gravity="left|center_vertical"
-		android:paddingLeft="50dp" android:text="contacts" android:textColor="@color/orange"
+		android:text="contacts" android:textColor="@color/orange"
 		android:id="@+id/buttonContacts" android:clickable="true"
-		android:textSize="38sp" android:cursorVisible="false" />
+		android:textSize="38sp" android:cursorVisible="false" android:paddingLeft="46.67dp"/>
 	<Button android:layout_below="@+id/buttonContacts"
 		android:layout_alignParentLeft="true" android:background="@color/dark_grey"
 		android:clickable="true" android:id="@+id/buttonHistory"
 		android:textColor="@color/green" android:layout_height="56dp"
 		android:layout_width="fill_parent" android:text="history"
 		android:layout_marginTop="20dp" android:gravity="left|center_vertical"
-		android:paddingLeft="50dp" android:textSize="38sp"
-		android:cursorVisible="false" />
+		android:textSize="38sp"
+		android:cursorVisible="false" android:paddingLeft="46.67dp"/>
 	<Button android:layout_below="@+id/buttonHistory"
 		android:layout_alignParentLeft="true" android:background="@color/dark_grey"
 		android:clickable="true" android:gravity="left|center_vertical"
 		android:id="@+id/buttonAccount" android:cursorVisible="false"
-		android:paddingLeft="50dp" android:text="account" android:textColor="@color/blue"
+		android:text="account" android:textColor="@color/blue"
 		android:layout_marginTop="20dp" android:layout_width="fill_parent"
-		android:layout_height="56dp" android:textSize="38sp" />
+		android:layout_height="56dp" android:textSize="38sp" android:paddingLeft="46.67dp"/>
 	<FrameLayout android:id="@+id/conferenceBarFrame"
 		android:layout_alignParentBottom="true" android:layout_height="92dp"
 		android:layout_width="fill_parent">
