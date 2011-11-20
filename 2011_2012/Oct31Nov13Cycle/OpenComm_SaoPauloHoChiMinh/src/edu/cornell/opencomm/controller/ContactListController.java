@@ -96,6 +96,7 @@ public class ContactListController {
 						R.drawable.question);
 				spaceView.getSpace().getInvitationController().inviteUser(p,
 						Network.DEFAULT_INVITE);
+				Log.v("ContactListController", username + " was invited");
 			}
 		}
 	} // end addFromBuddyList method
@@ -112,10 +113,12 @@ public class ContactListController {
 					.getRoster();
 			Collection<RosterEntry> entryCollection = xmppRoster.getEntries();
 			Iterator<RosterEntry> entryItr = entryCollection.iterator();
-			buddyList = new CharSequence[entryCollection.size()];
+			buddyList = new CharSequence[entryCollection.size()-Space.getMainSpace().getAllIcons().size()];
 			int i = 0;
 			while (entryItr.hasNext()) {
-				buddyList[i++] = entryItr.next().getUser().split("@")[0];
+				String nickname= entryItr.next().getUser().split("@")[0];
+				if(!Space.getMainSpace().getAllNicksnames().containsKey(nickname))
+					buddyList[i++] = (CharSequence) nickname;
 			}
 		}
 		// If in a sidechat, then populate the buddylist with people from the

@@ -147,8 +147,11 @@ public final class MainApplication extends Activity{
 				e.printStackTrace();
 			}
         	screen.setSpace(Space.getMainSpace());
+			//screen.getSpaceViewController().changeSpace(Space.getMainSpace());
         	Space.getMainSpace().setScreenOn(true);
+        	//Space.getMainSpace().setEntered(true);
         }
+
         initializeButtons();
 
         //Initializes the onKeyListener to record keypad events
@@ -158,6 +161,7 @@ public final class MainApplication extends Activity{
 		debug = new User("opencommsec@jabber.org", "opencommsec", 0);
 		//for (Space s : Space.allSpaces) Log.v(TAG, s.getRoomID());
 		debug1 = new User("mucopencomm@jabber.org", "mucopencomm", 0);
+ 
     }
 
     /** An onKeyListner to listen to any key events.

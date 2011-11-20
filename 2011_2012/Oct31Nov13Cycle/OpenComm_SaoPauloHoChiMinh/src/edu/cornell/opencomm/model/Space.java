@@ -55,6 +55,7 @@ public class Space {
 	Context context;
 	boolean screen_on;
 	LinkedList<UserView> allIcons = new LinkedList<UserView>();
+	boolean entered = false; // false if you have never opened this space to the screen
 
 	// Network variables
 	private MultiUserChat muc;
@@ -188,6 +189,18 @@ public class Space {
 	/** Sets the main space.*/
 	public static void setMainSpace(Space main){
 		mainSpace = main;
+	}
+	
+	/** Set the entered state of the room: false if you have enver opened the space in
+	 * the spaceview ever 
+	 * @param entered
+	 */
+	public void setEntered(boolean entered){
+		this.entered = entered;
+	}
+	
+	public boolean getEntered(){
+		return entered;
 	}
 
 	/** @return - all participants in Space, maps JID to User */

@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -167,6 +168,13 @@ import edu.cornell.opencomm.model.User;
       */
      protected void onDraw(Canvas canvas){
 		 Log.v(LOG_TAG, "In SpaceView's onDraw");
+		 if(getSpace()==Space.getMainSpace() && !Space.getMainSpace().getEntered()){
+			 Space.getMainSpace().setEntered(true);
+			LayoutInflater inflater = (LayoutInflater) getActivity()
+			.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	AdminTipView adminTipView = new AdminTipView(inflater);
+	adminTipView.launch();
+		 }
     	 if (canvas != null && space != null && space.getAllIcons() != null) {
     		 Log.d(LOG_TAG, "onDraw: draw people");
 		 for(UserView p : space.getAllIcons()){

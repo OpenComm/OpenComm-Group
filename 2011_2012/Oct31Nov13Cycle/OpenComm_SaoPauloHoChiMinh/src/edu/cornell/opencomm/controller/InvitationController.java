@@ -92,11 +92,13 @@ public class InvitationController implements InvitationRejectionListener {
 				+ (userOcc != null));
 		// if the primary user is the room's owner
 		if (userOcc.getAffiliation().equals(Network.ROLE_OWNER)) {
+			Log.v("InvitationController", "Invited user as owner");
 			this.mSpace.getMUC().invite(invitee.getUsername(), ((reason == null)
 					? Network.DEFAULT_INVITE : reason));
 		}
 		// send message to owner invitation request
 		else {
+			Log.v("InvitationController", "Invited user as participant");
 			// message containing invite request tag, the username of the inviter,
 			// the username of the invitee, and the reason
 			Message msg = new Message(Network.REQUEST_INVITE + "@inviter" +
@@ -112,6 +114,7 @@ public class InvitationController implements InvitationRejectionListener {
 				e.printStackTrace();
 			}
 		}
+		Log.v("InvitationController", "End of inviteUser method");
 	} // end inviteUser method
 
 	/**

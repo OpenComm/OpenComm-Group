@@ -109,14 +109,14 @@ public class ParticipantView {
 				case (0):
 					Log.v(TAG, "clicked on Destroy!");
 					try {
-						spaceView.getSpace().getSpaceController().deleteSpace();
+						MainApplication.screen.getSpace().getSpaceController().deleteSpace();
 					} catch (XMPPException e) {
 						Log.v(TAG, "Can't destroy the space!");
 					}
 					//if (spaceView.getSpace().equals(Space.getMainSpace())){
-						Intent i = new Intent(spaceView.getSpace().getContext(),
+						Intent i = new Intent(MainApplication.screen.getSpace().getContext(),
 								DashboardView.class);
-						spaceView.getSpace().getContext().startActivity(i);
+						MainApplication.screen.getSpace().getContext().startActivity(i);
 					//}
 					//else{
 						//TODO: update View to conferenc
@@ -136,7 +136,7 @@ public class ParticipantView {
 	}
 
 	private static void updateParticipants() {
-		Collection<User> participants = spaceView.getSpace()
+		Collection<User> participants = MainApplication.screen.getSpace()
 				.getAllParticipants().values();
 		Iterator<User> participantItr = participants.iterator();
 		usersInSpace = new CharSequence[participants.size() - 1];
@@ -153,10 +153,10 @@ public class ParticipantView {
 	private static void deleteFromParticipants() {
 		for (int i = 0; i < userSelected.length; i++) {
 			if (userSelected[i]) {
-				User kickMe = spaceView.getSpace().getAllNicksnames()
+				User kickMe = MainApplication.screen.getSpace().getAllNicksnames()
 						.get(usersInSpace[i]);
 				try {
-					spaceView.getSpace().getKickoutController()
+					MainApplication.screen.getSpace().getKickoutController()
 							.kickoutUser(kickMe, Network.DEFAULT_KICKOUT);
 				} catch (XMPPException e) {
 					Log.v(TAG, "Couldn't kickout " + usersInSpace[i]);
@@ -167,9 +167,9 @@ public class ParticipantView {
 	} // end deleteFromParticipants method
 
 	private static void makeOwner(int clicked) {
-		String newOwner = spaceView.getSpace().getAllNicksnames()
+		String newOwner = MainApplication.screen.getSpace().getAllNicksnames()
 				.get(usersInSpace[clicked]).getUsername();
-		spaceView.getSpace().getParticipantController()
+		MainApplication.screen.getSpace().getParticipantController()
 				.grantOwnership(newOwner, true);
 	} // end makeOwner method
 }
