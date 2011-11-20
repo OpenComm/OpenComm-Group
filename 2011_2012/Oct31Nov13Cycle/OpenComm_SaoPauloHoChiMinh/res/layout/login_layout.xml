@@ -5,13 +5,12 @@
 	android:background="@color/off_white">
 	<RelativeLayout android:id="@+id/userInputs"
 		android:layout_height="266.67dp" android:layout_width="fill_parent"
-		android:fadingEdge="horizontal" android:layout_marginTop="66.665dp" android:background="@color/dark_grey">
+		android:fadingEdge="horizontal" android:layout_marginTop="41.33dp" android:background="@color/dark_grey">
 		<EditText android:layout_alignParentTop="true"
 			android:layout_alignParentLeft="true" android:layout_marginTop="63dp"
 			android:layout_marginLeft="46.67dp" android:layout_width="232dp"
 			android:layout_height="36dp" android:background="@drawable/logintextback"
-			android:text="username" android:paddingLeft="9.25dp"
-			android:layout_centerVertical="true" android:id="@+id/editTextUsername" android:textSize="25sp"/>
+			android:text="username" android:layout_centerVertical="true" android:id="@+id/editTextUsername" android:textSize="25sp" android:paddingLeft="10dp"/>
 		<TextView android:id="@+id/textUsernameAligner"
 			android:layout_height="wrap_content" android:layout_width="wrap_content"
 			android:layout_alignBottom="@+id/editTextUsername"
@@ -28,8 +27,7 @@
 			android:layout_alignLeft="@+id/editTextUsername"
 			android:layout_marginTop="82.67dp" android:layout_width="232dp"
 			android:layout_height="36dp" android:background="@drawable/logintextback"
-			android:id="@+id/editTextPassword" android:paddingLeft="9.25dp"
-			android:layout_centerVertical="true" android:inputType="textPassword" android:textSize ="25sp"/>
+			android:id="@+id/editTextPassword" android:layout_centerVertical="true" android:inputType="textPassword" android:textSize ="25sp" android:paddingLeft="10dp"/>
 		<TextView android:id="@+id/textPasswordAligner"
 			android:layout_height="wrap_content" android:layout_width="wrap_content"
 			android:layout_alignBottom="@+id/editTextPassword"
@@ -43,7 +41,7 @@
 			android:cursorVisible="false" />
 	</RelativeLayout>
 	<RelativeLayout android:id="@+id/loginBar"
-		android:layout_height="100dp" android:layout_marginTop="74.665dp" android:fadingEdge="horizontal" android:layout_width="fill_parent" android:background="@color/dark_grey">
+		android:layout_height="100dp" android:layout_marginTop="100dp" android:fadingEdge="horizontal" android:layout_width="fill_parent" android:background="@color/dark_grey">
 		<ImageButton android:id="@+id/buttonLogin"
 			android:layout_width="92dp" android:layout_height="92dp"
 			android:layout_alignParentBottom="true" android:src="@drawable/arrow"
