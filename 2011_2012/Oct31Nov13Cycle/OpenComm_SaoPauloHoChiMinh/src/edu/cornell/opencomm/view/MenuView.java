@@ -2,10 +2,14 @@ package edu.cornell.opencomm.view;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnKeyListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
@@ -19,6 +23,7 @@ public class MenuView {
 	private MenuController menuController = new MenuController(
 			this);
 	private View menuLayout = null;
+	private View parentView = null;
 
 	public MenuView(LayoutInflater inflater) {
 		this.inflater = inflater;
@@ -39,34 +44,64 @@ public class MenuView {
 		initializeAddUserButtonHoverEvent();
 		initializeLeaveChatButtonHoverEvent();
 		initializeSettingsButtonHoverEvent();
+		initializeLogoutButtonHoverEvent();
+		initializeMenuButtonHoverEvent();
 		
 	}
+	
+	public void initializeMenuButtonHoverEvent() {
+		Log.d(LOG_TAG, "initializing menu button click");
+		this.menuLayout.setOnKeyListener(new OnKeyListener() {
 
+			@Override
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+				if (event.getAction()!=KeyEvent.ACTION_DOWN) {
+					return true;
+				}
+				switch (keyCode) {
+					case KeyEvent.KEYCODE_MENU:{
+						Log.d(LOG_TAG, "initialize: menuButton clicked");
+						menuController.handleMenuButtonClicked();
+						break;
+					}
+				}
+				return true;
+			}		
+		});
+	}
+	
 	private void initializeAddUserButtonHoverEvent() {
 		Button addUserButton = getAddUserButton();
 		if (addUserButton != null) {
-			addUserButton.setOnTouchListener(onAddUserButtonTouchListener);
+			addUserButton.setOnClickListener(onAddUserButtonClickListener);
 		}
 	}
 
 	private void initializeDeleteUserButtonHoverEvent() {
 		Button deleteUserButton = getDeleteUserButton();
 		if (deleteUserButton != null) {
-			deleteUserButton.setOnTouchListener(onDeleteUserButtonTouchListener);
+			deleteUserButton.setOnClickListener(onDeleteUserButtonClickListener);
 		}
 	}
 	
 	private void initializeLeaveChatButtonHoverEvent() {
 		Button leaveChatButton = getLeaveChatButton();
 		if (leaveChatButton != null) {
-			leaveChatButton.setOnTouchListener(onLeaveChatButtonTouchListener);
+			leaveChatButton.setOnClickListener(onLeaveChatButtonClickListener);
 		}
 	}
 	
 	private void initializeSettingsButtonHoverEvent() {
 		Button settingsButton = getSettingsButton();
 		if (settingsButton != null) {
-			settingsButton.setOnTouchListener(onSettingsButtonTouchListener);
+			settingsButton.setOnClickListener(onSettingsButtonClickListener);
+		}
+	}
+	
+	private void initializeLogoutButtonHoverEvent() {
+		Button logoutButton = getLogoutButton();
+		if (logoutButton != null) {
+			logoutButton.setOnClickListener(onLogoutButtonClickListener);
 		}
 	}
 
@@ -74,38 +109,99 @@ public class MenuView {
 		Button addUserButton = null;
 		if (menuLayout != null) {
 			addUserButton = (Button) menuLayout
-					.findViewById(R.id.adduser);
+					.findViewById(R.id.menuAddUser);
 		}
 
 		return addUserButton;
+	}
+	
+	public ImageView getAddUserOverlay() {
+		ImageView addUserOverlay = null;
+		if (menuLayout != null) {
+			addUserOverlay = (ImageView) menuLayout
+					.findViewById(R.id.menuAddUserOverlay);
+		}
+
+		return addUserOverlay;
 	}
 
 	public Button getDeleteUserButton() {
 		Button deleteUserButton = null;
 		if (menuLayout != null) {
 			deleteUserButton = (Button) menuLayout
-					.findViewById(R.id.deleteuser);
+					.findViewById(R.id.menuDeleteUser);
 		}
 
 		return deleteUserButton;
+	}
+	
+	
+	public ImageView getDeleteUserOverlay() {
+		ImageView deleteUserOverlay = null;
+		if (menuLayout != null) {
+			deleteUserOverlay = (ImageView) menuLayout
+					.findViewById(R.id.menuDeleteUserOverlay);
+		}
+
+		return deleteUserOverlay;
 	}
 	
 	public Button getSettingsButton() {
 		Button settingsButton = null;
 		if(menuLayout !=null){
 			settingsButton = (Button) menuLayout
-					.findViewById(R.id.button3);
+					.findViewById(R.id.menuSetting);
 		}
 		return settingsButton;
+	}
+	
+	
+	public ImageView getSettingsOverlay() {
+		ImageView settingsOverlay = null;
+		if (menuLayout != null) {
+			settingsOverlay = (ImageView) menuLayout
+					.findViewById(R.id.menuSettingOverlay);
+		}
+
+		return settingsOverlay;
 	}
 	
 	public Button getLeaveChatButton() {
 		Button leaveChatButton = null;
 		if(menuLayout !=null) {
 			leaveChatButton= (Button) menuLayout
-					.findViewById(R.id.leavechat);
+					.findViewById(R.id.menuLeave);
 		}
 		return leaveChatButton;
+	}
+	
+	public ImageView getLeaveChatOverlay() {
+		ImageView leaveChatOverlay = null;
+		if (menuLayout != null) {
+			leaveChatOverlay = (ImageView) menuLayout
+					.findViewById(R.id.menuLeaveOverlay);
+		}
+
+		return leaveChatOverlay;
+	}
+	
+	public Button getLogoutButton() {
+		Button logoutButton = null;
+		if(menuLayout !=null) {
+			logoutButton= (Button) menuLayout
+					.findViewById(R.id.menuLogout);
+		}
+		return logoutButton;
+	}
+	
+	public ImageView getLogoutOverlay() {
+		ImageView logoutOverlay = null;
+		if (menuLayout != null) {
+			logoutOverlay = (ImageView) menuLayout
+					.findViewById(R.id.menuLogoutOverlay);
+		}
+
+		return logoutOverlay;
 	}
 
 	public Context getContext() {
@@ -136,17 +232,19 @@ public class MenuView {
 	 * this method launches the confirmation layout on a popupwindow, can be
 	 * changed later to launch like a normal view
 	 */
+
+	
 	public void launch() {
 		if (inflater != null && menuLayout != null) {
-			window = new PopupWindow(menuLayout, Values.screenW,
-					Values.screenH, true);
-			window.showAtLocation(menuLayout, 0, 1, 1);
+			window = new PopupWindow(menuLayout, Values.screenW, Values.screenH, true);
+			window.showAtLocation(this.menuLayout, Gravity.BOTTOM, -10, -10);
 			menuLayout.setOnClickListener(onClickListener);
 		} else {
 			Log.v(LOG_TAG,
-					"Cannot launch menu view as inflater/menulayout is null");
+					"Cannot launch menu view as inflater/menulayout is nul");
 		}
 	}
+
 
 	private View.OnClickListener onClickListener = new View.OnClickListener() {
 
@@ -156,40 +254,45 @@ public class MenuView {
 		}
 	};
 
-	private View.OnTouchListener onAddUserButtonTouchListener = new View.OnTouchListener() {
+	private View.OnClickListener onAddUserButtonClickListener = new View.OnClickListener() {
 
 		@Override
-		public boolean onTouch(View v, MotionEvent event) {
+		public void onClick(View v) {
 			menuController.handleAddUserButtonHover();
-			return true;
 		}
 	};
 	
-	private View.OnTouchListener onDeleteUserButtonTouchListener = new View.OnTouchListener() {
+	private View.OnClickListener onDeleteUserButtonClickListener = new View.OnClickListener() {
 
 		@Override
-		public boolean onTouch(View v, MotionEvent event) {
+		public void onClick(View v) {
 			menuController.handleDeleteUserButtonHover();
-			return true;
 		}
 	};
 	
-	private View.OnTouchListener onLeaveChatButtonTouchListener = new View.OnTouchListener() {
+	private View.OnClickListener onLeaveChatButtonClickListener = new View.OnClickListener() {
 
 		@Override
-		public boolean onTouch(View v, MotionEvent event) {
+		public void onClick(View v) {
 			menuController.handleLeaveChatButtonHover();
-			return true;
 		}
 	};
 	
-	private View.OnTouchListener onSettingsButtonTouchListener = new View.OnTouchListener() {
+	private View.OnClickListener onSettingsButtonClickListener = new View.OnClickListener() {
 
 		@Override
-		public boolean onTouch(View v, MotionEvent event) {
+		public void onClick(View v) {
 			menuController.handleSettingsButtonHover();
-			return true;
 		}
 	};
+	
+	private View.OnClickListener onLogoutButtonClickListener = new View.OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			menuController.handleLogoutButtonHover();
+		}
+	};
+
 
 }
