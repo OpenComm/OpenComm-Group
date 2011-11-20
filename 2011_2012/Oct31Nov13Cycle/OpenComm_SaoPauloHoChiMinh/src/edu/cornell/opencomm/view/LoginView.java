@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -27,7 +28,7 @@ public class LoginView extends Activity {
 	// Layout Views
 	private static EditText usernameEdit;
 	private static EditText passwordEdit;
-	private static TextView loginText;
+	private static Button loginText;
 	private static ImageButton loginButton;
 
 
@@ -41,7 +42,7 @@ public class LoginView extends Activity {
 		this.inflater = this.getLayoutInflater();
 		usernameEdit = (EditText) findViewById(R.id.editTextUsername);
 		passwordEdit = (EditText) findViewById(R.id.editTextPassword);
-		loginText = (TextView) findViewById(R.id.textLogin);
+		loginText = (Button) findViewById(R.id.textLogin);
 		loginButton = (ImageButton) findViewById(R.id.buttonLogin);
 		initializeLoginButtonClickedEvent();
 		loginController = new LoginController(this);

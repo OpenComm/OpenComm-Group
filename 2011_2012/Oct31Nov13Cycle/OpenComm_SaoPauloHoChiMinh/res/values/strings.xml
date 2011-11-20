@@ -30,5 +30,9 @@
 <color name="opoffwhite">#CCF5F5F5</color>
 <color name="darkgray">#333333</color>
 <string name="font_chosen">Datum</string>
+<style name="offwhiteTheme" parent="android:Theme.NoTitleBar">
+    <item name="android:windowBackground">@color/off_white</item>
+    <item name="android:colorBackground">@color/off_white</item>
+</style>
  
 </resources>

@@ -1,50 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:id="@+id/dashboard_view"
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="fill_parent"
-	android:fadingEdge="horizontal" android:background="@color/transparent_black"
-	android:clickable="true" android:clipToPadding="false" android:onClick="handle">
-	<TextView android:layout_alignParentBottom="true"
-		android:cursorVisible="false" android:layout_marginBottom="0dp"
-		android:layout_width="480dp" android:layout_alignParentLeft="true"
-		android:background="@color/dark_grey" android:id="@+id/dashboardLowerPanel"
-		android:layout_height="94dp"></TextView>
-	<Button android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:layout_alignParentRight="true"
-		android:layout_alignParentBottom="true" android:textSize="35dp"
-		android:background="@color/light_grey" android:textColor="@color/off_white"
-		android:id="@+id/textViewConference" android:paddingTop="2dp"
-		android:text=" start conference" android:layout_alignTop="@+id/buttonStartConference"
-		android:paddingLeft="4dp"
-		android:layout_toRightOf="@+id/buttonStartConference"></Button>
-	<Button android:layout_width="wrap_content" android:textSize="35dp"
-		android:textColor="@color/orange" android:background="@color/dark_grey"
-		android:id="@+id/buttonContacts" android:text="contacts"
-		android:layout_alignParentTop="true" android:layout_alignParentLeft="true"
-		android:layout_alignParentRight="true" android:layout_height="56dp"
-		android:layout_marginTop="85dp" android:gravity="left"
-		android:paddingLeft="30dp" android:paddingTop="5dp" android:clickable="true"
-		android:onClick=" "></Button>
-	<Button android:layout_width="wrap_content"
-		android:layout_height="56dp" android:textSize="35dp"
-		android:background="@color/dark_grey" android:layout_below="@+id/buttonContacts"
-		android:layout_alignParentLeft="true" android:layout_alignParentRight="true"
-		android:layout_marginTop="20dp" android:id="@+id/buttonHistory"
-		android:text="history" android:textColor="@color/green"
-		android:gravity="left" android:paddingLeft="30dp" android:paddingTop="5dp"
-		android:clickable="true" android:bufferType="normal" android:onClick="onClickHistory"></Button>
-	<Button android:layout_width="wrap_content"
-		android:layout_height="56dp" android:textSize="35dp"
-		android:background="@color/dark_grey" android:layout_below="@+id/buttonHistory"
-		android:layout_alignParentLeft="true" android:layout_alignParentRight="true"
-		android:id="@+id/buttonAccount" android:text="account"
-		android:textColor="@color/blue" android:layout_marginTop="20dp"
-		android:gravity="left" android:paddingLeft="30dp" android:paddingTop="5dp"
-		android:clickable="true" android:onClick="onClickAccount"></Button>
-	<ImageButton android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:id="@+id/buttonStartConference"
-		android:background="@color/dark_grey" android:src="@drawable/sidechatplus1"
-		android:layout_alignParentBottom="true"
-		android:layout_alignParentLeft="true" android:clickable="true"
-		android:focusable="true"></ImageButton>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="match_parent"
+	android:layout_height="match_parent">
+	<TextView android:text="OpenComm" android:layout_width="fill_parent"
+		android:layout_height="36.67dp" android:background="@color/dark_grey"
+		android:clickable="false" android:gravity="center_vertical"
+		android:paddingLeft="9.25dp" android:textSize="20sp" android:id="@+id/ocActionBar" android:cursorVisible="false"/>
+	<Button android:layout_alignParentLeft="true"
+		android:layout_marginTop="50dp" android:layout_width="fill_parent"
+		android:layout_height="56dp" android:layout_below="@+id/ocActionBar"
+		android:background="@color/dark_grey" android:gravity="left|center_vertical"
+		android:paddingLeft="50dp" android:text="contacts" android:textColor="@color/orange"
+		android:id="@+id/buttonContacts" android:clickable="true"
+		android:textSize="38sp" android:cursorVisible="false"/>
+	<Button android:layout_below="@+id/buttonContacts"
+		android:layout_alignParentLeft="true" android:background="@color/dark_grey"
+		android:clickable="true" android:id="@+id/buttonHistory"
+		android:textColor="@color/green" android:layout_height="56dp"
+		android:layout_width="fill_parent" android:text="history"
+		android:layout_marginTop="20dp" android:gravity="left|center_vertical"
+		android:paddingLeft="50dp" android:textSize="38sp" android:cursorVisible="false"/>
+	<Button android:layout_below="@+id/buttonHistory"
+		android:layout_alignParentLeft="true" android:background="@color/dark_grey"
+		android:clickable="true" android:gravity="left|center_vertical"
+		android:id="@+id/buttonAccount" android:cursorVisible="false"
+		android:paddingLeft="50dp" android:text="account" android:textColor="@color/blue"
+		android:layout_marginTop="20dp" android:layout_width="fill_parent"
+		android:layout_height="56dp" android:textSize="38sp" />
+	<RelativeLayout android:id="@+id/conferenceBar"
+		android:layout_height="100dp" android:layout_alignParentBottom="true"
+		android:layout_width="fill_parent" android:background="@color/dark_grey">
+		<ImageButton android:id="@+id/buttonStartConference"
+			android:layout_width="92dp" android:layout_height="92dp"
+			android:layout_alignParentBottom="true" android:src="@drawable/dashboardplus"
+			android:scaleType="centerInside" android:background="@color/dark_grey" android:clickable="true"/>
+		<Button android:cursorVisible="false" android:text="start conference"
+			android:paddingLeft="9.33dp" android:background="@color/light_grey"
+			android:id="@+id/textViewConference" android:layout_height="92dp"
+			android:layout_width="228dp" android:layout_alignParentBottom="true"
+			android:layout_alignParentRight="true" android:gravity="center_vertical"
+			android:textColor="@color/off_white" android:textSize="38sp" android:clickable="true"/>
+	</RelativeLayout>
 </RelativeLayout>

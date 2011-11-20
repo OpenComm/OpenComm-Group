@@ -1,15 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-android:id="@+id/login_view"
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent" android:fadingEdge="horizontal" android:background="@color/transparent_black">
-    <TextView android:layout_alignParentTop="true" android:layout_marginTop="66dp" android:layout_width="480dp" android:background="@color/dark_grey" android:id="@+id/textViewMain" android:cursorVisible="false" android:layout_alignParentLeft="true" android:layout_height="250dp"></TextView>
-    <EditText android:layout_width="194dp" android:layout_height="45dp" android:textColor="@color/orange" android:visibility="visible" android:id="@+id/textLabelUsername" android:text="username" android:cursorVisible="false" android:clickable="false" android:background="@color/dark_grey" android:layout_alignTop="@+id/textViewMain" android:layout_alignParentLeft="true" android:layout_marginTop="26dp" android:layout_marginLeft="46dp" android:textSize="35dp"></EditText>
-    <EditText android:layout_width="194dp" android:textColor="@color/blue" android:visibility="visible" android:id="@+id/textLabelPassword" android:text="password" android:cursorVisible="false" android:textSize="35dp" android:clickable="false" android:background="@color/dark_grey" android:layout_below="@+id/editTextUsername" android:layout_alignLeft="@+id/editTextUsername" android:layout_marginTop="21dp" android:layout_height="45dp"></EditText>
-    <EditText android:layout_width="220dp" android:layout_height="38dp" android:paddingLeft="5dp" android:id="@+id/editTextPassword" android:text="password" android:cursorVisible="true" android:textSize="21dp" android:layout_below="@+id/textLabelPassword" android:layout_alignLeft="@+id/textLabelPassword" android:layout_centerVertical="true"></EditText>
-    <EditText android:layout_width="220dp" android:layout_height="38dp" android:paddingLeft="5dp" android:id="@+id/editTextUsername" android:text="username" android:cursorVisible="true" android:textSize="21dp" android:layout_below="@+id/textLabelUsername" android:layout_alignLeft="@+id/textLabelUsername"></EditText>
-    <TextView android:layout_alignParentBottom="true" android:id="@+id/loginLowerPanel" android:cursorVisible="false" android:layout_marginBottom="0dp" android:layout_width="480dp" android:layout_alignParentLeft="true" android:background="@color/dark_grey" android:layout_height="100dp"></TextView>
-    <ImageButton android:background="@color/dark_grey" android:layout_alignParentBottom="true" android:id="@+id/buttonLogin" android:layout_width="92dp" android:layout_height="92dp" android:layout_alignTop="@+id/textLogin" android:src="@drawable/arrow" android:scaleType="centerInside"></ImageButton>
-    <TextView android:layout_width="wrap_content" android:id="@+id/textLogin" android:text="login" android:layout_alignParentRight="true" android:layout_alignParentBottom="true" android:textSize="35dp" android:background="@color/light_grey" android:textColor="@color/off_white" android:paddingTop="18dp" android:paddingLeft="4dp" android:layout_toRightOf="@+id/buttonLogin" android:layout_height="86dp"></TextView>
-  </RelativeLayout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:fadingEdge="horizontal"
+	android:layout_height="fill_parent" android:layout_width="fill_parent"
+	android:background="@color/off_white">
+	<RelativeLayout android:id="@+id/userInputs"
+		android:layout_height="266.67dp" android:layout_width="fill_parent"
+		android:fadingEdge="horizontal" android:layout_marginTop="66.665dp" android:background="@color/dark_grey">
+		<EditText android:layout_alignParentTop="true"
+			android:layout_alignParentLeft="true" android:layout_marginTop="63dp"
+			android:layout_marginLeft="46.67dp" android:layout_width="232dp"
+			android:layout_height="36dp" android:background="@drawable/logintextback"
+			android:text="username" android:paddingLeft="9.25dp"
+			android:layout_centerVertical="true" android:id="@+id/editTextUsername" android:textSize="25sp"/>
+		<TextView android:id="@+id/textUsernameAligner"
+			android:layout_height="wrap_content" android:layout_width="wrap_content"
+			android:layout_alignBottom="@+id/editTextUsername"
+			android:layout_alignRight="@+id/editTextUsername"
+			android:layout_marginBottom="52dp" android:cursorVisible="false" />
+		<TextView android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="username" android:textColor="@color/orange"
+			android:textSize="38sp" android:id="@+id/textLabelUsername"
+			android:layout_alignBaseline="@+id/textUsernameAligner"
+			android:layout_alignLeft="@+id/editTextUsername"
+			android:cursorVisible="false" />
+		<EditText android:layout_below="@+id/editTextUsername"
+			android:layout_alignLeft="@+id/editTextUsername"
+			android:layout_marginTop="82.67dp" android:layout_width="232dp"
+			android:layout_height="36dp" android:background="@drawable/logintextback"
+			android:id="@+id/editTextPassword" android:paddingLeft="9.25dp"
+			android:layout_centerVertical="true" android:inputType="textPassword" android:textSize ="25sp"/>
+		<TextView android:id="@+id/textPasswordAligner"
+			android:layout_height="wrap_content" android:layout_width="wrap_content"
+			android:layout_alignBottom="@+id/editTextPassword"
+			android:layout_alignRight="@+id/editTextPassword"
+			android:layout_marginBottom="52dp" android:cursorVisible="false" />
+		<TextView android:text="password" android:textSize="38sp"
+			android:textColor="@color/blue" android:id="@+id/textLabelPassword"
+			android:layout_height="wrap_content" android:layout_width="wrap_content"
+			android:layout_alignBaseline="@+id/textPasswordAligner"
+			android:layout_alignLeft="@+id/editTextPassword"
+			android:cursorVisible="false" />
+	</RelativeLayout>
+	<RelativeLayout android:id="@+id/loginBar"
+		android:layout_height="100dp" android:layout_marginTop="74.665dp" android:fadingEdge="horizontal" android:layout_width="fill_parent" android:background="@color/dark_grey">
+		<ImageButton android:id="@+id/buttonLogin"
+			android:layout_width="92dp" android:layout_height="92dp"
+			android:layout_alignParentBottom="true" android:src="@drawable/arrow"
+			android:scaleType="centerInside" android:background="@color/dark_grey" />
+		<Button android:cursorVisible="false" android:text="login"
+			android:textSize="38sp" android:paddingLeft="9.33dp"
+			android:background="@color/light_grey" android:id="@+id/textLogin"
+			android:layout_height="92dp" android:layout_width="228dp"
+			android:layout_alignParentBottom="true"
+			android:layout_alignParentRight="true" android:gravity="center_vertical" android:textColor="@color/off_white"/>
+	</RelativeLayout>
+
+</LinearLayout>

@@ -6,7 +6,8 @@
 	<uses-sdk android:minSdkVersion="8" />
     <application android:icon="@drawable/icon" android:label="@string/app_name">
         <activity android:name=".view.LoginView"
-                  android:label="@string/app_name">
+                  android:label="@string/app_name"
+                  android:theme="@style/offwhiteTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -14,7 +15,7 @@
         </activity>
 
     <activity android:name=".controller.MainApplication"></activity>
-    <activity android:name=".view.DashboardView"></activity>
+    <activity android:name=".view.DashboardView" android:theme="@style/offwhiteTheme"></activity>
 </application>
 <uses-permission android:name="android.permission.INTERNET" />
 
