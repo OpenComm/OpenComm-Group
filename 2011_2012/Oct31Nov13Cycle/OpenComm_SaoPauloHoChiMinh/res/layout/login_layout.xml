@@ -42,6 +42,8 @@
 	</RelativeLayout>
 	<RelativeLayout android:id="@+id/loginBar"
 		android:layout_height="100dp" android:layout_marginTop="100dp" android:fadingEdge="horizontal" android:layout_width="fill_parent" android:background="@color/dark_grey">
+		<ImageView android:id="@+id/separatorBar" 
+		android:layout_width="fill_parent" android:layout_height="8dp" android:src="@drawable/separator_bar" android:scaleType="fitXY"/>
 		<ImageButton android:id="@+id/buttonLogin"
 			android:layout_width="92dp" android:layout_height="92dp"
 			android:layout_alignParentBottom="true" android:src="@drawable/arrow"

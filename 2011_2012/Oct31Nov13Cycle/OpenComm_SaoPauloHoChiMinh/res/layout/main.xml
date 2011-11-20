@@ -15,8 +15,7 @@
 	</edu.cornell.opencomm.view.SpaceView>
 	<ImageView android:layout_width="fill_parent"
 		android:layout_height="8dp" android:background="@color/dark_grey"
-		android:src="@drawable/sexy_bar" android:scaleType="centerInside"
-		android:layout_margin="0dp" />
+		android:src="@drawable/sexy_bar" android:layout_margin="0dp" android:scaleType="fitXY"/>
 	<LinearLayout android:id="@+id/bottom_bar"
 		android:orientation="horizontal" android:layout_width="fill_parent"
 		android:layout_height="92dp" android:background="@color/dark_grey">
