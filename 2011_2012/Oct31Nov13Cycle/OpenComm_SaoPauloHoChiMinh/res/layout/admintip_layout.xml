@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical" android:layout_width="fill_parent"
 	android:layout_height="fill_parent" android:background="@color/black_translucent">
 	<TextView android:id="@+id/textLabelAdminTip"
 		android:cursorVisible="false"
+		android:layout_marginTop="68dp"
 		android:paddingLeft="46.67dp" android:text="admin tip"
 		android:textColor="@color/green" android:layout_height="56dp"
 		android:layout_width="fill_parent" android:gravity="center_vertical"
 		android:background="@color/grey_dark_translucent" android:textSize="35sp"
-		android:layout_marginTop="68dp" />
+		 />
 	<TextView android:id="@+id/textViewAdminTip" android:text="@string/admin_tip"
+		android:layout_below="@id/textLabelAdminTip"
 		android:layout_marginTop="30dp" android:paddingLeft="46.67dp"
 		android:paddingRight="24dp" android:textColor="@color/off_white"
 		android:textSize="20dp" android:layout_width="fill_parent"
 		android:layout_height="175.33dp"
 		android:cursorVisible="false" />
 	<FrameLayout android:id="@+id/adminTipBarFrame"
+		android:layout_below="@id/textViewAdminTip"
 		android:layout_height="37.33dp" android:layout_width="fill_parent">
 		<LinearLayout android:id="@+id/adminTipBar"
 			android:orientation="horizontal"
@@ -37,4 +40,4 @@
 			android:src="@drawable/overlay_white" android:scaleType="fitXY"
 			android:visibility="invisible" />
 	</FrameLayout>
-</LinearLayout>
+</RelativeLayout>

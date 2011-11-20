@@ -172,7 +172,7 @@ public final class MainApplication extends Activity{
 			}
 			switch (keyCode) {
 			case KeyEvent.KEYCODE_1: {
-				Log.v(TAG, "pressed M key - confirmation screen");
+				Log.v(TAG, "pressed 1 key - confirmation screen");
 				LayoutInflater inflater = (LayoutInflater) MainApplication.this
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				ConfirmationView confirmationView = new ConfirmationView(inflater);
@@ -261,9 +261,9 @@ public final class MainApplication extends Activity{
 			}
 			case KeyEvent.KEYCODE_MENU:{
 				Log.v(TAG, "Clicked on MENU key");
-				LayoutInflater inflater2 = (LayoutInflater) MainApplication.this
-						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				MenuView menuView = new MenuView(inflater2);
+				LayoutInflater inflater = (LayoutInflater) MainApplication.this
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				MenuView menuView = new MenuView(inflater);
 				menuView.launch();
 				break;
 			}
@@ -286,7 +286,7 @@ public final class MainApplication extends Activity{
     	// Calculations
     	Display display = getWindowManager().getDefaultDisplay();
  
-    	viewDimensions.setValues(display.getWidth(), display.getHeight());
+    	//viewDimensions.setValues(display.getWidth(), display.getHeight());
     	
     	// Adjust the space view
     	View sv = findViewById(R.id.space_view);
@@ -327,6 +327,8 @@ public final class MainApplication extends Activity{
 				return false;
 			}
 		});
+		Button actionBar = (Button) findViewById(R.id.ocActionBar);
+		actionBar.setOnClickListener(this.getActionBarOnClickListener());
 	}
 
     /** You are exiting the application! Definitely tell the network so it can tell
@@ -581,6 +583,18 @@ public final class MainApplication extends Activity{
  			});
     	bottomBar.addView(plus,lp);
 		bottomBar.invalidate(); 
+    }
+    
+    public View.OnClickListener getActionBarOnClickListener() {
+    	View.OnClickListener actionBarListener = new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				DashboardView dashboardView = new DashboardView();
+				dashboardView.launch();
+
+			}
+    	};
+    	return actionBarListener;
     }
 
     /** Notify the network with the icon you moved so that it can update the sound simulation */

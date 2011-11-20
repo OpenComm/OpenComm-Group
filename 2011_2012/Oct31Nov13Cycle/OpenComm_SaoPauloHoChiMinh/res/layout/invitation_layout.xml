@@ -7,10 +7,10 @@
 		android:text="invitation" android:textColor="@color/green"
 		android:layout_height="56dp" android:layout_width="fill_parent"
 		android:gravity="center_vertical" android:background="@color/grey_dark_translucent"
-		android:textSize="40sp" android:layout_marginTop="68dp" android:clickable="false"/>
+		android:textSize="40sp" android:clickable="false" android:layout_marginTop="68dp"/>
 	<RelativeLayout android:id="@+id/infoInvite"
-		android:layout_height="194dp" android:layout_marginTop="10.67dp"
-		android:layout_width="fill_parent">
+		android:layout_marginTop="10.67dp"
+		android:layout_width="fill_parent" android:layout_height="194dp">
 		<ImageView android:layout_width="66.67dp" android:src="@drawable/nora"
 			android:layout_marginLeft="46.67dp" android:layout_height="66.67dp"
 			android:id="@+id/iconImage" android:clickable="false"/>

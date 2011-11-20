@@ -1,5 +1,9 @@
 package edu.cornell.opencomm.controller;
 
+import android.content.Context;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -11,23 +15,42 @@ public class MenuController {
 	public MenuController(MenuView menuView) {
 		this.menuView = menuView;
 	}
+	
+	public void handleMenuButtonClicked() {
+		Log.d("MenuController", "Menu button clicked");
+		menuView.getWindow().dismiss();
+	}
+	
 	public void handlePopupWindowClicked() {
 		menuView.getWindow().dismiss();		
 	}
 	public void handleAddUserButtonHover() {
-		menuView.getAddUserButton().setBackgroundColor(R.color.light_grey);
+		menuView.getAddUserOverlay().setVisibility(View.VISIBLE);
+		// replace below with functionality
+		menuView.getWindow().dismiss();
 		
 	}
 	public void handleDeleteUserButtonHover() {
-		menuView.getDeleteUserButton().setBackgroundColor(R.color.light_grey);
+		menuView.getDeleteUserOverlay().setVisibility(View.VISIBLE);
+		// replace below with functionality
+		menuView.getWindow().dismiss();
 	}
 	public void handleLeaveChatButtonHover() {
-	   menuView.getLeaveChatButton().setBackgroundColor(R.color.light_grey);
-	    
+		menuView.getLeaveChatOverlay().setVisibility(View.VISIBLE);
+		// replace below with functionality
+		menuView.getWindow().dismiss();
 	}
 	
 	public void handleSettingsButtonHover() {
-		menuView.getSettingsButton().setBackgroundColor(R.color.light_grey);
+		menuView.getSettingsOverlay().setVisibility(View.VISIBLE);
+		// replace below with functionality
+		menuView.getWindow().dismiss();
+	}
+	
+	public void handleLogoutButtonHover() {
+		menuView.getLogoutOverlay().setVisibility(View.VISIBLE);
+		// replace below with functionality
+		menuView.getWindow().dismiss();
 	}
 
 }

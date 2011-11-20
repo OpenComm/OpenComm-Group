@@ -6,7 +6,7 @@
 		android:layout_height="36.67dp" android:background="@color/dark_grey"
 		android:clickable="false" android:gravity="center_vertical"
 		android:paddingLeft="10.67dp" android:textSize="20sp" android:id="@+id/ocActionBar"
-		android:cursorVisible="false" android:text="Opencomm" />
+		android:cursorVisible="false" android:text="Opencomm" android:textColor="@color/off_white" />
 	<Button android:layout_alignParentLeft="true"
 		android:layout_marginTop="50dp" android:layout_width="fill_parent"
 		android:layout_height="56dp" android:layout_below="@+id/ocActionBar"

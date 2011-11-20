@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/main_screen" android:orientation="vertical" android:background="@color/off_white"
 	android:layout_width="fill_parent" android:layout_height="fill_parent">
-	<TextView android:layout_width="fill_parent"
+	<Button android:layout_width="fill_parent" android:textColor="@color/off_white"
 		android:layout_height="36.67dp" android:background="@color/dark_grey"
-		android:clickable="false" android:gravity="center_vertical"
+		android:gravity="center_vertical"
 		android:paddingLeft="10.67dp" android:textSize="20sp" android:id="@+id/ocActionBar"
 		android:cursorVisible="false" android:text="Opencomm" />
 	<FrameLayout android:id="@+id/spaceViewFrame" android:background="@color/off_white"
