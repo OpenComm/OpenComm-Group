@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
@@ -31,6 +32,7 @@ public class DashboardView extends Activity {
 	private DashboardController dashboardController;
 
 	private View dashboardLayout;
+	private ImageView dashboardOverlay;
 	
 	/*
 	 * /** Called when an activity is first created
@@ -38,6 +40,7 @@ public class DashboardView extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dashboard_layout);
+		this.dashboardOverlay = (ImageView) findViewById(R.id.dashboardOverlay);
 		inflater = this.getLayoutInflater();
 		initEventsAndProperties();
 		dashboardController = new DashboardController(this);
@@ -109,6 +112,10 @@ public class DashboardView extends Activity {
 		if (D) Log.d(TAG, "dashboardLayout -- null?: " + (this.dashboardLayout == null));
 		if (D) Log.d(TAG, "confTextView -- null?: " + (startConferenceTextButton == null));
 		return startConferenceTextButton;
+	}
+	
+	public ImageView getDashboardOverlay() {
+		return this.dashboardOverlay;
 	}
 	
 	private void initializeContactsButtonClickedEvent() {
