@@ -279,12 +279,12 @@ public class PrivateSpaceIconView extends ImageButton{
      
      /** Open a different space to the screen */
      // NORA- updated 9/3
-     public void openPrivateSpace(){
+   /*  public void openPrivateSpace(){
     	 Log.v(LOG_TAG, "Trying to open this space " + space.getRoomID() + ". Screen on is " + space.isScreenOn());
     	 if(!space.isScreenOn()){
     		 ((MainApplication)context).changeSpace(space);
     	 }
-     }
+     } */
      
      /** Return true if this person clicked within this icon's area on the screen */
      public boolean contains(int x, int y) {

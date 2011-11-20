@@ -320,7 +320,8 @@ public final class MainApplication extends Activity{
 					break;
 				case MotionEvent.ACTION_UP:
 					if(!(screen.getSpace()==Space.getMainSpace())){
-						changeSpace(Space.getMainSpace());
+						//TODO
+					//	changeSpace(Space.getMainSpace());
 					}
 					break;
 				}
@@ -430,7 +431,7 @@ public final class MainApplication extends Activity{
     /** Change the space whose contents the screen (spaceview) is showing.
      * Need to notify network of this change so that it can adjust sound
      */
-    public void changeSpace(Space s){
+  /*  public void changeSpace(Space s){
     	SpaceView spaceView = (SpaceView)findViewById(R.id.space_view);
     	screen.getSpace().setScreenOn(false);
     	spaceView.changeSpace(s);
@@ -439,7 +440,7 @@ public final class MainApplication extends Activity{
     	/* TODO network:
     	 * 1) Adjust sound in network (if you want the space onscreen to be louder than other for example)
     	 */
-    }
+    //} */
 
     /** Need to add the new PrivateSpace button to the bottom GUI by altering the XML code */
     public void addPrivateSpaceButton(PrivateSpaceIconView psv){
@@ -524,6 +525,7 @@ public final class MainApplication extends Activity{
     }
 
 
+
     /** Remove this person from this space, take away that person's icon from the SpaceView
      * as well. Could be situations where: you do not want this person in your mainspace,
      * this person removed him/herself from the privatespace, the privatespace got deleted,
@@ -533,6 +535,19 @@ public final class MainApplication extends Activity{
 		space.getKickoutController().kickoutUser(person, Network.DEFAULT_KICKOUT);
         LinearLayout screen = (LinearLayout)findViewById(R.id.space_view);
         screen.invalidate();
+    }
+    
+    /** Reupdates the spaceview UI. Does the same thing as invalidate(). 
+     * Purpose of this method is so that any thread that is not from the UI 
+     * or the activity may call it (to avoid the "Only the original thread that 
+     * created a view hierarchy can touch its views" error)
+     */
+    public void invalidateSpaceView(){
+    	runOnUiThread(new Runnable() {
+    	     public void run() {
+    	    	 screen.invalidate();
+    	    }
+    	});
     }
     
     /**Crystal: add the plus button to the bottom bar*/

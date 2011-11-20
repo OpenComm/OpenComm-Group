@@ -122,9 +122,21 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 	 * (ex: roomname@conference.jabber.org/nickname)
 	 */
 	public void joined(String userRoomInfo) {
+		String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
+		if(userSplit !=null){
+			User user = User.nickname_to_user.get(userSplit[1]);
+			mSpace.getSpaceController().addUser(userRoomInfo, user);
+		/*	if(mSpace==MainApplication.screen.getSpace()){
+				MainApplication m = (MainApplication)mSpace.getContext();
+				m.invalidateSpaceView();
+
+			} */
+				
+		}
+		
 		// DEBUG
 		if (D) {
-			String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
+
 			// check that the split is successful
 			if (userSplit != null) {
 				// extract the room's name
@@ -135,7 +147,7 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 						+ " joined room " + roomname);
 			}
 		}
-		String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
+		//String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
 		if(userSplit != null){
 			User u = User.getAllNicknames().get(userSplit[1]);
 			Space s = Space.getAllSpaces().get(userSplit[0]);
@@ -164,9 +176,14 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 	 * the kicked user from the room
 	 */
 	public void kicked(String kickedUserRoomInfo, String kickingUser, String reason) {
+		String[] kickedUserSplit = this.splitUserRoomInfo(kickedUserRoomInfo);
+		if(kickedUserSplit !=null){
+			User user = User.nickname_to_user.get(kickedUserSplit[1]);
+			mSpace.getSpaceController().deleteUser(kickedUserRoomInfo, user);
+		}
 		// DEBUG
 		if (D) {
-			String[] kickedUserSplit = this.splitUserRoomInfo(kickedUserRoomInfo);
+		//	String[] kickedUserSplit = this.splitUserRoomInfo(kickedUserRoomInfo);
 			// check that the split is successful
 			if (kickedUserSplit != null) {
 				// extract the room's name

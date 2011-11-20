@@ -103,29 +103,29 @@ import edu.cornell.opencomm.model.User;
      
      /* Change the space that this screen is representing. This also means changing the list of
       * icons that are to be drawn */
-     public void changeSpace(Space space){
+   /*  public void changeSpace(Space space){
     	 this.space = space;
     	 allIcons = new LinkedList<UserView>();
     	 addManyPeople(space.getAllIcons());
     	 invalidate();
-     }
+     } */
      
      /* Add many people to this space, add all of their icons to the SpaceView */
-     public void addManyPeople(LinkedList<UserView> icons){
+  /*   public void addManyPeople(LinkedList<UserView> icons){
         for(UserView p: icons){
             addPerson(p);
         }
-     }
+     } */
    
      /* User added to the space, therefore create a new icon (UserView) for this person
       * and add it to this spaceview */
-     public void addPerson(UserView icon){
+   /*  public void addPerson(UserView icon){
         allIcons.add(icon);    
         invalidate();
-     }
+     } */
      
       /* User deleted from the space, therefore delete that User's icon from this SpaceView */
-     public void deletePerson(User person){
+   /*  public void deletePerson(User person){
     	 UserView found_icon = null;
     	 int counter = 0;
     	 while(found_icon==null && counter<allIcons.size()){
@@ -136,7 +136,7 @@ import edu.cornell.opencomm.model.User;
     	 if(found_icon!=null)
     		 allIcons.remove(found_icon);
     	 invalidate();
-     }
+     } */
      
      //GETTERS
      
@@ -173,7 +173,12 @@ import edu.cornell.opencomm.model.User;
     			 Values.spaceViewH - voice_image.getHeight(), null);
     	 //(2)
     	 
-    	 if(!dim){ 
+    	 for(UserView p : space.getAllIcons()){
+    		 if(p.getPerson()!=MainApplication.user_primary)
+    			 p.draw(canvas);
+    	 }
+    	 
+    	/* if(!dim){ 
     		 for (UserView p : allIcons){
     	 
     		 if(p.getPerson()!=MainApplication.user_primary)
@@ -190,7 +195,7 @@ import edu.cornell.opencomm.model.User;
           		 p.draw(canvas);
           	
       	   }
-    	 }
+    	 } */
      
  }
      public SpaceViewController getSpaceViewController(){
@@ -245,7 +250,7 @@ import edu.cornell.opencomm.model.User;
     	 if(event.getAction() == MotionEvent.ACTION_DOWN){
     		 // If clicked on an icon
     		 selectedIcon = null;
-    		 for (UserView icon : allIcons) {
+    		 for (UserView icon : space.getAllIcons()) {
     			 if (icon.clickedInside(mouseX, mouseY)) {
     				 selectedIcon = icon;
  					 icon.getUserViewController().handleClickDown(icon.getX(), icon.getY(), event.getEventTime());
