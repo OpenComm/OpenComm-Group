@@ -70,7 +70,7 @@ public class LoginController {
 			Log.e(LOG_TAG, "handleLogin: Log in failed");
 			//return;
 		}
-	
+
 		Intent i = new Intent(loginView, DashboardView.class);
 		i.putExtra(Network.KEY_USERNAME, (D ? Network.DEBUG_USERNAME : usernameEdit.getText().toString()));
 		i.setAction(Network.ACTION_LOGIN);

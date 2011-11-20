@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
@@ -40,16 +42,24 @@ public class InvitationView {
 	}
 
 	private void initializeCancelButtonHoverEvent() {
-		Button cancelButton = getAcceptButton();
+		Button cancelButton = getCancelButton();
 		if (cancelButton != null) {
-			cancelButton.setOnTouchListener(onCancelButtonTouchListener);
+			cancelButton.setOnClickListener(onCancelButtonClickListener);
+		}
+		ImageButton imageCancelButton = getImageCancelButton();
+		if (imageCancelButton != null) {
+			imageCancelButton.setOnClickListener(onCancelButtonClickListener);
 		}
 	}
 
 	private void initializeAcceptButtonHoverEvent() {
 		Button acceptButton = getAcceptButton();
 		if (acceptButton != null) {
-			acceptButton.setOnTouchListener(onAcceptButtonTouchListener);
+			acceptButton.setOnClickListener(onAcceptButtonClickListener);
+		}
+		ImageButton imageAcceptButton = getImageAcceptButton();
+		if (imageAcceptButton != null) {
+			imageAcceptButton.setOnClickListener(onAcceptButtonClickListener);
 		}
 	}
 
@@ -57,20 +67,59 @@ public class InvitationView {
 		Button acceptButton = null;
 		if (invitationLayout != null) {
 			acceptButton = (Button) invitationLayout
-					.findViewById(R.id.buttonAcceptInvitation);
+					.findViewById(R.id.buttonAcceptInvite);
 		}
 
 		return acceptButton;
+	}
+	public ImageButton getImageAcceptButton() {
+		ImageButton imageAcceptButton = null;
+		if (invitationLayout != null) {
+			imageAcceptButton = (ImageButton) invitationLayout
+					.findViewById(R.id.imageAcceptInvite);
+		}
+
+		return imageAcceptButton;
+	}
+	
+	public ImageView getAcceptOverlay() {
+		ImageView acceptOverlay = null;
+		if (invitationLayout != null) {
+			acceptOverlay = (ImageView) invitationLayout
+					.findViewById(R.id.acceptInviteOverlay);
+		}
+
+		return acceptOverlay;
 	}
 
 	public Button getCancelButton() {
 		Button cancelButton = null;
 		if (invitationLayout != null) {
 			cancelButton = (Button) invitationLayout
-					.findViewById(R.id.buttonCancelInvitation);
+					.findViewById(R.id.buttonCancelInvite);
 		}
 
 		return cancelButton;
+	}
+	
+	public ImageButton getImageCancelButton() {
+		ImageButton imageCancelButton = null;
+		if (invitationLayout != null) {
+			imageCancelButton = (ImageButton) invitationLayout
+					.findViewById(R.id.imageCancelInvite);
+		}
+
+		return imageCancelButton;
+	}
+	
+	public ImageView getCancelOverlay() {
+		ImageView cancelOverlay = null;
+		if (invitationLayout != null) {
+			cancelOverlay = (ImageView) invitationLayout
+					.findViewById(R.id.cancelInviteOverlay);
+		}
+
+		return cancelOverlay;
 	}
 
 	public Context getContext() {
@@ -121,21 +170,19 @@ public class InvitationView {
 		}
 	};
 
-	private View.OnTouchListener onAcceptButtonTouchListener = new View.OnTouchListener() {
+	private View.OnClickListener onAcceptButtonClickListener = new View.OnClickListener() {
 
 		@Override
-		public boolean onTouch(View v, MotionEvent event) {
+		public void onClick(View v) {
 			invitationController.handleAcceptButtonHover();
-			return true;
 		}
 	};
 	
-	private View.OnTouchListener onCancelButtonTouchListener = new View.OnTouchListener() {
+	private View.OnClickListener onCancelButtonClickListener = new View.OnClickListener() {
 
 		@Override
-		public boolean onTouch(View v, MotionEvent event) {
+		public void onClick(View v) {
 			invitationController.handleCancelButtonHover();
-			return true;
 		}
 	};
 }

@@ -12,6 +12,7 @@ import org.jivesoftware.smackx.muc.Occupant;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.model.Invitation;
 import edu.cornell.opencomm.model.Space;
@@ -32,12 +33,18 @@ public class InvitationController implements InvitationRejectionListener {
 	public void handlePopupWindowClicked() {
 		invitationView.getWindow().dismiss();		
 	}
+	
+	/** Handle when the cancel button is pressed */
 	public void handleAcceptButtonHover() {
-		invitationView.getAcceptButton().setBackgroundColor(R.color.light_grey);
-		
+		invitationView.getAcceptOverlay().setVisibility(View.VISIBLE);
+		// Dismisses the window for now
+		invitationView.getWindow().dismiss();
 	}
+	/** Handle when the cancel button is pressed */
 	public void handleCancelButtonHover() {
-		invitationView.getCancelButton().setBackgroundColor(R.color.light_grey);
+		invitationView.getCancelOverlay().setVisibility(View.VISIBLE);
+		// Dismisses the window for now
+		invitationView.getWindow().dismiss();
 	}
 
 	// Model variables

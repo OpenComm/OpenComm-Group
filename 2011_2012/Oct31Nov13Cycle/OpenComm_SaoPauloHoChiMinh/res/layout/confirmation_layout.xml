@@ -7,7 +7,7 @@
 		android:text="confirm" android:textColor="@color/green"
 		android:layout_height="56dp" android:layout_width="fill_parent"
 		android:gravity="center_vertical" android:background="@color/grey_dark_translucent"
-		android:textSize="35sp" android:layout_marginTop="68dp" android:clickable="false"/>
+		android:textSize="40sp" android:layout_marginTop="68dp" android:clickable="false"/>
 	<RelativeLayout android:id="@+id/infoConfirm"
 		android:layout_height="193.33dp" android:layout_marginTop="10.67dp"
 		android:layout_width="fill_parent">
@@ -36,7 +36,7 @@
 	</RelativeLayout>
 	<FrameLayout android:id="@+id/confirmBarFrame"
 		android:layout_height="37.33dp" android:layout_width="fill_parent">
-		<LinearLayout android:id="@+id/confirmTipBar"
+		<LinearLayout android:id="@+id/confirmBar"
 			android:orientation="horizontal" android:layout_height="fill_parent"
 			android:layout_width="fill_parent">
 			<ImageButton android:id="@+id/imageAcceptConfirm"
@@ -62,7 +62,7 @@
 				android:layout_width="102.67dp" android:clickable="true"
 				android:gravity="left|center_vertical" android:textSize="25sp" />
 		</LinearLayout>
-		<LinearLayout android:id="@+id/acceptOverlay"
+		<LinearLayout android:id="@+id/confirmOverlay"
 			android:orientation="horizontal" android:layout_height="fill_parent"
 			android:layout_width="fill_parent">
 			<ImageView android:id="@+id/acceptConfirmOverlay"

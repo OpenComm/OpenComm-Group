@@ -64,7 +64,7 @@ public class LoginView extends Activity {
 	public ImageButton getLoginButton() {
 		return loginButton;
 	}
-	
+
 	public ImageView getLoginOverlay() {
 		return loginOverlay;
 	}
