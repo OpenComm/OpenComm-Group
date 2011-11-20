@@ -11,6 +11,7 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.LinearLayout;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
@@ -26,7 +27,7 @@ import edu.cornell.opencomm.model.User;
  * This view does not include the Main, Menu, Trash buttons, or bottom PrivateSpace bar.
  * Your icon will not show up on screen */
  
- public class SpaceView extends LinearLayout{
+ public class SpaceView extends View {
 	private static String LOG_TAG="OC_SpaceView"; // for error checking
 	private Context context;
 	public static int screenWidth=315, screenHeight=365; // the size of the spaceview (the area above the privatespace bar)
@@ -165,14 +166,7 @@ import edu.cornell.opencomm.model.User;
       * 5) Trashcan icon // -changed to a delete button
       */
      protected void onDraw(Canvas canvas){
-		  Log.v(LOG_TAG, "In SpaceView's onDraw");
-    	 //(1)
-    	 canvas.drawColor(getColor());
-    	 //(1b)
-    	 canvas.drawBitmap(voice_image, Values.screenW/2 - voice_image.getWidth()/2, 
-    			 Values.spaceViewH - voice_image.getHeight(), null);
-    	 //(2)
-    	 
+		 Log.v(LOG_TAG, "In SpaceView's onDraw");
     	 for(UserView p : space.getAllIcons()){
     		 if(p.getPerson()!=MainApplication.user_primary)
     			 p.draw(canvas);
