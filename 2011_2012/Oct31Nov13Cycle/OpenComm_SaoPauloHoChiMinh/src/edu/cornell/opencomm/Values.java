@@ -22,6 +22,7 @@ public class Values {
 	public static int actionBarH = 72; // Upper strip at top that says "OpenComm"
 	public static int spaceViewH = 350; // Area where user icons are shown
 	public static int bottomBarH = 138; // Bottom strip that holds private space icons
+	public static int voice_imageSpaceH = 20; // Space between you_image and the bottom bar
 	
 	// PrivateSpace buttons in bottom bar
 	public static int privateSpaceButtonW = 116;
@@ -109,10 +110,10 @@ public class Values {
 		else if((screenW == 480) && (screenH == 800)){
 			Values.screenW = 480;
 			Values.screenH = 800;
-			
-			Values.spaceViewH = Values.screenH - Values.bottomBarH - 87;
+			Values.bottomBarH = 150;
+			Values.spaceViewH = 545;
 			Values.privateSpaceButtonW = Values.privateSpaceButtonW;
-			
+			Values.voice_imageSpaceH = 20;
 			Values.userIconW = 100;
 			Values.userIconH = 100;
 

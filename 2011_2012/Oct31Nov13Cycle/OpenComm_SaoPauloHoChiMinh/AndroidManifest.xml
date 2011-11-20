@@ -14,7 +14,7 @@
             </intent-filter>
         </activity>
 
-    <activity android:name=".controller.MainApplication"></activity>
+    <activity android:name=".controller.MainApplication" android:theme="@style/offwhiteTheme"></activity>
     <activity android:name=".view.DashboardView" android:theme="@style/offwhiteTheme"></activity>
 </application>
 <uses-permission android:name="android.permission.INTERNET" />
