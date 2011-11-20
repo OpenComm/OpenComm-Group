@@ -219,7 +219,7 @@ public class PrivateSpaceIconView extends ImageButton{
         Log.v(LOG_TAG, "THIS HEIGHT"+this.getHeight());
         //(1)
        
-         int backgroundColor = (getResources().getColor(R.color.darkgray)); 
+         int backgroundColor = (getResources().getColor(R.color.dark_grey)); 
          canvas.drawColor(backgroundColor);
         //(2)Crystal   
          /* This function checks for people in the space. If there are at least 1 person,

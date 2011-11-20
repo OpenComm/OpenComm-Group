@@ -556,7 +556,7 @@ public final class MainApplication extends Activity{
     	 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(Values.privateSpaceButtonW,  Values.privateSpaceButtonW);
          lp.setMargins(0, 0, Values.iconBorderPaddingH, 0); 
     	ImageView plus=PrivateSpaceIconView.plusSpaceButton(getResources().getColor(R.color.off_white),this);
-    	 plus.setBackgroundColor(getResources().getColor(R.color.darkgray));
+    	 plus.setBackgroundColor(getResources().getColor(R.color.dark_grey));
     	
    
     	 plus.setOnClickListener(new OnClickListener(){
