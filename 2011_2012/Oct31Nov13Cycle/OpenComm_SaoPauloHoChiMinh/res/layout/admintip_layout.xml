@@ -8,7 +8,7 @@
 		android:textColor="@color/green" android:layout_height="56dp"
 		android:layout_width="fill_parent" android:gravity="center_vertical"
 		android:background="@color/grey_dark_translucent" android:textSize="35sp"
-		android:layout_marginTop="93.33dp" />
+		android:layout_marginTop="68dp" />
 	<TextView android:id="@+id/textViewAdminTip" android:text="@string/admin_tip"
 		android:layout_marginTop="30dp" android:paddingLeft="46.67dp"
 		android:paddingRight="24dp" android:textColor="@color/off_white"
@@ -25,7 +25,7 @@
 				android:layout_gravity="center" android:layout_height="fill_parent"
 				android:paddingBottom="5.33dp" android:paddingTop="5.33dp"
 				android:scaleType="centerInside" android:paddingLeft="20dp"
-				android:paddingRight="12dp" android:layout_width="69.33dp" />
+				android:paddingRight="12dp" android:layout_width="58.67dp" />
 			<Button android:cursorVisible="false" android:background="@color/grey_dark_translucent" android:id="@+id/buttonAcceptAdminTip"
 				android:text="accept" android:textColor="@color/blue"
 				android:layout_height="fill_parent" android:layout_width="fill_parent"

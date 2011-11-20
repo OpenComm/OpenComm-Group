@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
@@ -40,16 +42,24 @@ public class ConfirmationView {
 	}
 
 	private void initializeCancelButtonHoverEvent() {
-		Button cancelButton = getAcceptButton();
+		Button cancelButton = getCancelButton();
 		if (cancelButton != null) {
-			cancelButton.setOnTouchListener(onCancelButtonTouchListener);
+			cancelButton.setOnClickListener(onCancelButtonClickListener);
+		}
+		ImageButton imageCancelButton = getImageCancelButton();
+		if (imageCancelButton != null) {
+			imageCancelButton.setOnClickListener(onCancelButtonClickListener);
 		}
 	}
 
 	private void initializeAcceptButtonHoverEvent() {
 		Button acceptButton = getAcceptButton();
 		if (acceptButton != null) {
-			acceptButton.setOnTouchListener(onAcceptButtonTouchListener);
+			acceptButton.setOnClickListener(onAcceptButtonClickListener);
+		}
+		ImageButton imageAcceptButton = getImageAcceptButton();
+		if (imageAcceptButton != null) {
+			imageAcceptButton.setOnClickListener(onAcceptButtonClickListener);
 		}
 	}
 
@@ -57,20 +67,59 @@ public class ConfirmationView {
 		Button acceptButton = null;
 		if (confirmationLayout != null) {
 			acceptButton = (Button) confirmationLayout
-					.findViewById(R.id.buttonAcceptConfirmation);
+					.findViewById(R.id.buttonAcceptConfirm);
 		}
 
 		return acceptButton;
+	}
+	public ImageButton getImageAcceptButton() {
+		ImageButton imageAcceptButton = null;
+		if (confirmationLayout != null) {
+			imageAcceptButton = (ImageButton) confirmationLayout
+					.findViewById(R.id.imageAcceptConfirm);
+		}
+
+		return imageAcceptButton;
+	}
+	
+	public ImageView getAcceptOverlay() {
+		ImageView acceptOverlay = null;
+		if (confirmationLayout != null) {
+			acceptOverlay = (ImageView) confirmationLayout
+					.findViewById(R.id.acceptConfirmOverlay);
+		}
+
+		return acceptOverlay;
 	}
 
 	public Button getCancelButton() {
 		Button cancelButton = null;
 		if (confirmationLayout != null) {
 			cancelButton = (Button) confirmationLayout
-					.findViewById(R.id.buttonCancelConfirmation);
+					.findViewById(R.id.buttonCancelConfirm);
 		}
 
 		return cancelButton;
+	}
+	
+	public ImageButton getImageCancelButton() {
+		ImageButton imageCancelButton = null;
+		if (confirmationLayout != null) {
+			imageCancelButton = (ImageButton) confirmationLayout
+					.findViewById(R.id.imageCancelConfirm);
+		}
+
+		return imageCancelButton;
+	}
+	
+	public ImageView getCancelOverlay() {
+		ImageView cancelOverlay = null;
+		if (confirmationLayout != null) {
+			cancelOverlay = (ImageView) confirmationLayout
+					.findViewById(R.id.cancelConfirmOverlay);
+		}
+
+		return cancelOverlay;
 	}
 
 	public Context getContext() {
@@ -121,21 +170,19 @@ public class ConfirmationView {
 		}
 	};
 
-	private View.OnTouchListener onAcceptButtonTouchListener = new View.OnTouchListener() {
+	private View.OnClickListener onAcceptButtonClickListener = new View.OnClickListener() {
 
 		@Override
-		public boolean onTouch(View v, MotionEvent event) {
+		public void onClick(View v) {
 			confirmationController.handleAcceptButtonHover();
-			return true;
 		}
 	};
 	
-	private View.OnTouchListener onCancelButtonTouchListener = new View.OnTouchListener() {
+	private View.OnClickListener onCancelButtonClickListener = new View.OnClickListener() {
 
 		@Override
-		public boolean onTouch(View v, MotionEvent event) {
+		public void onClick(View v) {
 			confirmationController.handleCancelButtonHover();
-			return true;
 		}
 	};
 }

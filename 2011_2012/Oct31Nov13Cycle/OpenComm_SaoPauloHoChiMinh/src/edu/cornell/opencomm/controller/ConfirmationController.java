@@ -1,6 +1,7 @@
 package edu.cornell.opencomm.controller;
 
 //import android.R;
+import android.view.View;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.view.ConfirmationView;
 /** Handles the actions performed on an confirmation popup screen
@@ -23,12 +24,14 @@ public class ConfirmationController {
 	
 	/** Handle when the cancel button is pressed */
 	public void handleAcceptButtonHover() {
-		// Turn button grey for now
-		confirmationView.getAcceptButton().setBackgroundColor(R.color.light_grey);
+		confirmationView.getAcceptOverlay().setVisibility(View.VISIBLE);
+		// Dismisses the window for now
+		confirmationView.getWindow().dismiss();
 	}
 	/** Handle when the cancel button is pressed */
 	public void handleCancelButtonHover() {
-		// Turn button grey for now
-		confirmationView.getCancelButton().setBackgroundColor(R.color.light_grey);
+		confirmationView.getCancelOverlay().setVisibility(View.VISIBLE);
+		// Dismisses the window for now
+		confirmationView.getWindow().dismiss();
 	}
 }
