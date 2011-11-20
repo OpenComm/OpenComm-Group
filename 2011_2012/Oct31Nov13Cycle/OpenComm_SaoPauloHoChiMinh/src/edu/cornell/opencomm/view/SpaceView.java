@@ -166,18 +166,15 @@ import edu.cornell.opencomm.model.User;
       * 5) Trashcan icon // -changed to a delete button
       */
      protected void onDraw(Canvas canvas){
-		  Log.v(LOG_TAG, "In SpaceView's onDraw");
-    	 //(1)
-    	// canvas.drawColor(getColor());
-    	 //(1b)
-    	// canvas.drawBitmap(voice_image, Values.screenW/2 - voice_image.getWidth()/2, 
-    	//		 Values.spaceViewH - voice_image.getHeight(), null);
-    	 //(2)
-    	 Log.v("SpaceView", "Space is " + space);
-    	 Log.v("SpaceView", "Number of people in space = " + space.getAllIcons().size());
-    	 for(UserView p : space.getAllIcons()){
+		 Log.v(LOG_TAG, "In SpaceView's onDraw");
+    	 if (canvas != null && space != null && space.getAllIcons() != null) {
+    		 Log.d(LOG_TAG, "onDraw: draw people");
+		 for(UserView p : space.getAllIcons()){
     		 if(p.getPerson()!=MainApplication.user_primary)
     			 p.draw(canvas);
+    	 }}
+    	 else {
+    		 Log.d(LOG_TAG, "No one to draw");
     	 }
  }
      public SpaceViewController getSpaceViewController(){
