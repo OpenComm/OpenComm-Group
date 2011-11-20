@@ -15,19 +15,17 @@ public class SpaceViewController {
 		this.spaceView = spaceView;
 	}
 	
-	/** Creates a UserView representing a user and adds it to 
-	 * the SpaceView
-	 * @param user - the new user object  
+	
+	/**
+	 * Change the spaceView to represent a different space
+	 * @param newSpace - the new space to change the spaceView
+	 * to
 	 */
-	public static void addIconToSpaceView(User user){
-		UserView newUserView = new UserView(spaceView.getContext(), user, user.getImage(), spaceView.getSpace());
-		spaceView.getAllIcons().add(newUserView);
-		spaceView.invalidate();
-	}
-	
-	
-	public void changeSpace(Space space){
-		
+	public void changeSpace(Space newSpace){
+		Log.v("SpaceViewController", "changeSpace() to " + newSpace);
+		MainApplication.screen.setSpace(newSpace);
+		MainApplication m = (MainApplication)spaceView.getContext();
+		m.invalidateSpaceView();
 	}
 	
 	public void handleClickDown(long time){

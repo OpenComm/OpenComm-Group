@@ -122,15 +122,11 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 	 * (ex: roomname@conference.jabber.org/nickname)
 	 */
 	public void joined(String userRoomInfo) {
+		Log.v("ParticipantStatusController", "joined()");
 		String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
 		if(userSplit !=null){
 			User user = User.nickname_to_user.get(userSplit[1]);
 			mSpace.getSpaceController().addUser(userRoomInfo, user);
-		/*	if(mSpace==MainApplication.screen.getSpace()){
-				MainApplication m = (MainApplication)mSpace.getContext();
-				m.invalidateSpaceView();
-
-			} */
 				
 		}
 		

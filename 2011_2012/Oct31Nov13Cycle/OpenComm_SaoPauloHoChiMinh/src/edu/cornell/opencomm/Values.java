@@ -41,6 +41,7 @@ public class Values {
 	public static int iconBorderPadding=5;
 	public static int adminTextSize=13;
 	public static int textAdjust=2;
+	public static int staggeredAddStart = 10;
 		
 	// Pop User Icon
 	public static int popUserIconW = 42;

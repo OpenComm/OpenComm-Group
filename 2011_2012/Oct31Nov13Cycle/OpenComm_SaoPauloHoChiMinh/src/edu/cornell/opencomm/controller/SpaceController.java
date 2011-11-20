@@ -5,6 +5,7 @@ import org.jivesoftware.smackx.muc.MultiUserChat;
 
 import android.content.Context;
 import android.util.Log;
+import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.Network;
@@ -48,17 +49,20 @@ public class SpaceController {
 	 * @param user - User object to add
 	 */
 	public void addUser(String userRoomInfo, User user){
+		Log.v("SpaceController", "addUser()");
 		space.getAllNicksnames().put(user.getNickname(), user);
 		space.getAllParticipants().put(user.getUsername(), user);
-		space.getAllOccupants().put(user.getUsername(), muc.getOccupant(userRoomInfo)); // ask
-		UserView uv = new UserView(view.getContext(), user, user.getImage(), space);
+		space.getAllOccupants().put(user.getUsername(), muc.getOccupant(userRoomInfo)); 
+		int x = Values.staggeredAddStart + space.getAllParticipants().size()*(Values.userIconW/5);
+		int y = Values.staggeredAddStart + space.getAllParticipants().size()*(Values.userIconH/5);
+		UserView uv = new UserView(view.getContext(), user, user.getImage(), space, x, y);
 		space.getAllIcons().add(uv);
 		/* If you are currently in this space then refresh the 
 		 * the spaceview ui
 		 */
 		if(space == MainApplication.screen.getSpace()){
-			MainApplication m = (MainApplication)space.getContext();
-			m.invalidateSpaceView();
+			Log.v("SpaceController", "adding user to spaceView");
+			view.getActivity().invalidateSpaceView();
 		}
 	}
 	
@@ -79,10 +83,8 @@ public class SpaceController {
 		/* If you are currently in this space then refresh the 
 		 * the spaceview ui
 		 */
-		if(space == MainApplication.screen.getSpace()){
-			MainApplication m = (MainApplication)space.getContext();
-			m.invalidateSpaceView();
-		}
+		if(space == MainApplication.screen.getSpace())
+			view.getActivity().invalidateSpaceView();
 		
 	}
 	

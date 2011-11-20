@@ -38,7 +38,7 @@ public class UserView extends ImageButton{
 	 * 2)Decide positions of image (x,y)
 	 * 3)Create Bitmap image from imageID, create namebox image, and set paint
 	 */
-	public UserView(Context context, User person, int imageID, Space space){
+	public UserView(Context context, User person, int imageID, Space space, int x, int y){
 		super(context);
 		this.context = context;
 		
@@ -48,12 +48,14 @@ public class UserView extends ImageButton{
         this.space = space;
         
         // (2)
-		this.x = (int)(Math.random()*(Values.screenW - Values.userIconW));
+	/*	this.x = (int)(Math.random()*(Values.screenW - Values.userIconW));
 		if(this.x<0)
 			this.x = 0;
 		this.y = (int)(Math.random()*Values.spaceViewH - Values.userIconH);
 		if(this.y<Values.actionBarH)
-			this.y = Values.actionBarH;
+			this.y = Values.actionBarH;  */
+        this.x = x;
+        this.y = y; 
 		
 		 // (3)
 		setImage(imageID);
@@ -93,6 +95,7 @@ public class UserView extends ImageButton{
            // a colored rectangle around the person's icon if selected
            
            super.onDraw(canvas);
+           Log.v("UserView", "UserView's onDraw()");
            int b=Values.iconBorderPadding;
            int namebox=Values.iconTextH;//the namebox height
             if (isSelected) {
@@ -147,8 +150,7 @@ public class UserView extends ImageButton{
             }
             else{
             	canvas.drawBitmap(image, x, y, null);
-            }
-                       
+            }               
        }
 		
 	// GETTERS

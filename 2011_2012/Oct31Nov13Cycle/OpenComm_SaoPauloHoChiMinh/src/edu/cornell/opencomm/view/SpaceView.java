@@ -166,38 +166,26 @@ import edu.cornell.opencomm.model.User;
       * 5) Trashcan icon // -changed to a delete button
       */
      protected void onDraw(Canvas canvas){
-		 Log.v(LOG_TAG, "In SpaceView's onDraw");
+		  Log.v(LOG_TAG, "In SpaceView's onDraw");
+    	 //(1)
+    	// canvas.drawColor(getColor());
+    	 //(1b)
+    	// canvas.drawBitmap(voice_image, Values.screenW/2 - voice_image.getWidth()/2, 
+    	//		 Values.spaceViewH - voice_image.getHeight(), null);
+    	 //(2)
+    	 Log.v("SpaceView", "Space is " + space);
+    	 Log.v("SpaceView", "Number of people in space = " + space.getAllIcons().size());
     	 for(UserView p : space.getAllIcons()){
     		 if(p.getPerson()!=MainApplication.user_primary)
     			 p.draw(canvas);
     	 }
-    	 
-    	/* if(!dim){ 
-    		 for (UserView p : allIcons){
-    	 
-    		 if(p.getPerson()!=MainApplication.user_primary)
-    			 p.draw(canvas);
-    		 }
-    	 //(3) 
-    	 if(open_preview!=null){
-    		 //TODO VINAY draw the preview and the small icon images here
-    	 }
-    	 }else{//Crystal Q
-    	  for(UserView p: allIcons){
-          	 if(p==initialIcon)
-          		 Log.v(LOG_TAG, "Nora!!!");
-          		 p.draw(canvas);
-          	
-      	   }
-    	 } */
-     
  }
      public SpaceViewController getSpaceViewController(){
     	 return spaceViewController;
      }
      
      /*doubleclick the button to delete it--Crystal Q*/     
-     public void doubleClicktoDelete(UserView toDelete){
+   /*  public void doubleClicktoDelete(UserView toDelete){
     	 // this.invalidate(); TO-DO later
     	 try {
 			((MainApplication)context).deletePerson(space, toDelete.getPerson());
@@ -207,7 +195,7 @@ import edu.cornell.opencomm.model.User;
 		}
   	   	 dim=false; 
   	   	 this.invalidate();
-     }    
+     }     */
      
 	 /* Handle Touch events... MANY cases to consider 
       * A PS icon = private space icon, squares that represent another private space
@@ -270,14 +258,14 @@ import edu.cornell.opencomm.model.User;
         			 UserIconMenuController.showIconMenu(selectedIcon);
  				
  				 // if released icon over an privatespace icon, then add that person to the private space
- 				 for(PrivateSpaceIconView p : PrivateSpaceIconView.allPSIcons){
+ 			/*	 for(PrivateSpaceIconView p : PrivateSpaceIconView.allPSIcons){
  					 if(p.contains(mouseX, mouseY)){
  						 p.setHighlighted(false);
  						 (p.getSpace()).getInvitationController().inviteUser(selectedIcon.getPerson(), null);
  						 
  						 /* Detect if icon was dropped into the empty PS or an existing PS.
  						    if first icon dropped in space, make a new space*/
- 						 if((p.getSpace()).getAllIcons().size()==1){
+ 					/*	 if((p.getSpace()).getAllIcons().size()==1){
  							 int newspaceID= Integer.parseInt(p.getSpace().getRoomID()) + 1;
  							 try {
  								 new Space((MainApplication)context,false,String.valueOf(newspaceID),null);
@@ -288,7 +276,7 @@ import edu.cornell.opencomm.model.User;
  							 break;
  						 }
  					 }
- 				 }
+ 				 } */
  				 selectedIcon = null;
  				 clickOnIcon = false;
  				
@@ -298,7 +286,7 @@ import edu.cornell.opencomm.model.User;
  				// If a person icon is selected, then move the icon to the current position
  				 selectedIcon.getUserViewController().handleMoved(mouseX, mouseY);
  				 // if icon is dragged over private space, then highlight that private space icon
- 				 if (hoveredPrivSpace == null) {
+ 				/* if (hoveredPrivSpace == null) {
  					 for (PrivateSpaceIconView p : PrivateSpaceIconView.allPSIcons) {
  						 if (p.contains(mouseX, mouseY)) {
  							 //p.setHovered(true);
@@ -313,9 +301,10 @@ import edu.cornell.opencomm.model.User;
  						 //hoveredPrivSpace.setHighlighted(false);
  						 hoveredPrivSpace = null;
  					 }
- 				 } 
+ 				 }  */
  			 }
          }
+    	 getActivity().invalidateSpaceView();
          invalidate();
          return true;
      } 

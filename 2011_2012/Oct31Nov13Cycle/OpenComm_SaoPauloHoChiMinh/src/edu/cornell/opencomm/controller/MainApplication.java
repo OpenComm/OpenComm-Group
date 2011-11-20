@@ -9,6 +9,7 @@ import org.jivesoftware.smack.packet.Message;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
@@ -319,8 +320,7 @@ public final class MainApplication extends Activity{
 					break;
 				case MotionEvent.ACTION_UP:
 					if(!(screen.getSpace()==Space.getMainSpace())){
-						//TODO
-					//	changeSpace(Space.getMainSpace());
+						MainApplication.screen.getSpaceViewController().changeSpace(Space.getMainSpace());
 					}
 					break;
 				}
@@ -542,9 +542,14 @@ public final class MainApplication extends Activity{
      * created a view hierarchy can touch its views" error)
      */
     public void invalidateSpaceView(){
+    	Log.v("MainApplication", "Invalidating SpaceView");
     	runOnUiThread(new Runnable() {
     	     public void run() {
+    	     	Log.v("MainApplication", "run()");
+    	    	 MainApplication.screen.draw(new Canvas());
     	    	 screen.invalidate();
+    	    	 screen.postInvalidate();
+    	    	 Log.v("MainApplication", "run() after");
     	    }
     	});
     }
