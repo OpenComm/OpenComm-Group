@@ -18,7 +18,7 @@
 		<LinearLayout android:id="@+id/adminTipBar"
 			android:orientation="horizontal"
 			android:layout_height="fill_parent" android:layout_width="fill_parent">
-			<ImageButton android:id="@+id/acceptAdminTip"
+			<ImageButton android:id="@+id/imageAcceptAdminTip"
 				android:src="@drawable/acceptplus" android:background="@color/grey_dark_translucent"
 				android:layout_gravity="center" android:layout_height="fill_parent"
 				android:paddingBottom="5.33dp" android:paddingTop="5.33dp"

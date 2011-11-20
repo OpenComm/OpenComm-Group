@@ -1,5 +1,6 @@
 package edu.cornell.opencomm.controller;
 
+import android.view.View;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.view.TipView;
 
@@ -18,7 +19,8 @@ public class TipController {
 	
 	/** Handle when the accept button is pressed */
 	public void handleAcceptButtonClicked() {
-		// For now, simply turn the button gray
-		tipView.getAcceptButton().setBackgroundColor(R.color.light_gray);	
+		tipView.getAcceptBarOverlay().setVisibility(View.VISIBLE);
+		// Dismisses the window for now
+		tipView.getWindow().dismiss();	
 	}
 }

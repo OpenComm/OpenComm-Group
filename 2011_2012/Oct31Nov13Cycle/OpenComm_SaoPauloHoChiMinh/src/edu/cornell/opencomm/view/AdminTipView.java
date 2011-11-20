@@ -67,7 +67,7 @@ public class AdminTipView {
 	public ImageButton getAcceptImageButton() {
 		ImageButton acceptButton = null;
 		if (adminTipLayout != null) {
-			acceptButton = (ImageButton) adminTipLayout.findViewById(R.id.acceptAdminTip);
+			acceptButton = (ImageButton) adminTipLayout.findViewById(R.id.imageAcceptAdminTip);
 		}
 
 		return acceptButton;

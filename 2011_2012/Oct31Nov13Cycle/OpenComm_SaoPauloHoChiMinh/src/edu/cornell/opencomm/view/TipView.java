@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
@@ -40,8 +42,12 @@ public class TipView {
 
 	private void initializeTipButtonClickedEvent() {
 		Button acceptButton = getAcceptButton();
+		ImageButton acceptImageButton = getAcceptImageButton();
 		if (acceptButton != null) {
-			acceptButton.setOnTouchListener(onAcceptButtonClickedListener);
+			acceptButton.setOnClickListener(onAcceptButtonClickedListener);
+		}
+		if (acceptImageButton != null) {
+			acceptImageButton.setOnClickListener(onAcceptButtonClickedListener);
 		}
 	}
 
@@ -53,6 +59,23 @@ public class TipView {
 		}
 
 		return acceptButton;
+	}
+	
+	public ImageButton getAcceptImageButton() {
+		ImageButton acceptButton = null;
+		if (tiplayout != null) {
+			acceptButton = (ImageButton) tiplayout.findViewById(R.id.imageAcceptAdminTip);
+		}
+
+		return acceptButton;
+	}
+	
+	public ImageView getAcceptBarOverlay() {
+		ImageView acceptOverlay = null;
+		if (tiplayout != null) {
+			acceptOverlay = (ImageView) tiplayout.findViewById(R.id.tipOverlay);
+		}
+		return acceptOverlay;
 	}
 
 	public Context getContext() {
@@ -103,12 +126,11 @@ public class TipView {
 		}
 	};
 
-	private View.OnTouchListener onAcceptButtonClickedListener = new View.OnTouchListener() {
+	private View.OnClickListener onAcceptButtonClickedListener = new View.OnClickListener() {
 
 		@Override
-		public boolean onTouch(View v, MotionEvent event) {
+		public void onClick(View v) {
 			tipController.handleAcceptButtonClicked();
-			return true;
 		}
 	};
 }
