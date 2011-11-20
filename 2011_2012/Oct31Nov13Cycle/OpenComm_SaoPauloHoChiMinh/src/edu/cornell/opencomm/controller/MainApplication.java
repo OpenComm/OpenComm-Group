@@ -47,7 +47,6 @@ import edu.cornell.opencomm.view.UserView;
 public final class MainApplication extends Activity{
 	/** String identifier for error checking with LOGCAT */
 	private static String TAG = "Controller.MainApplication"; 
-	/** TODO Network - what is this? True if in debug mode? - Nora 11/6 */
 	private static boolean D = true;
 	
 	/** Dummy people for debugging */
@@ -119,7 +118,7 @@ public final class MainApplication extends Activity{
         // Open up the layout specified by the main XML
         setContentView(R.layout.main);
         // Change the parameters of the appearance according to screen size
-        adjustLayoutParams();
+        //adjustLayoutParams();
         // This spaceview already created for you in the XML file, so retrieve it
         screen = (SpaceView)findViewById(R.id.space_view);
      // Check if the mainspace was already created
