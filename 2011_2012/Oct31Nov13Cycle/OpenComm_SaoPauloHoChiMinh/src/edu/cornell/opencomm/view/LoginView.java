@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.LoginController;
@@ -30,6 +31,7 @@ public class LoginView extends Activity {
 	private static EditText passwordEdit;
 	private static Button loginText;
 	private static ImageButton loginButton;
+	private static ImageView loginOverlay;
 
 
 	 /* 
@@ -44,6 +46,7 @@ public class LoginView extends Activity {
 		passwordEdit = (EditText) findViewById(R.id.editTextPassword);
 		loginText = (Button) findViewById(R.id.textLogin);
 		loginButton = (ImageButton) findViewById(R.id.buttonLogin);
+		loginOverlay = (ImageView) findViewById(R.id.loginOverlay);
 		initializeLoginButtonClickedEvent();
 		loginController = new LoginController(this);
 	} // end onCreate method
@@ -60,6 +63,10 @@ public class LoginView extends Activity {
 
 	public ImageButton getLoginButton() {
 		return loginButton;
+	}
+	
+	public ImageView getLoginOverlay() {
+		return loginOverlay;
 	}
 
 	public Context getContext() {

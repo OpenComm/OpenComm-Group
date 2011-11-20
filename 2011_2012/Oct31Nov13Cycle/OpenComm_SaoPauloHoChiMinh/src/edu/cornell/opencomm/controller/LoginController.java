@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.EditText;
 
 import edu.cornell.opencomm.R;
@@ -33,7 +34,7 @@ public class LoginController {
 	}
 
 	public void handleLoginButtonClick(EditText usernameEdit, EditText passwordEdit) {
-		loginView.getLoginButton().setBackgroundColor(R.color.light_grey);
+		loginView.getLoginOverlay().setVisibility(View.VISIBLE);
 		if (D) Log.d(LOG_TAG, "handleLogin: Attempt log in");
         // check if there is a connection
 		if (xmppService == null) {
