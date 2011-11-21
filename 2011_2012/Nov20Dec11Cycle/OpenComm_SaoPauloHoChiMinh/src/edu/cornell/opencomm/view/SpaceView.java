@@ -74,10 +74,10 @@ import edu.cornell.opencomm.model.User;
     
     /* Constructor: Create a screen for a NEW privatespace that is empty (except for you) 
      * Initialize all variables */
-     public SpaceView(Context context, Space parent_space){
+     public SpaceView(Context context, Space space){
     	super(context);
     	this.context = context;
-        space = parent_space;
+        this.space = space;
         setFocusable(true);
         setFocusableInTouchMode(true);
     	//contactListController = new ContactListController(context, this);

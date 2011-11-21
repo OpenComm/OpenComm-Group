@@ -146,8 +146,7 @@ public class Space {
 							.findViewById(R.id.space_view));
 			Space.mainSpace = this;
 		} else {
-			sController = new SpaceController(this, new SpaceView(context,
-					Space.mainSpace));
+			sController = new SpaceController(this, new SpaceView(context, this));
 		}
 		this.mController = new MessageController(this);
 		this.pController = new ParticipantController(this);
