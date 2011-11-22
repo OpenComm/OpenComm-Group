@@ -110,21 +110,8 @@ public class Values {
 			Values.userIconH = 60;
 		}
 		
-		// WVGA800  Normal-Hi  480 X 800
-		else if((screenW == 480) && (screenH == 800)){
-			Values.screenW = 480;
-			Values.screenH = 800;
-			Values.bottomBarH = 150;
-			Values.spaceViewH = 545;
-			Values.voice_imageSpaceH = 20;
-			Values.userIconW = 100;
-			Values.userIconH = 100;
-
-		}
-		
 		// WVGA800  Normal-Hi  480 X 854
-		//else if((screenW == 480) && (screenH == 854)){
-		else{
+		else if((screenW == 480) && (screenH == 854)){
 			Values.screenW = 480;
 			Values.screenH = 854;
 			
@@ -135,7 +122,30 @@ public class Values {
 			Values.userIconH = 100;
 			
 		}
+		else if((screenW == 540) && (screenH == 960)){
+			Values.screenW = 540;
+			Values.screenH = 960;
+			
+			Values.spaceViewH = Values.screenH - Values.bottomBarH - 75;
+			Values.privateSpaceButtonW = Values.bottomBarH - 5;
+			
+			Values.userIconW = 110;
+			Values.userIconH = 110;
+			
+		}
+		// WVGA800  Normal-Hi  480 X 800
+		//else if((screenW == 480) && (screenH == 800)){
+		else{
+			Values.screenW = 480;
+			Values.screenH = 800;
+			Values.bottomBarH = 150;
+			Values.spaceViewH = 545;
+			Values.voice_imageSpaceH = 20;
+			Values.userIconW = 100;
+			Values.userIconH = 100;		
+		}
 	}
+	
 	
 	// Buddylist
 	public static CharSequence[] _options = {"Rahul", "Nora", "Najla","Risa","Justin","Crystal"};
