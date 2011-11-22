@@ -3,20 +3,14 @@ package edu.cornell.opencomm.view;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.AdminTipController;
-import edu.cornell.opencomm.controller.ConfirmationController;
-import edu.cornell.opencomm.controller.LoginController;
-import edu.cornell.opencomm.controller.TipController;
-import edu.cornell.opencomm.model.Space;
 
 public class AdminTipView {
 	private static String LOG_TAG = "OC_AdminTipView"; // for error checking

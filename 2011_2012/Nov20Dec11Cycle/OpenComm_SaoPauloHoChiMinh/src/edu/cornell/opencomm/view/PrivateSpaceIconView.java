@@ -47,6 +47,7 @@ public class PrivateSpaceIconView extends ImageButton{
     	Color.MAGENTA, Color.CYAN, Color.DKGRAY}; 
     /** The current color int */
     public static int colorInt = -1; 
+    
     /** The current color to use for an icon */
     private int color = Color.BLUE; 
     
@@ -109,7 +110,7 @@ public class PrivateSpaceIconView extends ImageButton{
     	((MainApplication)context).addPrivateSpaceButton(this); 
     	// Initializes the icon's color
     	colorInt++;
-    	this.color = PrivateSpaceIconView.COLORS[colorInt % PrivateSpaceIconView.COLORS.length];
+    	this.setColor(PrivateSpaceIconView.COLORS[colorInt % PrivateSpaceIconView.COLORS.length]);
     	// Initialize the touch listener
     	initTouch();
     }
@@ -370,5 +371,13 @@ public class PrivateSpaceIconView extends ImageButton{
     public void toggleSelected(){
     	isSelected = !isSelected;
     }
+
+	public int getColor() {
+		return color;
+	}
+
+	public void setColor(int color) {
+		this.color = color;
+	}
    
 }

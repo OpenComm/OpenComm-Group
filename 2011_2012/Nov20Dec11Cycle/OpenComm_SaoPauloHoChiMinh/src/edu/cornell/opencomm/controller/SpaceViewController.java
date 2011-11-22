@@ -5,11 +5,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.model.Space;
-import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.view.AdminTipView;
 import edu.cornell.opencomm.view.SpaceView;
 import edu.cornell.opencomm.view.TipView;
-import edu.cornell.opencomm.view.UserView;
 
 public class SpaceViewController {
 	public long startTime=-1;

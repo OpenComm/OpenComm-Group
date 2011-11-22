@@ -7,7 +7,6 @@ import org.jivesoftware.smack.XMPPException;
 
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.MainApplication;
-import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.Network;
 
@@ -74,7 +73,7 @@ public class ParticipantView {
 		builder.setTitle("Please select users to remove")
 				.setMultiChoiceItems(usersInSpace, userSelected,
 						new DialogSelectionClickHandler())
-				.setPositiveButton("OK", new DialogButtonClickHandler())
+				.setPositiveButton("Ok", new DialogButtonClickHandler())
 				.setNegativeButton("Cancel", new DialogCancelButtonClickHandler())
 				.create();
 		AlertDialog alert = builder.create();

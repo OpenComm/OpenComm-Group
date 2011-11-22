@@ -20,10 +20,13 @@ import edu.cornell.opencomm.view.UserView;
 public class PrivateSpacePreviewPopupController {
 	/** The main activity */
 	public Context context;
+	
 	/** The Private Space Icon that this preview is representing */
 	public PrivateSpaceIconView privateSpaceIconView = null;
+	
 	/** The Private Space Preview Popup object */
-	private PrivateSpacePreviewPopup popup = null;
+	//private PrivateSpacePreviewPopup popup = null;
+	
 	/** The actual preview window itself */
 	private PopupWindow privateSpacePreviewPopupWindow = null;
 	

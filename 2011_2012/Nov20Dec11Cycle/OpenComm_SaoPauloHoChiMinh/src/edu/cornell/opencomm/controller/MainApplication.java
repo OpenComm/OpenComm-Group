@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
@@ -33,7 +34,6 @@ import edu.cornell.opencomm.view.AdminTipView;
 import edu.cornell.opencomm.view.ConfirmationView;
 import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.InvitationView;
-import edu.cornell.opencomm.view.LoginView;
 import edu.cornell.opencomm.view.MenuView;
 import edu.cornell.opencomm.view.PrivateSpaceIconView;
 import edu.cornell.opencomm.view.PrivateSpacePreviewPopup;
@@ -64,6 +64,9 @@ public final class MainApplication extends Activity{
     
     //Controllers
     SideChatIconMenuController sideChatIconMenuController;
+    
+    //font
+  	private Typeface font;
     
     public static Values viewDimensions = new Values();
 
@@ -150,6 +153,11 @@ public final class MainApplication extends Activity{
 			//screen.getSpaceViewController().changeSpace(Space.getMainSpace());
         	Space.getMainSpace().setScreenOn(true);
         	//Space.getMainSpace().setEntered(true);
+        	
+        	font = Typeface.createFromAsset(getAssets(), Values.font);
+        	Button mainButtonText = (Button) findViewById(R.id.main_button);
+        	mainButtonText.setTypeface(font);
+        	
         }
 
         initializeButtons();

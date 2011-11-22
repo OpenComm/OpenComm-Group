@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnKeyListener;
 import android.widget.Button;
@@ -23,7 +22,7 @@ public class MenuView {
 	private MenuController menuController = new MenuController(
 			this);
 	private View menuLayout = null;
-	private View parentView = null;
+	//private View parentView = null;
 
 	public MenuView(LayoutInflater inflater) {
 		this.inflater = inflater;

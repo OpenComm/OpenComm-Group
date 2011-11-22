@@ -22,7 +22,6 @@ import org.jivesoftware.smackx.search.UserSearch;
 import edu.cornell.opencomm.model.Invitation;
 import edu.cornell.opencomm.model.Space;
 
-import android.os.Handler;
 import android.util.Log;
 
 /** An instance of this class is the XMPP connection */

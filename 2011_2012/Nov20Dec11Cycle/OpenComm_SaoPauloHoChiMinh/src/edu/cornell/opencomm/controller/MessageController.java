@@ -7,13 +7,9 @@ import org.jivesoftware.smack.packet.Packet;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.muc.Occupant;
 
-import android.app.Activity;
-import android.content.Context;
 import android.util.Log;
-import android.view.LayoutInflater;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.network.Network;
-import edu.cornell.opencomm.view.InvitationView;
 
 /** An instance of this class controls the messages sent to/from participants
  * within a space.

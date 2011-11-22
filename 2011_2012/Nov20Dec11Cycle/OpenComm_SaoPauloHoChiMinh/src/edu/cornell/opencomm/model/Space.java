@@ -1,14 +1,10 @@
 package edu.cornell.opencomm.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
-
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.Form;
-import org.jivesoftware.smackx.FormField;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.muc.Occupant;
 
@@ -35,10 +31,12 @@ import edu.cornell.opencomm.view.UserView;
  * Private spaces are controlled by their owner.
  */
 public class Space {
-	// Debugging
-	private static String TAG = "Model.Space"; // for error checking
-	private static boolean D = true;
+	/* Debugging
+	private static boolean D = true;*/
 
+	// Log for error-checking
+	private static String TAG = "Model.Space"; 
+	
 	// All the Spaces in use (roomID -> Space)
 	public static HashMap<String,Space> allSpaces = new HashMap<String,Space>();
 	private static Space mainSpace; // the primary user's main space
@@ -190,7 +188,7 @@ public class Space {
 		mainSpace = main;
 	}
 	
-	/** Set the entered state of the room: false if you have enver opened the space in
+	/** Set the entered state of the room: false if you have never opened the space in
 	 * the spaceview ever 
 	 * @param entered
 	 */

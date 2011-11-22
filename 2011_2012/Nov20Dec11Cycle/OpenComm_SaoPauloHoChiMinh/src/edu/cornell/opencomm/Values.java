@@ -3,6 +3,9 @@ package edu.cornell.opencomm;
 public class Values {
 	/** These values will be changed in MainApplication's adjustLayoutParams() */
 	
+	//font
+	public static String font = "Delicious.otf";
+	
 	// Time
 	public static int pressAndHold = 200; // amount of time for a touch to be considered a long press
 	
@@ -113,7 +116,6 @@ public class Values {
 			Values.screenH = 800;
 			Values.bottomBarH = 150;
 			Values.spaceViewH = 545;
-			Values.privateSpaceButtonW = Values.privateSpaceButtonW;
 			Values.voice_imageSpaceH = 20;
 			Values.userIconW = 100;
 			Values.userIconH = 100;
@@ -121,7 +123,8 @@ public class Values {
 		}
 		
 		// WVGA800  Normal-Hi  480 X 854
-		else if((screenW == 480) && (screenH == 854)){
+		//else if((screenW == 480) && (screenH == 854)){
+		else{
 			Values.screenW = 480;
 			Values.screenH = 854;
 			

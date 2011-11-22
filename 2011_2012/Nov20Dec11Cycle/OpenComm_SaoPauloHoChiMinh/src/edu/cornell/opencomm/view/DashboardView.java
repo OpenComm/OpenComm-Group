@@ -2,13 +2,11 @@ package edu.cornell.opencomm.view;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -16,8 +14,6 @@ import android.widget.PopupWindow;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.DashboardController;
-import edu.cornell.opencomm.controller.LoginController;
-import edu.cornell.opencomm.network.Network;
 
 public class DashboardView extends Activity {
 	
@@ -33,12 +29,14 @@ public class DashboardView extends Activity {
 
 	private View dashboardLayout;
 	private ImageView dashboardOverlay;
+	private Typeface font;
 	
 	/*
 	 * /** Called when an activity is first created
 	 */
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		font = Typeface.createFromAsset(getAssets(), Values.font);
 		setContentView(R.layout.dashboard_layout);
 		this.dashboardOverlay = (ImageView) findViewById(R.id.dashboardOverlay);
 		inflater = this.getLayoutInflater();
@@ -65,12 +63,14 @@ public class DashboardView extends Activity {
 		initializeAccountButtonClickedEvent();
 		initializeConferenceButtonClickedEvent();
 		dashboardController = new DashboardController(this);
+		
 	}
 	
 	public Button getContactsButton() {
 		Button startContactsButton = null;
 		if (dashboardLayout != null) {
 			startContactsButton = (Button) dashboardLayout.findViewById(R.id.buttonContacts);
+			startContactsButton.setTypeface(font);
 		}
 		
 		return startContactsButton;
@@ -81,6 +81,7 @@ public class DashboardView extends Activity {
 		Button startHistoryButton = null;
 		if (dashboardLayout != null) {
 			startHistoryButton = (Button) dashboardLayout.findViewById(R.id.buttonHistory);
+			startHistoryButton.setTypeface(font);
 		}
 
 		return startHistoryButton;
@@ -90,6 +91,7 @@ public class DashboardView extends Activity {
 		Button startAccountButton = null;
 		if (dashboardLayout != null) {
 			startAccountButton = (Button) dashboardLayout.findViewById(R.id.buttonAccount);
+			startAccountButton.setTypeface(font);
 		}
 
 		return startAccountButton;
@@ -97,10 +99,8 @@ public class DashboardView extends Activity {
 	
 	public ImageButton getStartConferenceButton() {
 		ImageButton startConferenceButton = null;
-		//if (dashboardLayout != null) {
 		startConferenceButton = (ImageButton) findViewById(R.id.buttonStartConference);
-		//}
-
+		
 		return startConferenceButton;
 	}
 	
@@ -108,6 +108,7 @@ public class DashboardView extends Activity {
 		Button startConferenceTextButton = null;
 		if (this.dashboardLayout != null){
 			startConferenceTextButton = (Button) findViewById(R.id.textViewConference);
+			startConferenceTextButton.setTypeface(font);
 		}
 		if (D) Log.d(TAG, "dashboardLayout -- null?: " + (this.dashboardLayout == null));
 		if (D) Log.d(TAG, "confTextView -- null?: " + (startConferenceTextButton == null));

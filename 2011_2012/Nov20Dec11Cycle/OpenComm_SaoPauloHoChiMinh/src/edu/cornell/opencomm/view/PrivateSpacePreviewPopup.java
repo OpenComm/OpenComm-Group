@@ -10,19 +10,19 @@ import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.MainApplication;
 
 public class PrivateSpacePreviewPopup extends LinearLayout{
-	private Context context;
+	//private Context context;
 	private ArrayList<UserView> personViews = new ArrayList<UserView>();
 	
 	public PrivateSpacePreviewPopup(Context context, AttributeSet attrs) {
 		super(context, attrs);
-    	this.context = context;
+    	//setContext(context);
     	setFocusable(true);
     	setFocusableInTouchMode(true);
 	}
 
 
 	public void setContext(Context context) {
-		this.context = context;
+		//this.context = context;
 	}
 
 
@@ -65,6 +65,5 @@ public class PrivateSpacePreviewPopup extends LinearLayout{
     private int getColor(){
    	 return R.color.main_background;
     }
-    
     
 }

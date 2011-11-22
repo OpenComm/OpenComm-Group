@@ -1,7 +1,6 @@
 package edu.cornell.opencomm.controller;
 
 import android.view.View;
-import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.view.TipView;
 
 public class TipController {

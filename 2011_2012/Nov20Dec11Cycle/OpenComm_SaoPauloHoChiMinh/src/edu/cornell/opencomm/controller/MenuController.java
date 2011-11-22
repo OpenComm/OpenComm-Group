@@ -1,13 +1,7 @@
 package edu.cornell.opencomm.controller;
 
-import android.content.Context;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.view.MenuView;
 
 public class MenuController {

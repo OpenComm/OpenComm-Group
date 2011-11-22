@@ -2,8 +2,6 @@ package edu.cornell.opencomm.view;
 
 import java.util.LinkedList;
 
-import org.jivesoftware.smack.XMPPException;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.LinearLayout;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.EmptySpaceMenuController;
@@ -21,7 +18,6 @@ import edu.cornell.opencomm.controller.MainApplication;
 import edu.cornell.opencomm.controller.SpaceViewController;
 import edu.cornell.opencomm.controller.UserIconMenuController;
 import edu.cornell.opencomm.model.Space;
-import edu.cornell.opencomm.model.User;
 
 /* A SpaceView is the graphical representation of a space, aka the screen you see on the monitor
  * showing all the icons of the people in the space (above the privatespace bar). 
@@ -45,7 +41,6 @@ import edu.cornell.opencomm.model.User;
     UserView initialIcon;
     private boolean dim=false;
     
-    
     // Controllers
     SpaceViewController spaceViewController = new SpaceViewController(this);
     //ContactListController contactListController;
@@ -62,6 +57,7 @@ import edu.cornell.opencomm.model.User;
     	this.context = context;
     	setFocusable(true);
     	setFocusableInTouchMode(true);
+    	
     	//contactListController = new ContactListController(context, this);
     	empytSpaceMenuController = new EmptySpaceMenuController(context,this);
     	userIconMenuController = new UserIconMenuController(context,this);
@@ -95,6 +91,7 @@ import edu.cornell.opencomm.model.User;
          BitmapFactory.Options opts = new BitmapFactory.Options();
          opts.inJustDecodeBounds = true;
          voice_image = BitmapFactory.decodeResource(this.getResources(), Values.voice_image); 
+     	
      }
      
      /* Manually set the space that this SpaceView corresponds to (used in conjunction with
@@ -168,23 +165,28 @@ import edu.cornell.opencomm.model.User;
       */
      protected void onDraw(Canvas canvas){
 		 Log.v(LOG_TAG, "In SpaceView's onDraw");
-		 if(getSpace()==Space.getMainSpace() && !Space.getMainSpace().getEntered()){
-			 Space.getMainSpace().setEntered(true);
-			LayoutInflater inflater = (LayoutInflater) getActivity()
-			.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	AdminTipView adminTipView = new AdminTipView(inflater);
-	adminTipView.launch();
+		 
+		 Space mainSpace = Space.getMainSpace();
+		 if(getSpace()==mainSpace){
+			 if(!getSpace().getEntered()){
+				 mainSpace.setEntered(true);
+				 LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				 AdminTipView adminTipView = new AdminTipView(inflater);
+				 adminTipView.launch();
+			 }
 		 }
     	 if (canvas != null && space != null && space.getAllIcons() != null) {
     		 Log.d(LOG_TAG, "onDraw: draw people");
 		 for(UserView p : space.getAllIcons()){
     		 if(p.getPerson()!=MainApplication.user_primary)
     			 p.draw(canvas);
-    	 }}
+    	 	}
+		 }
     	 else {
     		 Log.d(LOG_TAG, "No one to draw");
     	 }
- }
+     }
+     
      public SpaceViewController getSpaceViewController(){
     	 return spaceViewController;
      }

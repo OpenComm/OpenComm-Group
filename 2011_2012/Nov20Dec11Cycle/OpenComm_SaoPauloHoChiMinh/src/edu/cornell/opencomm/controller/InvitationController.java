@@ -1,19 +1,14 @@
 package edu.cornell.opencomm.controller;
 
 
-import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
-import org.jivesoftware.smackx.muc.InvitationListener;
 import org.jivesoftware.smackx.muc.InvitationRejectionListener;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.muc.Occupant;
 
-import android.content.Context;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.model.Invitation;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;

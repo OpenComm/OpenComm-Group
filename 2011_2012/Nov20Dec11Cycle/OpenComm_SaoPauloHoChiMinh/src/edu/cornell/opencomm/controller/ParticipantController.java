@@ -1,19 +1,12 @@
 package edu.cornell.opencomm.controller;
 
-import java.util.Collection;
-
 import org.jivesoftware.smack.XMPPException;
-import org.jivesoftware.smackx.muc.ParticipantStatusListener;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 import edu.cornell.opencomm.model.Space;
-import edu.cornell.opencomm.model.User;
-import edu.cornell.opencomm.network.Network;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.DashboardView;
-import edu.cornell.opencomm.view.ParticipantView;
 
 /** An instance of this class controls participants (users) in a specific space */
 public class ParticipantController {

@@ -8,8 +8,6 @@ import android.util.Log;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
-import edu.cornell.opencomm.network.Network;
-import edu.cornell.opencomm.view.PrivateSpaceIconView;
 import edu.cornell.opencomm.view.SpaceView;
 import edu.cornell.opencomm.view.UserView;
 

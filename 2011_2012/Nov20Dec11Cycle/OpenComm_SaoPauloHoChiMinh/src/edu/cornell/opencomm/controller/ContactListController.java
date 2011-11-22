@@ -1,6 +1,5 @@
 package edu.cornell.opencomm.controller;
 
-import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -115,8 +114,7 @@ public class ContactListController {
 			inMainSpace = false;
 		// If in a mainspace, then get buddylist from network
 		if (inMainSpace) {
-			Roster xmppRoster = LoginController.xmppService.getXMPPConnection()
-					.getRoster();
+			Roster xmppRoster = LoginController.xmppService.getXMPPConnection().getRoster();
 			Collection<RosterEntry> entryCollection = xmppRoster.getEntries();
 			Iterator<RosterEntry> entryItr = entryCollection.iterator();
 			buddyList = new CharSequence[entryCollection.size()-Space.getMainSpace().getAllIcons().size()];
@@ -127,8 +125,7 @@ public class ContactListController {
 					buddyList[i++] = (CharSequence) nickname;
 			}
 		}
-		// If in a sidechat, then populate the buddylist with people from the
-		// mainchat
+		// If in a sidechat, then populate the buddylist with people from the mainchat
 		else {
 			buddyList = new CharSequence[Space.getMainSpace().getAllIcons()
 					.size()];
