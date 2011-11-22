@@ -50,16 +50,14 @@ public class ContactListController {
 			Log.v("ShowBUddyLIst", "NULL");
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-		class DialogSelectionClickHandler implements
-				DialogInterface.OnMultiChoiceClickListener {
+		class DialogSelectionClickHandler implements DialogInterface.OnMultiChoiceClickListener {
 			public void onClick(DialogInterface dialog, int clicked,
 					boolean selected) {
 				// Do Nothing
 			}
 		}
 
-		class DialogButtonClickHandler implements
-				DialogInterface.OnClickListener {
+		class DialogOkButtonClickHandler implements DialogInterface.OnClickListener {
 			public void onClick(DialogInterface dialog, int clicked) {
 				switch (clicked) {
 				case DialogInterface.BUTTON_POSITIVE:
@@ -77,10 +75,18 @@ public class ContactListController {
 				}
 			}
 		}
+		
+		class DialogCancelButtonClickHandler implements DialogInterface.OnClickListener {
+			public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+           }
+		}
+		
 		updateBuddyList();
 		builder.setTitle("Buddylist").setMultiChoiceItems(buddyList,
 				buddySelection, new DialogSelectionClickHandler())
-				.setPositiveButton("OK", new DialogButtonClickHandler())
+				.setPositiveButton("Ok", new DialogOkButtonClickHandler())
+				.setNegativeButton("Cancel", new DialogCancelButtonClickHandler())
 				.create();
 		AlertDialog alert = builder.create();
 		alert.show();

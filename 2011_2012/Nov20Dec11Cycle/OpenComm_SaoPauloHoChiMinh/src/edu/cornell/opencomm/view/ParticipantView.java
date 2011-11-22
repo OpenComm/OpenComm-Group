@@ -47,16 +47,14 @@ public class ParticipantView {
 		}
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-		class DialogSelectionClickHandler implements
-				DialogInterface.OnMultiChoiceClickListener {
+		class DialogSelectionClickHandler implements DialogInterface.OnMultiChoiceClickListener {
 			public void onClick(DialogInterface dialog, int clicked,
 					boolean selected) {
 				// Do nothing
 			}
 		}
 
-		class DialogButtonClickHandler implements
-				DialogInterface.OnClickListener {
+		class DialogButtonClickHandler implements DialogInterface.OnClickListener {
 			public void onClick(DialogInterface dialog, int clicked) {
 				switch (clicked) {
 				case DialogInterface.BUTTON_POSITIVE:
@@ -65,11 +63,19 @@ public class ParticipantView {
 				}
 			}
 		}
+		
+		class DialogCancelButtonClickHandler implements DialogInterface.OnClickListener {
+			public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+           }
+		}
+		
 		updateParticipants();
 		builder.setTitle("Please select users to remove")
 				.setMultiChoiceItems(usersInSpace, userSelected,
 						new DialogSelectionClickHandler())
 				.setPositiveButton("OK", new DialogButtonClickHandler())
+				.setNegativeButton("Cancel", new DialogCancelButtonClickHandler())
 				.create();
 		AlertDialog alert = builder.create();
 		alert.show();
