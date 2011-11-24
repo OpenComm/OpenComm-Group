@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/main_screen" 
+	android:orientation="vertical" 
+	android:background="@color/off_white"
+	android:layout_width="fill_parent" 
+	android:layout_height="fill_parent">
+	<Button 
+		android:layout_width="fill_parent" 
+		android:textColor="@color/off_white"
+		android:layout_height="36.67dp" 
+		android:background="@color/dark_grey"
+		android:gravity="center_vertical"
+		android:paddingLeft="10.67dp" 
+		android:textSize="20sp" 
+		android:id="@+id/ocActionBar"
+		android:cursorVisible="false" 
+		android:text="Opencomm" />
+	<FrameLayout 
+		android:id="@+id/spaceViewFrame" 
+		android:background="@color/off_white"
+		android:layout_height="363.33dp" 
+		android:layout_width="fill_parent">
+		<ImageView 
+			android:layout_height="wrap_content" 
+			android:src="@drawable/yousmall"
+			android:layout_marginBottom="13.33dp" 
+			android:layout_gravity="bottom|center_horizontal"
+			android:layout_width="fill_parent" 
+			android:visibility="visible" />
+		<edu.cornell.opencomm.view.SpaceView
+			android:layout_height="363.33dp" 
+			android:id="@+id/space_view"
+			android:layout_width="fill_parent" 
+			android:visibility="visible" />
+	</FrameLayout>
+	<ImageView 
+		android:layout_width="fill_parent" 
+		android:layout_weight="1"
+		android:layout_height="8dp" 
+		android:background="@color/dark_grey"
+		android:src="@drawable/sexy_bar" 
+		android:layout_margin="0dp"
+		android:scaleType="fitXY" />
+	<LinearLayout 
+		android:id="@+id/bottom_bar"
+		android:orientation="horizontal" 
+		android:layout_width="fill_parent"
+		android:layout_height="92dp" 
+		android:background="@color/dark_grey"
+		android:layout_weight="1">
+		<Button android:id="@+id/main_button" 
+			android:text="main"
+			android:layout_width="92dp" 
+			android:layout_height="fill_parent"
+			android:textColor="@color/off_white" 
+			android:textSize="30sp"
+			android:background="@color/dark_grey" 
+			android:gravity="center"
+			android:layout_weight="1" />
+		<HorizontalScrollView 
+			android:layout_height="fill_parent"
+			android:layout_weight="3"
+			android:measureAllChildren="false" 
+			android:background="@color/light_grey"
+			android:paddingLeft="8dp" 
+			android:layout_width="228dp">
+			<LinearLayout 
+				android:id="@+id/privateSpaceLinearLayout"
+				android:paddingTop="7.33dp" 
+				android:paddingBottom="7.33dp"
+				android:layout_width="wrap_content" 
+				android:layout_height="fill_parent"
+				android:gravity="center" />
+		</HorizontalScrollView>
+	</LinearLayout>
+</LinearLayout>

@@ -3,17 +3,22 @@
     <string name="hello">Hello</string>
     <string name="app_name">OpenComm_EiffelForth</string>
     <string name="delete_text">Delete?</string>
+    <string name="action_bar_text">Opencomm</string>
 <string name="trash_button_text">Trash</string>
 <string name="main_button_text">Main</string>
 <string name="add_button_text">Add</string>
+<string name="tip">to add contacts, just send  a request to the admin.               press and hold on the background to get started</string>
+<string name = "admin_tip">to start adding contacts, press and hold on the background</string>
 <color name="light_gray">#ffcccccc</color>
 <color name="gray">#ff888888</color>
 <color name="scroll_background">#FAB10000</color>
 <color name="main_background">#747574</color>
-
+<string name="settings">settings</string>
+<string name="delete_user">delete user</string>
 <color name="black">#000000</color>
 <color name="transparent_black">#DA000000</color>
-
+<string name="leave_chat">leave chat</string>
+<string name="add_user">add user</string>
 <color name="dark_grey">#333333</color>
 <color name="light_grey">#878787</color>
 <color name="off_white">#F5F5F5</color>
@@ -21,7 +26,9 @@
 <color name="orange">#FFAB63</color>
 <color name="blue">#94C4FF</color>
 <color name="teal">#9DF6FF</color>
-
+<color name="opdarkgray">#CC333333</color>
+<color name="opoffwhite">#CCF5F5F5</color>
+<color name="darkgray">#333333</color>
 <string name="font_chosen">Datum</string>
  
 </resources>

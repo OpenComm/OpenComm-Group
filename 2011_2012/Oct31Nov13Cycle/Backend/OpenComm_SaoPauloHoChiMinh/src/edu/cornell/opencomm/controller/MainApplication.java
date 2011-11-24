@@ -45,7 +45,6 @@ public class MainApplication extends Activity{
 
     public static LinkedList allBuddies; // Your buddy list! Has been previously saved from the network
     public static User user_primary;// the user of this program
-    public static Space mainspace= null; // the official mainSpace, the one space that has EVERYBODY in it
     public static SpaceView screen; // the screen that shows all of the icons
     public static PrivateSpaceIconView emptyspace;
 
@@ -91,7 +90,7 @@ public class MainApplication extends Activity{
         screen = (SpaceView)findViewById(R.id.space_view);
 
         // Check if the mainspace was already created
-        if (mainspace == null){
+        if (Space.getMainSpace() == null){
         	// Obtain username used to log into the application
             Intent start_intent= getIntent();
             username = start_intent.getStringExtra(Network.KEY_USERNAME);
@@ -99,19 +98,19 @@ public class MainApplication extends Activity{
         	user_primary = new User(username, username.split("@")[0], R.drawable.question);
         	try {
         		// create the mainspace
-				mainspace = new Space(this, true, String.valueOf(space_counter++), user_primary);
+				SpaceController.createMainSpace(this);
 
 				// create an empty private space
-				new Space(this, false, String.valueOf(space_counter++), user_primary);
+				SpaceController.addSpace(this);
 
 				// TODO add private space preview
 			} catch (XMPPException e) {
-				Log.e(TAG, "onCreate - Error (" + e.getXMPPError().getCode()
-						+ ") " + e.getXMPPError().getMessage());
+			//	Log.e(TAG, "onCreate - Error (" + e.getXMPPError().getCode()
+			//			+ ") " + e.getXMPPError().getMessage());
 				e.printStackTrace();
 			}
-        	screen.setSpace(mainspace);
-        	mainspace.setScreenOn(true);
+        	screen.setSpace(Space.getMainSpace());
+        	Space.getMainSpace().setScreenOn(true);
         }
         initializeButtons();
 
@@ -133,7 +132,7 @@ public class MainApplication extends Activity{
 			}
 			switch (keyCode) {
 			case KeyEvent.KEYCODE_1: {
-				Log.v(TAG, "pressed M key - confirmation screen");
+				Log.v(TAG, "pressed 1 key - confirmation screen");
 				LayoutInflater inflater = (LayoutInflater) MainApplication.this
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				ConfirmationView confirmationView = new ConfirmationView(inflater);
@@ -143,25 +142,30 @@ public class MainApplication extends Activity{
 			case KeyEvent.KEYCODE_M: {
 				// invite a user to the mainspace. Assume inviter is owner
 				int i = 0;
-				Log.v(TAG, "pressed N key - invitation" + i++);
-				(MainApplication.mainspace.getInvitationController()).inviteUser(debug, "You're fun!");
+				Log.v(TAG, "pressed M key - invitation" + i++);
+				(Space.getMainSpace().getInvitationController()).inviteUser(debug, "You're fun!");
 				break;
 			}
 			case KeyEvent.KEYCODE_N: {
-				Log.v(TAG, "pressed B key - kickout");
+				Log.v(TAG, "pressed N key - kickout");
 				try {
-					(MainApplication.mainspace.getKickoutController()).kickoutUser(debug, "You suck!");
+					(Space.getMainSpace().getKickoutController()).kickoutUser(debug, "You suck!");
 				} catch (XMPPException e) {
 					Log.d(TAG, "Couldn't kick!");
 				}
 				break;
 			}
-			case KeyEvent.KEYCODE_V: {
-				//Log.v(TAG, "pressed V key - participant controller");
+			case KeyEvent.KEYCODE_B: {
+				Log.v(TAG, "pressed B key - leave space");
+				Space.getMainSpace().getParticipantController().leaveSpace();
 				break;
 			}
+			case KeyEvent.KEYCODE_V: {
+				Log.v(TAG, "pressed V key - change owner");
+				Space.getMainSpace().getParticipantController().grantOwnership(
+						"opencommsec@jabber.org");
 			}
-			;
+			};
 			return true;
 		}
 	};
@@ -412,7 +416,7 @@ public class MainApplication extends Activity{
 
 				@Override
 				public void onClick(View v) {
-					if(sp!= MainApplication.mainspace){
+					if(sp!= Space.getMainSpace()){
 						deletePrivateSpace(sp);
 					}
 				}
@@ -435,8 +439,8 @@ public class MainApplication extends Activity{
 				case MotionEvent.ACTION_MOVE:
 					break;
 				case MotionEvent.ACTION_UP:
-					if(!(screen.getSpace()==mainspace)){
-						changeSpace(mainspace);
+					if(!(screen.getSpace()==Space.getMainSpace())){
+						changeSpace(Space.getMainSpace());
 					}
 					break;
 				}

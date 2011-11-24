@@ -2,6 +2,7 @@ package edu.cornell.opencomm.view;
 
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.UserViewController;
+import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -25,6 +26,7 @@ public class UserView extends ImageButton{
 	int x, y; // The position of this icon (Top-Left corner)
 	Bitmap image; // The actual image that will show on the user screen
 	Bitmap nameBoxImage; // The name box on a user's icon
+	Space space;
 
 	boolean isSelected=false; // true if image selected (should show highlight around it)
 	boolean isMoved; // true if image was dragged and not simply tapped
@@ -36,13 +38,14 @@ public class UserView extends ImageButton{
 	 * 2)Decide positions of image (x,y)
 	 * 3)Create Bitmap image from imageID, create namebox image, and set paint
 	 */
-	public UserView(Context context, User person, int imageID){
+	public UserView(Context context, User person, int imageID, Space space){
 		super(context);
 		this.context = context;
 		
         // (1)
         this.person = person;
         //this.isSelected = false;
+        this.space = space;
         
         // (2)
 		this.x = (int)(Math.random()*(Values.screenW - Values.userIconW));
@@ -84,26 +87,69 @@ public class UserView extends ImageButton{
     
     /* Draw this UserView's image, draw darker (or brighter) if
      * this UserView is highlighted */
+    
     public void draw(Canvas canvas){
-        // This current version draws will draw the icon, and will draw
-        // a colored rectangle around the person's icon if selected
-        
-        super.onDraw(canvas);
-		
-		if (isSelected) {
-			RectShape rect2 = new RectShape();
-			ShapeDrawable s = new ShapeDrawable(rect2);
-			s.getPaint().setColor(Color.YELLOW);
-			s.setBounds(x - 2, y - 2, x + image.getWidth() + 4, y + image.getHeight() + 4);
-			s.draw(canvas);
-		}
-		canvas.drawBitmap(image, x, y, null);
-		if(nameBoxImage!=null){
-			canvas.drawBitmap(nameBoxImage, x, y + Values.userIconH - Values.iconTextH, null);
-			canvas.drawText(person.getUsername(), 0, Math.min(11,(person.getUsername()).length()), x + Values.iconTextPadding, 
-				y + Values.userIconH - Values.iconTextPadding, paint);
-		}
-    }
+           // This current version draws will draw the icon, and will draw
+           // a colored rectangle around the person's icon if selected
+           
+           super.onDraw(canvas);
+           int b=Values.iconBorderPadding;
+           int namebox=Values.iconTextH;//the namebox height
+            if (isSelected) {
+                RectShape rect2 = new RectShape();
+                ShapeDrawable s = new ShapeDrawable(rect2);
+                s.getPaint().setColor(Color.YELLOW);
+                s.setBounds(x -b-Values.selectedBorder, y - b-Values.selectedBorder, x + image.getWidth() + 2*Values.selectedBorder+b, y + image.getHeight() + 2*Values.selectedBorder+b+namebox);
+                s.draw(canvas);
+            }
+           
+            /*if(nameBoxImage!=null){
+                canvas.drawBitmap(nameBoxImage, x, y + Values.userIconH - Values.iconTextH, null);
+                canvas.drawText(person.getUsername(), 0, Math.min(11,(person.getUsername()).length()), x + Values.iconTextPadding,
+                    y + Values.userIconH - Values.iconTextPadding, paint);
+            }*/
+            //Crystal
+           
+            if(person!=null){
+                    //Crystal
+                       Log.v(LOG_TAG, "FINAL!");
+                        RectShape rect1= new RectShape();
+                        ShapeDrawable bord= new ShapeDrawable(rect1);
+                        Log.v(LOG_TAG,"person color"+person.user_color);
+                        //bord.getPaint().setStyle(Style.STROKE);
+                      // bord.getPaint().setStrokeWidth(b);
+                        bord.getPaint().setColor(getResources().getColor(person.user_color));
+                        bord.setAlpha(204);
+                        bord.setBounds(x-b,y-b,x+image.getWidth()+b,y+image.getHeight()+b+namebox);
+                        //border.setPadding(b,b,b,b);
+                        bord.draw(canvas);
+                        //Crystal image
+                        Bitmap overlay = Bitmap.createBitmap(image.getWidth(),image.getHeight()+namebox, Bitmap.Config.ARGB_8888);
+                         Canvas c = new Canvas(overlay);
+                         
+                         paint.setAntiAlias(true);
+                         paint.setTextSize(13);
+                        c.drawBitmap(image, 0, 0, null);
+                        c.drawText(person.getUsername(), 0, Math.min(11,(person.getUsername()).length()),0/*Values.iconTextPadding*/,
+                                image.getHeight()+5/2*Values.iconBorderPadding/*+10*/, paint);
+                        canvas.drawBitmap(overlay, x, y, null);
+                        
+                        if(person==space.getOwner()){
+                            Paint ad= new Paint();
+                            ad.setColor(Color.rgb(0,0,0));
+                            canvas.drawRect(x-b, y-b, x+image.getWidth()+b,y-b+namebox,ad);
+                            ad.setColor(Color.WHITE);
+                            ad.setStyle(Paint.Style.FILL);
+                            ad.setAntiAlias(true);
+                            ad.setTextSize(Values.adminTextSize);
+                            canvas.drawText("admin",x-b +Values.textAdjust, y-b+((namebox*3)/4) + Values.textAdjust, ad);   
+                        }
+            }
+            else{
+            	canvas.drawBitmap(image, x, y, null);
+            }
+                       
+       }
 		
 	// GETTERS
 		
@@ -148,8 +194,10 @@ public class UserView extends ImageButton{
 	}
 	
 	public void setXY(int newX, int newY){
+		Log.v("UserView", "setting new x to " + newX + ":" + newY);
 		x = newX;
 		y = newY;
+		invalidate();
 	}
 	
 	/* Create paint */

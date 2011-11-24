@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+android:id="@+id/login_view"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent" android:fadingEdge="horizontal" android:background="@color/transparent_black">
+    <TextView android:layout_alignParentTop="true" android:layout_marginTop="66dp" android:layout_width="480dp" android:background="@color/dark_grey" android:id="@+id/textViewMain" android:cursorVisible="false" android:layout_alignParentLeft="true" android:layout_height="250dp"></TextView>
+    <EditText android:layout_width="194dp" android:layout_height="45dp" android:textColor="@color/orange" android:visibility="visible" android:id="@+id/textLabelUsername" android:text="username" android:cursorVisible="false" android:clickable="false" android:background="@color/dark_grey" android:layout_alignTop="@+id/textViewMain" android:layout_alignParentLeft="true" android:layout_marginTop="26dp" android:layout_marginLeft="46dp" android:textSize="35dp"></EditText>
+    <EditText android:layout_width="194dp" android:textColor="@color/blue" android:visibility="visible" android:id="@+id/textLabelPassword" android:text="password" android:cursorVisible="false" android:textSize="35dp" android:clickable="false" android:background="@color/dark_grey" android:layout_below="@+id/editTextUsername" android:layout_alignLeft="@+id/editTextUsername" android:layout_marginTop="21dp" android:layout_height="45dp"></EditText>
+    <EditText android:layout_width="220dp" android:layout_height="38dp" android:paddingLeft="5dp" android:id="@+id/editTextPassword" android:text="password" android:cursorVisible="true" android:textSize="21dp" android:layout_below="@+id/textLabelPassword" android:layout_alignLeft="@+id/textLabelPassword"></EditText>
+    <EditText android:layout_width="220dp" android:layout_height="38dp" android:paddingLeft="5dp" android:id="@+id/editTextUsername" android:text="username" android:cursorVisible="true" android:textSize="21dp" android:layout_below="@+id/textLabelUsername" android:layout_alignLeft="@+id/textLabelUsername"></EditText>
+    <TextView android:layout_alignParentBottom="true" android:id="@+id/loginLowerPanel" android:cursorVisible="false" android:layout_marginBottom="0dp" android:layout_width="480dp" android:layout_alignParentLeft="true" android:background="@color/dark_grey" android:layout_height="94dp"></TextView>
+    <ImageButton android:background="@color/dark_grey" android:src="@drawable/arrow" android:layout_alignParentBottom="true" android:id="@+id/buttonLogin" android:layout_width="85dp" android:layout_height="76dp" android:layout_alignTop="@+id/textLogin"></ImageButton>
+    <TextView android:layout_width="wrap_content" android:id="@+id/textLogin" android:text="login" android:layout_alignParentRight="true" android:layout_alignParentBottom="true" android:textSize="35dp" android:background="@color/light_grey" android:textColor="@color/off_white" android:paddingTop="18dp" android:paddingLeft="4dp" android:layout_toRightOf="@+id/buttonLogin" android:layout_height="86dp"></TextView>
+  </RelativeLayout>

@@ -45,6 +45,11 @@ public class Login extends Activity {
 	/** Called when the activity is becoming visible to the user. */
 	public void onStart() {
 		super.onStart();
+	} // end onStart method
+	
+	/** Called when the login button is clicked */
+	public void handleLogin(View view){
+		if (D) Log.d(TAG, "handleLogin: Attempt log in");
 		// check if there is a connection
 		if (xmppService == null) {
 			try {
@@ -60,11 +65,6 @@ public class Login extends Activity {
 			if (D) Log.d(TAG, "onStart: Network service started");
 			if (D) Log.d(TAG, xmppService.toString());
 		}
-	} // end onStart method
-	
-	/** Called when the login button is clicked */
-	public void handleLogin(View view){
-		if (D) Log.d(TAG, "handleLogin: Attempt log in");
 		try {
 			if (D) {
 				xmppService.login(Network.DEBUG_USERNAME, 

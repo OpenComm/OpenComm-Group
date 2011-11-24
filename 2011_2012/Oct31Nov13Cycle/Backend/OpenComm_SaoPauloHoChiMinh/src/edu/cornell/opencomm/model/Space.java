@@ -20,6 +20,7 @@ import edu.cornell.opencomm.controller.Login;
 import edu.cornell.opencomm.controller.MainApplication;
 import edu.cornell.opencomm.controller.MessageController;
 import edu.cornell.opencomm.controller.ParticipantController;
+import edu.cornell.opencomm.controller.ParticipantStatusController;
 import edu.cornell.opencomm.controller.SpaceController;
 import edu.cornell.opencomm.network.Network;
 import edu.cornell.opencomm.view.SpaceView;
@@ -62,6 +63,7 @@ public class Space {
 	private InvitationController iController;
 	private SpaceController sController;
 	private KickoutController kController;
+	private ParticipantStatusController psController;
 
 	/**
 	 * CONSTRUCTOR: new space. Creates the SpaceController and, either creates
@@ -106,6 +108,7 @@ public class Space {
 			this.muc.join(MainApplication.user_primary.getNickname());
 		}
 		this.owner = owner;
+		this.isMainSpace = isMainSpace;
 		// create controllers and associate view
 		if (isMainSpace()) {
 			sController = new SpaceController(this,
@@ -120,6 +123,7 @@ public class Space {
 		this.pController = new ParticipantController(this);
 		this.iController = new InvitationController(this);
 		this.kController = new KickoutController(this);
+		this.psController = new ParticipantStatusController(this);
 		// Create and instantiate all existing users
 		Iterator<String> occItr = this.muc.getOccupants();
 		while (occItr.hasNext()) {
@@ -144,6 +148,16 @@ public class Space {
 	} // end Space constructor
 
 	// GETTERS
+	
+	/** @return - the main space associated with this instance of the application */
+	public static Space getMainSpace(){
+		return mainSpace;
+	}
+	
+	/** Sets the main space.*/
+	public static void setMainSpace(Space main){
+		mainSpace = main;
+	}
 
 	/** @return - all participants in Space, maps JID to User */
 	public HashMap<String, User> getAllParticipants() {
@@ -198,6 +212,10 @@ public class Space {
 	public ParticipantController getParticipantController() {
 		return pController;
 	} // end getParticipantController method
+
+	public ParticipantStatusController getPsController() {
+		return psController;
+	}
 
 	// TODO: move to Controller?
 	public boolean isScreenOn() {

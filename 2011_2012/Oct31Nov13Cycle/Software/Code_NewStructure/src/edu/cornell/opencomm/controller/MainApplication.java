@@ -18,14 +18,18 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import edu.cornell.opencomm.R;
@@ -33,11 +37,17 @@ import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.Network;
+import edu.cornell.opencomm.view.AdminTipView;
 import edu.cornell.opencomm.view.ConfirmationView;
+import edu.cornell.opencomm.view.DashboardView;
+import edu.cornell.opencomm.view.InvitationView;
+import edu.cornell.opencomm.view.LoginView;
 import edu.cornell.opencomm.view.PrivateSpaceIconView;
 import edu.cornell.opencomm.view.PrivateSpacePreviewPopup;
 import edu.cornell.opencomm.view.SpaceView;
+import edu.cornell.opencomm.view.TipView;
 import edu.cornell.opencomm.view.UserView;
+import edu.cornell.opencomm.view.MenuView;
 
 
 /** The MainApplication handles and manages the PrivateSpaces for every
@@ -61,6 +71,11 @@ public class MainApplication extends Activity{
     public static SpaceView screen; 
     /** The empty private space icon at the bottom of the screen */
     public static PrivateSpaceIconView emptyspace;
+    
+    //Controllers
+    SideChatIconMenuController sideChatIconMenuController;
+    
+    public static Values viewDimensions = new Values();
 
 	/** TODO Network - Do you need any of these?  -Nora 11/6 */
     public static LinkedList<User> allBuddies; 
@@ -120,14 +135,14 @@ public class MainApplication extends Activity{
             username = start_intent.getStringExtra(Network.KEY_USERNAME);
         	// Create instance of primary user
         	user_primary = new User(username, username.split("@")[0], R.drawable.question);
+        	this.plusButtonSetUp();
         	try {
         		// create the mainspace
 				mainspace = new Space(this, true, String.valueOf(space_counter++), user_primary);
 				// create an empty private space
 				new Space(this, false, String.valueOf(space_counter++), user_primary);
 			} catch (XMPPException e) {
-				Log.e(TAG, "onCreate - Error (" + e.getXMPPError().getCode()
-						+ ") " + e.getXMPPError().getMessage());
+				//Log.e(TAG, "onCreate - Error (" + e.getXMPPError().getCode()+ ") " + e.getXMPPError().getMessage());
 				e.printStackTrace();
 			}
 			// Set the initial screen to the mainspace
@@ -162,6 +177,46 @@ public class MainApplication extends Activity{
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				ConfirmationView confirmationView = new ConfirmationView(inflater);
 				confirmationView.launch();
+				break;
+			}
+			case KeyEvent.KEYCODE_2: {
+				Log.v(TAG, "pressed 2 key - invitation screen");
+				LayoutInflater inflater = (LayoutInflater) MainApplication.this
+						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				InvitationView invitationView = new InvitationView(inflater);
+				invitationView.launch();
+				break;
+			}
+			case KeyEvent.KEYCODE_3: {
+				Log.v(TAG, "pressed 3 key - login screen");
+				LayoutInflater inflater = (LayoutInflater) MainApplication.this
+						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				//LoginView loginView = new LoginView(inflater);
+				//loginView.launch();
+				break;
+			}
+			case KeyEvent.KEYCODE_4: {
+				Log.v(TAG, "pressed 4 key - tip screen");
+				LayoutInflater inflater = (LayoutInflater) MainApplication.this
+						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				TipView tipView = new TipView(inflater);
+				tipView.launch();
+				break;
+			}
+			case KeyEvent.KEYCODE_5: {
+				Log.v(TAG, "pressed 5 key - admin tip screen");
+				LayoutInflater inflater = (LayoutInflater) MainApplication.this
+						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				AdminTipView adminTipView = new AdminTipView(inflater);
+				adminTipView.launch();
+				break;
+			}
+			case KeyEvent.KEYCODE_6: {
+				Log.v(TAG, "pressed 6 key - dashboard screen");
+				LayoutInflater inflater = (LayoutInflater) MainApplication.this
+						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				DashboardView dashboardView = new DashboardView(inflater);
+				dashboardView.launch();
 				break;
 			}
 			case KeyEvent.KEYCODE_M: {
@@ -202,6 +257,14 @@ public class MainApplication extends Activity{
 				}
 				break;
 			}
+			case KeyEvent.KEYCODE_MENU:{
+				Log.v(TAG, "Clicked on MENU key");
+				LayoutInflater inflater2 = (LayoutInflater) MainApplication.this
+						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				MenuView menuView = new MenuView(inflater2);
+				menuView.launch();
+				break;
+			}
 			}
 			;
 			return true;
@@ -210,28 +273,29 @@ public class MainApplication extends Activity{
 
 
 
-    /** Adjust the parameters of the main layout according to the Values class
-     * according to different phone screen sizes */
+	/** Adjust the parameters of the main layout according to the Values class.
+     * For situations when the phone size is different */
     public void adjustLayoutParams(){
     	// Calculations
-    	Values.spaceViewH = Values.screenH - Values.bottomBarH;
-    	Values.privateSpaceButtonW = Values.bottomBarH - 5;
-
+    	Display display = getWindowManager().getDefaultDisplay();
+ 
+    	viewDimensions.setValues(display.getWidth(), display.getHeight());
+    	
     	// Adjust the space view
     	View sv = findViewById(R.id.space_view);
-    	LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(Values.screenW , Values.spaceViewH);
+    	LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(viewDimensions.screenW , viewDimensions.spaceViewH);
     	sv.setLayoutParams(lp);
-
+    	
     	// Adjust the bottom bar
     	View bb = findViewById(R.id.bottom_bar);
-    	lp = new LinearLayout.LayoutParams(Values.screenW, Values.bottomBarH);
+    	lp = new LinearLayout.LayoutParams(viewDimensions.screenW, viewDimensions.bottomBarH);
     	bb.setLayoutParams(lp);
-
+    	
     	// Adjust the main button
     	View mb = findViewById(R.id.main_button);
-    	lp = new LinearLayout.LayoutParams(Values.bottomBarH, Values.bottomBarH);
+    	lp = new LinearLayout.LayoutParams(viewDimensions.bottomBarH, viewDimensions.bottomBarH);
     	mb.setLayoutParams(lp);
-
+    	
     }
     
 	/** Initialize the buttons declared in the xml. In this case just the MAIN button.
@@ -370,15 +434,17 @@ public class MainApplication extends Activity{
     /** Need to add the new PrivateSpace button to the bottom GUI by altering the XML code */
     public void addPrivateSpaceButton(PrivateSpaceIconView psv){
         LinearLayout bottomBar = (LinearLayout) findViewById(R.id.privateSpaceLinearLayout);
-		psv.setLayoutParams(new LinearLayout.LayoutParams(Values.privateSpaceButtonW,  Values.privateSpaceButtonW));
-		psv.setPadding(Values.privateSpacePadding, 0, Values.privateSpacePadding, 0);
-		bottomBar.addView(psv);
-		bottomBar.invalidate();
+        
+        //Crystal
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(viewDimensions.privateSpaceButtonW,  viewDimensions.privateSpaceButtonW);
+        lp.setMargins(0, 0, Values.iconBorderPaddingH, 0);
+        
+        
+		psv.setLayoutParams(new LinearLayout.LayoutParams(viewDimensions.privateSpaceButtonW,  viewDimensions.privateSpaceButtonW));
+		psv.setPadding(Values.iconBorderPaddingH, Values.iconBorderPaddingV,Values.iconBorderPaddingH, Values.iconBorderPaddingV);
+		bottomBar.addView(psv,lp);
+		bottomBar.invalidate(); 
 
-		/*
-		 * Displaying preview of private space when clicked on it
-		 */
-		psv.setOnClickListener(onClickListener);
     }
 
     PopupWindow privateSpacePreviewPopupWindow = null;
@@ -458,6 +524,32 @@ public class MainApplication extends Activity{
         LinearLayout screen = (LinearLayout)findViewById(R.id.space_view);
         screen.invalidate();
     }
+    
+    /**Crystal: add the plus button to the bottom bar*/
+    public void plusButtonSetUp(){
+    	LinearLayout bottomBar = (LinearLayout) findViewById(R.id.privateSpaceLinearLayout);
+    	 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(viewDimensions.privateSpaceButtonW,  viewDimensions.privateSpaceButtonW);
+         lp.setMargins(0, 0, Values.iconBorderPaddingH, 0); 
+    	ImageView plus=PrivateSpaceIconView.plusSpaceButton(getResources().getColor(R.color.off_white),this);
+    	 plus.setBackgroundColor(getResources().getColor(R.color.darkgray));
+    	
+    	 plus.setOnClickListener(new OnClickListener(){
+
+ 			public void onClick(View v) {
+ 				// TODO NORA - might need to change to mainspace in Space class
+ 				try{
+ 				MainApplication.mainspace.getSpaceController().addSpace(MainApplication.mainspace.getContext());
+ 				}
+ 				catch(XMPPException e){
+ 					Log.d("MainApplication plusButtonSetUp()", "Could not add a Space");
+ 				}
+ 			// MainApplication.this.init_createPrivateSpace(false);
+ 			}
+ 				
+ 			});
+    	bottomBar.addView(plus,lp);
+		bottomBar.invalidate(); 
+    }
 
     /** Notify the network with the icon you moved so that it can update the sound simulation */
     public void movedPersonIcon(Space space, UserView icon, int x, int y){
@@ -468,7 +560,7 @@ public class MainApplication extends Activity{
 
     /*delete the specific privatespaceview psv--Crystal Qin*/
     public void deletePrivateSpaceView(Space psv){
-    	Button check=(Button) findViewById(R.id.delete_button);
+    	/*Button check=(Button) findViewById(R.id.delete_button);
 	       Log.v(TAG, "check button " +check);
 			check.setVisibility(View.VISIBLE);
 			Log.v(TAG, "SEE A BUTTON");
@@ -481,11 +573,6 @@ public class MainApplication extends Activity{
 						deletePrivateSpace(sp);
 					}
 				}
-			});
-
-
-    }
-
-
-	
+			}); */
+    } 
 }
