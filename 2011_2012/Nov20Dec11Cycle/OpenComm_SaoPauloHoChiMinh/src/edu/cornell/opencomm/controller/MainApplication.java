@@ -556,14 +556,14 @@ public final class MainApplication extends Activity{
      * created a view hierarchy can touch its views" error)
      */
     public void invalidateSpaceView(){
-    	Log.v("MainApplication", "Invalidating SpaceView");
+    	//Log.v("MainApplication", "Invalidating SpaceView");
     	runOnUiThread(new Runnable() {
     	     public void run() {
-    	     	Log.v("MainApplication", "run()");
+    	     //	Log.v("MainApplication", "run()");
     	    	 MainApplication.screen.draw(new Canvas());
     	    	 screen.invalidate();
     	    	 screen.postInvalidate();
-    	    	 Log.v("MainApplication", "run() after");
+    	    	// Log.v("MainApplication", "run() after");
     	    }
     	});
     }
