@@ -128,7 +128,7 @@ public class ContactListController {
 		// If in a sidechat, then populate the buddylist with people from the mainchat
 		else {
 			buddyList = new CharSequence[Space.getMainSpace().getAllIcons()
-					.size()];
+					.size()-MainApplication.screen.getSpace().getAllIcons().size()];
 
 			Collection<User> participants = Space.getMainSpace()
 					.getAllParticipants().values();
@@ -136,7 +136,7 @@ public class ContactListController {
 			int i = 0;
 			while (participantItr.hasNext()) {
 				String next = participantItr.next().getNickname();
-				if (next != MainApplication.user_primary.getNickname()) {
+				if (!(next == MainApplication.user_primary.getNickname() || MainApplication.screen.getSpace().getAllNicksnames().containsKey(next))) {
 					buddyList[i++] = next;
 				}
 			}
