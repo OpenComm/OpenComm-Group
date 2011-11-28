@@ -66,4 +66,8 @@ public class SpaceViewController {
 			return true;
 		return false;
 	}
+	
+	public void handleLongClick(){
+		EmptySpaceMenuController.showFreeSpaceMenu();
+	}
 }

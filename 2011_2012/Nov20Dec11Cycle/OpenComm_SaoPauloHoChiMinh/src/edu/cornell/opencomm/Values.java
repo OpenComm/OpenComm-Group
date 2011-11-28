@@ -12,8 +12,8 @@ public class Values {
 	// Menu options
 	public static CharSequence[] userviewMenu = {"Delete User", "Cancel"}; // after longpressing a user icon
 	public static CharSequence[] emptyspaceMenu = {"Add Users", "Delete Users", 
-		"Leave Chat","Cancel"}; // after longpressing the empty space in a spaceview
-	public static CharSequence[] privatespaceiconMenu = {"Go to", "Leave chat","Cancel"};
+		"Leave Conference","Cancel"}; // after longpressing the empty space in a spaceview
+	public static CharSequence[] privatespaceiconMenu = {"Go to", "Leave","Cancel"};
 	//when chat owner decides to leave
 	public static CharSequence[] whatHappen = {"Destroy chat", "Pass ownership"};
 	

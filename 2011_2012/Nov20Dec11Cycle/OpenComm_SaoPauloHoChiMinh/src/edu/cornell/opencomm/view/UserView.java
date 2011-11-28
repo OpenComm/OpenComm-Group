@@ -11,8 +11,13 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.widget.ImageButton;
 import edu.cornell.opencomm.Values;
+import edu.cornell.opencomm.controller.MainApplication;
+import edu.cornell.opencomm.controller.UserIconMenuController;
 import edu.cornell.opencomm.controller.UserViewController;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
@@ -36,6 +41,9 @@ public class UserView extends ImageButton{
 	boolean isMoved; // true if image was dragged and not simply tapped
 	Paint paint;
 	UserViewController userViewController;
+	UserView thisUserView;
+	static UserView selectedIcon;
+	boolean clickOnIcon;
 	
 	/** Constructor:
 	 * 1)Initialize all variables
@@ -68,6 +76,8 @@ public class UserView extends ImageButton{
 		Log.v(LOG_TAG, "Made a UserView for person " + person);
 		
 		userViewController = new UserViewController(this);
+		//thisUserView = this;
+		//setupListeners();
 	}
 	
 	/*
@@ -81,6 +91,8 @@ public class UserView extends ImageButton{
 		this.x = x;
 		this.y = y;
 		setPopupImage(image);
+		//thisUserView = this;
+		//setupListeners();
 	}
     
     /* Return true if the mouseX and mouseY parameters are within this UserView's 
@@ -99,7 +111,7 @@ public class UserView extends ImageButton{
            // a colored rectangle around the person's icon if selected
            
            super.onDraw(canvas);
-           Log.v("UserView", "UserView's onDraw()");
+         //  Log.v("UserView", "UserView's onDraw()");
            int b=Values.iconBorderPadding;
            int namebox=Values.iconTextH;//the namebox height
             if (isSelected) {
@@ -119,10 +131,10 @@ public class UserView extends ImageButton{
            
             if(person!=null){
                     //Crystal
-                       Log.v(LOG_TAG, "FINAL!");
+                     //  Log.v(LOG_TAG, "FINAL!");
                         RectShape rect1= new RectShape();
                         ShapeDrawable bord= new ShapeDrawable(rect1);
-                        Log.v(LOG_TAG,"person color"+person.user_color);
+                      //  Log.v(LOG_TAG,"person color"+person.user_color);
                         //bord.getPaint().setStyle(Style.STROKE);
                       // bord.getPaint().setStrokeWidth(b);
                         bord.getPaint().setColor(getResources().getColor(person.user_color));

@@ -158,49 +158,25 @@ public class PrivateSpaceIconView extends ImageButton{
     long endTime = 0;
 	
     public void initTouch(){
+    	this.setOnLongClickListener( new OnLongClickListener(){
+			public boolean onLongClick(View arg0) {
+				sideChatIconMenuController.showSideChatMenu(); 
+				invalidate();
+				return true;
+			}
+    	});
     	this.setOnTouchListener(new View.OnTouchListener(){
     		public boolean onTouch(View view, MotionEvent evt){
     			switch(evt.getAction()){
-    			/* TODO VINAY - this is where the clicking of the private space
-    			 * icon is happening, and it seems to freeze right after opening up a 
-    			 * popup preview! - NORA
-    			 */
-
-    				case MotionEvent.ACTION_DOWN:
-    					startTime = evt.getEventTime();
-    				break;
-    				
     				case MotionEvent.ACTION_UP:
-    					// Highlight the icon on or off, and return true if on
-    					boolean showPopup = privateSpaceIconController.handleClickUp();
-    					Log.v("PSIconView", "Clicked up, highlight " + showPopup);
-    					endTime = evt.getEventTime();
-    					if (showPopup)
-    						// UI Team - for now do not do anything
-    						;
-    				
-    						// if the highlight is on, then show the popup preview
-    						//privateSpacePreviewPopupController.openPopupPreview();
-    					else
-    						// UI Team - for now will change the screen of the spaceview
-    						MainApplication.screen.getSpaceViewController().changeSpace(space);
-    				
-    						// if not, then close the popup preview
-    						//privateSpacePreviewPopupController.closePopupPreview();
-    				
+    					MainApplication.screen.getSpaceViewController().changeSpace(space);
     				break;
-
     			}
-    			Log.v(LOG_TAG, "TimeDiff : "+Long.toString(endTime - startTime));
-    			if(endTime - startTime > 200){
-    	        	//SideChatIconMenuController
-    				sideChatIconMenuController.showSideChatMenu(); 
-    	 			return true;
-    	        }
+    			invalidate();
     			return false;
     		}
     	});
-    	invalidate();
+    	
     }
 
     /** Draw this icon, draw darker (or brighter) if this PrivateSpaceIconView is highlighted or selected. 
@@ -258,34 +234,9 @@ public class PrivateSpaceIconView extends ImageButton{
              myPaint.setBounds(0,0,this.getWidth(), this.getHeight());
              myPaint.draw(canvas);
              canvas.drawBitmap(subview, Values.selectedBorder, Values.selectedBorder, null);
-         
-         
-        
-         //(5)
-      /*   if(showPreview){
-             // TODO VINAY you could draw the preview here if you like
-         } *
-   
-       /*  if(this.isSelected){
-             Log.v(LOG_TAG, "IS SELECTED");
-             RectShape rect = new RectShape();
-                ShapeDrawable s = new ShapeDrawable(rect);
-                s.getPaint().setColor(Color.YELLOW);
-                s.setBounds(0,0,this.getWidth(),this.getHeight());//Crystal change
-                s.getPaint().setStyle(Paint.Style.STROKE);
-                s.getPaint().setStrokeWidth(Values.selectedBorder);
-                s.draw(canvas);
-         }*/
+
    } 
      
-     /** Open a different space to the screen */
-     // NORA- updated 9/3
-   /*  public void openPrivateSpace(){
-    	 Log.v(LOG_TAG, "Trying to open this space " + space.getRoomID() + ". Screen on is " + space.isScreenOn());
-    	 if(!space.isScreenOn()){
-    		 ((MainApplication)context).changeSpace(space);
-    	 }
-     } */
      
      /** Return true if this person clicked within this icon's area on the screen */
      public boolean contains(int x, int y) {
@@ -362,10 +313,6 @@ public class PrivateSpaceIconView extends ImageButton{
         isHighlighted = highlighted;
         invalidate();
     }
-    /** Set if the preview of this icon is open */
-  /*  public void setPreview(boolean open){
-    	showPreview= open;
-    } */
     
     /** Toggle between being selected and not selected */
     public void toggleSelected(){
