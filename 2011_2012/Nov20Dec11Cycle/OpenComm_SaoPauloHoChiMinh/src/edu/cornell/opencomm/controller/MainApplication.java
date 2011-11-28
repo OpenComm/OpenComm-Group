@@ -40,6 +40,7 @@ import edu.cornell.opencomm.view.PrivateSpacePreviewPopup;
 import edu.cornell.opencomm.view.SpaceView;
 import edu.cornell.opencomm.view.TipView;
 import edu.cornell.opencomm.view.UserView;
+import edu.cornell.opencomm.view.SoundSettingsView;
 
 
 /** The MainApplication handles and manages the PrivateSpaces for every
@@ -229,6 +230,14 @@ public final class MainApplication extends Activity{
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				//DashboardView dashboardView = new DashboardView(inflater);
 				//dashboardView.launch();
+				break;
+			}
+			case KeyEvent.KEYCODE_7: {
+				Log.v(TAG, "pressed 7 key - sound settings screen");
+				LayoutInflater inflater = (LayoutInflater) MainApplication.this
+						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				SoundSettingsView soundSettingsView = new SoundSettingsView(inflater);
+				soundSettingsView.launch();
 				break;
 			}
 			case KeyEvent.KEYCODE_M: {
