@@ -66,6 +66,8 @@ public class Space {
 	private SpaceController sController;
 	private KickoutController kController;
 	private ParticipantStatusController psController;
+	
+	private int volume = 0;
 
 	/**
 	 * CONSTRUCTOR: new space. Creates the SpaceController and, either creates
@@ -286,6 +288,19 @@ public class Space {
 	public Context getContext() {
 		return context;
 	}
+
+	/*
+	 * Volume level can be between 0 to 100
+	 */
+	public int getVolume() {
+		return volume;
+	}
+
+	public void setVolume(int volume) {
+		this.volume = volume;
+	}
+	
+	
 
 	// add getters for four listeners
 } // end Class Space
