@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnLongClickListener;
@@ -130,12 +131,13 @@ public class UserView extends ImageButton{
                      //  Log.v(LOG_TAG, "FINAL!");
                         RectShape rect1= new RectShape();
                         ShapeDrawable bord= new ShapeDrawable(rect1);
-                      //  Log.v(LOG_TAG,"person color"+person.user_color);
+                      // Log.v(LOG_TAG,"person color"+person.user_color);
                         //bord.getPaint().setStyle(Style.STROKE);
                       // bord.getPaint().setStrokeWidth(b);
                         bord.getPaint().setColor(getResources().getColor(person.user_color));
                         bord.setAlpha(204);
                         bord.setBounds(x-b,y-b,x+image.getWidth()+b,y+image.getHeight()+b+namebox);
+                        Log.v(LOG_TAG, "SIZE"+(image.getWidth()+2*b)+""+(image.getHeight()+2*b+namebox));
                         //border.setPadding(b,b,b,b);
                         bord.draw(canvas);
                         //Crystal image
@@ -143,10 +145,10 @@ public class UserView extends ImageButton{
                          Canvas c = new Canvas(overlay);
                          
                          paint.setAntiAlias(true);
-                         paint.setTextSize(13);
+                         paint.setTextSize(Values.nameTextSize);
                         c.drawBitmap(image, 0, 0, null);
                         c.drawText(person.getUsername(), 0, Math.min(11,(person.getUsername()).length()),0/*Values.iconTextPadding*/,
-                                image.getHeight()+5/2*Values.iconBorderPadding/*+10*/, paint);
+                                image.getHeight()+Values.nameTextSize/*5/2*Values.iconBorderPadding+10*/, paint);
                         canvas.drawBitmap(overlay, x, y, null);
                         
                         if(person==space.getOwner()){
@@ -158,7 +160,7 @@ public class UserView extends ImageButton{
                             ad.setAntiAlias(true);
                             ad.setTextSize(Values.adminTextSize);
                             canvas.drawText("admin",x-b +Values.textAdjust, y-b+((namebox*3)/4) + Values.textAdjust, ad);   
-                        }
+                       }
             }
             else{
             	canvas.drawBitmap(image, x, y, null);

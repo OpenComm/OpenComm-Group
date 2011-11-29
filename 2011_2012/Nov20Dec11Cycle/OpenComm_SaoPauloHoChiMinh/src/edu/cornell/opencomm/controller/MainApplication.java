@@ -135,7 +135,7 @@ public final class MainApplication extends Activity{
             	user_primary = new User(username, username.split("@")[0], 
             			R.drawable.question);
             }
-        	this.plusButtonSetUp();
+        	this.plusButtonSetUp(0);
         	try {
         		// create the mainspace
 				SpaceController.createMainSpace(this);
@@ -466,7 +466,9 @@ public final class MainApplication extends Activity{
         
 		psv.setLayoutParams(new LinearLayout.LayoutParams(Values.privateSpaceButtonW,  Values.privateSpaceButtonW));
 		psv.setPadding(Values.iconBorderPaddingH, Values.iconBorderPaddingV,Values.iconBorderPaddingH, Values.iconBorderPaddingV);
+		bottomBar.removeViewAt(PrivateSpaceIconView.allPSIcons.size()-1);
 		bottomBar.addView(psv,lp);
+		plusButtonSetUp(PrivateSpaceIconView.allPSIcons.size());
 		bottomBar.invalidate(); 
 
     }
@@ -569,7 +571,7 @@ public final class MainApplication extends Activity{
     }
     
     /**Crystal: add the plus button to the bottom bar*/
-    public void plusButtonSetUp(){
+    public void plusButtonSetUp(int position){
     	LinearLayout bottomBar = (LinearLayout) findViewById(R.id.privateSpaceLinearLayout);
     	 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(Values.privateSpaceButtonW,  Values.privateSpaceButtonW);
          lp.setMargins(0, 0, Values.iconBorderPaddingH, 0); 
@@ -584,7 +586,8 @@ public final class MainApplication extends Activity{
  				try{
  					//Space.getMainSpace().getSpaceController().addSpace(Space.getMainSpace().getContext());
  					Space newSpace=Space.getMainSpace().getSpaceController().addSpace(Space.getMainSpace().getContext());
- 					new PrivateSpaceIconView(Space.getMainSpace().getContext(),newSpace);
+ 					PrivateSpaceIconView psIcon=new PrivateSpaceIconView(Space.getMainSpace().getContext(),newSpace);
+ 				    newSpace.getSpaceController().setPSIV(psIcon);
  				}
  				catch(XMPPException e){
  					Log.d("MainApplication plusButtonSetUp()", "Could not add a Space");
@@ -593,7 +596,7 @@ public final class MainApplication extends Activity{
  			}
  				
  			});
-    	bottomBar.addView(plus,lp);
+    	bottomBar.addView(plus,position,lp);
 		bottomBar.invalidate(); 
     }
     

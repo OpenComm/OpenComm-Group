@@ -4,10 +4,14 @@ import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.util.Log;
+import android.widget.LinearLayout;
+import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
+import edu.cornell.opencomm.view.PrivateSpaceIconView;
 import edu.cornell.opencomm.view.SpaceView;
 import edu.cornell.opencomm.view.UserView;
 
@@ -29,6 +33,9 @@ public class SpaceController {
 
 	// View objects
 	SpaceView view;
+	
+	//associated privateSpaceIconView
+	PrivateSpaceIconView psiv;
 
 	/** Constructor: a new instance of SpaceController that controls a specific
 	 * space
@@ -40,7 +47,8 @@ public class SpaceController {
 
 	} // end SpaceController method
 
-	/** 
+	
+		/** 
 	 * Add a user to the space
 	 * @param userRoomInfo - the user who joined the room
 	 * (ex: roomname@conference.jabber.org/nickname)
@@ -55,15 +63,24 @@ public class SpaceController {
 		int y = Values.staggeredAddStart + space.getAllParticipants().size()*(Values.userIconH/5);
 		UserView uv = new UserView(view.getContext(), user, user.getImage(), space, x, y);
 		space.getAllIcons().add(uv);
+		
+		
 		/* If you are currently in this space then refresh the 
 		 * the spaceview ui
 		 */
 		if(space == MainApplication.screen.getSpace()){
 			Log.v("SpaceController", "adding user to spaceView");
 			view.getActivity().invalidateSpaceView();
+			
 		}
+		this.psiv.invalidate();
+		//Log.v(TAG, "adduser invalidate()");
 	}
-	
+	/** set the associated PrivateSpaceIconView psIcon*/
+	public void setPSIV( PrivateSpaceIconView psIcon) {
+		Log.v(TAG, "setPSIV");
+		this.psiv=psIcon;
+	}
 	/**
 	 * Delete a user from the space
 	 * @param userRoomInfo - the user who joined the room
@@ -78,11 +95,15 @@ public class SpaceController {
 			if(uv.getPerson()==user)
 				space.getAllIcons().remove(uv);
 		}
+		
+		this.psiv.invalidate();
+		
 		/* If you are currently in this space then refresh the 
 		 * the spaceview ui
 		 */
 		if(space == MainApplication.screen.getSpace())
 			view.getActivity().invalidateSpaceView();
+		
 		
 	}
 	

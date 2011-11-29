@@ -158,6 +158,7 @@ public class PrivateSpaceIconView extends ImageButton{
     long endTime = 0;
 	
     public void initTouch(){
+    	Log.v(LOG_TAG, "initTouch");
     	this.setOnLongClickListener( new OnLongClickListener(){
 			public boolean onLongClick(View arg0) {
 				sideChatIconMenuController.showSideChatMenu(); 
@@ -207,14 +208,15 @@ public class PrivateSpaceIconView extends ImageButton{
              Canvas c = new Canvas(subview);
              if(this.getSpace().getAllParticipants().size()>0){
              int size=this.space.getAllParticipants().size();
-             Rect[] layoutArray=this.getLayout((size>9? 9:size), subview.getWidth(),subview.getHeight());
+             Rect[] layoutArray=this.getLayout((size>=10? 9:(size-1)), subview.getWidth(),subview.getHeight());
              int counter=0;
              
              HashMap<String, User> allPeople = this.space.getAllParticipants();
              Object[] people = allPeople.values().toArray();
              for (Object p : people){
                        Log.v(LOG_TAG, "add people square");
-                       if((User)p != MainApplication.user_primary){ Paint pan= new Paint();
+                       if((User)p != MainApplication.user_primary){ 
+                    	   Paint pan= new Paint();
                         pan.setStyle(Paint.Style.FILL);
                         pan.setColor(getResources().getColor(((User)p).user_color));
                         c.drawRect(layoutArray[counter], pan);
@@ -257,10 +259,10 @@ public class PrivateSpaceIconView extends ImageButton{
     	 //int h=this.getHeight();
     	 int d=Values.squarePadding;// the distance between squares
     	 if(size<5){
-    		 layout[0]=new Rect(d, d, w/2-1,h/2-1);
-    		 layout[1]=new Rect(w/2-1+d, d, w-d, h/2-1);
-    		 layout[2]=new Rect(d,h/2-1+d,w/2-1,h-d );
-    		 layout[3]=new Rect(w/2-1+d, h/2-1+d,w-d,h-d);
+    		 layout[0]=new Rect(d, d, w/2-2,h/2-2);
+    		 layout[1]=new Rect(w/2-2+d, d, w-d, h/2-2);
+    		 layout[2]=new Rect(d,h/2-2+d,w/2-2,h-d );
+    		 layout[3]=new Rect(w/2-2+d, h/2-2+d,w-d,h-d);
     		 }else{
     			for(int r=0; r<3; r++){
     				for(int c=0;c<3;c++){

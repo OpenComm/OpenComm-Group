@@ -19,8 +19,10 @@ public class User {
 	int image; // icon - will be replaced by vCard
 	
 	//Crystal
-	public int user_color=R.color.blue;
-	static int[] colors={R.color.blue,R.color.green,R.color.orange,R.color.teal};
+	public int user_color=R.color.black;
+	static int[] colors={R.color.blue,R.color.green,R.color.orange,R.color.teal,
+		R.color.light_purple,R.color.red, R.color.pink, R.color.grass_green,R.color.ocean_blue,
+		R.color.showy_green};
 	static int color_pointer=0;
 	
 	// Maps JID to User
@@ -47,6 +49,9 @@ public class User {
         } else {
             this.image = image;	
         }
+        if(user_color==R.color.black){
+        user_color=colors[color_pointer];
+        color_pointer=(color_pointer>=9? 0 : ++color_pointer);};
         allUsers.put(username, this);
         nickname_to_user.put(nickname, this);
 	}
