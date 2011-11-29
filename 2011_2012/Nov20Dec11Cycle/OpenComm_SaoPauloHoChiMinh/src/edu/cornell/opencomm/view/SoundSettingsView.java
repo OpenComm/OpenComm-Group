@@ -8,6 +8,7 @@ import android.content.Context;
 import android.opengl.Visibility;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -57,12 +58,18 @@ public class SoundSettingsView {
 		VerticalSlideBar volumeControlSideChat3 = (VerticalSlideBar)soundSettingsLayout.findViewById(R.id.volumeControlSideChat3);
 		VerticalSlideBar volumeControlSideChat4 = (VerticalSlideBar)soundSettingsLayout.findViewById(R.id.volumeControlSideChat4);
 		VerticalSlideBar volumeControlSideChat5 = (VerticalSlideBar)soundSettingsLayout.findViewById(R.id.volumeControlSideChat5);
+		VerticalSlideBar volumeControlSideChat6 = (VerticalSlideBar)soundSettingsLayout.findViewById(R.id.volumeControlSideChat6);
+		VerticalSlideBar volumeControlSideChat7 = (VerticalSlideBar)soundSettingsLayout.findViewById(R.id.volumeControlSideChat7);
+		VerticalSlideBar volumeControlSideChat8 = (VerticalSlideBar)soundSettingsLayout.findViewById(R.id.volumeControlSideChat8);
 		
 		sideChatVolumeControls.add(volumeControlSideChat1);
 		sideChatVolumeControls.add(volumeControlSideChat2);
 		sideChatVolumeControls.add(volumeControlSideChat3);
 		sideChatVolumeControls.add(volumeControlSideChat4);
 		sideChatVolumeControls.add(volumeControlSideChat5);
+		sideChatVolumeControls.add(volumeControlSideChat6);
+		sideChatVolumeControls.add(volumeControlSideChat7);
+		sideChatVolumeControls.add(volumeControlSideChat8);
 	}
 
 	public Context getContext() {
@@ -103,19 +110,7 @@ public class SoundSettingsView {
 			/*
 			 * Iterates over the spaces and makes only the volume controls for existing spaces visible
 			 */
-			Iterator<Entry<String, Space>> iterator = Space.allSpaces.entrySet().iterator();
-			int arrayIndex = 0;
-			while(iterator.hasNext()) {
-				Space space = iterator.next().getValue();
-				if(!space.isMainSpace()) {
-					VerticalSlideBar volumeControl = sideChatVolumeControls.get(arrayIndex++);
-					volumeControl.setVisibility(View.VISIBLE);
-					volumeControl.setProgress(space.getVolume());
-				}
-			}
-			while(arrayIndex < sideChatVolumeControls.size()) {
-				sideChatVolumeControls.get(arrayIndex++).setVisibility(View.INVISIBLE);
-			}
+			soundSettingsController.setSideChatVolumeControlsOnView(sideChatVolumeControls);
 			
 		} else {
 			Log.v(LOG_TAG,

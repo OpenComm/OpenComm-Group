@@ -297,6 +297,7 @@ public class Space {
 	}
 
 	public void setVolume(int volume) {
+		Log.d(TAG, "volume of space " + roomID + " set to " + volume);
 		this.volume = volume;
 	}
 	
