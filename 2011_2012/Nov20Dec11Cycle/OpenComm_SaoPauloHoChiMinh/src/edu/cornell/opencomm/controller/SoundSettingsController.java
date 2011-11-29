@@ -35,6 +35,11 @@ public class SoundSettingsController {
 		soundSettingsView.getWindow().dismiss();
 	}
 
+	/*
+	 * This method will associate a volume control with every space by setting its Tag property. hence
+	 * when the volume level of any control changes, we fetch the corresponding Space from the stored
+	 * map and populate the volume property of it
+	 */
 	public void setSideChatVolumeControlsOnView(ArrayList<VerticalSlideBar> sideChatVolumeControls) {
 		Iterator<Entry<String, Space>> iterator = Space.allSpaces.entrySet().iterator();
 		volumeControlsHashMap = new HashMap<String, Space>();
@@ -49,10 +54,21 @@ public class SoundSettingsController {
 				volumeControlsHashMap.put(space.getRoomID(), space);
 				volumeControl.setOnSeekBarChangeListener(volumeControlProgressChanged);
 			}
+			else {	
+				//add the main chat to the array too
+				VerticalSlideBar volumeControl = soundSettingsView.getMainChatVolumeControl();
+				volumeControl.setVisibility(View.VISIBLE);
+				volumeControl.setTag(space.getRoomID());
+				volumeControl.setProgress(space.getVolume());
+				volumeControlsHashMap.put(space.getRoomID(), space);
+				volumeControl.setOnSeekBarChangeListener(volumeControlProgressChanged);
+			}			
 		}
 		while(arrayIndex < sideChatVolumeControls.size()) {
 			sideChatVolumeControls.get(arrayIndex++).setVisibility(View.INVISIBLE);
 		}
+
+		
 	}
 	
 	private OnSeekBarChangeListener volumeControlProgressChanged = new OnSeekBarChangeListener() {

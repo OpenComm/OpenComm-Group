@@ -117,6 +117,12 @@ public class SoundSettingsView {
 					"Cannot launch sound settings view as inflater layout is null");
 		}
 	}
+	
+	public VerticalSlideBar getMainChatVolumeControl() {
+		VerticalSlideBar mainChatVolumeControl = (VerticalSlideBar)soundSettingsLayout.findViewById(R.id.mainChatVolumeSlide);
+		
+		return mainChatVolumeControl;
+	}
 
 	private View.OnClickListener onClickListener = new View.OnClickListener() {
 
