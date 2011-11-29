@@ -7,11 +7,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnLongClickListener;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.EmptySpaceMenuController;
@@ -90,6 +87,7 @@ public class SpaceView extends View {
 	public void setupEventListeners() {
 		// The onTouch Listener (responds to any touch events)
 		this.setOnTouchListener(new OnTouchListener() {
+			@Override
 			public boolean onTouch(View view, MotionEvent event) {
 				int mouseX = (int) event.getX();
 				int mouseY = (int) event.getY();
@@ -128,6 +126,7 @@ public class SpaceView extends View {
 		// The long click listener (responds to press and hold)
 		this.setOnLongClickListener(new OnLongClickListener() {
 
+			@Override
 			public boolean onLongClick(View arg0) {
 				if (clickOnIcon) {
 					boolean longpress = selectedIcon.getUserViewController()
@@ -166,15 +165,17 @@ public class SpaceView extends View {
 	 * 1) voice image 
 	 * 2) All icons of people in this space
 	 */
+	@Override
 	protected void onDraw(Canvas canvas) {
 		Space mainSpace = Space.getMainSpace();
 		if (getSpace() == mainSpace) {
 			if (!getSpace().getEntered()) {
 				mainSpace.setEntered(true);
-				LayoutInflater inflater = (LayoutInflater) getActivity()
-						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				AdminTipView adminTipView = new AdminTipView(inflater);
-				adminTipView.launch();
+				//LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				//AdminTipView adminTipView = new AdminTipView(inflater);
+				//adminTipView.launch();
+				NotificationView notificationView = new NotificationView(context);
+				notificationView.launch("admin");
 			}
 		}
 		if (canvas != null && space != null && space.getAllIcons() != null) {
