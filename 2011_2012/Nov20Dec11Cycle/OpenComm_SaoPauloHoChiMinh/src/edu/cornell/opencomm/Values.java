@@ -4,7 +4,7 @@ public class Values {
 	/** These values will be changed in MainApplication's adjustLayoutParams() */
 	
 	//font
-	public static String font = "Delicious.otf";
+	public static String font = "Delicious-Roman.otf";
 	
 	// Time
 	public static int pressAndHold = 200; // amount of time for a touch to be considered a long press
