@@ -107,8 +107,11 @@ public class SoundSettingsView {
 			int arrayIndex = 0;
 			while(iterator.hasNext()) {
 				Space space = iterator.next().getValue();
-				if(!space.isMainSpace())
-					sideChatVolumeControls.get(arrayIndex++).setVisibility(View.VISIBLE);
+				if(!space.isMainSpace()) {
+					VerticalSlideBar volumeControl = sideChatVolumeControls.get(arrayIndex++);
+					volumeControl.setVisibility(View.VISIBLE);
+					volumeControl.setProgress(space.getVolume());
+				}
 			}
 			while(arrayIndex < sideChatVolumeControls.size()) {
 				sideChatVolumeControls.get(arrayIndex++).setVisibility(View.INVISIBLE);

@@ -104,13 +104,13 @@ public class VerticalSlideBar extends SeekBar {
 
             offset = progress * (this.getBottom()-this.getTop());
 
-            this.setThumbOffset((int)offset);
+            //this.setThumbOffset((int)offset);
 
             Log.d("offset_postsetprogress" + System.nanoTime(), new Integer(oOffset).toString());
             Log.d("progress_postsetprogress" + System.nanoTime(), new Integer(oProgress).toString());
 
-            //this.setProgress((int)(100*event.getY()/this.getBottom()));
-            this.setProgress((int)(100*progress));
+            this.setProgress((int)(100*(1-event.getY()/this.getBottom())));
+            //this.setProgress((int)(100*progress));
             return true;
     }
 	

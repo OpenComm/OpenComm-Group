@@ -67,7 +67,7 @@ public class Space {
 	private KickoutController kController;
 	private ParticipantStatusController psController;
 	
-	private int volume = 0;
+	private int volume = 40;
 
 	/**
 	 * CONSTRUCTOR: new space. Creates the SpaceController and, either creates
