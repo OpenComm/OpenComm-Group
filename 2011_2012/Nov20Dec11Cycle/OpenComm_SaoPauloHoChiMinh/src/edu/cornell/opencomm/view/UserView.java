@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.util.Log;
@@ -33,6 +34,9 @@ public class UserView extends ImageButton{
 	Bitmap image; // The actual image that will show on the user screen
 	Bitmap nameBoxImage; // The name box on a user's icon
 	Space space;
+	
+	//font
+	private Typeface font;
 
 	boolean isSelected=false; // true if image selected (should show highlight around it)
 	boolean isMoved; // true if image was dragged and not simply tapped
@@ -69,7 +73,7 @@ public class UserView extends ImageButton{
 		 // (3)
 		setImage(imageID);
 		setNameBoxImage(Values.icon_namebox);
-		setPaint(); // set paint
+		setPaint(context); // set paint
 		Log.v(LOG_TAG, "Made a UserView for person " + person);
 		
 		userViewController = new UserViewController(this);
@@ -143,9 +147,10 @@ public class UserView extends ImageButton{
                         //Crystal image
                         Bitmap overlay = Bitmap.createBitmap(image.getWidth(),image.getHeight()+namebox, Bitmap.Config.ARGB_8888);
                          Canvas c = new Canvas(overlay);
-                         
+                        
                          paint.setAntiAlias(true);
                          paint.setTextSize(Values.nameTextSize);
+
                         c.drawBitmap(image, 0, 0, null);
                         c.drawText(person.getUsername(), 0, Math.min(11,(person.getUsername()).length()),0/*Values.iconTextPadding*/,
                                 image.getHeight()+Values.nameTextSize/*5/2*Values.iconBorderPadding+10*/, paint);
@@ -217,12 +222,14 @@ public class UserView extends ImageButton{
 	}
 	
 	/* Create paint */
-	public void setPaint(){
+	public void setPaint(Context context){
 		paint = new Paint();
 		paint.setDither(true);
 		paint.setColor(0xFF000000);;
 		paint.setStyle(Paint.Style.STROKE);
 		paint.setStrokeWidth(1);
+		font = Typeface.createFromAsset(context.getAssets(), Values.font);
+		paint.setTypeface(font);
 	}
 	
 	/* Change icon pictures and resize them, parameter imageID is a R.drawable int */

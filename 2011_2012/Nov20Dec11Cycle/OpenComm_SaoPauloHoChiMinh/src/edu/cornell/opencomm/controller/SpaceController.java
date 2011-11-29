@@ -11,7 +11,11 @@ import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
+
 import edu.cornell.opencomm.view.PrivateSpaceIconView;
+
+import edu.cornell.opencomm.view.NotificationView;
+
 import edu.cornell.opencomm.view.SpaceView;
 import edu.cornell.opencomm.view.UserView;
 
@@ -34,8 +38,12 @@ public class SpaceController {
 	// View objects
 	SpaceView view;
 	
+
 	//associated privateSpaceIconView
 	PrivateSpaceIconView psiv;
+
+	static NotificationView notification_View;
+
 
 	/** Constructor: a new instance of SpaceController that controls a specific
 	 * space
@@ -44,6 +52,7 @@ public class SpaceController {
 		this.space = space;
 		this.muc = this.space.getMUC();
 		this.view = view;
+		SpaceController.notification_View = new NotificationView(view.getContext());
 
 	} // end SpaceController method
 
@@ -73,13 +82,18 @@ public class SpaceController {
 			view.getActivity().invalidateSpaceView();
 			
 		}
+
 		this.psiv.invalidate();
 		//Log.v(TAG, "adduser invalidate()");
+		NotificationView notificationView = new NotificationView(view.getContext());
+		notificationView.launch(user.getNickname(),"adduser");
 	}
 	/** set the associated PrivateSpaceIconView psIcon*/
 	public void setPSIV( PrivateSpaceIconView psIcon) {
 		Log.v(TAG, "setPSIV");
 		this.psiv=psIcon;
+
+		
 	}
 	/**
 	 * Delete a user from the space
@@ -104,6 +118,11 @@ public class SpaceController {
 		if(space == MainApplication.screen.getSpace())
 			view.getActivity().invalidateSpaceView();
 		
+
+
+		NotificationView notificationView = new NotificationView(view.getContext());
+		notificationView.launch(user.getNickname(),"deleteuser");
+
 		
 	}
 	
@@ -131,6 +150,9 @@ public class SpaceController {
 		int spaceID = MainApplication.space_counter++;
 		Space space = new Space(context, false, String.valueOf(spaceID), MainApplication.user_primary);
 		Space.allSpaces.put(space.getRoomID(), space);
+		
+		notification_View.launch("sidechat");
+		
 		if(D) Log.d(TAG, "Created a new space with ID:" + spaceID);
 		return space;
 	} // end of addSpace method
