@@ -40,6 +40,7 @@ public class ParticipantController {
 		} else {
 			// TODO: update view to Conference
 		}
+		mSpace.getMUC().leave();
 	}
 
 	/**
