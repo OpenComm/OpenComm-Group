@@ -348,8 +348,14 @@ public final class MainApplication extends Activity{
 				return false;
 			}
 		});
-		Button actionBar = (Button) findViewById(R.id.ocActionBar);
-		actionBar.setOnClickListener(this.getActionBarOnClickListener());
+		ImageView soundButton = (ImageView) findViewById(R.id.sound_button);
+		soundButton.setClickable(true);
+		soundButton.setOnClickListener(this.getActionBarOnClickListener());
+		/*Log.v(TAG, "Clicked on MENU key");
+		LayoutInflater inflater = (LayoutInflater) MainApplication.this
+		.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		MenuView menuView = new MenuView(inflater);
+		menuView.launch();*/
 	}
 
     /** You are exiting the application! Definitely tell the network so it can tell
@@ -613,8 +619,13 @@ public final class MainApplication extends Activity{
     	View.OnClickListener actionBarListener = new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				DashboardView dashboardView = new DashboardView();
-				dashboardView.launch();
+				//DashboardView dashboardView = new DashboardView();
+				//dashboardView.launch();
+				Log.v(TAG, "Clicked on Sound button");
+				LayoutInflater inflater = (LayoutInflater) MainApplication.this
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				SoundSettingsView soundView = new SoundSettingsView(inflater);
+				soundView.launch();
 
 			}
     	};

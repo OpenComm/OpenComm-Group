@@ -5,11 +5,12 @@
 	<Button android:layout_width="fill_parent" android:textColor="@color/off_white"
 		android:layout_height="36.67dp" android:background="@color/dark_grey"
 		android:gravity="center_vertical" android:paddingLeft="10.67dp"
+		android:layout_marginTop="25.00dp"
 		android:textSize="20sp" android:id="@+id/ocActionBar"
 		android:cursorVisible="false" android:text="Opencomm" />
 	<RelativeLayout android:id="@+id/menuTable"
 		android:layout_height="100dp" android:layout_width="fill_parent"
-		android:clickable="false" android:layout_marginTop="371.33dp">
+		android:clickable="false" android:layout_marginTop="375.33dp" >
 		<LinearLayout android:id="@+id/menuUser"
 			android:orientation="horizontal" android:clickable="false"
 			android:layout_height="49.33dp" android:layout_width="fill_parent"
