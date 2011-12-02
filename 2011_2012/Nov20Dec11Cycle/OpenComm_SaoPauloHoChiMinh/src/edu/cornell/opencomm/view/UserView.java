@@ -7,11 +7,18 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.widget.ImageButton;
 import edu.cornell.opencomm.Values;
+import edu.cornell.opencomm.controller.MainApplication;
+import edu.cornell.opencomm.controller.UserIconMenuController;
 import edu.cornell.opencomm.controller.UserViewController;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
@@ -27,11 +34,17 @@ public class UserView extends ImageButton{
 	Bitmap image; // The actual image that will show on the user screen
 	Bitmap nameBoxImage; // The name box on a user's icon
 	Space space;
+	
+	//font
+	private Typeface font;
 
 	boolean isSelected=false; // true if image selected (should show highlight around it)
 	boolean isMoved; // true if image was dragged and not simply tapped
 	Paint paint;
 	UserViewController userViewController;
+	UserView thisUserView;
+	static UserView selectedIcon;
+	boolean clickOnIcon;
 	
 	/** Constructor:
 	 * 1)Initialize all variables
@@ -60,10 +73,12 @@ public class UserView extends ImageButton{
 		 // (3)
 		setImage(imageID);
 		setNameBoxImage(Values.icon_namebox);
-		setPaint(); // set paint
+		setPaint(context); // set paint
 		Log.v(LOG_TAG, "Made a UserView for person " + person);
 		
 		userViewController = new UserViewController(this);
+		//thisUserView = this;
+		//setupListeners();
 	}
 	
 	/*
@@ -77,6 +92,8 @@ public class UserView extends ImageButton{
 		this.x = x;
 		this.y = y;
 		setPopupImage(image);
+		//thisUserView = this;
+		//setupListeners();
 	}
     
     /* Return true if the mouseX and mouseY parameters are within this UserView's 
@@ -95,7 +112,7 @@ public class UserView extends ImageButton{
            // a colored rectangle around the person's icon if selected
            
            super.onDraw(canvas);
-           Log.v("UserView", "UserView's onDraw()");
+         //  Log.v("UserView", "UserView's onDraw()");
            int b=Values.iconBorderPadding;
            int namebox=Values.iconTextH;//the namebox height
             if (isSelected) {
@@ -115,26 +132,28 @@ public class UserView extends ImageButton{
            
             if(person!=null){
                     //Crystal
-                       Log.v(LOG_TAG, "FINAL!");
+                     //  Log.v(LOG_TAG, "FINAL!");
                         RectShape rect1= new RectShape();
                         ShapeDrawable bord= new ShapeDrawable(rect1);
-                        Log.v(LOG_TAG,"person color"+person.user_color);
+                      // Log.v(LOG_TAG,"person color"+person.user_color);
                         //bord.getPaint().setStyle(Style.STROKE);
                       // bord.getPaint().setStrokeWidth(b);
                         bord.getPaint().setColor(getResources().getColor(person.user_color));
                         bord.setAlpha(204);
                         bord.setBounds(x-b,y-b,x+image.getWidth()+b,y+image.getHeight()+b+namebox);
+                        Log.v(LOG_TAG, "SIZE"+(image.getWidth()+2*b)+""+(image.getHeight()+2*b+namebox));
                         //border.setPadding(b,b,b,b);
                         bord.draw(canvas);
                         //Crystal image
                         Bitmap overlay = Bitmap.createBitmap(image.getWidth(),image.getHeight()+namebox, Bitmap.Config.ARGB_8888);
                          Canvas c = new Canvas(overlay);
-                         
+                        
                          paint.setAntiAlias(true);
-                         paint.setTextSize(13);
+                         paint.setTextSize(Values.nameTextSize);
+
                         c.drawBitmap(image, 0, 0, null);
                         c.drawText(person.getUsername(), 0, Math.min(11,(person.getUsername()).length()),0/*Values.iconTextPadding*/,
-                                image.getHeight()+5/2*Values.iconBorderPadding/*+10*/, paint);
+                                image.getHeight()+Values.nameTextSize/*5/2*Values.iconBorderPadding+10*/, paint);
                         canvas.drawBitmap(overlay, x, y, null);
                         
                         if(person==space.getOwner()){
@@ -146,7 +165,7 @@ public class UserView extends ImageButton{
                             ad.setAntiAlias(true);
                             ad.setTextSize(Values.adminTextSize);
                             canvas.drawText("admin",x-b +Values.textAdjust, y-b+((namebox*3)/4) + Values.textAdjust, ad);   
-                        }
+                       }
             }
             else{
             	canvas.drawBitmap(image, x, y, null);
@@ -203,12 +222,14 @@ public class UserView extends ImageButton{
 	}
 	
 	/* Create paint */
-	public void setPaint(){
+	public void setPaint(Context context){
 		paint = new Paint();
 		paint.setDither(true);
 		paint.setColor(0xFF000000);;
 		paint.setStyle(Paint.Style.STROKE);
 		paint.setStrokeWidth(1);
+		font = Typeface.createFromAsset(context.getAssets(), Values.font);
+		paint.setTypeface(font);
 	}
 	
 	/* Change icon pictures and resize them, parameter imageID is a R.drawable int */

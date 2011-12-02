@@ -40,6 +40,7 @@ import edu.cornell.opencomm.view.PrivateSpacePreviewPopup;
 import edu.cornell.opencomm.view.SpaceView;
 import edu.cornell.opencomm.view.TipView;
 import edu.cornell.opencomm.view.UserView;
+import edu.cornell.opencomm.view.SoundSettingsView;
 
 
 /** The MainApplication handles and manages the PrivateSpaces for every
@@ -135,7 +136,7 @@ public final class MainApplication extends Activity{
             	user_primary = new User(username, username.split("@")[0], 
             			R.drawable.question);
             }
-        	this.plusButtonSetUp();
+        	this.plusButtonSetUp(0);
         	try {
         		// create the mainspace
 				SpaceController.createMainSpace(this);
@@ -229,6 +230,14 @@ public final class MainApplication extends Activity{
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				//DashboardView dashboardView = new DashboardView(inflater);
 				//dashboardView.launch();
+				break;
+			}
+			case KeyEvent.KEYCODE_7: {
+				Log.v(TAG, "pressed 7 key - sound settings screen");
+				LayoutInflater inflater = (LayoutInflater) MainApplication.this
+						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				SoundSettingsView soundSettingsView = new SoundSettingsView(inflater);
+				soundSettingsView.launch();
 				break;
 			}
 			case KeyEvent.KEYCODE_M: {
@@ -339,8 +348,14 @@ public final class MainApplication extends Activity{
 				return false;
 			}
 		});
-		Button actionBar = (Button) findViewById(R.id.ocActionBar);
-		actionBar.setOnClickListener(this.getActionBarOnClickListener());
+		ImageView soundButton = (ImageView) findViewById(R.id.sound_button);
+		soundButton.setClickable(true);
+		soundButton.setOnClickListener(this.getActionBarOnClickListener());
+		/*Log.v(TAG, "Clicked on MENU key");
+		LayoutInflater inflater = (LayoutInflater) MainApplication.this
+		.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		MenuView menuView = new MenuView(inflater);
+		menuView.launch();*/
 	}
 
     /** You are exiting the application! Definitely tell the network so it can tell
@@ -466,7 +481,9 @@ public final class MainApplication extends Activity{
         
 		psv.setLayoutParams(new LinearLayout.LayoutParams(Values.privateSpaceButtonW,  Values.privateSpaceButtonW));
 		psv.setPadding(Values.iconBorderPaddingH, Values.iconBorderPaddingV,Values.iconBorderPaddingH, Values.iconBorderPaddingV);
+		bottomBar.removeViewAt(PrivateSpaceIconView.allPSIcons.size()-1);
 		bottomBar.addView(psv,lp);
+		plusButtonSetUp(PrivateSpaceIconView.allPSIcons.size());
 		bottomBar.invalidate(); 
 
     }
@@ -556,20 +573,20 @@ public final class MainApplication extends Activity{
      * created a view hierarchy can touch its views" error)
      */
     public void invalidateSpaceView(){
-    	Log.v("MainApplication", "Invalidating SpaceView");
+    	//Log.v("MainApplication", "Invalidating SpaceView");
     	runOnUiThread(new Runnable() {
     	     public void run() {
-    	     	Log.v("MainApplication", "run()");
+    	     //	Log.v("MainApplication", "run()");
     	    	 MainApplication.screen.draw(new Canvas());
     	    	 screen.invalidate();
     	    	 screen.postInvalidate();
-    	    	 Log.v("MainApplication", "run() after");
+    	    	// Log.v("MainApplication", "run() after");
     	    }
     	});
     }
     
     /**Crystal: add the plus button to the bottom bar*/
-    public void plusButtonSetUp(){
+    public void plusButtonSetUp(int position){
     	LinearLayout bottomBar = (LinearLayout) findViewById(R.id.privateSpaceLinearLayout);
     	 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(Values.privateSpaceButtonW,  Values.privateSpaceButtonW);
          lp.setMargins(0, 0, Values.iconBorderPaddingH, 0); 
@@ -584,7 +601,8 @@ public final class MainApplication extends Activity{
  				try{
  					//Space.getMainSpace().getSpaceController().addSpace(Space.getMainSpace().getContext());
  					Space newSpace=Space.getMainSpace().getSpaceController().addSpace(Space.getMainSpace().getContext());
- 					new PrivateSpaceIconView(Space.getMainSpace().getContext(),newSpace);
+ 					PrivateSpaceIconView psIcon=new PrivateSpaceIconView(Space.getMainSpace().getContext(),newSpace);
+ 				    newSpace.getSpaceController().setPSIV(psIcon);
  				}
  				catch(XMPPException e){
  					Log.d("MainApplication plusButtonSetUp()", "Could not add a Space");
@@ -593,7 +611,7 @@ public final class MainApplication extends Activity{
  			}
  				
  			});
-    	bottomBar.addView(plus,lp);
+    	bottomBar.addView(plus,position,lp);
 		bottomBar.invalidate(); 
     }
     
@@ -601,8 +619,13 @@ public final class MainApplication extends Activity{
     	View.OnClickListener actionBarListener = new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				DashboardView dashboardView = new DashboardView();
-				dashboardView.launch();
+				//DashboardView dashboardView = new DashboardView();
+				//dashboardView.launch();
+				Log.v(TAG, "Clicked on Sound button");
+				LayoutInflater inflater = (LayoutInflater) MainApplication.this
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				SoundSettingsView soundView = new SoundSettingsView(inflater);
+				soundView.launch();
 
 			}
     	};

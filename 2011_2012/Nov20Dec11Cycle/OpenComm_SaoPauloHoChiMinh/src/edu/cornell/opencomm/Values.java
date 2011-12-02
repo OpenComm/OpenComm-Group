@@ -4,7 +4,7 @@ public class Values {
 	/** These values will be changed in MainApplication's adjustLayoutParams() */
 	
 	//font
-	public static String font = "Delicious.otf";
+	public static String font = "Delicious-Roman.otf";
 	
 	// Time
 	public static int pressAndHold = 200; // amount of time for a touch to be considered a long press
@@ -12,8 +12,8 @@ public class Values {
 	// Menu options
 	public static CharSequence[] userviewMenu = {"Delete User", "Cancel"}; // after longpressing a user icon
 	public static CharSequence[] emptyspaceMenu = {"Add Users", "Delete Users", 
-		"Leave Chat","Cancel"}; // after longpressing the empty space in a spaceview
-	public static CharSequence[] privatespaceiconMenu = {"Go to", "Leave chat","Cancel"};
+		"Leave Conference","Cancel"}; // after longpressing the empty space in a spaceview
+	public static CharSequence[] privatespaceiconMenu = {"Go to", "Leave","Cancel"};
 	//when chat owner decides to leave
 	public static CharSequence[] whatHappen = {"Destroy chat", "Pass ownership"};
 	
@@ -39,9 +39,10 @@ public class Values {
 		
 	// User icon
 	public static int userIconW = 100;
-	public static int userIconH = 100;
-	public static int iconTextH = userIconH/5;
+	public static int userIconH = 85;
+	public static int iconTextH = 15;
 	public static int iconBorderPadding=5;
+	public static int nameTextSize=13;
 	public static int adminTextSize=13;
 	public static int textAdjust=2;
 	public static int staggeredAddStart = 10;

@@ -15,4 +15,10 @@
 	<color name="teal">#9DF6FF</color>
 	<color name="grey_dark_translucent">#E6333333</color>
 	<color name="opoffwhite">#CCF5F5F5</color>
+	<color name="red">#FF4848</color>
+    <color name="light_purple">#9669FE</color>
+     <color name="ocean_blue">#3923D6</color>
+     <color name="grass_green">#B6BA18</color>
+    <color name="showy_green">#48FB0D</color>
+     <color name="pink"> #FFACEC </color> 
 </resources>
