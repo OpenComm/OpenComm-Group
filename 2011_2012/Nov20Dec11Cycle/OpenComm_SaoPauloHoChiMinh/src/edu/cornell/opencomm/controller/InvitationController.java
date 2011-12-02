@@ -7,7 +7,9 @@ import org.jivesoftware.smackx.muc.InvitationRejectionListener;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.muc.Occupant;
 
+import android.content.Context;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import edu.cornell.opencomm.model.Invitation;
 import edu.cornell.opencomm.model.Space;
@@ -128,16 +130,29 @@ public class InvitationController implements InvitationRejectionListener {
 		if (inviteRequest.contains(Network.REQUEST_INVITE)) {
 			// extract invitation request info
 			String inviteRequestInfo = inviteRequest
-					.split(Network.REQUEST_INVITE)[0];
-			String requester = (inviteRequestInfo.split("@requester")[0])
+					.split(Network.REQUEST_INVITE)[1];
+			String requester = (inviteRequestInfo.split("@requester")[1])
 					.split("@invitee")[0];
 			String invitee = (inviteRequestInfo.split("@requester" + requester
-					+ "@invitee")[0]).split("@reason")[0];
+					+ "@invitee")[1]).split("@reason")[0];
 			String reason = (inviteRequestInfo.split("@reason").length == 0 ? Network.DEFAULT_INVITE
-					: inviteRequestInfo.split("@reason")[0]);
+					: inviteRequestInfo.split("@reason")[1]);
 			String[] inviteInfo = { requester, invitee, reason };
 			
-			
+			// For the invitation popup
+			LayoutInflater inflater = (LayoutInflater) MainApplication.screen.getActivity()
+			.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			invitationView = new InvitationView(inflater);
+			User userInvitee = User.getAllUsers().get(invitee);
+			User userRequester = User.getAllUsers().get(requester);
+			// If an invite to yourself
+			if(userInvitee==MainApplication.user_primary)
+				invitationView.setInvitationInfo(userRequester, userInvitee, false);
+			// If a moderator request
+			else
+				invitationView.setInvitationInfo(userRequester, userInvitee, true);
+			invitationView.launch();
+
 			// DEBUG
 			if (D)
 				Log.d(TAG,

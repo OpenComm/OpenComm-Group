@@ -293,6 +293,24 @@ public final class MainApplication extends Activity{
 				Space.getMainSpace().getParticipantController().leaveSpace(false);
 				break;
 			}
+			case KeyEvent.KEYCODE_Q: {
+				Log.v(TAG, "pressed Q key - you (a moderator) received an invite request");
+				InvitationController ic= MainApplication.screen.getSpace().getInvitationController();
+				// fake invite request
+				String inviteRequest = "" + Network.REQUEST_INVITE + "@requester" + debug.getUsername() 
+				+ "@invitee" + debug1.getUsername() + "@reason" + "Because you're a cool cat.";
+				ic.receiveInvitationRequest(inviteRequest); 
+				break;
+			}
+			case KeyEvent.KEYCODE_W: {
+				Log.v(TAG, "pressed W key - you received an invite to a chat");
+				InvitationController ic= MainApplication.screen.getSpace().getInvitationController();
+				// fake invite request
+				String inviteRequest = "" + Network.REQUEST_INVITE + "@requester" + debug.getUsername() 
+				+ "@invitee" + MainApplication.user_primary.getUsername() + "@reason" + "Because you're a cool cat.";
+				ic.receiveInvitationRequest(inviteRequest); 
+				break;
+			}
 			}
 			;
 			return true;
