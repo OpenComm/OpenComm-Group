@@ -82,9 +82,8 @@ public class SpaceController {
 			view.getActivity().invalidateSpaceView();
 			
 		}
-
-		this.psiv.invalidate();
-		//Log.v(TAG, "adduser invalidate()");
+		if(space != Space.getMainSpace())
+			view.getActivity().invalidatePSIconView(psiv);
 		NotificationView notificationView = new NotificationView(view.getContext());
 		notificationView.launch(user.getNickname(),"adduser");
 	}

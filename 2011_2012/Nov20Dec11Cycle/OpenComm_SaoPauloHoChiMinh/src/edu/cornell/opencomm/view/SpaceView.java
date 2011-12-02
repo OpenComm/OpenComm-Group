@@ -76,7 +76,7 @@ public class SpaceView extends View {
 	/** Initialize all Controllers for this SpaceView */
 	public void setupControllers(){
 		spaceViewController = new SpaceViewController(this);
-		empytSpaceMenuController = new EmptySpaceMenuController(context, this);
+		empytSpaceMenuController = new EmptySpaceMenuController(context);
 		userIconMenuController = new UserIconMenuController(context, this);
 		pView = new ParticipantView(this.context, this);
 	}

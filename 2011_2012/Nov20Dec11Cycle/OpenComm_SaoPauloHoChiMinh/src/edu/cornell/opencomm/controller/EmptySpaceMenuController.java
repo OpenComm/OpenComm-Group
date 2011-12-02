@@ -20,12 +20,10 @@ public class EmptySpaceMenuController {
 
 	static ContactListController contactListController;
 	
-	private static SpaceView spaceView = null;
 	private static Context context;
-	public EmptySpaceMenuController(Context context, SpaceView spaceView) {
-		EmptySpaceMenuController.spaceView = spaceView;
+	public EmptySpaceMenuController(Context context) {
 		EmptySpaceMenuController.context = context;
-		contactListController = new ContactListController(context, spaceView);
+		contactListController = new ContactListController(context);
 	}
 
 	public static void showFreeSpaceMenu(){
@@ -47,12 +45,12 @@ public class EmptySpaceMenuController {
 		    	else if (Values.emptyspaceMenu[item].equals("Leave Chat")){
 		    		Log.v(TAG, "pressed Leave Chat");
 		    		if(MainApplication.user_primary.equals(
-		    				spaceView.getSpace().getOwner())){
+		    				MainApplication.screen.getSpace().getOwner())){
 		    			ParticipantView.whatHappen();
 		    		}
 		    		else{
-		    			spaceView.getSpace().getParticipantController().leaveSpace(
-		    					spaceView.getSpace().equals(Space.getMainSpace()));
+		    			MainApplication.screen.getSpace().getParticipantController().leaveSpace(
+		    					MainApplication.screen.getSpace().equals(Space.getMainSpace()));
 		    		}
 		    	}
 		    	else if (Values.emptyspaceMenu[item].equals("Cancel")){

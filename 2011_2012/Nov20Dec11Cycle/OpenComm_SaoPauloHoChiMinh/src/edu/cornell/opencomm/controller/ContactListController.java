@@ -35,11 +35,9 @@ public class ContactListController {
 
 	private static String username = ""; // the username of this account
 
-	private static SpaceView spaceView = null;
 	private static Context context;
 
-	public ContactListController(Context context, SpaceView spaceView) {
-		this.spaceView = spaceView;
+	public ContactListController(Context context) {
 		ContactListController.context = context;
 		// showBuddyList();
 	}
@@ -99,7 +97,8 @@ public class ContactListController {
 				username = (String) buddyList[i];
 				User p = new User(username + "@jabber.org", username,
 						R.drawable.question);
-				spaceView.getSpace().getInvitationController().inviteUser(p,
+				Log.v("ContactListController", "addFromBuddyList this space = " + MainApplication.screen.getSpace());
+				MainApplication.screen.getSpace().getInvitationController().inviteUser(p,
 						Network.DEFAULT_INVITE);
 				Log.v("ContactListController", username + " was invited");
 			}

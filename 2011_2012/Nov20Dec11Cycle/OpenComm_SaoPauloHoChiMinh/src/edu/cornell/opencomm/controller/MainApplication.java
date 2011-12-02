@@ -576,14 +576,25 @@ public final class MainApplication extends Activity{
     	//Log.v("MainApplication", "Invalidating SpaceView");
     	runOnUiThread(new Runnable() {
     	     public void run() {
-    	     //	Log.v("MainApplication", "run()");
     	    	 MainApplication.screen.draw(new Canvas());
     	    	 screen.invalidate();
-    	    	 screen.postInvalidate();
-    	    	// Log.v("MainApplication", "run() after");
+    	    	// screen.postInvalidate();
     	    }
     	});
     }
+    
+    /** Same reasons as invalidateSpaceView() except to invalidate
+     * a privatespaceicon when someone is add/removed from the space
+     * @param psv - the PrivateSpaceIconView whose GUI needs to be updated
+     */
+    public void invalidatePSIconView(final PrivateSpaceIconView psv){
+    	runOnUiThread(new Runnable() {
+    		public void run(){
+    			psv.invalidate();
+    		}
+    	});
+    }
+    
     
     /**Crystal: add the plus button to the bottom bar*/
     public void plusButtonSetUp(int position){
