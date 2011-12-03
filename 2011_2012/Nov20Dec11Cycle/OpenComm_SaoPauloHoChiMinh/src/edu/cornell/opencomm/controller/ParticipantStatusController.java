@@ -208,6 +208,11 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 	 * (ex: roomname@conference.jabber.org/nickname)
 	 */
 	public void left(String userRoomInfo) {
+		String[] userRoomSplit = this.splitUserRoomInfo(userRoomInfo);
+		if(userRoomSplit !=null){
+			User user = User.nickname_to_user.get(userRoomSplit[1]);
+			mSpace.getSpaceController().deleteUser(userRoomInfo, user);
+		}
 		// DEBUG
 		if (D) {
 			String[] userSplit = this.splitUserRoomInfo(userRoomInfo);

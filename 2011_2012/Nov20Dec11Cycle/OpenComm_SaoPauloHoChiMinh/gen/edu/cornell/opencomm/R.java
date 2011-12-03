@@ -60,7 +60,8 @@ public final class R {
         public static final int sidechatplus1=0x7f020017;
         public static final int sidechatplus2=0x7f020018;
         public static final int temp_sound_button=0x7f020019;
-        public static final int yousmall=0x7f02001a;
+        public static final int volume_icon=0x7f02001a;
+        public static final int yousmall=0x7f02001b;
     }
     public static final class id {
         public static final int acceptConfirmOverlay=0x7f070015;
