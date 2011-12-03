@@ -158,7 +158,7 @@ public class InvitationView {
 			
 			if(isModeratorRequest){
 				userImageDrawable = invitee.getImage();
-				confMessage = confRequesterName + " would like to invite " + inviteeName + " to a chat.";
+				confMessage = confRequesterName + " invited " + inviteeName + " to a chat.";
 				bigName = invitee.getNickname();
 				smallName = invitee.getNickname();
 				phone = "None";
@@ -166,7 +166,7 @@ public class InvitationView {
 			}
 			else{
 				userImageDrawable = requester.getImage();
-				confMessage = confRequesterName + " would like to invite you to a chat.";
+				confMessage = confRequesterName + " invited you to a chat.";
 				bigName = requester.getNickname();
 				smallName = requester.getNickname();
 				phone = "None";
