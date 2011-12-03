@@ -41,6 +41,7 @@ public class NetworkService {
 	// XMPP connection
 	private XMPPConnection xmppConn = null;
 	private ConnectionConfiguration xmppConfig = null;
+	private InvitationListener invitationListener;
 	
 	
 	/** Constructor: a network service for the application that creates and 
@@ -69,7 +70,8 @@ public class NetworkService {
 				Log.d(TAG, "XMPP connection not established");
 			}
 		}
-		MultiUserChat.addInvitationListener(xmppConn, new InvitationListener(){
+		invitationListener = 
+		/*MultiUserChat.addInvitationListener(xmppConn, */new InvitationListener(){
 
 			/**
 			 * Automagically called when this client receives an invitation to join a MUC
@@ -79,9 +81,12 @@ public class NetworkService {
 					String inviter, String reason, String password, Message message) {
 				Invitation invitation = new edu.cornell.opencomm.model.Invitation(
 						connection, room, inviter, reason, password, message);
+				
+				
+				Log.v("NetworkService", "Invitation Received for room " + room);
 
 				// Find the room
-		/*		String roomID = Network.ROOM_NAME + room + "@conference.jabber.org";
+				String roomID = Network.ROOM_NAME + room + "@conference.jabber.org";
 				MultiUserChat muc = new MultiUserChat(LoginController.xmppService.getXMPPConnection(), roomID);
 				// Get the people in the room
 				Object[] members = null;
@@ -103,15 +108,18 @@ public class NetworkService {
 					 * such as: name, phone, email.
 					 * For now, we do not have profile information
 					 */
-			/*		if(occupantInviter!=null){
+					if(occupantInviter!=null){
 						nickname = occupantInviter.getNick();
+						// Create the invitation
+						LayoutInflater inflater = (LayoutInflater) MainApplication.screen.getActivity()
+						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+						InvitationView invitationView = new InvitationView(inflater);
+						invitationView.setInvitationInfo(-1, nickname, "None", "None");
+						invitationView.launch();
+						
 					}
-					// Create the invitation
-					LayoutInflater inflater = (LayoutInflater) MainApplication.screen.getActivity()
-					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-					InvitationView invitationView = new InvitationView(inflater);
-					invitationView.setInvitationInfo(occupantInviter., MainApplication.user_primary, false); */
-			//	}
+
+				}
 				
 				/*Log.v("InvitationController", "How is room formatted?" + room);
 				//answer: room@server (ex. hellokitty@conference.jabber.org)
@@ -131,13 +139,19 @@ public class NetworkService {
 						"received from: " + inviter + " to join room: " + room);  */
 			} 
 			
-		});
+		}/*)*/;
+		MultiUserChat.addInvitationListener(xmppConn,invitationListener);
 	} // end NetworkService method
 	
 	/** = the XMPP connection */
 	public XMPPConnection getXMPPConnection() {
 		return this.xmppConn;
 	} // end getXMPPConnection method
+	
+	/** = the invitaitonListener */
+	public InvitationListener getInvitiationListener(){
+		return invitationListener;
+	}
 	
 	/** Logs in to the server using the strongest authentication mode 
 	 * supported by the server, then sets presence to available

@@ -308,7 +308,9 @@ public final class MainApplication extends Activity{
 				// fake invite request
 				String inviteRequest = "" + Network.REQUEST_INVITE + "@requester" + debug.getUsername() 
 				+ "@invitee" + MainApplication.user_primary.getUsername() + "@reason" + "Because you're a cool cat.";
-				ic.receiveInvitationRequest(inviteRequest); 
+				ic.receiveInvitationRequest(inviteRequest);  
+				/*LoginController.xmppService.getInvitiationListener().invitationReceived(LoginController.xmppConnection,
+						"", debug.getUsername(), "reason", "password", new Message("blah message")); */
 				break;
 			}
 			case KeyEvent.KEYCODE_E: {

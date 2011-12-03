@@ -55,6 +55,7 @@ public class Values {
 	// Images
 	public static int voice_image = R.drawable.yousmall;
 	public static int icon_namebox = R.drawable.iconbox;
+	public static int default_user_image = R.drawable.question;
 	
 	public void setValues(int screenW, int screenH){
 		

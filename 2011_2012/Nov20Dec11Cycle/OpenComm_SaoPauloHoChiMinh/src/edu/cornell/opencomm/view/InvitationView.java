@@ -180,6 +180,33 @@ public class InvitationView {
 
 	}
 	
+	/** Use this version of setInvitationInfo if you wish to input the String values
+	 * instead of the user objects. This version only for if you received an invitation
+	 * and are not a moderator.
+	 */
+	public void setInvitationInfo(int imageDrawableInt, String inviterNickname, String inviterPhone, String inviterEmail){
+		if(invitationLayout != null) {
+			ImageView userImage = (ImageView) invitationLayout.findViewById(R.id.iconImage);
+			TextView confTitle = (TextView) invitationLayout.findViewById(R.id.textViewConfTitle);
+			TextView bigNameTitle = (TextView) invitationLayout.findViewById(R.id.textViewHeader);
+			TextView userProfInfo = (TextView) invitationLayout.findViewById(R.id.textViewInfo);
+
+			int userImageDrawable = imageDrawableInt;
+			if(imageDrawableInt==-1)
+				userImageDrawable = Values.default_user_image;
+			String confMessage = inviterNickname + " invited you to a chat.";
+			String bigName = inviterNickname;
+			String smallName = inviterNickname;
+			String phone = inviterPhone;
+			String email = inviterEmail;
+			
+			userImage.setImageDrawable(MainApplication.screen.getActivity().getResources().getDrawable(userImageDrawable));
+			confTitle.setText(confMessage);
+			bigNameTitle.setText(bigName);
+			userProfInfo.setText(smallName+"\n" + email + "\n" + phone);
+		}
+	}
+	
 	/** Set the user icon image of the invite */
 /*	public void setUserImage(User user){
 		ImageView userImage = null;
