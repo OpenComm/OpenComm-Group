@@ -164,16 +164,23 @@ public class UserView extends ImageButton{
                         canvas.drawBitmap(overlay, x, y, null);
                         
                        if(person==space.getOwner()){
-                            Paint ad= new Paint();
-                            ad.setColor(Color.rgb(0,0,0));
-                            ad.setAlpha(204);
-                            canvas.drawRect(x-b, y-b, x+image.getWidth()+b,y-b+namebox,ad);
-                            ad.setAlpha(255);
-                            ad.setColor(Color.WHITE);
-                            ad.setStyle(Paint.Style.FILL);
-                            ad.setAntiAlias(true);
-                            ad.setTextSize(Values.adminTextSize);
-                            canvas.drawText("admin",x +Values.textAdjust, y+ Values.textAdjust, ad);    
+
+                        Bitmap adminTag = Bitmap.createBitmap(image.getWidth()+2*b,20, Bitmap.Config.ARGB_8888);
+                        Canvas ac = new Canvas(adminTag);
+                    	Paint ad= new Paint();
+                    	ad.setColor(Color.rgb(0,0,0));
+                    	ad.setAlpha(204);
+                    	ac.drawRect( 0, 0, image.getWidth()+2*b,20, ad);
+                   		ad.setAlpha(255);	 
+                    	ad.setColor(Color.WHITE);
+                    	ad.setStyle(Paint.Style.FILL);
+                    	ad.setAntiAlias(true);
+                    	ad.setTextSize(Values.adminTextSize);
+                    	ac.drawText("admin",Values.textAdjust, (Values.adminBox-Values.textAdjust), ad);   
+                   	    canvas.drawBitmap(adminTag,x-b, y-b, null);
+                              
+                            
+
                        }
             }
             else{

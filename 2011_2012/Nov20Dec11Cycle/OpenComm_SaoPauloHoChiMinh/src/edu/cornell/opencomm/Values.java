@@ -46,6 +46,7 @@ public class Values {
 	public static int adminTextSize=13;
 	public static int textAdjust=2;
 	public static int staggeredAddStart = 10;
+	public static int adminBox=20;
 		
 	// Pop User Icon
 	public static int popUserIconW = 42;
