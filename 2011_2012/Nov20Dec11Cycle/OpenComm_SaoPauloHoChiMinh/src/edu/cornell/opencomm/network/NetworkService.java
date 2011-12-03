@@ -1,5 +1,7 @@
 package edu.cornell.opencomm.network;
 
+import java.util.Collection;
+
 import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.SmackConfiguration;
@@ -11,6 +13,7 @@ import org.jivesoftware.smackx.GroupChatInvitation;
 import org.jivesoftware.smackx.PrivateDataManager;
 import org.jivesoftware.smackx.muc.InvitationListener;
 import org.jivesoftware.smackx.muc.MultiUserChat;
+import org.jivesoftware.smackx.muc.Occupant;
 import org.jivesoftware.smackx.packet.ChatStateExtension;
 import org.jivesoftware.smackx.packet.LastActivity;
 import org.jivesoftware.smackx.packet.OfflineMessageInfo;
@@ -19,10 +22,15 @@ import org.jivesoftware.smackx.packet.SharedGroupsInfo;
 import org.jivesoftware.smackx.provider.*;
 import org.jivesoftware.smackx.search.UserSearch;
 
+import edu.cornell.opencomm.controller.LoginController;
+import edu.cornell.opencomm.controller.MainApplication;
 import edu.cornell.opencomm.model.Invitation;
 import edu.cornell.opencomm.model.Space;
+import edu.cornell.opencomm.view.InvitationView;
 
+import android.content.Context;
 import android.util.Log;
+import android.view.LayoutInflater;
 
 /** An instance of this class is the XMPP connection */
 public class NetworkService {
@@ -71,8 +79,41 @@ public class NetworkService {
 					String inviter, String reason, String password, Message message) {
 				Invitation invitation = new edu.cornell.opencomm.model.Invitation(
 						connection, room, inviter, reason, password, message);
+
+				// Find the room
+		/*		String roomID = Network.ROOM_NAME + room + "@conference.jabber.org";
+				MultiUserChat muc = new MultiUserChat(LoginController.xmppService.getXMPPConnection(), roomID);
+				// Get the people in the room
+				Object[] members = null;
+				String nickname;
+				try {
+					members= muc.getParticipants().toArray();
+				} catch (XMPPException e) {
+					Log.v("NetworkService", "Cannot retrieve participants from server.");
+				}
+				// Get the user/occupant object of the inviter
+				if(members!=null){
+					Occupant occupantInviter = null;
+					for(Object o : members){
+						String jid = ((Occupant)o).getJid();
+						if(jid==inviter)
+							occupantInviter = (Occupant)o;
+					}
+					/* Get information from person's profile
+					 * such as: name, phone, email.
+					 * For now, we do not have profile information
+					 */
+			/*		if(occupantInviter!=null){
+						nickname = occupantInviter.getNick();
+					}
+					// Create the invitation
+					LayoutInflater inflater = (LayoutInflater) MainApplication.screen.getActivity()
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+					InvitationView invitationView = new InvitationView(inflater);
+					invitationView.setInvitationInfo(occupantInviter., MainApplication.user_primary, false); */
+			//	}
 				
-				Log.v("InvitationController", "How is room formatted?" + room);
+				/*Log.v("InvitationController", "How is room formatted?" + room);
 				//answer: room@server (ex. hellokitty@conference.jabber.org)
 
 				
@@ -87,8 +128,8 @@ public class NetworkService {
 				
 				//DEBUG
 				Log.v("InvitationController", "invitationReceived - Invitation " +
-						"received from: " + inviter + " to join room: " + room);
-			}
+						"received from: " + inviter + " to join room: " + room);  */
+			} 
 			
 		});
 	} // end NetworkService method
