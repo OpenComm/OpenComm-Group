@@ -42,7 +42,7 @@ public class EmptySpaceMenuController {
 					Log.v(TAG, "pressed Delete Users");
 					ParticipantView.deleteParticipants();
 				}
-		    	else if (Values.emptyspaceMenu[item].equals("Leave Chat")){
+		    	else if (Values.emptyspaceMenu[item].equals("Leave Conference")){
 		    		Log.v(TAG, "pressed Leave Chat");
 		    		if(MainApplication.user_primary.equals(
 		    				MainApplication.screen.getSpace().getOwner())){
