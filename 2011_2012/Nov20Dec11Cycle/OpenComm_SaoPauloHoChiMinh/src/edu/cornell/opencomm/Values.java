@@ -39,13 +39,14 @@ public class Values {
 		
 	// User icon
 	public static int userIconW = 100;
-	public static int userIconH = 85;
+	public static int userIconH = 100;
 	public static int iconTextH = 15;
 	public static int iconBorderPadding=5;
 	public static int nameTextSize=13;
 	public static int adminTextSize=13;
 	public static int textAdjust=2;
 	public static int staggeredAddStart = 10;
+	public static int adminBox=20;
 		
 	// Pop User Icon
 	public static int popUserIconW = 42;

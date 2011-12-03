@@ -140,31 +140,44 @@ public class UserView extends ImageButton{
                       // bord.getPaint().setStrokeWidth(b);
                         bord.getPaint().setColor(getResources().getColor(person.user_color));
                         bord.setAlpha(204);
-                        bord.setBounds(x-b,y-b,x+image.getWidth()+b,y+image.getHeight()+b+namebox);
-                        Log.v(LOG_TAG, "SIZE"+(image.getWidth()+2*b)+""+(image.getHeight()+2*b+namebox));
+                        bord.setBounds(x-b,y-b,x+image.getWidth()+b,y+image.getHeight()+b);
+                        Log.v(LOG_TAG, "SIZE"+(image.getWidth()+2*b)+""+(image.getHeight()+2*b));
                         //border.setPadding(b,b,b,b);
                         bord.draw(canvas);
                         //Crystal image
-                        Bitmap overlay = Bitmap.createBitmap(image.getWidth(),image.getHeight()+namebox, Bitmap.Config.ARGB_8888);
+                        Bitmap overlay = Bitmap.createBitmap(image.getWidth(),image.getHeight(), Bitmap.Config.ARGB_8888);
                          Canvas c = new Canvas(overlay);
                         
                          paint.setAntiAlias(true);
                          paint.setTextSize(Values.nameTextSize);
 
                         c.drawBitmap(image, 0, 0, null);
+                        RectShape nTag= new RectShape();
+                        ShapeDrawable nameTag= new ShapeDrawable(nTag);
+                        nameTag.getPaint().setColor(getResources().getColor(person.user_color));
+                        nameTag.setAlpha(204);
+                        nameTag.setBounds(0, image.getHeight()-namebox,image.getWidth(), image.getHeight());
+                        nameTag.draw(c);
                         c.drawText(person.getUsername(), 0, Math.min(11,(person.getUsername()).length()),0/*Values.iconTextPadding*/,
-                                image.getHeight()+Values.nameTextSize/*5/2*Values.iconBorderPadding+10*/, paint);
+                                image.getHeight()-namebox+Values.nameTextSize/*5/2*Values.iconBorderPadding+10*/, paint);
                         canvas.drawBitmap(overlay, x, y, null);
                         
-                        if(person==space.getOwner()){
-                            Paint ad= new Paint();
-                            ad.setColor(Color.rgb(0,0,0));
-                            canvas.drawRect(x-b, y-b, x+image.getWidth()+b,y-b+namebox,ad);
-                            ad.setColor(Color.WHITE);
-                            ad.setStyle(Paint.Style.FILL);
-                            ad.setAntiAlias(true);
-                            ad.setTextSize(Values.adminTextSize);
-                            canvas.drawText("admin",x-b +Values.textAdjust, y-b+((namebox*3)/4) + Values.textAdjust, ad);   
+                       if(person==space.getOwner()){
+                        Bitmap adminTag = Bitmap.createBitmap(image.getWidth()+2*b,20, Bitmap.Config.ARGB_8888);
+                        Canvas ac = new Canvas(adminTag);
+                    	Paint ad= new Paint();
+                    	ad.setColor(Color.rgb(0,0,0));
+                    	ad.setAlpha(204);
+                    	ac.drawRect( 0, 0, image.getWidth()+2*b,20, ad);
+                   		ad.setAlpha(255);	 
+                    	ad.setColor(Color.WHITE);
+                    	ad.setStyle(Paint.Style.FILL);
+                    	ad.setAntiAlias(true);
+                    	ad.setTextSize(Values.adminTextSize);
+                    	ac.drawText("admin",Values.textAdjust, (Values.adminBox-Values.textAdjust), ad);   
+                   	    canvas.drawBitmap(adminTag,x-b, y-b, null);
+                              
+                            
                        }
             }
             else{
