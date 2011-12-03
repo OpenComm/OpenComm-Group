@@ -43,7 +43,6 @@ import edu.cornell.opencomm.view.UserView;
 import edu.cornell.opencomm.view.SoundSettingsView;
 
 
-/** NORA LFBJAD;LKFJL;DSAKJ COMMIT TEST #3 */
 /** The MainApplication handles and manages the PrivateSpaces for every
  * User involved. Receives its notifications from the GUI, and then
  * updates the data of the private space, and talks with the network. */
