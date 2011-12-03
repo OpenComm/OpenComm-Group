@@ -218,10 +218,9 @@ public class NetworkService {
         //  MUC Admin    
         pm.addIQProvider("query","http://jabber.org/protocol/muc#admin", new MUCAdminProvider());
  
- 
         //  MUC Owner    
         pm.addIQProvider("query","http://jabber.org/protocol/muc#owner", new MUCOwnerProvider());
- 
+        
         //  Delayed Delivery
         pm.addExtensionProvider("x","jabber:x:delay", new DelayInformationProvider());
  

@@ -51,11 +51,11 @@ public class ParticipantController {
 	 */
 	public void grantOwnership(String newOwner, boolean isLeaving) {
 		try {
-			this.mSpace.getMUC().grantAdmin(newOwner);
+			this.mSpace.getMUC().grantOwnership(newOwner);
 		} catch (XMPPException e) {
 			Log.d(TAG, "XMPP Exception: " + NetworkService.printXMPPError(e));
-			Log.v(TAG, "Could not grant ownership to: " + newOwner);
-			Log.v(TAG, "exception: " + e.getMessage());
+			Log.d(TAG, "Could not grant ownership to: " + newOwner);
+			Log.d(TAG, "exception: " + e.getMessage());
 			return;
 		}
 

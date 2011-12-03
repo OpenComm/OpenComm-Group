@@ -44,6 +44,7 @@ public class ParticipantView {
 		if (context == null) {
 			Log.v(TAG, "Context is null!");
 		}
+		updateParticipants();
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
 		class DialogSelectionClickHandler implements DialogInterface.OnMultiChoiceClickListener {
@@ -69,7 +70,6 @@ public class ParticipantView {
            }
 		}
 		
-		updateParticipants();
 		builder.setTitle("Please select users to remove")
 				.setMultiChoiceItems(usersInSpace, userSelected,
 						new DialogSelectionClickHandler())
@@ -100,7 +100,7 @@ public class ParticipantView {
 		alert.show();
 	}
 
-	public static void whatHappen() {
+	public static void leaveOrDestroy() {
 		if (context == null) {
 			Log.v(TAG, "Context is null!");
 		}

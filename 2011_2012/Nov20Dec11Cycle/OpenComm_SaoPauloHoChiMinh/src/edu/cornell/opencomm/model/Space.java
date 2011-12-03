@@ -159,7 +159,6 @@ public class Space {
 		while (occItr.hasNext()) {
 			String occ = occItr.next();
 			String occJID = occ.substring(occ.indexOf('/') + 1) + "@jabber.org";
-			Log.d(TAG, occJID);
 			// if there is an instance of User already created
 			if (User.getAllUsers().get(occJID) != null) {
 				this.allParticipants.put(occJID,
@@ -174,6 +173,7 @@ public class Space {
 			}
 			Log.d(TAG, "Is get Occupant for occJID " + occJID + " valid? "
 					+ (this.muc.getOccupant(occ) != null));
+			Log.d(TAG, "Their affiliation is: " + this.muc.getOccupant(occ).getAffiliation());
 			allOccupants.put(occJID, this.muc.getOccupant(occ));
 		}
 		allSpaces.put(this.roomID, this);
