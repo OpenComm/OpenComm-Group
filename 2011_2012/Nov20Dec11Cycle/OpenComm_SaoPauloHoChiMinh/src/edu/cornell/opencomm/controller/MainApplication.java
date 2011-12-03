@@ -41,7 +41,7 @@ import edu.cornell.opencomm.view.SpaceView;
 import edu.cornell.opencomm.view.TipView;
 import edu.cornell.opencomm.view.UserView;
 import edu.cornell.opencomm.view.SoundSettingsView;
-/** Nora testing committing */
+
 
 /** The MainApplication handles and manages the PrivateSpaces for every
  * User involved. Receives its notifications from the GUI, and then
