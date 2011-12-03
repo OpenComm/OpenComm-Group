@@ -8,9 +8,12 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.ConfirmationController;
+import edu.cornell.opencomm.controller.MainApplication;
+import edu.cornell.opencomm.model.User;
 
 public class ConfirmationView {
 	private static String LOG_TAG = "OC_ConfirmationView"; // for error checking
@@ -59,6 +62,52 @@ public class ConfirmationView {
 		ImageButton imageAcceptButton = getImageAcceptButton();
 		if (imageAcceptButton != null) {
 			imageAcceptButton.setOnClickListener(onAcceptButtonClickListener);
+		}
+	}
+	
+	/** Sets the text information in the confirmation popup GUI */
+	public void setConfirmationInfo(User requester, User kickee, boolean isModeratorRequest){
+		// User image
+		ImageView userImage = null;
+		int userImageDrawable = 0;
+		// Conference Title
+		String confMessage, confRequesterName, kickeeName; 
+		TextView confTitle = null;
+		//User Name Title
+		TextView bigNameTitle = null;
+		String bigName;
+		// User Profile Into
+		TextView userProfInfo;
+		String smallName, phone, email;
+		if(confirmationLayout != null) {
+			userImage = (ImageView) confirmationLayout.findViewById(R.id.iconImage);
+			confTitle = (TextView) confirmationLayout.findViewById(R.id.textViewConfTitle);
+			bigNameTitle = (TextView) confirmationLayout.findViewById(R.id.textViewHeader);
+			userProfInfo = (TextView) confirmationLayout.findViewById(R.id.textViewInfo);
+			
+			confRequesterName = requester.getNickname();
+			kickeeName = kickee.getNickname();
+			
+			if(isModeratorRequest){
+				userImageDrawable = kickee.getImage();
+				confMessage = confRequesterName + " would like to remove " + kickeeName + " from the chat.";
+				bigName = kickee.getNickname();
+				smallName = kickee.getNickname();
+				phone = "None";
+				email = "None";
+			}
+			else{
+				userImageDrawable = requester.getImage();
+				confMessage = "You have been removed from this chat.";
+				bigName = requester.getNickname();
+				smallName = requester.getNickname();
+				phone = "None";
+				email = "None";
+			}
+			userImage.setImageDrawable(MainApplication.screen.getActivity().getResources().getDrawable(userImageDrawable));
+			confTitle.setText(confMessage);
+			bigNameTitle.setText(bigName);
+			userProfInfo.setText(smallName+"\n" + email + "\n" + phone);
 		}
 	}
 
@@ -121,6 +170,10 @@ public class ConfirmationView {
 		return cancelOverlay;
 	}
 
+	public ConfirmationController getConfirmationController(){
+		return confirmationController;
+	}
+	
 	public Context getContext() {
 		return context;
 	}

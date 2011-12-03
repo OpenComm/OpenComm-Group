@@ -311,6 +311,24 @@ public final class MainApplication extends Activity{
 				ic.receiveInvitationRequest(inviteRequest); 
 				break;
 			}
+			case KeyEvent.KEYCODE_E: {
+				Log.v(TAG, "pressed E key - you (a moderator) received a kickout request");
+				KickoutController kc = MainApplication.screen.getSpace().getKickoutController();
+				// fake kickout request
+				String kickoutRequest = "" + Network.REQUEST_KICKOUT + "@requester" + debug.getUsername() +
+				"@kickee" + debug1.getUsername() + "@reason" + "Because you didn't give me food.";
+				kc.receiveKickoutRequest(kickoutRequest);
+				break;
+			}
+			case KeyEvent.KEYCODE_R: {
+				Log.v(TAG, "pressed R key - you received a kickout confirmation");
+				KickoutController kc = MainApplication.screen.getSpace().getKickoutController();
+				// fake kickout request
+				String kickoutRequest = "" + Network.REQUEST_KICKOUT + "@requester" + debug.getUsername() +
+				"@kickee" + MainApplication.user_primary.getUsername() + "@reason" + "Because you didn't give me food.";
+				kc.receiveKickoutRequest(kickoutRequest);
+				break;
+			}
 			}
 			;
 			return true;
