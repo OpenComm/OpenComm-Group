@@ -107,6 +107,7 @@ public class UserView extends ImageButton{
     /* Draw this UserView's image, draw darker (or brighter) if
      * this UserView is highlighted */
     
+
     public void draw(Canvas canvas){
            // This current version draws will draw the icon, and will draw
            // a colored rectangle around the person's icon if selected
@@ -163,6 +164,7 @@ public class UserView extends ImageButton{
                         canvas.drawBitmap(overlay, x, y, null);
                         
                        if(person==space.getOwner()){
+
                         Bitmap adminTag = Bitmap.createBitmap(image.getWidth()+2*b,20, Bitmap.Config.ARGB_8888);
                         Canvas ac = new Canvas(adminTag);
                     	Paint ad= new Paint();
@@ -178,12 +180,14 @@ public class UserView extends ImageButton{
                    	    canvas.drawBitmap(adminTag,x-b, y-b, null);
                               
                             
+
                        }
             }
             else{
-            	canvas.drawBitmap(image, x, y, null);
+                canvas.drawBitmap(image, x, y, null);
             }               
        }
+
 		
 	// GETTERS
 		

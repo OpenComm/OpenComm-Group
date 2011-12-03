@@ -83,10 +83,11 @@ public class SpaceController {
 			
 		}
 
-		//this.psiv.invalidate();
-		//Log.v(TAG, "adduser invalidate()");
-		//NotificationView notificationView = new NotificationView(view.getContext());
-		//notificationView.launch(user.getNickname(),"adduser");
+		if(space != Space.getMainSpace())
+			view.getActivity().invalidatePSIconView(psiv);
+		NotificationView notificationView = new NotificationView(view.getContext());
+		notificationView.launch(user.getNickname(),"adduser");
+
 	}
 	/** set the associated PrivateSpaceIconView psIcon*/
 	public void setPSIV( PrivateSpaceIconView psIcon) {

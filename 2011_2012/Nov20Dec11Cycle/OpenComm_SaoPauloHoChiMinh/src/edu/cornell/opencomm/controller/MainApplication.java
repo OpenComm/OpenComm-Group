@@ -293,6 +293,42 @@ public final class MainApplication extends Activity{
 				Space.getMainSpace().getParticipantController().leaveSpace(false);
 				break;
 			}
+			case KeyEvent.KEYCODE_Q: {
+				Log.v(TAG, "pressed Q key - you (a moderator) received an invite request");
+				InvitationController ic= MainApplication.screen.getSpace().getInvitationController();
+				// fake invite request
+				String inviteRequest = "" + Network.REQUEST_INVITE + "@requester" + debug.getUsername() 
+				+ "@invitee" + debug1.getUsername() + "@reason" + "Because you're a cool cat.";
+				ic.receiveInvitationRequest(inviteRequest); 
+				break;
+			}
+			case KeyEvent.KEYCODE_W: {
+				Log.v(TAG, "pressed W key - you received an invite to a chat");
+				InvitationController ic= MainApplication.screen.getSpace().getInvitationController();
+				// fake invite request
+				String inviteRequest = "" + Network.REQUEST_INVITE + "@requester" + debug.getUsername() 
+				+ "@invitee" + MainApplication.user_primary.getUsername() + "@reason" + "Because you're a cool cat.";
+				ic.receiveInvitationRequest(inviteRequest); 
+				break;
+			}
+			case KeyEvent.KEYCODE_E: {
+				Log.v(TAG, "pressed E key - you (a moderator) received a kickout request");
+				KickoutController kc = MainApplication.screen.getSpace().getKickoutController();
+				// fake kickout request
+				String kickoutRequest = "" + Network.REQUEST_KICKOUT + "@requester" + debug.getUsername() +
+				"@kickee" + debug1.getUsername() + "@reason" + "Because you didn't give me food.";
+				kc.receiveKickoutRequest(kickoutRequest);
+				break;
+			}
+			case KeyEvent.KEYCODE_R: {
+				Log.v(TAG, "pressed R key - you received a kickout confirmation");
+				KickoutController kc = MainApplication.screen.getSpace().getKickoutController();
+				// fake kickout request
+				String kickoutRequest = "" + Network.REQUEST_KICKOUT + "@requester" + debug.getUsername() +
+				"@kickee" + MainApplication.user_primary.getUsername() + "@reason" + "Because you didn't give me food.";
+				kc.receiveKickoutRequest(kickoutRequest);
+				break;
+			}
 			}
 			;
 			return true;
@@ -348,8 +384,14 @@ public final class MainApplication extends Activity{
 				return false;
 			}
 		});
-		Button actionBar = (Button) findViewById(R.id.ocActionBar);
-		actionBar.setOnClickListener(this.getActionBarOnClickListener());
+		ImageView soundButton = (ImageView) findViewById(R.id.sound_button);
+		soundButton.setClickable(true);
+		soundButton.setOnClickListener(this.getActionBarOnClickListener());
+		/*Log.v(TAG, "Clicked on MENU key");
+		LayoutInflater inflater = (LayoutInflater) MainApplication.this
+		.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		MenuView menuView = new MenuView(inflater);
+		menuView.launch();*/
 	}
 
     /** You are exiting the application! Definitely tell the network so it can tell
@@ -570,14 +612,25 @@ public final class MainApplication extends Activity{
     	//Log.v("MainApplication", "Invalidating SpaceView");
     	runOnUiThread(new Runnable() {
     	     public void run() {
-    	     //	Log.v("MainApplication", "run()");
     	    	 MainApplication.screen.draw(new Canvas());
     	    	 screen.invalidate();
-    	    	 screen.postInvalidate();
-    	    	// Log.v("MainApplication", "run() after");
+    	    	// screen.postInvalidate();
     	    }
     	});
     }
+    
+    /** Same reasons as invalidateSpaceView() except to invalidate
+     * a privatespaceicon when someone is add/removed from the space
+     * @param psv - the PrivateSpaceIconView whose GUI needs to be updated
+     */
+    public void invalidatePSIconView(final PrivateSpaceIconView psv){
+    	runOnUiThread(new Runnable() {
+    		public void run(){
+    			psv.invalidate();
+    		}
+    	});
+    }
+    
     
     /**Crystal: add the plus button to the bottom bar*/
     public void plusButtonSetUp(int position){
@@ -613,8 +666,13 @@ public final class MainApplication extends Activity{
     	View.OnClickListener actionBarListener = new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				DashboardView dashboardView = new DashboardView();
-				dashboardView.launch();
+				//DashboardView dashboardView = new DashboardView();
+				//dashboardView.launch();
+				Log.v(TAG, "Clicked on Sound button");
+				LayoutInflater inflater = (LayoutInflater) MainApplication.this
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				SoundSettingsView soundView = new SoundSettingsView(inflater);
+				soundView.launch();
 
 			}
     	};

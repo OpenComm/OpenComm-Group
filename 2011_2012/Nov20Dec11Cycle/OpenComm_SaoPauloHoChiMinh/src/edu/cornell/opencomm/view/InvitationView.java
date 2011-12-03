@@ -8,9 +8,12 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.InvitationController;
+import edu.cornell.opencomm.controller.MainApplication;
+import edu.cornell.opencomm.model.User;
 
 public class InvitationView {
 	private static String LOG_TAG = "OC_InvitationView"; // for error checking
@@ -26,6 +29,10 @@ public class InvitationView {
 		initEventsAndProperties();
 	}
 
+	public InvitationController getInvitationController(){
+		return invitationController;
+	}
+	
 	private void initEventsAndProperties() {
 		// create property invitationLayout from infalter and store it as a
 		// property
@@ -61,7 +68,7 @@ public class InvitationView {
 			imageAcceptButton.setOnClickListener(onAcceptButtonClickListener);
 		}
 	}
-
+	
 	public Button getAcceptButton() {
 		Button acceptButton = null;
 		if (invitationLayout != null) {
@@ -120,6 +127,90 @@ public class InvitationView {
 
 		return cancelOverlay;
 	}
+	
+	/** Set the information on the invite 
+	 * 1) If a moderator request - user image and profile info set to that of the invitee's
+	 * Message should say "requester requests to invite invitee to this chat"
+	 * 2) Otherwise, set to info of the requester
+	 * Message should say "Requester would like to invite you to a chat"
+	 */
+	public void setInvitationInfo(User requester, User invitee, boolean isModeratorRequest){
+		// User image
+		ImageView userImage = null;
+		int userImageDrawable = 0;
+		// Conference Title
+		String confMessage, confRequesterName, inviteeName; 
+		TextView confTitle = null;
+		//User Name Title
+		TextView bigNameTitle = null;
+		String bigName;
+		// User Profile Into
+		TextView userProfInfo;
+		String smallName, phone, email;
+		if(invitationLayout != null) {
+			userImage = (ImageView) invitationLayout.findViewById(R.id.iconImage);
+			confTitle = (TextView) invitationLayout.findViewById(R.id.textViewConfTitle);
+			bigNameTitle = (TextView) invitationLayout.findViewById(R.id.textViewHeader);
+			userProfInfo = (TextView) invitationLayout.findViewById(R.id.textViewInfo);
+			
+			confRequesterName = requester.getNickname();
+			inviteeName = invitee.getNickname();
+			
+			if(isModeratorRequest){
+				userImageDrawable = invitee.getImage();
+				confMessage = confRequesterName + " would like to invite " + inviteeName + " to a chat.";
+				bigName = invitee.getNickname();
+				smallName = invitee.getNickname();
+				phone = "None";
+				email = "None";
+			}
+			else{
+				userImageDrawable = requester.getImage();
+				confMessage = confRequesterName + " would like to invite you to a chat.";
+				bigName = requester.getNickname();
+				smallName = requester.getNickname();
+				phone = "None";
+				email = "None";
+			}
+			userImage.setImageDrawable(MainApplication.screen.getActivity().getResources().getDrawable(userImageDrawable));
+			confTitle.setText(confMessage);
+			bigNameTitle.setText(bigName);
+			userProfInfo.setText(smallName+"\n" + email + "\n" + phone);
+		}
+
+	}
+	
+	/** Set the user icon image of the invite */
+/*	public void setUserImage(User user){
+		ImageView userImage = null;
+		if(invitationLayout != null) {
+			userImage = (ImageView) invitationLayout.findViewById(R.id.iconImage);
+			int image = user.getImage(); 
+			userImage.setImageDrawable(MainApplication.screen.getActivity().getResources().getDrawable(image));
+		}
+	} */
+	
+	/** Set the conference title message in the invite 
+	 * @param requester - the requester user
+	 * @param invitee - the invitee user
+	 * @param moderatorRequest - true if a invite request to a moderator, 
+	 * false if is a simple invite request */
+	/*public void setConferenceTitle(User requester, User invitee, boolean moderatorRequest){
+		String message;
+		String requesterName = requester.getNickname();
+		if(invitee==MainApplication.user_primary){
+			message = requesterName + " would like to invite you to a chat.";
+		}
+		else {
+			String inviteeName = invitee.getNickname();
+			message = requesterName + " would like to invite " + inviteeName + " to a chat.";
+		}
+		TextView current = null;
+		if(invitationLayout != null){
+			current = (TextView) invitationLayout.findViewById(R.id.textViewConfTitle);
+			current.setText(message);
+		}
+	} */
 
 	public Context getContext() {
 		return context;

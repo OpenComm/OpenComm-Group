@@ -127,7 +127,6 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 		if(userSplit !=null){
 			User user = User.nickname_to_user.get(userSplit[1]);
 			mSpace.getSpaceController().addUser(userRoomInfo, user);
-			
 		}
 		
 		// DEBUG

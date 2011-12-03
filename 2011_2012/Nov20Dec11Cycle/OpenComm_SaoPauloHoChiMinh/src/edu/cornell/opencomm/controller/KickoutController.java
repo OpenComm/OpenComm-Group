@@ -4,10 +4,13 @@ import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smackx.muc.Occupant;
 
+import android.content.Context;
 import android.util.Log;
+import android.view.LayoutInflater;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.Network;
+import edu.cornell.opencomm.view.ConfirmationView;
 
 /**
  * Class to handle kickouts/kickout requests
@@ -20,6 +23,7 @@ public class KickoutController {
 	private static final boolean D = true;
 
 	private Space mSpace;
+	private ConfirmationView confirmationView = null;
 
 
 	/** ==========================================
@@ -94,14 +98,29 @@ public class KickoutController {
 		if (kickoutRequest.contains(Network.REQUEST_KICKOUT)) {
 			// extract kickout request info
 			String kickoutRequestInfo = kickoutRequest
-					.split(Network.REQUEST_KICKOUT)[0];
-			String requester = (kickoutRequestInfo.split("@requester")[0])
+					.split(Network.REQUEST_KICKOUT)[1];
+			String requester = (kickoutRequestInfo.split("@requester")[1])
 					.split("@kickee")[0];
 			String kickee = (kickoutRequestInfo.split("@requester" + requester
-					+ "@kickee")[0]).split("@reason")[0];
+					+ "@kickee")[1]).split("@reason")[0];
 			String reason = (kickoutRequestInfo.split("@reason").length == 0 ? Network.DEFAULT_KICKOUT
-					: kickoutRequestInfo.split("@reason")[0]);
+					: kickoutRequestInfo.split("@reason")[1]);
 			String[] kickoutInfo = { requester, kickee, reason };
+			
+			// Make the kickout confirmation gui popup
+			LayoutInflater inflater = (LayoutInflater) MainApplication.screen.getActivity()
+			.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			confirmationView = new ConfirmationView(inflater);
+			User userKickee = User.getAllUsers().get(kickee);
+			User userRequester = User.getAllUsers().get(requester);
+			// If you are getting kicked out
+			if(userKickee == MainApplication.user_primary)
+				confirmationView.setConfirmationInfo(userRequester, userKickee, false);
+			// If you are a moderator receiving a kickout request
+			else
+				confirmationView.setConfirmationInfo(userRequester, userKickee, true);
+			confirmationView.launch();
+			
 			// DEBUG
 			if (D)
 				Log.d(TAG,

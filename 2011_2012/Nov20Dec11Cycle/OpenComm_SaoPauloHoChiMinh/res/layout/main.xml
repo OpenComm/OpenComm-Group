@@ -5,17 +5,20 @@
 	android:background="@color/off_white"
 	android:layout_width="fill_parent" 
 	android:layout_height="fill_parent">
-	<Button 
-		android:layout_width="fill_parent" 
-		android:textColor="@color/off_white"
-		android:layout_height="36.67dp" 
-		android:background="@color/dark_grey"
-		android:gravity="center_vertical"
-		android:paddingLeft="10.67dp" 
-		android:textSize="20sp" 
-		android:id="@+id/ocActionBar"
-		android:cursorVisible="false" 
-		android:text="Opencomm" />
+<RelativeLayout 
+        android:orientation="horizontal" android:layout_width="fill_parent"
+        android:layout_height="36.67dp" android:background="@color/dark_grey">
+        <TextView android:layout_width="wrap_content" android:layout_centerVertical="true"
+                android:textColor="@color/off_white" android:gravity="center_vertical"
+                android:textSize="20sp"  android:layout_height="wrap_content"
+                android:text="Opencomm" android:paddingLeft="10.67dp" />
+ 
+        <ImageView android:src="@drawable/temp_sound_button" 
+                android:layout_width="36.67dp" android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" android:id="@+id/sound_button"
+                android:layout_marginRight="12dp" android:layout_height="fill_parent"
+                android:scaleType="fitXY" />
+</RelativeLayout>
 	<FrameLayout 
 		android:id="@+id/spaceViewFrame" 
 		android:background="@color/off_white"
