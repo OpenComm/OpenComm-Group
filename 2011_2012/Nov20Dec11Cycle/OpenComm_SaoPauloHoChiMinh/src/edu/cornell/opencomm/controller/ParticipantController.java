@@ -1,6 +1,12 @@
 package edu.cornell.opencomm.controller;
 
+import org.jivesoftware.smack.PacketCollector;
+import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.filter.PacketFilter;
+import org.jivesoftware.smack.filter.PacketIDFilter;
+import org.jivesoftware.smack.packet.IQ;
+import org.jivesoftware.smackx.packet.MUCOwner;
 
 import android.content.Intent;
 import android.util.Log;
@@ -59,7 +65,43 @@ public class ParticipantController {
 	 */
 	public void grantOwnership(String newOwner, boolean isLeaving) {
 		try {
-			this.mSpace.getMUC().grantOwnership(newOwner);
+			String[] nick = newOwner.split("@");
+			this.mSpace.getMUC().grantMembership(newOwner);
+			this.mSpace.getMUC().grantModerator(nick[0]);
+			//Log.v(TAG, LoginController.xmppService.getXMPPConnection().toString());
+			//this.mSpace.getMUC().grantOwnership(newOwner);
+			
+			/*//Create packet
+			MUCOwner iq = new MUCOwner();
+			iq.setTo(mSpace.getRoomID());
+			iq.setType(IQ.Type.SET);
+			MUCOwner.Item item = new MUCOwner.Item("owner");
+			item.setJid(newOwner);
+			iq.addItem(item);
+			Log.v("ParticipantController", iq.toXML());
+			
+			//Get network ready to receive packet
+			PacketFilter responseFilter = new PacketIDFilter(iq.getPacketID());
+			Log.v("ParticipantController", iq.getPacketID());
+			Log.v("ParticipantController", responseFilter.toString());
+			PacketCollector response = LoginController.xmppService
+					.getXMPPConnection().createPacketCollector(responseFilter);
+			
+			//Send the request
+			LoginController.xmppService.getXMPPConnection().sendPacket(iq);
+			//Wait for response
+			IQ answer = (IQ) response.nextResult(
+					SmackConfiguration.getPacketReplyTimeout());
+			//Stop waiting
+			response.cancel();
+			
+			if (answer == null){
+				throw new XMPPException("No response from server.");
+			}
+			else if (answer.getError() != null){
+				throw new XMPPException(answer.getError());
+			}*/
+			
 		} catch (XMPPException e) {
 			Log.d(TAG, "XMPP Exception: " + NetworkService.printXMPPError(e));
 			Log.d(TAG, "Could not grant ownership to: " + newOwner);

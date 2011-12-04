@@ -1,10 +1,14 @@
 package edu.cornell.opencomm.controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
+import org.jivesoftware.smackx.muc.Affiliate;
+import org.jivesoftware.smackx.muc.Occupant;
 
 import android.app.Activity;
 import android.content.Context;
@@ -260,6 +264,16 @@ public final class MainApplication extends Activity{
 				Log.v(TAG, "pressed V key - change owner");
 				Space.getMainSpace().getParticipantController().grantOwnership(
 						"opencommsec@jabber.org", false);
+				break;
+			}
+			case KeyEvent.KEYCODE_Z: {
+				Iterator<String> affiliates = Space.getMainSpace().getMUC().getOccupants();
+				while (affiliates.hasNext()){
+					String a = affiliates.next();
+					Log.v(TAG, a + "'s affiliaton is " + 
+							Space.getMainSpace().getMUC().getOccupant(a).getAffiliation());
+				}
+				break;
 			}
 			case KeyEvent.KEYCODE_J: {
 				Log.v(TAG, "Pressed J key - join");

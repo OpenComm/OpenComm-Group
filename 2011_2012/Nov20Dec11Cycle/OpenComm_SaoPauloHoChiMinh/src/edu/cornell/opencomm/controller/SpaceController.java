@@ -1,5 +1,7 @@
 package edu.cornell.opencomm.controller;
 
+import java.util.Collection;
+
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 
@@ -11,6 +13,7 @@ import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
+import edu.cornell.opencomm.network.Network;
 
 import edu.cornell.opencomm.view.PrivateSpaceIconView;
 
@@ -136,7 +139,15 @@ public class SpaceController {
 	public void deleteSpace() throws XMPPException {
 			//TO-DO need to pop-up a confirmation dialogue
 			Log.v(TAG, "Trying to destroy space " + space.getRoomID());
-			this.space.getMUC().destroy(null, null);
+			//this.space.getMUC().destroy(null, null);
+			
+			//experimental emulation of MUC.destroy
+			Collection<User> users = this.space.getAllParticipants().values();
+			for (User u : users){
+				this.space.getKickoutController().kickoutUser(u, Network.DEFAULT_KICKOUT);
+			}
+			this.space.getParticipantController().leaveSpace(this.space.equals(Space.getMainSpace()));
+			//end experiment 
 			
 			if(space.equals(Space.getMainSpace())){
 				Space.setMainSpace(null);

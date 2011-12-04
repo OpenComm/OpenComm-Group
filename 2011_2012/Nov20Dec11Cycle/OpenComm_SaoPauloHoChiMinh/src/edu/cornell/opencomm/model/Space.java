@@ -1,10 +1,14 @@
 package edu.cornell.opencomm.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
+
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.Form;
+import org.jivesoftware.smackx.FormField;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.muc.Occupant;
 
@@ -104,32 +108,31 @@ public class Space {
 			this.muc = new MultiUserChat(LoginController.xmppService.getXMPPConnection(),
 					this.roomID);
 			this.muc.join(owner.getNickname());
-			//muc.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
 			
+			//Configure room
 			Form form = muc.getConfigurationForm();
 			Form answerForm = form.createAnswerForm();
+			for (Iterator<FormField> fields = form.getFields(); fields.hasNext();){
+				FormField field = (FormField) fields.next();
+				if (!FormField.TYPE_HIDDEN.equals(field.getType()) && field.getVariable() != null){
+					answerForm.setDefaultAnswer(field.getVariable());
+				}
+			}
 			answerForm.setAnswer("muc#roomconfig_moderatedroom", true);
-			muc.sendConfigurationForm(answerForm);
+			//answerForm.setAnswer("muc#roomconfig_publicroom", false);
+			//answerForm.setAnswer("muc#roomconfig_persistentroom", false);
 
-			
-			/*// Get the the room's configuration form
-		      Form form = muc.getConfigurationForm();
-		      // Create a new form to submit based on the original form
-		      Form submitForm = form.createAnswerForm();
-		      // Add default answers to the form to submit
-		      for (Iterator fields = form.getFields(); fields.hasNext();) {
-		          FormField field = (FormField) fields.next();
-		          if (!FormField.TYPE_HIDDEN.equals(field.getType()) && field.getVariable() != null) {
-		              // Sets the default value as the answer
-		              submitForm.setDefaultAnswer(field.getVariable());
-		          }
-		      }
-		      // Sets the new owner of the room
-		      List owners = new ArrayList();
-		      owners.add(owner.getNickname());
-		      submitForm.setAnswer("muc#roomconfig_roomowners", owners);
-		      // Send the completed form (with default values) to the server to configure the room
-		      muc.sendConfigurationForm(submitForm);*/
+			/*//everything after this is experimental
+			List<String> owners = new LinkedList<String>();
+			owners.add("opencommss@jabber.org");
+			owners.add("opencommsec@jabber.org");
+			FormField f = new FormField("muc#roomconfig_roomowners");
+			f.setType(FormField.TYPE_JID_MULTI);
+			answerForm.addField(f);
+			answerForm.setAnswer("muc#roomconfig_roomowners", owners); */
+			muc.sendConfigurationForm(answerForm);
+			//end experiments 
+
 		}
 		// otherwise join as participant
 		else {
