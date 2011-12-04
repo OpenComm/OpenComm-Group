@@ -61,10 +61,17 @@ public class InvitationController implements InvitationRejectionListener {
 	}
 	/** Handle when the cancel button is pressed */
 	public void handleCancelButtonHover() {
-		invitationView.getCancelOverlay().setVisibility(View.VISIBLE);
 		// Dismisses the window for now
+		invitationView.getCancelOverlay().setVisibility(View.VISIBLE);
 		invitationView.getWindow().dismiss();
-		//rejectInvitationRequest(String[] inviteInfo, String reason)
+		// The after effects
+		Invitation invite = invitationView.getInvitation();
+		boolean isModeratorRequest = invite.getIsModeratorRequest();
+		if(isModeratorRequest)
+			rejectInvitationRequest(invite.getInviteInfo(), "No room for you sorry");
+		else
+			// Dismisses the window for now
+			decline(invite.getInviteInfo()[0]);
 	}
 
 	// Model variables
@@ -307,6 +314,7 @@ public class InvitationController implements InvitationRejectionListener {
 	 * @return The chat room you just joined
 	 * @throws XMPPException
 	 */
+	// Nora - I do not use this at all
 	MultiUserChat accept(String username) throws XMPPException {
 		MultiUserChat chat = new MultiUserChat(this.invitation.getConnection(), this.invitation.getRoom());
 		chat.join(username);
