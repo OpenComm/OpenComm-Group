@@ -38,14 +38,14 @@ public class SideChatIconMenuController {
 		    		// Go to the space which this icon is representing
 		    		MainApplication.screen.getSpaceViewController().changeSpace(privateSpaceIconView.getSpace());
 		    	}
-		    	else if (Values.privatespaceiconMenu[item].equals("Leave chat")){
+		    	else if (Values.privatespaceiconMenu[item].equals("Leave")){
 		    		//Do something if user clicks on Leave Chat
 		    		// delete the icon and the room
-		    	 main.deletePrivateSpace(privateSpaceIconView.getSpace());
-		    	 main.delPrivateSpaceButton(privateSpaceIconView);
-		    	 // bring spaceView back to main chat
-		    		MainApplication.screen.getSpaceViewController().changeSpace(Space.getMainSpace());
-		    			
+		    				    		Space space = privateSpaceIconView.getSpace();
+		    				    		space.getParticipantController().leaveSpace(space==Space.getMainSpace());
+		    							//main.delPrivateSpaceButton(privateSpaceIconView);
+		    							//MainApplication.screen.getSpaceViewController().changeSpace(Space.getMainSpace());
+	
 		    	}
 		    	else if (Values.privatespaceiconMenu[item].equals("Cancel")){
 		    		//Do something if user clicks on Cancel

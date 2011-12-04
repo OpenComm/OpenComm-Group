@@ -143,6 +143,17 @@ public class SpaceController {
 			}
 	} // end of deleteSpace method
 
+	public static Space addExistingSpace(Context context, boolean isMainSpace, String roomID, User owner) {
+		Space space=null;
+		try {
+			space = new Space(context, isMainSpace, roomID, owner);
+			
+		} catch (XMPPException e) {
+			Log.v("SpaceController", "Could not make an existing space for you");
+		}
+		return space;
+	}
+	
 	/**
 	 * Creates a new Space
 	 * @param context The context this space belongs to (i.e. MainApplication)

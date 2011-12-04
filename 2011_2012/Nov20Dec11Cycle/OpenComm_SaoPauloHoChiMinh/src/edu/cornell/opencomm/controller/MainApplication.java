@@ -508,6 +508,8 @@ public final class MainApplication extends Activity{
     	 */
     //} */
 
+
+    
     /** Need to add the new PrivateSpace button to the bottom GUI by altering the XML code */
     public void addPrivateSpaceButton(PrivateSpaceIconView psv){
         LinearLayout bottomBar = (LinearLayout) findViewById(R.id.privateSpaceLinearLayout);
@@ -584,6 +586,34 @@ public final class MainApplication extends Activity{
 	};
 
 
+	/** Removes all UI traces of a privatespace/sidechat
+		 * 1) Removes space from hashmap of all spaces
+		 * 2) Removes the corresponding privatespaceButton 
+		 * 3) Changes the space to the Mainspace (but only if wasn't a mainspace) 
+		 * However, if you are leaving the mainspace, then start a new activity 
+		 * and go ack to the dashboard*/
+		public void delPrivateSpaceUI(Space space, boolean isMainSpace){
+			if(isMainSpace){
+				Intent i = new Intent(MainApplication.screen.getSpace().getContext(),
+						DashboardView.class);
+				MainApplication.screen.getSpace().getContext().startActivity(i);
+			}
+			else{
+				// 1
+				Space.allSpaces.remove(space.getRoomID());
+				// 2
+				PrivateSpaceIconView foundIcon=null;
+				for(PrivateSpaceIconView ps : PrivateSpaceIconView.allPSIcons){
+					if(ps.getSpace()==space)
+						foundIcon = ps;
+				}
+				if(foundIcon!=null)
+					delPrivateSpaceButton(foundIcon);
+				// 3
+				screen.getSpaceViewController().changeSpace(Space.getMainSpace());
+			}			
+		}
+	
     /** Need to delete the this PrivateSpace button to the bottom GUI by altering the XML code */
     public void delPrivateSpaceButton(PrivateSpaceIconView psv){
         LinearLayout bottomBar = (LinearLayout) findViewById(R.id.privateSpaceLinearLayout);
@@ -611,12 +641,9 @@ public final class MainApplication extends Activity{
      * created a view hierarchy can touch its views" error)
      */
     public void invalidateSpaceView(){
-    	//Log.v("MainApplication", "Invalidating SpaceView");
     	runOnUiThread(new Runnable() {
     	     public void run() {
-    	    	 MainApplication.screen.draw(new Canvas());
     	    	 screen.invalidate();
-    	    	// screen.postInvalidate();
     	    }
     	});
     }
@@ -680,29 +707,4 @@ public final class MainApplication extends Activity{
     	};
     	return actionBarListener;
     }
-
-    /** Notify the network with the icon you moved so that it can update the sound simulation */
-    public void movedPersonIcon(Space space, UserView icon, int x, int y){
-        /* TODO network:
-         * 1) Send details to network so it can update the sound sound spatialization
-         */
-    }
-
-    /*delete the specific privatespaceview psv--Crystal Qin*/
-    public void deletePrivateSpaceView(Space psv){
-    	/*Button check=(Button) findViewById(R.id.delete_button);
-	       Log.v(TAG, "check button " +check);
-			check.setVisibility(View.VISIBLE);
-			Log.v(TAG, "SEE A BUTTON");
-			final Space sp= psv;
-			check.setOnClickListener(new OnClickListener(){
-
-				@Override
-				public void onClick(View v) {
-					if(sp!= MainApplication.mainspace){
-						deletePrivateSpace(sp);
-					}
-				}
-			}); */
-    } 
 }

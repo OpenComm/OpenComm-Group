@@ -7,6 +7,7 @@ import android.util.Log;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.DashboardView;
+import edu.cornell.opencomm.view.ParticipantView;
 
 /** An instance of this class controls participants (users) in a specific space */
 public class ParticipantController {
@@ -39,6 +40,13 @@ public class ParticipantController {
 			mSpace.getContext().startActivity(i);
 		} else {
 			// TODO: update view to Conference
+						// If moderator of the space
+						if(mSpace.getOwner() == MainApplication.user_primary){
+							ParticipantView.leaveOrDestroy(mSpace);
+						}
+						else{
+							MainApplication.screen.getActivity().delPrivateSpaceUI(mSpace, mSpace.equals(Space.getMainSpace()));
+						}
 		}
 		mSpace.getMUC().leave();
 	}

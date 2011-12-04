@@ -41,11 +41,19 @@ public class InvitationController implements InvitationRejectionListener {
 		// The after effects
 		Invitation invite = invitationView.getInvitation();
 		boolean isModeratorRequest = invite.getIsModeratorRequest();
-		if(isModeratorRequest)
+		if(isModeratorRequest){
+			Log.v("InvitationController", "Moderator accepted the invite request");
 			confirmInvitationRequest(invite.getInviteInfo());
+		}
 		else{
+			Log.v("InvitationController", "You accepted the invite request");
 			try {
 				invite.getMUC().join(MainApplication.user_primary.getUsername());
+				String moderator = ((Occupant)invite.getMUC().getModerators().toArray()[0]).getJid();
+				User userModerator = User.getAllUsers().get(moderator);
+				                                                             
+				SpaceController.addExistingSpace(MainApplication.screen.getContext(), 
+						false, invite.getMUC().getRoom(), userModerator);
 			} catch (XMPPException e) {
 				// TODO Auto-generated catch block
 				Log.v("InvitationController", "Could not let you join this room muc = " + invite.getMUC());
@@ -170,6 +178,7 @@ public class InvitationController implements InvitationRejectionListener {
 					: inviteRequestInfo.split("@reason")[1]);
 			String[] inviteInfo = { requester, invitee, reason };
 			
+			
 			// For the invitation popup
 			LayoutInflater inflater = (LayoutInflater) MainApplication.screen.getActivity()
 			.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -204,9 +213,6 @@ public class InvitationController implements InvitationRejectionListener {
 	public void confirmInvitationRequest(String[] inviteInfo) {
 		// Check the inviteInfo is not null and length 3
 		if (inviteInfo != null && inviteInfo.length == 3) {
-			Log.v("InviteController", "space is null = " + (mSpace==null));/*+ ", muc is null = " + 
-					(mSpace.getMUC()==null) + ",inviteinfo1 is null " + (inviteInfo[1]==null) +
-					", invitieinfo2 is null " + (inviteInfo[2]==null)); */
 			this.mSpace.getMUC().invite(inviteInfo[1], inviteInfo[2]);
 			if (D) Log.d(TAG, "confirmInvitationRequest - confirmed invitation request from "
 								+ inviteInfo[0] + " for room "

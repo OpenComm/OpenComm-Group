@@ -7,6 +7,7 @@ import org.jivesoftware.smack.XMPPException;
 
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.MainApplication;
+import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.Network;
 
@@ -80,7 +81,7 @@ public class ParticipantView {
 		alert.show();
 	}
 
-	public static void grantOwnership() {
+	public static void grantOwnership(final Space space, final boolean isMainSpace) {
 		if (context == null) {
 			Log.v(TAG, "Context is null!");
 		}
@@ -90,6 +91,7 @@ public class ParticipantView {
 				DialogInterface.OnClickListener {
 			public void onClick(DialogInterface dialog, int clicked) {
 				makeOwner(clicked);
+				MainApplication.screen.getActivity().delPrivateSpaceUI(space, isMainSpace);
 			}
 		}
 		updateParticipants();
@@ -100,7 +102,7 @@ public class ParticipantView {
 		alert.show();
 	}
 
-	public static void leaveOrDestroy() {
+	public static void leaveOrDestroy(final Space space) {
 		if (context == null) {
 			Log.v(TAG, "Context is null!");
 		}
@@ -110,25 +112,21 @@ public class ParticipantView {
 				DialogInterface.OnClickListener {
 			public void onClick(DialogInterface dialog, int clicked) {
 				Log.v(TAG, "Clicked = " + clicked);
+								boolean isMainSpace = false;
+								if(space==Space.getMainSpace())
+									isMainSpace= true;
 				switch (clicked) {
 				case (0):
 					Log.v(TAG, "clicked on Destroy!");
 					try {
 						MainApplication.screen.getSpace().getSpaceController().deleteSpace();
+						MainApplication.screen.getActivity().delPrivateSpaceUI(space, isMainSpace);
 					} catch (XMPPException e) {
 						Log.v(TAG, "Can't destroy the space!");
 					}
-					//if (spaceView.getSpace().equals(Space.getMainSpace())){
-						Intent i = new Intent(MainApplication.screen.getSpace().getContext(),
-								DashboardView.class);
-						MainApplication.screen.getSpace().getContext().startActivity(i);
-					//}
-					//else{
-						//TODO: update View to conferenc
-					//}
 					break;
 				case (1):
-					grantOwnership();
+					grantOwnership(space, isMainSpace);
 					break;
 				}
 			}

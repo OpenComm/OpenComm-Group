@@ -46,7 +46,7 @@ public class EmptySpaceMenuController {
 		    		Log.v(TAG, "pressed Leave Chat");
 		    		if(MainApplication.user_primary.equals(
 		    				MainApplication.screen.getSpace().getOwner())){
-		    			ParticipantView.leaveOrDestroy();
+		    			ParticipantView.leaveOrDestroy(MainApplication.screen.getSpace());
 		    		}
 		    		else{
 		    			MainApplication.screen.getSpace().getParticipantController().leaveSpace(
