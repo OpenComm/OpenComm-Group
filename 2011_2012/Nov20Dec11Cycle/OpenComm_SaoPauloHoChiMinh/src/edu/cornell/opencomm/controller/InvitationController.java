@@ -42,7 +42,7 @@ public class InvitationController implements InvitationRejectionListener {
 		Invitation invite = invitationView.getInvitation();
 		boolean isModeratorRequest = invite.getIsModeratorRequest();
 		if(isModeratorRequest)
-			;//confirmInvitationRequest(invite.getInviteInfo());
+			confirmInvitationRequest(invite.getInviteInfo());
 		else{
 			try {
 				invite.getMUC().join(MainApplication.user_primary.getUsername());
@@ -83,6 +83,7 @@ public class InvitationController implements InvitationRejectionListener {
 		this.mSpace = mSpace;
 		this.mSpace.getMUC();
 		this.mSpace.getMUC().addInvitationRejectionListener(this);
+		Log.v("InvitationControlelr", "mSpace is " + mSpace);
 	}
 
 	/** =============================================================================================
@@ -165,7 +166,7 @@ public class InvitationController implements InvitationRejectionListener {
 			// For the invitation popup
 			LayoutInflater inflater = (LayoutInflater) MainApplication.screen.getActivity()
 			.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			invitationView = new InvitationView(inflater, new Invitation(inviteInfo, true));
+			invitationView = new InvitationView(inflater, new Invitation(inviteInfo, true), this);
 			User userInvitee = User.getAllUsers().get(invitee);
 			User userRequester = User.getAllUsers().get(requester);
 			invitationView.setInvitationInfo(userRequester, userInvitee, true);
@@ -196,6 +197,9 @@ public class InvitationController implements InvitationRejectionListener {
 	public void confirmInvitationRequest(String[] inviteInfo) {
 		// Check the inviteInfo is not null and length 3
 		if (inviteInfo != null && inviteInfo.length == 3) {
+			Log.v("InviteController", "space is null = " + (mSpace==null));/*+ ", muc is null = " + 
+					(mSpace.getMUC()==null) + ",inviteinfo1 is null " + (inviteInfo[1]==null) +
+					", invitieinfo2 is null " + (inviteInfo[2]==null)); */
 			this.mSpace.getMUC().invite(inviteInfo[1], inviteInfo[2]);
 			if (D) Log.d(TAG, "confirmInvitationRequest - confirmed invitation request from "
 								+ inviteInfo[0] + " for room "

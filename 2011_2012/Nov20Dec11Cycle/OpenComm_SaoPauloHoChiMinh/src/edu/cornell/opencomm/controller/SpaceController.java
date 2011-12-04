@@ -111,7 +111,8 @@ public class SpaceController {
 				space.getAllIcons().remove(uv);
 		}
 		
-		view.getActivity().invalidatePSIconView(psiv);
+		if(space!=Space.getMainSpace())
+			view.getActivity().invalidatePSIconView(psiv);
 		//this.psiv.invalidate();
 		
 		/* If you are currently in this space then refresh the 

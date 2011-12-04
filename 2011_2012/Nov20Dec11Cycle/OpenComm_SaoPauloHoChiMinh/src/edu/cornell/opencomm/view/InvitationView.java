@@ -36,6 +36,13 @@ public class InvitationView {
 		this.invitation = invitation;
 		initEventsAndProperties();
 	}
+	
+	public InvitationView(LayoutInflater inflater, Invitation invitation, InvitationController inviteController){
+		this.inflater = inflater;
+		this.invitation = invitation;
+		this.invitationController = inviteController;
+		initEventsAndProperties();
+	}
 
 	public InvitationController getInvitationController(){
 		return invitationController;
