@@ -4,6 +4,7 @@ package edu.cornell.opencomm.model;
 
 import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.packet.Message;
+import org.jivesoftware.smackx.muc.MultiUserChat;
 
 
 
@@ -18,6 +19,9 @@ public class Invitation {
 	private String reason;
 	private String password;
 	private Message message;
+	private String[] inviteInfo;
+	private MultiUserChat muc;
+	private boolean isModeratorRequest;
 
 	/**
 	 * Creates a InvitationController
@@ -36,6 +40,11 @@ public class Invitation {
 		this.reason = reason;
 		this.password = password;
 		this.message = message;
+	}
+	
+	public Invitation(String[] inviteInfo, boolean isModeratorRequest){
+		this.inviteInfo = inviteInfo;
+		this.isModeratorRequest = isModeratorRequest;
 	}
 	
 	/**
@@ -80,5 +89,29 @@ public class Invitation {
 		return message;
 	}
 	
+	/** [String requester's JID, String invitee's JID, String reason] */
+	public String[] getInviteInfo(){
+		return inviteInfo;
+	}
+	
+	public MultiUserChat getMUC(){
+		return muc;
+	}
+	
+	public boolean getIsModeratorRequest(){
+		return isModeratorRequest;
+	}
+	
 	//TODO: add setters if needed
+	public void setInviteInfo(String[] inviteInfo){
+		this.inviteInfo = inviteInfo;
+	}
+	
+	public void setMUC(MultiUserChat newMUC){
+		this.muc = newMUC;
+	}
+	
+	public void setIsModeratorRequest(boolean isit){
+		this.isModeratorRequest = isit;
+	}
 }

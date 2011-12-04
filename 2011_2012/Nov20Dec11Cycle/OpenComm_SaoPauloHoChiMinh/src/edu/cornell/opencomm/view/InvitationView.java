@@ -13,6 +13,7 @@ import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.InvitationController;
 import edu.cornell.opencomm.controller.MainApplication;
+import edu.cornell.opencomm.model.Invitation;
 import edu.cornell.opencomm.model.User;
 
 public class InvitationView {
@@ -23,9 +24,16 @@ public class InvitationView {
 	private InvitationController invitationController = new InvitationController(
 			this);
 	private View invitationLayout = null;
+	private Invitation invitation = null;
 
 	public InvitationView(LayoutInflater inflater) {
 		this.inflater = inflater;
+		initEventsAndProperties();
+	}
+	
+	public InvitationView(LayoutInflater inflater, Invitation invitation){
+		this.inflater = inflater;
+		this.invitation = invitation;
 		initEventsAndProperties();
 	}
 
@@ -263,11 +271,16 @@ public class InvitationView {
 		this.window = window;
 	}
 
+	public Invitation getInvitation(){
+		return invitation;
+	}
+	
 	/*
 	 * this method launches the confirmation layout on a popupwindiw, can be
 	 * changed later to launch like a normal view
 	 */
 	public void launch() {
+		//Log.v(LOG_TAG, "Inflater is null = " + (inflater==null) + ", and invationLayout is null = " + (invitationLayout==null));
 		if (inflater != null && invitationLayout != null) {
 			window = new PopupWindow(invitationLayout, Values.screenW,
 					Values.screenH, true);

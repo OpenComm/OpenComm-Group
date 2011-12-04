@@ -113,10 +113,11 @@ public class NetworkService {
 						// Create the invitation
 						LayoutInflater inflater = (LayoutInflater) MainApplication.screen.getActivity()
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-						InvitationView invitationView = new InvitationView(inflater);
+						InvitationView invitationView = new InvitationView(inflater, invitation);
+						invitation.setIsModeratorRequest(false);
+						invitation.setMUC(muc);
 						invitationView.setInvitationInfo(-1, nickname, "None", "None");
 						invitationView.launch();
-						
 					}
 
 				}

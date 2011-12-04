@@ -31,17 +31,40 @@ public class InvitationController implements InvitationRejectionListener {
 		invitationView.getWindow().dismiss();		
 	}
 	
-	/** Handle when the cancel button is pressed */
+	/** Handle when the accept button is pressed
+	 * 1) If a moderator request - call confirm
+	 * 2) If an invite to you - then accept */
 	public void handleAcceptButtonHover() {
+		// Highlight the accept button and dismiss the window
 		invitationView.getAcceptOverlay().setVisibility(View.VISIBLE);
-		// Dismisses the window for now
 		invitationView.getWindow().dismiss();
+		// The after effects
+		Invitation invite = invitationView.getInvitation();
+		boolean isModeratorRequest = invite.getIsModeratorRequest();
+		if(isModeratorRequest)
+			;//confirmInvitationRequest(invite.getInviteInfo());
+		else{
+			try {
+				invite.getMUC().join(MainApplication.user_primary.getUsername());
+			} catch (XMPPException e) {
+				// TODO Auto-generated catch block
+				Log.v("InvitationController", "Could not let you join this room muc = " + invite.getMUC());
+			}
+		}
+		
+			/*- muc.accept()
+			- create a space (give space id)
+			- create a new muc
+			- add all people from the muc
+			- add a ps icon
+			- add all user icons */
 	}
 	/** Handle when the cancel button is pressed */
 	public void handleCancelButtonHover() {
 		invitationView.getCancelOverlay().setVisibility(View.VISIBLE);
 		// Dismisses the window for now
 		invitationView.getWindow().dismiss();
+		//rejectInvitationRequest(String[] inviteInfo, String reason)
 	}
 
 	// Model variables
@@ -142,15 +165,10 @@ public class InvitationController implements InvitationRejectionListener {
 			// For the invitation popup
 			LayoutInflater inflater = (LayoutInflater) MainApplication.screen.getActivity()
 			.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			invitationView = new InvitationView(inflater);
+			invitationView = new InvitationView(inflater, new Invitation(inviteInfo, true));
 			User userInvitee = User.getAllUsers().get(invitee);
 			User userRequester = User.getAllUsers().get(requester);
-			// If an invite to yourself
-			if(userInvitee==MainApplication.user_primary)
-				invitationView.setInvitationInfo(userRequester, userInvitee, false);
-			// If a moderator request
-			else
-				invitationView.setInvitationInfo(userRequester, userInvitee, true);
+			invitationView.setInvitationInfo(userRequester, userInvitee, true);
 			invitationView.launch();
 
 			// DEBUG
@@ -290,6 +308,7 @@ public class InvitationController implements InvitationRejectionListener {
 		chat.join(username);
 		return chat;
 	}
+	
 
 	/**
 	 * Returns the most recent invitation received
