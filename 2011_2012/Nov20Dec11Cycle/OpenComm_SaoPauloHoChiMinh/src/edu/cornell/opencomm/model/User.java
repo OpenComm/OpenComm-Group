@@ -2,6 +2,7 @@ package edu.cornell.opencomm.model;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Hashtable;
 
 import android.util.Log;
 import edu.cornell.opencomm.R;
@@ -19,11 +20,12 @@ public class User {
 	int image; // icon - will be replaced by vCard
 	
 	//Crystal
-	public int user_color=R.color.black;
+	public int user_color=R.color.blue;
 	static int[] colors={R.color.blue,R.color.green,R.color.orange,R.color.teal,
 		R.color.light_purple,R.color.red, R.color.pink, R.color.grass_green,R.color.ocean_blue,
 		R.color.showy_green};
 	static int color_pointer=0;
+	static Hashtable<String, Integer> user_color_table= new Hashtable<String, Integer> ();
 	
 	// Maps JID to User
 	private static HashMap<String, User> allUsers = new HashMap<String, User>();
@@ -49,9 +51,14 @@ public class User {
         } else {
             this.image = image;	
         }
-        if(user_color==R.color.black){
+        
+        if (user_color_table.containsKey(username)){
+        	user_color=user_color_table.get(username);
+        }else{
         user_color=colors[color_pointer];
-        color_pointer=(color_pointer>=9? 0 : ++color_pointer);};
+        color_pointer=(color_pointer>=9? 0 : ++color_pointer);
+        user_color_table.put(username, user_color);
+	   }
         allUsers.put(username, this);
         nickname_to_user.put(nickname, this);
 	}
