@@ -13,6 +13,7 @@ import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.ConfirmationController;
 import edu.cornell.opencomm.controller.MainApplication;
+import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
 
 public class ConfirmationView {
@@ -23,9 +24,18 @@ public class ConfirmationView {
 	private ConfirmationController confirmationController = new ConfirmationController(
 			this);
 	private View confirmationLayout = null;
+	private String[] kickoutInfo = null;
+	private Space space;
 
 	public ConfirmationView(LayoutInflater inflater) {
 		this.inflater = inflater;
+		initEventsAndProperties();
+	}
+	
+	public ConfirmationView(LayoutInflater inflater, String[] kickoutInfo, Space space) {
+		this.inflater = inflater;
+		this.kickoutInfo = kickoutInfo;
+		this.space = space;
 		initEventsAndProperties();
 	}
 
@@ -196,6 +206,22 @@ public class ConfirmationView {
 
 	public void setWindow(PopupWindow window) {
 		this.window = window;
+	}
+	
+	public String[] getKickoutInfo(){
+		return kickoutInfo;
+	}
+	
+	public void setKickoutInfo(String[] info){
+		kickoutInfo = info;
+	}
+		 
+	public Space getSpace(){
+		return space;
+	}
+
+	public void setSpace(Space space){
+		this.space = space;
 	}
 
 	/*

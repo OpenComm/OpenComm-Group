@@ -110,7 +110,7 @@ public class KickoutController {
 			// Make the kickout confirmation gui popup
 			LayoutInflater inflater = (LayoutInflater) MainApplication.screen.getActivity()
 			.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			confirmationView = new ConfirmationView(inflater);
+			confirmationView = new ConfirmationView(inflater, kickoutInfo, mSpace);
 			User userKickee = User.getAllUsers().get(kickee);
 			User userRequester = User.getAllUsers().get(requester);
 			// If you are getting kicked out
