@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.model.Space;
@@ -157,10 +158,9 @@ public final class MainApplication extends Activity{
         	font = Typeface.createFromAsset(getAssets(), Values.font);
         	Button mainButtonText = (Button) findViewById(R.id.main_button);
         	mainButtonText.setTypeface(font);
-        	this.plusButtonSetUp(0);
         	 
         }
-        //this.plusButtonSetUp(0);
+        this.plusButtonSetUp(0);
         initializeButtons();
 
         //Initializes the onKeyListener to record keypad events
@@ -396,9 +396,14 @@ public final class MainApplication extends Activity{
 				return false;
 			}
 		});
+		
+		TextView logo = (TextView) findViewById(R.id.logo);
+		logo.setClickable(true);
+		logo.setOnClickListener(this.logoOnClickListener());
+		
 		ImageView soundButton = (ImageView) findViewById(R.id.sound_button);
 		soundButton.setClickable(true);
-		soundButton.setOnClickListener(this.getActionBarOnClickListener());
+		soundButton.setOnClickListener(this.getSoundButtonOnClickListener());
 		/*Log.v(TAG, "Clicked on MENU key");
 		LayoutInflater inflater = (LayoutInflater) MainApplication.this
 		.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -694,8 +699,9 @@ public final class MainApplication extends Activity{
 		bottomBar.invalidate(); 
     }
     
-    public View.OnClickListener getActionBarOnClickListener() {
-    	View.OnClickListener actionBarListener = new OnClickListener() {
+    /** Justin : Call when the sound button is clicked **/
+    public View.OnClickListener getSoundButtonOnClickListener() {
+    	View.OnClickListener soundButtonListener = new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				//DashboardView dashboardView = new DashboardView();
@@ -708,6 +714,26 @@ public final class MainApplication extends Activity{
 
 			}
     	};
-    	return actionBarListener;
+    	return soundButtonListener;
     }
+    
+    
+    /** Rahul : Click on logo and go back to dashboard **/
+    public View.OnClickListener logoOnClickListener() {
+    	View.OnClickListener logoListener = new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Log.v(TAG, "Clicked on Logo");
+				
+				//Intent i = new Intent(getBaseContext(), DashboardView.class);
+				//i.putExtra(Network.KEY_USERNAME, username);
+				//i.setAction(Network.ACTION_LOGIN);
+				//i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				//getApplication().startActivity(i);
+				
+			}
+    	};
+    	return logoListener;
+    }
+
 }
