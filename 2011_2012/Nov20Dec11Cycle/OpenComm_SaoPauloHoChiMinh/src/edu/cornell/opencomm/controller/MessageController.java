@@ -61,41 +61,12 @@ public class MessageController {
 					// if it is a invitation request:
 					if (body.contains(Network.REQUEST_INVITE)) {
 						if (D) Log.d(TAG, "configMessageListener - invitation request received");
-						String[] inviteInfo = mSpace.getInvitationController().receiveInvitationRequest(body);
-						// TODO - UI: some form of confirmation or rejection
-						
-						boolean userDecision = launchInvitationView();
-						if (userDecision) {
-							// invite user to the room
-							mSpace.getInvitationController().confirmInvitationRequest(inviteInfo);
-						}
-						else {
-							// Reject the invitation request
-							// TODO - UI: permit user to type reason for rejection
-							String reason = Network.DEFAULT_REJECT;
-							mSpace.getInvitationController().rejectInvitationRequest(inviteInfo, reason);
-						}
+						mSpace.getInvitationController().receiveInvitationRequest(body);
 					}
 					// if it is a kickout request:
 					else if (body.contains(Network.REQUEST_KICKOUT)) {
 						if (D) Log.d(TAG, "configMessageListener - kickout request received");
-						String[] kickoutInfo = mSpace.getKickoutController().receiveKickoutRequest(body);
-						// TODO - UI: some form of confirmation or rejection
-						boolean userDecision = true;
-						if (userDecision) {
-							// kickout user from room
-							try {
-								mSpace.getKickoutController().confirmKickoutRequest(kickoutInfo);
-							} catch(XMPPException e) {
-								Log.e(TAG, "Failed to kickout user");
-							}
-						}
-						else {
-							// Reject the kickout request
-							// TODO - UI: permit user to type reason for rejection
-							String reason = Network.DEFAULT_REJECT;
-							mSpace.getKickoutController().rejectKickoutRequest(kickoutInfo, reason);
-						}
+						mSpace.getKickoutController().receiveKickoutRequest(body);
 					}
 					
 					// normal messages

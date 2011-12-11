@@ -155,13 +155,13 @@ public class InvitationController implements InvitationRejectionListener {
 
 	/**
 	 * = Information of invitation request received when a non-owner tries to
-	 * invite a user to a space in String array format {requesterJID,
+	 * invite a user to a space in String array format {inviterJID,
 	 * inviteeJID, inviteReason}
 	 *
 	 * @param inviteRequest
 	 *            - message sent to the room when a non-owner tries to invite a
 	 *            user to a room. Contains the InviteRequest Tag<br>
-	 *            (format: (Network.REQUEST_INVITE)@requester(Requester's JID)@invitee
+	 *            (format: (Network.REQUEST_INVITE)@(Inviter's JID)@invitee
 	 *            (Invitee's JID)@reason(Invitation reason)
 	 */
 	public String[] receiveInvitationRequest(String inviteRequest) {
@@ -170,13 +170,13 @@ public class InvitationController implements InvitationRejectionListener {
 			// extract invitation request info
 			String inviteRequestInfo = inviteRequest
 					.split(Network.REQUEST_INVITE)[1];
-			String requester = (inviteRequestInfo.split("@requester")[1])
+			String inviter = (inviteRequestInfo.split("@inviter")[1])
 					.split("@invitee")[0];
-			String invitee = (inviteRequestInfo.split("@requester" + requester
+			String invitee = (inviteRequestInfo.split("@inviter" + inviter
 					+ "@invitee")[1]).split("@reason")[0];
 			String reason = (inviteRequestInfo.split("@reason").length == 0 ? Network.DEFAULT_INVITE
 					: inviteRequestInfo.split("@reason")[1]);
-			String[] inviteInfo = { requester, invitee, reason };
+			String[] inviteInfo = { inviter, invitee, reason };
 			
 			
 			// For the invitation popup
@@ -184,8 +184,8 @@ public class InvitationController implements InvitationRejectionListener {
 			.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			invitationView = new InvitationView(inflater, new Invitation(inviteInfo, true), this);
 			User userInvitee = User.getAllUsers().get(invitee);
-			User userRequester = User.getAllUsers().get(requester);
-			invitationView.setInvitationInfo(userRequester, userInvitee, true);
+			User userInviter = User.getAllUsers().get(inviter);
+			invitationView.setInvitationInfo(userInviter, userInvitee, true);
 			invitationView.launch();
 
 			// DEBUG
@@ -208,7 +208,7 @@ public class InvitationController implements InvitationRejectionListener {
 	 * by the requester
 	 *
 	 * @param inviteInfo
-	 *            - String array: {requesterJID, inviteeJID, inviteReason}
+	 *            - String array: {inviterJID, inviteeJID, inviteReason}
 	 */
 	public void confirmInvitationRequest(String[] inviteInfo) {
 		// Check the inviteInfo is not null and length 3
@@ -227,7 +227,7 @@ public class InvitationController implements InvitationRejectionListener {
 	 * invitation request along with the reason for the rejection
 	 *
 	 * @param inviteInfo
-	 *            - inviteInfo - String array: {requesterJID, inviteeJID,
+	 *            - inviteInfo - String array: {inviterJID, inviteeJID,
 	 *            inviteReason}
 	 * @param reason
 	 *            - reason for the rejection
@@ -236,7 +236,7 @@ public class InvitationController implements InvitationRejectionListener {
 		// Check that the inviteInfo is valid
 		if (inviteInfo != null && inviteInfo.length == 3) {
 			// send the room the rejection notification
-			Message msg = new Message(Network.REJECT_INVITE + "@requester"
+			Message msg = new Message(Network.REJECT_INVITE + "@inviter"
 					+ inviteInfo[0] + "@invitee" + inviteInfo[1] + "@reason"
 					+ inviteInfo[2] + "@rejectreason"
 					+ (reason == null ? Network.DEFAULT_REJECT : reason),
@@ -265,12 +265,12 @@ public class InvitationController implements InvitationRejectionListener {
 	 * @param inviteRequest
 	 *            - message sent to the room when a owner rejects an invitation request
 	 *            user to a room. Contains the Reject_Invite Tag<br>
-	 *            (format: (Network.REJECTT_INVITE)@requester(Requester's JID)@invitee
+	 *            (format: (Network.REJECTT_INVITE)@inviter(Inviter's JID)@invitee
 	 *            (Invitee's JID)@reason(Invitation reason)@rejectionreason(Rejection
 	 *            reason)
 	 *
 	 * @return Information of rejection of invitation request received from the
-	 * owner of the room in String array format {requesterJID,
+	 * owner of the room in String array format {inviterJID,
 	 * inviteeJID, inviteReason, rejectionReason}
 	 */
 	public String[] receiveInvitationRequestRejection(String requestReject) {
@@ -278,16 +278,16 @@ public class InvitationController implements InvitationRejectionListener {
 		if (requestReject.contains(Network.REJECT_INVITE)) {
 			String requestRejectInfo = requestReject
 					.split(Network.REJECT_INVITE)[0];
-			String requester = (requestRejectInfo.split("@requester")[0])
+			String inviter = (requestRejectInfo.split("@inviter")[0])
 					.split("@invitee")[0];
-			// Check that the requester is the primary user
-			if (MainApplication.user_primary.getUsername().contains(requester)) {
-				String invitee = (requestRejectInfo.split("@requester"
-						+ requester + "@invitee")[0]).split("@reason")[0];
+			// Check that the inviter is the primary user
+			if (MainApplication.user_primary.getUsername().contains(inviter)) {
+				String invitee = (requestRejectInfo.split("@inviter"
+						+ inviter + "@invitee")[0]).split("@reason")[0];
 				String reason = (requestRejectInfo.split("@reason")[1])
 						.split("@rejectreason")[0];
 				String rejectReason = requestRejectInfo.split("@rejectreason")[1];
-				String[] rejectInfo = { requester, invitee, reason,
+				String[] rejectInfo = { inviter, invitee, reason,
 						rejectReason };
 				// TODO UI - send information around request reject to screen?
 				// DEBUG
