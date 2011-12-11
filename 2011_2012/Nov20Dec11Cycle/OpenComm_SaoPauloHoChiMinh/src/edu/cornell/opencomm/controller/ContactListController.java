@@ -116,12 +116,16 @@ public class ContactListController {
 			Roster xmppRoster = LoginController.xmppService.getXMPPConnection().getRoster();
 			Collection<RosterEntry> entryCollection = xmppRoster.getEntries();
 			Iterator<RosterEntry> entryItr = entryCollection.iterator();
-			buddyList = new CharSequence[entryCollection.size()-Space.getMainSpace().getAllIcons().size()];
+			buddyList = new CharSequence[entryCollection.size()-Space.getMainSpace().getAllIcons().size()+1];
+			//Log.v("ContactListController", "entry size " + entryCollection.size());
+			//Log.v("ContactListController", "space size " + Space.getMainSpace().getAllIcons().size());
 			int i = 0;
 			while (entryItr.hasNext()) {
 				String nickname= entryItr.next().getUser().split("@")[0];
-				if(!Space.getMainSpace().getAllNicksnames().containsKey(nickname))
+				if(!Space.getMainSpace().getAllNicksnames().containsKey(nickname)){
+					//Log.v("ContactListController", "nickname" +nickname);
 					buddyList[i++] = (CharSequence) nickname;
+				}
 			}
 		}
 		// If in a sidechat, then populate the buddylist with people from the mainchat
