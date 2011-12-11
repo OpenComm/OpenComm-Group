@@ -87,8 +87,7 @@ public class ParticipantView {
 		}
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-		class DialogButtonClickHandler implements
-				DialogInterface.OnClickListener {
+		class DialogButtonClickHandler implements DialogInterface.OnClickListener {
 			public void onClick(DialogInterface dialog, int clicked) {
 				makeOwner(clicked);
 				MainApplication.screen.getActivity().delPrivateSpaceUI(space, isMainSpace);
@@ -96,9 +95,17 @@ public class ParticipantView {
 						spaceView.getSpace().equals(Space.getMainSpace()));
 			}
 		}
+		
+		class DialogCancelButtonClickHandler implements DialogInterface.OnClickListener {
+			public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+           }
+		}
+		
 		updateParticipants();
 		builder.setTitle("Please select new owner")
 				.setItems(usersInSpace, new DialogButtonClickHandler())
+				.setNegativeButton("Cancel", new DialogCancelButtonClickHandler())
 				.create();
 		AlertDialog alert = builder.create();
 		alert.show();

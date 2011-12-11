@@ -27,6 +27,9 @@ public class DashboardController {
 		ProgressDialog.show(this.dashboardView, "", "Loading. Please wait...", true);
 		String username = this.dashboardView.getIntent().getStringExtra(Network.KEY_USERNAME);
 		dashboardView.getStartConferenceButton().setBackgroundColor(R.color.light_grey);	
+		
+		//Intent mainIntent = new Intent(dashboardView, MainApplication.class);
+		//dashboardView.startActivityForResult(mainIntent,0);
 		Intent i = new Intent(dashboardView, MainApplication.class);
 		i.putExtra(Network.KEY_USERNAME, username);
 		i.setAction(Network.ACTION_LOGIN);

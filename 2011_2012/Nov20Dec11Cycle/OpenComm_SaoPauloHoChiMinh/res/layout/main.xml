@@ -11,7 +11,8 @@
         <TextView android:layout_width="wrap_content" android:layout_centerVertical="true"
                 android:textColor="@color/off_white" android:gravity="center_vertical"
                 android:textSize="20sp"  android:layout_height="wrap_content"
-                android:text="Opencomm" android:paddingLeft="10.67dp" />
+                android:text="Opencomm" android:paddingLeft="10.67dp" 
+                android:id="@+id/logo"/>
  
         <ImageView android:src="@drawable/volume_icon" 
                 android:layout_width="36.67dp" android:layout_alignParentRight="true"
