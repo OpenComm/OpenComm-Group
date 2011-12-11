@@ -136,21 +136,22 @@ public class SpaceController {
 	 * @throws XMPPException
 	 */
 	public void deleteSpace(){
-			//TO-DO need to pop-up a confirmation dialogue
-			Log.v(TAG, "Trying to destroy space " + space.getRoomID());
-			//this.space.getMUC().destroy(null, null);
+			//TODO: need to pop-up a confirmation dialogue
 			
 			//experimental emulation of MUC.destroy
 			Collection<User> users = this.space.getAllParticipants().values();
-			for (User u : users){
+			for (User u : users) {
 				try {
-					this.space.getKickoutController().kickoutUser(u, Network.DEFAULT_KICKOUT);
+					if(!u.getUsername().equals(MainApplication.user_primary.getUsername()))
+						this.space.getKickoutController().kickoutUser(u, Network.DEFAULT_KICKOUT);
 				} catch (XMPPException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
-			this.space.getParticipantController().leaveSpace(this.space.equals(Space.getMainSpace()));
+			this.space.getMUC().leave();
+			//The following line could cause an infinite loop. Better to just leave as above.
+			//this.space.getParticipantController().leaveSpace(this.space.equals(Space.getMainSpace()));
 			//end experiment 
 			
 			if(space.equals(Space.getMainSpace())){
