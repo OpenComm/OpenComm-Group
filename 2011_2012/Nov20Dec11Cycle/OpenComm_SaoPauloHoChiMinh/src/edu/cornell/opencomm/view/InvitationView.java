@@ -21,19 +21,21 @@ public class InvitationView {
 	private Context context;
 	private LayoutInflater inflater;
 	private PopupWindow window = null;
-	private InvitationController invitationController = new InvitationController(
-			this);
+	private InvitationController invitationController = null;
 	private View invitationLayout = null;
 	private Invitation invitation = null;
 
 	public InvitationView(LayoutInflater inflater) {
 		this.inflater = inflater;
+		this.invitationController =  new InvitationController(
+				this);
 		initEventsAndProperties();
 	}
 	
 	public InvitationView(LayoutInflater inflater, Invitation invitation){
 		this.inflater = inflater;
 		this.invitation = invitation;
+		this.invitationController = new InvitationController(this);
 		initEventsAndProperties();
 	}
 	
@@ -150,6 +152,7 @@ public class InvitationView {
 	 * Message should say "Requester would like to invite you to a chat"
 	 */
 	public void setInvitationInfo(User requester, User invitee, boolean isModeratorRequest){
+		Log.v("InvitationView", "setInvitationInfo()");
 		// User image
 		ImageView userImage = null;
 		int userImageDrawable = 0;
@@ -206,14 +209,15 @@ public class InvitationView {
 			TextView bigNameTitle = (TextView) invitationLayout.findViewById(R.id.textViewHeader);
 			TextView userProfInfo = (TextView) invitationLayout.findViewById(R.id.textViewInfo);
 
-			int userImageDrawable = imageDrawableInt;
+			//int userImageDrawable = Values.default_user_image;//imageDrawableInt;
+			int userImageDrawable = R.drawable.question;
 			if(imageDrawableInt==-1)
 				userImageDrawable = Values.default_user_image;
 			String confMessage = inviterNickname + " invited you to a chat.";
 			String bigName = inviterNickname;
 			String smallName = inviterNickname;
 			String phone = inviterPhone;
-			String email = inviterEmail;
+			String email = inviterEmail; 
 			
 			userImage.setImageDrawable(MainApplication.screen.getActivity().getResources().getDrawable(userImageDrawable));
 			confTitle.setText(confMessage);
@@ -288,11 +292,16 @@ public class InvitationView {
 	 */
 	public void launch() {
 		//Log.v(LOG_TAG, "Inflater is null = " + (inflater==null) + ", and invationLayout is null = " + (invitationLayout==null));
+		Log.v("InvitationView", "inv 1");
 		if (inflater != null && invitationLayout != null) {
+			Log.v("InvitationView", "inv 2");
 			window = new PopupWindow(invitationLayout, Values.screenW,
 					Values.screenH, true);
+			Log.v("InvitationView", "inv 3");
 			window.showAtLocation(invitationLayout, 0, 1, 1);
+			Log.v("InvitationView", "inv 4");
 			invitationLayout.setOnClickListener(onClickListener);
+			Log.v("InvitationView", "inv 5");
 		} else {
 			Log.v(LOG_TAG,
 					"Cannot launch invitation view as inflater/confirmation layout is nul");

@@ -80,8 +80,7 @@ public class NetworkService {
 			public void invitationReceived(Connection connection, String room, 
 					String inviter, String reason, String password, Message message) {
 				Invitation invitation = new edu.cornell.opencomm.model.Invitation(
-						connection, room, inviter, reason, password, message);
-				
+						connection, room, inviter, reason, password, message); 
 				
 				Log.v("NetworkService", "Invitation Received for room " + room);
 
@@ -89,7 +88,7 @@ public class NetworkService {
 				String roomID = Network.ROOM_NAME + room + "@conference.jabber.org";
 				MultiUserChat muc = new MultiUserChat(LoginController.xmppService.getXMPPConnection(), roomID);
 				// Get the people in the room
-				Object[] members = null;
+			/*	Object[] members = null;
 				String nickname;
 				try {
 					members= muc.getParticipants().toArray();
@@ -103,24 +102,25 @@ public class NetworkService {
 						String jid = ((Occupant)o).getJid();
 						if(jid==inviter)
 							occupantInviter = (Occupant)o;
-					}
+					} */
 					/* Get information from person's profile
 					 * such as: name, phone, email.
 					 * For now, we do not have profile information
 					 */
-					if(occupantInviter!=null){
-						nickname = occupantInviter.getNick();
+					//if(occupantInviter!=null){
+					//	nickname = occupantInviter.getNick();
+				
+						String nickname = inviter.split("@")[0];
 						// Create the invitation
 						LayoutInflater inflater = (LayoutInflater) MainApplication.screen.getActivity()
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 						InvitationView invitationView = new InvitationView(inflater, invitation);
-						invitation.setIsModeratorRequest(false);
 						invitation.setMUC(muc);
 						invitationView.setInvitationInfo(-1, nickname, "None", "None");
-						invitationView.launch();
+						MainApplication.screen.getActivity().displayPopup(invitationView);
 					}
 
-				}
+				//} 
 				
 				/*Log.v("InvitationController", "How is room formatted?" + room);
 				//answer: room@server (ex. hellokitty@conference.jabber.org)
@@ -138,7 +138,7 @@ public class NetworkService {
 				//DEBUG
 				Log.v("InvitationController", "invitationReceived - Invitation " +
 						"received from: " + inviter + " to join room: " + room);  */
-			} 
+		//	} 
 			
 		}/*)*/;
 		MultiUserChat.addInvitationListener(xmppConn,invitationListener);

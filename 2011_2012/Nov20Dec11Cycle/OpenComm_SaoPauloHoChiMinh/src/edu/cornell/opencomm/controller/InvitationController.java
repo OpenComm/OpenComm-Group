@@ -167,6 +167,7 @@ public class InvitationController implements InvitationRejectionListener {
 	public String[] receiveInvitationRequest(String inviteRequest) {
 		// Check the inviteRequest is accurate
 		if (inviteRequest.contains(Network.REQUEST_INVITE)) {
+			Log.v("InvitationController", inviteRequest);
 			// extract invitation request info
 			String inviteRequestInfo = inviteRequest
 					.split(Network.REQUEST_INVITE)[1];
@@ -186,7 +187,7 @@ public class InvitationController implements InvitationRejectionListener {
 			User userInvitee = User.getAllUsers().get(invitee);
 			User userInviter = User.getAllUsers().get(inviter);
 			invitationView.setInvitationInfo(userInviter, userInvitee, true);
-			invitationView.launch();
+			MainApplication.screen.getActivity().displayPopup(invitationView);
 
 			// DEBUG
 			if (D)

@@ -19,8 +19,8 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -307,7 +307,7 @@ public final class MainApplication extends Activity{
 				Log.v(TAG, "pressed Q key - you (a moderator) received an invite request");
 				InvitationController ic= MainApplication.screen.getSpace().getInvitationController();
 				// fake invite request
-				String inviteRequest = "" + Network.REQUEST_INVITE + "@requester" + debug.getUsername() 
+				String inviteRequest = "" + Network.REQUEST_INVITE + "@inviter" + debug.getUsername() 
 				+ "@invitee" + debug1.getUsername() + "@reason" + "Because you're a cool cat.";
 				ic.receiveInvitationRequest(inviteRequest); 
 				break;
@@ -668,6 +668,17 @@ public final class MainApplication extends Activity{
     	});
     }
     
+    /** Same reasons as invalidateSpaceView() except to launch a PopupWindow.
+     * In this case used to launch invitation/confirmation views 
+     * @param iv
+     */
+    public void displayPopup(final InvitationView iv){
+    	runOnUiThread(new Runnable(){
+    		public void run(){
+    			iv.launch();
+    		}
+    	});
+    }
     
     /**Crystal: add the plus button to the bottom bar*/
     public void plusButtonSetUp(int position){
