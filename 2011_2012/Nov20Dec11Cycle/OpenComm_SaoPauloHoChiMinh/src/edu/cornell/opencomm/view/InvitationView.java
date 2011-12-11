@@ -292,16 +292,11 @@ public class InvitationView {
 	 */
 	public void launch() {
 		//Log.v(LOG_TAG, "Inflater is null = " + (inflater==null) + ", and invationLayout is null = " + (invitationLayout==null));
-		Log.v("InvitationView", "inv 1");
 		if (inflater != null && invitationLayout != null) {
-			Log.v("InvitationView", "inv 2");
 			window = new PopupWindow(invitationLayout, Values.screenW,
 					Values.screenH, true);
-			Log.v("InvitationView", "inv 3");
 			window.showAtLocation(invitationLayout, 0, 1, 1);
-			Log.v("InvitationView", "inv 4");
 			invitationLayout.setOnClickListener(onClickListener);
-			Log.v("InvitationView", "inv 5");
 		} else {
 			Log.v(LOG_TAG,
 					"Cannot launch invitation view as inflater/confirmation layout is nul");

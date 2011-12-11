@@ -46,26 +46,10 @@ public class InvitationController implements InvitationRejectionListener {
 			confirmInvitationRequest(invite.getInviteInfo());
 		}
 		else{
-			Log.v("InvitationController", "You accepted the invite request");
-			try {
-				invite.getMUC().join(MainApplication.user_primary.getUsername());
-				String moderator = ((Occupant)invite.getMUC().getModerators().toArray()[0]).getJid();
-				User userModerator = User.getAllUsers().get(moderator);
-				                                                             
+			Log.v("InvitationController", "You accepted the invite request");                                                     
 				SpaceController.addExistingSpace(MainApplication.screen.getContext(), 
-						false, invite.getMUC().getRoom(), userModerator);
-			} catch (XMPPException e) {
-				// TODO Auto-generated catch block
-				Log.v("InvitationController", "Could not let you join this room muc = " + invite.getMUC());
-			}
+						false, invite.getMUC().getRoom());
 		}
-		
-			/*- muc.accept()
-			- create a space (give space id)
-			- create a new muc
-			- add all people from the muc
-			- add a ps icon
-			- add all user icons */
 	}
 	/** Handle when the cancel button is pressed */
 	public void handleCancelButtonHover() {
@@ -78,8 +62,8 @@ public class InvitationController implements InvitationRejectionListener {
 		if(isModeratorRequest)
 			rejectInvitationRequest(invite.getInviteInfo(), "No room for you sorry");
 		else
-			// Dismisses the window for now
-			decline(invite.getInviteInfo()[0]);
+			// Decline the invite
+			decline(invite);
 	}
 
 	// Model variables
@@ -311,8 +295,8 @@ public class InvitationController implements InvitationRejectionListener {
 	 * Decline the invitation
 	 * @param inviter - Person who invited you to the chat
 	 */
-	public void decline(String inviter) {
-		MultiUserChat.decline(this.invitation.getConnection(), this.invitation.getRoom(), inviter, null);
+	public void decline(Invitation invitation) {
+		MultiUserChat.decline(invitation.getConnection(), invitation.getRoom(), invitation.getInviter(), null);
 	}
 
 	/**

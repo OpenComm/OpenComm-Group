@@ -460,10 +460,10 @@ public final class MainApplication extends Activity{
      * 2) Called by init_createPrivateSpace() if YOU created this privateSpace with intention,
      * then existing buddies should be null and ICreatedThis should be true
      * @throws XMPPException */
-	public Space createPrivateSpace(boolean ICreatedThis, boolean isMainSpace, LinkedList<User> existing_buddies, String spaceID, User moderator) throws XMPPException{
+	/*public Space createPrivateSpace(boolean ICreatedThis, boolean isMainSpace, LinkedList<User> existing_buddies, String spaceID, User moderator) throws XMPPException{
 		// Either your first space (mainspace) or a newly created space
 		return new Space(this, isMainSpace, spaceID, moderator);
-    }
+    }*/
 
     /** YOU remove an existing PrivateSpace, with the intention of deleting this
      * PrivateSpace for EVERYBODY who was taking part in it (can only do that if you are

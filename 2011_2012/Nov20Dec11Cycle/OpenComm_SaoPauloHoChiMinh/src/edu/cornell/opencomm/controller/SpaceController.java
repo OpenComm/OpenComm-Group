@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.muc.MultiUserChat;
+import org.jivesoftware.smackx.search.UserSearch;
 
 import android.content.Context;
 import android.util.Log;
@@ -89,6 +90,7 @@ public class SpaceController {
 		notificationView.launch(user.getNickname(),"adduser");
 
 	}
+	
 	/** set the associated PrivateSpaceIconView psIcon*/
 	public void setPSIV( PrivateSpaceIconView psIcon) {
 		Log.v(TAG, "setPSIV");
@@ -156,10 +158,16 @@ public class SpaceController {
 			}
 	} // end of deleteSpace method
 
-	public static Space addExistingSpace(Context context, boolean isMainSpace, String roomID, User owner) {
+	public static Space addExistingSpace(Context context, boolean isMainSpace, String roomID) {
 		Space space=null;
 		try {
-			space = new Space(context, isMainSpace, roomID, owner);
+			space = new Space(context, isMainSpace, roomID, false/*owner*/);
+		//	User owner = 
+			PrivateSpaceIconView psIcon=new PrivateSpaceIconView(Space.getMainSpace().getContext(),space);
+			space.getSpaceController().setPSIV(psIcon);
+			MainApplication.screen.getActivity().invalidatePSIconView(psIcon);
+			MainApplication.screen.getActivity().invalidateSpaceView();
+			Log.v("SpaceController", "this space has " + space.getAllParticipants().size() + " people");
 			
 		} catch (XMPPException e) {
 			Log.v("SpaceController", "Could not make an existing space for you");
@@ -175,7 +183,7 @@ public class SpaceController {
 	 */
 	public static Space addSpace(Context context) throws XMPPException {
 		int spaceID = MainApplication.space_counter++;
-		Space space = new Space(context, false, String.valueOf(spaceID), MainApplication.user_primary);
+		Space space = new Space(context, false, String.valueOf(spaceID), true/*MainApplication.user_primary*/);
 		Space.allSpaces.put(space.getRoomID(), space);
 		
 		notification_View.launch("sidechat");
@@ -196,7 +204,7 @@ public class SpaceController {
 			return null;
 		}
 		int spaceID = MainApplication.space_counter++;
-		Space mainSpace = new Space(context, true, String.valueOf(spaceID), MainApplication.user_primary);
+		Space mainSpace = new Space(context, true, String.valueOf(spaceID), true/*MainApplication.user_primary*/);
 		Space.setMainSpace(mainSpace);
 		if(D) Log.d(TAG, "Created a new main space with ID:" + spaceID);
 		return mainSpace;

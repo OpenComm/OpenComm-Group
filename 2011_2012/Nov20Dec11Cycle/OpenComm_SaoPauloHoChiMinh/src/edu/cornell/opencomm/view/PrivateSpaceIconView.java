@@ -216,6 +216,7 @@ public class PrivateSpaceIconView extends ImageButton{
              for (Object p : people){
                        Log.v(LOG_TAG, "add people square");
                        if((User)p != MainApplication.user_primary){ 
+                    	   Log.v("PrivateSpaceIconView", "someone other than yourself");
                     	   Paint pan= new Paint();
                         pan.setStyle(Paint.Style.FILL);
                         pan.setColor(getResources().getColor(((User)p).user_color));

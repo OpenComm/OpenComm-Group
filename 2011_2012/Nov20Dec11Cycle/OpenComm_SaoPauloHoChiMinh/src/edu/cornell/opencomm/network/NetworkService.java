@@ -85,7 +85,7 @@ public class NetworkService {
 				Log.v("NetworkService", "Invitation Received for room " + room);
 
 				// Find the room
-				String roomID = Network.ROOM_NAME + room + "@conference.jabber.org";
+				String roomID = /*Network.ROOM_NAME + */room;
 				MultiUserChat muc = new MultiUserChat(LoginController.xmppService.getXMPPConnection(), roomID);
 				// Get the people in the room
 			/*	Object[] members = null;

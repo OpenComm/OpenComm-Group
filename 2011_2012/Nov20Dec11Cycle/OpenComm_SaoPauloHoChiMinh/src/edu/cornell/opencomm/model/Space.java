@@ -1,5 +1,6 @@
 package edu.cornell.opencomm.model;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -7,6 +8,7 @@ import java.util.LinkedList;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.Form;
 import org.jivesoftware.smackx.FormField;
+import org.jivesoftware.smackx.muc.Affiliate;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.muc.Occupant;
 
@@ -14,6 +16,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.InvitationController;
 import edu.cornell.opencomm.controller.KickoutController;
 import edu.cornell.opencomm.controller.LoginController;
@@ -96,15 +99,19 @@ public class Space {
 	 * @throws XMPPException
 	 *             - thrown if the room cannot be created, or configured
 	 */
-	public Space(Context context, boolean isMainSpace, String roomID, User owner)
+	public Space(Context context, boolean isMainSpace, String roomID, boolean selfCreated/*, User owner*/)
 			throws XMPPException {
 		this.context = context;
 		// If the primary user is creating the space, join as owner
-		if (MainApplication.user_primary.equals(owner)) {
+		if (selfCreated/*MainApplication.user_primary.equals(owner)*/) {
+			
+			Log.v("Space", "Creating space with me as moderator");
+			
 			this.roomID = Network.ROOM_NAME + roomID + "@conference.jabber.org";
 			this.muc = new MultiUserChat(LoginController.xmppService.getXMPPConnection(),
 					this.roomID);
-			this.muc.join(owner.getNickname());
+			this.muc.join(/*owner.getNickname()*/MainApplication.user_primary.getNickname());
+			this.owner = MainApplication.user_primary;
 			
 			//Configure room
 			Form form = muc.getConfigurationForm();
@@ -133,12 +140,14 @@ public class Space {
 		}
 		// otherwise join as participant
 		else {
+			Log.v("Space", "Creating space with someone else as moderator");
+			
 			this.roomID = roomID;
+			Log.v("Space", "roomID = " + roomID);
 			this.muc = new MultiUserChat(LoginController.xmppService.getXMPPConnection(),
-					this.roomID);
+					roomID);
 			this.muc.join(MainApplication.user_primary.getNickname());
 		}
-		this.owner = owner;
 		this.isMainSpace = isMainSpace;
 		// create controllers and associate view
 		if (isMainSpace()) {
@@ -156,18 +165,27 @@ public class Space {
 		this.psController = new ParticipantStatusController(this);
 		// Create and instantiate all existing users
 		Iterator<String> occItr = this.muc.getOccupants();
+		Log.v("Space", "This room gonna count" );
+		// starting position
+		int start = Values.staggeredAddStart;
 		while (occItr.hasNext()) {
+			
 			String occ = occItr.next();
 			String occJID = occ.substring(occ.indexOf('/') + 1) + "@jabber.org";
+			Log.v("Space", "Adding person " + occJID);
+			User u = User.getAllUsers().get(occJID);
 			// if there is an instance of User already created
-			if (User.getAllUsers().get(occJID) != null) {
-				this.allParticipants.put(occJID,
-						(User.getAllUsers().get(occJID)));
-				this.allNicks.put(User.getAllUsers().get(occJID).getNickname(),
-						User.getAllUsers().get(occJID));
+			if (/*User.getAllUsers().get(occJID)*/ u != null) {
+				Log.v("Space", "This person already existed =  " + occJID);
+				this.allParticipants.put(occJID,u);
+				this.allNicks.put(u.getNickname(), u);
 			} else {
-				User u = new User(occJID, occJID.substring(0,
+				Log.v("Space", "username = " + occJID + ", nickname = " + occJID.substring(0,
+						occJID.indexOf('@')));
+				u = new User(occJID, occJID.substring(0,
 						occJID.indexOf('@')), R.drawable.question);
+				Log.v("Space", "CHECK: username = " + u.getUsername() + ", nickname = " + u.getNickname());
+				Log.v("Space", "This person didn't exist =  " + occJID);
 				this.allParticipants.put(occJID, u);
 				this.allNicks.put(u.getNickname(), u);
 			}
@@ -175,8 +193,27 @@ public class Space {
 					+ (this.muc.getOccupant(occ) != null));
 			Log.d(TAG, "Their affiliation is: " + this.muc.getOccupant(occ).getAffiliation());
 			allOccupants.put(occJID, this.muc.getOccupant(occ));
+			allIcons.add(new UserView(context, u, R.drawable.question, this, start, start));
+			start+= Values.userIconW/5;
 		}
 		allSpaces.put(this.roomID, this);
+		// moderators
+		if(selfCreated){
+			this.owner = MainApplication.user_primary;
+		}
+		else{
+			Iterator<String> iter = this.muc.getOccupants();
+			this.owner = MainApplication.user_primary;
+			while(iter.hasNext()){
+				Occupant o = muc.getOccupant(iter.next());
+				String role = o.getRole();
+				if(role.equals("moderator")){
+					this.owner = User.getAllNicknames().get(o.getNick());
+					break;
+				}
+			}
+		}
+			
 	} // end Space constructor
 
 	// GETTERS
@@ -226,6 +263,10 @@ public class Space {
 	public User getOwner() {
 		return this.owner;
 	} // end getOwner method
+	
+	public void setOwner(User owner){
+		this.owner = owner;
+	}
 
 	/** @return - the MultiUserChat associated with this Space */
 	public MultiUserChat getMUC() {
