@@ -170,9 +170,9 @@ public class InvitationController implements InvitationRejectionListener {
 			// extract invitation request info
 			String inviteRequestInfo = inviteRequest
 					.split(Network.REQUEST_INVITE)[1];
-			String requester = (inviteRequestInfo.split("@requester")[1])
+			String requester = (inviteRequestInfo.split("@inviter")[1])
 					.split("@invitee")[0];
-			String invitee = (inviteRequestInfo.split("@requester" + requester
+			String invitee = (inviteRequestInfo.split("@inviter" + requester
 					+ "@invitee")[1]).split("@reason")[0];
 			String reason = (inviteRequestInfo.split("@reason").length == 0 ? Network.DEFAULT_INVITE
 					: inviteRequestInfo.split("@reason")[1]);
