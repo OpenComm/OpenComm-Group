@@ -398,7 +398,7 @@ public final class MainApplication extends Activity{
 		});
 		ImageView soundButton = (ImageView) findViewById(R.id.sound_button);
 		soundButton.setClickable(true);
-		soundButton.setOnClickListener(this.getActionBarOnClickListener());
+		soundButton.setOnClickListener(this.getSoundButtonOnClickListener());
 		/*Log.v(TAG, "Clicked on MENU key");
 		LayoutInflater inflater = (LayoutInflater) MainApplication.this
 		.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -694,8 +694,9 @@ public final class MainApplication extends Activity{
 		bottomBar.invalidate(); 
     }
     
-    public View.OnClickListener getActionBarOnClickListener() {
-    	View.OnClickListener actionBarListener = new OnClickListener() {
+    /** Justin : Call when the sound button is clicked **/
+    public View.OnClickListener getSoundButtonOnClickListener() {
+    	View.OnClickListener soundButtonListener = new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				//DashboardView dashboardView = new DashboardView();
@@ -708,6 +709,6 @@ public final class MainApplication extends Activity{
 
 			}
     	};
-    	return actionBarListener;
+    	return soundButtonListener;
     }
 }
