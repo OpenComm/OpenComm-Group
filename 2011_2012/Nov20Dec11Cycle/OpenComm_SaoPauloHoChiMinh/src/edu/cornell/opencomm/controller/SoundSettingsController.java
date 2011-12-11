@@ -25,7 +25,7 @@ public class SoundSettingsController {
 	/** Handle when the window is pressed */
 	public void handlePopupWindowClicked() {
 		// Dismisses the window for now
-		//soundSettingsView.getWindow().dismiss();		
+		soundSettingsView.getWindow().dismiss();		
 	}
 	
 	/** Handle when the cancel button is pressed */
