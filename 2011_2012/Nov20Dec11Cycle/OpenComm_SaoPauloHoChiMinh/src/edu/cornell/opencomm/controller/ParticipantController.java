@@ -1,12 +1,6 @@
 package edu.cornell.opencomm.controller;
 
-import org.jivesoftware.smack.PacketCollector;
-import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.XMPPException;
-import org.jivesoftware.smack.filter.PacketFilter;
-import org.jivesoftware.smack.filter.PacketIDFilter;
-import org.jivesoftware.smack.packet.IQ;
-import org.jivesoftware.smackx.packet.MUCOwner;
 
 import android.content.Intent;
 import android.util.Log;
@@ -44,14 +38,17 @@ public class ParticipantController {
 		if (inMainSpace) {
 			Intent i = new Intent(mSpace.getContext(), DashboardView.class);
 			mSpace.getContext().startActivity(i);
+			Log.v(TAG, "intent changed if called");
 		} else {
 			// TODO: update view to Conference
 						// If moderator of the space
 						if(mSpace.getOwner() == MainApplication.user_primary){
 							ParticipantView.leaveOrDestroy(mSpace);
+							Log.v(TAG, "leaveOrDestroy if called");
 						}
 						else{
 							MainApplication.screen.getActivity().delPrivateSpaceUI(mSpace, mSpace.equals(Space.getMainSpace()));
+							Log.v(TAG, "delPrivateSpaceUI if called");
 						}
 		}
 		mSpace.getMUC().leave();

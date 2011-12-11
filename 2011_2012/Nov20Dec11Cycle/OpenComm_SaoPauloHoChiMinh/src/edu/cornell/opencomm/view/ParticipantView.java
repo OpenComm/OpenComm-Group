@@ -120,12 +120,12 @@ public class ParticipantView {
 				switch (clicked) {
 				case (0):
 					Log.v(TAG, "clicked on Destroy!");
-					try {
+					//try {
 						MainApplication.screen.getSpace().getSpaceController().deleteSpace();
 						MainApplication.screen.getActivity().delPrivateSpaceUI(space, isMainSpace);
-					} catch (XMPPException e) {
-						Log.v(TAG, "Can't destroy the space!");
-					}
+					//} catch (XMPPException e) {
+					//	Log.v(TAG, "Can't destroy the space!");
+					//}
 					//if (spaceView.getSpace().equals(Space.getMainSpace())){
 						Intent i = new Intent(MainApplication.screen.getSpace().getContext(),
 								DashboardView.class);

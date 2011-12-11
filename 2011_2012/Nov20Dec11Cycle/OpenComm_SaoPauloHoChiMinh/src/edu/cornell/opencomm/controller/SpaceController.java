@@ -6,10 +6,7 @@ import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.util.Log;
-import android.widget.LinearLayout;
-import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
@@ -136,7 +133,7 @@ public class SpaceController {
 	 * If you are the Owner, deletes the space.
 	 * @throws XMPPException
 	 */
-	public void deleteSpace() throws XMPPException {
+	public void deleteSpace(){
 			//TO-DO need to pop-up a confirmation dialogue
 			Log.v(TAG, "Trying to destroy space " + space.getRoomID());
 			//this.space.getMUC().destroy(null, null);
@@ -144,7 +141,12 @@ public class SpaceController {
 			//experimental emulation of MUC.destroy
 			Collection<User> users = this.space.getAllParticipants().values();
 			for (User u : users){
-				this.space.getKickoutController().kickoutUser(u, Network.DEFAULT_KICKOUT);
+				try {
+					this.space.getKickoutController().kickoutUser(u, Network.DEFAULT_KICKOUT);
+				} catch (XMPPException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			this.space.getParticipantController().leaveSpace(this.space.equals(Space.getMainSpace()));
 			//end experiment 

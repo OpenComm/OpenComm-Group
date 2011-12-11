@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import edu.cornell.opencomm.R;
@@ -168,6 +169,9 @@ public class SpaceView extends View {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		Space mainSpace = Space.getMainSpace();
+		Log.v(LOG_TAG, mainSpace.getOwner().getNickname());
+	    Log.v(LOG_TAG, "Room ID is "+ mainSpace.getRoomID());
+		
 		if (getSpace() == mainSpace) {
 			if (!getSpace().getEntered()) {
 				mainSpace.setEntered(true);

@@ -1,19 +1,15 @@
 package edu.cornell.opencomm.controller;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
-import org.jivesoftware.smackx.muc.Affiliate;
-import org.jivesoftware.smackx.muc.Occupant;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Canvas;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,10 +37,10 @@ import edu.cornell.opencomm.view.InvitationView;
 import edu.cornell.opencomm.view.MenuView;
 import edu.cornell.opencomm.view.PrivateSpaceIconView;
 import edu.cornell.opencomm.view.PrivateSpacePreviewPopup;
+import edu.cornell.opencomm.view.SoundSettingsView;
 import edu.cornell.opencomm.view.SpaceView;
 import edu.cornell.opencomm.view.TipView;
 import edu.cornell.opencomm.view.UserView;
-import edu.cornell.opencomm.view.SoundSettingsView;
 
 
 /** The MainApplication handles and manages the PrivateSpaces for every
@@ -140,7 +136,6 @@ public final class MainApplication extends Activity{
             	user_primary = new User(username, username.split("@")[0], 
             			R.drawable.question);
             }
-        	this.plusButtonSetUp(0);
         	try {
         		// create the mainspace
 				SpaceController.createMainSpace(this);
@@ -162,9 +157,10 @@ public final class MainApplication extends Activity{
         	font = Typeface.createFromAsset(getAssets(), Values.font);
         	Button mainButtonText = (Button) findViewById(R.id.main_button);
         	mainButtonText.setTypeface(font);
-        	
+        	this.plusButtonSetUp(0);
+        	 
         }
-
+        //this.plusButtonSetUp(0);
         initializeButtons();
 
         //Initializes the onKeyListener to record keypad events
@@ -498,14 +494,7 @@ public final class MainApplication extends Activity{
      * This method also called (by network) if someone else deleted a PrivateSpace that you
      * were a part of, or if you decided to leave but are not moderator of the space*/
     public void deletePrivateSpace(Space spaceToDelete){
-        try {
-			
-        	spaceToDelete.getSpaceController().deleteSpace();
-			
-        
-        } catch (XMPPException e) {
-			Log.w(TAG, "Failed to delete space with ID:" + spaceToDelete.getRoomID());
-		}
+        spaceToDelete.getSpaceController().deleteSpace();
     }
 
     /** Change the space whose contents the screen (spaceview) is showing.
