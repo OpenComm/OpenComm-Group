@@ -60,6 +60,7 @@ public class KickoutController {
 				+ (userOcc != null));
 		// if the primary user is the room's owner
 		if (userOcc.getAffiliation().equals(Network.ROLE_OWNER)) {
+			Log.v(TAG, "Kicking " + kickMe.getUsername());
 			this.mSpace.getMUC().kickParticipant(kickMe.getNickname(), reason);
 		} else {
 			// message containing kickout request tag, the username of the kicker,
