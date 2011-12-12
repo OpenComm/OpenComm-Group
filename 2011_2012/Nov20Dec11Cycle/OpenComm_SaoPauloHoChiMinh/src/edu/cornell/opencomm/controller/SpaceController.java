@@ -4,7 +4,6 @@ import java.util.Collection;
 
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.muc.MultiUserChat;
-import org.jivesoftware.smackx.search.UserSearch;
 
 import android.content.Context;
 import android.util.Log;
@@ -12,11 +11,8 @@ import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.Network;
-
-import edu.cornell.opencomm.view.PrivateSpaceIconView;
-
 import edu.cornell.opencomm.view.NotificationView;
-
+import edu.cornell.opencomm.view.PrivateSpaceIconView;
 import edu.cornell.opencomm.view.SpaceView;
 import edu.cornell.opencomm.view.UserView;
 
@@ -86,17 +82,14 @@ public class SpaceController {
 
 		if(space != Space.getMainSpace())
 			view.getActivity().invalidatePSIconView(psiv);
-		NotificationView notificationView = new NotificationView(view.getContext());
-		notificationView.launch(user.getNickname(),"adduser");
-
+		view.getActivity().launchNotificationView(user, "adduser");
 	}
+	
 	
 	/** set the associated PrivateSpaceIconView psIcon*/
 	public void setPSIV( PrivateSpaceIconView psIcon) {
 		Log.v(TAG, "setPSIV");
 		this.psiv=psIcon;
-
-		
 	}
 	/**
 	 * Delete a user from the space
@@ -125,10 +118,7 @@ public class SpaceController {
 		
 
 
-		NotificationView notificationView = new NotificationView(view.getContext());
-		notificationView.launch(user.getNickname(),"deleteuser");
-
-		
+		view.getActivity().launchNotificationView(user, "deleteuser");	
 	}
 	
 	/**
@@ -160,7 +150,7 @@ public class SpaceController {
 	} // end of deleteSpace method
 
 	public static Space addExistingSpace(Context context, boolean isMainSpace, String roomID) {
-		Space space=null;
+		Space space = null;
 		try {
 			space = new Space(context, isMainSpace, roomID, false/*owner*/);
 		//	User owner = 
@@ -170,6 +160,23 @@ public class SpaceController {
 			MainApplication.screen.getActivity().invalidateSpaceView();
 			Log.v("SpaceController", "this space has " + space.getAllParticipants().size() + " people");
 			
+		} catch (XMPPException e) {
+			Log.v("SpaceController", "Could not make an existing space for you");
+		}
+		return space;
+	}
+	
+	public static Space swapMainSpace(Context context, String roomID) {
+		Space.allSpaces.remove(Space.getMainSpace().getRoomID());
+		Space.getMainSpace().getSpaceController().deleteSpace();
+		Space space = null;
+		try {
+			space = new Space(context, true, roomID, false);
+			Space.setMainSpace(space);
+			MainApplication.screen.getSpaceViewController().changeSpace(space);
+			MainApplication.screen.getActivity().invalidateSpaceView();
+			
+			Log.v("SpaceController", "this space has " + space.getAllParticipants().size() + " people");
 		} catch (XMPPException e) {
 			Log.v("SpaceController", "Could not make an existing space for you");
 		}

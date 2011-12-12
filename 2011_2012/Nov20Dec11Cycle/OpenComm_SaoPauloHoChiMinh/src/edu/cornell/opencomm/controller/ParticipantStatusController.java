@@ -3,8 +3,8 @@ package edu.cornell.opencomm.controller;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.muc.ParticipantStatusListener;
 
+import edu.cornell.opencomm.R;
 import android.util.Log;
-
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.Network;
@@ -122,10 +122,14 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 	 * (ex: roomname@conference.jabber.org/nickname)
 	 */
 	public void joined(String userRoomInfo) {
-		Log.v("ParticipantStatusController", "joined()");
+		Log.v(TAG, "joined()");
 		String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
 		if(userSplit !=null){
+			
 			User user = User.nickname_to_user.get(userSplit[1]);
+			if(user == null) {
+				user = new User(userSplit[1], userSplit[1], R.drawable.question);
+			}
 			mSpace.getSpaceController().addUser(userRoomInfo, user);
 		}
 		
@@ -171,8 +175,9 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 	 * the kicked user from the room
 	 */
 	public void kicked(String kickedUserRoomInfo, String kickingUser, String reason) {
+		Log.v(TAG, "kicked()");
 		String[] kickedUserSplit = this.splitUserRoomInfo(kickedUserRoomInfo);
-		if(kickedUserSplit !=null){
+		if(kickedUserSplit != null){
 			User user = User.nickname_to_user.get(kickedUserSplit[1]);
 			mSpace.getSpaceController().deleteUser(kickedUserRoomInfo, user);
 		}

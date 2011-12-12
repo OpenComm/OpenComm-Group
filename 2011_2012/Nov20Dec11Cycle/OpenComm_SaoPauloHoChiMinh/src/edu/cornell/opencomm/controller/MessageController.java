@@ -51,6 +51,7 @@ public class MessageController {
 			/** Process the messages coming in in packets */
 			@Override
 			public void processPacket(Packet packet) {
+				if(D) Log.d(TAG, "configMessageListener - processPacket");
 				Message message = (Message) packet;
 				String from = message.getFrom();
 				String body = message.getBody();

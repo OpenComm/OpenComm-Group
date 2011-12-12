@@ -36,6 +36,7 @@ import edu.cornell.opencomm.view.ConfirmationView;
 import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.InvitationView;
 import edu.cornell.opencomm.view.MenuView;
+import edu.cornell.opencomm.view.NotificationView;
 import edu.cornell.opencomm.view.PrivateSpaceIconView;
 import edu.cornell.opencomm.view.PrivateSpacePreviewPopup;
 import edu.cornell.opencomm.view.SoundSettingsView;
@@ -677,6 +678,15 @@ public final class MainApplication extends Activity{
     		public void run(){
     			iv.launch();
     		}
+    	});
+    }
+    
+    public void launchNotificationView(final User user, final String notify){
+    	runOnUiThread(new Runnable() {
+    	     public void run() {
+    	    	NotificationView notificationView = new NotificationView(MainApplication.this);
+    	 		notificationView.launch(user.getNickname(), notify);
+    	    }
     	});
     }
     

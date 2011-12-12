@@ -47,10 +47,9 @@ public class InvitationController implements InvitationRejectionListener {
 		}
 		else{
 			Log.v("InvitationController", "You accepted the invite request");                                                     
-				SpaceController.addExistingSpace(MainApplication.screen.getContext(), 
-						false, invite.getMUC().getRoom());
+				SpaceController.swapMainSpace(MainApplication.screen.getContext(), invite.getMUC().getRoom());
 		}
-	}
+	} 
 	/** Handle when the cancel button is pressed */
 	public void handleCancelButtonHover() {
 		// Dismisses the window for now
