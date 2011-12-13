@@ -45,7 +45,9 @@ public class ContactListController {
 	public static void showBuddyList() {
 		if (context == null)
 			Log.v("ShowBUddyLIst", "NULL");
+		Log.v("ContactListController", "showBuddyList() 1");
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
+		Log.v("ContactListController", "showBuddyList() 2");
 
 		class DialogSelectionClickHandler implements DialogInterface.OnMultiChoiceClickListener {
 			public void onClick(DialogInterface dialog, int clicked,
@@ -78,15 +80,20 @@ public class ContactListController {
                 dialog.cancel();
            }
 		}
-		
+		Log.v("ContactListController", "showBuddyList() 3");
 		updateBuddyList();
+		Log.v("ContactListController", "showBuddyList() 4");
 		builder.setTitle("Buddylist").setMultiChoiceItems(buddyList,
 				buddySelection, new DialogSelectionClickHandler())
 				.setPositiveButton("Ok", new DialogOkButtonClickHandler())
 				.setNegativeButton("Cancel", new DialogCancelButtonClickHandler())
 				.create();
+		Log.v("ContactListController", "showBuddyList() 5");
 		AlertDialog alert = builder.create();
-		alert.show();
+		Log.v("ContactListController", "showBuddyList() 6");
+		MainApplication.screen.getActivity().displayEmptySpaceMenu(alert);
+		//alert.show();
+		Log.v("ContactListController", "showBuddyList() 7");
 	}
 
 	// Add users from the buddylist dialog to the main space
@@ -116,7 +123,7 @@ public class ContactListController {
 			Roster xmppRoster = LoginController.xmppService.getXMPPConnection().getRoster();
 			Collection<RosterEntry> entryCollection = xmppRoster.getEntries();
 			Iterator<RosterEntry> entryItr = entryCollection.iterator();
-			buddyList = new CharSequence[entryCollection.size()-Space.getMainSpace().getAllIcons().size()+1];
+			buddyList = new CharSequence[entryCollection.size()-Space.getMainSpace().getAllIcons().size()];
 			//Log.v("ContactListController", "entry size " + entryCollection.size());
 			//Log.v("ContactListController", "space size " + Space.getMainSpace().getAllIcons().size());
 			int i = 0;
@@ -127,6 +134,7 @@ public class ContactListController {
 					buddyList[i++] = (CharSequence) nickname;
 				}
 			}
+			Log.v("ContactListController", "updateBuddyList() 6");
 		}
 		// If in a sidechat, then populate the buddylist with people from the mainchat
 		else {

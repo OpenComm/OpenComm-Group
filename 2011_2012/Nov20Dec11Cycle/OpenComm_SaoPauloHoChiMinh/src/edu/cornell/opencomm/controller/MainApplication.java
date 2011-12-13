@@ -8,6 +8,7 @@ import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -719,6 +720,14 @@ public final class MainApplication extends Activity{
     	runOnUiThread(new Runnable(){
     		public void run(){
     			iv.launch();
+    		}
+    	});
+    }
+    
+    public void displayEmptySpaceMenu(final AlertDialog alert){
+    	runOnUiThread(new Runnable(){
+    		public void run(){
+    			alert.show();
     		}
     	});
     }

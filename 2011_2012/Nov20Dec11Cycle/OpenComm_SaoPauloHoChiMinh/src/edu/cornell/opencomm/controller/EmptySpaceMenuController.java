@@ -37,6 +37,7 @@ public class EmptySpaceMenuController {
 				if (Values.emptyspaceMenu[item].equals("Add Users")){
 					Log.v(TAG, "pressed Add Users");
 					ContactListController.showBuddyList();
+					Log.v(TAG, "pressed Add Users 2");
 				}
 				else if (Values.emptyspaceMenu[item].equals("Delete Users")){
 					Log.v(TAG, "pressed Delete Users");
@@ -55,11 +56,15 @@ public class EmptySpaceMenuController {
 		    }
 		});
 
+		Log.v(TAG, "showfreespacemenu() 1");
 		
 		builder.setTitle( "Empty Space Menu" )
     		    .create();
+		Log.v(TAG, "showfreespacemenu() 2");
 		AlertDialog alert = builder.create();
+		Log.v(TAG, "showfreespacemenu() 3");
 		alert.show();
+		Log.v(TAG, "showfreespacemenu() 4");
 	}
 
 	 
