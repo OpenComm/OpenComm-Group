@@ -65,11 +65,12 @@ public class KickoutController {
 		} else {
 			// message containing kickout request tag, the username of the kicker,
 			// the username of the kickee, and the reason
-			Message msg = new Message(Network.REQUEST_KICKOUT + "@requester" +
+			Message msg = this.mSpace.getMUC().createMessage();
+			msg.setBody(Network.REQUEST_KICKOUT + "@requester" +
 					MainApplication.user_primary.getUsername() + "@kickee" +
 					kickMe.getUsername() + "@reason" +
-					((reason == null) ? Network.DEFAULT_KICKOUT : reason),
-					Message.Type.groupchat);
+					((reason == null) ? Network.DEFAULT_KICKOUT : reason));
+			msg.setType(Message.Type.groupchat);
 			try {
 				this.mSpace.getMUC().sendMessage(msg);
 			} catch (XMPPException e) {
@@ -164,11 +165,12 @@ public class KickoutController {
 		// Check that the kickoutInfo is valid
 		if (kickoutInfo != null && kickoutInfo.length == 3) {
 			// send the room the rejection notification
-			Message msg = new Message(Network.REJECT_KICKOUT + "@requester"
+			Message msg = this.mSpace.getMUC().createMessage();
+			msg.setBody(Network.REJECT_KICKOUT + "@requester"
 					+ kickoutInfo[0] + "@invitee" + kickoutInfo[1] + "@reason"
 					+ kickoutInfo[2] + "@rejectreason"
-					+ (reason == null ? Network.DEFAULT_REJECT : reason),
-					Message.Type.groupchat);
+					+ (reason == null ? Network.DEFAULT_REJECT : reason));
+			msg.setType(Message.Type.groupchat);
 			try {
 				this.mSpace.getMUC().sendMessage(msg);
 			} catch (XMPPException e) {
@@ -178,7 +180,7 @@ public class KickoutController {
 							+ e.getXMPPError().getMessage());
 				e.printStackTrace();
 			}
-		}
+		} 
 		// DEBUG
 		if (D)
 			Log.d(TAG,

@@ -125,11 +125,12 @@ public class InvitationController implements InvitationRejectionListener {
 			Log.v("InvitationController", "Invited user as participant");
 			// message containing invite request tag, the username of the inviter,
 			// the username of the invitee, and the reason
-			Message msg = new Message(Network.REQUEST_INVITE + "@inviter" +
+			Message msg = this.mSpace.getMUC().createMessage();
+			msg.setBody(Network.REQUEST_INVITE + "@inviter" +
 					MainApplication.user_primary.getUsername() + "@invitee" +
 					invitee.getUsername() + "@reason" +
-					((reason == null) ? Network.DEFAULT_INVITE : reason),
-					Message.Type.groupchat);
+					((reason == null) ? Network.DEFAULT_INVITE : reason));
+			msg.setType(Message.Type.groupchat);
 			try {
 				this.mSpace.getMUC().sendMessage(msg);
 			} catch (XMPPException e) {
@@ -225,11 +226,12 @@ public class InvitationController implements InvitationRejectionListener {
 		// Check that the inviteInfo is valid
 		if (inviteInfo != null && inviteInfo.length == 3) {
 			// send the room the rejection notification
-			Message msg = new Message(Network.REJECT_INVITE + "@inviter"
+			Message msg = this.mSpace.getMUC().createMessage();
+			msg.setBody(Network.REJECT_INVITE + "@inviter"
 					+ inviteInfo[0] + "@invitee" + inviteInfo[1] + "@reason"
 					+ inviteInfo[2] + "@rejectreason"
-					+ (reason == null ? Network.DEFAULT_REJECT : reason),
-					Message.Type.groupchat);
+					+ (reason == null ? Network.DEFAULT_REJECT : reason));
+			msg.setType(Message.Type.groupchat);
 			try {
 				this.mSpace.getMUC().sendMessage(msg);
 			} catch (XMPPException e) {
