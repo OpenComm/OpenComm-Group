@@ -171,6 +171,9 @@ public final class MainApplication extends Activity{
 		debug = new User("opencommsec@jabber.org", "opencommsec", 0);
 		//for (Space s : Space.allSpaces) Log.v(TAG, s.getRoomID());
 		debug1 = new User("mucopencomm@jabber.org", "mucopencomm", 0);
+		
+		// Change screen dimensions to 480x800
+		Values.setValues(480, 800);
  
     }
 
