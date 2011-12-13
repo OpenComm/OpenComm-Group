@@ -114,7 +114,7 @@ public class InvitationController implements InvitationRejectionListener {
 		//DEBUG
 		Log.v(TAG, "Is userOcc valid for " + MainApplication.user_primary.getUsername()
 				+ (userOcc != null));
-		// if the primary user is the room's owner
+		// if the primary user is the room's owner, send the invitation
 		if (userOcc.getAffiliation().equals(Network.ROLE_OWNER)) {
 			Log.v("InvitationController", "Invited user as owner");
 			this.mSpace.getMUC().invite(invitee.getUsername(), ((reason == null)

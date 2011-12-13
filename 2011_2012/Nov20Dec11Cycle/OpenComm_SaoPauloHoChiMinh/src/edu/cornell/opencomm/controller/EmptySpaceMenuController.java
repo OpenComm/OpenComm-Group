@@ -44,14 +44,9 @@ public class EmptySpaceMenuController {
 				}
 		    	else if (Values.emptyspaceMenu[item].equals("Leave Conference")){
 		    		Log.v(TAG, "pressed Leave Chat");
-		    		if(MainApplication.user_primary.equals(
-		    				MainApplication.screen.getSpace().getOwner())){
-		    			ParticipantView.leaveOrDestroy(MainApplication.screen.getSpace());
-		    		}
-		    		else{
-		    			MainApplication.screen.getSpace().getParticipantController().leaveSpace(
-		    					MainApplication.screen.getSpace().equals(Space.getMainSpace()));
-		    		}
+		    		MainApplication.screen.getSpace().getParticipantController()
+		    			.leaveSpace(MainApplication.screen.getSpace().equals(
+		    				Space.getMainSpace()));
 		    	}
 		    	else if (Values.emptyspaceMenu[item].equals("Cancel")){
 		    		Log.v(TAG, "pressed Cancel");

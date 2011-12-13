@@ -111,7 +111,7 @@ public class ParticipantView {
 		alert.show();
 	}
 
-	public static void leaveOrDestroy(final Space space) {
+	/*public static void leaveOrDestroy(final Space space) {
 		if (context == null) {
 			Log.v(TAG, "Context is null!");
 		}
@@ -154,7 +154,7 @@ public class ParticipantView {
 				.setItems(Values.whatHappen, new DialogButtonClickHandler()).create();
 		AlertDialog alert = builder.create();
 		alert.show();
-	}
+	}*/
 
 	private static void updateParticipants() {
 		Collection<User> participants = MainApplication.screen.getSpace()
