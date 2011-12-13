@@ -193,7 +193,8 @@ public class Space {
 					+ (this.muc.getOccupant(occ) != null));
 			Log.d(TAG, "Their affiliation is: " + this.muc.getOccupant(occ).getAffiliation());
 			allOccupants.put(occJID, this.muc.getOccupant(occ));
-			allIcons.add(new UserView(context, u, R.drawable.question, this, start, start));
+			if(u!=MainApplication.user_primary)
+				allIcons.add(new UserView(context, u, R.drawable.question, this, start, start));
 			start+= Values.userIconW/5;
 		}
 		allSpaces.put(this.roomID, this);

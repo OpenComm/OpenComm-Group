@@ -130,6 +130,8 @@ public class ContactListController {
 		}
 		// If in a sidechat, then populate the buddylist with people from the mainchat
 		else {
+			Log.v("ContactListController", "mainspace = " + Space.getMainSpace().getAllIcons()
+					.size() + ", sidechat = " + MainApplication.screen.getSpace().getAllIcons().size());
 			buddyList = new CharSequence[Space.getMainSpace().getAllIcons()
 					.size()-MainApplication.screen.getSpace().getAllIcons().size()];
 
