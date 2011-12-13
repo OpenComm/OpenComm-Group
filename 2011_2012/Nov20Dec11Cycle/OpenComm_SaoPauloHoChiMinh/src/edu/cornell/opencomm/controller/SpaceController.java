@@ -127,9 +127,13 @@ public class SpaceController {
 	 */
 	public void deleteSpace(){
 			//TODO: need to pop-up a confirmation dialogue
-			
+		try {
+			this.muc.destroy(null, null);
+		} catch (XMPPException e) {
+			Log.d(TAG, "Unable to destroy Space!");
+		}
 			//experimental emulation of MUC.destroy
-			Collection<User> users = this.space.getAllParticipants().values();
+			/*Collection<User> users = this.space.getAllParticipants().values();
 			for (User u : users) {
 				try {
 					if(!u.getUsername().equals(MainApplication.user_primary.getUsername()))
@@ -139,7 +143,7 @@ public class SpaceController {
 					e.printStackTrace();
 				}
 			}
-			this.space.getMUC().leave();
+			this.space.getMUC().leave();*/
 			//The following line could cause an infinite loop. Better to just leave as above.
 			//this.space.getParticipantController().leaveSpace(this.space.equals(Space.getMainSpace()));
 			//end experiment 
