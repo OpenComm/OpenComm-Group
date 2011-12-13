@@ -1,0 +1,118 @@
+diff --git a/2011_2012/Nov20Dec11Cycle/OpenComm_SaoPauloHoChiMinh/src/edu/cornell/opencomm/controller/ConfirmationController.java b/2011_2012/Nov20Dec11Cycle/OpenComm_SaoPauloHoChiMinh/src/edu/cornell/opencomm/controller/ConfirmationController.java
+index 2d7b8fc..657bf2f 100644
+--- a/2011_2012/Nov20Dec11Cycle/OpenComm_SaoPauloHoChiMinh/src/edu/cornell/opencomm/controller/ConfirmationController.java
++++ b/2011_2012/Nov20Dec11Cycle/OpenComm_SaoPauloHoChiMinh/src/edu/cornell/opencomm/controller/ConfirmationController.java
+@@ -1,7 +1,11 @@
+ package edu.cornell.opencomm.controller;
+ 
+ //import android.R;
++import org.jivesoftware.smack.XMPPException;
++
++import android.util.Log;
+ import android.view.View;
++import edu.cornell.opencomm.model.User;
+ import edu.cornell.opencomm.view.ConfirmationView;
+ /** Handles the actions performed on an confirmation popup screen
+  * 
+@@ -21,16 +25,27 @@ public class ConfirmationController {
+ 		confirmationView.getWindow().dismiss();		
+ 	}
+ 	
+-	/** Handle when the cancel button is pressed */
+-	public void handleAcceptButtonHover() {
+-		confirmationView.getAcceptOverlay().setVisibility(View.VISIBLE);
++	/** Handle when the cancel button is pressed 
++	 */
++	public void handleAcceptButtonHover(){
+ 		// Dismisses the window for now
++		confirmationView.getAcceptOverlay().setVisibility(View.VISIBLE);
+ 		confirmationView.getWindow().dismiss();
++		String kickee = confirmationView.getKickoutInfo()[1];
++		User userKickee = User.getAllUsers().get(kickee);
++		// the after effects
++		try {
++			confirmationView.getSpace().getKickoutController().kickoutUser(userKickee, "You've been very bad");
++		} catch (XMPPException e) {
++			// TODO Auto-generated catch block
++			Log.v("ConfirmationController", "Cannot kickout this person!");
++		}
+ 	}
+ 	/** Handle when the cancel button is pressed */
+ 	public void handleCancelButtonHover() {
+-		confirmationView.getCancelOverlay().setVisibility(View.VISIBLE);
+ 		// Dismisses the window for now
++		confirmationView.getCancelOverlay().setVisibility(View.VISIBLE);
+ 		confirmationView.getWindow().dismiss();
++		// the after effects
+ 	}
+ }
+diff --git a/2011_2012/Nov20Dec11Cycle/OpenComm_SaoPauloHoChiMinh/src/edu/cornell/opencomm/controller/KickoutController.java b/2011_2012/Nov20Dec11Cycle/OpenComm_SaoPauloHoChiMinh/src/edu/cornell/opencomm/controller/KickoutController.java
+index da4ed20..a6dd3ac 100644
+--- a/2011_2012/Nov20Dec11Cycle/OpenComm_SaoPauloHoChiMinh/src/edu/cornell/opencomm/controller/KickoutController.java
++++ b/2011_2012/Nov20Dec11Cycle/OpenComm_SaoPauloHoChiMinh/src/edu/cornell/opencomm/controller/KickoutController.java
+@@ -110,7 +110,7 @@ public class KickoutController {
+ 			// Make the kickout confirmation gui popup
+ 			LayoutInflater inflater = (LayoutInflater) MainApplication.screen.getActivity()
+ 			.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+-			confirmationView = new ConfirmationView(inflater);
++			confirmationView = new ConfirmationView(inflater, kickoutInfo, mSpace);
+ 			User userKickee = User.getAllUsers().get(kickee);
+ 			User userRequester = User.getAllUsers().get(requester);
+ 			// If you are getting kicked out
+diff --git a/2011_2012/Nov20Dec11Cycle/OpenComm_SaoPauloHoChiMinh/src/edu/cornell/opencomm/view/ConfirmationView.java b/2011_2012/Nov20Dec11Cycle/OpenComm_SaoPauloHoChiMinh/src/edu/cornell/opencomm/view/ConfirmationView.java
+index 33678a3..dc8a994 100644
+--- a/2011_2012/Nov20Dec11Cycle/OpenComm_SaoPauloHoChiMinh/src/edu/cornell/opencomm/view/ConfirmationView.java
++++ b/2011_2012/Nov20Dec11Cycle/OpenComm_SaoPauloHoChiMinh/src/edu/cornell/opencomm/view/ConfirmationView.java
+@@ -13,6 +13,7 @@ import edu.cornell.opencomm.R;
+ import edu.cornell.opencomm.Values;
+ import edu.cornell.opencomm.controller.ConfirmationController;
+ import edu.cornell.opencomm.controller.MainApplication;
++import edu.cornell.opencomm.model.Space;
+ import edu.cornell.opencomm.model.User;
+ 
+ public class ConfirmationView {
+@@ -23,12 +24,21 @@ public class ConfirmationView {
+ 	private ConfirmationController confirmationController = new ConfirmationController(
+ 			this);
+ 	private View confirmationLayout = null;
++	private String[] kickoutInfo = null;
++	private Space space;
+ 
+ 	public ConfirmationView(LayoutInflater inflater) {
+ 		this.inflater = inflater;
+ 		initEventsAndProperties();
+ 	}
+ 
++	public ConfirmationView(LayoutInflater inflater, String[] kickoutInfo, Space space) {
++		this.inflater = inflater;
++		this.kickoutInfo = kickoutInfo;
++		this.space = space;
++		initEventsAndProperties();
++	}
++	
+ 	private void initEventsAndProperties() {
+ 		// create property confirmationLayout from infalter and store it as a
+ 		// property
+@@ -197,7 +207,22 @@ public class ConfirmationView {
+ 	public void setWindow(PopupWindow window) {
+ 		this.window = window;
+ 	}
++	
++	public String[] getKickoutInfo(){
++		return kickoutInfo;
++	}
++	
++	public void setKickoutInfo(String[] info){
++		kickoutInfo = info;
++	}
+ 
++	public Space getSpace(){
++		return space;
++	}
++	
++	public void setSpace(Space space){
++		this.space = space;
++	}
+ 	/*
+ 	 * this method launches the confirmation layout on a popupwindiw, can be
+ 	 * changed later to launch like a normal view
