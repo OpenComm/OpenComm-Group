@@ -57,7 +57,7 @@ public class Values {
 	public static int icon_namebox = R.drawable.iconbox;
 	public static int default_user_image = R.drawable.question;
 	
-	public void setValues(int screenW, int screenH){
+	public static void setValues(int screenW, int screenH){
 		
 		// QVGA Small-Low  240 X 320
 		if((screenW == 240) && (screenH == 320)){

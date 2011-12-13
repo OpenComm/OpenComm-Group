@@ -1,5 +1,6 @@
 package edu.cornell.opencomm.controller;
 
+import android.util.Log;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.view.UserView;
 
@@ -62,6 +63,7 @@ public class UserViewController {
 	 */
 	public void handleClickUp(int clickX, int clickY) {
 		int newX, newY;
+		Log.v("UserViewController", "y is " + clickY + ", area is " + (Values.spaceViewH - Values.userIconH/2));
 		// 1) 
 		if (clickY > (Values.spaceViewH - Values.userIconH / 2))
 			userView.setXY(initialX, initialY);
