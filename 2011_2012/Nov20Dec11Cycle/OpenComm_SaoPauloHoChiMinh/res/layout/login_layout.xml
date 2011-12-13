@@ -20,7 +20,7 @@
 			android:layout_width="232dp"
 			android:layout_height="36dp" 
 			android:background="@drawable/logintextback"
-			android:text="username" 
+			android:text="" 
 			android:layout_centerVertical="true" 
 			android:id="@+id/editTextUsername" 
 			android:textSize="25sp" 
