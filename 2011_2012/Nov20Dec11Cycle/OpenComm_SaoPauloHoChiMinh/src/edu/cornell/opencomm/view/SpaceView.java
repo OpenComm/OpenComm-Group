@@ -184,7 +184,7 @@ public class SpaceView extends View {
 		}
 		if (canvas != null && space != null && space.getAllIcons() != null) {
 			for (UserView p : space.getAllIcons()) {
-				if (p.getPerson() != MainApplication.user_primary)
+				if (!p.getPerson().getNickname().equals(MainApplication.user_primary.getNickname()))
 					p.draw(canvas);
 			}
 		} 

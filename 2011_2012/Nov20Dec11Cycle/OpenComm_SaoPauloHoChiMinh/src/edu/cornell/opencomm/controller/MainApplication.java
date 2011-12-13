@@ -35,6 +35,7 @@ import edu.cornell.opencomm.view.AdminTipView;
 import edu.cornell.opencomm.view.ConfirmationView;
 import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.InvitationView;
+import edu.cornell.opencomm.view.LoginView;
 import edu.cornell.opencomm.view.MenuView;
 import edu.cornell.opencomm.view.NotificationView;
 import edu.cornell.opencomm.view.PrivateSpaceIconView;
@@ -342,6 +343,11 @@ public final class MainApplication extends Activity{
 				kc.receiveKickoutRequest(kickoutRequest);
 				break;
 			}
+			case KeyEvent.KEYCODE_A: {
+				Log.v(TAG, "pressed A key - logout");
+				MainApplication.this.disconnect();
+				break;
+			}
 			}
 			;
 			return true;
@@ -417,12 +423,39 @@ public final class MainApplication extends Activity{
      * (new friends made, recordings of discussions, chats, etc.), and delete the
      * the unimportant data. Delete privateSpaces that you were moderator of */
     public void disconnect(){
-        /* TODO network:
-         * 1) Save history on network
-         * 2) Delete PrivateSpaces that you were moderator of (and notify people who were in that privatespace)
-         * 3) Remove you from PrivateSpaces that you were in that you were not moderator of
-         * 4) Disconnect connection and log off
-         */
+    	//Leave all side chats (after leaving all of the side chats, the screen should be at the main space
+    	for (Space s : Space.getAllSpaces().values()){
+    		if (!s.isMainSpace()){
+    			if (D) Log.v(TAG, "leaving a side chat");
+    			//s.getParticipantController().leaveSpace(false);
+    			s.getMUC().leave();
+    		}
+    		else{
+    	    	//Leave main space
+    			if (D) Log.v(TAG, "leaving the main space");
+    			s.getMUC().leave();
+    		}
+    	}
+    	user_primary = null;
+	    Space.setMainSpace(null);
+	    buddyList = null;
+	    buddySelection = null;
+	    PrivateSpaceIconView.allPSIcons.clear();
+	    
+    	//Disconnect
+    	if(D) Log.v(TAG, "starting disconnect");
+    	
+    	//Disconnect and return to login screen
+	    LoginController.xmppService.disconnect();
+	    LoginController.xmppService = null;
+	    
+	    //if (D) Log.v(TAG, "is there a connection? "+LoginController.xmppService.getXMPPConnection().isConnected());
+	    finishFromChild(this);
+	    
+	    if (D) Log.v(TAG, "starting intent stuff");
+	    
+		Intent i = new Intent(MainApplication.this, LoginView.class);
+		startActivity(i);
     }
 
     /** TODO: UI/Network - is this still necessary?
