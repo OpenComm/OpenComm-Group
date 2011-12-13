@@ -81,7 +81,7 @@ public class ParticipantView {
 		alert.show();
 	}
 
-	public static void grantOwnership(final Space space, final boolean isMainSpace) {
+	/*public static void grantOwnership(final Space space, final boolean isMainSpace) {
 		if (context == null) {
 			Log.v(TAG, "Context is null!");
 		}
@@ -109,7 +109,7 @@ public class ParticipantView {
 				.create();
 		AlertDialog alert = builder.create();
 		alert.show();
-	}
+	}*/
 
 	/*public static void leaveOrDestroy(final Space space) {
 		if (context == null) {
@@ -188,10 +188,10 @@ public class ParticipantView {
 		}
 	} // end deleteFromParticipants method
 
-	private static void makeOwner(int clicked) {
+	/*private static void makeOwner(int clicked) {
 		String newOwner = MainApplication.screen.getSpace().getAllNicksnames()
 				.get(usersInSpace[clicked]).getUsername();
 		MainApplication.screen.getSpace().getParticipantController()
 				.grantOwnership(newOwner, true);
-	} // end makeOwner method
+	} // end makeOwner method */
 }

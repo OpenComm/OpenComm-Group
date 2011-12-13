@@ -58,7 +58,7 @@ public class MessageController {
 				Occupant userOcc = muc.getOccupant(mSpace.getRoomID()
 						+ "/" + MainApplication.user_primary.getNickname());
 				// if the primary user is the room's owner
-				if (userOcc.getAffiliation().equals(Network.ROLE_OWNER)) {
+				if (mSpace.getOwner().equals(MainApplication.user_primary)) {
 					// if it is a invitation request:
 					if (body.contains(Network.REQUEST_INVITE)) {
 						if (D) Log.d(TAG, "configMessageListener - invitation request received");

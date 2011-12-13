@@ -351,6 +351,12 @@ public final class MainApplication extends Activity{
 				MainApplication.this.disconnect();
 				break;
 			}
+			case KeyEvent.KEYCODE_H: {
+				Log.v(TAG, "pressed H key - invite request");
+				Space.getMainSpace().getInvitationController().inviteUser(
+						debug1, Network.DEFAULT_INVITE);
+				break;
+			}
 			}
 			;
 			return true;
