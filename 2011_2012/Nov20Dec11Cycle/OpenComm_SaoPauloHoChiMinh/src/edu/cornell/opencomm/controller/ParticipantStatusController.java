@@ -203,6 +203,9 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 			if (u != null && s != null){
 				s.getAllParticipants().remove(u.getUsername());
 				s.getAllNicksnames().remove(u.getNickname());
+				MainApplication.screen.getActivity().invalidateSpaceView();
+			//	if(Space.getMainSpace()!=s)
+				//	MainApplication.screen.getActivity().invalidatePSIconView()
 			}
 		}
 	} // end kicked method

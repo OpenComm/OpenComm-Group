@@ -19,7 +19,7 @@ public class LoginController {
 	private LoginView loginView;
 
 	// Debugging
-	private static final boolean D = true;
+	private static final boolean D = false;
 	
 	// Logs
 	private static final String LOG_TAG = "LoginController";

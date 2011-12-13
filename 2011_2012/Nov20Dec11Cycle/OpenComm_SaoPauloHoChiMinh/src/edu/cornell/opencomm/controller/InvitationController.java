@@ -46,8 +46,13 @@ public class InvitationController implements InvitationRejectionListener {
 			confirmInvitationRequest(invite.getInviteInfo());
 		}
 		else{
-			Log.v("InvitationController", "You accepted the invite request");                                                     
+			Log.v("InvitationController", "You accepted the invite request");  
+			// if you are the only person in the mainspace, then replace your mainspace
+			if(Space.getMainSpace().getAllParticipants().size()<=1)
 				SpaceController.swapMainSpace(MainApplication.screen.getContext(), invite.getMUC().getRoom());
+			// else create a new space
+			else
+				SpaceController.addExistingSpace(MainApplication.screen.getContext(), false, invite.getRoom());
 		}
 	} 
 	/** Handle when the cancel button is pressed */

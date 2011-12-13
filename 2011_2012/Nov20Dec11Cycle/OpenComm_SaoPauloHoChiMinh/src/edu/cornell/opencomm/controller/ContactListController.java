@@ -139,6 +139,7 @@ public class ContactListController {
 			int i = 0;
 			while (participantItr.hasNext()) {
 				String next = participantItr.next().getNickname();
+				Log.v("ContactListController", "nickname = " + next);
 				if (!(next == MainApplication.user_primary.getNickname() || MainApplication.screen.getSpace().getAllNicksnames().containsKey(next))) {
 					buddyList[i++] = next;
 				}
