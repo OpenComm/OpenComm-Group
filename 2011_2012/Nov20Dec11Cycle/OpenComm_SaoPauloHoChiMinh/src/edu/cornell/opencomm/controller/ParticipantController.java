@@ -35,23 +35,23 @@ public class ParticipantController {
 	 * this is a side chat, then the user is returned to the conference.
 	 */
 	public void leaveSpace(boolean inMainSpace) {
-		if (inMainSpace) {
-			Intent i = new Intent(mSpace.getContext(), DashboardView.class);
-			mSpace.getContext().startActivity(i);
-			Log.v(TAG, "intent changed if called");
+
+		// If moderator of the space
+		if (mSpace.getOwner() == MainApplication.user_primary) {
+			MainApplication.screen.getSpace().getSpaceController()
+					.deleteSpace();
+			MainApplication.screen.getActivity().delPrivateSpaceUI(mSpace,
+					inMainSpace);
+			Intent i = new Intent(MainApplication.screen.getSpace()
+					.getContext(), DashboardView.class);
+			MainApplication.screen.getSpace().getContext().startActivity(i);
+			Log.v(TAG, "Destroy if called");
 		} else {
-			// TODO: update view to Conference
-						// If moderator of the space
-						if(mSpace.getOwner() == MainApplication.user_primary){
-							ParticipantView.leaveOrDestroy(mSpace);
-							Log.v(TAG, "leaveOrDestroy if called");
-						}
-						else{
-							MainApplication.screen.getActivity().delPrivateSpaceUI(mSpace, mSpace.equals(Space.getMainSpace()));
-							Log.v(TAG, "delPrivateSpaceUI if called");
-						}
+			MainApplication.screen.getActivity().delPrivateSpaceUI(mSpace,
+					mSpace.equals(Space.getMainSpace()));
+			mSpace.getMUC().leave();
+			Log.v(TAG, "delPrivateSpaceUI if called");
 		}
-		mSpace.getMUC().leave();
 	}
 
 	/**
@@ -65,40 +65,36 @@ public class ParticipantController {
 			String[] nick = newOwner.split("@");
 			this.mSpace.getMUC().grantMembership(newOwner);
 			this.mSpace.getMUC().grantModerator(nick[0]);
-			//Log.v(TAG, LoginController.xmppService.getXMPPConnection().toString());
-			//this.mSpace.getMUC().grantOwnership(newOwner);
-			
-			/*//Create packet
-			MUCOwner iq = new MUCOwner();
-			iq.setTo(mSpace.getRoomID());
-			iq.setType(IQ.Type.SET);
-			MUCOwner.Item item = new MUCOwner.Item("owner");
-			item.setJid(newOwner);
-			iq.addItem(item);
-			Log.v("ParticipantController", iq.toXML());
-			
-			//Get network ready to receive packet
-			PacketFilter responseFilter = new PacketIDFilter(iq.getPacketID());
-			Log.v("ParticipantController", iq.getPacketID());
-			Log.v("ParticipantController", responseFilter.toString());
-			PacketCollector response = LoginController.xmppService
-					.getXMPPConnection().createPacketCollector(responseFilter);
-			
-			//Send the request
-			LoginController.xmppService.getXMPPConnection().sendPacket(iq);
-			//Wait for response
-			IQ answer = (IQ) response.nextResult(
-					SmackConfiguration.getPacketReplyTimeout());
-			//Stop waiting
-			response.cancel();
-			
-			if (answer == null){
-				throw new XMPPException("No response from server.");
-			}
-			else if (answer.getError() != null){
-				throw new XMPPException(answer.getError());
-			}*/
-			
+			// Log.v(TAG,
+			// LoginController.xmppService.getXMPPConnection().toString());
+			// this.mSpace.getMUC().grantOwnership(newOwner);
+
+			/*
+			 * //Create packet MUCOwner iq = new MUCOwner();
+			 * iq.setTo(mSpace.getRoomID()); iq.setType(IQ.Type.SET);
+			 * MUCOwner.Item item = new MUCOwner.Item("owner");
+			 * item.setJid(newOwner); iq.addItem(item);
+			 * Log.v("ParticipantController", iq.toXML());
+			 * 
+			 * //Get network ready to receive packet PacketFilter responseFilter
+			 * = new PacketIDFilter(iq.getPacketID());
+			 * Log.v("ParticipantController", iq.getPacketID());
+			 * Log.v("ParticipantController", responseFilter.toString());
+			 * PacketCollector response = LoginController.xmppService
+			 * .getXMPPConnection().createPacketCollector(responseFilter);
+			 * 
+			 * //Send the request
+			 * LoginController.xmppService.getXMPPConnection().sendPacket(iq);
+			 * //Wait for response IQ answer = (IQ) response.nextResult(
+			 * SmackConfiguration.getPacketReplyTimeout()); //Stop waiting
+			 * response.cancel();
+			 * 
+			 * if (answer == null){ throw new
+			 * XMPPException("No response from server."); } else if
+			 * (answer.getError() != null){ throw new
+			 * XMPPException(answer.getError()); }
+			 */
+
 		} catch (XMPPException e) {
 			Log.d(TAG, "XMPP Exception: " + NetworkService.printXMPPError(e));
 			Log.d(TAG, "Could not grant ownership to: " + newOwner);
