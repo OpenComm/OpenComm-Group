@@ -75,7 +75,7 @@ public class Space {
     /**
      * CONSTRUCTOR: new space. Creates the SpaceController and, either creates
      * or identifies the SpaceView associated with this space.
-     * 
+     *
      * @param context
      * @param isMainSpace
      *            - if true, this instance is a main space
@@ -191,7 +191,7 @@ public class Space {
                     + (this.muc.getOccupant(occ) != null));
             Log.d(TAG, "Their affiliation is: " + this.muc.getOccupant(occ).getAffiliation());
             allOccupants.put(occJID, this.muc.getOccupant(occ));
-            if(u!=MainApplication.user_primary)
+            if(!u.getUsername().split("@")[0].equals(MainApplication.user_primary.getUsername()))
                 allIcons.add(new UserView(context, u, R.drawable.question, this, start, start));
             start+= Values.userIconW/5;
         }
