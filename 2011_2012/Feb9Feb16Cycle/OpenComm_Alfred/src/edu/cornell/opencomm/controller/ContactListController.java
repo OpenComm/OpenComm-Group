@@ -19,12 +19,12 @@ import edu.cornell.opencomm.network.Network;
 
 /**
  * The class that controls the contacts list.
- * 
+ *
  * Nora 11/4 - For now is just the universal buddylist, will modify this later
  * to accomodate different types of contacts lists
- * 
+ *
  * @author noranq
- * 
+ *
  */
 public class ContactListController {
     public static CharSequence[] buddyList; // list of the user's buddies in
@@ -125,7 +125,7 @@ public class ContactListController {
             Roster xmppRoster = LoginController.xmppService.getXMPPConnection().getRoster();
             Collection<RosterEntry> entryCollection = xmppRoster.getEntries();
             Iterator<RosterEntry> entryItr = entryCollection.iterator();
-            buddyList = new CharSequence[entryCollection.size()-Space.getMainSpace().getAllIcons().size()+1];
+            buddyList = new CharSequence[entryCollection.size()-Space.getMainSpace().getAllIcons().size()];
             //Log.v("ContactListController", "entry size " + entryCollection.size());
             //Log.v("ContactListController", "space size " + Space.getMainSpace().getAllIcons().size());
             int i = 0;
