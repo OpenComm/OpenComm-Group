@@ -1,135 +1,126 @@
 package edu.cornell.opencomm.view;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map.Entry;
 
 import android.content.Context;
-import android.opengl.Visibility;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.PopupWindow;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
-import edu.cornell.opencomm.controller.AdminTipController;
 import edu.cornell.opencomm.controller.SoundSettingsController;
-import edu.cornell.opencomm.model.Space;
 
 public class SoundSettingsView {
-	private static String LOG_TAG = "OC_SoundSettingsView"; // for error
-															// checking
-	private Context context;
-	private LayoutInflater inflater;
-	private PopupWindow window = null;
-	private SoundSettingsController soundSettingsController = new SoundSettingsController(
-			this);
-	private View soundSettingsLayout = null;
-	ArrayList<VerticalSlideBar> sideChatVolumeControls = null;
+    private static String LOG_TAG = "OC_SoundSettingsView"; // for error
+    // checking
+    private Context context;
+    private LayoutInflater inflater;
+    private PopupWindow window = null;
+    private SoundSettingsController soundSettingsController = new SoundSettingsController(
+            this);
+    private View soundSettingsLayout = null;
+    ArrayList<VerticalSlideBar> sideChatVolumeControls = null;
 
-	public SoundSettingsView(LayoutInflater inflater) {
-		this.inflater = inflater;
-		initEventsAndProperties();
-	}
+    public SoundSettingsView(LayoutInflater inflater) {
+        this.inflater = inflater;
+        initEventsAndProperties();
+    }
 
-	private void initEventsAndProperties() {
-		// create property soundSettingsLayout from infalter and store it as a
-		// property
-		if (inflater != null) {
-			View soundSettingsViewFromInflater = inflater.inflate(
-					R.layout.sound_settings, null);
-			if (soundSettingsViewFromInflater != null) {
-				this.soundSettingsLayout = soundSettingsViewFromInflater;
-			}
-			
-			initializeSideChatVolumeControlsArray();
-		}
-	}
+    private void initEventsAndProperties() {
+        // create property soundSettingsLayout from infalter and store it as a
+        // property
+        if (inflater != null) {
+            View soundSettingsViewFromInflater = inflater.inflate(
+                    R.layout.sound_settings, null);
+            if (soundSettingsViewFromInflater != null) {
+                this.soundSettingsLayout = soundSettingsViewFromInflater;
+            }
 
-	private void initializeSideChatVolumeControlsArray() {
-		sideChatVolumeControls = new ArrayList<VerticalSlideBar>();
-		
-		VerticalSlideBar volumeControlSideChat1 = (VerticalSlideBar)soundSettingsLayout.findViewById(R.id.volumeControlSideChat1);
-		VerticalSlideBar volumeControlSideChat2 = (VerticalSlideBar)soundSettingsLayout.findViewById(R.id.volumeControlSideChat2);
-		VerticalSlideBar volumeControlSideChat3 = (VerticalSlideBar)soundSettingsLayout.findViewById(R.id.volumeControlSideChat3);
-		VerticalSlideBar volumeControlSideChat4 = (VerticalSlideBar)soundSettingsLayout.findViewById(R.id.volumeControlSideChat4);
-		VerticalSlideBar volumeControlSideChat5 = (VerticalSlideBar)soundSettingsLayout.findViewById(R.id.volumeControlSideChat5);
-		VerticalSlideBar volumeControlSideChat6 = (VerticalSlideBar)soundSettingsLayout.findViewById(R.id.volumeControlSideChat6);
-		VerticalSlideBar volumeControlSideChat7 = (VerticalSlideBar)soundSettingsLayout.findViewById(R.id.volumeControlSideChat7);
-		VerticalSlideBar volumeControlSideChat8 = (VerticalSlideBar)soundSettingsLayout.findViewById(R.id.volumeControlSideChat8);
-		
-		sideChatVolumeControls.add(volumeControlSideChat1);
-		sideChatVolumeControls.add(volumeControlSideChat2);
-		sideChatVolumeControls.add(volumeControlSideChat3);
-		sideChatVolumeControls.add(volumeControlSideChat4);
-		sideChatVolumeControls.add(volumeControlSideChat5);
-		sideChatVolumeControls.add(volumeControlSideChat6);
-		sideChatVolumeControls.add(volumeControlSideChat7);
-		sideChatVolumeControls.add(volumeControlSideChat8);
-	}
+            initializeSideChatVolumeControlsArray();
+        }
+    }
 
-	public Context getContext() {
-		return context;
-	}
+    private void initializeSideChatVolumeControlsArray() {
+        sideChatVolumeControls = new ArrayList<VerticalSlideBar>();
 
-	public void setContext(Context context) {
-		this.context = context;
-	}
+        VerticalSlideBar volumeControlSideChat1 = (VerticalSlideBar)soundSettingsLayout.findViewById(R.id.volumeControlSideChat1);
+        VerticalSlideBar volumeControlSideChat2 = (VerticalSlideBar)soundSettingsLayout.findViewById(R.id.volumeControlSideChat2);
+        VerticalSlideBar volumeControlSideChat3 = (VerticalSlideBar)soundSettingsLayout.findViewById(R.id.volumeControlSideChat3);
+        VerticalSlideBar volumeControlSideChat4 = (VerticalSlideBar)soundSettingsLayout.findViewById(R.id.volumeControlSideChat4);
+        VerticalSlideBar volumeControlSideChat5 = (VerticalSlideBar)soundSettingsLayout.findViewById(R.id.volumeControlSideChat5);
+        VerticalSlideBar volumeControlSideChat6 = (VerticalSlideBar)soundSettingsLayout.findViewById(R.id.volumeControlSideChat6);
+        VerticalSlideBar volumeControlSideChat7 = (VerticalSlideBar)soundSettingsLayout.findViewById(R.id.volumeControlSideChat7);
+        VerticalSlideBar volumeControlSideChat8 = (VerticalSlideBar)soundSettingsLayout.findViewById(R.id.volumeControlSideChat8);
 
-	public LayoutInflater getInflater() {
-		return inflater;
-	}
+        sideChatVolumeControls.add(volumeControlSideChat1);
+        sideChatVolumeControls.add(volumeControlSideChat2);
+        sideChatVolumeControls.add(volumeControlSideChat3);
+        sideChatVolumeControls.add(volumeControlSideChat4);
+        sideChatVolumeControls.add(volumeControlSideChat5);
+        sideChatVolumeControls.add(volumeControlSideChat6);
+        sideChatVolumeControls.add(volumeControlSideChat7);
+        sideChatVolumeControls.add(volumeControlSideChat8);
+    }
 
-	public void setInflater(LayoutInflater inflater) {
-		this.inflater = inflater;
-	}
+    public Context getContext() {
+        return context;
+    }
 
-	public PopupWindow getWindow() {
-		return window;
-	}
+    public void setContext(Context context) {
+        this.context = context;
+    }
 
-	public void setWindow(PopupWindow window) {
-		this.window = window;
-	}
+    public LayoutInflater getInflater() {
+        return inflater;
+    }
 
-	/*
-	 * this method launches the confirmation layout on a popupwindiw, can be
-	 * changed later to launch like a normal view
-	 */
-	public void launch() {
-		if (inflater != null && soundSettingsLayout != null) {
-			window = new PopupWindow(soundSettingsLayout, Values.screenW,
-					Values.screenH, true);
-			window.showAtLocation(soundSettingsLayout, 0, 1, 1);
-			soundSettingsLayout.setOnClickListener(onClickListener);
-			
-			/*
-			 * Iterates over the spaces and makes only the volume controls for existing spaces visible
-			 */
-			soundSettingsController.setSideChatVolumeControlsOnView(sideChatVolumeControls);
-			
-		} else {
-			Log.v(LOG_TAG,
-					"Cannot launch sound settings view as inflater layout is null");
-		}
-	}
-	
-	public VerticalSlideBar getMainChatVolumeControl() {
-		VerticalSlideBar mainChatVolumeControl = (VerticalSlideBar)soundSettingsLayout.findViewById(R.id.mainChatVolumeSlide);
-		
-		return mainChatVolumeControl;
-	}
+    public void setInflater(LayoutInflater inflater) {
+        this.inflater = inflater;
+    }
 
-	private View.OnClickListener onClickListener = new View.OnClickListener() {
+    public PopupWindow getWindow() {
+        return window;
+    }
 
-		@Override
-		public void onClick(View v) {
-			soundSettingsController.handlePopupWindowClicked();
-		}
-	};
+    public void setWindow(PopupWindow window) {
+        this.window = window;
+    }
+
+    /*
+     * this method launches the confirmation layout on a popupwindiw, can be
+     * changed later to launch like a normal view
+     */
+    public void launch() {
+        if (inflater != null && soundSettingsLayout != null) {
+            window = new PopupWindow(soundSettingsLayout, Values.screenW,
+                    Values.screenH, true);
+            window.showAtLocation(soundSettingsLayout, 0, 1, 1);
+            soundSettingsLayout.setOnClickListener(onClickListener);
+
+            /*
+             * Iterates over the spaces and makes only the volume controls for existing spaces visible
+             */
+            soundSettingsController.setSideChatVolumeControlsOnView(sideChatVolumeControls);
+
+        } else {
+            Log.v(LOG_TAG,
+                    "Cannot launch sound settings view as inflater layout is null");
+        }
+    }
+
+    public VerticalSlideBar getMainChatVolumeControl() {
+        VerticalSlideBar mainChatVolumeControl = (VerticalSlideBar)soundSettingsLayout.findViewById(R.id.mainChatVolumeSlide);
+
+        return mainChatVolumeControl;
+    }
+
+    private View.OnClickListener onClickListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            soundSettingsController.handlePopupWindowClicked();
+        }
+    };
 
 }
