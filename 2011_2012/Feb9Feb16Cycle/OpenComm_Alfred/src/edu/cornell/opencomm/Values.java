@@ -25,7 +25,7 @@ public class Values {
             "Cancel" };
     // when chat owner decides to leave
     public static CharSequence[] whatHappen = { "Destroy chat",
-            "Pass ownership" };
+            "Pass ownership" }; // Someone set up us the bomb
 
     // Cellphone screen dimensions
     public static int screenW = 480;
