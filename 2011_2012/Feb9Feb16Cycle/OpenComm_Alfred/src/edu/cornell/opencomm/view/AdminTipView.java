@@ -13,123 +13,128 @@ import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.AdminTipController;
 
 public class AdminTipView {
-	private static String LOG_TAG = "OC_AdminTipView"; // for error checking
-	private Context context;
-	private LayoutInflater inflater;
-	private PopupWindow window = null;
-	private AdminTipController adminTipController = new AdminTipController(this);
-	private View adminTipLayout = null;
+    private static String LOG_TAG = "OC_AdminTipView"; // for error checking
+    private Context context;
+    private LayoutInflater inflater;
+    private PopupWindow window = null;
+    private AdminTipController adminTipController = new AdminTipController(this);
+    private View adminTipLayout = null;
 
-	public AdminTipView(LayoutInflater inflater) {
-		this.inflater = inflater;
-		initEventsAndProperties();
-	}
+    public AdminTipView(LayoutInflater inflater) {
+        this.inflater = inflater;
+        initEventsAndProperties();
+    }
 
-	private void initEventsAndProperties() {
-		// create property adminTipLayout from infalter and store it as a
-		// property
-		if (inflater != null) {
-			View tipViewFromInflater = inflater.inflate(R.layout.admintip_layout, null);
-			if (tipViewFromInflater != null) {
-				this.adminTipLayout = tipViewFromInflater;
-			}
-		}
-		initializeTipButtonClickedEvent();
+    private void initEventsAndProperties() {
+        // create property adminTipLayout from infalter and store it as a
+        // property
+        if (inflater != null) {
+            View tipViewFromInflater = inflater.inflate(
+                    R.layout.admintip_layout, null);
+            if (tipViewFromInflater != null) {
+                this.adminTipLayout = tipViewFromInflater;
+            }
+        }
+        initializeTipButtonClickedEvent();
 
-	}
+    }
 
-	private void initializeTipButtonClickedEvent() {
-		Button acceptButton = getAcceptButton();
-		ImageButton acceptImageButton = getAcceptImageButton();
-		if (acceptButton != null) {
-			Log.d(LOG_TAG, "initializing tip button clicked");
-			acceptButton.setOnClickListener(onAcceptButtonClickedListener);
-		}
-		if (acceptImageButton != null) {
-			Log.d(LOG_TAG, "initializing tip button clicked");
-			acceptImageButton.setOnClickListener(onAcceptButtonClickedListener);
-		}
-	}
-	
-	public ImageView getAcceptBarOverlay() {
-		ImageView acceptOverlay = null;
-		if (adminTipLayout != null) {
-			acceptOverlay = (ImageView) adminTipLayout.findViewById(R.id.adminTipOverlay);
-		}
-		return acceptOverlay;
-	}
-	public ImageButton getAcceptImageButton() {
-		ImageButton acceptButton = null;
-		if (adminTipLayout != null) {
-			acceptButton = (ImageButton) adminTipLayout.findViewById(R.id.imageAcceptAdminTip);
-		}
+    private void initializeTipButtonClickedEvent() {
+        Button acceptButton = getAcceptButton();
+        ImageButton acceptImageButton = getAcceptImageButton();
+        if (acceptButton != null) {
+            Log.d(LOG_TAG, "initializing tip button clicked");
+            acceptButton.setOnClickListener(onAcceptButtonClickedListener);
+        }
+        if (acceptImageButton != null) {
+            Log.d(LOG_TAG, "initializing tip button clicked");
+            acceptImageButton.setOnClickListener(onAcceptButtonClickedListener);
+        }
+    }
 
-		return acceptButton;
-	}
-	public Button getAcceptButton() {
-		Button acceptButton = null;
-		if (adminTipLayout != null) {
-			acceptButton = (Button) adminTipLayout
-					.findViewById(R.id.buttonAcceptAdminTip);
-		}
+    public ImageView getAcceptBarOverlay() {
+        ImageView acceptOverlay = null;
+        if (adminTipLayout != null) {
+            acceptOverlay = (ImageView) adminTipLayout
+                    .findViewById(R.id.adminTipOverlay);
+        }
+        return acceptOverlay;
+    }
 
-		return acceptButton;
-	}
+    public ImageButton getAcceptImageButton() {
+        ImageButton acceptButton = null;
+        if (adminTipLayout != null) {
+            acceptButton = (ImageButton) adminTipLayout
+                    .findViewById(R.id.imageAcceptAdminTip);
+        }
 
-	public Context getContext() {
-		return context;
-	}
+        return acceptButton;
+    }
 
-	public void setContext(Context context) {
-		this.context = context;
-	}
+    public Button getAcceptButton() {
+        Button acceptButton = null;
+        if (adminTipLayout != null) {
+            acceptButton = (Button) adminTipLayout
+                    .findViewById(R.id.buttonAcceptAdminTip);
+        }
 
-	public LayoutInflater getInflater() {
-		return inflater;
-	}
+        return acceptButton;
+    }
 
-	public void setInflater(LayoutInflater inflater) {
-		this.inflater = inflater;
-	}
+    public Context getContext() {
+        return context;
+    }
 
-	public PopupWindow getWindow() {
-		return window;
-	}
+    public void setContext(Context context) {
+        this.context = context;
+    }
 
-	public void setWindow(PopupWindow window) {
-		this.window = window;
-	}
+    public LayoutInflater getInflater() {
+        return inflater;
+    }
 
-	/*
-	 * this method launches the confirmation layout on a popupwindiw, can be
-	 * changed later to launch like a normal view
-	 */
-	public void launch() {
-		if (inflater != null && adminTipLayout != null) {
-			window = new PopupWindow(adminTipLayout, Values.screenW,
-					Values.screenH, true);
-			window.showAtLocation(adminTipLayout, 0, 1, 1);
-			adminTipLayout.setOnClickListener(onClickListener);
-		} else {
-			Log.v(LOG_TAG,
-					"Cannot launch admin tip view as inflater layout is null");
-		}
-	}
+    public void setInflater(LayoutInflater inflater) {
+        this.inflater = inflater;
+    }
 
-	private View.OnClickListener onClickListener = new View.OnClickListener() {
+    public PopupWindow getWindow() {
+        return window;
+    }
 
-		@Override
-		public void onClick(View v) {
-			adminTipController.handlePopupWindowClicked();
-		}
-	};
+    public void setWindow(PopupWindow window) {
+        this.window = window;
+    }
 
-	private View.OnClickListener onAcceptButtonClickedListener = new View.OnClickListener() {
+    /*
+     * this method launches the confirmation layout on a popupwindiw, can be
+     * changed later to launch like a normal view
+     */
+    public void launch() {
+        if (inflater != null && adminTipLayout != null) {
+            window = new PopupWindow(adminTipLayout, Values.screenW,
+                    Values.screenH, true);
+            window.showAtLocation(adminTipLayout, 0, 1, 1);
+            adminTipLayout.setOnClickListener(onClickListener);
+        } else {
+            Log.v(LOG_TAG,
+                    "Cannot launch admin tip view as inflater layout is null");
+        }
+    }
 
-		@Override
-		public void onClick(View v) {
-			Log.d(LOG_TAG, "onClickAcceptBar");
-			adminTipController.handleAcceptButtonClicked();
-		}
-	};
+    private View.OnClickListener onClickListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            adminTipController.handlePopupWindowClicked();
+        }
+    };
+
+    private View.OnClickListener onAcceptButtonClickedListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            Log.d(LOG_TAG, "onClickAcceptBar");
+            adminTipController.handleAcceptButtonClicked();
+        }
+    };
 }
