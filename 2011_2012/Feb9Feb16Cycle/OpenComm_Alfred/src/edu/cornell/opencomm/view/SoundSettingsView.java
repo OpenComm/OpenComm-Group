@@ -13,12 +13,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.AdminTipController;
 import edu.cornell.opencomm.controller.SoundSettingsController;
 import edu.cornell.opencomm.model.Space;
+import edu.cornell.opencomm.view.BottomScrollBarView.OnScrollViewListener;
 
 public class SoundSettingsView {
 	private static String LOG_TAG = "OC_SoundSettingsView"; // for error
@@ -95,6 +97,42 @@ public class SoundSettingsView {
 	public void setWindow(PopupWindow window) {
 		this.window = window;
 	}
+/**Crystal: set the BottomBar in the sound_setting*/
+	public void setBottomBar(Context context){
+			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(Values.privateSpaceButtonW,  Values.privateSpaceButtonW);
+	        lp.setMargins(0, 0, Values.iconBorderPaddingH, 0);
+			for(int i=0;i<PrivateSpaceIconView.allPSIcons.size(); i++){
+				SoundBottomBarIconView sv= new SoundBottomBarIconView(context);
+			sv.setLayoutParams(new LinearLayout.LayoutParams(Values.privateSpaceButtonW,  Values.privateSpaceButtonW));
+			sv.setPadding(Values.iconBorderPaddingH, Values.iconBorderPaddingV,Values.iconBorderPaddingH, Values.iconBorderPaddingV);
+			LinearLayout bar=(LinearLayout)soundSettingsLayout.findViewById(R.id.icon_clone);
+			bar.addView(sv, lp);
+			}
+			final BottomScrollBarView bv1=(BottomScrollBarView) soundSettingsLayout.findViewById(R.id.horizontalScrollView1);
+			final BottomScrollBarView bv2=(BottomScrollBarView) soundSettingsLayout.findViewById(R.id.bottom_scroll);
+			bv1.setAssoc(bv2);
+		     bv2.setAssoc(bv1); 
+			bv1.setOnScrollViewListener(new OnScrollViewListener(){
+
+				@Override
+				public void onScrollChanged(BottomScrollBarView bv, int l,
+						int t, int oldl, int oldt) {
+					bv1.assoc.scrollTo(l, t);
+				}
+		    	 
+		     });
+			bv2.setOnScrollViewListener(new OnScrollViewListener(){
+
+				@Override
+				public void onScrollChanged(BottomScrollBarView bv, int l,
+						int t, int oldl, int oldt) {
+					Log.d("scroll","I changed");
+					bv2.assoc.scrollTo(l, t);
+				}
+		    	 
+		     });
+		     
+	}
 
 	/*
 	 * this method launches the confirmation layout on a popupwindiw, can be
@@ -102,6 +140,8 @@ public class SoundSettingsView {
 	 */
 	public void launch() {
 		if (inflater != null && soundSettingsLayout != null) {
+			setBottomBar(Space.getMainSpace().getContext());
+			
 			window = new PopupWindow(soundSettingsLayout, Values.screenW,
 					Values.screenH, true);
 			window.showAtLocation(soundSettingsLayout, 0, 1, 1);

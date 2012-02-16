@@ -3,11 +3,11 @@ package edu.cornell.opencomm.view;
 /* Buddy list */
 public class ContactListView {
 
-	
-	public ContactListView(){
-		
-	}
-	/*
+
+    public ContactListView(){
+
+    }
+    /*
 	public void showBuddyList(){
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
