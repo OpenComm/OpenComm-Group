@@ -20,5 +20,6 @@
      <color name="ocean_blue">#3923D6</color>
      <color name="grass_green">#B6BA18</color>
     <color name="showy_green">#48FB0D</color>
-     <color name="pink"> #FFACEC </color> 
+     <color name="pink"> #FFACEC </color>
+     <color name="light_grey_translucent">#e6878787</color> 
 </resources>
