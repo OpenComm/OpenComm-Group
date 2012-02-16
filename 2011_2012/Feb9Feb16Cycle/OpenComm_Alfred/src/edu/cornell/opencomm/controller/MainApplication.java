@@ -40,7 +40,7 @@ import edu.cornell.opencomm.view.LoginView;
 import edu.cornell.opencomm.view.MenuView;
 import edu.cornell.opencomm.view.NotificationView;
 import edu.cornell.opencomm.view.PrivateSpaceIconView;
-import edu.cornell.opencomm.view.PrivateSpacePreviewPopup;
+import edu.cornell.opencomm.view.PrivateSpacePreviewPopupView;
 import edu.cornell.opencomm.view.SoundSettingsView;
 import edu.cornell.opencomm.view.SpaceView;
 import edu.cornell.opencomm.view.TipView;
@@ -60,7 +60,7 @@ public final class MainApplication extends Activity{
 	private User debug1;
 
     /** The user of this program (You, the person holding the phone) */
-    public static User user_primary;
+    public static User user_primary; 
     
     /** The SpaceView object (UI) representing the space that the user is currently talking to */
     public static SpaceView screen; 
@@ -561,7 +561,6 @@ public final class MainApplication extends Activity{
     //} */
 
 
-    
     /** Need to add the new PrivateSpace button to the bottom GUI by altering the XML code */
     public void addPrivateSpaceButton(PrivateSpaceIconView psv){
         LinearLayout bottomBar = (LinearLayout) findViewById(R.id.privateSpaceLinearLayout);
@@ -585,44 +584,7 @@ public final class MainApplication extends Activity{
 
 		@Override
 		public void onClick(View view) {
-			try {
-				LayoutInflater inflater = (LayoutInflater) MainApplication.this
-						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				/*View layout = inflater.inflate(R.layout.space_preview_popup,
-						(ViewGroup) findViewById(R.id.private_space_preview_popup));*/
-
-				View layout = inflater.inflate(R.layout.space_preview_popup,
-						(ViewGroup) findViewById(R.id.private_space_preview_popup_layout));
-
-				PrivateSpacePreviewPopup popupLayout = (PrivateSpacePreviewPopup)layout.findViewById(R.id.private_space_preview_popup);
-
-				privateSpacePreviewPopupWindow = new PopupWindow(layout, 150, 158, true);
-
-				PrivateSpaceIconView psv = (PrivateSpaceIconView) view;
-				if (view != null) {
-					ArrayList<UserView> personViews = new ArrayList<UserView>();
-					for (UserView personView : psv.space.getAllIcons()) {
-						personViews.add(personView);
-					}
-
-					popupLayout.setPersonViews(personViews);
-				}
-
-				// display the popup in the center
-
-				privateSpacePreviewPopupWindow.showAtLocation(layout, Gravity.CENTER_HORIZONTAL, psv.getLeft() - 55, 68/*115*/);
-
-				Button cancelButton = (Button) layout
-						.findViewById(R.id.cancel_button);
-				// makeBlack(cancelButton);
-				if (cancelButton != null) {
-					cancelButton.setOnClickListener(onCancelClickListener);
-				}
-
-			} catch (Exception e) {
-				//System.out.println(e.getMessage());
-				Log.v(TAG, "Exception while inflating popup:\n" + e.getMessage());
-			}
+			
 		}
 	};
 

@@ -1,5 +1,6 @@
 package edu.cornell.opencomm.view;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -13,15 +14,19 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.MainApplication;
 import edu.cornell.opencomm.controller.PrivateSpaceIconController;
-import edu.cornell.opencomm.controller.PrivateSpacePreviewPopupController;
 import edu.cornell.opencomm.controller.SideChatIconMenuController;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
@@ -32,15 +37,13 @@ import edu.cornell.opencomm.model.User;
  *  @author - noranq 11/5
  */   
 public class PrivateSpaceIconView extends ImageButton{
-	/** LOG_TAG to be used with LOGCAT */
-	private static String LOG_TAG="OC_PrivateSpaceView"; 
 	/** Context - instance of MainApplication */
     Context context;
     /** The private space that this icon represents */
 	public Space space; 
 	/** The list of all current privatespace icons in existence */
     public static LinkedList<PrivateSpaceIconView> allPSIcons
-    = new LinkedList<PrivateSpaceIconView>(); 
+                      = new LinkedList<PrivateSpaceIconView>(); 
     
     /** Colors offered for private spaces */
     public static int[]COLORS = {Color.BLUE, Color.YELLOW, Color.GREEN, 
@@ -53,13 +56,15 @@ public class PrivateSpaceIconView extends ImageButton{
     
     /** Controllers */
     PrivateSpaceIconController privateSpaceIconController;
-    PrivateSpacePreviewPopupController privateSpacePreviewPopupController;
     SideChatIconMenuController sideChatIconMenuController;
     
     /** States of the icon */
     boolean isSelected=false; // if true, icon should appear highlighted
     boolean isHighlighted=false; // if true, is also highlighted, but will not be "selected" for deletion
 
+    private static String TAG = "PrivateSpaceIconView";
+    
+    private static boolean D = true;
     
     /** Constructor: Private Space Icon View
      * @param context - instance of the activity (MainApplication)
@@ -102,7 +107,6 @@ public class PrivateSpaceIconView extends ImageButton{
     	this.context = context;
     	this.space = space;
     	privateSpaceIconController = new PrivateSpaceIconController(this);
-    	privateSpacePreviewPopupController = new PrivateSpacePreviewPopupController(context, this);
     	sideChatIconMenuController = new SideChatIconMenuController(context,this);
     	// adds this PS Icon View to the static list of all PS Icons
     	allPSIcons.add(this);
@@ -124,7 +128,7 @@ public class PrivateSpaceIconView extends ImageButton{
     
     
     public static ImageView plusSpaceButton(int color, Context context){
-        Log.v(LOG_TAG, "PLUS BUTTON");
+        Log.v(TAG, "PLUS BUTTON");
         int w=Values.privateSpaceButtonW;
         int h=Values.privateSpaceButtonW;
         Bitmap plus = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
@@ -158,26 +162,29 @@ public class PrivateSpaceIconView extends ImageButton{
     long endTime = 0;
 	
     public void initTouch(){
-    	Log.v(LOG_TAG, "initTouch");
+    	Log.v(TAG, "initTouch");
     	this.setOnLongClickListener( new OnLongClickListener(){
 			public boolean onLongClick(View arg0) {
+			    if(D) Log.d(TAG, "Long Click");
 				sideChatIconMenuController.showSideChatMenu(); 
 				invalidate();
 				return true;
 			}
     	});
-    	this.setOnTouchListener(new View.OnTouchListener(){
-    		public boolean onTouch(View view, MotionEvent evt){
-    			switch(evt.getAction()){
-    				case MotionEvent.ACTION_UP:
-    					MainApplication.screen.getSpaceViewController().changeSpace(space);
-    				break;
-    			}
-    			invalidate();
-    			return false;
-    		}
-    	});
-    	
+    	//Trigger Popup Preview
+    	this.setOnClickListener(new View.OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                if(D) Log.d(TAG, "Click");
+                PrivateSpacePreviewPopupView popup = new PrivateSpacePreviewPopupView(context, PrivateSpaceIconView.this);
+                popup.createPopupWindow();
+                
+
+                
+                
+            }
+        });
     }
 
     /** Draw this icon, draw darker (or brighter) if this PrivateSpaceIconView is highlighted or selected. 
@@ -194,7 +201,7 @@ public class PrivateSpaceIconView extends ImageButton{
          * 4. Draw the image for an empty privatespace button
          * 5. Draw the preview if open */
        
-        Log.v(LOG_TAG, "THIS HEIGHT"+this.getHeight());
+        Log.v(TAG, "THIS HEIGHT"+this.getHeight());
         //(1)
        
          int backgroundColor = (getResources().getColor(R.color.dark_grey)); 
@@ -214,7 +221,7 @@ public class PrivateSpaceIconView extends ImageButton{
              HashMap<String, User> allPeople = this.space.getAllParticipants();
              Object[] people = allPeople.values().toArray();
              for (Object p : people){
-                       Log.v(LOG_TAG, "add people square");
+                       Log.v(TAG, "add people square");
                        if(!((User)p).getNickname().equals(MainApplication.user_primary.getNickname())){ 
                     	   Log.v("PrivateSpaceIconView", "someone other than yourself: "+((User)p).getNickname());
                     	   //Log.v("annie", " "+((User)p).getUsername().equals(MainApplication.user_primary.getUsername()));
@@ -297,12 +304,6 @@ public class PrivateSpaceIconView extends ImageButton{
      * This controls the appearance of the privatespaceiconview */
     public PrivateSpaceIconController getPrivateSpaceIconController(){
     	return privateSpaceIconController;
-    }
-    /** Returns the PrivateSpacePreviewPopupController of this icon. 
-     * This controls the appearance and touch interactions of the popup preview 
-     * representing this room */
-    public PrivateSpacePreviewPopupController getPrivateSpacePreviewPopupController(){
-    	return privateSpacePreviewPopupController;
     }
     
     // SETTERS

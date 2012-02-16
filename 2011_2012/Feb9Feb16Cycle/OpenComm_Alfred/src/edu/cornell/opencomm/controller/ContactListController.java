@@ -123,7 +123,7 @@ public class ContactListController {
 			Roster xmppRoster = LoginController.xmppService.getXMPPConnection().getRoster();
 			Collection<RosterEntry> entryCollection = xmppRoster.getEntries();
 			Iterator<RosterEntry> entryItr = entryCollection.iterator();
-			buddyList = new CharSequence[entryCollection.size()-Space.getMainSpace().getAllIcons().size()];
+			buddyList = new CharSequence[entryCollection.size()-Space.getMainSpace().getAllIcons().size()+1];
 			//Log.v("ContactListController", "entry size " + entryCollection.size());
 			//Log.v("ContactListController", "space size " + Space.getMainSpace().getAllIcons().size());
 			int i = 0;
