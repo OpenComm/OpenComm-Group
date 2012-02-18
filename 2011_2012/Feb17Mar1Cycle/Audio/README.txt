@@ -4,5 +4,5 @@ TestXMPPClient project --
 modified so that jabber.org can be run w/o issue
 
 when running on emulators, change the following in MUCBuddy.java
-comment out: line 49 (MicrophonePusher) and line 160
-uncomment: line 48 (AudioPusher) and line 161
+comment out: line 49, 161, 218 (MicrophonePusher)
+uncomment: line 48, 160, 217 (AudioPusher)
