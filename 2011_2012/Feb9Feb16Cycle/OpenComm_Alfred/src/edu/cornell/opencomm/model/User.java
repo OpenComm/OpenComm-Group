@@ -1,11 +1,24 @@
 package edu.cornell.opencomm.model;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Hashtable;
 
+import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smackx.packet.VCard;
+
+import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.controller.LoginController;
 
 /* An object representing a user who is taking part in the conversation */
 
@@ -16,7 +29,9 @@ public class User {
 	
 	String username; // The User's JID
 	String nickname; // The User's chat nickname
-	File vCard; // The User's vCard, used to pass image
+	VCard vCard; // The User's vCard, used to pass image
+	byte[] avatar; //The User's image - to replace int image
+	
 	int image; // icon - will be replaced by vCard
 	
 	//Crystal
@@ -44,8 +59,31 @@ public class User {
         if (D){
         	Log.v(LOG_TAG, "Made a person for the user " + username);
         }
-        this.username = username;
+        this.username = username; 
         this.nickname = nickname;
+
+        //yay vCards! -Kris
+        this.vCard = new VCard();
+        try{
+        	vCard.load(LoginController.xmppService.getXMPPConnection());
+        	Log.v(LOG_TAG, "vCard from server: " + vCard.toXML());
+        } catch (XMPPException e){
+        	if (D) {
+        		Log.v(LOG_TAG, "Couldn't load vCard from server for " + username);
+        	}
+        	e.printStackTrace();
+        }
+        if (vCard.getNickName() == null){
+        	vCard.setNickName(nickname);
+        }
+        if (vCard.getJabberId() == null){
+        	vCard.setJabberId(username);
+        }
+        
+        if (D) {
+        	Log.v(LOG_TAG, "Print vCard to XML: " + vCard.toXML());
+        }
+        
         if (image == 0){
         	this.image = R.drawable.question;
         } else {
@@ -81,7 +119,7 @@ public class User {
 	}
 	
 	/** @return - the User's vCard */
-	public File getVCard(){
+	public VCard getVCard(){
 		return vCard;
 	}
 

@@ -1,5 +1,9 @@
 package edu.cornell.opencomm.view;
 
+import java.io.ByteArrayOutputStream;
+
+import org.jivesoftware.smack.XMPPException;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,7 +20,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.widget.ImageButton;
+import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
+import edu.cornell.opencomm.controller.LoginController;
 import edu.cornell.opencomm.controller.MainApplication;
 import edu.cornell.opencomm.controller.UserIconMenuController;
 import edu.cornell.opencomm.controller.UserViewController;
@@ -71,6 +77,62 @@ public class UserView extends ImageButton{
         this.y = y; 
 		
 		 // (3)
+		setImage(imageID);
+		setNameBoxImage(Values.icon_namebox);
+		setPaint(context); // set paint
+		Log.v(LOG_TAG, "Made a UserView for person " + person);
+		
+		userViewController = new UserViewController(this);
+		//thisUserView = this;
+		//setupListeners();
+	}
+	
+	//Kris
+	/** Constructor:
+	 * 1)Initialize all variables
+	 * 2)Decide positions of image (x,y)
+	 * 3)Create Bitmap image from imageID, create namebox image, and set paint
+	 */
+	public UserView(Context context, User person, byte[] imageID, Space space, int x, int y){
+		super(context);
+		this.context = context;
+		
+        // (1)
+        this.person = person;
+        //this.isSelected = false;
+        this.space = space;
+        
+        // (2)
+	/*	this.x = (int)(Math.random()*(Values.screenW - Values.userIconW));
+		if(this.x<0)
+			this.x = 0;
+		this.y = (int)(Math.random()*Values.spaceViewH - Values.userIconH);
+		if(this.y<Values.actionBarH)
+			this.y = Values.actionBarH;  */
+        this.x = x;
+        this.y = y; 
+		
+		 // (3)
+        
+        if (imageID == null){
+
+        	Log.v(LOG_TAG, "Trying to set question mark as avatar.");
+        	Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.question);
+        	ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        	bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        	byte[] qbArray = baos.toByteArray();
+        	person.getVCard().setAvatar(qbArray);
+        	Log.v(LOG_TAG, "Avatar String representation" + person.getVCard().getAvatar() + "");
+        	
+
+            try {
+            	person.getVCard().save(LoginController.xmppService.getXMPPConnection());
+            } catch (XMPPException e1) {
+            	Log.v(LOG_TAG, "Couldn't save vCard to server for " + person.getUsername());
+            	e1.printStackTrace();
+            }
+            Log.v(LOG_TAG, "vCard to XML: " + person.getVCard().toXML());
+        }
 		setImage(imageID);
 		setNameBoxImage(Values.icon_namebox);
 		setPaint(context); // set paint
@@ -254,6 +316,23 @@ public class UserView extends ImageButton{
 		BitmapFactory.Options opts = new BitmapFactory.Options();
 		opts.inJustDecodeBounds = true;
 		this.image = BitmapFactory.decodeResource(context.getResources(), imageID);
+		int width = (this.image).getWidth();
+		int height = (this.image).getHeight();
+		int newWidth = Values.userIconW;
+		int newHeight = Values.userIconH;
+		float scaleWidth = ((float) newWidth)/width;
+		float scaleHeight = ((float) newHeight) / height;
+		Matrix matrix = new Matrix();
+		matrix.postScale(scaleWidth, scaleHeight);
+		this.image = Bitmap.createBitmap(this.image, 0, 0, width, height, matrix, true);
+	}
+	
+	//Kris
+	/* Change icon pictures and resize them. */
+	public void setImage(byte[] imageID){
+		BitmapFactory.Options opts = new BitmapFactory.Options();
+		opts.inJustDecodeBounds = true;
+		this.image = BitmapFactory.decodeByteArray(imageID, 0, imageID.length);
 		int width = (this.image).getWidth();
 		int height = (this.image).getHeight();
 		int newWidth = Values.userIconW;

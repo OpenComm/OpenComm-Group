@@ -53,8 +53,8 @@ public class SpaceController {
 
 	} // end SpaceController method
 
-	
-		/** 
+	//Kris
+	/** 
 	 * Add a user to the space
 	 * @param userRoomInfo - the user who joined the room
 	 * (ex: roomname@conference.jabber.org/nickname)
@@ -67,7 +67,7 @@ public class SpaceController {
 		space.getAllOccupants().put(user.getUsername(), muc.getOccupant(userRoomInfo)); 
 		int x = Values.staggeredAddStart + space.getAllParticipants().size()*(Values.userIconW/5);
 		int y = Values.staggeredAddStart + space.getAllParticipants().size()*(Values.userIconH/5);
-		UserView uv = new UserView(view.getContext(), user, user.getImage(), space, x, y);
+		UserView uv = new UserView(view.getContext(), user, user.getVCard().getAvatar(), space, x, y);
 		space.getAllIcons().add(uv);
 		
 		
