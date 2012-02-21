@@ -67,13 +67,14 @@ public class NetworkService {
         // BUGFIX
         configure(ProviderManager.getInstance());
         SmackConfiguration.setPacketReplyTimeout(100000);
+        
+        // Create a connection to the server on a specific port
         xmppConfig = new ConnectionConfiguration(host, port);
         xmppConn = new XMPPConnection(xmppConfig);
         xmppConn.connect();
         if (xmppConn.isConnected()) {
             if (D) {
-                Log.d(TAG, "XMPP connection established to " +
-                        host + " through " + port);
+                Log.d(TAG, "XMPP connection established to " + host + " through " + port);
             }
         }
         else {
@@ -81,6 +82,7 @@ public class NetworkService {
                 Log.d(TAG, "XMPP connection not established");
             }
         }
+        
         invitationListener =
                 /*MultiUserChat.addInvitationListener(xmppConn, */new InvitationListener(){
 
@@ -90,7 +92,8 @@ public class NetworkService {
             @Override
             public void invitationReceived(Connection connection, String room,
                     String inviter, String reason, String password, Message message) {
-                Invitation invitation = new edu.cornell.opencomm.model.Invitation(
+                
+            	Invitation invitation = new edu.cornell.opencomm.model.Invitation(
                         connection, room, inviter, reason, password, message);
 
                 Log.v("NetworkService", "Invitation Received for room " + room);
@@ -172,7 +175,7 @@ public class NetworkService {
      * @param pwd - the password
      * @throws XMPPException - if an error occurs
      */
-    public void login(String uname, String pwd) throws XMPPException {
+    public boolean login(String uname, String pwd) throws XMPPException {
         // check that the connection is not already authenticated
         if (!xmppConn.isAuthenticated()) {
             xmppConn.login(uname, pwd);
@@ -182,12 +185,14 @@ public class NetworkService {
                 }
                 else {
                     Log.d(TAG, "login: Log in attempt failed");
+                    return false;
                 }
             }
         }
         else {
             Log.e(TAG, "login: Already logged in as " + xmppConn.getUser());
         }
+        return true;
     } // end login method
 
     /** Disconnect the XMPP connection */
