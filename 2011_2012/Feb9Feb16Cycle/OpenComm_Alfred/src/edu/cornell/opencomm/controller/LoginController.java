@@ -18,10 +18,13 @@ public class LoginController {
     private LoginView loginView;
 
     // Debugging
-    private static final boolean D = false;
+    private static final boolean D = true;
 
     // Logs
     private static final String LOG_TAG = "LoginController";
+    
+    // Check successful login
+    private boolean islogin;
 
     // Instance of XMPP connection
     public static NetworkService xmppService;
@@ -34,55 +37,59 @@ public class LoginController {
 
     public void handleLoginButtonClick(EditText usernameEdit, EditText passwordEdit) {
         loginView.getLoginOverlay().setVisibility(View.VISIBLE);
-
+        
+        //[TODO] VINAY This does not end if the login is incorrect
         ProgressDialog.show(this.loginView, "", "Loading. Please wait...", true);
 
-        if (D) Log.d(LOG_TAG, "handleLogin: Attempt log in");
-        // check if there is a connection
+        if (D) {
+        	Log.d(LOG_TAG, "handleLogin: Attempting to connect to the server");
+        }
+        
         if (xmppService == null) {
             try {
-                xmppService = new NetworkService(Network.DEFAULT_HOST,
-                        Network.DEFAULT_PORT);
-                if (D)
-                    Log.d(LOG_TAG, xmppService.toString());
+            	xmppService = new NetworkService(Network.DEFAULT_HOST, Network.DEFAULT_PORT);
+                if (D){
+                	Log.d(LOG_TAG, xmppService.toString());
+                	Log.d(LOG_TAG, "onStart: Network service started");
+                }
             } catch (XMPPException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
                 Log.e(LOG_TAG, "onStart: XMPP Connection not established");
-                // finish the activity
                 loginView.finish();
             }
-            if (D)
-                Log.d(LOG_TAG, "onStart: Network service started");
-            if (D)
-                Log.d(LOG_TAG, xmppService.toString());
         }
+        
         try {
-            if (D) {
-                xmppService.login(Network.DEBUG_USERNAME,
-                        Network.DEBUG_PASSWORD);
+			if (D) {
+                islogin = xmppService.login(Network.DEBUG_USERNAME, Network.DEBUG_PASSWORD);
             }
             else {
-                // log in using the username and password inputted by primary user
-                xmppService.login(usernameEdit.getText().toString(),
-                        passwordEdit.getText().toString());
+                // login to the server using username and password input by user
+                islogin = xmppService.login(usernameEdit.getText().toString(), passwordEdit.getText().toString());
+                
             }
+            
+			if (islogin){
+				Intent i = new Intent(loginView, DashboardView.class);
+	            i.putExtra(Network.KEY_USERNAME, (D ? Network.DEBUG_USERNAME : usernameEdit.getText().toString()));
+	            i.setAction(Network.ACTION_LOGIN);
+
+	            loginView.startActivity(i);
+			}
+            
+			//[TODO] VINAY - Remove this code if you do not want it. 
+            //dialog.dismiss();
+            /*LayoutInflater inflater = (LayoutInflater) loginView
+    				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    		DashboardView dashboardView = new DashboardView(inflater);
+    		loginView.finish();
+    		dashboardView.launch();*/
         }
         catch (XMPPException e) {
             Log.e(LOG_TAG, "handleLogin: Log in failed");
-            //return;
+            return;
         }
 
-        Intent i = new Intent(loginView, DashboardView.class);
-        i.putExtra(Network.KEY_USERNAME, (D ? Network.DEBUG_USERNAME : usernameEdit.getText().toString()));
-        i.setAction(Network.ACTION_LOGIN);
-
-        loginView.startActivity(i);
-        //dialog.dismiss();
-        /*LayoutInflater inflater = (LayoutInflater) loginView
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		DashboardView dashboardView = new DashboardView(inflater);
-		loginView.finish();
-		dashboardView.launch();*/
+        
     }
 }
