@@ -451,14 +451,14 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 	 * else a String array in which [0] contains room name, [1] contains nickname
 	 */
 	public String[] splitUserRoomInfo(String info) {
-		String[] userRoomInfoSplit = info.split("@conference.jabber.org/");
+		String[] userRoomInfoSplit = info.split("@" + Network.DEFAULT_CONFERENCE + "/");
 		// check the result of split for an array with length 2
 		if (userRoomInfoSplit == null || userRoomInfoSplit.length != 2) {
 			Log.e(TAG, "addUserStatusListener/splitUserRoomInfo - " + 
-					"given string does not contain sequence \"@conference.jabber.org\"");
+					"given string does not contain sequence \"@Network.DEFAULT_CONFERENCE\"");
 			return null;
 		}
-		userRoomInfoSplit[0] += "@conference.jabber.org";
+		userRoomInfoSplit[0] += "@" + Network.DEFAULT_CONFERENCE;
 		return userRoomInfoSplit;
 	} // end splitUserRoomInfo method
 

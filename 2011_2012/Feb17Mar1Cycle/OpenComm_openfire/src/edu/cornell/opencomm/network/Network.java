@@ -8,23 +8,26 @@ public class Network {
 	public static final String packageName = "edu.cornell.opencomm.network.";
 
 	/** = name of the cycle during which this app is created */
-	public static final String cycleName = "saopaulo_hochiminh";
+	public static final String cycleName = "openfire";
 
 	// ====================================================================== //
 	// ====================================================================== //
 
 	// CONNECTION CONSTANTS
 	/** = default host server */
-	public static final String DEFAULT_HOST = "128.84.68.233";
+	public static final String DEFAULT_HOST = "192.168.0.5";
 
 	/** = default port */
 	public static final int DEFAULT_PORT = 5222;
 
 	/** = debug username */
-	public static final String DEBUG_USERNAME = "opencommss@jabber.org";
+	public static final String DEBUG_USERNAME = "debug";
 
 	/** = debug password */
-	public static final String DEBUG_PASSWORD = "ssopencomm";
+	public static final String DEBUG_PASSWORD = "debug";
+	
+	/** = conference server */ 
+	public static final String DEFAULT_CONFERENCE = "conference.opencomm";
 
 	// ====================================================================== //
 	// ====================================================================== //

@@ -102,7 +102,7 @@ public class ContactListController {
 		for (int i = 0; i < buddySelection.length; i++) {
 			if (buddySelection[i]) {
 				username = (String) buddyList[i];
-				User p = new User(username + "@jabber.org", username,
+				User p = new User(username + "@" + Network.DEFAULT_HOST, username,
 						R.drawable.question);
 				Log.v("ContactListController", "addFromBuddyList this space = " + MainApplication.screen.getSpace());
 				MainApplication.screen.getSpace().getInvitationController().inviteUser(p,
