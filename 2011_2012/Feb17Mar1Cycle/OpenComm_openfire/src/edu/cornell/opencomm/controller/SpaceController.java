@@ -143,11 +143,9 @@ public class SpaceController {
 					e.printStackTrace();
 				}
 			}
-			this.space.getMUC().leave();*/
-			//The following line could cause an infinite loop. Better to just leave as above.
-			//this.space.getParticipantController().leaveSpace(this.space.equals(Space.getMainSpace()));
+			this.space.getMUC().leave();
 			//end experiment 
-			
+			*/
 			if(space.equals(Space.getMainSpace())){
 				Space.setMainSpace(null);
 			}

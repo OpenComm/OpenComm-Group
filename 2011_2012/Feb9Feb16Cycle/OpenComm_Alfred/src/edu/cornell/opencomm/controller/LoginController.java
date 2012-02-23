@@ -42,9 +42,18 @@ public class LoginController {
     private String username;
     private String password;
 
+    	// Debugging
+	private static final boolean D = true;
+	
+	// Logs
+	private static final String LOG_TAG = "LoginController";
+
     // Instance of XMPP connection
     public static NetworkService xmppService;
- 
+
+    public static ConnectionConfiguration xmppConfiguration;
+    public static XMPPConnection xmppConnection;
+
     public LoginController(LoginView loginView) {
         this.loginView = loginView;
     }

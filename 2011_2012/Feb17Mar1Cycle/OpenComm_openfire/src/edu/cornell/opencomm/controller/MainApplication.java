@@ -137,7 +137,7 @@ public final class MainApplication extends Activity{
             username = start_intent.getStringExtra(Network.KEY_USERNAME);
         	// Create instance of primary user
             if(user_primary == null){
-            	user_primary = new User(username, username.split("@")[0], 
+            	user_primary = new User(username + "@" + Network.DEFAULT_HOST, username.split("@")[0], 
             			R.drawable.question);
             }
         	try {
@@ -170,9 +170,9 @@ public final class MainApplication extends Activity{
         screen.setOnKeyListener(onKeyListener);
         
 		//DEBUG: create User object to test invitations and kickouts
-		debug = new User("opencommsec@jabber.org", "opencommsec", 0);
+		debug = new User("opencommsec@localhost", "secopencomm", 0);
 		//for (Space s : Space.allSpaces) Log.v(TAG, s.getRoomID());
-		debug1 = new User("mucopencomm@jabber.org", "mucopencomm", 0);
+		debug1 = new User("mucopencomm@localhost", "mucopencomm", 0);
 		
 		// Change screen dimensions to 480x800
 		Values.setValues(480, 800);
@@ -265,7 +265,7 @@ public final class MainApplication extends Activity{
 			case KeyEvent.KEYCODE_V: {
 				Log.v(TAG, "pressed V key - change owner");
 				Space.getMainSpace().getParticipantController().grantOwnership(
-						"opencommsec@jabber.org", false);
+						"opencommsec@localhost", false);
 				break;
 			}
 			case KeyEvent.KEYCODE_Z: {

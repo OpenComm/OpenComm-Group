@@ -55,7 +55,7 @@ public class NetworkService {
 	public NetworkService(String host, int port) throws XMPPException {
         // BUGFIX
         configure(ProviderManager.getInstance());
-        SmackConfiguration.setPacketReplyTimeout(100000);
+        SmackConfiguration.setPacketReplyTimeout(5000);
 		xmppConfig = new ConnectionConfiguration(host, port);
 		xmppConn = new XMPPConnection(xmppConfig);
 		xmppConn.connect();

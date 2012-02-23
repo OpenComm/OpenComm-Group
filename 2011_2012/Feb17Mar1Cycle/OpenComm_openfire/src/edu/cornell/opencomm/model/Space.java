@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.Form;
@@ -107,8 +108,7 @@ public class Space {
 			
 			Log.v("Space", "Creating space with me as moderator");
 			
-			//this.roomID = Network.ROOM_NAME + roomID + "@conference.jabber.org";
-			this.roomID = Network.ROOM_NAME + roomID + "@conference.rrdhcp-68-217.redrover.cornell.edu";
+			this.roomID = Network.ROOM_NAME + roomID + "@" + Network.DEFAULT_CONFERENCE;
 			
 			this.muc = new MultiUserChat(LoginController.xmppService.getXMPPConnection(), this.roomID);
 			Log.v("Space", "Creating muc with me as moderator and roomID as"+this.roomID.toString());
@@ -128,17 +128,9 @@ public class Space {
 				}
 			}
 			answerForm.setAnswer("muc#roomconfig_moderatedroom", true);
-			//answerForm.setAnswer("muc#roomconfig_publicroom", false);
-			//answerForm.setAnswer("muc#roomconfig_persistentroom", false);
-
-			/*//everything after this is experimental
-			List<String> owners = new LinkedList<String>();
-			owners.add("opencommss@jabber.org");
-			owners.add("opencommsec@jabber.org");
-			FormField f = new FormField("muc#roomconfig_roomowners");
-			f.setType(FormField.TYPE_JID_MULTI);
-			answerForm.addField(f);
-			answerForm.setAnswer("muc#roomconfig_roomowners", owners); */
+			answerForm.setAnswer("muc#roomconfig_publicroom", false);
+			answerForm.setAnswer("muc#roomconfig_persistentroom", false);
+			answerForm.setAnswer("muc#roomconfig_membersonly", true);
 			muc.sendConfigurationForm(answerForm);
 			//end experiments 
 			Log.v("Space", "Configure Room finish");
@@ -176,7 +168,7 @@ public class Space {
 		while (occItr.hasNext()) {
 			
 			String occ = occItr.next();
-			String occJID = occ.substring(occ.indexOf('/') + 1) + "@jabber.org";
+			String occJID = occ.substring(occ.indexOf('/') + 1) + "@" + Network.DEFAULT_HOST;
 			Log.v("Space", "Adding person " + occJID);
 			User u = User.getAllUsers().get(occJID);
 			// if there is an instance of User already created

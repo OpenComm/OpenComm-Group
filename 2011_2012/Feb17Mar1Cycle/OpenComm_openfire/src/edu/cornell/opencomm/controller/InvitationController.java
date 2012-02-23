@@ -116,7 +116,12 @@ public class InvitationController implements InvitationRejectionListener {
 				+ (userOcc != null));
 		// if the primary user is the room's owner, send the invitation
 		if (mSpace.getOwner().equals(MainApplication.user_primary)) {
-			Log.v("InvitationController", "Invited user as owner");
+			Log.v(TAG, "Invited " + invitee.getUsername());
+			try {
+				this.mSpace.getMUC().grantMembership(invitee.getUsername());
+			} catch (XMPPException e) {
+				Log.d(TAG, "Unable to grant membership. The User cannot be added.");
+			}
 			this.mSpace.getMUC().invite(invitee.getUsername(), ((reason == null)
 					? Network.DEFAULT_INVITE : reason));
 		}
