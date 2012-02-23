@@ -19,120 +19,6 @@ import edu.cornell.opencomm.view.UserView;
  *
  */
 public class SpaceController {
-<<<<<<< HEAD
-	// Debugging
-	private static final String TAG = "SpaceController";
-	private static final boolean D = true;
-
-	// Model objects
-	private Space space; // the space that is controlled
-
-	// Network objects
-	private MultiUserChat muc;
-
-	// View objects
-	SpaceView view;
-	
-
-	//associated privateSpaceIconView
-	PrivateSpaceIconView psiv;
-
-	static NotificationView notification_View;
-
-
-	/** Constructor: a new instance of SpaceController that controls a specific
-	 * space
-	 * @param space - the space to be controlled */
-	public SpaceController(Space space, SpaceView view) {
-		this.space = space;
-		this.muc = this.space.getMUC();
-		this.view = view;
-		SpaceController.notification_View = new NotificationView(view.getContext());
-
-	} // end SpaceController method
-
-	//Kris
-	/** 
-	 * Add a user to the space
-	 * @param userRoomInfo - the user who joined the room
-	 * (ex: roomname@conference.jabber.org/nickname)
-	 * @param user - User object to add
-	 */
-	public void addUser(String userRoomInfo, User user){
-		Log.v("SpaceController", "addUser()");
-		space.getAllNicksnames().put(user.getNickname(), user);
-		space.getAllParticipants().put(user.getUsername(), user);
-		space.getAllOccupants().put(user.getUsername(), muc.getOccupant(userRoomInfo)); 
-		int x = Values.staggeredAddStart + space.getAllParticipants().size()*(Values.userIconW/5);
-		int y = Values.staggeredAddStart + space.getAllParticipants().size()*(Values.userIconH/5);
-		UserView uv = new UserView(view.getContext(), user, user.getVCard().getAvatar(), space, x, y);
-		space.getAllIcons().add(uv);
-		
-		
-		/* If you are currently in this space then refresh the 
-		 * the spaceview ui
-		 */
-		if(space == MainApplication.screen.getSpace()){
-			Log.v("SpaceController", "adding user to spaceView");
-			view.getActivity().invalidateSpaceView();
-			
-		}
-
-		if(space != Space.getMainSpace())
-			view.getActivity().invalidatePSIconView(psiv);
-		view.getActivity().launchNotificationView(user, "adduser");
-	}
-	
-	
-	/** set the associated PrivateSpaceIconView psIcon*/
-	public void setPSIV( PrivateSpaceIconView psIcon) {
-		Log.v(TAG, "setPSIV");
-		this.psiv=psIcon;
-	}
-	/**
-	 * Delete a user from the space
-	 * @param userRoomInfo - the user who joined the room
-	 * (ex: roomname@conference.jabber.org/nickname)
-	 * @param user - User object to delete
-	 */
-	public void deleteUser(String userRoomInfo, User user){
-		space.getAllNicksnames().remove(user.getNickname());
-		space.getAllParticipants().remove(user.getUsername());
-		space.getAllOccupants().remove(userRoomInfo);
-		for(UserView uv : space.getAllIcons()){
-			if(uv.getPerson()==user)
-				space.getAllIcons().remove(uv);
-		}
-		
-		if(space!=Space.getMainSpace())
-			view.getActivity().invalidatePSIconView(psiv);
-		//this.psiv.invalidate();
-		
-		/* If you are currently in this space then refresh the 
-		 * the spaceview ui
-		 */
-		if(space == MainApplication.screen.getSpace())
-			view.getActivity().invalidateSpaceView();
-		
-
-
-		view.getActivity().launchNotificationView(user, "deleteuser");	
-	}
-	
-	/**
-	 * If you are the Owner, deletes the space.
-	 * @throws XMPPException
-	 */
-	public void deleteSpace(){
-			//TODO: need to pop-up a confirmation dialogue
-		try {
-			this.muc.destroy(null, null);
-		} catch (XMPPException e) {
-			Log.d(TAG, "Unable to destroy Space!");
-		}
-			//experimental emulation of MUC.destroy
-			/*Collection<User> users = this.space.getAllParticipants().values();
-=======
     // Debugging
     private static final String TAG = "SpaceController";
     private static final boolean D = true;
@@ -245,7 +131,6 @@ public class SpaceController {
         }
         //experimental emulation of MUC.destroy
         /*Collection<User> users = this.space.getAllParticipants().values();
->>>>>>> cfd6609d1ff8bb0be7edc24bb146109b9d12501a
 			for (User u : users) {
 				try {
 					if(!u.getUsername().equals(MainApplication.user_primary.getUsername()))
