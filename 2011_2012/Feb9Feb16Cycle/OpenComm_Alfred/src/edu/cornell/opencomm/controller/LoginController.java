@@ -20,6 +20,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.network.Network;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.DashboardView;
@@ -29,7 +30,7 @@ public class LoginController {
     private LoginView loginView;
 
     // Debugging
-    private static final boolean D = true;
+    private static final boolean D = Values.D;
 
     // Logs
     private static final String LOG_TAG = "LoginController";
@@ -97,7 +98,7 @@ public class LoginController {
 		if (islogin){
 			//Start DashboardView when the login is successful
 			Intent i = new Intent(loginView, DashboardView.class);
-			i.putExtra(username,password);
+			i.putExtra(Network.KEY_USERNAME, username);
 	        i.setAction(Network.ACTION_LOGIN);
 
 	        loginView.startActivity(i);

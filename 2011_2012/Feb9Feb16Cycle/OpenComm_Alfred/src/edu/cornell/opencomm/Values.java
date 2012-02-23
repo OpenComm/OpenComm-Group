@@ -3,6 +3,12 @@ package edu.cornell.opencomm;
 public class Values {
     /** These values will be changed in MainApplication's adjustLayoutParams() */
 
+	// Debugging mode
+    public static final boolean D = true;
+
+    // Logs
+    private static final String LOG_TAG = "LoginController";
+	
     //font
     public static String font = "Delicious-Roman.otf";
 
