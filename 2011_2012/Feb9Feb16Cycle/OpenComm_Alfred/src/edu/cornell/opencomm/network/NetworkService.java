@@ -1,3 +1,12 @@
+/** 
+ * An instance of this class is the XMPP connection 
+ * 
+ * Issues [TODO]
+ * - Look into authentication used in login function once we move to openfire
+ * 
+ * @author rahularora, risanaka, kriskooi, anneedmundson, jp
+ * */
+
 package edu.cornell.opencomm.network;
 
 import org.jivesoftware.smack.Connection;
@@ -43,7 +52,7 @@ import edu.cornell.opencomm.controller.MainApplication;
 import edu.cornell.opencomm.model.Invitation;
 import edu.cornell.opencomm.view.InvitationView;
 
-/** An instance of this class is the XMPP connection */
+
 public class NetworkService {
     // Debugging
     private static final String TAG = "NetworkService";
@@ -53,8 +62,7 @@ public class NetworkService {
     private XMPPConnection xmppConn = null;
     private ConnectionConfiguration xmppConfig = null;
     private InvitationListener invitationListener;
-
-
+    
     /** Constructor: a network service for the application that creates and
      * maintains an XMPP connection for a specific host and port
      * 
@@ -163,6 +171,11 @@ public class NetworkService {
         return this.xmppConn;
     } // end getXMPPConnection method
 
+    /** = the XMPP configuration */
+    public ConnectionConfiguration getConnectionConfiguration(){
+    	return this.xmppConfig;
+    }
+    
     /** = the invitaitonListener */
     public InvitationListener getInvitiationListener(){
         return invitationListener;
@@ -175,22 +188,26 @@ public class NetworkService {
      * @param pwd - the password
      * @throws XMPPException - if an error occurs
      */
-    public boolean login(String uname, String pwd) throws XMPPException {
+    public boolean login(String uname, String pwd){
         // check that the connection is not already authenticated
         if (!xmppConn.isAuthenticated()) {
-            xmppConn.login(uname, pwd);
-            if (D) {
-                if (xmppConn.isAuthenticated()) {
-                    Log.d(TAG, "Logged in as " + uname);
-                }
-                else {
-                    Log.d(TAG, "login: Log in attempt failed");
-                    return false;
-                }
-            }
+            try {
+				xmppConn.login(uname, pwd);
+				if (D) {
+	                if (xmppConn.isAuthenticated()) {
+	                    Log.d(TAG, "Logged in as " + uname);
+	                }
+	                else {
+	                    Log.d(TAG, "login: Log in attempt failed");
+	                    return false;
+	                }
+	            }
+			} catch (XMPPException e) {
+				Log.e(TAG, printXMPPError(e));
+			}
         }
         else {
-            Log.e(TAG, "login: Already logged in as " + xmppConn.getUser());
+            Log.v(TAG, "login: Already logged in as " + xmppConn.getUser());
         }
         return true;
     } // end login method
