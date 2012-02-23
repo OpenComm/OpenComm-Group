@@ -1,6 +1,16 @@
+/** 
+ * A class of constants for package edu.cornell.opencomm.network. 
+ * All the values that are hardcoded and required by hcisec are also moved to this file.
+ * 
+ * Issues [TODO]
+ * - Looks into authentication used in login function once we move to openfire
+ * 
+ * @author rahularora, risanaka, kriskooi, anneedmundson, jp
+ * 
+ * */
+
 package edu.cornell.opencomm.network;
 
-/** A class of constants for package edu.cornell.opencomm.network */
 public class Network {
     private Network() {}
 
@@ -21,7 +31,7 @@ public class Network {
     public static final int DEFAULT_PORT = 5222;
 
     /** = debug username */
-    public static final String DEBUG_USERNAME = "opencommss@jabber.org";
+    public static final String DEBUG_USERNAME = "opencommss";
 
     /** = debug password */
     public static final String DEBUG_PASSWORD = "ssopencomm";
