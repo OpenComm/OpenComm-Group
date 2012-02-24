@@ -1,11 +1,18 @@
 package edu.cornell.opencomm.model;
 
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Hashtable;
 
+import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smackx.packet.VCard;
+
 import android.util.Log;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.controller.LoginController;
+import edu.cornell.opencomm.network.Network;
 
 /* An object representing a user who is taking part in the conversation */
 
@@ -16,7 +23,7 @@ public class User {
 	
 	String username; // The User's JID
 	String nickname; // The User's chat nickname
-	File vCard; // The User's vCard, used to pass image
+	VCard vCard; // The User's vCard, used to pass image
 	int image; // icon - will be replaced by vCard
 	
 	//Crystal
@@ -52,6 +59,34 @@ public class User {
             this.image = image;	
         }
         
+        //Load VCard if possible
+        this.vCard = new VCard();
+        try {
+			vCard.load(LoginController.xmppService.getXMPPConnection(), username);
+		} catch (XMPPException e1) {
+			// TODO Auto-generated catch block
+			Log.v(LOG_TAG, "VCard did not load for " + username + ". Trying to create one...");
+		}
+      //Create VCard if needed
+        if (vCard.equals(null)){
+        	URL imUrl;
+			try {
+				imUrl = new URL("http://i.imgur.com/CDewa.jpg");
+	        	vCard.setAvatar(imUrl);
+			} catch (MalformedURLException e) {
+				Log.v(LOG_TAG, "Fix the URL, dummy!");
+			}
+        	vCard.setJabberId(username);
+        	vCard.setNickName(nickname);
+        	Log.v(LOG_TAG, "Success! made a VCard for " + username);
+        	try {
+				vCard.save(LoginController.xmppService.getXMPPConnection());
+			} catch (XMPPException e) {
+				// TODO Auto-generated catch block
+				Log.v(LOG_TAG, "Failed to save VCard to server for " + username);
+			}
+        }
+        
         if (user_color_table.containsKey(username)){
         	user_color=user_color_table.get(username);
         }else{
@@ -81,7 +116,7 @@ public class User {
 	}
 	
 	/** @return - the User's vCard */
-	public File getVCard(){
+	public VCard getVCard(){
 		return vCard;
 	}
 

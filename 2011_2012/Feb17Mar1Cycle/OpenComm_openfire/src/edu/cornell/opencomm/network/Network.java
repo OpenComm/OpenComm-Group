@@ -16,6 +16,9 @@ public class Network {
 	// CONNECTION CONSTANTS
 	/** = default host server */
 	public static final String DEFAULT_HOST = "192.168.0.5";
+	
+	/** = default host name */
+	public static final String DEFAULT_HOSTNAME = "opencomm";
 
 	/** = default port */
 	public static final int DEFAULT_PORT = 5222;

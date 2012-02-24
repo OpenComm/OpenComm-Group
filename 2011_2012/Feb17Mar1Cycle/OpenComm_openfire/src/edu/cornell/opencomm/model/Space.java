@@ -144,6 +144,7 @@ public class Space {
 			this.muc = new MultiUserChat(LoginController.xmppService.getXMPPConnection(),
 					roomID);
 			this.muc.join(MainApplication.user_primary.getNickname());
+			
 		}
 		this.isMainSpace = isMainSpace;
 		// create controllers and associate view
@@ -168,7 +169,7 @@ public class Space {
 		while (occItr.hasNext()) {
 			
 			String occ = occItr.next();
-			String occJID = occ.substring(occ.indexOf('/') + 1) + "@" + Network.DEFAULT_HOST;
+			String occJID = occ.substring(occ.indexOf('/') + 1) + "@" + Network.DEFAULT_HOSTNAME;
 			Log.v("Space", "Adding person " + occJID);
 			User u = User.getAllUsers().get(occJID);
 			// if there is an instance of User already created
@@ -211,7 +212,8 @@ public class Space {
 				}
 			}
 		}
-			
+		this.muc.grantMembership("opencommsec@opencomm");
+		this.muc.invite("opencommsec@opencomm", null);
 	} // end Space constructor
 
 	// GETTERS

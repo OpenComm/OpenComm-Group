@@ -21,6 +21,7 @@ public final class R {
         public static final int grey_dark_translucent=0x7f04000d;
         public static final int light_gray=0x7f040000;
         public static final int light_grey=0x7f040007;
+        public static final int light_grey_translucent=0x7f040015;
         public static final int light_purple=0x7f040010;
         public static final int main_background=0x7f040003;
         public static final int ocean_blue=0x7f040011;
@@ -70,11 +71,11 @@ public final class R {
         public static final int adminTipBarFrame=0x7f070003;
         public static final int adminTipOverlay=0x7f070007;
         public static final int bottom_bar=0x7f07003d;
-        public static final int bottom_scroll=0x7f070060;
+        public static final int bottom_scroll=0x7f070063;
         public static final int buttonAcceptAdminTip=0x7f070006;
         public static final int buttonAcceptConfirm=0x7f070011;
         public static final int buttonAcceptInvite=0x7f070026;
-        public static final int buttonAcceptTip=0x7f07006b;
+        public static final int buttonAcceptTip=0x7f07006a;
         public static final int buttonAccount=0x7f07001a;
         public static final int buttonCancelConfirm=0x7f070013;
         public static final int buttonCancelInvite=0x7f070028;
@@ -84,7 +85,6 @@ public final class R {
         public static final int buttonStartConference=0x7f07001d;
         public static final int cancelConfirmOverlay=0x7f070016;
         public static final int cancelInviteOverlay=0x7f07002b;
-        public static final int cancel_button=0x7f070065;
         public static final int conferenceBar=0x7f07001c;
         public static final int conferenceBarFrame=0x7f07001b;
         public static final int confirmBar=0x7f07000f;
@@ -93,13 +93,14 @@ public final class R {
         public static final int dashboardOverlay=0x7f07001f;
         public static final int editTextPassword=0x7f070030;
         public static final int editTextUsername=0x7f07002d;
-        public static final int horizontalScrollView1=0x7f070053;
+        public static final int go_button=0x7f070054;
+        public static final int horizontalScrollView1=0x7f070056;
         public static final int iconImage=0x7f07000a;
-        public static final int icon_clone=0x7f070061;
+        public static final int icon_clone=0x7f070064;
         public static final int imageAcceptAdminTip=0x7f070005;
         public static final int imageAcceptConfirm=0x7f070010;
         public static final int imageAcceptInvite=0x7f070025;
-        public static final int imageAcceptTip=0x7f07006a;
+        public static final int imageAcceptTip=0x7f070069;
         public static final int imageCancelConfirm=0x7f070012;
         public static final int imageCancelInvite=0x7f070027;
         public static final int infoConfirm=0x7f070009;
@@ -111,11 +112,11 @@ public final class R {
         public static final int loginBarFrame=0x7f070033;
         public static final int loginOverlay=0x7f070037;
         public static final int logo=0x7f070039;
-        public static final int mainChatVolumeSlide=0x7f07005e;
-        public static final int mainLayout=0x7f070052;
-        public static final int mainSeekbarLayout=0x7f070054;
+        public static final int mainChatVolumeSlide=0x7f070061;
+        public static final int mainLayout=0x7f070055;
+        public static final int mainSeekbarLayout=0x7f070057;
         public static final int main_button=0x7f07003e;
-        public static final int main_button_clone=0x7f07005f;
+        public static final int main_button_clone=0x7f070062;
         public static final int main_screen=0x7f070038;
         public static final int menuAddUser=0x7f070043;
         public static final int menuAddUserFrame=0x7f070042;
@@ -136,13 +137,12 @@ public final class R {
         public static final int menuTable=0x7f070040;
         public static final int menuUser=0x7f070041;
         public static final int ocActionBar=0x7f070017;
-        public static final int popup_header_text=0x7f070063;
         public static final int privateSpaceLinearLayout=0x7f07003f;
-        public static final int private_space_preview_popup=0x7f070064;
-        public static final int private_space_preview_popup_layout=0x7f070062;
+        public static final int private_space_popup_preview_linear_layout=0x7f070053;
+        public static final int private_space_preview_popup=0x7f070052;
         public static final int search=0x7f070000;
         public static final int separatorBar=0x7f070020;
-        public static final int sideChatVolumeLayout=0x7f070055;
+        public static final int sideChatVolumeLayout=0x7f070058;
         public static final int sound_button=0x7f07003a;
         public static final int spaceViewFrame=0x7f07003b;
         public static final int space_view=0x7f07003c;
@@ -150,7 +150,7 @@ public final class R {
         public static final int textLabelConfirm=0x7f070008;
         public static final int textLabelInvite=0x7f070021;
         public static final int textLabelPassword=0x7f070032;
-        public static final int textLabelTip=0x7f070066;
+        public static final int textLabelTip=0x7f070065;
         public static final int textLabelUsername=0x7f07002f;
         public static final int textLogin=0x7f070036;
         public static final int textPasswordAligner=0x7f070031;
@@ -160,19 +160,19 @@ public final class R {
         public static final int textViewConference=0x7f07001e;
         public static final int textViewHeader=0x7f07000b;
         public static final int textViewInfo=0x7f07000c;
-        public static final int textViewTip=0x7f070067;
-        public static final int tipBar=0x7f070069;
-        public static final int tipBarFrame=0x7f070068;
-        public static final int tipOverlay=0x7f07006c;
+        public static final int textViewTip=0x7f070066;
+        public static final int tipBar=0x7f070068;
+        public static final int tipBarFrame=0x7f070067;
+        public static final int tipOverlay=0x7f07006b;
         public static final int userInputs=0x7f07002c;
-        public static final int volumeControlSideChat1=0x7f070056;
-        public static final int volumeControlSideChat2=0x7f070057;
-        public static final int volumeControlSideChat3=0x7f070058;
-        public static final int volumeControlSideChat4=0x7f070059;
-        public static final int volumeControlSideChat5=0x7f07005a;
-        public static final int volumeControlSideChat6=0x7f07005b;
-        public static final int volumeControlSideChat7=0x7f07005c;
-        public static final int volumeControlSideChat8=0x7f07005d;
+        public static final int volumeControlSideChat1=0x7f070059;
+        public static final int volumeControlSideChat2=0x7f07005a;
+        public static final int volumeControlSideChat3=0x7f07005b;
+        public static final int volumeControlSideChat4=0x7f07005c;
+        public static final int volumeControlSideChat5=0x7f07005d;
+        public static final int volumeControlSideChat6=0x7f07005e;
+        public static final int volumeControlSideChat7=0x7f07005f;
+        public static final int volumeControlSideChat8=0x7f070060;
     }
     public static final class layout {
         public static final int actionbartest=0x7f030000;
@@ -183,8 +183,8 @@ public final class R {
         public static final int login_layout=0x7f030005;
         public static final int main=0x7f030006;
         public static final int menu=0x7f030007;
-        public static final int sound_settings=0x7f030008;
-        public static final int space_preview_popup=0x7f030009;
+        public static final int private_space_preview_popup=0x7f030008;
+        public static final int sound_settings=0x7f030009;
         public static final int tip_layout=0x7f03000a;
     }
     public static final class string {

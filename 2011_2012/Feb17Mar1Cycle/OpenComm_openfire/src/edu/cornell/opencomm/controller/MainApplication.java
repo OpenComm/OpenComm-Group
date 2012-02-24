@@ -137,7 +137,7 @@ public final class MainApplication extends Activity{
             username = start_intent.getStringExtra(Network.KEY_USERNAME);
         	// Create instance of primary user
             if(user_primary == null){
-            	user_primary = new User(username + "@" + Network.DEFAULT_HOST, username.split("@")[0], 
+            	user_primary = new User(username + "@" + Network.DEFAULT_HOSTNAME, username.split("@")[0], 
             			R.drawable.question);
             }
         	try {
