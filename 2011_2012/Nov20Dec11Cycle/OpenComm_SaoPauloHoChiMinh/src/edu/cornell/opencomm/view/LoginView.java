@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.LoginController;
+import edu.cornell.opencomm.controller.MainApplication;
 
 
 public class LoginView extends Activity {
@@ -38,7 +40,30 @@ public class LoginView extends Activity {
 	private static ImageButton loginButton;
 	private static ImageView loginOverlay;
 
-
+//	  public View.OnKeyListener onKeyListener = new View.OnKeyListener() {
+//
+//			@Override
+//			public boolean onKey(View v, int keyCode, KeyEvent event) {
+//				if (event.getAction()!=KeyEvent.ACTION_DOWN) {
+//					return true;
+//				}
+//				switch (keyCode) {
+//				case KeyEvent.KEYCODE_U: {
+//					Log.v("123", "pressed z key - planner screen");
+//					LayoutInflater inflater = (LayoutInflater) LoginView.this
+//							.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//					ConferencePlannerView conferencePlannerView = new ConferencePlannerView(inflater);
+//					conferencePlannerView.launch();
+//					break;
+//				}
+//				
+//				
+//				}
+//				;
+//				return true;
+//			}
+//		};
+				
 	 /* 
 	 * /** Called when an activity is first created
 	 */

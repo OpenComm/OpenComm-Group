@@ -8,6 +8,7 @@
 	<uses-sdk 
 		android:minSdkVersion="8" />
 	<application 
+	    
 		android:icon="@drawable/icon" 
 		android:label="@string/app_name"
 		android:theme="@style/offwhiteTheme">
@@ -29,7 +30,15 @@
 		<activity 
 			android:name=".view.DashboardView" 
 			android:screenOrientation="portrait"/>
+		  <activity android:name=".view.ConferencePlannerView"></activity>
+
+
+		
 	</application>
+
+	
+
+	
 	<uses-permission 
 		android:name="android.permission.INTERNET" />
 

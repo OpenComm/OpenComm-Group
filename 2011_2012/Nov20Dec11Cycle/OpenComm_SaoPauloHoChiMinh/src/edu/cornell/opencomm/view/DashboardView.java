@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +32,8 @@ public class DashboardView extends Activity {
 	private ImageView dashboardOverlay;
 	private Typeface font;
 	
+
+	
 	/*
 	 * /** Called when an activity is first created
 	 */
@@ -42,6 +45,7 @@ public class DashboardView extends Activity {
 		inflater = this.getLayoutInflater();
 		initEventsAndProperties();
 		dashboardController = new DashboardController(this);
+		
 	} // end onCreate method
 
 	private void initEventsAndProperties() {

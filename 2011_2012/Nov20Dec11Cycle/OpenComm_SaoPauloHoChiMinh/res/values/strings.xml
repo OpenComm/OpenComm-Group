@@ -17,5 +17,6 @@
 <string name="leave_chat">leave chat</string>
 <string name="add_user">add user</string>
 <string name="font_chosen">Datum</string>
- 
+ <string name="new_conf">conference</string>
+  <string name="create">create</string>
 </resources>
