@@ -33,7 +33,6 @@ import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.Network;
 import edu.cornell.opencomm.view.AdminTipView;
-import edu.cornell.opencomm.view.ConferencePlannerView;
 import edu.cornell.opencomm.view.ConfirmationView;
 import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.InvitationView;
@@ -359,21 +358,6 @@ public final class MainApplication extends Activity{
 						debug1, Network.DEFAULT_INVITE);
 				break;
 			}
-			
-			
-			case KeyEvent.KEYCODE_U: {
-				Log.v(TAG, "pressed z key - planner screen");
-				Intent myIntent = new Intent();
-				 myIntent.setClass(getApplication(),ConferencePlannerView.class);
-		        startActivity(myIntent);
-//				LayoutInflater inflater = (LayoutInflater) MainApplication.this
-//						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//				ConferencePlannerView conferencePlannerView = new ConferencePlannerView(inflater);
-//				conferencePlannerView.launch();
-//				break;
-			}
-			
-			
 			}
 			;
 			return true;
