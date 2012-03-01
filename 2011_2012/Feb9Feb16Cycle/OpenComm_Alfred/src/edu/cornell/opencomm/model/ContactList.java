@@ -1,5 +1,11 @@
-package edu.cornell.opencomm.model;
+/**
+ * A user's contact list. This is a Roster of users for which the network
+ * will send the primary user status updates. A user can add and/or delete
+ * other users from their contact list.
+ *
+ */
 
+package edu.cornell.opencomm.model;
 
 import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.Roster;
@@ -7,17 +13,18 @@ import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.XMPPException;
 
 import android.util.Log;
+import edu.cornell.opencomm.Values;
 
-/**
- * A user's contact list. This is a Roster of users for which the network
- * will send the primary user status updates. A user can add and/or delete
- * other users from their contact list.
- *
- */
 public class ContactList {
 
+	 // Debugging
+    private static final boolean D = Values.D;
+
+    // Log
     private static final String TAG = "Model.ContactList";
+
     private Roster roster;
+
 
     /** CONSTRUCTOR: = the network's current roster for the primary user.
      *
@@ -48,8 +55,9 @@ public class ContactList {
             RosterEntry entry = roster.getEntry(user);
             roster.removeEntry(entry);
         } else{
-            Log.d(TAG, "The user \'" + user + "\' is not currently " +
-                    "in the contact list.");
+        	if (D){
+        		Log.d(TAG, "The user \'" + user + "\' is not currently " + "in the contact list.");
+        	}
         }
     }
 

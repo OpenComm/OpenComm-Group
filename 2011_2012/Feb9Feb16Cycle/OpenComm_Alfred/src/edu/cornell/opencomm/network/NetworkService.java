@@ -3,7 +3,12 @@
  *
  * Issues [TODO]
  * - Look into authentication used in login function once we move to openfire
+<<<<<<< HEAD
  *
+=======
+ * - Disconnect() or shutdown()
+ *
+>>>>>>> 6e0e8e32a87dd4e869f1561cc31467b1ae372b1a
  * @author rahularora, risanaka, kriskooi, anneedmundson, jp
  * */
 
@@ -72,7 +77,7 @@ public class NetworkService {
      * @throws XMPPException
 
      */
-    public NetworkService(String host, int port) throws XMPPException {
+    public NetworkService(String host, int port){
         // BUGFIX
         configure(ProviderManager.getInstance());
         SmackConfiguration.setPacketReplyTimeout(100000);
@@ -80,16 +85,49 @@ public class NetworkService {
         // Create a connection to the server on a specific port
         xmppConfig = new ConnectionConfiguration(host, port);
         xmppConn = new XMPPConnection(xmppConfig);
-        xmppConn.connect();
-        if (xmppConn.isConnected()) {
-            if (D) {
-                Log.d(TAG, "XMPP connection established to " + host + " through " + port);
-            }
-        }
-        else {
-            if (D) {
-                Log.d(TAG, "XMPP connection not established");
-            }
+        try{
+        	xmppConn.connect();
+        	if (xmppConn.isConnected()) {
+        		if (D) {
+        			Log.d(TAG, "XMPP connection established to " + host + " through " + port);
+        		}
+
+        		invitationListener = new InvitationListener(){
+        			/**
+        			 * Automatically called when this client receives an invitation to join a MUC
+        			 */
+        			@Override
+        			public void invitationReceived(Connection connection, String room,
+                        String inviter, String reason, String password, Message message) {
+
+        				Log.v("NetworkService", "Invitation Received for room " + room);
+
+	                    String roomID = room;
+	                    MultiUserChat muc = new MultiUserChat(LoginController.xmppService.getXMPPConnection(), roomID);
+	                    String nickname = inviter.split("@")[0];
+
+	                    Invitation invitation = new Invitation(
+	                            connection, room, inviter, reason, password, message, muc);
+
+	                    // Create the invitation
+	                    LayoutInflater inflater = (LayoutInflater) MainApplication.screen.getActivity()
+	                            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	                    InvitationView invitationView = new InvitationView(inflater, invitation);
+	                    invitationView.setInvitationInfo(-1, nickname, "None", "None");
+	                    MainApplication.screen.getActivity().displayPopup(invitationView);
+	                }
+        		};
+
+        		MultiUserChat.addInvitationListener(xmppConn,invitationListener);
+        	}
+
+        	else {
+        		if (D) {
+        			Log.d(TAG, "XMPP connection not established");
+        		}
+        	}
+        }catch (XMPPException e) {
+				Log.e(TAG, printXMPPError(e));
         }
 
         invitationListener = new InvitationListener(){
@@ -121,19 +159,25 @@ public class NetworkService {
         MultiUserChat.addInvitationListener(xmppConn,invitationListener);
     } // end NetworkService method
 
-    /** = the XMPP connection */
+    /**
+     * get the XMPP connection
+     * */
     public XMPPConnection getXMPPConnection() {
         return this.xmppConn;
-    } // end getXMPPConnection method
+    }
 
-    /** = the XMPP configuration */
+    /**
+     * get the XMPP configuration
+     * */
     public ConnectionConfiguration getConnectionConfiguration(){
     	return this.xmppConfig;
     }
 
-    /** = the invitaitonListener */
+    /**
+     * get the invitationListener
+     * */
     public InvitationListener getInvitiationListener(){
-        return invitationListener;
+        return this.invitationListener;
     }
 
     /** Logs in to the server using the strongest authentication mode
@@ -151,6 +195,7 @@ public class NetworkService {
 				if (D) {
 	                if (xmppConn.isAuthenticated()) {
 	                    Log.d(TAG, "Logged in as " + uname);
+	                    return true;
 	                }
 	                else {
 	                    Log.d(TAG, "login: Log in attempt failed");
@@ -165,54 +210,64 @@ public class NetworkService {
             Log.v(TAG, "login: Already logged in as " + xmppConn.getUser());
         }
         return true;
-    } // end login method
+    }
 
-    /** Disconnect the XMPP connection */
+    /* *
+     * Disconnect the XMPP connection
+     * */
     public void disconnect() {
         xmppConn.disconnect();
-    } // end disconnect method
+    }
 
-    /** = String representation of the network service */
+    /* *
+     * String representation of the network service
+     * */
     @Override
     public String toString() {
-        String temp = "";
-        temp += "XMPP Connection to host server " + this.xmppConfig.getHost();
-        temp += " through port " + this.xmppConfig.getPort();
-        temp += "\n\tStream compression enabled? "
-                + (this.xmppConfig.isCompressionEnabled() ? "yes" : "no");
-        temp += "\n\tDebugger enabled? "
-                + (this.xmppConfig.isDebuggerEnabled() ? "yes" : "no");
-        temp += "\n\tAre certificates presented checked for validity? "
-                + (this.xmppConfig.isExpiredCertificatesCheckEnabled() ? "yes" : "no");
-        temp += "\n\tAre certificates presented checked for their domain? "
-                + (this.xmppConfig.isNotMatchingDomainCheckEnabled() ? "yes" : "no");
-        temp += "\n\tIs reconnection allowed? "
-                + (this.xmppConfig.isReconnectionAllowed() ? "yes" : "no");
-        temp += "\n\tIs the roster loaded at log in? "
-                + (this.xmppConfig.isRosterLoadedAtLogin() ? "yes" : "no");
-        temp += "\n\tSASL authentication enabled? "
-                + (this.xmppConfig.isSASLAuthenticationEnabled() ? "yes" : "no");
-        temp += "\n\tAre self-signed certificates accepted? "
-                + (this.xmppConfig.isSelfSignedCertificateEnabled() ? "yes" : "no");
-        temp += "\n\tIs the whole chain of certificates presented checked? "
-                + (this.xmppConfig.isVerifyChainEnabled() ? "yes" : "no");
-        temp += "\n\tIs the root CA checking performed? "
+        String networkServiceRepresentation = "";
+        networkServiceRepresentation
+        		+= "XMPP Connection to host server " + this.xmppConfig.getHost()
+        		+ " through port " + this.xmppConfig.getPort()
+        		+ "\n\tStream compression enabled? "
+        		+ (this.xmppConfig.isCompressionEnabled() ? "yes" : "no")
+        		+ "\n\tDebugger enabled? "
+        		+ (this.xmppConfig.isDebuggerEnabled() ? "yes" : "no")
+        		+ "\n\tAre certificates presented checked for validity? "
+        		+ (this.xmppConfig.isExpiredCertificatesCheckEnabled() ? "yes" : "no")
+        		+ "\n\tAre certificates presented checked for their domain? "
+        		+ (this.xmppConfig.isNotMatchingDomainCheckEnabled() ? "yes" : "no")
+        		+ "\n\tIs reconnection allowed? "
+                + (this.xmppConfig.isReconnectionAllowed() ? "yes" : "no")
+                + "\n\tIs the roster loaded at log in? "
+                + (this.xmppConfig.isRosterLoadedAtLogin() ? "yes" : "no")
+                + "\n\tSASL authentication enabled? "
+                + (this.xmppConfig.isSASLAuthenticationEnabled() ? "yes" : "no")
+                + "\n\tAre self-signed certificates accepted? "
+                + (this.xmppConfig.isSelfSignedCertificateEnabled() ? "yes" : "no")
+                + "\n\tIs the whole chain of certificates presented checked? "
+                + (this.xmppConfig.isVerifyChainEnabled() ? "yes" : "no")
+                + "\n\tIs the root CA checking performed? "
                 + (this.xmppConfig.isVerifyRootCAEnabled() ? "yes" : "no");
+
         if (this.xmppConn.isConnected()) {
-            temp += "\nXMPP Connection established";
+        	networkServiceRepresentation += "\nXMPP Connection established";
             if (this.xmppConn.isAuthenticated()) {
-                temp += "\nXMPP Connection authenticated for " + this.xmppConn.getUser();
+            	networkServiceRepresentation += "\nXMPP Connection authenticated for " + this.xmppConn.getUser();
             }
             else {
-                temp += "\nXMPP Connection not authorized";
+            	networkServiceRepresentation += "\nXMPP Connection not authorized";
             }
         }
         else {
-            temp += "\nXMPP Connection not established";
+        	networkServiceRepresentation += "\nXMPP Connection not established";
         }
-        return temp;
+        return networkServiceRepresentation;
     }
 
+    /**
+     * TODO Ask Kris about it and write the comments
+     * @param pm
+     */
     public void configure(ProviderManager pm) {
         //  Private Data Storage
         pm.addIQProvider("query","jabber:iq:private", new PrivateDataManager.PrivateDataIQProvider());
@@ -317,16 +372,28 @@ public class NetworkService {
         pm.addExtensionProvider("bad-payload", "http://jabber.org/protocol/commands", new AdHocCommandDataProvider.BadPayloadError());
         pm.addExtensionProvider("bad-sessionid", "http://jabber.org/protocol/commands", new AdHocCommandDataProvider.BadSessionIDError());
         pm.addExtensionProvider("session-expired", "http://jabber.org/protocol/commands", new AdHocCommandDataProvider.SessionExpiredError());
-    } // end configure method
+    }
 
     public static String printXMPPError(XMPPException e) {
-        String temp = "";
+        String xmppExceptionString = "";
         if (e != null && e.getXMPPError() != null) {
-            temp += "XMPPError: ";
-            temp += "(" + e.getXMPPError().getCode() + ")";
-            temp += (e.getXMPPError().getMessage() != null ? " - " + e.getXMPPError().getMessage() : "");
+        	xmppExceptionString += "XMPPError: ";
+        	xmppExceptionString += "(" + e.getXMPPError().getCode() + ")";
+        	xmppExceptionString += (e.getXMPPError().getMessage() != null ? " - " + e.getXMPPError().getMessage() : "");
         }
-        return temp;
-    } // return printXMPPError method
+        return xmppExceptionString;
+    }
+
+
+    /**
+     * Destroy conference
+     * */
+    public static void destroyMUC(MultiUserChat muc){
+    	try {
+            muc.destroy(null, null);
+        } catch (XMPPException e) {
+        	Log.e(TAG, printXMPPError(e));
+        }
+    }
 
 } // end Class NetworkService

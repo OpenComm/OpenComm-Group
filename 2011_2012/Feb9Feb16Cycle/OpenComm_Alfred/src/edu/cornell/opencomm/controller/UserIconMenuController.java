@@ -1,6 +1,16 @@
-package edu.cornell.opencomm.controller;
+/** 
+ * Controller called when a user press and hold an icon of the Main conference. 
+ * It displays a dialog menu.
+ * 
+ * Issues [TODO]
+ * - No notification on screen if user cannot be kicked out
+ * - Do something if user clicks on Cancel
+ * - For any other issues search for string "TODO"
+ * 
+ * @author rahularora[hcisec], vinaymaloo[ui]
+ */
 
-import org.jivesoftware.smack.XMPPException;
+package edu.cornell.opencomm.controller;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -10,50 +20,60 @@ import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.view.SpaceView;
 import edu.cornell.opencomm.view.UserView;
 
-/** When a user press and hold an icon of the mainscreen, this controller
- *  is invoked. It displays a dialog menu.
- * 
- *  @author - rahularora
- */
-public class UserIconMenuController {
 
-    private static UserView userView = null;
+public class UserIconMenuController {
+	
+	private static UserView userView = null;
     private static SpaceView spaceView = null;
     private static Context context;
-
-    /** Constructor: UserIconMenuController */
+    private static boolean kickoutStatus;
+    
+    /** Constructor
+     **/
     public UserIconMenuController(Context context, SpaceView spaceView) {
         this.spaceView = spaceView;
         UserIconMenuController.context = context;
     }
 
-    /** Show a menu after long-pressing on a user icon (UserView)
-     * Menu options are: Delete User, Cancel */
+    /** 
+     * Show a menu after long-pressing on a user icon (UserView)
+     * Menu options are: Delete User, Cancel 
+     * */
     public static void showIconMenu(UserView uv){
-        userView = uv;
-        if (context == null)
-            Log.v("User Icon Menu", "NULLL");
+    	userView = uv;
+        if (context == null){
+            Log.v("User Icon Menu", "NULL");
+        }
+        
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
         builder.setItems(Values.userviewMenu, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int item) {
+        	public void onClick(DialogInterface dialog, int item) {
+   
+            	/**
+            	 * Event when User clicks on Delete User
+            	 */
                 if (Values.userviewMenu[item].equals("Delete User")){
-                    //Do something if user clicks on Delete User
-                    try{
-                        spaceView.getSpace().getKickoutController().kickoutUser(userView.getPerson(), "Because you should leave");
-                    } catch(XMPPException e){
-                        Log.d("UserIconMenuController", "Couldn't kick out user " + userView.getPerson() + " from space "
-                                + spaceView.getSpace().getRoomID());
+                    /**
+                   	 * Kick out the selected user
+                   	 */
+                	kickoutStatus = spaceView.getSpace().getKickoutController().kickoutUser(
+                									userView.getPerson(),"Because you should leave");
+                   
+                	/**
+                   	 * For dealing with unsuccessful kick-out
+                   	 */
+                	if  (!kickoutStatus){
+                    	//TODO Some notification on screen if user cannot be kicked out
+                
                     }
                 }
                 else if (Values.userviewMenu[item].equals("Cancel")){
-                    //Do something if user clicks on Cancel
+                    //TODO Do something if user clicks on Cancel
                 }
             }
         });
-        builder.setTitle( "Icon Menu" )
-        .create();
+        builder.setTitle( "Icon Menu" ).create();
         AlertDialog alert = builder.create();
         alert.show();
     }

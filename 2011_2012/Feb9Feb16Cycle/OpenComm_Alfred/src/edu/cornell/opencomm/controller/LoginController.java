@@ -13,8 +13,6 @@
 
 package edu.cornell.opencomm.controller;
 
-import org.jivesoftware.smack.XMPPException;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.util.Log;
@@ -69,19 +67,14 @@ public class LoginController {
         /** Check whether the XMPP connection is already established or not
         / @author: rahularora **/
         if (xmppService == null) {
-            try {
-            	xmppService = new NetworkService(Network.DEFAULT_HOST, Network.DEFAULT_PORT);
-                if (D){
-                	Log.d(LOG_TAG, xmppService.toString());
-                	Log.d(LOG_TAG, "XMPP Connection established");
-                }
-            } catch (XMPPException e) {
-                e.printStackTrace();
-                Log.e(LOG_TAG, "XMPP Connection not established");
-                
-                //[TODO] : UI team look into this please
-                //loginView.finish();
+            xmppService = new NetworkService(Network.DEFAULT_HOST, Network.DEFAULT_PORT);
+            if (D){
+              	Log.d(LOG_TAG, xmppService.toString());
+               	Log.d(LOG_TAG, "XMPP Connection established");
             }
+  
+            //[TODO] : UI team look into this please               
+            //loginView.finish();
         }
         else{
         	if (D) {

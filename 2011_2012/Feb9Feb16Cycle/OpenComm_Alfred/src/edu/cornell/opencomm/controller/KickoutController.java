@@ -1,3 +1,8 @@
+/**
+ * Class to handle kickouts/kickout requests
+ * @author jonathanpullano, risanaka, kriskooi
+ */
+
 package edu.cornell.opencomm.controller;
 
 import org.jivesoftware.smack.XMPPException;
@@ -7,20 +12,20 @@ import org.jivesoftware.smackx.muc.Occupant;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
+import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.Network;
 import edu.cornell.opencomm.view.ConfirmationView;
 
-/**
- * Class to handle kickouts/kickout requests
- * @author jonathanpullano, risanaka, kriskooi
- *
- */
+
 public class KickoutController {
 
+    // Debugging
+    private static final boolean D = Values.D;
+
+    // Logs
     private static final String TAG = "KickoutController";
-    private static final boolean D = true;
 
     private Space mSpace;
     private ConfirmationView confirmationView = null;
@@ -37,31 +42,40 @@ public class KickoutController {
      * ===========================================
      */
 
+
     /**
      * Constructor
      * @param mSpace - The space associated with this control
      */
-
     public KickoutController(Space space) {
         this.mSpace = space;
     } // end KickoutController constructor
 
+
     /**
      * If you are the owner, kick the user from the chat
-     * Otherwise, send out an invitation request
+     * Otherwise, send out an invitation request  ---> ISN'T THIS CONFUSING 	TODO @vinaymaloo
      * @param kickMe - The user to be kicked
      * @param reason - The reason string associated with the kick
+     * @return
      * @throws XMPPException
      */
-    public void kickoutUser(User kickMe, String reason) throws XMPPException {
+    public boolean kickoutUser(User kickMe, String reason) {
         Occupant userOcc = mSpace.getAllOccupants().get(MainApplication.userPrimary.getUsername());
+
         //DEBUG
         Log.v(TAG, "Is userOcc valid for " + MainApplication.userPrimary.getUsername()
                 + (userOcc != null));
         // if the primary user is the room's owner
         if (this.mSpace.getOwner().equals(MainApplication.userPrimary)) {
             Log.v(TAG, "Kicking " + kickMe.getUsername());
-            this.mSpace.getMUC().kickParticipant(kickMe.getNickname(), reason);
+            try {
+				this.mSpace.getMUC().kickParticipant(kickMe.getNickname(), reason);
+				// TODO Log it
+				return true;
+			} catch (XMPPException e) {
+				Log.d(TAG, "Couldn't kick out user " + kickMe + " from space " + mSpace.getRoomID());
+			}
         } else {
             // message containing kickout request tag, the username of the kicker,
             // the username of the kickee, and the reason
@@ -73,12 +87,15 @@ public class KickoutController {
             msg.setType(Message.Type.groupchat);
             try {
                 this.mSpace.getMUC().sendMessage(msg);
+             // TODO Log it
+                return true;
             } catch (XMPPException e) {
                 if (D) Log.d(TAG, "inviteUser - message not sent: "
                         + e.getXMPPError().getCode() + " - " + e.getXMPPError().getMessage());
                 e.printStackTrace();
             }
         }
+		return false;
     } // end kickOutUser method
 
 

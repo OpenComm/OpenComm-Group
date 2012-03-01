@@ -1,9 +1,13 @@
+/** The MainApplication handles and manages the PrivateSpaces for every
+ * User involved. Receives its notifications from the GUI, and then
+ * updates the data of the private space, and talks with the network. */
+
 package edu.cornell.opencomm.controller;
+
+import org.jivesoftware.smack.XMPPException;
 
 import java.util.Iterator;
 import java.util.LinkedList;
-
-import org.jivesoftware.smack.XMPPException;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -41,10 +45,6 @@ import edu.cornell.opencomm.view.SoundSettingsView;
 import edu.cornell.opencomm.view.SpaceView;
 import edu.cornell.opencomm.view.TipView;
 
-
-/** The MainApplication handles and manages the PrivateSpaces for every
- * User involved. Receives its notifications from the GUI, and then
- * updates the data of the private space, and talks with the network. */
 public final class MainApplication extends Activity{
     /** String identifier for error checking with LOGCAT */
     private static String TAG = "Controller.MainApplication";
@@ -250,11 +250,7 @@ public final class MainApplication extends Activity{
             }
             case KeyEvent.KEYCODE_N: {
                 Log.v(TAG, "pressed N key - kickout");
-                try {
-                    (Space.getMainSpace().getKickoutController()).kickoutUser(debug, "You suck!");
-                } catch (XMPPException e) {
-                    Log.d(TAG, "Couldn't kick!");
-                }
+                Space.getMainSpace().getKickoutController().kickoutUser(debug, "You suck!");
                 break;
             }
             case KeyEvent.KEYCODE_V: {
