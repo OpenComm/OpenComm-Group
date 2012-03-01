@@ -1,5 +1,6 @@
 package edu.cornell.opencomm.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Hashtable;
 import java.util.Map.Entry;
@@ -10,10 +11,13 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -60,8 +64,7 @@ public class ConferencePlannerController {
 							// UI element on the layout to become the spinner
 							// once clicked, we have a custom image icon
 
-	Hashtable<String, UserView> invitedUsers = new Hashtable<String, UserView>();
-
+	static ArrayList<String> addedUsers=new ArrayList();
 	// OnSetListeners activate when the user presses the set key after selecting
 	// a time/date (thus, fields need to be updated)
 	DatePickerDialog.OnDateSetListener endDay = new DatePickerDialog.OnDateSetListener() {
@@ -220,8 +223,8 @@ public class ConferencePlannerController {
 	}
 
 	private void showContactList() {
-		Context context = conferencePlannerView;
-
+		 final Context context = conferencePlannerView;
+		 final  LinearLayout vs=(LinearLayout) conferencePlannerView.findViewById(R.id.userIcons);
 		if (context == null)
 			Log.v("ShowBUddyLIst", "NULL");
 		Log.v("ContactListController", "showBuddyList() 1");
@@ -243,8 +246,11 @@ public class ConferencePlannerController {
 			public void onClick(DialogInterface dialog, int clicked) {
 				switch (clicked) {
 				case DialogInterface.BUTTON_POSITIVE:
-					addUserIcons();
-					drawUserIcons();
+					for (int i = 0; i < buddySelection.length; i++) {
+						if (buddySelection[i] && (!addedUsers.contains(buddyList[i]))){
+					     ConferencePlannerController.addUserIcon((String)buddyList[i], context,vs);
+					    }
+				    }
 					break;
 				}
 			}
@@ -272,60 +278,45 @@ public class ConferencePlannerController {
 		alert.show();
 		Log.v("ContactListController", "showBuddyList() 7");
 	}
-
-	private void addUserIcons() {
+	private static void addUserIcon(String username, Context cpv, LinearLayout vs) {
 		int marginX = 0; // marginX of the icon
 		int marginY = 0;
-		for (int i = 0; i < buddySelection.length; i++) {
-			if (buddySelection[i]) {
-				username = (String) buddyList[i];
+		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(80,80);
+		lp.setMargins(0, 10, 20, 0);
+		LinearLayout.LayoutParams l = new LinearLayout.LayoutParams(200,100);
+				
 				User p = new User(username + "@jabber.org", username,
 						R.drawable.question);
-				// TableLayout tbl= findViewById(R.id.table)
-				UserView invited = new UserView(conferencePlannerView, p,
+				
+				UserView invited = new UserView(cpv, p,
 						R.drawable.question, null, marginX, marginY);
-				invitedUsers.put(username, invited);
+				//invitedUsers.put(username, invited);
+				ConferencePlannerController.drawIcon(username, invited, lp, l, vs,cpv);
+				addedUsers.add(username);
 				Log.v("ContactListController", username + " was invited");
-			}
-		}
+				
+			
 	}
 
-	private void drawUserIcons() {
-		final int USER_ICON_DIMENSION = 100;
-		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-				USER_ICON_DIMENSION, USER_ICON_DIMENSION);
-		lp.setMargins(0, 0, 20, 0);
-		LinearLayout[] users = {
-				(LinearLayout) conferencePlannerView.findViewById(R.id.userOne),
-				(LinearLayout) conferencePlannerView.findViewById(R.id.userTwo) };
+	
 
-		int newWidth = 20;
-		int newHeight = 20;
-		float scaleWidth = ((float) newWidth) / Values.userIconW;
-		float scaleHeight = ((float) newHeight) / Values.userIconH;
-		Matrix matrix = new Matrix();
-		matrix.postScale(scaleWidth, scaleHeight);
-
-		int counter = 0;
-		for (Entry<String, UserView> e : invitedUsers.entrySet()) {
-			if (counter < 2) {
-				String name = e.getKey();
-				UserView uv = e.getValue();
-				// uv.getDrawable();
-				uv.setAdjustViewBounds(true);
-				uv.setScaleType(ScaleType.FIT_CENTER);
-				uv.setImageMatrix(matrix);
-				users[counter].addView(uv, lp);
-				TextView userShow = new TextView(conferencePlannerView);
-				userShow.setText(name);
-				userShow.setTextSize(20);
-				users[counter].addView(userShow);
-				counter++;
-			} else {
-				break;
-			}
-		}
-
+	
+	
+	private static void drawIcon(String name, UserView user, LinearLayout.LayoutParams lp,LinearLayout.LayoutParams l,
+			LinearLayout vs, Context c){
+		//String name = e.getKey();
+		Bitmap uv =user.getImage();
+		ImageView userI= new ImageView(c);
+		userI.setImageBitmap(uv);
+	
+		LinearLayout every=new LinearLayout(c);
+		every.addView(userI,lp);
+		TextView userShow = new TextView(c);
+		userShow.setText(name);
+		userShow.setTextSize(20);
+		userShow.setGravity(Gravity.CENTER_VERTICAL);
+		every.addView(userShow,l);
+		vs.addView(every);
 	}
 
 	// Crystal: for now, create conference makes the app goes into

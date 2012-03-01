@@ -33,7 +33,9 @@
                 android:textColor="@color/green"
                 android:textSize="47dp" android:layout_marginBottom="0dp" android:paddingBottom="0dp" android:layout_marginTop="-5.5dp"/>
         </RelativeLayout>
-
+
+
+
         <RelativeLayout
             android:id="@+id/relatievElements"
             android:layout_width="fill_parent"
@@ -147,25 +149,6 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/ending_icon" />
 
-            <Button
-                android:id="@+id/attendeeNameButton"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/grey_dark_translucent"
-                android:clickable="true"
-                android:cursorVisible="false"
-                android:gravity="left|center_vertical"
-                android:height="0dp"
-                android:paddingBottom="0dp"
-                android:paddingLeft="44dp"
-                android:paddingTop="0dp"
-                android:text="&quot; &quot;"
-                android:textColor="@color/light_gray"
-                android:textSize="35dp"
-                android:visibility="invisible"
-                android:width="0dp" />
-
             <ImageButton
                 android:id="@+id/recurringButton"
                 android:layout_width="26.67dp"
@@ -196,15 +179,25 @@
                     android:src="@drawable/overlay_white"
                     android:visibility="invisible" />
 
-                <ImageView
-                    android:id="@+id/attendeesButton"
-                    android:layout_width="26.67dp"
-                    android:layout_height="26.67dp"
-                    android:layout_marginTop="5.5dp"
-                    android:layout_weight="0.01"
+                <Button
+                    android:id="@+id/attendeeNameButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_weight="1"
                     android:background="@color/grey_dark_translucent"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/attendees_icon" android:layout_marginLeft="269dp"/>
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:gravity="left|center_vertical"
+                    android:height="0dp"
+                    android:paddingBottom="0dp"
+                    android:paddingLeft="44dp"
+                    android:paddingTop="0dp"
+                    android:textColor="@color/light_gray"
+                    android:textSize="35dp"
+                    android:visibility="invisible"
+                    android:width="0dp" android:text='" "'/>
 
             </FrameLayout>
 
@@ -239,6 +232,18 @@
                 android:visibility="invisible" />
 
             <ImageView
+                android:id="@+id/attendeesButton"
+                android:layout_width="26.67dp"
+                android:layout_height="26.67dp"
+                android:layout_alignLeft="@+id/recurringButton"
+                android:layout_alignTop="@+id/attendeeFrame"
+                android:layout_marginTop="5.5dp"
+                android:layout_weight="0.01"
+                android:background="@color/grey_dark_translucent"
+                android:scaleType="fitXY"
+                android:src="@drawable/attendees_icon" />
+
+            <ImageView
                 android:id="@+id/dateButtonOverlay"
                 android:layout_width="26.67dp"
                 android:layout_height="26.67dp"
@@ -247,34 +252,10 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/overlay_white"
                 android:visibility="invisible" />
-
-            <LinearLayout
-                android:id="@+id/invitedUserIcons"
-                android:layout_width="fill_parent"
-                android:layout_height="90dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/attendeeFrame"
-                android:orientation="vertical"
-                android:paddingLeft="44dp" >
 
-                <LinearLayout
-                    android:id="@+id/userOne"
-                    android:layout_width="fill_parent"
-                    android:layout_height="40dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="50dp" >
-                </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/userTwo"
-                    android:layout_width="fill_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="2dp"
-                    android:orientation="horizontal" >
-                </LinearLayout>
-            </LinearLayout>
-
+           
+         
             <FrameLayout
                 android:id="@+id/confirmBarFrame"
                 android:layout_width="fill_parent"
@@ -285,7 +266,7 @@
 
                 <LinearLayout
                     android:id="@+id/confirmBar"
-                    android:layout_width="match_parent"
+                    android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:orientation="horizontal" >
 
@@ -342,7 +323,7 @@
 
                 <LinearLayout
                     android:id="@+id/confirmOverlay"
-                    android:layout_width="match_parent"
+                    android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:orientation="horizontal" >
 
@@ -377,7 +358,22 @@
                 android:textColor="@color/light_gray"
                 android:textSize="30dp" 
                 android:layout_marginTop="15dp"/>
+  
 
+          <ScrollView
+              android:layout_width="fill_parent"
+                android:layout_height="90dp"
+                android:paddingLeft="44dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/attendeeFrame">
+                <LinearLayout
+                android:id="@+id/userIcons"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                 />
+                </ScrollView>
         </RelativeLayout>
 
     </RelativeLayout>
