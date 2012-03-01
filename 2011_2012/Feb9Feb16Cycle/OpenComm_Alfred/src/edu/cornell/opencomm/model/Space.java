@@ -108,8 +108,8 @@ public class Space {
             this.roomID = Network.ROOM_NAME + roomID + "@conference.jabber.org";
             this.muc = new MultiUserChat(LoginController.xmppService.getXMPPConnection(),
                     this.roomID);
-            this.muc.join(/*owner.getNickname()*/MainApplication.user_primary.getNickname());
-            this.owner = MainApplication.user_primary;
+            this.muc.join(/*owner.getNickname()*/MainApplication.userPrimary.getNickname());
+            this.owner = MainApplication.userPrimary;
 
             //Configure room
             Form form = muc.getConfigurationForm();
@@ -144,7 +144,7 @@ public class Space {
             Log.v("Space", "roomID = " + roomID);
             this.muc = new MultiUserChat(LoginController.xmppService.getXMPPConnection(),
                     roomID);
-            this.muc.join(MainApplication.user_primary.getNickname());
+            this.muc.join(MainApplication.userPrimary.getNickname());
         }
         this.isMainSpace = isMainSpace;
         // create controllers and associate view
@@ -191,18 +191,18 @@ public class Space {
                     + (this.muc.getOccupant(occ) != null));
             Log.d(TAG, "Their affiliation is: " + this.muc.getOccupant(occ).getAffiliation());
             allOccupants.put(occJID, this.muc.getOccupant(occ));
-            if(!u.getUsername().split("@")[0].equals(MainApplication.user_primary.getUsername()))
+            if(!u.getUsername().split("@")[0].equals(MainApplication.userPrimary.getUsername()))
                 allIcons.add(new UserView(context, u, R.drawable.question, this, start, start));
             start+= Values.userIconW/5;
         }
         allSpaces.put(this.roomID, this);
         // moderators
         if(selfCreated){
-            this.owner = MainApplication.user_primary;
+            this.owner = MainApplication.userPrimary;
         }
         else{
             Iterator<String> iter = this.muc.getOccupants();
-            this.owner = MainApplication.user_primary;
+            this.owner = MainApplication.userPrimary;
             while(iter.hasNext()){
                 Occupant o = muc.getOccupant(iter.next());
                 String role = o.getRole();

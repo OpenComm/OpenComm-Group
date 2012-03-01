@@ -59,7 +59,6 @@ public class Network {
     // INVITATION, KICKOUT AND DELETE REQUEST MESSAGES
     public static final String REQUEST_INVITE = packageName + cycleName + ".REQUEST_INVITE";
     public static final String REQUEST_KICKOUT = packageName + cycleName + ".REQUEST_KICKOUT";
-    public static final String REQUEST_DELETE = packageName + cycleName + ".REQUEST_DELETE";
 
     // INVITATION AND KICKOUT REQUEST REJECTION MESSAGES
     public static final String REJECT_INVITE = packageName + cycleName + ".REJECT_INVITE";
@@ -78,11 +77,17 @@ public class Network {
     /** = default reason for banning a user */
     public static final String DEFAULT_BAN = "You have been banned";
 
+    /** = default reason for rejecting an invitation request */
+    public static final String DEFAULT_REJECT_INVITATION_REQUEST = "Your invitation request has" +
+            " been rejected";
+    
+    /** = default reason for rejecting a kickout request */
+    public static final String DEFAULT_REJECT_KICKOUT_REQUEST_REASON = "Your kickout request has" +
+            " been rejected;";
+    
     /** = default reason for rejecting a user */
     public static final String DEFAULT_REJECT = "Your request has been rejected";
 
-    /** = default reason for deleting a space */
-    public static final String DEFAULT_DELETE = "The space has been deleted";
     // ====================================================================== //
     // ====================================================================== //
 

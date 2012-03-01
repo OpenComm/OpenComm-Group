@@ -36,7 +36,7 @@ public class ParticipantController {
     public void leaveSpace(boolean inMainSpace) {
 
         // If moderator of the space
-        if (mSpace.getOwner() == MainApplication.user_primary) {
+        if (mSpace.getOwner() == MainApplication.userPrimary) {
             MainApplication.screen.getSpace().getSpaceController()
             .deleteSpace();
             MainApplication.screen.getActivity().delPrivateSpaceUI(mSpace,

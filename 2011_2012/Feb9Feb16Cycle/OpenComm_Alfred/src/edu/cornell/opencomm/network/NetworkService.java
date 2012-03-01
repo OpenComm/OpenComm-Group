@@ -1,9 +1,9 @@
-/** 
- * An instance of this class is the XMPP connection 
- * 
+/**
+ * An instance of this class is the XMPP connection
+ *
  * Issues [TODO]
  * - Look into authentication used in login function once we move to openfire
- * 
+ *
  * @author rahularora, risanaka, kriskooi, anneedmundson, jp
  * */
 
@@ -47,6 +47,7 @@ import org.jivesoftware.smackx.search.UserSearch;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
+import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.LoginController;
 import edu.cornell.opencomm.controller.MainApplication;
 import edu.cornell.opencomm.model.Invitation;
@@ -56,16 +57,16 @@ import edu.cornell.opencomm.view.InvitationView;
 public class NetworkService {
     // Debugging
     private static final String TAG = "NetworkService";
-    private static final boolean D = true;
+    private static final boolean D = Values.D;
 
     // XMPP connection
     private XMPPConnection xmppConn = null;
     private ConnectionConfiguration xmppConfig = null;
     private InvitationListener invitationListener;
-    
+
     /** Constructor: a network service for the application that creates and
      * maintains an XMPP connection for a specific host and port
-     * 
+     *
      * @param host - the host where the XMPP server is running.
      * @param port - the port where the XMPP is listening.
      * @throws XMPPException
@@ -75,7 +76,7 @@ public class NetworkService {
         // BUGFIX
         configure(ProviderManager.getInstance());
         SmackConfiguration.setPacketReplyTimeout(100000);
-        
+
         // Create a connection to the server on a specific port
         xmppConfig = new ConnectionConfiguration(host, port);
         xmppConn = new XMPPConnection(xmppConfig);
@@ -90,79 +91,33 @@ public class NetworkService {
                 Log.d(TAG, "XMPP connection not established");
             }
         }
-        
-        invitationListener =
-                /*MultiUserChat.addInvitationListener(xmppConn, */new InvitationListener(){
 
-            /**
-             * Automagically called when this client receives an invitation to join a MUC
-             */
+        invitationListener = new InvitationListener(){
+
             @Override
             public void invitationReceived(Connection connection, String room,
                     String inviter, String reason, String password, Message message) {
-                
-            	Invitation invitation = new edu.cornell.opencomm.model.Invitation(
-                        connection, room, inviter, reason, password, message);
+
+
 
                 Log.v("NetworkService", "Invitation Received for room " + room);
 
                 // Find the room
-                String roomID = /*Network.ROOM_NAME + */room;
+                String roomID = room;
                 MultiUserChat muc = new MultiUserChat(LoginController.xmppService.getXMPPConnection(), roomID);
-                // Get the people in the room
-                /*	Object[] members = null;
-				String nickname;
-				try {
-					members= muc.getParticipants().toArray();
-				} catch (XMPPException e) {
-					Log.v("NetworkService", "Cannot retrieve participants from server.");
-				}
-				// Get the user/occupant object of the inviter
-				if(members!=null){
-					Occupant occupantInviter = null;
-					for(Object o : members){
-						String jid = ((Occupant)o).getJid();
-						if(jid==inviter)
-							occupantInviter = (Occupant)o;
-					} */
-                /* Get information from person's profile
-                 * such as: name, phone, email.
-                 * For now, we do not have profile information
-                 */
-                //if(occupantInviter!=null){
-                //	nickname = occupantInviter.getNick();
 
                 String nickname = inviter.split("@")[0];
+
                 // Create the invitation
                 LayoutInflater inflater = (LayoutInflater) MainApplication.screen.getActivity()
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                Invitation invitation = new edu.cornell.opencomm.model.Invitation(
+                        connection, room, inviter, reason, password, message, muc);
                 InvitationView invitationView = new InvitationView(inflater, invitation);
-                invitation.setMUC(muc);
                 invitationView.setInvitationInfo(-1, nickname, "None", "None");
                 MainApplication.screen.getActivity().displayPopup(invitationView);
             }
-
-            //}
-
-            /*Log.v("InvitationController", "How is room formatted?" + room);
-				//answer: room@server (ex. hellokitty@conference.jabber.org)
-
-
-				Space inviteSpace = Space.allSpaces.get(room);
-				inviteSpace.getInvitationController().setInvitation(invitation);
-				Log.v("InvitationController", "The invitation received exists! " +
-						"It is: " + inviteSpace.getInvitationController().
-						getInvitation().toString());
-
-				//TODO: Trigger update to the view!
-				//TODO: call InvitationController.accept, or InvitationController.decline
-
-				//DEBUG
-				Log.v("InvitationController", "invitationReceived - Invitation " +
-						"received from: " + inviter + " to join room: " + room);  */
-            //	}
-
-        }/*)*/;
+        };
         MultiUserChat.addInvitationListener(xmppConn,invitationListener);
     } // end NetworkService method
 
@@ -175,7 +130,7 @@ public class NetworkService {
     public ConnectionConfiguration getConnectionConfiguration(){
     	return this.xmppConfig;
     }
-    
+
     /** = the invitaitonListener */
     public InvitationListener getInvitiationListener(){
         return invitationListener;
@@ -183,7 +138,7 @@ public class NetworkService {
 
     /** Logs in to the server using the strongest authentication mode
      * supported by the server, then sets presence to available
-     * 
+     *
      * @param uname - the username
      * @param pwd - the password
      * @throws XMPPException - if an error occurs

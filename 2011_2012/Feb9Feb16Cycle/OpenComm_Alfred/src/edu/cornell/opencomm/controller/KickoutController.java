@@ -54,12 +54,12 @@ public class KickoutController {
      * @throws XMPPException
      */
     public void kickoutUser(User kickMe, String reason) throws XMPPException {
-        Occupant userOcc = mSpace.getAllOccupants().get(MainApplication.user_primary.getUsername());
+        Occupant userOcc = mSpace.getAllOccupants().get(MainApplication.userPrimary.getUsername());
         //DEBUG
-        Log.v(TAG, "Is userOcc valid for " + MainApplication.user_primary.getUsername()
+        Log.v(TAG, "Is userOcc valid for " + MainApplication.userPrimary.getUsername()
                 + (userOcc != null));
         // if the primary user is the room's owner
-        if (this.mSpace.getOwner().equals(MainApplication.user_primary)) {
+        if (this.mSpace.getOwner().equals(MainApplication.userPrimary)) {
             Log.v(TAG, "Kicking " + kickMe.getUsername());
             this.mSpace.getMUC().kickParticipant(kickMe.getNickname(), reason);
         } else {
@@ -67,7 +67,7 @@ public class KickoutController {
             // the username of the kickee, and the reason
             Message msg = this.mSpace.getMUC().createMessage();
             msg.setBody(Network.REQUEST_KICKOUT + "@requester" +
-                    MainApplication.user_primary.getUsername() + "@kickee" +
+                    MainApplication.userPrimary.getUsername() + "@kickee" +
                     kickMe.getUsername() + "@reason" +
                     ((reason == null) ? Network.DEFAULT_KICKOUT : reason));
             msg.setType(Message.Type.groupchat);
@@ -116,7 +116,7 @@ public class KickoutController {
             User userKickee = User.getAllUsers().get(kickee);
             User userRequester = User.getAllUsers().get(requester);
             // If you are getting kicked out
-            if(userKickee == MainApplication.user_primary)
+            if(userKickee == MainApplication.userPrimary)
                 confirmationView.setConfirmationInfo(userRequester, userKickee, false);
             // If you are a moderator receiving a kickout request
             else
@@ -199,7 +199,7 @@ public class KickoutController {
             String requester = (requestRejectInfo.split("@requester")[0])
                     .split("@kickee")[0];
             // Check that the requester is the primary user
-            if (MainApplication.user_primary.getUsername().contains(requester)) {
+            if (MainApplication.userPrimary.getUsername().contains(requester)) {
                 String kickee = (requestRejectInfo.split("@requester"
                         + requester + "@kickee")[0]).split("@reason")[0];
                 String reason = (requestRejectInfo.split("@reason")[1])

@@ -11,6 +11,7 @@ import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.model.Invitation;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
@@ -21,62 +22,28 @@ import edu.cornell.opencomm.view.InvitationView;
  * Controller class for MultiUserChat invitations
  * @author jonathanpullano, risanaka, kriskooi
  */
-public class InvitationController implements InvitationRejectionListener {
+public class InvitationController {
 
     private InvitationView invitationView = null;
-    public InvitationController(InvitationView invitationView) {
-        this.invitationView = invitationView;
-    }
-    public void handlePopupWindowClicked() {
-        invitationView.getWindow().dismiss();
-    }
 
-    /** Handle when the accept button is pressed
-     * 1) If a moderator request - call confirm
-     * 2) If an invite to you - then accept */
-    public void handleAcceptButtonHover() {
-        // Highlight the accept button and dismiss the window
-        invitationView.getAcceptOverlay().setVisibility(View.VISIBLE);
-        invitationView.getWindow().dismiss();
-        // The after effects
-        Invitation invite = invitationView.getInvitation();
-        boolean isModeratorRequest = invite.getIsModeratorRequest();
-        if(isModeratorRequest){
-            Log.v("InvitationController", "Moderator accepted the invite request");
-            confirmInvitationRequest(invite.getInviteInfo());
-        }
-        else{
-            Log.v("InvitationController", "You accepted the invite request");
-            // if you are the only person in the mainspace, then replace your mainspace
-            if(Space.getMainSpace().getAllParticipants().size()<=1)
-                SpaceController.swapMainSpace(MainApplication.screen.getContext(), invite.getMUC().getRoom());
-            // else create a new space
-            else
-                SpaceController.addExistingSpace(MainApplication.screen.getContext(), false, invite.getRoom());
-        }
-    }
-    /** Handle when the cancel button is pressed */
-    public void handleCancelButtonHover() {
-        // Dismisses the window for now
-        invitationView.getCancelOverlay().setVisibility(View.VISIBLE);
-        invitationView.getWindow().dismiss();
-        // The after effects
-        Invitation invite = invitationView.getInvitation();
-        boolean isModeratorRequest = invite.getIsModeratorRequest();
-        if(isModeratorRequest)
-            rejectInvitationRequest(invite.getInviteInfo(), "No room for you sorry");
-        else
-            // Decline the invite
-            decline(invite);
-    }
-
-    // Model variables
     private Space mSpace;
 
     private Invitation invitation;
 
     private static final String TAG = "InvitationController";
-    private static final boolean D = true;
+    private static final boolean D = Values.D;
+
+
+    //TODO: Do these constructors need to talk?
+
+    /**
+     * Constructor
+     * @param invitationView
+     */
+    public InvitationController(InvitationView invitationView) {
+        if (D) Log.d(TAG, "InvitationController constructor called");
+        this.invitationView = invitationView;
+    }
 
     /**
      * Constructor
@@ -85,11 +52,74 @@ public class InvitationController implements InvitationRejectionListener {
     public InvitationController(Space mSpace) {
         this.mSpace = mSpace;
         this.mSpace.getMUC();
-        this.mSpace.getMUC().addInvitationRejectionListener(this);
-        Log.v("InvitationControlelr", "mSpace is " + mSpace);
+        this.mSpace.getMUC().addInvitationRejectionListener(new InvitationRejectionListener() {
+
+            @Override
+            public void invitationDeclined(String invitee, String reason) {
+                if(D) Log.d(TAG, "invitationDeclined() called");
+                //TODO: Trigger update to view (if any)
+                Log.v(TAG, "invitationDeclined - Invitee: " + invitee +
+                        " declined invitation because: " + reason);
+            }
+        });
     }
 
-    /** =============================================================================================
+    /**
+     * Called when the popup window is click
+     * Dismisses the window
+     */
+    public void handlePopupWindowClicked() {
+        //TODO: sanity check
+        if (D) Log.d(TAG, "handlePopupWindowClicked() called");
+        invitationView.getWindow().dismiss();
+    } // end handlePopupWindowClicked
+
+    /** Handle when the accept button is pressed
+     * 1) If a moderator request - call confirm
+     * 2) If an invite to you - then accept */
+    public void handleAcceptButtonHover() {
+        if (D) Log.d(TAG, "handleAcceptButtonHover() called");
+        // Highlight the accept button and dismiss the window
+        invitationView.getAcceptOverlay().setVisibility(View.VISIBLE);
+        invitationView.getWindow().dismiss();
+        // The after effects
+        Invitation invite = invitationView.getInvitation();
+        boolean isModeratorRequest = invite.getIsModeratorRequest();
+        if(isModeratorRequest) {
+            Log.v("InvitationController", "Moderator accepted the invite request");
+            confirmInvitationRequest(invite.getInviteInfo());
+        }
+        else {
+            Log.v("InvitationController", "You accepted the invite request");
+            // if you are the only person in the mainspace, then replace your mainspace
+            if(Space.getMainSpace().getAllParticipants().size() <= 1)
+                SpaceController.swapMainSpace(MainApplication.screen.getContext(),
+                        invite.getMUC().getRoom());
+            // else create a new space
+            else
+                SpaceController.addExistingSpace(MainApplication.screen.getContext(), false,
+                        invite.getRoom());
+        }
+    } //end handleAcceptButtonHover
+
+    /** Handle when the cancel button is pressed */
+    public void handleCancelButtonHover() {
+        if (D) Log.d(TAG, "handleCancelButtonHover() called");
+        // Dismisses the window for now
+        invitationView.getCancelOverlay().setVisibility(View.VISIBLE);
+        invitationView.getWindow().dismiss();
+        // The after effects
+        Invitation invite = invitationView.getInvitation();
+        boolean isModeratorRequest = invite.getIsModeratorRequest();
+        if(isModeratorRequest)
+            rejectInvitationRequest(invite.getInviteInfo(),
+                    Network.DEFAULT_REJECT_INVITATION_REQUEST);
+        else
+            // Decline the invite
+            MultiUserChat.decline(invitation.getConnection(), invitation.getRoom(), invitation.getInviter(), null);
+    } // end handleCancelButtonHover
+
+    /** ============================================================================================
      * =============================================================================================
      *
      * CUSTOM LISTENERS:
@@ -110,12 +140,14 @@ public class InvitationController implements InvitationRejectionListener {
      * (Network.REQUEST_INVITE); when it's shown, do not show the message;
      * rather, call the method confirmInvitationRequest method</p> */
     public void inviteUser(User invitee, String reason) {
-        Occupant userOcc = mSpace.getAllOccupants().get(MainApplication.user_primary.getUsername());
+        //TODO: go through after fixing requestmessage
+        if (D) Log.d(TAG, "inviteUser called");
+        Occupant userOcc = mSpace.getAllOccupants().get(MainApplication.userPrimary.getUsername());
         //DEBUG
-        Log.v(TAG, "Is userOcc valid for " + MainApplication.user_primary.getUsername()
+        Log.v(TAG, "Is userOcc valid for " + MainApplication.userPrimary.getUsername()
                 + (userOcc != null));
         // if the primary user is the room's owner, send the invitation
-        if (mSpace.getOwner().equals(MainApplication.user_primary)) {
+        if (mSpace.getOwner().equals(MainApplication.userPrimary)) {
             Log.v("InvitationController", "Invited user as owner");
             this.mSpace.getMUC().invite(invitee.getUsername(), ((reason == null)
                     ? Network.DEFAULT_INVITE : reason));
@@ -127,7 +159,7 @@ public class InvitationController implements InvitationRejectionListener {
             // the username of the invitee, and the reason
             Message msg = this.mSpace.getMUC().createMessage();
             msg.setBody(Network.REQUEST_INVITE + "@inviter" +
-                    MainApplication.user_primary.getUsername() + "@invitee" +
+                    MainApplication.userPrimary.getUsername() + "@invitee" +
                     invitee.getUsername() + "@reason" +
                     ((reason == null) ? Network.DEFAULT_INVITE : reason));
             msg.setType(Message.Type.groupchat);
@@ -154,6 +186,7 @@ public class InvitationController implements InvitationRejectionListener {
      *            (Invitee's JID)@reason(Invitation reason)
      */
     public String[] receiveInvitationRequest(String inviteRequest) {
+        if (D) Log.d(TAG, "receiveInvitationRequest() called");
         // Check the inviteRequest is accurate
         if (inviteRequest.contains(Network.REQUEST_INVITE)) {
             Log.v("InvitationController", inviteRequest);
@@ -201,6 +234,7 @@ public class InvitationController implements InvitationRejectionListener {
      *            - String array: {inviterJID, inviteeJID, inviteReason}
      */
     public void confirmInvitationRequest(String[] inviteInfo) {
+        if (D) Log.d(TAG, "confirmInvitationRequest called()");
         // Check the inviteInfo is not null and length 3
         if (inviteInfo != null && inviteInfo.length == 3) {
             this.mSpace.getMUC().invite(inviteInfo[1], inviteInfo[2]);
@@ -223,6 +257,8 @@ public class InvitationController implements InvitationRejectionListener {
      *            - reason for the rejection
      */
     public void rejectInvitationRequest(String[] inviteInfo, String reason) {
+        if (D) Log.d(TAG, "rejectInvitationRequest() called");
+        //TODO: review post restructure
         // Check that the inviteInfo is valid
         if (inviteInfo != null && inviteInfo.length == 3) {
             // send the room the rejection notification
@@ -265,6 +301,7 @@ public class InvitationController implements InvitationRejectionListener {
      * inviteeJID, inviteReason, rejectionReason}
      */
     public String[] receiveInvitationRequestRejection(String requestReject) {
+        if (D) Log.d(TAG, "receiveInvitationRequestRejection");
         // Check that the requestReject is valid
         if (requestReject.contains(Network.REJECT_INVITE)) {
             String requestRejectInfo = requestReject
@@ -272,7 +309,7 @@ public class InvitationController implements InvitationRejectionListener {
             String inviter = (requestRejectInfo.split("@inviter")[0])
                     .split("@invitee")[0];
             // Check that the inviter is the primary user
-            if (MainApplication.user_primary.getUsername().contains(inviter)) {
+            if (MainApplication.userPrimary.getUsername().contains(inviter)) {
                 String invitee = (requestRejectInfo.split("@inviter"
                         + inviter + "@invitee")[0]).split("@reason")[0];
                 String reason = (requestRejectInfo.split("@reason")[1])
@@ -298,49 +335,10 @@ public class InvitationController implements InvitationRejectionListener {
     } // end receiveInvitationRequestRejection
 
     /**
-     * Decline the invitation
-     * @param inviter - Person who invited you to the chat
-     */
-    public void decline(Invitation invitation) {
-        MultiUserChat.decline(invitation.getConnection(), invitation.getRoom(), invitation.getInviter(), null);
-    }
-
-    /**
-     * Accept the invitation
-     * @param username - Your username
-     * @return The chat room you just joined
-     * @throws XMPPException
-     */
-    // Nora - I do not use this at all
-    MultiUserChat accept(String username) throws XMPPException {
-        MultiUserChat chat = new MultiUserChat(this.invitation.getConnection(), this.invitation.getRoom());
-        chat.join(username);
-        return chat;
-    }
-
-
-    /**
      * Returns the most recent invitation received
      * @return InvitationController
      */
     public Invitation getInvitation() {
         return this.invitation;
-    }
-
-    /** Sets invitation */
-    public void setInvitation(Invitation i){
-        invitation = i;
-    }
-
-    /**
-     * Automagically called when an invitation this client sent was rejected (oh snap!)
-     */
-    @Override
-    public void invitationDeclined(String invitee, String reason) {
-        //TODO: Trigger update to view (if any)
-
-        //DEBUG
-        Log.v(TAG, "invitationDeclined - Invitee: " + invitee +
-                " declined invitation because: " + reason);
-    }
+    } // end getInvitation
 }

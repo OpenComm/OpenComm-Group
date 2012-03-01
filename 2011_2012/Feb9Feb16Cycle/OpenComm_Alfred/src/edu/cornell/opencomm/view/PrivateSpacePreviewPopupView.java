@@ -54,7 +54,7 @@ public class PrivateSpacePreviewPopupView extends LinearLayout {
         //Populate view with user icons except for yourself
         for(UserView view : psiv.space.getAllIcons()) {
             if (D) Log.d(TAG, "Adding View");
-            if(!view.getPerson().getUsername().split("@")[0].equals(MainApplication.user_primary.getUsername()))
+            if(!view.getPerson().getUsername().split("@")[0].equals(MainApplication.userPrimary.getUsername()))
                 scroll.addView(new UserView(context,view.getPerson(),R.drawable.question, psiv.space,11,11), lp);
 
         }

@@ -17,36 +17,36 @@ import android.util.Log;
 public class ContactList {
 
     private static final String TAG = "Model.ContactList";
-    private Roster _roster;
+    private Roster roster;
 
     /** CONSTRUCTOR: = the network's current roster for the primary user.
      *
      * @param conn - the current XMPP connection
      */
     public ContactList(Connection conn){
-        _roster = conn.getRoster();
+        roster = conn.getRoster();
     }
 
     /** Adds a user to the contact list.
-     * 
+     *
      * @param user
      * 		- the JID of the user to be added (ex: opencommsec@jabber.org)
      * @param name
      * 		- the nickname of the user to be added (ex: opencommsec)
      */
     public void addContact(String user, String name) throws XMPPException{
-        _roster.createEntry(user, name, null);
+        roster.createEntry(user, name, null);
     }
 
     /** Removes a user from the contact list.
-     * 
+     *
      * @param user
      * 		- the JID of the user to be removed (ex: opencommsec@jabber.org)
      */
     public void removeContact(String user) throws XMPPException{
-        if (_roster.contains(user)){
-            RosterEntry entry = _roster.getEntry(user);
-            _roster.removeEntry(entry);
+        if (roster.contains(user)){
+            RosterEntry entry = roster.getEntry(user);
+            roster.removeEntry(entry);
         } else{
             Log.d(TAG, "The user \'" + user + "\' is not currently " +
                     "in the contact list.");
@@ -55,14 +55,14 @@ public class ContactList {
 
     /** @return - the Roster object held by this ContactList */
     public Roster getRoster(){
-        return _roster;
+        return roster;
     }
 
     /** DEBUG: Prints the current list of contacts. */
     public void printList(){
-        for (RosterEntry re : _roster.getEntries()){
+        for (RosterEntry re : roster.getEntries()){
             Log.d(TAG, re.getUser() + " , " + re.getName() + " , " +
-                    _roster.getPresence(re.getUser()).toString());
+                    roster.getPresence(re.getUser()).toString());
         }
     }
 }

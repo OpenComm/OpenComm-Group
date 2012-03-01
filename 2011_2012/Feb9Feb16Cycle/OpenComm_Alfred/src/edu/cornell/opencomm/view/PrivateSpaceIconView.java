@@ -217,7 +217,7 @@ public class PrivateSpaceIconView extends ImageButton{
             Object[] people = allPeople.values().toArray();
             for (Object p : people){
                 Log.v(TAG, "add people square");
-                if(!((User)p).getNickname().equals(MainApplication.user_primary.getNickname())){
+                if(!((User)p).getNickname().equals(MainApplication.userPrimary.getNickname())){
                     Log.v("PrivateSpaceIconView", "someone other than yourself: "+((User)p).getNickname());
                     //Log.v("annie", " "+((User)p).getUsername().equals(MainApplication.user_primary.getUsername()));
                     //Log.v("annie", " "+((User)p).getNickname().equals(MainApplication.user_primary.getNickname()));

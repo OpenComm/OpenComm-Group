@@ -55,9 +55,9 @@ public class MessageController {
                 String from = message.getFrom();
                 String body = message.getBody();
                 Occupant userOcc = muc.getOccupant(mSpace.getRoomID()
-                        + "/" + MainApplication.user_primary.getNickname());
+                        + "/" + MainApplication.userPrimary.getNickname());
                 // if the primary user is the room's owner
-                if (mSpace.getOwner().equals(MainApplication.user_primary)) {
+                if (mSpace.getOwner().equals(MainApplication.userPrimary)) {
                     // if it is a invitation request:
                     if (body.contains(Network.REQUEST_INVITE)) {
                         if (D) Log.d(TAG, "configMessageListener - invitation request received");
@@ -87,14 +87,6 @@ public class MessageController {
                     else if (body.contains(Network.REJECT_KICKOUT)) {
                         String[] receive = mSpace.getKickoutController().receiveKickoutRequestRejection(body);
                         //TODO: Trigger update to view
-                    }
-                    // listen for delete requests
-                    else if (body.contains(Network.REQUEST_DELETE)) {
-                        if (D) Log.d(TAG, "configMessageListener - delete request received");
-                        String requester = (body.split("@requester")[0]).split("@deletee")[0];
-                        if(mSpace.getOwner().getUsername().equals(requester)) {
-
-                        }
                     }
 
                     // normal messages

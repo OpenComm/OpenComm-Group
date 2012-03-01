@@ -24,7 +24,7 @@ public class Invitation {
     private boolean isModeratorRequest;
 
     /**
-     * Creates a InvitationController
+     * Constructor
      * @param connection - the Connection that received the invitation.
      * @param room - the room that invitation refers to.
      * @param inviter - the inviter that sent the invitation. (e.g. crone1@shakespeare.lit).
@@ -33,15 +33,21 @@ public class Invitation {
      * @param message - the message used by the inviter to send the invitation.
      */
     public Invitation(Connection connection, String room, String inviter,
-            String reason, String password, Message message) {
+            String reason, String password, Message message, MultiUserChat muc) {
         this.connection = connection;
         this.room = room;
         this.inviter = inviter;
         this.reason = reason;
         this.password = password;
         this.message = message;
+        this.muc = muc;
     }
 
+    /**
+     * Constructor
+     * @param inviteInfo
+     * @param isModeratorRequest
+     */
     public Invitation(String[] inviteInfo, boolean isModeratorRequest){
         this.inviteInfo = inviteInfo;
         this.isModeratorRequest = isModeratorRequest;
@@ -89,29 +95,32 @@ public class Invitation {
         return message;
     }
 
-    /** [String requester's JID, String invitee's JID, String reason] */
-    public String[] getInviteInfo(){
+    /**
+     * [String requester's JID, String invitee's JID, String reason]
+     * @return inviteInfo, in the above format
+     */
+    public String[] getInviteInfo() {
         return inviteInfo;
     }
 
-    public MultiUserChat getMUC(){
+    /**
+     * @return the muc
+     */
+    public MultiUserChat getMUC() {
         return muc;
     }
 
-    public boolean getIsModeratorRequest(){
+    /**
+     * @return isModeratorRequest
+     */
+    public boolean getIsModeratorRequest() {
         return isModeratorRequest;
     }
 
-    //TODO: add setters if needed
-    public void setInviteInfo(String[] inviteInfo){
-        this.inviteInfo = inviteInfo;
-    }
-
-    public void setMUC(MultiUserChat newMUC){
-        this.muc = newMUC;
-    }
-
-    public void setIsModeratorRequest(boolean isit){
-        this.isModeratorRequest = isit;
+    /**
+     * ModeratorRequest setter method
+     */
+    public void setIsModeratorRequest(boolean moderatorRequest){
+        this.isModeratorRequest = moderatorRequest;
     }
 }

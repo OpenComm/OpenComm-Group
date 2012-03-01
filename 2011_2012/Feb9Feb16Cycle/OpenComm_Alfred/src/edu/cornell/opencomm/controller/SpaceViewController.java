@@ -33,7 +33,7 @@ public class SpaceViewController {
              * time entering the space, then open the
              * admin tip popup
              */
-            if(s.getOwner()==MainApplication.user_primary){
+            if(s.getOwner()==MainApplication.userPrimary){
                 LayoutInflater inflater = (LayoutInflater) m.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 //AdminTipView adminTipView = new AdminTipView(inflater);
                 //adminTipView.launch();

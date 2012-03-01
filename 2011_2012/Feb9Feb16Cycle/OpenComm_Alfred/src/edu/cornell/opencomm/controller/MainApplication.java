@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import org.jivesoftware.smack.XMPPException;
-import org.jivesoftware.smack.packet.Message;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -56,7 +55,7 @@ public final class MainApplication extends Activity{
     private User debug1;
 
     /** The user of this program (You, the person holding the phone) */
-    public static User user_primary;
+    public static User userPrimary;
 
     /** The SpaceView object (UI) representing the space that the user is currently talking to */
     public static SpaceView screen;
@@ -75,7 +74,7 @@ public final class MainApplication extends Activity{
     public static LinkedList<User> allBuddies; // Your buddy list! Has been previously saved from the network
     public static CharSequence[] buddyList; // list of the user's buddies in their username form
     public static boolean[] buddySelection; // array of boolean for buddy selection
-    private static String username=""; // the username of this account
+    private static String username =""; // the username of this account
     public static final String PS_ID = "edu.cornell.opencomm.which_ps";
 
     /** Parameters needed to describe the objects created in the XML code */
@@ -85,7 +84,7 @@ public final class MainApplication extends Activity{
     protected ParticipantStatusController PsController;
 
     // A counter for spaces (to generate SpaceID's). TODO Will use for now, takeout later when add network
-    public static int space_counter= -1;
+    public static int spaceCounter = -1;
 
 
     /** TODO Network - There are many times when the the onCreate method failes to create a
@@ -94,9 +93,9 @@ public final class MainApplication extends Activity{
      * The source of the error is the line:
      * this.muc.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
      * in the Space class. Please fix this so that it works 100% of the time.
-     * 
+     *
      * -Nora 11/6
-     * 
+     *
      */
 
 
@@ -132,8 +131,8 @@ public final class MainApplication extends Activity{
             Intent start_intent= getIntent();
             username = start_intent.getStringExtra(Network.KEY_USERNAME);
             // Create instance of primary user
-            if(user_primary == null){
-                user_primary = new User(username, username.split("@")[0],
+            if(userPrimary == null){
+                userPrimary = new User(username, username.split("@")[0],
                         R.drawable.question);
             }
             try {
@@ -319,7 +318,7 @@ public final class MainApplication extends Activity{
                 InvitationController ic= MainApplication.screen.getSpace().getInvitationController();
                 // fake invite request
                 String inviteRequest = "" + Network.REQUEST_INVITE + "@requester" + debug.getUsername()
-                        + "@invitee" + MainApplication.user_primary.getUsername() + "@reason" + "Because you're a cool cat.";
+                        + "@invitee" + MainApplication.userPrimary.getUsername() + "@reason" + "Because you're a cool cat.";
                 ic.receiveInvitationRequest(inviteRequest);
                 /*LoginController.xmppService.getInvitiationListener().invitationReceived(LoginController.xmppConnection,
 						"", debug.getUsername(), "reason", "password", new Message("blah message")); */
@@ -339,7 +338,7 @@ public final class MainApplication extends Activity{
                 KickoutController kc = MainApplication.screen.getSpace().getKickoutController();
                 // fake kickout request
                 String kickoutRequest = "" + Network.REQUEST_KICKOUT + "@requester" + debug.getUsername() +
-                        "@kickee" + MainApplication.user_primary.getUsername() + "@reason" + "Because you didn't give me food.";
+                        "@kickee" + MainApplication.userPrimary.getUsername() + "@reason" + "Because you didn't give me food.";
                 kc.receiveKickoutRequest(kickoutRequest);
                 break;
             }
@@ -442,7 +441,7 @@ public final class MainApplication extends Activity{
                 s.getMUC().leave();
             }
         }
-        user_primary = null;
+        userPrimary = null;
         Space.setMainSpace(null);
         buddyList = null;
         buddySelection = null;
@@ -504,35 +503,6 @@ public final class MainApplication extends Activity{
 		// Either your first space (mainspace) or a newly created space
 		return new Space(this, isMainSpace, spaceID, moderator);
     }*/
-
-    /** YOU remove an existing PrivateSpace, with the intention of deleting this
-     * PrivateSpace for EVERYBODY who was taking part in it (can only do that if you are
-     * the moderator for this group). Therefore does same thing
-     * as deletePrivateSpace except in addition needs to notify the network
-     * of this deletion, the network will delete this privatespace for everyone.
-     * You cannot delete a mainspace */
-    public void init_deletePrivateSpace(Space spaceToDelete){
-        if(spaceToDelete.getOwner().getUsername().equals(user_primary.getUsername()) && spaceToDelete.isMainSpace()==false){
-            spaceToDelete.getMUC().getOccupants();
-            // message containing delete request tag, the username of the deleter,
-            // the name of the space to be deleted, and the reason
-            Message msg = new Message(Network.REQUEST_DELETE + "@requester" +
-                    MainApplication.user_primary.getUsername() + "@deletee" +
-                    user_primary.getUsername() + "@reason" +
-                    Network.DEFAULT_DELETE,
-                    Message.Type.groupchat);
-            try {
-                spaceToDelete.getMUC().sendMessage(msg);
-            } catch (XMPPException e) {
-                if (D) Log.d(TAG, "init_deletePrivateSpace - message not sent: "
-                        + e.getXMPPError().getCode() + " - " + e.getXMPPError().getMessage());
-                e.printStackTrace();
-            }
-            deletePrivateSpace(spaceToDelete);
-        } else {
-            Log.w(TAG, "Cannot delete main private space, or user does not have authority");
-        }
-    }
 
     /** Remove an existing PrivateSpace for yourself. Make sure to also delete the
      * PrivateSpace's corresponding PrivateSpaceIconView and SpaceView.

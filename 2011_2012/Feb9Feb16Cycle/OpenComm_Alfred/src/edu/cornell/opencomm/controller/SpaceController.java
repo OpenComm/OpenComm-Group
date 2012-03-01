@@ -36,7 +36,7 @@ public class SpaceController {
     //associated privateSpaceIconView
     PrivateSpaceIconView psiv;
 
-    static NotificationView notification_View;
+    static NotificationView notificationView;
 
 
     /** Constructor: a new instance of SpaceController that controls a specific
@@ -46,7 +46,7 @@ public class SpaceController {
         this.space = space;
         this.muc = this.space.getMUC();
         this.view = view;
-        SpaceController.notification_View = new NotificationView(view.getContext());
+        SpaceController.notificationView = new NotificationView(view.getContext());
 
     } // end SpaceController method
 
@@ -191,11 +191,11 @@ public class SpaceController {
      * @throws XMPPException
      */
     public static Space addSpace(Context context) throws XMPPException {
-        int spaceID = MainApplication.space_counter++;
+        int spaceID = MainApplication.spaceCounter++;
         Space space = new Space(context, false, String.valueOf(spaceID), true/*MainApplication.user_primary*/);
         Space.allSpaces.put(space.getRoomID(), space);
 
-        notification_View.launch("sidechat");
+        notificationView.launch("sidechat");
 
         if(D) Log.d(TAG, "Created a new space with ID:" + spaceID);
         return space;
@@ -212,7 +212,7 @@ public class SpaceController {
             if(D) Log.d(TAG, "Tried to create main space when one already exists");
             return null;
         }
-        int spaceID = MainApplication.space_counter++;
+        int spaceID = MainApplication.spaceCounter++;
         Space mainSpace = new Space(context, true, String.valueOf(spaceID), true/*MainApplication.user_primary*/);
         Space.setMainSpace(mainSpace);
         if(D) Log.d(TAG, "Created a new main space with ID:" + spaceID);

@@ -16,6 +16,11 @@ import edu.cornell.opencomm.controller.MainApplication;
 import edu.cornell.opencomm.model.Invitation;
 import edu.cornell.opencomm.model.User;
 
+//TODO jonathan: Sanity Check This File
+
+/**
+ * Handles Invitation Popups
+ */
 public class InvitationView {
     private static String LOG_TAG = "OC_InvitationView"; // for error checking
     private Context context;
@@ -25,34 +30,54 @@ public class InvitationView {
     private View invitationLayout = null;
     private Invitation invitation = null;
 
+    private static boolean D = Values.D;
+    private static String TAG  = "InvitationView";
+
+    /**
+     * Constructor
+     */
     public InvitationView(LayoutInflater inflater) {
+        if (D) Log.d(TAG, "InvitationView constructor called");
         this.inflater = inflater;
         this.invitationController =  new InvitationController(
                 this);
         initEventsAndProperties();
-    }
+    } // end InvitationView
 
-    public InvitationView(LayoutInflater inflater, Invitation invitation){
-        this.inflater = inflater;
+    /**
+     * Constructor
+     * Delegates to previous constructor
+     */
+    public InvitationView(LayoutInflater inflater, Invitation invitation) {
+        this(inflater);
+        if (D) Log.d(TAG, "InvitationView constructor called");
         this.invitation = invitation;
-        this.invitationController = new InvitationController(this);
-        initEventsAndProperties();
-    }
+    } // end InvitationView
 
-    public InvitationView(LayoutInflater inflater, Invitation invitation, InvitationController inviteController){
-        this.inflater = inflater;
-        this.invitation = invitation;
+    /**
+     * Constructor
+     * Delegates to previous constructor
+     */
+    public InvitationView(LayoutInflater inflater, Invitation invitation, InvitationController inviteController) {
+        this(inflater, invitation);
+        if (D) Log.d(TAG, "InvitationView constructor called");
         this.invitationController = inviteController;
-        initEventsAndProperties();
-    }
+    } // end InvitationView
 
-    public InvitationController getInvitationController(){
+
+    /**
+     * Returns invitation controller
+     */
+    public InvitationController getInvitationController() {
+        if (D) Log.d(TAG, "getInvitationController called");
         return invitationController;
-    }
+    } // end getInvitationController
 
+    /**
+     * Initializes Event handlers and inflates the layout
+     */
     private void initEventsAndProperties() {
-        // create property invitationLayout from infalter and store it as a
-        // property
+        if (D) Log.d(TAG, "initEventsAndProperties called");
         if (inflater != null) {
             View invitationLayoutFromInflater = inflater.inflate(
                     R.layout.invitation_layout, null);
@@ -62,9 +87,13 @@ public class InvitationView {
         }
         initializeAcceptButtonHoverEvent();
         initializeCancelButtonHoverEvent();
-    }
+    } // end initEventsAndProperties
 
+    /**
+     * Sets OnClickListener for Cancel Button Hover
+     */
     private void initializeCancelButtonHoverEvent() {
+        if (D) Log.d(TAG, "initializeCancelButtonHoverEvent called");
         Button cancelButton = getCancelButton();
         if (cancelButton != null) {
             cancelButton.setOnClickListener(onCancelButtonClickListener);
@@ -73,9 +102,13 @@ public class InvitationView {
         if (imageCancelButton != null) {
             imageCancelButton.setOnClickListener(onCancelButtonClickListener);
         }
-    }
+    } // end initializeCancelButtonHoverEvent
 
+    /**
+     * Sets OnClickListener for Accept Button Hover
+     */
     private void initializeAcceptButtonHoverEvent() {
+        if (D) Log.d(TAG, "initializeAcceptButtonHoverEvent called");
         Button acceptButton = getAcceptButton();
         if (acceptButton != null) {
             acceptButton.setOnClickListener(onAcceptButtonClickListener);
@@ -84,9 +117,13 @@ public class InvitationView {
         if (imageAcceptButton != null) {
             imageAcceptButton.setOnClickListener(onAcceptButtonClickListener);
         }
-    }
+    } // end initializeAcceptButtonHoverEvent
 
+    /**
+     * Returns Accept Button from the invitation layout
+     */
     public Button getAcceptButton() {
+        if (D) Log.d(TAG, "getAcceptButton called");
         Button acceptButton = null;
         if (invitationLayout != null) {
             acceptButton = (Button) invitationLayout
@@ -94,8 +131,13 @@ public class InvitationView {
         }
 
         return acceptButton;
-    }
+    } // end getAcceptButton
+
+    /**
+     * Returns Image Accept Button from the invitation layout
+     */
     public ImageButton getImageAcceptButton() {
+        if (D) Log.d(TAG, "getAcceptButton called");
         ImageButton imageAcceptButton = null;
         if (invitationLayout != null) {
             imageAcceptButton = (ImageButton) invitationLayout
@@ -103,9 +145,13 @@ public class InvitationView {
         }
 
         return imageAcceptButton;
-    }
+    }  // getImageAcceptButton
 
+    /**
+     * Gets the Accept Overlay from the invitation layout
+     */
     public ImageView getAcceptOverlay() {
+        if (D) Log.d(TAG, "getAcceptOverlay called");
         ImageView acceptOverlay = null;
         if (invitationLayout != null) {
             acceptOverlay = (ImageView) invitationLayout
@@ -113,9 +159,13 @@ public class InvitationView {
         }
 
         return acceptOverlay;
-    }
+    } // end getAcceptOverlay
 
+    /**
+     * Gets the Cancel Button from the invitation layout
+     */
     public Button getCancelButton() {
+        if (D) Log.d(TAG, "getCancelButton called");
         Button cancelButton = null;
         if (invitationLayout != null) {
             cancelButton = (Button) invitationLayout
@@ -123,9 +173,13 @@ public class InvitationView {
         }
 
         return cancelButton;
-    }
+    } // end getCancelButton
 
+    /**
+     * Gets the Cancel Button Image from the invitation layout
+     */
     public ImageButton getImageCancelButton() {
+        if (D) Log.d(TAG, "getImageCancelButton called");
         ImageButton imageCancelButton = null;
         if (invitationLayout != null) {
             imageCancelButton = (ImageButton) invitationLayout
@@ -133,9 +187,13 @@ public class InvitationView {
         }
 
         return imageCancelButton;
-    }
+    } // end getImageCancelButton
 
+    /**
+     * Gets the Cancel Overlay from the invitation layout
+     */
     public ImageView getCancelOverlay() {
+        if (D) Log.d(TAG, "getCancelOverlay called");
         ImageView cancelOverlay = null;
         if (invitationLayout != null) {
             cancelOverlay = (ImageView) invitationLayout
@@ -143,15 +201,17 @@ public class InvitationView {
         }
 
         return cancelOverlay;
-    }
+    } // end getCancelOverlay
 
-    /** Set the information on the invite
+    /**
+     * Set the information on the invite
      * 1) If a moderator request - user image and profile info set to that of the invitee's
      * Message should say "requester requests to invite invitee to this chat"
      * 2) Otherwise, set to info of the requester
      * Message should say "Requester would like to invite you to a chat"
      */
-    public void setInvitationInfo(User requester, User invitee, boolean isModeratorRequest){
+    public void setInvitationInfo(User requester, User invitee, boolean isModeratorRequest) {
+        if (D) Log.d(TAG, "setInvitationInfo called");
         Log.v("InvitationView", "setInvitationInfo()");
         // User image
         ImageView userImage = null;
@@ -196,13 +256,15 @@ public class InvitationView {
             userProfInfo.setText(smallName+"\n" + email + "\n" + phone);
         }
 
-    }
+    } // end setInvitationInfo
 
-    /** Use this version of setInvitationInfo if you wish to input the String values
+    /**
+     * Use this version of setInvitationInfo if you wish to input the String values
      * instead of the user objects. This version only for if you received an invitation
      * and are not a moderator.
      */
-    public void setInvitationInfo(int imageDrawableInt, String inviterNickname, String inviterPhone, String inviterEmail){
+    public void setInvitationInfo(int imageDrawableInt, String inviterNickname, String inviterPhone, String inviterEmail) {
+        if (D) Log.d(TAG, "setInvitationInfo called");
         if(invitationLayout != null) {
             ImageView userImage = (ImageView) invitationLayout.findViewById(R.id.iconImage);
             TextView confTitle = (TextView) invitationLayout.findViewById(R.id.textViewConfTitle);
@@ -224,7 +286,7 @@ public class InvitationView {
             bigNameTitle.setText(bigName);
             userProfInfo.setText(smallName+"\n" + email + "\n" + phone);
         }
-    }
+    } // end setInvitationInfo
 
     /** Set the user icon image of the invite */
     /*	public void setUserImage(User user){
@@ -291,6 +353,7 @@ public class InvitationView {
      * changed later to launch like a normal view
      */
     public void launch() {
+        if (D) Log.d(TAG, "launch called");
         //Log.v(LOG_TAG, "Inflater is null = " + (inflater==null) + ", and invationLayout is null = " + (invitationLayout==null));
         if (inflater != null && invitationLayout != null) {
             window = new PopupWindow(invitationLayout, Values.screenW,
@@ -301,7 +364,7 @@ public class InvitationView {
             Log.v(LOG_TAG,
                     "Cannot launch invitation view as inflater/confirmation layout is nul");
         }
-    }
+    } // end launch
 
     private View.OnClickListener onClickListener = new View.OnClickListener() {
 

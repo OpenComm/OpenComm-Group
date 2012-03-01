@@ -163,8 +163,8 @@ public class ParticipantView {
         int i = 0;
         while (participantItr.hasNext()) {
             String next = participantItr.next().getNickname();
-            if (!next.equals(MainApplication.user_primary.getNickname())) {
-                Log.v("annie", " "+!next.equals(MainApplication.user_primary.getNickname()));
+            if (!next.equals(MainApplication.userPrimary.getNickname())) {
+                Log.v("annie", " "+!next.equals(MainApplication.userPrimary.getNickname()));
                 usersInSpace[i++] = next;
             }
         }
