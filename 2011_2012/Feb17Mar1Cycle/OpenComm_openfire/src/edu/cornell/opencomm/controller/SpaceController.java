@@ -127,13 +127,12 @@ public class SpaceController {
 	 */
 	public void deleteSpace(){
 			//TODO: need to pop-up a confirmation dialogue
-		try {
+		/*try {
 			this.muc.destroy(null, null);
 		} catch (XMPPException e) {
 			Log.d(TAG, "Unable to destroy Space!");
-		}
-			//experimental emulation of MUC.destroy
-			/*Collection<User> users = this.space.getAllParticipants().values();
+		}*/
+			Collection<User> users = this.space.getAllParticipants().values();
 			for (User u : users) {
 				try {
 					if(!u.getUsername().equals(MainApplication.user_primary.getUsername()))
@@ -145,7 +144,7 @@ public class SpaceController {
 			}
 			this.space.getMUC().leave();
 			//end experiment 
-			*/
+			
 			if(space.equals(Space.getMainSpace())){
 				Space.setMainSpace(null);
 			}
