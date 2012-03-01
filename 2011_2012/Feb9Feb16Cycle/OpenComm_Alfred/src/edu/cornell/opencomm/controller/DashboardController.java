@@ -14,11 +14,16 @@
 package edu.cornell.opencomm.controller;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
+import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.network.Network;
+import edu.cornell.opencomm.view.ConferencePlannerView;
 import edu.cornell.opencomm.view.DashboardView;
 
 public class DashboardController {
@@ -29,6 +34,7 @@ public class DashboardController {
     private static String TAG = "Controller.DashboardController";
 
     private DashboardView dashboardView;
+    public static String username;
 
     public DashboardController(DashboardView dashboardView) {
         this.dashboardView = dashboardView;
@@ -36,16 +42,31 @@ public class DashboardController {
 
     public void handleStartConferenceButtonClicked() {
         dashboardView.getDashboardOverlay().setVisibility(View.VISIBLE);
-        ProgressDialog.show(this.dashboardView, "", "Loading. Please wait...", true);
+        ProgressDialog progress=ProgressDialog.show(this.dashboardView, "", "Loading. Please wait...", true);
         
-        String username = this.dashboardView.getIntent().getStringExtra(Network.KEY_USERNAME);
+        username = this.dashboardView.getIntent().getStringExtra(Network.KEY_USERNAME);
         dashboardView.getStartConferenceButton().setBackgroundColor(R.color.light_grey);
 
-        Intent i = new Intent(dashboardView, MainApplication.class);        
-        i.putExtra(Network.KEY_USERNAME, username);
-        i.setAction(Network.ACTION_LOGIN);
+        // Crystal: To launch planner instead of conference space in dashboard
+       //Intent i = new Intent(dashboardView, MainApplication.class);        
+        //i.putExtra(Network.KEY_USERNAME, username);
+        //i.setAction(Network.ACTION_LOGIN);
 
-        dashboardView.startActivity(i);
+        //dashboardView.startActivity(i);
+        Intent myIntent = new Intent();
+        myIntent.setClass(dashboardView.getApplication(),ConferencePlannerView.class);
+        dashboardView.startActivity(myIntent);
+        
+        //Log.v("Dashboardcontroller", "launch");
+        //Intent i= new Intent();
+        //LayoutInflater ifl=dashboardView.getInflater();
+        //ConferencePlannerView cpv= new ConferencePlannerView(ifl);
+        //cpv.setContext(Space.getMainSpace().getContext());
+        //cpv.launch();
+        //progress.dismiss();
+        
+        
+        
     }
 
     public void handleContactsButtonClicked(){

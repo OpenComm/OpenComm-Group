@@ -78,10 +78,10 @@ public final class R {
         public static final int adminTipBar=0x7f080004;
         public static final int adminTipBarFrame=0x7f080003;
         public static final int adminTipOverlay=0x7f080007;
-        public static final int attendeeButtonOverlay=0x7f080017;
-        public static final int attendeeFrame=0x7f080016;
-        public static final int attendeeNameButton=0x7f080018;
-        public static final int attendeesButton=0x7f08001c;
+        public static final int attendeeButtonOverlay=0x7f080018;
+        public static final int attendeeFrame=0x7f080017;
+        public static final int attendeeNameButton=0x7f080015;
+        public static final int attendeesButton=0x7f080019;
         public static final int attendeesText=0x7f08002a;
         public static final int bottom_bar=0x7f08005c;
         public static final int bottom_scroll=0x7f080082;
@@ -106,7 +106,7 @@ public final class R {
         public static final int conferenceBar=0x7f08003b;
         public static final int conferenceBarFrame=0x7f08003a;
         public static final int confirmBar=0x7f080022;
-        public static final int confirmBarFrame=0x7f08001f;
+        public static final int confirmBarFrame=0x7f080021;
         public static final int confirmOverlay=0x7f080027;
         public static final int createOverlay=0x7f080028;
         public static final int dashboardOverlay=0x7f08003e;
@@ -114,7 +114,7 @@ public final class R {
         public static final int dateText=0x7f08000d;
         public static final int editTextPassword=0x7f08004f;
         public static final int editTextUsername=0x7f08004c;
-        public static final int endButtonOverlay=0x7f08001a;
+        public static final int endButtonOverlay=0x7f08001b;
         public static final int endText=0x7f08000f;
         public static final int endTimeButton=0x7f080014;
         public static final int go_button=0x7f080073;
@@ -172,8 +172,8 @@ public final class R {
         public static final int private_space_popup_preview_linear_layout=0x7f080072;
         public static final int private_space_preview_popup=0x7f080071;
         public static final int private_space_preview_popup_layout=0x7f080084;
-        public static final int recurringButton=0x7f080015;
-        public static final int recurringButtonOverlay=0x7f08001b;
+        public static final int recurringButton=0x7f080016;
+        public static final int recurringButtonOverlay=0x7f08001c;
         public static final int recurringText=0x7f080010;
         public static final int relatievElements=0x7f08000b;
         public static final int relativeTextLabel=0x7f080009;
@@ -183,7 +183,7 @@ public final class R {
         public static final int sound_button=0x7f080059;
         public static final int spaceViewFrame=0x7f08005a;
         public static final int space_view=0x7f08005b;
-        public static final int startButtonOverlay=0x7f080019;
+        public static final int startButtonOverlay=0x7f08001a;
         public static final int startText=0x7f08000e;
         public static final int startTimeButton=0x7f080013;
         public static final int textLabelAdminTip=0x7f080001;
@@ -205,8 +205,8 @@ public final class R {
         public static final int tipBarFrame=0x7f080089;
         public static final int tipOverlay=0x7f08008d;
         public static final int userInputs=0x7f08004b;
-        public static final int userOne=0x7f080020;
-        public static final int userTwo=0x7f080021;
+        public static final int userOne=0x7f08001f;
+        public static final int userTwo=0x7f080020;
         public static final int volumeControlSideChat1=0x7f080078;
         public static final int volumeControlSideChat2=0x7f080079;
         public static final int volumeControlSideChat3=0x7f08007a;

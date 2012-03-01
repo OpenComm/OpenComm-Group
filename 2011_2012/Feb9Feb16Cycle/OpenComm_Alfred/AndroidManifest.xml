@@ -29,7 +29,10 @@
 		<activity 
 			android:name=".view.DashboardView" 
 			android:screenOrientation="portrait"/>
+		<activity android:name=".view.ConferencePlannerView"></activity>
 	</application>
+	
+	
 	<uses-permission 
 		android:name="android.permission.INTERNET" />
 

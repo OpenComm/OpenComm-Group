@@ -82,7 +82,7 @@
 				android:clickable="true" />
 			<Button 	
 				android:cursorVisible="false" 
-				android:text="start conference"
+				android:text="create conference"
 				android:paddingLeft="9.33dp" 
 				android:background="@color/light_grey"
 				android:id="@+id/textViewConference" 
