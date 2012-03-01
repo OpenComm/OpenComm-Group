@@ -1,5 +1,6 @@
 package edu.cornell.opencomm.controller;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -152,6 +153,7 @@ public class ContactListController {
                 }
             }
         }
+        Arrays.sort(buddyList);
         buddySelection = new boolean[buddyList.length];
     } // end updateBuddyList method
 
