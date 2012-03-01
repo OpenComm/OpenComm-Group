@@ -4,10 +4,10 @@
 
 package edu.cornell.opencomm.controller;
 
-import org.jivesoftware.smack.XMPPException;
-
 import java.util.Iterator;
 import java.util.LinkedList;
+
+import org.jivesoftware.smack.XMPPException;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -165,9 +165,9 @@ public final class MainApplication extends Activity{
         screen.setOnKeyListener(onKeyListener);
 
         //DEBUG: create User object to test invitations and kickouts
-        debug = new User("opencommsec@jabber.org", "opencommsec", 0);
+        debug = new User("opencommsec@" + Network.DEFAULT_HOST, "opencommsec", 0);
         //for (Space s : Space.allSpaces) Log.v(TAG, s.getRoomID());
-        debug1 = new User("mucopencomm@jabber.org", "mucopencomm", 0);
+        debug1 = new User("mucopencomm@" + Network.DEFAULT_HOST, "mucopencomm", 0);
 
         // Change screen dimensions to 480x800
         Values.setValues(480, 800);
@@ -256,7 +256,7 @@ public final class MainApplication extends Activity{
             case KeyEvent.KEYCODE_V: {
                 Log.v(TAG, "pressed V key - change owner");
                 Space.getMainSpace().getParticipantController().grantOwnership(
-                        "opencommsec@jabber.org", false);
+                        "opencommsec@" + Network.DEFAULT_HOST, false);
                 break;
             }
             case KeyEvent.KEYCODE_Z: {
@@ -270,12 +270,9 @@ public final class MainApplication extends Activity{
             }
             case KeyEvent.KEYCODE_J: {
                 Log.v(TAG, "Pressed J key - join");
-                /*ParticipantStatusController psController = new ParticipantStatusController(mainspace);
-				String test = "roomname@conference.jabber.org/" + debug1.getNickname();
-				psController.joined(test);*/
 
 
-                Space.getMainSpace().getParticipantStatusController().joined("roomname@conference.jabber.org/" + debug1.getNickname());
+                Space.getMainSpace().getParticipantStatusController().joined("roomname@" + Network.DEFAULT_CONFERENCE + "/" + debug1.getNickname());
                 break;
             }
             case KeyEvent.KEYCODE_S: {

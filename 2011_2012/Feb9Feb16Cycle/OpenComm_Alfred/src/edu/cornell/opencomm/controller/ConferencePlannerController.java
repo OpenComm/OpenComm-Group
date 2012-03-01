@@ -2,8 +2,6 @@ package edu.cornell.opencomm.controller;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Hashtable;
-import java.util.Map.Entry;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -12,19 +10,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Matrix;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.Network;
@@ -68,7 +63,8 @@ public class ConferencePlannerController {
 	// OnSetListeners activate when the user presses the set key after selecting
 	// a time/date (thus, fields need to be updated)
 	DatePickerDialog.OnDateSetListener endDay = new DatePickerDialog.OnDateSetListener() {
-		public void onDateSet(DatePicker view, int year, int monthOfYear,
+		@Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
 				int dayOfMonth) {
 			startDay = dayOfMonth;
 			startMonth = monthOfYear + 1;
@@ -98,7 +94,8 @@ public class ConferencePlannerController {
 	};
 
 	TimePickerDialog.OnTimeSetListener end = new TimePickerDialog.OnTimeSetListener() {
-		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+		@Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 			endMinute = minute;
 			endHour = hourOfDay;
 			endDate.set(Calendar.HOUR, hourOfDay);
@@ -107,7 +104,8 @@ public class ConferencePlannerController {
 	};
 
 	TimePickerDialog.OnTimeSetListener start = new TimePickerDialog.OnTimeSetListener() {
-		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+		@Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 			startMinute = minute;
 			startHour = hourOfDay;
 			startDate.set(Calendar.HOUR, hourOfDay);
@@ -179,7 +177,8 @@ public class ConferencePlannerController {
 					// Location = where user clicked. 0 = once, 1=every
 					// day,2=every week,3=every two weeks,4=every month 5= every
 					// year
-					public void onClick(DialogInterface dialog, int which) {
+					@Override
+                    public void onClick(DialogInterface dialog, int which) {
 						if (which == 0) {
 							occurance = "Once";
 						} else if (which == 1) {
@@ -279,36 +278,36 @@ public class ConferencePlannerController {
 		Log.v("ContactListController", "showBuddyList() 7");
 	}
 	private static void addUserIcon(String username, Context cpv, LinearLayout vs) {
-		int marginX = 0; // marginX of the icon
+		int marginX = 0;
 		int marginY = 0;
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(80,80);
 		lp.setMargins(0, 10, 20, 0);
 		LinearLayout.LayoutParams l = new LinearLayout.LayoutParams(200,100);
-				
-				User p = new User(username + "@jabber.org", username,
+
+				User p = new User(username + "@" + Network.DEFAULT_HOST, username,
 						R.drawable.question);
-				
+
 				UserView invited = new UserView(cpv, p,
 						R.drawable.question, null, marginX, marginY);
 				//invitedUsers.put(username, invited);
 				ConferencePlannerController.drawIcon(username, invited, lp, l, vs,cpv);
 				addedUsers.add(username);
 				Log.v("ContactListController", username + " was invited");
-				
-			
+
+
 	}
 
-	
 
-	
-	
+
+
+
 	private static void drawIcon(String name, UserView user, LinearLayout.LayoutParams lp,LinearLayout.LayoutParams l,
 			LinearLayout vs, Context c){
 		//String name = e.getKey();
 		Bitmap uv =user.getImage();
 		ImageView userI= new ImageView(c);
 		userI.setImageBitmap(uv);
-	
+
 		LinearLayout every=new LinearLayout(c);
 		every.addView(userI,lp);
 		TextView userShow = new TextView(c);
@@ -328,7 +327,7 @@ public class ConferencePlannerController {
 		Intent i = new Intent(conferencePlannerView, MainApplication.class);
 		i.putExtra(Network.KEY_USERNAME, DashboardController.username);
 		i.setAction(Network.ACTION_LOGIN);
-		
+
 		//Make string array of invited users from buddylist and the boolean array telling if person is invited
 		int inviteCounter=0;
 		for (boolean b: buddySelection){

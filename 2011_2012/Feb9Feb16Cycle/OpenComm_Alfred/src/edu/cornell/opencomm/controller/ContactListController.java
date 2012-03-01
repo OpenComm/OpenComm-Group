@@ -42,7 +42,7 @@ public class ContactListController {
     public ContactListController(Context context) {
         if (D) Log.d(TAG, "ContactListController constructor called");
         ContactListController.context = context;
-    }
+    } // end ContactListController
 
     /**
      * Displays the buddy list for the purpose of adding users to a space
@@ -90,18 +90,17 @@ public class ContactListController {
                 .create();
         AlertDialog alert = builder.create();
         MainApplication.screen.getActivity().displayEmptySpaceMenu(alert);
-    }
+    } // end showBuddyList
 
     /**
      *  Add users from the buddylist dialog to the main space
      */
     public static void addFromBuddyList() throws XMPPException {
         if (D) Log.d(TAG, "addFromBuddyList");
-        int start = Values.staggeredAddStart;
         for (int i = 0; i < buddySelection.length; i++) {
             if (buddySelection[i]) {
                 username = (String) buddyList[i];
-                User p = new User(username + "@jabber.org", username,
+                User p = new User(username + "@" + Network.DEFAULT_HOST, username,
                         R.drawable.question);
                 Log.v("ContactListController", "addFromBuddyList this space = " + MainApplication.screen.getSpace());
                 MainApplication.screen.getSpace().getInvitationController().inviteUser(p,
@@ -126,17 +125,13 @@ public class ContactListController {
             Collection<RosterEntry> entryCollection = xmppRoster.getEntries();
             Iterator<RosterEntry> entryItr = entryCollection.iterator();
             buddyList = new CharSequence[entryCollection.size()-Space.getMainSpace().getAllIcons().size()];
-            //Log.v("ContactListController", "entry size " + entryCollection.size());
-            //Log.v("ContactListController", "space size " + Space.getMainSpace().getAllIcons().size());
             int i = 0;
             while (entryItr.hasNext()) {
                 String nickname= entryItr.next().getUser().split("@")[0];
                 if(!Space.getMainSpace().getAllNicknames().containsKey(nickname)){
-                    //Log.v("ContactListController", "nickname" +nickname);
                     buddyList[i++] = (CharSequence) nickname;
                 }
             }
-            Log.v("ContactListController", "updateBuddyList() 6");
         }
         // If in a sidechat, then populate the buddylist with people from the mainchat
         else {
