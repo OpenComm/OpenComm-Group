@@ -175,7 +175,7 @@ public class ParticipantView {
         for (int i = 0; i < userSelected.length; i++) {
         	boolean kickoutUserStatus = false;
             if (userSelected[i]) {
-                User kickMe = MainApplication.screen.getSpace().getAllNicksnames()
+                User kickMe = MainApplication.screen.getSpace().getAllNicknames()
                         .get(usersInSpace[i]);
                 kickoutUserStatus = MainApplication.screen.getSpace().getKickoutController()
                 								.kickoutUser(kickMe, Network.DEFAULT_KICKOUT);

@@ -8,20 +8,23 @@ import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.DashboardView;
 
-/** An instance of this class controls participants (users) in a specific space */
+/**
+ * An instance of this class controls participants (users) in a specific space
+ */
 public class ParticipantController {
 
     // Debugging
-    public static final String TAG = "Controller.ParticipantController";
+    public static final String TAG = "ParticipantController";
     public static final boolean D = true;
-
-    // View variables
 
     // Model variables
     private Space mSpace;
 
-    /** CONSTRUCTOR: a new participant controller for a specific space */
+    /**
+     * Constructor
+     */
     public ParticipantController(Space mSpace) {
+        if (D) Log.d(TAG, "ParticipantController called");
         this.mSpace = mSpace;
     }
 
@@ -34,7 +37,7 @@ public class ParticipantController {
      * this is a side chat, then the user is returned to the conference.
      */
     public void leaveSpace(boolean inMainSpace) {
-
+        if (D) Log.d(TAG, "leaveSpace called");
         // If moderator of the space
         if (mSpace.getOwner() == MainApplication.userPrimary) {
             MainApplication.screen.getSpace().getSpaceController()
@@ -55,44 +58,16 @@ public class ParticipantController {
 
     /**
      * Grants ownership of a Space.
-     * 
+     *
      * @param newOwner
      *            - the JID of the User to be granted ownership
      */
     public void grantOwnership(String newOwner, boolean isLeaving) {
+        if (D) Log.d(TAG, "grantOwnership called");
         try {
             String[] nick = newOwner.split("@");
             this.mSpace.getMUC().grantMembership(newOwner);
             this.mSpace.getMUC().grantModerator(nick[0]);
-            // Log.v(TAG,
-            // LoginController.xmppService.getXMPPConnection().toString());
-            // this.mSpace.getMUC().grantOwnership(newOwner);
-
-            /*
-             * //Create packet MUCOwner iq = new MUCOwner();
-             * iq.setTo(mSpace.getRoomID()); iq.setType(IQ.Type.SET);
-             * MUCOwner.Item item = new MUCOwner.Item("owner");
-             * item.setJid(newOwner); iq.addItem(item);
-             * Log.v("ParticipantController", iq.toXML());
-             * 
-             * //Get network ready to receive packet PacketFilter responseFilter
-             * = new PacketIDFilter(iq.getPacketID());
-             * Log.v("ParticipantController", iq.getPacketID());
-             * Log.v("ParticipantController", responseFilter.toString());
-             * PacketCollector response = LoginController.xmppService
-             * .getXMPPConnection().createPacketCollector(responseFilter);
-             * 
-             * //Send the request
-             * LoginController.xmppService.getXMPPConnection().sendPacket(iq);
-             * //Wait for response IQ answer = (IQ) response.nextResult(
-             * SmackConfiguration.getPacketReplyTimeout()); //Stop waiting
-             * response.cancel();
-             * 
-             * if (answer == null){ throw new
-             * XMPPException("No response from server."); } else if
-             * (answer.getError() != null){ throw new
-             * XMPPException(answer.getError()); }
-             */
 
         } catch (XMPPException e) {
             Log.d(TAG, "XMPP Exception: " + NetworkService.printXMPPError(e));

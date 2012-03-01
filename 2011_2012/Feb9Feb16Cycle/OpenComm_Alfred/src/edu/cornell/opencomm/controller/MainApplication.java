@@ -275,7 +275,7 @@ public final class MainApplication extends Activity{
 				psController.joined(test);*/
 
 
-                Space.getMainSpace().getPsController().joined("roomname@conference.jabber.org/" + debug1.getNickname());
+                Space.getMainSpace().getParticipantStatusController().joined("roomname@conference.jabber.org/" + debug1.getNickname());
                 break;
             }
             case KeyEvent.KEYCODE_S: {

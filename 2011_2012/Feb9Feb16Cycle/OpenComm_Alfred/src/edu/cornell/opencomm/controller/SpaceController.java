@@ -62,7 +62,7 @@ public class SpaceController {
      */
     public void addUser(String userRoomInfo, User user){
         Log.v("SpaceController", "addUser()");
-        space.getAllNicksnames().put(user.getNickname(), user);
+        space.getAllNicknames().put(user.getNickname(), user);
         space.getAllParticipants().put(user.getUsername(), user);
         space.getAllOccupants().put(user.getUsername(), muc.getOccupant(userRoomInfo));
         int x = Values.staggeredAddStart + space.getAllParticipants().size()*(Values.userIconW/5);
@@ -99,7 +99,7 @@ public class SpaceController {
      * @param user - User object to delete
      */
     public void deleteUser(String userRoomInfo, User user){
-        space.getAllNicksnames().remove(user.getNickname());
+        space.getAllNicknames().remove(user.getNickname());
         space.getAllParticipants().remove(user.getUsername());
         space.getAllOccupants().remove(userRoomInfo);
         for(UserView uv : space.getAllIcons()){

@@ -34,11 +34,8 @@ import edu.cornell.opencomm.view.UserView;
  * Private spaces are controlled by their owner.
  */
 public class Space {
-    /* Debugging
-	private static boolean D = true;*/
-
-    // Log for error-checking
-    private static String TAG = "Model.Space";
+	private static boolean D = Values.D;
+    private static String TAG = "Space";
 
     // All the Spaces in use (roomID -> Space)
     public static HashMap<String,Space> allSpaces = new HashMap<String,Space>();
@@ -54,7 +51,7 @@ public class Space {
 
     // TODO UI Team: is this still necessary? Where does it go?
     Context context;
-    boolean screen_on;
+    boolean screenOn;
     LinkedList<UserView> allIcons = new LinkedList<UserView>();
     boolean entered = false; // false if you have never opened this space to the screen
 
@@ -70,7 +67,7 @@ public class Space {
     private KickoutController kController;
     private ParticipantStatusController psController;
 
-    private int volume = 40;
+    private int volume = 40; //Volume level can be between 0 to 100
 
     /**
      * CONSTRUCTOR: new space. Creates the SpaceController and, either creates
@@ -99,6 +96,7 @@ public class Space {
      */
     public Space(Context context, boolean isMainSpace, String roomID, boolean selfCreated/*, User owner*/)
             throws XMPPException {
+        if (D) Log.d(TAG, "Space constructor called");
         this.context = context;
         // If the primary user is creating the space, join as owner
         if (selfCreated/*MainApplication.user_primary.equals(owner)*/) {
@@ -217,17 +215,22 @@ public class Space {
 
     // GETTERS
 
-    /** @return - the main space associated with this instance of the application */
+    /**
+     *  @return - the main space associated with this instance of the application
+     *   */
     public static Space getMainSpace(){
         return mainSpace;
     }
 
-    /** Sets the main space.*/
+    /**
+     * Sets the main space.
+     * */
     public static void setMainSpace(Space main){
         mainSpace = main;
     }
 
-    /** Set the entered state of the room: false if you have never opened the space in
+    /**
+     * Set the entered state of the room: false if you have never opened the space in
      * the spaceview ever
      * @param entered
      */
@@ -235,21 +238,30 @@ public class Space {
         this.entered = entered;
     }
 
-    public boolean getEntered(){
+    /**
+     * @return entered - Whether this space has been displayed on the screen
+     */
+    public boolean getEntered() {
         return entered;
     }
 
-    /** @return - all participants in Space, maps JID to User */
+    /**
+     * @return - all participants in Space, maps JID to User
+     *  */
     public HashMap<String, User> getAllParticipants() {
         return allParticipants;
     } // end getAllParticipants method
 
-    /** @return - the id of this Space */
+    /**
+     * @return - the id of this Space
+     *  */
     public String getRoomID() {
         return roomID;
     } // end getRoomID method
 
-    /** @return - true if this Space is a main space, false otherwise */
+    /**
+     * @return - true if this Space is a main space, false otherwise
+     *  */
     public boolean isMainSpace() {
         return isMainSpace;
     } // end isMainSpace method
@@ -263,87 +275,129 @@ public class Space {
         return this.owner;
     } // end getOwner method
 
+    /**
+     * @param owner
+     */
     public void setOwner(User owner){
         this.owner = owner;
     }
 
-    /** @return - the MultiUserChat associated with this Space */
+    /**
+     * @return - the MultiUserChat associated with this Space
+     */
     public MultiUserChat getMUC() {
         return muc;
     } // end getMUC method
 
-    /** @return - the Space Controller associated with this Space */
+    /**
+     *  @return - the Space Controller associated with this Space
+     */
     public SpaceController getSpaceController() {
         return sController;
     } // end getSpaceController method
 
-    /** @return the KickoutController associated with this Space */
+    /**
+     *  @return the KickoutController associated with this Space
+     */
     public KickoutController getKickoutController() {
         return kController;
     } // end getKickoutController method
 
-    /** @return the MessageController associated with this Space */
+    /**
+     * @return the MessageController associated with this Space
+     */
     public MessageController getMessageController() {
         return mController;
     } // end getMessageController method
 
-    /** @return the InvitationController associated with this Space */
+    /**
+     * @return the InvitationController associated with this Space
+     */
     public InvitationController getInvitationController() {
         return iController;
     } // end getInvitationController method
 
-    /** @return the ParticipantController associated with this Space */
+    /**
+     * @return the ParticipantController associated with this Space
+     */
     public ParticipantController getParticipantController() {
         return pController;
     } // end getParticipantController method
 
-    public ParticipantStatusController getPsController() {
+    /**
+     * @return the ParticipantStatusController associated with this Space
+     */
+    public ParticipantStatusController getParticipantStatusController() {
         return psController;
     }
 
-    // TODO: move to Controller?
+    /**
+     * @return if screen is on
+     */
     public boolean isScreenOn() {
-        return screen_on;
+     // TODO: move to Controller?
+        return screenOn;
     } // end isScreenOn method
 
-    public void setScreenOn(boolean isIt) {
-        screen_on = isIt;
+    /**
+     * Setter method for screenOn
+     * @param screenOn
+     */
+    public void setScreenOn(boolean screenOn) {
+        this.screenOn = screenOn;
     }
 
+    /**
+     * @return allIcons
+     */
     public LinkedList<UserView> getAllIcons() {
         return allIcons;
     }
 
+    /**
+     *
+     * @return allOccupants
+     */
     public HashMap<String, Occupant> getAllOccupants() {
         return allOccupants;
     }
 
-    public HashMap<String, User> getAllNicksnames() {
+    /**
+     * @return allNicknames
+     */
+    public HashMap<String, User> getAllNicknames() {
         return allNicks;
     }
 
+    /**
+     * @return allSpaces
+     */
     public static HashMap<String, Space> getAllSpaces(){
         return allSpaces;
     }
 
+    /**
+     * @return context
+     */
     public Context getContext() {
         return context;
     }
 
-    /*
-     * Volume level can be between 0 to 100
+    /**
+     * @return volume
      */
     public int getVolume() {
         return volume;
     }
 
+    /**
+     * Setter method for volume
+     * @param volume
+     */
     public void setVolume(int volume) {
-        Log.d(TAG, "volume of space " + roomID + " set to " + volume);
+        if (D) Log.d(TAG, "volume of space " + roomID + " set to " + volume);
         this.volume = volume;
     }
 
-
-
-    // add getters for four listeners
 } // end Class Space
 

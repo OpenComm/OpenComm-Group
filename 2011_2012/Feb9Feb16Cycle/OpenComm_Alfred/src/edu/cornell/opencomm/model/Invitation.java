@@ -6,6 +6,9 @@ import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 
+import android.util.Log;
+import edu.cornell.opencomm.Values;
+
 
 
 /**
@@ -23,6 +26,9 @@ public class Invitation {
     private MultiUserChat muc;
     private boolean isModeratorRequest;
 
+    private final static String TAG = "Invitation";
+    private static boolean D = Values.D;
+
     /**
      * Constructor
      * @param connection - the Connection that received the invitation.
@@ -34,6 +40,7 @@ public class Invitation {
      */
     public Invitation(Connection connection, String room, String inviter,
             String reason, String password, Message message, MultiUserChat muc) {
+        if (D) Log.d(TAG, "Invitation constructor called");
         this.connection = connection;
         this.room = room;
         this.inviter = inviter;
@@ -48,7 +55,8 @@ public class Invitation {
      * @param inviteInfo
      * @param isModeratorRequest
      */
-    public Invitation(String[] inviteInfo, boolean isModeratorRequest){
+    public Invitation(String[] inviteInfo, boolean isModeratorRequest) {
+        if (D) Log.d(TAG, "Invitation constructor called");
         this.inviteInfo = inviteInfo;
         this.isModeratorRequest = isModeratorRequest;
     }

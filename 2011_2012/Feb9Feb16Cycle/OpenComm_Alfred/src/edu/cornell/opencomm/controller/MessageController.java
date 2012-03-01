@@ -7,6 +7,7 @@ import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.muc.Occupant;
 
 import android.util.Log;
+import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.network.Network;
 
@@ -16,7 +17,7 @@ import edu.cornell.opencomm.network.Network;
 public class MessageController {
     // Debugging
     private static final String TAG = "Controller.MessageController";
-    private static final boolean D = true;
+    private static final boolean D = Values.D;
 
     // Model variables
     private Space mSpace;
@@ -24,33 +25,27 @@ public class MessageController {
     // Network variable
     private MultiUserChat muc;
 
-    /** Constructor: a new message controller for a specified space
+    /**
+     * Constructor: a new message controller for a specified space
      * @param mSpace - the space within which the messages are sent and received
      */
     public MessageController(Space mSpace) {
+        if (D) Log.d(TAG, "MessageController constructor called");
         this.mSpace = mSpace;
         this.muc = this.mSpace.getMUC();
         this.muc.addMessageListener(this.configMessageListener());
     }
 
-    /*
-     * this launches an invitation for the user
+    /**
+     * Handles receipt of different packet types
      */
-    private boolean launchInvitationView() {
-        /*LayoutInflater inflater = (LayoutInflater)
-					MainApplication.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			InvitationView invitationView = new InvitationView(inflater);
-			invitationView.launch();*/
-        return true;
-    }
-
-    /** = configuration of message listener */
     public PacketListener configMessageListener() {
+        if (D) Log.d(TAG, "configMessageListener called");
         PacketListener messageListener = new PacketListener() {
             /** Process the messages coming in in packets */
             @Override
             public void processPacket(Packet packet) {
-                if(D) Log.d(TAG, "configMessageListener - processPacket");
+                if(D) Log.d(TAG, "processPacket called");
                 Message message = (Message) packet;
                 String from = message.getFrom();
                 String body = message.getBody();

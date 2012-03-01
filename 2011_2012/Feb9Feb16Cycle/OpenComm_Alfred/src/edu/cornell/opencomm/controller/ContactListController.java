@@ -27,32 +27,37 @@ import edu.cornell.opencomm.network.Network;
  *
  */
 public class ContactListController {
-    public static CharSequence[] buddyList; // list of the user's buddies in
-    // their username form
-    public static boolean[] buddySelection; // array of boolean for buddy
-    // selection
-
+    public static CharSequence[] buddyList; // list of the user's buddies in their username form
+    public static boolean[] buddySelection; // array of boolean for buddy selection
     private static String username = ""; // the username of this account
-
     private static Context context;
 
+    private final static boolean D = Values.D;
+    private final static String TAG = "ContactListController";
+
+    /**
+     * Constructor
+     * @param context
+     */
     public ContactListController(Context context) {
+        if (D) Log.d(TAG, "ContactListController constructor called");
         ContactListController.context = context;
-        // showBuddyList();
     }
 
+    /**
+     * Displays the buddy list for the purpose of adding users to a space
+     */
     public static void showBuddyList() {
-        if (context == null)
-            Log.v("ShowBUddyLIst", "NULL");
-        Log.v("ContactListController", "showBuddyList() 1");
+        //TODO: Move to view?
+        //TODO: Split into display and set up functions
+        if (D) Log.d(TAG, "showBuddyList called");
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        Log.v("ContactListController", "showBuddyList() 2");
 
         class DialogSelectionClickHandler implements DialogInterface.OnMultiChoiceClickListener {
             @Override
             public void onClick(DialogInterface dialog, int clicked,
                     boolean selected) {
-                // Do Nothing
+                   // Do Nothing
             }
         }
 
@@ -61,16 +66,11 @@ public class ContactListController {
             public void onClick(DialogInterface dialog, int clicked) {
                 switch (clicked) {
                 case DialogInterface.BUTTON_POSITIVE:
-                    // for( int i = 0; i < _options.length; i++ ){
-                    // Log.i( "ME", _options[i] + " selected: " + _selections[i]
-                    // );
-                    // }
                     try {
                         addFromBuddyList();
                     } catch (XMPPException e) {
                         e.printStackTrace();
                     }
-
                     break;
                 }
             }
@@ -82,24 +82,21 @@ public class ContactListController {
                 dialog.cancel();
             }
         }
-        Log.v("ContactListController", "showBuddyList() 3");
         updateBuddyList();
-        Log.v("ContactListController", "showBuddyList() 4");
         builder.setTitle("Buddylist").setMultiChoiceItems(buddyList,
                 buddySelection, new DialogSelectionClickHandler())
                 .setPositiveButton("Ok", new DialogOkButtonClickHandler())
                 .setNegativeButton("Cancel", new DialogCancelButtonClickHandler())
                 .create();
-        Log.v("ContactListController", "showBuddyList() 5");
         AlertDialog alert = builder.create();
-        Log.v("ContactListController", "showBuddyList() 6");
         MainApplication.screen.getActivity().displayEmptySpaceMenu(alert);
-        //alert.show();
-        Log.v("ContactListController", "showBuddyList() 7");
     }
 
-    // Add users from the buddylist dialog to the main space
+    /**
+     *  Add users from the buddylist dialog to the main space
+     */
     public static void addFromBuddyList() throws XMPPException {
+        if (D) Log.d(TAG, "addFromBuddyList");
         int start = Values.staggeredAddStart;
         for (int i = 0; i < buddySelection.length; i++) {
             if (buddySelection[i]) {
@@ -114,8 +111,11 @@ public class ContactListController {
         }
     } // end addFromBuddyList method
 
-    // Updates the buddylist and the boolean selection array
+    /**
+     * Updates the buddylist and the boolean selection array
+     */
     public static void updateBuddyList() {
+        if (D) Log.d(TAG, "updateBuddyList called");
         // Check to see if in the mainspace
         boolean inMainSpace = true;
         if (MainApplication.screen.getSpace() != Space.getMainSpace())
@@ -131,7 +131,7 @@ public class ContactListController {
             int i = 0;
             while (entryItr.hasNext()) {
                 String nickname= entryItr.next().getUser().split("@")[0];
-                if(!Space.getMainSpace().getAllNicksnames().containsKey(nickname)){
+                if(!Space.getMainSpace().getAllNicknames().containsKey(nickname)){
                     //Log.v("ContactListController", "nickname" +nickname);
                     buddyList[i++] = (CharSequence) nickname;
                 }
@@ -152,7 +152,7 @@ public class ContactListController {
             while (participantItr.hasNext()) {
                 String next = participantItr.next().getNickname();
                 Log.v("ContactListController", "nickname = " + next);
-                if (!(next == MainApplication.userPrimary.getNickname() || MainApplication.screen.getSpace().getAllNicksnames().containsKey(next))) {
+                if (!(next == MainApplication.userPrimary.getNickname() || MainApplication.screen.getSpace().getAllNicknames().containsKey(next))) {
                     buddyList[i++] = next;
                 }
             }

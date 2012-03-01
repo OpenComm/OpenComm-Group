@@ -5,6 +5,7 @@ import org.jivesoftware.smackx.muc.ParticipantStatusListener;
 
 import android.util.Log;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.Network;
@@ -29,20 +30,26 @@ public class ParticipantStatusController implements ParticipantStatusListener {
     Space mSpace;
 
     //Debugging
-    public static final String TAG = "Controller.ParticipantStatusController";
-    public static final boolean D = true;
+    public static final String TAG = "ParticipantStatusController";
+    public static final boolean D = Values.D;
 
-    public ParticipantStatusController(Space mSpace){
+    /**
+     * Constructor
+     */
+    public ParticipantStatusController(Space mSpace) {
+        if (D) Log.d(TAG, "ParticipantStatusController constructor called");
         this.mSpace = mSpace;
         this.mSpace.getMUC().addParticipantStatusListener(this);
     }
 
     @Override
-    /** Called when administrator privilege is granted to a user in the room
+    /**
+     * Called when administrator privilege is granted to a user in the room
      * @param userRoomInfo - the user receiving privilege<br>
      * (ex: room_name@conference.jabber.org/nickname)
      */
     public void adminGranted(String userRoomInfo) {
+        if (D) Log.d(TAG, "adminGranted called");
         // DEBUG
         if (D) {
             String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
@@ -59,11 +66,13 @@ public class ParticipantStatusController implements ParticipantStatusListener {
     } // end adminGranted method
 
     @Override
-    /** Called when administrator privilege is revoked from a user in the room
+    /**
+     *  Called when administrator privilege is revoked from a user in the room
      * @param userRoomInfo - the user whose privilege is revoked<br>
      * (ex: roomname@conference.jabber.org/nickname)
      */
     public void adminRevoked(String userRoomInfo) {
+        if (D) Log.d(TAG, "adminRevoked called");
         // DEBUG
         if (D) {
             String[] infoSplit = this.splitUserRoomInfo(userRoomInfo);
@@ -80,7 +89,8 @@ public class ParticipantStatusController implements ParticipantStatusListener {
     } // end adminRevoked method
 
     @Override
-    /** Called when a user bans another user from a room
+    /**
+     * Called when a user bans another user from a room
      * @param bannedUserRoomInfo - the user who is banned from the room<br>
      * (ex: roomname@conference.jabber.org/nickname)
      * @param banningUser - the user who is banning the banned_user
@@ -90,6 +100,7 @@ public class ParticipantStatusController implements ParticipantStatusListener {
      * the banned user from the room
      */
     public void banned(String bannedUserRoomInfo, String banningUser, String reason) {
+        if (D) Log.d(TAG, "banned called");
         // DEBUG
         if (D) {
             String[] bannedUserSplit = this.splitUserRoomInfo(bannedUserRoomInfo);
@@ -111,17 +122,19 @@ public class ParticipantStatusController implements ParticipantStatusListener {
             Space s = Space.getAllSpaces().get(userSplit[0]);
             if (u != null && s != null){
                 s.getAllParticipants().remove(u.getUsername());
-                s.getAllNicksnames().remove(u.getNickname());
+                s.getAllNicknames().remove(u.getNickname());
             }
         }
     } // end banned method
 
     @Override
-    /** Called when a user joins a room, either by invite or on its own
+    /**
+     *  Called when a user joins a room, either by invite or on its own
      * @param userRoomInfo - the user who joined the room<br>
      * (ex: roomname@conference.jabber.org/nickname)
      */
     public void joined(String userRoomInfo) {
+        if (D) Log.d(TAG, "joined called");
         Log.v(TAG, "joined()");
         String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
         if(userSplit !=null){
@@ -152,7 +165,7 @@ public class ParticipantStatusController implements ParticipantStatusListener {
             Space s = Space.getAllSpaces().get(userSplit[0]);
             if (u != null && s != null){
                 s.getAllParticipants().put(u.getUsername(), u);
-                s.getAllNicksnames().put(u.getNickname(), u);
+                s.getAllNicknames().put(u.getNickname(), u);
                 Log.v(TAG, s.getMUC().getOccupant(s.getRoomID() + "/" + u.getNickname()).getAffiliation());
                 try {
                     s.getMUC().grantMembership(u.getUsername());
@@ -166,7 +179,8 @@ public class ParticipantStatusController implements ParticipantStatusListener {
     } // end joined method
 
     @Override
-    /** Called when a user kicks another user from a room
+    /**
+     * Called when a user kicks another user from a room
      * @param kickedUserRoomInfo - the user who is kicked from the room<br>
      * (ex: roomname@conference.jabber.org/nickname)
      * @param kickingUser - the user who is kicking the kicked_user from the room<br>
@@ -175,6 +189,7 @@ public class ParticipantStatusController implements ParticipantStatusListener {
      * the kicked user from the room
      */
     public void kicked(String kickedUserRoomInfo, String kickingUser, String reason) {
+        if (D) Log.d(TAG, "kicked called");
         Log.v(TAG, "kicked()");
         String[] kickedUserSplit = this.splitUserRoomInfo(kickedUserRoomInfo);
         if(kickedUserSplit != null){
@@ -202,7 +217,7 @@ public class ParticipantStatusController implements ParticipantStatusListener {
             Space s = Space.getAllSpaces().get(userSplit[0]);
             if (u != null && s != null){
                 s.getAllParticipants().remove(u.getUsername());
-                s.getAllNicksnames().remove(u.getNickname());
+                s.getAllNicknames().remove(u.getNickname());
                 MainApplication.screen.getActivity().invalidateSpaceView();
                 //	if(Space.getMainSpace()!=s)
                 //	MainApplication.screen.getActivity().invalidatePSIconView()
@@ -211,11 +226,13 @@ public class ParticipantStatusController implements ParticipantStatusListener {
     } // end kicked method
 
     @Override
-    /** Called when a user leaves the room on its own
+    /**
+     *  Called when a user leaves the room on its own
      * @param userRoomInfo - the user leaving the room<br>
      * (ex: roomname@conference.jabber.org/nickname)
      */
     public void left(String userRoomInfo) {
+        if (D) Log.d(TAG, "left called");
         String[] userRoomSplit = this.splitUserRoomInfo(userRoomInfo);
         if(userRoomSplit !=null){
             User user = User.nickname_to_user.get(userRoomSplit[1]);
@@ -240,18 +257,20 @@ public class ParticipantStatusController implements ParticipantStatusListener {
             Space s = Space.getAllSpaces().get(userSplit[0]);
             if (u != null && s != null){
                 s.getAllParticipants().remove(u.getUsername());
-                s.getAllNicksnames().remove(u.getNickname());
+                s.getAllNicknames().remove(u.getNickname());
             }
         }
     } // end left method
 
     @Override
-    /** Called when membership is granted to a user
+    /**
+     *  Called when membership is granted to a user
      * @param userRoomInfo - the user and the room in which it is
      * receiving membership<br>
      * (ex: roomname@conference.jabber.org/nickname)
      */
     public void membershipGranted(String userRoomInfo) {
+        if (D) Log.d(TAG, "membershipGranted called");
         // DEBUG
         if (D) {
             String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
@@ -268,12 +287,14 @@ public class ParticipantStatusController implements ParticipantStatusListener {
     } // end membershipGranted method
 
     @Override
-    /** Called when membership is revoked from a user
+    /**
+     * Called when membership is revoked from a user
      * @param userRoomInfo - the user and the room in which its
      * membership is revoked<br>
      * (ex: roomname@conference.jabber.org/nickname)
      */
     public void membershipRevoked(String userRoomInfo) {
+        if (D) Log.d(TAG, "membershipRevoked called");
         // DEBUG
         if (D) {
             String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
@@ -290,12 +311,14 @@ public class ParticipantStatusController implements ParticipantStatusListener {
     } // end membershipRevoked method
 
     @Override
-    /** Called when moderator privilege is granted to a user
+    /**
+     *  Called when moderator privilege is granted to a user
      * @param userRoomInfo - the user and the room in which it is
      * receiving membership<br>
      * (ex: roomname@conference.jabber.org/nickname)
      */
     public void moderatorGranted(String userRoomInfo) {
+        if (D) Log.d(TAG, "moderatorGranted called");
         // DEBUG
         if (D) {
             String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
@@ -313,11 +336,13 @@ public class ParticipantStatusController implements ParticipantStatusListener {
     } // end moderatorGranted method
 
     @Override
-    /** Called when moderator privilege is revoked from a user
+    /**
+     * Called when moderator privilege is revoked from a user
      * @param userRoomInfo - the user and the room in which it is revoking moderator <br>
      * (ex: roomname@conference.jabber.org/nickname)
      */
     public void moderatorRevoked(String userRoomInfo) {
+        if (D) Log.d(TAG, "moderatorRevoked called");
         // DEBUG
         if (D) {
             String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
@@ -335,12 +360,14 @@ public class ParticipantStatusController implements ParticipantStatusListener {
     } // end moderatorRevoked method
 
     @Override
-    /** Called when a user changes its nickname in the room
+    /**
+     * Called when a user changes its nickname in the room
      * @param userRoomInfo - the user and the room in which it is revoking moderator <br>
      * (ex: roomname@conference.jabber.org/nickname)
      * @param newNickname - the new nickname that the user is changing to
      */
     public void nicknameChanged(String userRoomInfo, String newNickname) {
+        if (D) Log.d(TAG, "nicknameChanged called");
         // DEBUG
         if (D) {
             String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
@@ -357,11 +384,13 @@ public class ParticipantStatusController implements ParticipantStatusListener {
     } // end nicknameChanged method
 
     @Override
-    /** Called when ownership privilege is granted to a user
+    /**
+     * Called when ownership privilege is granted to a user
      * @param userRoomInfo - the user and the room in which it is granting ownership <br>
      * (ex: roomname@conference.jabber.org/nickname)
      */
     public void ownershipGranted(String userRoomInfo) {
+        if (D) Log.d(TAG, "ownershipGranted called");
         // DEBUG
         if (D) {
             String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
@@ -379,12 +408,14 @@ public class ParticipantStatusController implements ParticipantStatusListener {
     } // end ownershipGranted method
 
     @Override
-    /** Called when ownership privilege is revoked from a user
+    /**
+     * Called when ownership privilege is revoked from a user
      * @param userRoomInfo - the user and the room in which it is
      * revoking ownership <br>
      * (ex: roomname@conference.jabber.org/nickname)
      */
     public void ownershipRevoked(String userRoomInfo) {
+        if (D) Log.d(TAG, "ownershipRevoked called");
         // DEBUG
         if (D) {
             String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
@@ -402,11 +433,13 @@ public class ParticipantStatusController implements ParticipantStatusListener {
     } // end ownershipRevoked method
 
     @Override
-    /** Called when voice is granted to a user
+    /**
+     * Called when voice is granted to a user
      * @param userRoomInfo - the user and the room in which it is receiving voice <br>
      * (ex: roomname@conference.jabber.org/nickname)
      */
     public void voiceGranted(String userRoomInfo) {
+        if (D) Log.d(TAG, "voiceGranted called");
         // DEBUG
         if (D) {
             String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
@@ -423,12 +456,14 @@ public class ParticipantStatusController implements ParticipantStatusListener {
     } // end voiceGranted method
 
     @Override
-    /** Called when voice is granted to a user
+    /**
+     *  Called when voice is granted to a user
      * @param userRoomInfo - the user and the room in which it is
      * revoking moderator <br>
      * (ex: roomname@conference.jabber.org/nickname)
      */
     public void voiceRevoked(String userRoomInfo) {
+        if (D) Log.d(TAG, "voiceRevoked called");
         // DEBUG
         if (D) {
             String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
@@ -444,13 +479,15 @@ public class ParticipantStatusController implements ParticipantStatusListener {
         }
     } // end voiceRevoked method
 
-    /** = String array of room name and nickname stored in String of format
+    /**
+     *  = String array of room name and nickname stored in String of format
      * "roomname@conference.jabber.org/nickname"
      * @param info - string containing room name and nickname
      * @return null if the split does not produce a String array with lengths 2<br>
      * else a String array in which [0] contains room name, [1] contains nickname
      */
     public String[] splitUserRoomInfo(String info) {
+        if (D) Log.d(TAG, "splitUserRoomInfo called");
         String[] userRoomInfoSplit = info.split("@conference.jabber.org/");
         // check the result of split for an array with length 2
         if (userRoomInfoSplit == null || userRoomInfoSplit.length != 2) {
