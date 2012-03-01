@@ -103,7 +103,7 @@ public class Space {
 
             Log.v("Space", "Creating space with me as moderator");
 
-            this.roomID = Network.ROOM_NAME + roomID + Network.DEFAULT_CONFERENCE;
+            this.roomID = Network.ROOM_NAME + roomID + "@" + Network.DEFAULT_CONFERENCE;
             this.muc = new MultiUserChat(LoginController.xmppService.getXMPPConnection(),
                     this.roomID);
             this.muc.join(MainApplication.userPrimary.getNickname());
