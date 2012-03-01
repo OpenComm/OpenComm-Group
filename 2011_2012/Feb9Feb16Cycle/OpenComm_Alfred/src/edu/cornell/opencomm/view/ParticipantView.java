@@ -173,15 +173,14 @@ public class ParticipantView {
 
     private static void deleteFromParticipants() {
         for (int i = 0; i < userSelected.length; i++) {
+        	boolean kickoutUserStatus = false;
             if (userSelected[i]) {
                 User kickMe = MainApplication.screen.getSpace().getAllNicksnames()
                         .get(usersInSpace[i]);
-                try {
-                    MainApplication.screen.getSpace().getKickoutController()
-                    .kickoutUser(kickMe, Network.DEFAULT_KICKOUT);
-                } catch (XMPPException e) {
+                kickoutUserStatus = MainApplication.screen.getSpace().getKickoutController()
+                								.kickoutUser(kickMe, Network.DEFAULT_KICKOUT);
+                if (!kickoutUserStatus){
                     Log.v(TAG, "Couldn't kickout " + usersInSpace[i]);
-                    Log.v(TAG, "exception: " + e.getMessage());
                 }
             }
         }
