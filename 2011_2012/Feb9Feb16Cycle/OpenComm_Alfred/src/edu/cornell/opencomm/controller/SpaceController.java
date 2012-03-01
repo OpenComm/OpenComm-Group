@@ -1,3 +1,9 @@
+/**
+ * An instance of this class is a space controller for each space (main space
+ * or private space), such as adding/deleting people from a space.
+ * @author vinaymaloo
+ *
+ */
 package edu.cornell.opencomm.controller;
 
 import org.jivesoftware.smack.XMPPException;
@@ -12,14 +18,12 @@ import edu.cornell.opencomm.view.NotificationView;
 import edu.cornell.opencomm.view.PrivateSpaceIconView;
 import edu.cornell.opencomm.view.SpaceView;
 import edu.cornell.opencomm.view.UserView;
+import edu.cornell.opencomm.network.NetworkService;
 
-/** An instance of this class is a space controller for each space (main space
- * or private space), such as adding/deleting people from a space.
- * @author OpenComm (cuopencomm@gmail.com)
- *
- */
+
 public class SpaceController {
-    // Debugging
+    
+	// Debugging
     private static final String TAG = "SpaceController";
     private static final boolean D = true;
 
@@ -32,12 +36,12 @@ public class SpaceController {
     // View objects
     SpaceView view;
 
-
     //associated privateSpaceIconView
     PrivateSpaceIconView psiv;
 
     static NotificationView notification_View;
-
+    
+    
 
     /** Constructor: a new instance of SpaceController that controls a specific
      * space
@@ -47,7 +51,6 @@ public class SpaceController {
         this.muc = this.space.getMUC();
         this.view = view;
         SpaceController.notification_View = new NotificationView(view.getContext());
-
     } // end SpaceController method
 
 
@@ -74,11 +77,11 @@ public class SpaceController {
         if(space == MainApplication.screen.getSpace()){
             Log.v("SpaceController", "adding user to spaceView");
             view.getActivity().invalidateSpaceView();
-
         }
 
-        if(space != Space.getMainSpace())
-            view.getActivity().invalidatePSIconView(psiv);
+        if(space != Space.getMainSpace()){
+        	view.getActivity().invalidatePSIconView(psiv);
+        }
         view.getActivity().launchNotificationView(user, "adduser");
     }
 
@@ -88,6 +91,7 @@ public class SpaceController {
         Log.v(TAG, "setPSIV");
         this.psiv=psIcon;
     }
+    
     /**
      * Delete a user from the space
      * @param userRoomInfo - the user who joined the room
@@ -103,16 +107,17 @@ public class SpaceController {
                 space.getAllIcons().remove(uv);
         }
 
-        if(space!=Space.getMainSpace())
-            view.getActivity().invalidatePSIconView(psiv);
+        if(space!=Space.getMainSpace()){
+        	view.getActivity().invalidatePSIconView(psiv);
+        }
         //this.psiv.invalidate();
 
         /* If you are currently in this space then refresh the
          * the spaceview ui
          */
-        if(space == MainApplication.screen.getSpace())
+        if(space == MainApplication.screen.getSpace()){
             view.getActivity().invalidateSpaceView();
-
+        }
 
 
         view.getActivity().launchNotificationView(user, "deleteuser");
@@ -124,27 +129,8 @@ public class SpaceController {
      */
     public void deleteSpace(){
         //TODO: need to pop-up a confirmation dialogue
-        try {
-            this.muc.destroy(null, null);
-        } catch (XMPPException e) {
-            Log.d(TAG, "Unable to destroy Space!");
-        }
-        //experimental emulation of MUC.destroy
-        /*Collection<User> users = this.space.getAllParticipants().values();
-			for (User u : users) {
-				try {
-					if(!u.getUsername().equals(MainApplication.user_primary.getUsername()))
-						this.space.getKickoutController().kickoutUser(u, Network.DEFAULT_KICKOUT);
-				} catch (XMPPException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			this.space.getMUC().leave();*/
-        //The following line could cause an infinite loop. Better to just leave as above.
-        //this.space.getParticipantController().leaveSpace(this.space.equals(Space.getMainSpace()));
-        //end experiment
-
+    	NetworkService.destroyMUC(muc);
+       
         if(space.equals(Space.getMainSpace())){
             Space.setMainSpace(null);
         }
