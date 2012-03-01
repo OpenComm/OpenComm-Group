@@ -94,19 +94,19 @@ public class Space {
      * @throws XMPPException
      *             - thrown if the room cannot be created, or configured
      */
-    public Space(Context context, boolean isMainSpace, String roomID, boolean selfCreated/*, User owner*/)
+    public Space(Context context, boolean isMainSpace, String roomID, boolean selfCreated)
             throws XMPPException {
         if (D) Log.d(TAG, "Space constructor called");
         this.context = context;
         // If the primary user is creating the space, join as owner
-        if (selfCreated/*MainApplication.user_primary.equals(owner)*/) {
+        if (selfCreated) {
 
             Log.v("Space", "Creating space with me as moderator");
 
             this.roomID = Network.ROOM_NAME + roomID + "@conference.jabber.org";
             this.muc = new MultiUserChat(LoginController.xmppService.getXMPPConnection(),
                     this.roomID);
-            this.muc.join(/*owner.getNickname()*/MainApplication.userPrimary.getNickname());
+            this.muc.join(MainApplication.userPrimary.getNickname());
             this.owner = MainApplication.userPrimary;
 
             //Configure room
@@ -119,19 +119,7 @@ public class Space {
                 }
             }
             answerForm.setAnswer("muc#roomconfig_moderatedroom", true);
-            //answerForm.setAnswer("muc#roomconfig_publicroom", false);
-            //answerForm.setAnswer("muc#roomconfig_persistentroom", false);
-
-            /*//everything after this is experimental
-			List<String> owners = new LinkedList<String>();
-			owners.add("opencommss@jabber.org");
-			owners.add("opencommsec@jabber.org");
-			FormField f = new FormField("muc#roomconfig_roomowners");
-			f.setType(FormField.TYPE_JID_MULTI);
-			answerForm.addField(f);
-			answerForm.setAnswer("muc#roomconfig_roomowners", owners); */
             muc.sendConfigurationForm(answerForm);
-            //end experiments
 
         }
         // otherwise join as participant
@@ -139,7 +127,6 @@ public class Space {
             Log.v("Space", "Creating space with someone else as moderator");
 
             this.roomID = roomID;
-            Log.v("Space", "roomID = " + roomID);
             this.muc = new MultiUserChat(LoginController.xmppService.getXMPPConnection(),
                     roomID);
             this.muc.join(MainApplication.userPrimary.getNickname());
@@ -161,7 +148,6 @@ public class Space {
         this.psController = new ParticipantStatusController(this);
         // Create and instantiate all existing users
         Iterator<String> occItr = this.muc.getOccupants();
-        Log.v("Space", "This room gonna count" );
         // starting position
         int start = Values.staggeredAddStart;
         while (occItr.hasNext()) {
@@ -171,7 +157,7 @@ public class Space {
             Log.v("Space", "Adding person " + occJID);
             User u = User.getAllUsers().get(occJID);
             // if there is an instance of User already created
-            if (/*User.getAllUsers().get(occJID)*/ u != null) {
+            if (u != null) {
                 Log.v("Space", "This person already existed =  " + occJID);
                 this.allParticipants.put(occJID,u);
                 this.allNicks.put(u.getNickname(), u);
@@ -212,8 +198,6 @@ public class Space {
         }
 
     } // end Space constructor
-
-    // GETTERS
 
     /**
      *  @return - the main space associated with this instance of the application

@@ -1,12 +1,12 @@
-/** 
- * A class of constants for package edu.cornell.opencomm.network. 
+/**
+ * A class of constants for package edu.cornell.opencomm.network.
  * All the values that are hardcoded and required by hcisec are also moved to this file.
- * 
+ *
  * Issues [TODO]
  * - Looks into authentication used in login function once we move to openfire
- * 
+ *
  * @author rahularora, risanaka, kriskooi, anneedmundson, jp
- * 
+ *
  * */
 
 package edu.cornell.opencomm.network;
@@ -80,11 +80,11 @@ public class Network {
     /** = default reason for rejecting an invitation request */
     public static final String DEFAULT_REJECT_INVITATION_REQUEST = "Your invitation request has" +
             " been rejected";
-    
+
     /** = default reason for rejecting a kickout request */
     public static final String DEFAULT_REJECT_KICKOUT_REQUEST_REASON = "Your kickout request has" +
             " been rejected;";
-    
+
     /** = default reason for rejecting a user */
     public static final String DEFAULT_REJECT = "Your request has been rejected";
 

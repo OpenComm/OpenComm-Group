@@ -2,8 +2,6 @@ package edu.cornell.opencomm.controller;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Hashtable;
-import java.util.Map.Entry;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -12,19 +10,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Matrix;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.Network;
@@ -68,7 +63,8 @@ public class ConferencePlannerController {
 	// OnSetListeners activate when the user presses the set key after selecting
 	// a time/date (thus, fields need to be updated)
 	DatePickerDialog.OnDateSetListener endDay = new DatePickerDialog.OnDateSetListener() {
-		public void onDateSet(DatePicker view, int year, int monthOfYear,
+		@Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
 				int dayOfMonth) {
 			startDay = dayOfMonth;
 			startMonth = monthOfYear + 1;
@@ -98,7 +94,8 @@ public class ConferencePlannerController {
 	};
 
 	TimePickerDialog.OnTimeSetListener end = new TimePickerDialog.OnTimeSetListener() {
-		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+		@Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 			endMinute = minute;
 			endHour = hourOfDay;
 			endDate.set(Calendar.HOUR, hourOfDay);
@@ -107,7 +104,8 @@ public class ConferencePlannerController {
 	};
 
 	TimePickerDialog.OnTimeSetListener start = new TimePickerDialog.OnTimeSetListener() {
-		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+		@Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 			startMinute = minute;
 			startHour = hourOfDay;
 			startDate.set(Calendar.HOUR, hourOfDay);
@@ -179,7 +177,8 @@ public class ConferencePlannerController {
 					// Location = where user clicked. 0 = once, 1=every
 					// day,2=every week,3=every two weeks,4=every month 5= every
 					// year
-					public void onClick(DialogInterface dialog, int which) {
+					@Override
+                    public void onClick(DialogInterface dialog, int which) {
 						if (which == 0) {
 							occurance = "Once";
 						} else if (which == 1) {
@@ -328,7 +327,7 @@ public class ConferencePlannerController {
 		Intent i = new Intent(conferencePlannerView, MainApplication.class);
 		i.putExtra(Network.KEY_USERNAME, DashboardController.username);
 		i.setAction(Network.ACTION_LOGIN);
-		
+
 		//Make string array of invited users from buddylist and the boolean array telling if person is invited
 		int inviteCounter=0;
 		for (boolean b: buddySelection){

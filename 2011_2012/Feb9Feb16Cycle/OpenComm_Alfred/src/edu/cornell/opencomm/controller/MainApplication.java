@@ -4,10 +4,10 @@
 
 package edu.cornell.opencomm.controller;
 
-import org.jivesoftware.smack.XMPPException;
-
 import java.util.Iterator;
 import java.util.LinkedList;
+
+import org.jivesoftware.smack.XMPPException;
 
 import android.app.Activity;
 import android.app.AlertDialog;
