@@ -1,8 +1,5 @@
 package edu.cornell.opencomm.controller;
 
-//import android.R;
-import org.jivesoftware.smack.XMPPException;
-
 import android.util.Log;
 import android.view.View;
 import edu.cornell.opencomm.model.User;
@@ -13,6 +10,8 @@ import edu.cornell.opencomm.view.ConfirmationView;
  *
  */
 public class ConfirmationController {
+	
+	
 
     private ConfirmationView confirmationView = null;
     public ConfirmationController(ConfirmationView confirmationView) {
@@ -32,11 +31,13 @@ public class ConfirmationController {
         confirmationView.getWindow().dismiss();
         String kickee = confirmationView.getKickoutInfo()[1];
         User userKickee = User.getAllUsers().get(kickee);
-        try {
-            confirmationView.getSpace().getKickoutController().kickoutUser(userKickee, "You've been very bad");
-        } catch (XMPPException e) {
-            // TODO Auto-generated catch block
-            Log.v("ConfirmationController", "Cannot kickout this person!");
+       
+        boolean kickoutStatus = confirmationView.getSpace().getKickoutController().kickoutUser(userKickee, "You've been very bad");
+        if (kickoutStatus){
+        	
+        }
+        else{
+        	
         }
     }
 
