@@ -31,7 +31,7 @@ public class User {
     private static HashMap<String, User> allUsers = new HashMap<String, User>();
 
     // Maps nickname to User -- TODO: delete if not needed by UI
-    public static HashMap<String,User> nickname_to_user =
+    public static HashMap<String,User> nicknameToUser =
             new HashMap<String,User>();
 
     /** CONSTRUCTOR: = a new User
@@ -60,7 +60,7 @@ public class User {
             user_color_table.put(username, user_color);
         }
         allUsers.put(username, this);
-        nickname_to_user.put(nickname, this);
+        nicknameToUser.put(nickname, this);
     }
 
     // SETTERS AND GETTERS
@@ -100,7 +100,7 @@ public class User {
 
     /** @return - all Users with their nickname as the key */
     public static HashMap<String, User> getAllNicknames(){
-        return nickname_to_user;
+        return nicknameToUser;
     }
 }
 

@@ -49,17 +49,13 @@ public class ParticipantStatusController implements ParticipantStatusListener {
      * (ex: room_name@conference.jabber.org/nickname)
      */
     public void adminGranted(String userRoomInfo) {
-        if (D) Log.d(TAG, "adminGranted called");
-        // DEBUG
         if (D) {
+            Log.d(TAG, "adminGranted called");
             String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
-            // check that the split is successful
             if (userSplit != null) {
-                // extract the room's name
                 String roomname = userSplit[0];
-                // extract the user's nickname
                 String nickname = userSplit[1];
-                if (D) Log.d(TAG, "addUserStatusListener - admin privilege " +
+                Log.d(TAG, "addUserStatusListener - admin privilege " +
                         "granted to " + nickname + " in room " + roomname);
             }
         }
@@ -72,17 +68,13 @@ public class ParticipantStatusController implements ParticipantStatusListener {
      * (ex: roomname@conference.jabber.org/nickname)
      */
     public void adminRevoked(String userRoomInfo) {
-        if (D) Log.d(TAG, "adminRevoked called");
-        // DEBUG
         if (D) {
+            Log.d(TAG, "adminRevoked called");
             String[] infoSplit = this.splitUserRoomInfo(userRoomInfo);
-            // check that the split is successful
             if (infoSplit != null) {
-                // extract the room's name
                 String roomname = infoSplit[0];
-                // extract the user's nickname
                 String nickname = infoSplit[1];
-                if (D) Log.d(TAG, "addUserStatusListener - admin privilege " +
+                Log.d(TAG, "addUserStatusListener - admin privilege " +
                         "revoked from " + nickname + " in room " + roomname);
             }
         }
@@ -100,17 +92,13 @@ public class ParticipantStatusController implements ParticipantStatusListener {
      * the banned user from the room
      */
     public void banned(String bannedUserRoomInfo, String banningUser, String reason) {
-        if (D) Log.d(TAG, "banned called");
-        // DEBUG
         if (D) {
+            Log.d(TAG, "banned called");
             String[] bannedUserSplit = this.splitUserRoomInfo(bannedUserRoomInfo);
-            // check that the split is successful
             if (bannedUserSplit != null) {
-                // extract the room's name
                 String bannedRoomname = bannedUserSplit[0];
-                // extract the user's nickname
                 String bannedNickname = bannedUserSplit[1];
-                if (D) Log.d(TAG, "addUserStatusListener - " + bannedNickname +
+                Log.d(TAG, "addUserStatusListener - " + bannedNickname +
                         " banned by " + banningUser + " from room " +
                         bannedRoomname + "\ndue to: " +
                         ((reason == null) ? Network.DEFAULT_BAN : reason));
@@ -135,31 +123,23 @@ public class ParticipantStatusController implements ParticipantStatusListener {
      */
     public void joined(String userRoomInfo) {
         if (D) Log.d(TAG, "joined called");
-        Log.v(TAG, "joined()");
         String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
         if(userSplit !=null){
-
-            User user = User.nickname_to_user.get(userSplit[1]);
+            User user = User.nicknameToUser.get(userSplit[1]);
             if(user == null) {
                 user = new User(userSplit[1], userSplit[1], R.drawable.question);
             }
             mSpace.getSpaceController().addUser(userRoomInfo, user);
         }
 
-        // DEBUG
         if (D) {
-
-            // check that the split is successful
             if (userSplit != null) {
-                // extract the room's name
                 String roomname = userSplit[0];
-                // extract the user's nickname
                 String nickname = userSplit[1];
                 if (D) Log.d(TAG, "addUserStatusListener - " + nickname
                         + " joined room " + roomname);
             }
         }
-        //String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
         if(userSplit != null){
             User u = User.getAllNicknames().get(userSplit[1]);
             Space s = Space.getAllSpaces().get(userSplit[0]);
@@ -170,7 +150,7 @@ public class ParticipantStatusController implements ParticipantStatusListener {
                 try {
                     s.getMUC().grantMembership(u.getUsername());
                 } catch (XMPPException e) {
-                    Log.v(TAG, "The universe hates us...");
+                    Log.v(TAG, "Failed to grant membership to " + u.getUsername());
                 }
                 Log.v(TAG, s.getMUC().getOccupant(s.getRoomID() + "/" + u.getNickname()).getAffiliation());
             }
@@ -190,25 +170,19 @@ public class ParticipantStatusController implements ParticipantStatusListener {
      */
     public void kicked(String kickedUserRoomInfo, String kickingUser, String reason) {
         if (D) Log.d(TAG, "kicked called");
-        Log.v(TAG, "kicked()");
         String[] kickedUserSplit = this.splitUserRoomInfo(kickedUserRoomInfo);
         if(kickedUserSplit != null){
-            User user = User.nickname_to_user.get(kickedUserSplit[1]);
+            User user = User.nicknameToUser.get(kickedUserSplit[1]);
             mSpace.getSpaceController().deleteUser(kickedUserRoomInfo, user);
         }
-        // DEBUG
         if (D) {
-            //	String[] kickedUserSplit = this.splitUserRoomInfo(kickedUserRoomInfo);
-            // check that the split is successful
             if (kickedUserSplit != null) {
-                // extract the room's name
                 String kickedRoomname = kickedUserSplit[0];
-                // extract the kicked user's nickname
                 String kickedNickname = kickedUserSplit[1];
-                if (D) Log.d(TAG, "addUserStatusListener - " + kickedNickname +
-                        " kicked by " + kickingUser + " from room " +
-                        kickedRoomname + "\ndue to: " +
-                        ((reason == null) ? Network.DEFAULT_KICKOUT : reason));
+                Log.d(TAG, "addUserStatusListener - " + kickedNickname +
+                    " kicked by " + kickingUser + " from room " +
+                    kickedRoomname + "\ndue to: " +
+                    ((reason == null) ? Network.DEFAULT_KICKOUT : reason));
             }
         }
         String[] userSplit = this.splitUserRoomInfo(kickedUserRoomInfo);
@@ -219,8 +193,6 @@ public class ParticipantStatusController implements ParticipantStatusListener {
                 s.getAllParticipants().remove(u.getUsername());
                 s.getAllNicknames().remove(u.getNickname());
                 MainApplication.screen.getActivity().invalidateSpaceView();
-                //	if(Space.getMainSpace()!=s)
-                //	MainApplication.screen.getActivity().invalidatePSIconView()
             }
         }
     } // end kicked method
@@ -234,20 +206,16 @@ public class ParticipantStatusController implements ParticipantStatusListener {
     public void left(String userRoomInfo) {
         if (D) Log.d(TAG, "left called");
         String[] userRoomSplit = this.splitUserRoomInfo(userRoomInfo);
-        if(userRoomSplit !=null){
-            User user = User.nickname_to_user.get(userRoomSplit[1]);
+        if(userRoomSplit !=null) {
+            User user = User.nicknameToUser.get(userRoomSplit[1]);
             mSpace.getSpaceController().deleteUser(userRoomInfo, user);
         }
-        // DEBUG
         if (D) {
             String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
-            // check that the split is successful
             if (userSplit != null) {
-                // extract the room's name
                 String roomname = userSplit[0];
-                // extract the user's nickname
                 String nickname = userSplit[1];
-                if (D) Log.d(TAG, "addUserStatusListener - " + nickname +
+                Log.d(TAG, "addUserStatusListener - " + nickname +
                         " left room " + roomname);
             }
         }
@@ -270,17 +238,13 @@ public class ParticipantStatusController implements ParticipantStatusListener {
      * (ex: roomname@conference.jabber.org/nickname)
      */
     public void membershipGranted(String userRoomInfo) {
-        if (D) Log.d(TAG, "membershipGranted called");
-        // DEBUG
         if (D) {
+            Log.d(TAG, "membershipGranted called");
             String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
-            // check that the split is successful
             if (userSplit != null) {
-                // extract the room's name
                 String roomname = userSplit[0];
-                // extract the user's nickname
                 String nickname = userSplit[1];
-                if (D) Log.d(TAG, "addUserStatusListener - membership granted to "
+                Log.d(TAG, "addUserStatusListener - membership granted to "
                         + nickname + " in room " + roomname);
             }
         }
@@ -294,17 +258,13 @@ public class ParticipantStatusController implements ParticipantStatusListener {
      * (ex: roomname@conference.jabber.org/nickname)
      */
     public void membershipRevoked(String userRoomInfo) {
-        if (D) Log.d(TAG, "membershipRevoked called");
-        // DEBUG
         if (D) {
+            Log.d(TAG, "membershipRevoked called");
             String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
-            // check that the split is successful
             if (userSplit != null) {
-                // extract the room's name
                 String roomname = userSplit[0];
-                // extract the user's nickname
                 String nickname = userSplit[1];
-                if (D) Log.d(TAG, "addUserStatusListener - membership " +
+                Log.d(TAG, "addUserStatusListener - membership " +
                         "revoked from " + nickname + " in room " + roomname);
             }
         }
@@ -318,19 +278,15 @@ public class ParticipantStatusController implements ParticipantStatusListener {
      * (ex: roomname@conference.jabber.org/nickname)
      */
     public void moderatorGranted(String userRoomInfo) {
-        if (D) Log.d(TAG, "moderatorGranted called");
-        // DEBUG
         if (D) {
+            Log.d(TAG, "moderatorGranted called");
             String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
-            // check that the split is successful
             if (userSplit != null) {
-                // extract the room's name
                 String roomname = userSplit[0];
-                // extract the user's nickname
                 String nickname = userSplit[1];
-                if (D) Log.d(TAG, "addUserStatusListener - moderator " +
-                        "privileges granted to " + nickname + " in room " +
-                        roomname);
+                Log.d(TAG, "addUserStatusListener - moderator " +
+                   "privileges granted to " + nickname + " in room " +
+                    roomname);
             }
         }
     } // end moderatorGranted method
@@ -342,18 +298,14 @@ public class ParticipantStatusController implements ParticipantStatusListener {
      * (ex: roomname@conference.jabber.org/nickname)
      */
     public void moderatorRevoked(String userRoomInfo) {
-        if (D) Log.d(TAG, "moderatorRevoked called");
-        // DEBUG
         if (D) {
+            Log.d(TAG, "moderatorRevoked called");
             String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
-            // check that the split is successful
             if (userSplit != null) {
-                // extract the room's name
                 String roomname = userSplit[0];
-                // extract the user's nickname
                 String nickname = userSplit[1];
-                if (D) Log.d(TAG, "addUserStatusListener - moderator " +
-                        "privileges revoked from " + nickname + " in room " +
+                Log.d(TAG, "addUserStatusListener - moderator " +
+                       "privileges revoked from " + nickname + " in room " +
                         roomname);
             }
         }
@@ -367,17 +319,13 @@ public class ParticipantStatusController implements ParticipantStatusListener {
      * @param newNickname - the new nickname that the user is changing to
      */
     public void nicknameChanged(String userRoomInfo, String newNickname) {
-        if (D) Log.d(TAG, "nicknameChanged called");
-        // DEBUG
         if (D) {
+            Log.d(TAG, "nicknameChanged called");
             String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
-            // check that the split is successful
             if (userSplit != null) {
-                // extract the room's name
                 String roomname = userSplit[0];
-                // extract the user's nickname
                 String nickname = userSplit[1];
-                if (D) Log.d(TAG, "addUserStatusListener - new nickname for "
+                Log.d(TAG, "addUserStatusListener - new nickname for "
                         + nickname + " in room " + roomname + ": " + newNickname);
             }
         }
@@ -390,17 +338,13 @@ public class ParticipantStatusController implements ParticipantStatusListener {
      * (ex: roomname@conference.jabber.org/nickname)
      */
     public void ownershipGranted(String userRoomInfo) {
-        if (D) Log.d(TAG, "ownershipGranted called");
-        // DEBUG
         if (D) {
+            Log.d(TAG, "ownershipGranted called");
             String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
-            // check that the split is successful
             if (userSplit != null) {
-                // extract the room's name
                 String roomname = userSplit[0];
-                // extract the user's nickname
                 String nickname = userSplit[1];
-                if (D) Log.d(TAG, "addUserStatusListener - ownership " +
+                Log.d(TAG, "addUserStatusListener - ownership " +
                         "privileges granted to " + nickname + " in room " +
                         roomname);
             }
@@ -415,17 +359,13 @@ public class ParticipantStatusController implements ParticipantStatusListener {
      * (ex: roomname@conference.jabber.org/nickname)
      */
     public void ownershipRevoked(String userRoomInfo) {
-        if (D) Log.d(TAG, "ownershipRevoked called");
-        // DEBUG
         if (D) {
+            Log.d(TAG, "ownershipRevoked called");
             String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
-            // check that the split is successful
             if (userSplit != null) {
-                // extract the room's name
                 String roomname = userSplit[0];
-                // extract the user's nickname
                 String nickname = userSplit[1];
-                if (D) Log.d(TAG, "addUserStatusListener - ownership " +
+                Log.d(TAG, "addUserStatusListener - ownership " +
                         "privileges revoked from " + nickname + " in room " +
                         roomname);
             }
@@ -439,17 +379,13 @@ public class ParticipantStatusController implements ParticipantStatusListener {
      * (ex: roomname@conference.jabber.org/nickname)
      */
     public void voiceGranted(String userRoomInfo) {
-        if (D) Log.d(TAG, "voiceGranted called");
-        // DEBUG
         if (D) {
+            Log.d(TAG, "voiceGranted called");
             String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
-            // check that the split is successful
             if (userSplit != null) {
-                // extract the room's name
                 String roomname = userSplit[0];
-                // extract the user's nickname
                 String nickname = userSplit[1];
-                if (D) Log.d(TAG, "addUserStatusListener - voice granted to "
+                Log.d(TAG, "addUserStatusListener - voice granted to "
                         + nickname + " in room " + roomname);
             }
         }
@@ -463,17 +399,13 @@ public class ParticipantStatusController implements ParticipantStatusListener {
      * (ex: roomname@conference.jabber.org/nickname)
      */
     public void voiceRevoked(String userRoomInfo) {
-        if (D) Log.d(TAG, "voiceRevoked called");
-        // DEBUG
         if (D) {
+            Log.d(TAG, "voiceRevoked called");
             String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
-            // check that the split is successful
             if (userSplit != null) {
-                // extract the room's name
                 String roomname = userSplit[0];
-                // extract the user's nickname
                 String nickname = userSplit[1];
-                if (D) Log.d(TAG, "addUserStatusListener - voice granted to "
+                Log.d(TAG, "addUserStatusListener - voice granted to "
                         + nickname + " in room " + roomname);
             }
         }
