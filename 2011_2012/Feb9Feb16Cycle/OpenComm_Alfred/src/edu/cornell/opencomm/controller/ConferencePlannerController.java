@@ -33,10 +33,11 @@ import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.UserView;
 
 public class ConferencePlannerController {
+	
 
 	private Conference openfireInvitation;
 	// fields for our date widget
-	Calendar endDate;
+	Calendar endTime;
 	Calendar startDate;
 	Calendar stock = Calendar.getInstance();
 	// fields for start/end times
@@ -64,10 +65,10 @@ public class ConferencePlannerController {
 							// UI element on the layout to become the spinner
 							// once clicked, we have a custom image icon
 
-	static ArrayList<String> addedUsers=new ArrayList();
+	static ArrayList<String> addedUsers=new ArrayList<String>();
 	// OnSetListeners activate when the user presses the set key after selecting
 	// a time/date (thus, fields need to be updated)
-	DatePickerDialog.OnDateSetListener endDay = new DatePickerDialog.OnDateSetListener() {
+	DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 		public void onDateSet(DatePicker view, int year, int monthOfYear,
 				int dayOfMonth) {
 			startDay = dayOfMonth;
@@ -89,11 +90,17 @@ public class ConferencePlannerController {
 				handleDateButtonClicked();
 			}
 
-			endDate.set(Calendar.YEAR, year);
-			endDate.set(Calendar.MONTH, monthOfYear);
-			endDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-			Log.v("startTime", "day,month,year: " + startDay + "," + startMonth
-					+ "," + startYear);
+			endTime.set(Calendar.YEAR, year);
+			endTime.set(Calendar.MONTH, monthOfYear);
+			endTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+//			Log.v("startTime", "day,month,year: " + startDay + "," + startMonth
+//					+ "," + startYear);
+			
+			//Hackish way to get rid of white overlay
+			if (conferencePlannerView!= null){
+			conferencePlannerView.getDateButtonOverlay().setVisibility(
+					View.INVISIBLE);}
+
 		}
 	};
 
@@ -101,57 +108,71 @@ public class ConferencePlannerController {
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 			endMinute = minute;
 			endHour = hourOfDay;
-			endDate.set(Calendar.HOUR, hourOfDay);
-			endDate.set(Calendar.MINUTE, minute);
+			endTime.set(Calendar.HOUR, hourOfDay);
+			endTime.set(Calendar.MINUTE, minute);
+//			Log.v ("checkNull", "ConferencePlannerView null? " + conferencePlannerView );
+			//Hack to get invisible buttons after user click.
+			if (conferencePlannerView!=null){
+				Log.v("setOverlay", "Called setVisibility=false for Endbutton");
+			conferencePlannerView.getEndButtonOverlay().setVisibility(
+					View.INVISIBLE);
+	}
 		}
 	};
 
 	TimePickerDialog.OnTimeSetListener start = new TimePickerDialog.OnTimeSetListener() {
+		
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 			startMinute = minute;
 			startHour = hourOfDay;
 			startDate.set(Calendar.HOUR, hourOfDay);
 			startDate.set(Calendar.MINUTE, minute);
+			if (conferencePlannerView!=null){
+				conferencePlannerView.getStartButtonOverlay().setVisibility(
+						View.INVISIBLE);
+			}
 		}
+
+	//}
+		
 	};
 
 	public ConferencePlannerController(
 			ConferencePlannerView conferencePlannerView) {
-		endDate = Calendar.getInstance();
+		endTime = Calendar.getInstance();
 		startDate = Calendar.getInstance();
 		this.conferencePlannerView = conferencePlannerView;
-
 	}
 
 	// TODO: All buttons that once clicked only pops up needs to be fixed so
-	// that the white overlay is only applied while the uesr clicks
+	// that the white overlay is only applied while the user clicks
 	public void handleDateButtonClicked() {
 		Log.v("context check2", "getContext() is null?: "
 				+ conferencePlannerView.getContext());
 
 		conferencePlannerView.getDateButtonOverlay()
 				.setVisibility(View.VISIBLE);
-		new DatePickerDialog(conferencePlannerView, endDay,
-				endDate.get(Calendar.YEAR), endDate.get(Calendar.MONTH),
-				endDate.get(Calendar.DAY_OF_MONTH)).show();
+		new DatePickerDialog(conferencePlannerView, date,
+				endTime.get(Calendar.YEAR), endTime.get(Calendar.MONTH),
+				endTime.get(Calendar.DAY_OF_MONTH)).show();
 		Log.v("Date?",
-				endDate.get(Calendar.DATE) + "day and "
-						+ (endDate.get(Calendar.MONTH) + 1) + "month and "
-						+ endDate.get(Calendar.YEAR) + " year.");
+				endTime.get(Calendar.DATE) + "day and "
+						+ (endTime.get(Calendar.MONTH) + 1) + "month and "
+						+ endTime.get(Calendar.YEAR) + " year.");
 		// conferencePlannerView.getDateButtonOverlay().setVisibility(View.INVISIBLE);
 	}
 
-	public void handleEndButtonClicked() {
+	public void handleEndTimeButtonClicked() {
 		// testing if its updating properly.
-		Log.v("Date?",
-				endDate.get(Calendar.DATE) + "day and "
-						+ (endDate.get(Calendar.MONTH) + 1) + "month and "
-						+ endDate.get(Calendar.YEAR) + " year.");
+//		Log.v("Date?",
+//				endDate.get(Calendar.DATE) + "day and "
+//						+ (endDate.get(Calendar.MONTH) + 1) + "month and "
+//						+ endDate.get(Calendar.YEAR) + " year.");
 		conferencePlannerView.getEndButtonOverlay().setVisibility(View.VISIBLE);
 		new TimePickerDialog(conferencePlannerView, end,
-				endDate.get(Calendar.HOUR), endDate.get(Calendar.MINUTE), true)
+				endTime.get(Calendar.HOUR), endTime.get(Calendar.MINUTE), true)
 				.show();
-		Log.v("end", "I clicked the end button!");
+		//Log.v("end", "I clicked the end button!");
 
 	}
 
@@ -167,7 +188,13 @@ public class ConferencePlannerController {
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
+						
+						if (conferencePlannerView.getRecurringButtonOverlay()!= null){
+							conferencePlannerView.getRecurringButtonOverlay()
+							.setVisibility(View.INVISIBLE);
+						}
 					}
+					
 					// Do nothing, since it is being constantly updated in the
 					// onClick() as user click around
 					// Perhaps better to just have it find which here, but it
@@ -206,7 +233,7 @@ public class ConferencePlannerController {
 
 	}
 
-	public void handlestartButtonClicked() {
+	public void handleStartTimeButtonClicked() {
 		conferencePlannerView.getStartButtonOverlay().setVisibility(
 				View.VISIBLE);
 		new TimePickerDialog(conferencePlannerView, start,
@@ -225,6 +252,11 @@ public class ConferencePlannerController {
 	private void showContactList() {
 		 final Context context = conferencePlannerView;
 		 final  LinearLayout vs=(LinearLayout) conferencePlannerView.findViewById(R.id.userIcons);
+		 
+		 //Once contact list is shown, white overlay disappears
+		 conferencePlannerView.getAttendeeButtonOverlay().setVisibility(
+					View.INVISIBLE);
+		 
 		if (context == null)
 			Log.v("ShowBUddyLIst", "NULL");
 		Log.v("ContactListController", "showBuddyList() 1");
@@ -360,4 +392,5 @@ public class ConferencePlannerController {
 	// // TODO Auto-generated method stub something that brings it to last
 	// screen (dashboard)
 	//
-}
+	}
+	

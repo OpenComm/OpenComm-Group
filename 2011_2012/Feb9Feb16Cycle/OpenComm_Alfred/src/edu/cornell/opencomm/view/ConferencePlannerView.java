@@ -23,7 +23,7 @@ public class ConferencePlannerView extends Activity {
 		setContext(this);
 		Log.d("Test", "Are you calling me?");
 		setContentView(R.layout.conference_layout);
-
+		conferencePlannerController = new ConferencePlannerController(this);
 		// initEventsAndProperties();
 		initEventsAndProperties();
 
@@ -35,8 +35,7 @@ public class ConferencePlannerView extends Activity {
 	private LayoutInflater inflater;
 	private PopupWindow window = null;
 	// private PopupWindow window = null;
-	private ConferencePlannerController conferencePlannerController = new ConferencePlannerController(
-			this);
+	private ConferencePlannerController conferencePlannerController=null;//Initialzed to null atm, called in onCreate()
 	private View conferencePlannerLayout = null; // Initialized to null, made
 													// with constructor, but not
 													// used at the moment (used
@@ -104,13 +103,15 @@ public class ConferencePlannerView extends Activity {
 
 	private void initializeAttendeesButton() {
 		Button attendeeNameButton = getAttendeeNameButton();
-		ImageView attendeeImageButton = getAttendeeImageButton();
+		//Legacy button
+//		ImageView attendeeImageButton = getAttendeeImageButton();
 		if (attendeeNameButton != null) {
+			Log.v("Buttons","name button clicker set");
 			attendeeNameButton.setOnClickListener(onAttendeesClickListener);
 		}
-		if (attendeeImageButton != null) {
-			attendeeImageButton.setOnClickListener(onAttendeesClickListener);
-		}
+//		if (attendeeImageButton != null) {
+//			attendeeImageButton.setOnClickListener(onAttendeesClickListener);
+//		}
 
 	}
 
@@ -219,17 +220,17 @@ public class ConferencePlannerView extends Activity {
 		return recurringButton;
 	}
 
-	private ImageView getAttendeeImageButton() {
-		ImageView attendeeImageButton = null;
-		if (getContext() != null) {
-			attendeeImageButton = (ImageView) ((Activity) getContext())
-					.findViewById(R.id.attendeesButton);
-		}
+//	private ImageView getAttendeeImageButton() {
+//		ImageView attendeeImageButton = null;
+//		if (getContext() != null) {
+//			attendeeImageButton = (ImageView) ((Activity) getContext())
+//					.findViewById(R.id.attendeesButton);
+//		}
+//
+//		return attendeeImageButton;
+//	}
 
-		return attendeeImageButton;
-	}
-
-	private Button getAttendeeNameButton() {
+	public Button getAttendeeNameButton() {
 		Button attendeeNameButton = null;
 		if (getContext() != null) {
 			attendeeNameButton = (Button) ((Activity) getContext())
@@ -358,7 +359,7 @@ public class ConferencePlannerView extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			conferencePlannerController.handlestartButtonClicked();
+			conferencePlannerController.handleStartTimeButtonClicked();
 		}
 	};
 
@@ -366,7 +367,7 @@ public class ConferencePlannerView extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			conferencePlannerController.handleEndButtonClicked();
+			conferencePlannerController.handleEndTimeButtonClicked();
 		}
 	};
 
