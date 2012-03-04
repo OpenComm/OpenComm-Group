@@ -64,6 +64,7 @@ public class NetworkService {
     private XMPPConnection xmppConn = null;
     private ConnectionConfiguration xmppConfig = null;
     private InvitationListener invitationListener;
+	private boolean isConnected;
 
     /** Constructor: a network service for the application that creates and
      * maintains an XMPP connection for a specific host and port
@@ -83,7 +84,8 @@ public class NetworkService {
         xmppConn = new XMPPConnection(xmppConfig);
         try{
         	xmppConn.connect();
-        	if (xmppConn.isConnected()) {
+        	isConnected = xmppConn.isConnected();
+        	if (isConnected) {
         		if (D) {
         			Log.d(TAG, "XMPP connection established to " + host + " through " + port);
         		}
@@ -363,5 +365,9 @@ public class NetworkService {
         	Log.e(TAG, printXMPPError(e));
         }
     }
+
+	public boolean isConnected() {
+		return this.isConnected;
+	}
 
 } // end Class NetworkService
