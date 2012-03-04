@@ -3,12 +3,8 @@
  *
  * Issues [TODO]
  * - Look into authentication used in login function once we move to openfire
-<<<<<<< HEAD
- *
-=======
  * - Disconnect() or shutdown()
  *
->>>>>>> 6e0e8e32a87dd4e869f1561cc31467b1ae372b1a
  * @author rahularora, risanaka, kriskooi, anneedmundson, jp
  * */
 
@@ -96,6 +92,7 @@ public class NetworkService {
         			/**
         			 * Automatically called when this client receives an invitation to join a MUC
         			 */
+        		    //TODO jonathan: Move to InvitationController
         			@Override
         			public void invitationReceived(Connection connection, String room,
                         String inviter, String reason, String password, Message message) {
@@ -129,34 +126,6 @@ public class NetworkService {
         }catch (XMPPException e) {
 				Log.e(TAG, printXMPPError(e));
         }
-
-        invitationListener = new InvitationListener(){
-
-            @Override
-            public void invitationReceived(Connection connection, String room,
-                    String inviter, String reason, String password, Message message) {
-
-
-
-                Log.v("NetworkService", "Invitation Received for room " + room);
-
-                // Find the room
-                String roomID = room;
-                MultiUserChat muc = new MultiUserChat(LoginController.xmppService.getXMPPConnection(), roomID);
-
-                String nickname = inviter.split("@")[0];
-
-                // Create the invitation
-                LayoutInflater inflater = (LayoutInflater) MainApplication.screen.getActivity()
-                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                Invitation invitation = new edu.cornell.opencomm.model.Invitation(
-                        connection, room, inviter, reason, password, message, muc);
-                InvitationView invitationView = new InvitationView(inflater, invitation);
-                invitationView.setInvitationInfo(-1, nickname, "None", "None");
-                MainApplication.screen.getActivity().displayPopup(invitationView);
-            }
-        };
-        MultiUserChat.addInvitationListener(xmppConn,invitationListener);
     } // end NetworkService method
 
     /**
