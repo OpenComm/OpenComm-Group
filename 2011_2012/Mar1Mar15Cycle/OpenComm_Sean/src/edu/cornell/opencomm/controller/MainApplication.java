@@ -41,6 +41,7 @@ import edu.cornell.opencomm.view.LoginView;
 import edu.cornell.opencomm.view.MenuView;
 import edu.cornell.opencomm.view.NotificationView;
 import edu.cornell.opencomm.view.PrivateSpaceIconView;
+import edu.cornell.opencomm.view.ResetPasswordView;
 import edu.cornell.opencomm.view.SignupView;
 import edu.cornell.opencomm.view.SoundSettingsView;
 import edu.cornell.opencomm.view.SpaceView;
@@ -354,6 +355,19 @@ public final class MainApplication extends Activity{
                         debug1, Network.DEFAULT_INVITE);
                 break;
             }
+            
+            case KeyEvent.KEYCODE_Y:{
+            	Log.d(TAG, "contacts button clicked");
+                Intent i= new Intent();
+             //   LayoutInflater ifl=dashboardView.getInflater();
+    
+                LayoutInflater ifl = (LayoutInflater) MainApplication.this
+                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                ResetPasswordView cpv= new ResetPasswordView(ifl);
+                cpv.setContext(Space.getMainSpace().getContext());
+                cpv.launch();
+            }
+            
             }
             ;
             return true;

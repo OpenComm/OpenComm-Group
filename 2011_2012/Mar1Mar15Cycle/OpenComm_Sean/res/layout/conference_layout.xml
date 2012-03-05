@@ -217,14 +217,15 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/overlay_white"
                 android:visibility="invisible" />
-
+
             <FrameLayout
                 android:id="@+id/confirmBarFrame"
                 android:layout_width="fill_parent"
                 android:layout_height="37.33dp"
-                android:layout_alignParentBottom="true"
+                android:layout_alignParentBottom="false"
                 android:layout_alignParentLeft="true"
-                android:layout_marginBottom="15dp" >
+                android:layout_below="@+id/scrollView1"
+                android:layout_marginBottom="0dp" >
 
                 <LinearLayout
                     android:id="@+id/confirmBar"

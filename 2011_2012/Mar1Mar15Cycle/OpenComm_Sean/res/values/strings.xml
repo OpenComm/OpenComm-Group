@@ -28,5 +28,6 @@
     <item>Every Year</item>
 </string-array>
 <string name="signup">my account</string>
+<string name="sign_up">sign up</string>
  
 </resources>

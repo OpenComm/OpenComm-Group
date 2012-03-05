@@ -25,6 +25,7 @@ import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.network.Network;
 import edu.cornell.opencomm.view.ConferencePlannerView;
 import edu.cornell.opencomm.view.DashboardView;
+import edu.cornell.opencomm.view.ResetPasswordView;
 
 public class DashboardController {
     // Debugging
@@ -72,7 +73,7 @@ public class DashboardController {
     }
 
     public void handleContactsButtonClicked(){
-    	
+
     }
     public void handleAccountButtonClicked(){
     	
