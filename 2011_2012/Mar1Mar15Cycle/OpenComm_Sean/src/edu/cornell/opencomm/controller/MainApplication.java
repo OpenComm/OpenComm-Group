@@ -41,6 +41,7 @@ import edu.cornell.opencomm.view.LoginView;
 import edu.cornell.opencomm.view.MenuView;
 import edu.cornell.opencomm.view.NotificationView;
 import edu.cornell.opencomm.view.PrivateSpaceIconView;
+import edu.cornell.opencomm.view.SignupView;
 import edu.cornell.opencomm.view.SoundSettingsView;
 import edu.cornell.opencomm.view.SpaceView;
 import edu.cornell.opencomm.view.TipView;
@@ -241,6 +242,12 @@ public final class MainApplication extends Activity{
                 soundSettingsView.launch();
                 break;
             }
+            case KeyEvent.KEYCODE_8: {
+                Log.v(TAG, "Pressed 8 key - Signup");
+                SignupView view = new SignupView(MainApplication.this);
+                view.launch();
+                break;
+            }
             case KeyEvent.KEYCODE_M: {
                 // invite a user to the mainspace. Assume inviter is owner
                 int i = 0;
@@ -284,6 +291,7 @@ public final class MainApplication extends Activity{
                 }
                 break;
             }
+
             case KeyEvent.KEYCODE_MENU:{
                 Log.v(TAG, "Clicked on MENU key");
                 LayoutInflater inflater = (LayoutInflater) MainApplication.this
