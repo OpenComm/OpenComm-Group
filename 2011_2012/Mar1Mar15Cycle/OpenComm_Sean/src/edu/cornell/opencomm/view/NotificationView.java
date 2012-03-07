@@ -86,7 +86,7 @@ public class NotificationView {
         TextView textView = new TextView(context);
         textView.setPadding(10,10,10,10);
         textView.setBackgroundColor(Color.BLACK);
-         textView.setTextColor(isColor? Color.WHITE : Color.parseColor(myColor));
+         textView.setTextColor(isColor? Color.parseColor(myColor): Color.WHITE );
         textView.setText(tip);
 
         Toast toastView = new Toast(context);

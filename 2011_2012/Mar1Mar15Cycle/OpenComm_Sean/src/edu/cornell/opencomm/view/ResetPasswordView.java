@@ -4,9 +4,12 @@
 	import android.app.Activity;
 	import android.content.Context;
 	import android.graphics.Typeface;
+import android.text.Editable;
+import android.text.TextWatcher;
 	import android.util.Log;
 	import android.view.LayoutInflater;
 	import android.view.View;
+import android.view.View.OnFocusChangeListener;
 	import android.widget.Button;
 	import android.widget.EditText;
 	import android.widget.ImageButton;
@@ -26,7 +29,7 @@ To call it :
 2. pass this instance in the ResetPasswordView controller
 3. use launch() to popup view.
  */
-	public class ResetPasswordView {
+	public class ResetPasswordView{
 	    private static String LOG_TAG = "View.ResetPassword"; // for error checking
 	    private Context context;
 	    private LayoutInflater inflater = null;
@@ -43,11 +46,12 @@ To call it :
 	    private Typeface font;
 
 	    // Layout Views not sure if needed..
-	    //private static EditText resetUsername;
+	    private static EditText resetUsername;
 	    private static Button  resetText;
 	    private static Button signUp;
 	    private static ImageButton resetButton;
 	    private static ImageView loginOverlay;
+	    
 
 	    public ResetPasswordView(LayoutInflater inflater, Context context) {
 	    	setContext(context);
@@ -91,6 +95,7 @@ To call it :
 	        ImageButton resetButton = getResetButton();
 	       Button resetTextButton = getResetTextButton();
 	       TextView signUpTextButton = getSignUpTextButton();
+	       final EditText resetUsernameText = getResetUsername();
 	        if (resetButton != null) {
 	            resetButton.setOnClickListener(onResetButtonClickedListener);
 	        }
@@ -99,6 +104,22 @@ To call it :
 	        }
 	        if (signUpTextButton != null) {
 	            signUpTextButton.setOnClickListener(onSignUpButtonClickedListener);
+	        }
+	        if (resetUsernameText != null){
+	 	       resetUsernameText.setOnFocusChangeListener(new OnFocusChangeListener()
+			     {
+			         @Override
+			         public void onFocusChange(View v, boolean hasFocus) 
+			         {
+			        	 Log.d(LOG_TAG, "Setting listeners for onfocusChange");
+			             if (!hasFocus)
+			             {
+			            	 Log.d(LOG_TAG, "Not focused, trying to set text");
+			            	//resetUsernameText.setText("WTF");
+			            	 resetPasswordController.handleTextChange(resetUsernameText.getEditableText());
+			             }
+			         }
+			     });
 	        }
 	    }
 
@@ -124,11 +145,13 @@ To call it :
 		}
 
 		public EditText getResetUsername(){
-			EditText resetUsername = null;
-			if (resetPasswordLayout != null) {
-		 	resetUsername = (EditText) resetPasswordLayout
-					.findViewById(R.id.editTextResetUsername);
+			if (resetPasswordLayout == null){
+				return null;
 			}
+			EditText resetUsername = (EditText) resetPasswordLayout
+					.findViewById(R.id.editTextResetUsername); 
+		
+		//	this.resetUsername = resetUsername;
 			return resetUsername;
 		 	
 		}
@@ -142,9 +165,15 @@ To call it :
 			return resetButton;
 		}
 
-	    public ImageView getLoginOverlay() {
-	        return loginOverlay;
-	    }
+	    public ImageView getResetOverlay() {
+			ImageView resetOverlay = null;
+			if (resetPasswordLayout != null) {
+				resetOverlay = (ImageView) resetPasswordLayout
+						.findViewById(R.id.resetOverlay);
+			}
+
+			return resetOverlay;
+		}
 
 	    public Context getContext() {
 	        return context;
@@ -176,13 +205,15 @@ To call it :
 	            resetPasswordController.handleSignUpButtonClick();
 	        }
 	    };
-
 		public PopupWindow getWindow() {
 			return window;
 		}
-	    
-	    
+
+		
+		
 	}
+	
+	
 
 	
 
