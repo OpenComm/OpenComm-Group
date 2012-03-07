@@ -17,6 +17,15 @@ import android.widget.TextView;
 	import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.ResetPasswordController;
 
+
+/* An instance of a reset password view, allowing users to reset or sign up with whichever username (their email) they desire. 
+ Just a heads-up, this view is called as a popup window
+
+To call it :
+1. inflate by creating an instance of Layoutinflater in whichever view
+2. pass this instance in the ResetPasswordView controller
+3. use launch() to popup view.
+ */
 	public class ResetPasswordView {
 	    private static String LOG_TAG = "View.ResetPassword"; // for error checking
 	    private Context context;
@@ -40,7 +49,8 @@ import edu.cornell.opencomm.controller.ResetPasswordController;
 	    private static ImageButton resetButton;
 	    private static ImageView loginOverlay;
 
-	    public ResetPasswordView(LayoutInflater inflater) {
+	    public ResetPasswordView(LayoutInflater inflater, Context context) {
+	    	setContext(context);
 	        this.inflater = inflater;
 	        this.resetPasswordController =  new ResetPasswordController(
 	                this);
@@ -49,7 +59,9 @@ import edu.cornell.opencomm.controller.ResetPasswordController;
 	    } 
 	    
 	    
-	    public void launch() {
+
+
+		public void launch() {
 	        if (inflater != null && resetPasswordLayout != null) {
 	            window = new PopupWindow(resetPasswordLayout, Values.screenW,
 	                    Values.screenH, true);

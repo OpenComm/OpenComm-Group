@@ -28,7 +28,7 @@ public class UserView extends ImageButton{
     Bitmap image; // The actual image that will show on the user screen
     Bitmap nameBoxImage; // The name box on a user's icon
     Space space;
-
+    
     //font
     private Typeface font;
 

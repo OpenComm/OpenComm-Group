@@ -363,8 +363,8 @@ public final class MainApplication extends Activity{
     
                 LayoutInflater ifl = (LayoutInflater) MainApplication.this
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                ResetPasswordView cpv= new ResetPasswordView(ifl);
-                cpv.setContext(Space.getMainSpace().getContext());
+                ResetPasswordView cpv= new ResetPasswordView(ifl,MainApplication.this);
+               // cpv.setContext(Space.getMainSpace().getContext());
                 cpv.launch();
             }
             

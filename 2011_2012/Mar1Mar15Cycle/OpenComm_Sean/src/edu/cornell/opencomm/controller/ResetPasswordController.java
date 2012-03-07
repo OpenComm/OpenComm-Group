@@ -4,7 +4,8 @@
 	import android.util.Log;
 	import android.widget.EditText;
 	import edu.cornell.opencomm.Values;
-	import edu.cornell.opencomm.view.ResetPasswordView;
+import edu.cornell.opencomm.view.NotificationView;
+import edu.cornell.opencomm.view.ResetPasswordView;
 	
 	public class ResetPasswordController {
 	
@@ -32,6 +33,8 @@
 	        Log.d(LOG_TAG, "username input: " + username);
 	   }
 	    public void handleResetButtonClick() {
+	    	NotificationView popup = new NotificationView(resetPasswordView.getContext());
+	    	popup.launch("LOLOLOL TROLLLED","RED", true);
 	    	findUsername();
 	    	//TODO: Populate this thing
 	        // Dismisses the window for now
@@ -40,6 +43,8 @@
 	    }
 	    
 	    public void handleSignUpButtonClick() {
+	    	NotificationView popup = new NotificationView(resetPasswordView.getContext());
+	    	popup.launch("LOLOLOL TROLLLED","RED", true);
 	    	findUsername();
 	    	//TODO: Populate this thing
 	        // Dismisses the window for now

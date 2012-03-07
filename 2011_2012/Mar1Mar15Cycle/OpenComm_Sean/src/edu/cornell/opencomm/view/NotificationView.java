@@ -17,7 +17,8 @@ public class NotificationView {
         this.setContext(context);
     }
 
-    public void launch(String tip){
+
+	public void launch(String tip){
         TextView textView = new TextView(context);
         textView.setPadding(10,10,10,10);
         textView.setBackgroundColor(Color.BLACK);
@@ -78,5 +79,24 @@ public class NotificationView {
         toastView.show();
 
     }
+    
+    /* Pops up an instance of NotificationView. If boolean is true, color is determined by the string myColor. 
+     * Invariant: myColor has to be one of #RRGGBB #AARRGGBB 'red', 'blue', 'green', 'black', 'white', 'gray', 'cyan', 'magenta', 'yellow', 'lightgray', 'darkgray' */
+    public void launch(String tip, String myColor, boolean isColor) {
+        TextView textView = new TextView(context);
+        textView.setPadding(10,10,10,10);
+        textView.setBackgroundColor(Color.BLACK);
+         textView.setTextColor(isColor? Color.WHITE : Color.parseColor(myColor));
+        textView.setText(tip);
+
+        Toast toastView = new Toast(context);
+        toastView.setView(textView);
+        toastView.setDuration(Toast.LENGTH_LONG);
+        toastView.setGravity(Gravity.TOP, 0, 530);
+        toastView.show();
+
+    }
+    
+    
 
 }
