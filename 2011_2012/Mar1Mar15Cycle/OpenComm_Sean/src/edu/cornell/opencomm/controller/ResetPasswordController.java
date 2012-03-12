@@ -77,14 +77,14 @@ import edu.cornell.opencomm.view.SignupView;
 	    	if (validEmail(username)){
 	     	NotificationView popup = new NotificationView(resetPasswordView.getContext());
 	    	//Should use a string xml
-	     	popup.launch("User inputted valid email, password sent.","RED", true);
+	     	popup.launch("User inputted valid email, password sent.","RED","WHITE", true);
 	        // Dismisses the window for now
 	    	
 	        resetPasswordView.getWindow().dismiss();}
 	    	else{
 	    		NotificationView popup1 = new NotificationView(resetPasswordView.getContext());
 		    	//Should use a string xml
-		     	popup1.launch("Username/email not found in database. Please try again.","RED", true);
+		     	popup1.launch("Username/email not found in database. Please try again.","RED", "WHITE",true);
 	    		
 	    	}
 	    	Log.d(LOG_TAG, "reset password button clicked");
@@ -100,7 +100,7 @@ import edu.cornell.opencomm.view.SignupView;
             suv.launch();
 	        // Dismisses the window for now
             NotificationView popup = new NotificationView(resetPasswordView.getContext());
-	    	popup.launch("Sign up page here","RED", true);
+	    	popup.launch("Sign up page here","RED","WHITE", true);
 	        resetPasswordView.getWindow().dismiss();
 	    	Log.d(LOG_TAG, "sign up button clicked");
 	    }
@@ -113,9 +113,9 @@ import edu.cornell.opencomm.view.SignupView;
 				//Strings have to be added to xml instead of hardcoded. 
 				//BUG: Current popup is invisible - its behind the current window
 				NotificationView popup = new NotificationView(resetPasswordView.getContext());
-			    popup.launch("Wrong email!","RED", true);
-			    return false;
-			}	
+				popup.launch("Wrong email!","RED", "WHITE", true);
+				return false;
+			}
 			return true;
 		}
 	

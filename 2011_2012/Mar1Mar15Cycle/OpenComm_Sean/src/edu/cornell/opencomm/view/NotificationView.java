@@ -80,13 +80,13 @@ public class NotificationView {
 
     }
     
-    /* Pops up an instance of NotificationView. If boolean is true, color is determined by the string myColor. 
+    /* Pops up an instance of NotificationView. If boolean is true, default colors overridden
      * Invariant: myColor has to be one of #RRGGBB #AARRGGBB 'red', 'blue', 'green', 'black', 'white', 'gray', 'cyan', 'magenta', 'yellow', 'lightgray', 'darkgray' */
-    public void launch(String tip, String myColor, boolean isColor) {
+    public void launch(String tip, String textColor,String backgroundColor, boolean isColor) {
         TextView textView = new TextView(context);
         textView.setPadding(10,10,10,10);
-        textView.setBackgroundColor(Color.BLACK);
-         textView.setTextColor(isColor? Color.parseColor(myColor): Color.WHITE );
+        textView.setBackgroundColor(isColor? Color.parseColor(backgroundColor): Color.BLACK );
+         textView.setTextColor(isColor? Color.parseColor(textColor): Color.WHITE );
         textView.setText(tip);
 
         Toast toastView = new Toast(context);
