@@ -28,62 +28,67 @@ import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.ResetPasswordView;
 
 public class DashboardController {
-    // Debugging
-    private static final boolean D = Values.D;
-	
-    // Logs
-    private static String TAG = "Controller.DashboardController";
+	// Debugging
+	private static final boolean D = Values.D;
 
-    private DashboardView dashboardView;
-    public static String username;
+	// Logs
+	private static String TAG = "Controller.DashboardController";
 
-    public DashboardController(DashboardView dashboardView) {
-        this.dashboardView = dashboardView;
-    }
+	private DashboardView dashboardView;
+	public static String username;
 
-    public void handleStartConferenceButtonClicked() {
-        dashboardView.getDashboardOverlay().setVisibility(View.VISIBLE);
-        ProgressDialog progress=ProgressDialog.show(this.dashboardView, "", "Loading. Please wait...", true);
-        
-        username = this.dashboardView.getIntent().getStringExtra(Network.KEY_USERNAME);
-        dashboardView.getStartConferenceButton().setBackgroundColor(R.color.light_grey);
+	public DashboardController(DashboardView dashboardView) {
+		this.dashboardView = dashboardView;
+	}
 
-        // Crystal: To launch planner instead of conference space in dashboard
-        //Intent i = new Intent(dashboardView, MainApplication.class);        
-        //i.putExtra(Network.KEY_USERNAME, username);
-        //i.setAction(Network.ACTION_LOGIN);
+	public void handleStartConferenceButtonClicked() {
+		dashboardView.getDashboardOverlay().setVisibility(View.VISIBLE);
+		ProgressDialog progress = ProgressDialog.show(this.dashboardView, "",
+				"Loading. Please wait...", true);
 
-        //dashboardView.startActivity(i);
-        
-        //Crystal's code
-        Intent myIntent = new Intent();
-        myIntent.setClass(dashboardView.getApplication(),ConferencePlannerView.class);
-        dashboardView.startActivity(myIntent);
-        
-        //Log.v("Dashboardcontroller", "launch");
-        //Intent i= new Intent();
-        //LayoutInflater ifl=dashboardView.getInflater();
-        //ConferencePlannerView cpv= new ConferencePlannerView(ifl);
-        //cpv.setContext(Space.getMainSpace().getContext());
-        //cpv.launch();
-        //progress.dismiss();
-        
-        
-        
-    }
+		username = this.dashboardView.getIntent().getStringExtra(
+				Network.KEY_USERNAME);
+		dashboardView.getStartConferenceButton().setBackgroundColor(
+				R.color.light_grey);
 
-    public void handleContactsButtonClicked(){
+		// Crystal: To launch planner instead of conference space in dashboard
+		// Intent i = new Intent(dashboardView, MainApplication.class);
+		// i.putExtra(Network.KEY_USERNAME, username);
+		// i.setAction(Network.ACTION_LOGIN);
 
-    }
-    public void handleAccountButtonClicked(){
-    	
-    }
-    public void handleHistoryButtonClicked(){
-    	
-    }
-    
-    /*public void handlePopupWindowClicked() {
-		dashboardView.getWindow().dismiss();
-	}*/
+		// dashboardView.startActivity(i);
+
+		// Crystal's code
+		Intent myIntent = new Intent();
+		myIntent.setClass(dashboardView.getApplication(),
+				ConferencePlannerView.class);
+		dashboardView.startActivity(myIntent);
+
+		// Log.v("Dashboardcontroller", "launch");
+		// Intent i= new Intent();
+		// LayoutInflater ifl=dashboardView.getInflater();
+		// ConferencePlannerView cpv= new ConferencePlannerView(ifl);
+		// cpv.setContext(Space.getMainSpace().getContext());
+		// cpv.launch();
+		// progress.dismiss();
+
+	}
+
+	public void handleContactsButtonClicked() {
+
+	}
+
+	public void handleAccountButtonClicked() {
+
+	}
+
+	public void handleHistoryButtonClicked() {
+
+	}
+
+	/*
+	 * public void handlePopupWindowClicked() {
+	 * dashboardView.getWindow().dismiss(); }
+	 */
 
 }

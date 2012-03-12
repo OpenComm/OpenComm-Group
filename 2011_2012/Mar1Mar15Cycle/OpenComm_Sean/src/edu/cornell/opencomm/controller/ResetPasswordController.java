@@ -44,7 +44,11 @@ import edu.cornell.opencomm.view.SignupView;
 	   
 	   /**Dismisses the popup if email is in database and send a new email to the address. Otherwise, popup prompt clarifying the user's error */
 	    public void handleResetButtonClick() {
+	    	
+	    	resetPasswordView.getResetOverlay().setVisibility(View.VISIBLE);
 	    	findUsername();
+	    	//Does 1 last local email check with Android matcher
+	    	handleTextChange(resetPasswordView.getResetUsername().getText());
 	    	//Checks network for email validation
 	    	if (validEmail(username)){
 	     	NotificationView popup = new NotificationView(resetPasswordView.getContext());
@@ -54,6 +58,7 @@ import edu.cornell.opencomm.view.SignupView;
 	    	
 	        resetPasswordView.getWindow().dismiss();}
 	    	else{
+	    		resetPasswordView.getResetOverlay().setVisibility(View.INVISIBLE);
 	    		NotificationView popup1 = new NotificationView(resetPasswordView.getContext());
 		    	//Should use a string xml
 		     	popup1.launch("Username/email not found in database. Please try again.","RED", "WHITE",true);
@@ -64,7 +69,7 @@ import edu.cornell.opencomm.view.SignupView;
 	    
 	    /**Dismisses this popup and call JP's account creation popup */
 	    public void handleSignUpButtonClick() {
-	    	//Network email check not enforced - I think its redundent if this will be enforced in JP's screen anyhow */
+	    	resetPasswordView.getSignUpOverlay().setVisibility(View.VISIBLE);
 	    	findUsername();
             LayoutInflater ifl = (LayoutInflater) resetPasswordView.getContext()
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
