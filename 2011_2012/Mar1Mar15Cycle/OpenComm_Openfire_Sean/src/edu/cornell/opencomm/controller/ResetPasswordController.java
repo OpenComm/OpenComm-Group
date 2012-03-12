@@ -11,7 +11,6 @@ package edu.cornell.opencomm.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.Security;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -21,8 +20,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.jivesoftware.smack.XMPPConnection;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -106,17 +103,16 @@ import edu.cornell.opencomm.view.SignupView;
 	    }
 
 	    /**Handler for when the textbox changes */
-		public boolean handleTextChange(Editable s) {
+		public void handleTextChange(Editable s) {
 			Log.d(LOG_TAG,"called handleTextChange");
-			if(!isEmailPatternMatch(s)){
+			if(isEmailPatternMatch(s)==false){
 				s.clear();
 				//Strings have to be added to xml instead of hardcoded. 
 				//BUG: Current popup is invisible - its behind the current window
-				NotificationView popup = new NotificationView(resetPasswordView.getContext());
-			    popup.launch("Wrong email!","RED", true);
-			    return false;
-			}	
-			return true;
+				   NotificationView popup = new NotificationView(resetPasswordView.getContext());
+			    	popup.launch("Wrong email!","RED", true);
+			}
+			
 		}
 	
 		/**Checks if email is a valid pattern match (Has an @, spaces, dots, no symbols etc)*/
@@ -125,18 +121,17 @@ import edu.cornell.opencomm.view.SignupView;
 		}
 		
 		/**checks of email is in the network (sends a new email to this if valid */
-	private boolean validEmail(String userEmail){
+		private boolean validEmail(String userEmail){
 			/* FIRST WAY TO GO */
-			
+			/*
 			//Open a web browser and passing it the email
-			//String url = "http://(website).com&id="+userEmail;
-			String url = "http://128.84.18.99/test.php";
+			String url = "http://(website).com&id="+userEmail;
 			Intent i = new Intent(Intent.ACTION_VIEW);
 			i.setData(Uri.parse(url));
-			resetPasswordView.getContext().startActivity(i);			
+			if(!startActivity(i)) return false;
+			*/
 			
 			/* SECOND WAY */
-			/*
 			//search for the user information in the database using an http post for a php script
 			InputStream is=null;
 			
@@ -159,11 +154,9 @@ import edu.cornell.opencomm.view.SignupView;
 				Log.e(LOG_TAG, "IO error: "+e.toString());
 				return false;
 			}
-			*/
+			
 			/* LAST WAY */ //to do it would be with the openfire API in my opinion but we have to look into that
 			
-			//TODO: Server side in PHP: send email, generate new password, change it
-			
 			return true;
-		}
+		}	
 }
