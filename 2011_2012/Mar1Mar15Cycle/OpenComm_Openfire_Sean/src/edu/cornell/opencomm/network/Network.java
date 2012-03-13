@@ -31,6 +31,22 @@ public class Network {
 	
 	/** = conference server */ 
 	public static final String DEFAULT_CONFERENCE = "conference.opencomm";
+	
+	// ====================================================================== //
+	// ====================================================================== //
+	
+	// DATABASE CONNECTION CONSTANTS
+	/** = default database URL */
+	public static final String DEFAULT_DATABASE = "jdbc:mysql://localhost:3306/opencomm";
+	
+	/** = default database name */
+	public static final String DEFAULT_DB_NAME = "opencomm";
+	
+	/** = default database username */
+	public static final String DEFAULT_DB_USERNAME = "admin";
+	
+	/** = default database password */
+	public static final String DEFAULT_DB_PASSWORD = "opencomm";
 
 	// ====================================================================== //
 	// ====================================================================== //
