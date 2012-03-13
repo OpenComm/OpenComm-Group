@@ -11,7 +11,6 @@ package edu.cornell.opencomm.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.Security;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -21,8 +20,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.jivesoftware.smack.XMPPConnection;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -72,24 +69,19 @@ import edu.cornell.opencomm.view.SignupView;
 	   
 	   /**Dismisses the popup if email is in database and send a new email to the address. Otherwise, popup prompt clarifying the user's error */
 	    public void handleResetButtonClick() {
-	    	
-	    	resetPasswordView.getResetOverlay().setVisibility(View.VISIBLE);
 	    	findUsername();
-	    	//Does 1 last local email check with Android matcher
-	    	handleTextChange(resetPasswordView.getResetUsername().getText());
 	    	//Checks network for email validation
 	    	if (validEmail(username)){
 	     	NotificationView popup = new NotificationView(resetPasswordView.getContext());
 	    	//Should use a string xml
-	     	popup.launch("User inputted valid email, password sent.","RED","WHITE", true);
+	     	popup.launch("User inputted valid email, password sent.","RED", true);
 	        // Dismisses the window for now
 	    	
 	        resetPasswordView.getWindow().dismiss();}
 	    	else{
-	    		resetPasswordView.getResetOverlay().setVisibility(View.INVISIBLE);
 	    		NotificationView popup1 = new NotificationView(resetPasswordView.getContext());
 		    	//Should use a string xml
-		     	popup1.launch("Username/email not found in database. Please try again.","RED", "WHITE",true);
+		     	popup1.launch("Username/email not found in database. Please try again.","RED", true);
 	    		
 	    	}
 	    	Log.d(LOG_TAG, "reset password button clicked");
@@ -97,7 +89,7 @@ import edu.cornell.opencomm.view.SignupView;
 	    
 	    /**Dismisses this popup and call JP's account creation popup */
 	    public void handleSignUpButtonClick() {
-	    	resetPasswordView.getSignUpOverlay().setVisibility(View.VISIBLE);
+	    	//Network email check not enforced - I think its redundent if this will be enforced in JP's screen anyhow */
 	    	findUsername();
             LayoutInflater ifl = (LayoutInflater) resetPasswordView.getContext()
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -105,23 +97,22 @@ import edu.cornell.opencomm.view.SignupView;
             suv.launch();
 	        // Dismisses the window for now
             NotificationView popup = new NotificationView(resetPasswordView.getContext());
-	    	popup.launch("Sign up page here","RED","WHITE", true);
+	    	popup.launch("Sign up page here","RED", true);
 	        resetPasswordView.getWindow().dismiss();
 	    	Log.d(LOG_TAG, "sign up button clicked");
 	    }
 
 	    /**Handler for when the textbox changes */
-		public boolean handleTextChange(Editable s) {
+		public void handleTextChange(Editable s) {
 			Log.d(LOG_TAG,"called handleTextChange");
-			if(!isEmailPatternMatch(s)){
+			if(isEmailPatternMatch(s)==false){
 				s.clear();
 				//Strings have to be added to xml instead of hardcoded. 
 				//BUG: Current popup is invisible - its behind the current window
-				NotificationView popup = new NotificationView(resetPasswordView.getContext());
-				popup.launch("Wrong email!","RED", "WHITE", true);
-				return false;
+				   NotificationView popup = new NotificationView(resetPasswordView.getContext());
+			    	popup.launch("Wrong email!","RED", true);
 			}
-			return true;
+			
 		}
 	
 		/**Checks if email is a valid pattern match (Has an @, spaces, dots, no symbols etc)*/
@@ -130,18 +121,17 @@ import edu.cornell.opencomm.view.SignupView;
 		}
 		
 		/**checks of email is in the network (sends a new email to this if valid */
-	private boolean validEmail(String userEmail){
+		private boolean validEmail(String userEmail){
 			/* FIRST WAY TO GO */
-			
+			/*
 			//Open a web browser and passing it the email
-			//String url = "http://(website).com&id="+userEmail;
-			String url = "http://128.84.18.99/test.php";
+			String url = "http://(website).com&id="+userEmail;
 			Intent i = new Intent(Intent.ACTION_VIEW);
 			i.setData(Uri.parse(url));
-			resetPasswordView.getContext().startActivity(i);			
+			if(!startActivity(i)) return false;
+			*/
 			
 			/* SECOND WAY */
-			/*
 			//search for the user information in the database using an http post for a php script
 			InputStream is=null;
 			
@@ -164,11 +154,9 @@ import edu.cornell.opencomm.view.SignupView;
 				Log.e(LOG_TAG, "IO error: "+e.toString());
 				return false;
 			}
-			*/
+			
 			/* LAST WAY */ //to do it would be with the openfire API in my opinion but we have to look into that
 			
-			//TODO: Server side in PHP: send email, generate new password, change it
-			
 			return true;
-		}
+		}	
 }
