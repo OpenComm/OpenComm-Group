@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello</string>
-    <string name="app_name">OpenComm_OpenFire_Sean</string>
-    <string name="delete_text">Delete?</string>
-    <string name="action_bar_text">Opencomm</string>
+<string name="hello">Hello</string>
+<string name="app_name">OC-Sean</string>
+<string name="delete_text">Delete?</string>
+<string name="action_bar_text">Opencomm</string>
 <string name="trash_button_text">Trash</string>
 <string name="main_button_text">Main</string>
 <string name="add_button_text">Add</string>
@@ -15,7 +15,19 @@
 <string name="settings">settings</string>
 <string name="delete_user">delete user</string>
 <string name="leave_chat">leave chat</string>
+<string name="new_conf">conference</string>
 <string name="add_user">add user</string>
 <string name="font_chosen">Datum</string>
+<string name= "recurring_prompt">Conference recurring?</string>
+<string-array name="recurring_options">
+    <item>Only Once</item>
+    <item>Every Day</item>
+    <item>Every Week</item>
+    <item>Every 2 Weeks</item>
+    <item>Every Month</item>
+    <item>Every Year</item>
+</string-array>
+<string name="signup">my account</string>
+<string name="sign_up">sign up</string>
  
 </resources>

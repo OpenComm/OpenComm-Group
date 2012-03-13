@@ -60,7 +60,7 @@ public class LoginController {
 				Log.d(LOG_TAG, "handleLogin: Attempt log in using username:"+Network.DEBUG_USERNAME.toString()+"and password:"+Network.DEBUG_PASSWORD.toString());
 			}
 			else {
-				// log in using the username and password inputted by primary user			
+				// log in using the username and password inputted by primary user	
 				xmppService.login(usernameEdit.getText().toString(), passwordEdit.getText().toString());
 				Log.i(LOG_TAG, "handleLogin: Attempt log in using username:"+usernameEdit.getText().toString()+"and password:"+passwordEdit.getText().toString());
 			}
