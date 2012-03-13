@@ -78,6 +78,21 @@ public class LoginView extends Activity {
             loginText.setOnClickListener(onLoginButtonClickedListener);
         }
     }
+    /**Jump to the account creation page when sign-up button is clicked*/
+    public void createAccount(View v){
+    	Log.v("Crystal", "create Account");
+    	SignupView account=new SignupView(this);
+    	account.launch();
+    	
+    	
+    }
+    /**Jump to the Reset Password page when forgot-password is clicked*/
+    public void retrievePassword(View v){
+    	Log.v("Crystal", "retrievePassword");
+    	ResetPasswordView account=new ResetPasswordView(inflater, this);
+    	account.launch();
+    	
+    }
 
     public ImageButton getLoginButton() {
         return loginButton;
@@ -111,3 +126,4 @@ public class LoginView extends Activity {
         }
     };
 }
+     
