@@ -87,7 +87,7 @@ public class PopupNotificationView extends LinearLayout {
 
     void createPopupWindow() {
     
-        popup = new PopupWindow(this, Values.screenW, 75, true);
+        popup = new PopupWindow(this, Values.screenW, 140, true);
         popup.showAtLocation(layout, Gravity.BOTTOM, 0, 60);
     }
     

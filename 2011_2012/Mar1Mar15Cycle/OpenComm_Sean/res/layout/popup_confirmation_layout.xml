@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:background="@color/black_translucent"
+        android:orientation="vertical" >
+
+        <ImageButton
+            android:id="@+id/gotoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/dark_grey"
+            android:src="@drawable/goto_conference_button" />
+
+        <TextView
+            android:id="@+id/header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/gotoButton"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="4dp"
+            android:text="confirmation"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/line1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/header"
+            android:layout_below="@+id/header"
+            android:layout_marginTop="4dp"
+            android:text="the tip text goes here. it is good text."
+            android:textSize="11dp" />
+
+        <TextView
+            android:id="@+id/line2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/line1"
+            android:layout_below="@+id/line1"
+            android:text="it even has a second line"
+            android:textSize="11dp" />
+
+        <ImageView
+            android:id="@+id/popOverlay"
+            android:layout_width="75dp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/overlay"
+            android:layout_toRightOf="@+id/header" 
+            android:visibility="invisible" />
+
+    </RelativeLayout>
+
+</LinearLayout>

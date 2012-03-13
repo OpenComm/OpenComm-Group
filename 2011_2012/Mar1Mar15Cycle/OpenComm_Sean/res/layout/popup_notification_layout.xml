@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:background="@color/black_translucent" 
+        android:layout_height="75dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="4dp"
+            android:text="tip"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/line1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_alignRight="@+id/header"
+            android:layout_below="@+id/header"
+            android:text="the tip text goes here. it is good text. you should read it."
+            android:textSize="11dp" />
+
+        <TextView
+            android:id="@+id/line2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="it even has a second line"
+            android:layout_below="@+id/line1"
+            android:layout_alignRight="@+id/header"
+            android:textSize="11dp" />
+
+    </RelativeLayout>
+
+</LinearLayout>
