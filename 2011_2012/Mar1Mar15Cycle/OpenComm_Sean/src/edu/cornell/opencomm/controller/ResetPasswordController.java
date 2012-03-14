@@ -19,6 +19,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.jivesoftware.smack.XMPPConnection;
+import org.jivesoftware.smack.XMPPException;
 
 import android.content.Context;
 import android.content.Intent;
@@ -130,24 +131,16 @@ import edu.cornell.opencomm.view.SignupView;
 		}
 		
 		/**checks of email is in the network (sends a new email to this if valid */
-	private boolean validEmail(String userEmail){
-			/* FIRST WAY TO GO */
+	private boolean validEmail(String userEmail){		
 			
-			//Open a web browser and passing it the email
-			//String url = "http://(website).com&id="+userEmail;
-			String url = "http://128.84.18.99/test.php";
-			Intent i = new Intent(Intent.ACTION_VIEW);
-			i.setData(Uri.parse(url));
-			resetPasswordView.getContext().startActivity(i);			
-			
-			/* SECOND WAY */
+			/* SEND AN HTTP REQUEST TO A REMOTE SERVER TO CHANGE THE PASSWORD FOR THE GIVEN USERNAME */
 			/*
 			//search for the user information in the database using an http post for a php script
 			InputStream is=null;
 			
 			try{
 			        HttpClient httpclient = new DefaultHttpClient();
-			        HttpPost httppost = new HttpPost("http://example.com/(website).phpscript&id="+userEmail);
+			        HttpPost httppost = new HttpPost("http://example.com/phpscript&id="+userEmail);
 			        HttpResponse response = httpclient.execute(httppost);
 			        HttpEntity entity = response.getEntity();
 			        is = entity.getContent();
@@ -165,9 +158,8 @@ import edu.cornell.opencomm.view.SignupView;
 				return false;
 			}
 			*/
-			/* LAST WAY */ //to do it would be with the openfire API in my opinion but we have to look into that
 			
-			//TODO: Server side in PHP: send email, generate new password, change it
+			//TODO: Server side in PHP: make the HTTP request. Ressource here: http://www.igniterealtime.org/projects/openfire/plugins/userservice/readme.html
 			
 			return true;
 		}
