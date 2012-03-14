@@ -29,5 +29,6 @@
 </string-array>
 <string name="signup">my account</string>
 <string name="sign_up">sign up</string>
+<string name="forgotPassword"><u>Forgot your password?</u></string> 
  
 </resources>

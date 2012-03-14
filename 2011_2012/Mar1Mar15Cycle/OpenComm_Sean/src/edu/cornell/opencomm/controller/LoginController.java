@@ -23,6 +23,7 @@ import edu.cornell.opencomm.network.Network;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.LoginView;
+import edu.cornell.opencomm.view.NotificationView;
 
 public class LoginController {
     private LoginView loginView;
@@ -99,6 +100,8 @@ public class LoginController {
 			
 		else{
 			//[TODO] Do something to remove ProgressDialog here.
+			NotificationView nv=new NotificationView(loginView);
+			nv.launch("incorrect username or password","RED", "WHITE", true);
 			Log.v(LOG_TAG, "Login failed for username "+username+" failed");
 		}
             
