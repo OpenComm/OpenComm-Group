@@ -34,7 +34,6 @@ import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.network.Network;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.NotificationView;
-import edu.cornell.opencomm.view.PopupNotificationView;
 import edu.cornell.opencomm.view.ResetPasswordView;
 import edu.cornell.opencomm.view.SignupView;
 	
@@ -58,7 +57,12 @@ import edu.cornell.opencomm.view.SignupView;
 
 
 	   public ResetPasswordController(ResetPasswordView resetPasswordView) {
-		    this.xmppService = new NetworkService(Network.DEFAULT_HOST, Network.DEFAULT_PORT);
+		    try {
+				this.xmppService = new NetworkService(Network.DEFAULT_HOST, Network.DEFAULT_PORT);
+			} catch (XMPPException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		    this.xmppConn = xmppService.getXMPPConnection();
 	        this.resetPasswordView = resetPasswordView;
 
@@ -83,10 +87,9 @@ import edu.cornell.opencomm.view.SignupView;
 	    	if (validEmail(username)){
 	     	NotificationView popup = new NotificationView(resetPasswordView.getContext());
 	    	//Should use a string xml
-	     	//popup.launch("User inputted valid email, password sent.","RED","WHITE", true);
+	     	popup.launch("User inputted valid email, password sent.","RED","WHITE", true);
 	        // Dismisses the window for now
-	     	 PopupNotificationView popupNotificationView = new PopupNotificationView(resetPasswordView.getContext(), "New password sent to email.","", "", 2);
-	     	 popupNotificationView.createPopupWindow();
+	    	
 	        resetPasswordView.getWindow().dismiss();}
 	    	else{
 	    		resetPasswordView.getResetOverlay().setVisibility(View.INVISIBLE);
@@ -107,8 +110,8 @@ import edu.cornell.opencomm.view.SignupView;
             SignupView suv= new SignupView(resetPasswordView.getContext());
             suv.launch();
 	        // Dismisses the window for now
-           // NotificationView popup = new NotificationView(resetPasswordView.getContext());
-	    	//popup.launch("Sign up page here","RED","WHITE", true);
+            NotificationView popup = new NotificationView(resetPasswordView.getContext());
+	    	popup.launch("Sign up page here","RED","WHITE", true);
 	        resetPasswordView.getWindow().dismiss();
 	    	Log.d(LOG_TAG, "sign up button clicked");
 	    }
@@ -117,7 +120,9 @@ import edu.cornell.opencomm.view.SignupView;
 		public boolean handleTextChange(Editable s) {
 			Log.d(LOG_TAG,"called handleTextChange");
 			if(!isEmailPatternMatch(s)){
+				s.clear();
 				//Strings have to be added to xml instead of hardcoded. 
+				//BUG: Current popup is invisible - its behind the current window
 				NotificationView popup = new NotificationView(resetPasswordView.getContext());
 				popup.launch("Wrong email!","RED", "WHITE", true);
 				return false;

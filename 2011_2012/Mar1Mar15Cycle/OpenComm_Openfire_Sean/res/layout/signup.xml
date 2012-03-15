@@ -10,7 +10,7 @@
         android:id="@+id/infoSignup"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="25dp" >
+        android:layout_marginTop="0dp" >
 
         <RelativeLayout
             android:id="@+id/relativeTextLabel"
@@ -149,11 +149,11 @@
             </EditText>
             <TextView android:textColor="@color/off_white" android:layout_height="wrap_content" android:textSize="28dp" android:text="email" android:layout_width="wrap_content" android:layout_below="@+id/lastNameBox" android:layout_alignLeft="@+id/lastNameBox" android:id="@+id/emailText"></TextView>
             <EditText android:layout_height="27dp" android:background="@drawable/logintextback" android:paddingLeft="15dp" android:padding="0dp" android:layout_width="146.67dp" android:layout_below="@+id/emailText" android:layout_alignLeft="@+id/emailText" android:id="@+id/emailBox" android:layout_alignRight="@+id/lastNameBox"></EditText>
+            <TextView android:textColor="@color/off_white" android:layout_height="wrap_content" android:textSize="28dp" android:text="photo" android:layout_width="wrap_content" android:layout_below="@+id/emailBox" android:layout_alignLeft="@+id/emailBox" android:id="@+id/photoText"></TextView>
             <ImageView android:src="@drawable/imagearrow" android:layout_height="70dp" android:layout_width="70dp" android:scaleType="centerInside" android:layout_below="@+id/photoText" android:layout_alignLeft="@+id/photoText" android:id="@+id/photoButton"></ImageView>
+            <TextView android:textColor="@color/off_white" android:layout_height="wrap_content" android:textSize="28dp" android:padding="0dp" android:text="title" android:layout_width="wrap_content" android:layout_below="@+id/photoButton" android:layout_alignLeft="@+id/photoButton" android:id="@+id/titleText"></TextView>
             <EditText android:layout_height="27dp" android:background="@drawable/logintextback" android:paddingLeft="15dp" android:padding="0dp" android:layout_width="146.67dp" android:layout_below="@+id/titleText" android:layout_alignLeft="@+id/titleText" android:id="@+id/titleBox" android:layout_alignRight="@+id/emailBox"></EditText>
             <RelativeLayout android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/relativeTextLabel" android:layout_alignBottom="@+id/firstNameText" android:layout_alignParentLeft="true"></RelativeLayout>
-            <TextView android:layout_width="wrap_content" android:padding="0dp" android:textColor="@color/off_white" android:layout_height="wrap_content" android:text="title" android:id="@+id/titleText" android:textSize="28dp" android:layout_below="@+id/emailBox" android:layout_alignLeft="@+id/emailBox"></TextView>
-            <TextView android:layout_width="wrap_content" android:textColor="@color/off_white" android:layout_height="wrap_content" android:text="photo" android:id="@+id/photoText" android:textSize="28dp" android:layout_below="@+id/titleBox" android:layout_alignLeft="@+id/titleBox"></TextView>
             
         </RelativeLayout>
         <TextView android:textColor="@color/green" android:layout_height="66dp" android:gravity="center_vertical" android:textSize="40dp" android:background="@color/grey_dark_translucent" android:paddingBottom="0dp" android:text="@string/signup" android:paddingLeft="44dp" android:layout_width="fill_parent" android:cursorVisible="false" android:clickable="false" android:id="@+id/signupTitle" android:layout_alignParentTop="true" android:layout_alignParentLeft="true"></TextView>

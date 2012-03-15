@@ -1,24 +1,23 @@
 package edu.cornell.opencomm.view;
 
-import edu.cornell.opencomm.R;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.Gravity;
 import android.widget.TextView;
 import android.widget.Toast;
+import edu.cornell.opencomm.R;
 
-public class NotificationView {
+public class GoToConferenceView {
 
     private Context context;
     private static String TAG = "View.NotificationView";
 
-    public NotificationView(Context context) {
+    public GoToConferenceView(Context context) {
         this.setContext(context);
     }
 
-
-	public void launch(String tip){
+    public void launch(String tip){
         TextView textView = new TextView(context);
         textView.setPadding(10,10,10,10);
         textView.setBackgroundColor(Color.BLACK);
@@ -79,24 +78,5 @@ public class NotificationView {
         toastView.show();
 
     }
-    
-    /* Pops up an instance of NotificationView. If boolean is true, default colors overridden
-     * Invariant: myColor has to be one of #RRGGBB #AARRGGBB 'red', 'blue', 'green', 'black', 'white', 'gray', 'cyan', 'magenta', 'yellow', 'lightgray', 'darkgray' */
-    public void launch(String tip, String textColor,String backgroundColor, boolean isColor) {
-        TextView textView = new TextView(context);
-        textView.setPadding(10,10,10,10);
-        textView.setBackgroundColor(isColor? Color.parseColor(backgroundColor): Color.BLACK );
-         textView.setTextColor(isColor? Color.parseColor(textColor): Color.WHITE );
-        textView.setText(tip);
-
-        Toast toastView = new Toast(context);
-        toastView.setView(textView);
-        toastView.setDuration(Toast.LENGTH_LONG);
-        toastView.setGravity(Gravity.TOP, 0, 530);
-        toastView.show();
-
-    }
-    
-    
 
 }

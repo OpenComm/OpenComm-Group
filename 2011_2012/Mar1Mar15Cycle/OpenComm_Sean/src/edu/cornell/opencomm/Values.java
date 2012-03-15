@@ -21,6 +21,11 @@ public class Values {
         "Leave Conference","Cancel"}; // after longpressing the empty space in a spaceview
     public static CharSequence[] privatespaceiconMenu = {"Go to", "Leave","Cancel"}; //when chat owner decides to leave
     public static CharSequence[] whatHappen = {"Destroy chat", "Pass ownership"}; //Someone set up us the bomb
+    
+    // Popup notification types
+    public static int tip = 0;
+    public static int notification = 1;
+    public static int confirmation = 2;
 
     // Cellphone screen dimensions
     public static int screenW = 480;

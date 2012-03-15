@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnFocusChangeListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -26,7 +25,6 @@ public class SignupView {
         private View layout;
         private PopupWindow popup;
         private SignupController controller;
-        private int focus;
 
         /**
          * Constructor
@@ -40,9 +38,7 @@ public class SignupView {
             layout = inflater.inflate(R.layout.signup, null);
             popup = new PopupWindow(layout, Values.screenW,
                     Values.screenH, true);
-            controller = new SignupController(this, context);
             initEventsAndProperties();
-            focus = getFirstNameBox().getId();
         } // end SignupView
 
         /**
@@ -66,131 +62,30 @@ public class SignupView {
          * Set up click handlers
          */
         public void initEventsAndProperties() {
-            if (D) Log.d(TAG, "initEventsAndProperties called");
             initializeSaveButtonClickEvent();
             initializeCancelButtonClickEvent();
-            initializeFirstNameButtonFocusChangeEvent();
-            initializeLastNameButtonFocusChangeEvent();
-            initializeEmailButtonFocusChangeEvent();
         }
 
-        /**
-         * Sets save button click handler
-         */
         public void initializeSaveButtonClickEvent() {
-            if (D) Log.d(TAG, "initializeSaveButtonClickEvent called");
             View saveButton = getSaveButton();
             if (saveButton != null) {
                 saveButton.setOnClickListener(getSaveButtonHandler());
             }
         }
 
-        /**
-         * Sets cancel button click handler
-         */
+
         public void initializeCancelButtonClickEvent() {
-            if (D) Log.d(TAG, "initializeCancelButtonClickEvent called");
             View cancelButton = getCancelButton();
             if (cancelButton != null) {
                 cancelButton.setOnClickListener(getCancelButtonHandler());
             }
         }
 
+        public void initializePhotoButtonClickEvent() {
 
-        /**
-         * Sets handler for validation when first name focus changes
-         */
-        public void initializeFirstNameButtonFocusChangeEvent() {
-            if (D) Log.d(TAG, "initializeFirstNameButtonFocusChangeEvent called");
-            View firstNameBox = getFirstNameBox();
-            if (firstNameBox != null) {
-                firstNameBox.setOnFocusChangeListener(getFirstNameFocusChangeHandler());
-            }
         }
 
-        /**
-         * Sets handler for validation when last name focus changes
-         */
-        public void initializeLastNameButtonFocusChangeEvent() {
-            if (D) Log.d(TAG, "initializeLastNameButtonFocusChangeEvent called");
-            View lastNameBox = getLastNameBox();
-            if (lastNameBox != null) {
-                lastNameBox.setOnFocusChangeListener(getLastNameFocusChangeHandler());
-            }
-        }
-
-        /**
-         * Sets handler for validation when email focus changes
-         */
-        public void initializeEmailButtonFocusChangeEvent() {
-            if (D) Log.d(TAG, "initializeEmailButtonFocusChangeEvent called");
-            View emailBox = getEmailBox();
-            if (emailBox != null) {
-                emailBox.setOnFocusChangeListener(getEmailFocusChangeHandler());
-            }
-        }
-
-        /**
-         * Sets handler photo button click event
-         */
-        public View.OnClickListener initializePhotoButtonClickEvent() {
-            if (D) Log.d(TAG, "initializePhotoButtonClickEvent called");
-            return new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    controller.handleSaveButtonClick();
-                }
-            };
-        }
-
-        /**
-         * @return Event handler for first name focus changes
-         */
-        private OnFocusChangeListener getFirstNameFocusChangeHandler() {
-            if (D) Log.d(TAG, "getFirstNameFocusChangeHandler called");
-            return new View.OnFocusChangeListener() {
-
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    controller.handleFirstNameFocusChange(hasFocus);
-                }
-            };
-        }
-
-        /**
-         * @return Event handler for last name focus changes
-         */
-        private OnFocusChangeListener getLastNameFocusChangeHandler() {
-            if (D) Log.d(TAG, "getLastNameFocusChangeHandler called");
-            return new View.OnFocusChangeListener() {
-
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    controller.handleLastNameFocusChange(hasFocus);
-                }
-            };
-        }
-
-        /**
-         * @return Event handler for email focus changes
-         */
-        private OnFocusChangeListener getEmailFocusChangeHandler() {
-            if (D) Log.d(TAG, "getEmailFocusChangeHandler called");
-            return new View.OnFocusChangeListener() {
-
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    controller.handleEmailFocusChange(hasFocus);
-                }
-            };
-        }
-
-        /**
-         * @return Event handler for save button clicks
-         */
         private View.OnClickListener getSaveButtonHandler() {
-            if (D) Log.d(TAG, "getSaveButtonHandler called");
             return new View.OnClickListener() {
 
                 @Override
@@ -200,11 +95,7 @@ public class SignupView {
             };
         }
 
-        /**
-         * @return Event handler for cancel button clicks
-         */
         private View.OnClickListener getCancelButtonHandler() {
-            if (D) Log.d(TAG, "getCancelButtonHandler called");
             return new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -217,7 +108,6 @@ public class SignupView {
          * @return Save Button View
          */
         public View getSaveButton() {
-            if (D) Log.d(TAG, "getSaveButton called");
             View saveButton = null;
             if (getContext() != null) {
                 saveButton = (View)
@@ -230,7 +120,6 @@ public class SignupView {
          * @return Cancel Button View
          */
         public View getCancelButton() {
-            if (D) Log.d(TAG, "getCancelButton called");
             View cancelButton = null;
             if (getContext() != null) {
                 cancelButton = (View) layout
@@ -243,7 +132,6 @@ public class SignupView {
          * @return First Name Box
          */
         public EditText getFirstNameBox() {
-            if (D) Log.d(TAG, "getFirstNameBox called");
             EditText firstNameBox = null;
             if (getContext() != null) {
                 firstNameBox = (EditText) layout
@@ -255,8 +143,7 @@ public class SignupView {
         /**
          * @return Last Name Box
          */
-        public EditText getLastNameBox() {
-            if (D) Log.d(TAG, "getLastNameBox called");
+        public EditText getlastNameBox() {
             EditText lastNameBox = null;
             if (getContext() != null) {
                 lastNameBox = (EditText) layout
@@ -266,23 +153,9 @@ public class SignupView {
         }
 
         /**
-         * @return Email Box
-         */
-        public EditText getEmailBox() {
-            if (D) Log.d(TAG, "getEmailBox called");
-            EditText lastNameBox = null;
-            if (getContext() != null) {
-                lastNameBox = (EditText) layout
-                        .findViewById(R.id.emailBox);
-            }
-            return lastNameBox;
-        }
-
-        /**
-         * @return Title Box
+         * @return Title Name Box
          */
         public EditText getTitleBox() {
-            if (D) Log.d(TAG, "getTitleBox called");
             EditText titleBox = null;
             if (getContext() != null) {
                 titleBox = (EditText) layout
@@ -295,7 +168,6 @@ public class SignupView {
          * @return Photo Button
          */
         public ImageView getPhotoButton() {
-            if (D) Log.d(TAG, "getPhotoButton called");
             ImageView photoButton = null;
             if (getContext() != null) {
                 photoButton = (ImageView) layout

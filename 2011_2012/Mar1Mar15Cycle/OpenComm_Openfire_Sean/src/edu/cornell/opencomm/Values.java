@@ -1,6 +1,8 @@
 package edu.cornell.opencomm;
 
 public class Values {
+	public static final boolean D = true;
+
 	/** These values will be changed in MainApplication's adjustLayoutParams() */
 	
 	//font
