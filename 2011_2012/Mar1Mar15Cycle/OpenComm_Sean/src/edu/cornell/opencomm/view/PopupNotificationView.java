@@ -5,6 +5,7 @@ import android.text.Layout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -39,6 +40,11 @@ public class PopupNotificationView extends LinearLayout {
     
     public PopupNotificationView(Context context, String head, String line1, String line2, int type) {
     	super(context);
+    	this.headerText = head;
+    	this.line1 = line1;
+    	this.line2 = line2;
+    	this.type = type;
+    	this.context = context;
     	this.inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     	if(type != Values.confirmation) {
@@ -47,38 +53,41 @@ public class PopupNotificationView extends LinearLayout {
     	else {
     		this.layout = (LinearLayout) inflater.inflate(R.layout.popup_confirmation_layout, this);
     	}
-    	this.headerText = head;
-    	this.line1 = line1;
-    	this.line2 = line2;
-    	this.type = type;
-    	this.context = context;
     	
     	initEventsAndProperties();
     }
     
+    class onTouchDismiss implements View.OnTouchListener {
+
+    	@Override
+    	public boolean onTouch(View v, MotionEvent event) {
+    		popup.dismiss();
+    		return true;
+    	}
+    	
+    }
+    
     public void initEventsAndProperties() {
     	if (inflater != null) {
-    		View PNLayoutFromInflater = inflater.inflate(R.layout.popup_notification_layout, this);
     		TextView t = new TextView(context);
     		t = (TextView)findViewById(R.id.header);
     		t.setText(headerText);
+    		if(type == Values.tip) {
+    			t.setTextColor(getResources().getColor(R.color.blue));
+    			Log.d(LOG_TAG, "TYPE: TIP");	
+    		}
+    		else if(type == Values.notification) {
+    			t.setTextColor(getResources().getColor(R.color.green));
+    			Log.d(LOG_TAG, "TYPE: NOTIFICATION");
+    		}
+    		else if(type == Values.confirmation) {
+    			t.setTextColor(getResources().getColor(R.color.green));
+    			Log.d(LOG_TAG, "TYPE: CONFIRMATION");
+    		}
     		t = (TextView)findViewById(R.id.line1);
     		t.setText(line1);
-    		t = (TextView)findViewById(R.id.line1);
+    		t = (TextView)findViewById(R.id.line2);
     		t.setText(line2);
-    		if(type == Values.tip) {
-    			t.setTextColor(R.color.blue);
-    		}
-    		if(type == Values.notification) {
-    			t.setTextColor(R.color.green);
-    		}
-    		if(type == Values.confirmation) {
-    			t.setTextColor(R.color.green);
-    			PNLayoutFromInflater = inflater.inflate(R.layout.popup_confirmation_layout, this);
-    		}
-    		if(PNLayoutFromInflater != null) {
-    			this.PopupNotificationLayout = PNLayoutFromInflater;
-    		}
     	}
     	if(type == Values.confirmation) {
     		initializeEvents();
@@ -87,8 +96,9 @@ public class PopupNotificationView extends LinearLayout {
 
     void createPopupWindow() {
     
-        popup = new PopupWindow(this, Values.screenW, 140, true);
-        popup.showAtLocation(layout, Gravity.BOTTOM, 0, 60);
+        popup = new PopupWindow(this, Values.screenW, 113, true);
+        popup.showAtLocation(layout, Gravity.BOTTOM, 0, 160);
+        popup.setOutsideTouchable(true);
     }
     
     public ImageButton getButton() {
@@ -122,6 +132,10 @@ public class PopupNotificationView extends LinearLayout {
 				popup.dismiss();
 			}
 		});
+		popup.setTouchInterceptor(new onTouchDismiss());
 	}
-    
+
+
 }
+
+
