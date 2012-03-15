@@ -1,9 +1,9 @@
 package edu.cornell.opencomm.view;
 
-import edu.cornell.opencomm.R;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.widget.ImageButton;
+import edu.cornell.opencomm.R;
 
 public class SoundBottomBarIconView extends ImageButton {
 

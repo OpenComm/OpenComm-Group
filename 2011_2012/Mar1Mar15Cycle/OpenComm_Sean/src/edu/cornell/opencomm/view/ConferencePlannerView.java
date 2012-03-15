@@ -2,7 +2,6 @@ package edu.cornell.opencomm.view;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.ConferencePlannerController;
 
 public class ConferencePlannerView extends Activity {

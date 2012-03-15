@@ -37,7 +37,7 @@ public class PopupNotificationView extends LinearLayout {
     private String line2;
     private int type;
 
-    
+    //0 is tip, 1 is notification, 2 is confirmation for type
     public PopupNotificationView(Context context, String head, String line1, String line2, int type) {
     	super(context);
     	this.headerText = head;
@@ -93,8 +93,8 @@ public class PopupNotificationView extends LinearLayout {
     		initializeEvents();
     	}
     }
-
-    void createPopupWindow() {
+//Changed to public - since controller package needs access
+    public void createPopupWindow() {
     
         popup = new PopupWindow(this, Values.screenW, 113, true);
         popup.showAtLocation(layout, Gravity.BOTTOM, 0, 160);

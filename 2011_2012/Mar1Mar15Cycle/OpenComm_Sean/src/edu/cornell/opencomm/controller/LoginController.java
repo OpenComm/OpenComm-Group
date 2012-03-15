@@ -13,7 +13,6 @@
 
 package edu.cornell.opencomm.controller;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;

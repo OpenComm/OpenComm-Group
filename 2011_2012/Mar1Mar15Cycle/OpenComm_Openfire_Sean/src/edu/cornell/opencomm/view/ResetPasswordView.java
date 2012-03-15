@@ -46,11 +46,11 @@ To call it :
 	    private Typeface font;
 
 	    // Layout Views not sure if needed..
-	    private static EditText resetUsername;
-	    private static Button  resetText;
-	    private static Button signUp;
-	    private static ImageButton resetButton;
-	    private static ImageView loginOverlay;
+//	    private static EditText resetUsername;
+//	    private static Button  resetText;
+//	    private static Button signUp;
+//	    private static ImageButton resetButton;
+//	    private static ImageView loginOverlay;
 	    
 
 	    public ResetPasswordView(LayoutInflater inflater, Context context) {
@@ -93,6 +93,8 @@ To call it :
 	    
 	    private void initializButtonClickedEvent() {
 	        ImageButton resetButton = getResetButton();
+	        ImageView resetButtonOverylay = getResetOverlay();
+	        ImageView signUpButtonOverlay = getSignUpOverlay();
 	       Button resetTextButton = getResetTextButton();
 	       TextView signUpTextButton = getSignUpTextButton();
 	       final EditText resetUsernameText = getResetUsername();
@@ -175,6 +177,16 @@ To call it :
 			return resetOverlay;
 		}
 
+	    public ImageView getSignUpOverlay() {
+				ImageView signUpOverlay = null;
+				if (resetPasswordLayout != null) {
+					signUpOverlay = (ImageView) resetPasswordLayout
+							.findViewById(R.id.signUpOverlay);
+				}
+
+				return signUpOverlay;
+			}
+	    
 	    public Context getContext() {
 	        return context;
 	    }
