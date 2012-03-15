@@ -77,6 +77,8 @@ public final class R {
         public static final int yousmall=0x7f020022;
     }
     public static final class id {
+        public static final int EditText01=0x7f08008e;
+        public static final int TextView01=0x7f08008d;
         public static final int acceptConfirmOverlay=0x7f080033;
         public static final int acceptInviteOverlay=0x7f080048;
         public static final int adminTipBar=0x7f080004;
@@ -105,7 +107,6 @@ public final class R {
         public static final int buttonLogin=0x7f080055;
         public static final int buttonStartConference=0x7f08003b;
         public static final int calenderButton=0x7f080012;
-        public static final int cancelButton=0x7f080086;
         public static final int cancelConfirmOverlay=0x7f080034;
         public static final int cancelInviteOverlay=0x7f080049;
         public static final int cancelOverlay=0x7f080025;
@@ -122,14 +123,14 @@ public final class R {
         public static final int editTextPassword=0x7f08004e;
         public static final int editTextResetUsername=0x7f08007b;
         public static final int editTextUsername=0x7f08004b;
-        public static final int emailBox=0x7f08008c;
-        public static final int emailText=0x7f08008b;
+        public static final int emailBox=0x7f08008a;
+        public static final int emailText=0x7f080089;
         public static final int endButtonOverlay=0x7f080019;
         public static final int endText=0x7f08000f;
         public static final int endTimeButton=0x7f080014;
         public static final int entireScreen=0x7f08007a;
-        public static final int firstNameBox=0x7f080088;
-        public static final int firstNameText=0x7f080087;
+        public static final int firstNameBox=0x7f080086;
+        public static final int firstNameText=0x7f080085;
         public static final int go_button=0x7f080079;
         public static final int gotoButton=0x7f080072;
         public static final int header=0x7f080073;
@@ -151,8 +152,8 @@ public final class R {
         public static final int inviteBar=0x7f080042;
         public static final int inviteBarFrame=0x7f080041;
         public static final int inviteOverlay=0x7f080047;
-        public static final int lastNameBox=0x7f08008a;
-        public static final int lastNameText=0x7f080089;
+        public static final int lastNameBox=0x7f080088;
+        public static final int lastNameText=0x7f080087;
         public static final int line1=0x7f080074;
         public static final int line2=0x7f080075;
         public static final int loginBar=0x7f080054;
@@ -187,8 +188,8 @@ public final class R {
         public static final int nameText=0x7f08000c;
         public static final int ocActionBar=0x7f080035;
         public static final int passwordRetrieval=0x7f080051;
-        public static final int photoButton=0x7f08008e;
-        public static final int photoText=0x7f08008d;
+        public static final int photoButton=0x7f080090;
+        public static final int photoText=0x7f08008f;
         public static final int popOverlay=0x7f080076;
         public static final int popup_header_text=0x7f0800a3;
         public static final int privateSpaceLinearLayout=0x7f08005f;
@@ -204,7 +205,6 @@ public final class R {
         public static final int resetButton=0x7f08007e;
         public static final int resetOverlay=0x7f080080;
         public static final int resetTextButton=0x7f08007f;
-        public static final int saveButton=0x7f080085;
         public static final int scrollView1=0x7f08001d;
         public static final int search=0x7f080000;
         public static final int separatorBar=0x7f08003e;
@@ -237,8 +237,8 @@ public final class R {
         public static final int tipBar=0x7f0800a8;
         public static final int tipBarFrame=0x7f0800a7;
         public static final int tipOverlay=0x7f0800ab;
-        public static final int titleBox=0x7f080090;
-        public static final int titleText=0x7f08008f;
+        public static final int titleBox=0x7f08008b;
+        public static final int titleText=0x7f08008c;
         public static final int userIcons=0x7f080026;
         public static final int userInputs=0x7f08004a;
         public static final int volumeControlSideChat1=0x7f080096;

@@ -178,12 +178,12 @@ public class SpaceView extends View {
                 /*LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 //AdminTipView adminTipView = new AdminTipView(inflater);
                 //adminTipView.launch();*/
-                //NotificationView notificationView = new NotificationView(context);
-                //notificationView.launch("admin");
+                NotificationView notificationView = new NotificationView(context);
+                notificationView.launch("admin");
                 
                 //TO DO: put values for header and such in strings table
-                PopupNotificationView pnv = new PopupNotificationView(context, "tip", context.getString(R.string.admin_tip), "hello dave", Values.notification);
-                pnv.createPopupWindow();
+                //PopupNotificationView pnv = new PopupNotificationView(context, "tip", context.getString(R.string.admin_tip), "hello dave", Values.notification);
+                //pnv.createPopupWindow();
             }
         }
         if (canvas != null && space != null && space.getAllIcons() != null) {

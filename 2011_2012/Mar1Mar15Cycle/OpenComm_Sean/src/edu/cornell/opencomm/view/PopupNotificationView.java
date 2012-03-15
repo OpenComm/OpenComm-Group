@@ -134,8 +134,6 @@ public class PopupNotificationView extends LinearLayout {
 		});
 		popup.setTouchInterceptor(new onTouchDismiss());
 	}
-
-
 }
 
 
