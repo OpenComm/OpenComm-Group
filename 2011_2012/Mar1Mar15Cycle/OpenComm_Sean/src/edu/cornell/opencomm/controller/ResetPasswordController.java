@@ -78,7 +78,10 @@ import edu.cornell.opencomm.view.SignupView;
 	    	resetPasswordView.getResetOverlay().setVisibility(View.VISIBLE);
 	    	findUsername();
 	    	//Does 1 last local email check with Android matcher
-	    	handleTextChange(resetPasswordView.getResetUsername().getText());
+	    	if(!handleTextChange(resetPasswordView.getResetUsername().getText())){
+	    		resetPasswordView.getResetOverlay().setVisibility(View.INVISIBLE);
+	    		return;
+	    	}
 	    	//Checks network for email validation
 	    	if (validEmail(username)){
 	     	NotificationView popup = new NotificationView(resetPasswordView.getContext());
@@ -119,7 +122,7 @@ import edu.cornell.opencomm.view.SignupView;
 			if(!isEmailPatternMatch(s)){
 				//Strings have to be added to xml instead of hardcoded. 
 				NotificationView popup = new NotificationView(resetPasswordView.getContext());
-				popup.launch("Wrong email!","RED", "WHITE", true);
+				popup.launch("Email input was not valid!","RED", "WHITE", true);
 				return false;
 			}
 			return true;
@@ -161,6 +164,7 @@ import edu.cornell.opencomm.view.SignupView;
 			
 			//TODO: Server side in PHP: make the HTTP request. Ressource here: http://www.igniterealtime.org/projects/openfire/plugins/userservice/readme.html
 			
+		
 			return true;
 		}
 }
