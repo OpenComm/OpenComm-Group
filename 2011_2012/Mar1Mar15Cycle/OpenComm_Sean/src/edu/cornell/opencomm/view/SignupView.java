@@ -26,7 +26,6 @@ public class SignupView {
         private View layout;
         private PopupWindow popup;
         private SignupController controller;
-        private int focus;
 
         /**
          * Constructor
@@ -42,7 +41,6 @@ public class SignupView {
                     Values.screenH, true);
             controller = new SignupController(this, context);
             initEventsAndProperties();
-            focus = getFirstNameBox().getId();
         } // end SignupView
 
         /**
@@ -221,7 +219,7 @@ public class SignupView {
             View saveButton = null;
             if (getContext() != null) {
                 saveButton = (View)
-                        layout.findViewById(R.id.saveButton);
+                        layout.findViewById(R.id.buttonCreate);
             }
             return saveButton;
         }
@@ -234,7 +232,7 @@ public class SignupView {
             View cancelButton = null;
             if (getContext() != null) {
                 cancelButton = (View) layout
-                        .findViewById(R.id.cancelButton);
+                        .findViewById(R.id.buttonCancel);
             }
             return cancelButton;
         }
