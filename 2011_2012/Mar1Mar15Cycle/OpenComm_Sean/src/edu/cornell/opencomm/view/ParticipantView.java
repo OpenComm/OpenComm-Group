@@ -3,8 +3,6 @@ package edu.cornell.opencomm.view;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.jivesoftware.smack.XMPPException;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;

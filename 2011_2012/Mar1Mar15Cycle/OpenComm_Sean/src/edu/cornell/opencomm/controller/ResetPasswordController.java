@@ -9,15 +9,6 @@
 
 package edu.cornell.opencomm.controller;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.security.Security;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.jivesoftware.smack.XMPPConnection;
 
 import android.content.Context;
@@ -27,7 +18,6 @@ import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnFocusChangeListener;
 import android.widget.EditText;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.network.Network;

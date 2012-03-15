@@ -5,7 +5,9 @@ import java.util.regex.Pattern;
 import android.content.Context;
 import android.util.Log;
 import edu.cornell.opencomm.Values;
-import edu.cornell.opencomm.model.Account;
+import edu.cornell.opencomm.network.Network;
+import edu.cornell.opencomm.network.NetworkService;
+import edu.cornell.opencomm.network.UserAccountManager;
 import edu.cornell.opencomm.view.NotificationView;
 import edu.cornell.opencomm.view.SignupView;
 
@@ -26,24 +28,29 @@ public class SignupController {
         this.context = context;
     }
 
-    public final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile(
-            "[a-zA-Z0-9+._%-+]{1,256}" +
-            "@" +
-            "[a-zA-Z0-9][a-zA-Z0-9-]{0,64}" +
-            "(" +
-            "." +
-            "[a-zA-Z0-9][a-zA-Z0-9-]{0,25}" +
-            ")+"
-        );
-    public final Pattern NAME_PATTERN = Pattern.compile("[a-zA-Z]*");
+    public final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[.][a-zA-Z]{2,4}$");
+    public final Pattern NAME_PATTERN = Pattern.compile("[a-zA-Z-]+");
 
     public void handleSaveButtonClick() {
         if (D) Log.d(TAG, "handleSaveButtonClick called");
-        String username = view.getFirstNameBox().getText().toString();
-        String password = view.getLastNameBox().getText().toString();
-        String title = view.getTitleBox().getText().toString();
-        Account account = new Account(username, password, title);
-        //TODO: Do something with the account
+        String firstName = view.getFirstNameBox().getText().toString();
+        String lastName = view.getLastNameBox().getText().toString();
+        String email = view.getEmailBox().getText().toString();
+        if(validateName(firstName) && validateName(lastName) && validateEmail(email)) {
+            String title = view.getTitleBox().getText().toString();
+            String password = view.getPasswordBox().getText().toString();
+            
+            //Log into the server as admin to create a new account
+            NetworkService xmppService = new NetworkService(Network.DEFAULT_HOST, Network.DEFAULT_PORT);
+            xmppService.login(Network.DEBUG_USERNAME, Network.DEBUG_PASSWORD);
+            UserAccountManager manager = new UserAccountManager(xmppService.getXMPPConnection());
+            manager.createUser(email, password, firstName, lastName, title);
+            xmppService.disconnect();
+            view.dismiss();
+        } else {
+            NotificationView notify = new NotificationView(context);
+            notify.launch("Please fix the errors above","RED","WHITE", true);
+        }
     }
 
     public void handleFirstNameFocusChange(boolean hasFocus) {
@@ -52,7 +59,7 @@ public class SignupController {
             boolean valid = validateName(view.getFirstNameBox().getText().toString());
             if(!valid) {
                 NotificationView notify = new NotificationView(context);
-                notify.launch("Invalid First Name (no spaces allowed)","RED","WHITE", true);
+                notify.launch("Invalid First Name","RED","WHITE", true);
             }
         }
     }
@@ -63,7 +70,7 @@ public class SignupController {
             boolean valid = validateName(view.getLastNameBox().getText().toString());
             if(!valid) {
                 NotificationView notify = new NotificationView(context);
-                notify.launch("Invalid Last Name (no spaces allowed)","RED","WHITE", true);
+                notify.launch("Invalid Last Name","RED","WHITE", true);
             }
         }
     }

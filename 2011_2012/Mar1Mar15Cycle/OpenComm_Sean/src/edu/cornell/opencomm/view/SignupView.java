@@ -277,6 +277,19 @@ public class SignupView {
             }
             return lastNameBox;
         }
+        
+        /**
+         * @return Password Box
+         */
+        public EditText getPasswordBox() {
+            if (D) Log.d(TAG, "getPasswordBox called");
+            EditText passwordBox = null;
+            if (getContext() != null) {
+                passwordBox = (EditText) layout
+                        .findViewById(R.id.emailBox);
+            }
+            return passwordBox;
+        }
 
         /**
          * @return Title Box

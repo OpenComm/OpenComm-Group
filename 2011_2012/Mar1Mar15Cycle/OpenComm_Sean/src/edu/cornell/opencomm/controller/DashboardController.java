@@ -14,18 +14,13 @@
 package edu.cornell.opencomm.controller;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
-import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.network.Network;
 import edu.cornell.opencomm.view.ConferencePlannerView;
 import edu.cornell.opencomm.view.DashboardView;
-import edu.cornell.opencomm.view.ResetPasswordView;
 
 public class DashboardController {
 	// Debugging
