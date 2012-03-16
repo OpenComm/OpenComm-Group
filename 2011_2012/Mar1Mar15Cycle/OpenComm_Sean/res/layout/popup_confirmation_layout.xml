@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:orientation="vertical"
-    android:layout_height="75dp"
+    android:layout_height="80dp"
     android:background="@color/black_translucent" >
 
         <ImageButton
@@ -21,9 +21,9 @@
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/gotoButton"
             android:layout_marginRight="8dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="0dp"
             android:text="confirmation"
-            android:textSize="30dp" />
+            android:textSize="28dp" />
 
         <TextView
             android:id="@+id/line1"

@@ -78,7 +78,7 @@ import edu.cornell.opencomm.view.SignupView;
 	    	//Should use a string xml
 	     	//popup.launch("User inputted valid email, password sent.","RED","WHITE", true);
 	        // Dismisses the window for now
-	     	 PopupNotificationView popupNotificationView = new PopupNotificationView(resetPasswordView.getContext(), "New password sent to email.","", "", 2);
+	     	 PopupNotificationView popupNotificationView = new PopupNotificationView(resetPasswordView.getContext(), "sent", "New password sent to email.", "", 1);
 	     	 popupNotificationView.createPopupWindow();
 	        resetPasswordView.getWindow().dismiss();}
 	    	else{

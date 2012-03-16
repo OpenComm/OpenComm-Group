@@ -13,10 +13,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.graphics.drawable.BitmapDrawable;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.PopupNotificationController;
 import edu.cornell.opencomm.model.Space;
+
 
 public class PopupNotificationView extends LinearLayout {
 
@@ -24,22 +26,31 @@ public class PopupNotificationView extends LinearLayout {
     private Context context;
     private LayoutInflater inflater;
     private PopupWindow window = null;
-    private PopupNotificationController popupNotificationController = new PopupNotificationController(this);
+    private PopupNotificationController popupNotificationController;
     private View PopupNotificationLayout = null;
     
     private LinearLayout layout; //The layout representing the popup
     private PopupWindow popup; //The window containing the popup
     private Button goButton; //A reference to the Go Button
 
-    
     private String headerText;
     private String line1;
     private String line2;
     private int type;
 
+    
     //0 is tip, 1 is notification, 2 is confirmation for type
+    /**
+     * Constructor
+     * @param context     - MainApplication
+     * @param head - text to display in tip header
+     * @param line1 - text to display in line 1 of popup
+     * @param line2 - text to display in line 2 of popup
+     * @param type - type of popup to display, 0 for tip, 1 for notification, and 2 for confirmation (with button)
+     */
     public PopupNotificationView(Context context, String head, String line1, String line2, int type) {
     	super(context);
+    	popupNotificationController = new PopupNotificationController(this);
     	this.headerText = head;
     	this.line1 = line1;
     	this.line2 = line2;
@@ -56,17 +67,23 @@ public class PopupNotificationView extends LinearLayout {
     	
     	initEventsAndProperties();
     }
-    
-    class onTouchDismiss implements View.OnTouchListener {
-
-    	@Override
-    	public boolean onTouch(View v, MotionEvent event) {
-    		popup.dismiss();
-    		return true;
-    	}
-    	
+    /**
+     * Constructor
+     * @param context     - MainApplication
+     * @param head - text to display in tip header
+     * @param line1 - text to display in line 1 of popup
+     * @param line2 - text to display in line 2 of popup
+     * @param type - type of popup to display, 0 for tip, 1 for notification, and 2 for confirmation (with button)
+     * @param PNC - custom PopupNotificationController for handling different confirm button behaviors
+     */
+    public PopupNotificationView (Context context, String head, String line1, String line2, int type, PopupNotificationController PNC) {
+    	this(context, head, line1, line2, type);
+    	this.popupNotificationController = PNC;
     }
     
+    /**
+     *initializes properties of popup
+     */
     public void initEventsAndProperties() {
     	if (inflater != null) {
     		TextView t = new TextView(context);
@@ -89,18 +106,30 @@ public class PopupNotificationView extends LinearLayout {
     		t = (TextView)findViewById(R.id.line2);
     		t.setText(line2);
     	}
-    	if(type == Values.confirmation) {
     		initializeEvents();
-    	}
     }
-//Changed to public - since controller package needs access
+    
+    /**
+     *Called to display popup on screen
+     */
     public void createPopupWindow() {
-    
-        popup = new PopupWindow(this, Values.screenW, 113, true);
-        popup.showAtLocation(layout, Gravity.BOTTOM, 0, 160);
-        popup.setOutsideTouchable(true);
+    	int height;
+    	if (line2.equals(""))
+    		height = 90;
+    	else
+    		height = 112;
+        popup = new PopupWindow(this, Values.screenW, height, false);
+        popup.setTouchable(true);
+        popup.setBackgroundDrawable(new BitmapDrawable());
+        if (type != Values.confirmation) {
+        	popup.setOutsideTouchable(true);
+        }
+		popup.showAtLocation(layout, Gravity.BOTTOM, 0, 162);
     }
-    
+    /**
+     * gets the 
+     * @return imgb - the confirm button associated with this popup, if type is confirmation, null otherwise
+     */
     public ImageButton getButton() {
     	ImageButton imgb = null;
     	if(type == Values.confirmation && layout != null) {
@@ -108,13 +137,13 @@ public class PopupNotificationView extends LinearLayout {
     	}
     	return imgb;
     }
-    
+    /**
+     * initializes confirmation button click handler for confirmation type popups
+     */
 	private void initializeEvents() {
 		ImageButton gotoButton = getButton();
 		if(gotoButton != null) {
 			gotoButton.setOnClickListener(new View.OnClickListener() {
-				
-				@Override
 				public void onClick(View v) {
 					Log.d(LOG_TAG, "Confirm click");
 					findViewById(R.id.popOverlay).setVisibility(View.VISIBLE);
@@ -123,16 +152,6 @@ public class PopupNotificationView extends LinearLayout {
 				}
 			});
 		}
-		this.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-			
-			@Override
-			public void onFocusChange(View v, boolean hasFocus) {
-				Log.d(LOG_TAG, "Focus change");
-				popupNotificationController.handleOnFocusChange();
-				popup.dismiss();
-			}
-		});
-		popup.setTouchInterceptor(new onTouchDismiss());
 	}
 }
 
