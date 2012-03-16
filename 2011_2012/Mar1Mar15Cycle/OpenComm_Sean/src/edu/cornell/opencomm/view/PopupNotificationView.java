@@ -44,8 +44,8 @@ public class PopupNotificationView extends LinearLayout {
      * Constructor
      * @param context     - MainApplication
      * @param head - text to display in tip header
-     * @param line1 - text to display in line 1 of popup
-     * @param line2 - text to display in line 2 of popup
+     * @param line1 - text to display in line 1 of popup (holds about 60 chars, or 40 chars for confirmation type)
+     * @param line2 - text to display in line 2 of popup (holds about 60 chars, or 40 chars for confirmation type)
      * @param type - type of popup to display, 0 for tip, 1 for notification, and 2 for confirmation (with button)
      */
     public PopupNotificationView(Context context, String head, String line1, String line2, int type) {
@@ -71,8 +71,8 @@ public class PopupNotificationView extends LinearLayout {
      * Constructor
      * @param context     - MainApplication
      * @param head - text to display in tip header
-     * @param line1 - text to display in line 1 of popup
-     * @param line2 - text to display in line 2 of popup
+     * @param line1 - text to display in line 1 of popup (holds about 60 chars, or 40 chars for confirmation type)
+     * @param line2 - text to display in line 2 of popup (holds about 60 chars, or 40 chars for confirmation type)
      * @param type - type of popup to display, 0 for tip, 1 for notification, and 2 for confirmation (with button)
      * @param PNC - custom PopupNotificationController for handling different confirm button behaviors
      */
