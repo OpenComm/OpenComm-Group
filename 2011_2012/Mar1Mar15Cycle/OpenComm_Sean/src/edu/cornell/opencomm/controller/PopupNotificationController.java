@@ -7,6 +7,7 @@ public class PopupNotificationController {
 	
 	private static String LOG_TAG = "OC_PopupNotificationController";
 	private PopupNotificationView  popupNotificationView = null;
+
 	public PopupNotificationController(PopupNotificationView popupNotificationView) {
 		this.popupNotificationView = popupNotificationView;
 	    }
