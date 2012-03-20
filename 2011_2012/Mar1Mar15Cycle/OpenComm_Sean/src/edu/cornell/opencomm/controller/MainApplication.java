@@ -40,6 +40,7 @@ import edu.cornell.opencomm.view.InvitationView;
 import edu.cornell.opencomm.view.LoginView;
 import edu.cornell.opencomm.view.MenuView;
 import edu.cornell.opencomm.view.NotificationView;
+import edu.cornell.opencomm.view.PopupNotificationView;
 import edu.cornell.opencomm.view.PrivateSpaceIconView;
 import edu.cornell.opencomm.view.ResetPasswordView;
 import edu.cornell.opencomm.view.SignupView;
@@ -683,8 +684,12 @@ public final class MainApplication extends Activity{
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                NotificationView notificationView = new NotificationView(MainApplication.this);
-                notificationView.launch(user.getNickname(), notify);
+                PopupNotificationView pnv = new PopupNotificationView(Space.getMainSpace().getContext(), "tip", Space.getMainSpace().getContext().getString(R.string.sidechat_tip), "", Values.tip);
+                pnv.createPopupWindow();
+                //*DEPRECATED*
+                //NotificationView notificationView = new NotificationView(MainApplication.this);
+                //notificationView.launch(user.getNickname(), notify);
+                //*DEPRECATED
             }
         });
     }

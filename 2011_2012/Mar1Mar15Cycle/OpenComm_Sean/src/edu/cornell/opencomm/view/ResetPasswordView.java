@@ -1,23 +1,20 @@
 
 	package edu.cornell.opencomm.view;
 
-	import android.app.Activity;
 	import android.content.Context;
-	import android.graphics.Typeface;
-import android.text.Editable;
-import android.text.TextWatcher;
-	import android.util.Log;
-	import android.view.LayoutInflater;
-	import android.view.View;
+import android.graphics.Typeface;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.View.OnFocusChangeListener;
-	import android.widget.Button;
-	import android.widget.EditText;
-	import android.widget.ImageButton;
-	import android.widget.ImageView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-	import edu.cornell.opencomm.R;
-	import edu.cornell.opencomm.Values;
+import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.ResetPasswordController;
 
 

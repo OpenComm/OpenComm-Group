@@ -74,11 +74,38 @@
 			android:layout_alignBaseline="@+id/textPasswordAligner"
 			android:layout_alignLeft="@+id/editTextPassword"
 			android:cursorVisible="false" />
+		 <TextView 
+		     android:text="@string/forgotPassword"
+		     android:textSize="15sp"
+		     android:textColor="@color/off_white"
+		     android:layout_height="wrap_content"
+		     android:layout_width="wrap_content"
+		     android:layout_alignLeft="@+id/editTextPassword"
+		     android:layout_below="@id/editTextPassword"
+		     android:id="@+id/passwordRetrieval"
+		     android:layout_marginTop="8.7dp"
+		     android:onClick="retrievePassword"
+		     android:clickable="true"
+		     />
 	</RelativeLayout>
+	<Button
+     android:layout_height="57dp"
+     android:layout_width="fill_parent"
+     android:text="sign up"
+     android:textSize="38sp"
+     android:textColor="@color/green"
+     android:gravity="left|center_vertical"
+     android:paddingLeft="46dp"
+     android:id="@+id/signUpButton"
+     android:layout_marginTop="21dp"
+     android:layout_marginBottom="21dp"
+     android:onClick="createAccount" 
+     android:background="@color/dark_grey"/>
+	 
 	<ImageView 
 		android:id="@+id/separatorBar" 
 		android:layout_width="fill_parent" 
-		android:layout_marginTop="100dp" 
+		android:layout_marginTop="1dp" 
 		android:layout_height="8dp" 
 		android:src="@drawable/separator_bar" 
 		android:scaleType="fitXY"/>

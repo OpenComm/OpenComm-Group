@@ -1,23 +1,15 @@
 package edu.cornell.opencomm.view;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map.Entry;
 
 import android.content.Context;
-import android.opengl.Visibility;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
-import edu.cornell.opencomm.controller.AdminTipController;
 import edu.cornell.opencomm.controller.SoundSettingsController;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.view.BottomScrollBarView.OnScrollViewListener;

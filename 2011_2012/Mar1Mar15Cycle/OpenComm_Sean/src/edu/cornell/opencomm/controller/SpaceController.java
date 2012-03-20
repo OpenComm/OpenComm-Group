@@ -11,11 +11,13 @@ import org.jivesoftware.smackx.muc.MultiUserChat;
 
 import android.content.Context;
 import android.util.Log;
+import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.NotificationView;
+import edu.cornell.opencomm.view.PopupNotificationView;
 import edu.cornell.opencomm.view.PrivateSpaceIconView;
 import edu.cornell.opencomm.view.SpaceView;
 import edu.cornell.opencomm.view.UserView;
@@ -180,9 +182,12 @@ public class SpaceController {
         int spaceID = MainApplication.spaceCounter++;
         Space space = new Space(context, false, String.valueOf(spaceID), true/*MainApplication.user_primary*/);
         Space.allSpaces.put(space.getRoomID(), space);
-
-        notificationView.launch("sidechat");
-
+        
+        PopupNotificationView pnv = new PopupNotificationView(context, "tip", context.getString(R.string.sidechat_tip), "", Values.tip);
+        pnv.createPopupWindow();
+        //*DEPRECATED*
+        //notificationView.launch("sidechat");
+        //*DEPRECATED*
         if(D) Log.d(TAG, "Created a new space with ID:" + spaceID);
         return space;
     } // end of addSpace method
