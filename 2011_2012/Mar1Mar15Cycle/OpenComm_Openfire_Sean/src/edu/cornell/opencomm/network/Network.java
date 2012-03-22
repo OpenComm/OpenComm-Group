@@ -15,10 +15,10 @@ public class Network {
 
 	// CONNECTION CONSTANTS
 	/** = default host server */
-	public static final String DEFAULT_HOST = "192.168.1.105";
+	public static final String DEFAULT_HOST = "cuopencomm.no-ip.org";
 	
 	/** = default host name */
-	public static final String DEFAULT_HOSTNAME = "opencomm";
+	public static final String DEFAULT_HOSTNAME = "localhost.localdomain";
 
 	/** = default port */
 	public static final int DEFAULT_PORT = 5222;
@@ -30,7 +30,7 @@ public class Network {
 	public static final String DEBUG_PASSWORD = "debug";
 	
 	/** = conference server */ 
-	public static final String DEFAULT_CONFERENCE = "conference.opencomm";
+	public static final String DEFAULT_CONFERENCE = "conference.localhost.localdomain";
 
 	// ====================================================================== //
 	// ====================================================================== //
