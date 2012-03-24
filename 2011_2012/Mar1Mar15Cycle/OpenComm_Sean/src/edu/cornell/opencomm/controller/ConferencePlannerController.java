@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -79,7 +80,7 @@ public class ConferencePlannerController {
 							&& monthOfYear == stock.get(Calendar.MONTH) && dayOfMonth < stock
 							.get(Calendar.DATE))) {
 				Toast.makeText(
-						conferencePlannerView,
+						conferencePlannerView.getContext(),
 						"You selected a start time that is before the current time. Please reselect an appropriate time.",
 						Toast.LENGTH_LONG).show();
 				handleDateButtonClicked();
@@ -91,10 +92,10 @@ public class ConferencePlannerController {
 //			Log.v("startTime", "day,month,year: " + startDay + "," + startMonth
 //					+ "," + startYear);
 			
-			//Hackish way to get rid of white overlay
-			if (conferencePlannerView!= null){
-			conferencePlannerView.getDateButtonOverlay().setVisibility(
-					View.INVISIBLE);}
+//			//Hackish way to get rid of white overlay, not needed
+//			if (conferencePlannerView!= null){
+//			conferencePlannerView.getDateButtonOverlay().setVisibility(
+//					View.INVISIBLE);}
 
 		}
 	};
@@ -148,7 +149,18 @@ public class ConferencePlannerController {
 
 		conferencePlannerView.getDateButtonOverlay()
 				.setVisibility(View.VISIBLE);
-		new DatePickerDialog(conferencePlannerView, date,
+		
+		//Makes overlay invis again after 500ms
+		 final Handler handler = new Handler();
+		 handler.postDelayed(new Runnable() {
+		   @Override
+		   public void run() {
+			   conferencePlannerView.getDateButtonOverlay()
+				.setVisibility(View.INVISIBLE);
+		   }
+		 }, 500);
+		
+		new DatePickerDialog(conferencePlannerView.getContext(), date,
 				endTime.get(Calendar.YEAR), endTime.get(Calendar.MONTH),
 				endTime.get(Calendar.DAY_OF_MONTH)).show();
 		Log.v("Date?",
@@ -159,25 +171,44 @@ public class ConferencePlannerController {
 	}
 
 	public void handleEndTimeButtonClicked() {
-		// testing if its updating properly.
 //		Log.v("Date?",
 //				endDate.get(Calendar.DATE) + "day and "
 //						+ (endDate.get(Calendar.MONTH) + 1) + "month and "
 //						+ endDate.get(Calendar.YEAR) + " year.");
 		conferencePlannerView.getEndButtonOverlay().setVisibility(View.VISIBLE);
-		new TimePickerDialog(conferencePlannerView, end,
+		
+		//Makes overlay invis again after 500ms
+		 final Handler handler = new Handler();
+		 handler.postDelayed(new Runnable() {
+		   @Override
+		   public void run() {
+			   conferencePlannerView.getEndButtonOverlay()
+				.setVisibility(View.INVISIBLE);
+		   }
+		 }, 500);
+
+		new TimePickerDialog(conferencePlannerView.getContext(), end,
 				endTime.get(Calendar.HOUR), endTime.get(Calendar.MINUTE), true)
 				.show();
-		//Log.v("end", "I clicked the end button!");
 
 	}
 
 	public void handleRecurringButtonClicked() {
 		conferencePlannerView.getRecurringButtonOverlay().setVisibility(
 				View.VISIBLE);
+		//Makes overlay invis again after 500ms
+		 final Handler handler = new Handler();
+		 handler.postDelayed(new Runnable() {
+		   @Override
+		   public void run() {
+			   conferencePlannerView.getRecurringButtonOverlay()
+				.setVisibility(View.INVISIBLE);
+		   }
+		 }, 500);
+
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(
-				conferencePlannerView);
+				conferencePlannerView.getContext());
 		builder.setTitle(R.string.recurring_prompt);
 		builder.setPositiveButton("Select",
 				new DialogInterface.OnClickListener() {
@@ -233,7 +264,18 @@ public class ConferencePlannerController {
 	public void handleStartTimeButtonClicked() {
 		conferencePlannerView.getStartButtonOverlay().setVisibility(
 				View.VISIBLE);
-		new TimePickerDialog(conferencePlannerView, start,
+		//Makes overlay invis again after 500ms
+		 final Handler handler = new Handler();
+		 handler.postDelayed(new Runnable() {
+		   @Override
+		   public void run() {
+			   conferencePlannerView.getStartButtonOverlay()
+				.setVisibility(View.INVISIBLE);
+		   }
+		 }, 500);
+
+		
+		new TimePickerDialog(conferencePlannerView.getContext(), start,
 				startDate.get(Calendar.HOUR), startDate.get(Calendar.MINUTE),
 				true).show();
 
@@ -242,17 +284,29 @@ public class ConferencePlannerController {
 	public void handleAttendeeButtonClicked() {
 		conferencePlannerView.getAttendeeButtonOverlay().setVisibility(
 				View.VISIBLE);
+		//Makes overlay invis again after 500ms
+		 final Handler handler = new Handler();
+		 handler.postDelayed(new Runnable() {
+		   @Override
+		   public void run() {
+			   conferencePlannerView.getAttendeeButtonOverlay()
+				.setVisibility(View.INVISIBLE);
+		   }
+		 }, 500);
+
+		
 		Log.v("end", "I clicked the attendee button!");
 		showContactList();
 	}
 
 	private void showContactList() {
-		 final Context context = conferencePlannerView;
-		 final  LinearLayout vs=(LinearLayout) conferencePlannerView.findViewById(R.id.userIcons);
-		 
+		 final Context context = conferencePlannerView.getContext();
+//		 final  LinearLayout vs=(LinearLayout) conferencePlannerView.findViewById(R.id.userIcons);
+		 final  LinearLayout vs=(LinearLayout) conferencePlannerView.getView().findViewById(R.id.userIcons);
+	
 		 //Once contact list is shown, white overlay disappears
-		 conferencePlannerView.getAttendeeButtonOverlay().setVisibility(
-					View.INVISIBLE);
+//		 conferencePlannerView.getAttendeeButtonOverlay().setVisibility(
+//					View.INVISIBLE);
 		 
 		if (context == null)
 			Log.v("ShowBUddyLIst", "NULL");
@@ -354,7 +408,8 @@ public class ConferencePlannerController {
 
 	public void handleCreateButtonsClicked() {
 		conferencePlannerView.getCreateOverlay().setVisibility(View.VISIBLE);
-		Intent i = new Intent(conferencePlannerView, MainApplication.class);
+		
+		Intent i = new Intent(conferencePlannerView.getContext(), MainApplication.class);
 		i.putExtra(Network.KEY_USERNAME, DashboardController.username);
 		i.setAction(Network.ACTION_LOGIN);
 
@@ -372,22 +427,20 @@ public class ConferencePlannerController {
 			}
 			counter++;
 		}
+		//conferencePlannerView.getWindow().dismiss();
 		openfireInvitation = new Conference(startYear, startMonth, startDay, startHour, startMinute, endHour, endMinute,inviteList,username);
-		conferencePlannerView.startActivity(i);
+		conferencePlannerView.getContext().startActivity(i);
+		
 	}
 
 	// Crystal: Cancel back to dashboard
 	public void handleCancelClicked() {
+		//Currently - make a new dashboard. since dismiss cause a weird effect :(
 		conferencePlannerView.getCanceleOverlay().setVisibility(View.VISIBLE);
-		Intent i = new Intent(conferencePlannerView, DashboardView.class);
-		conferencePlannerView.startActivity(i);
+		Intent i = new Intent(conferencePlannerView.getContext(), DashboardView.class);
+		conferencePlannerView.getContext().startActivity(i);
+		//conferencePlannerView.getWindow().dismiss();
 	}
 
-	// public void handleAttendeeImageButtonClicked() {
-	// conferencePlannerView.getAttendeeButtonOverlay().setVisibility(View.VISIBLE);
-	// Log.v("end", "I clicked the attendee button!");
-	// // TODO Auto-generated method stub something that brings it to last
-	// screen (dashboard)
-	//
 	}
 	
