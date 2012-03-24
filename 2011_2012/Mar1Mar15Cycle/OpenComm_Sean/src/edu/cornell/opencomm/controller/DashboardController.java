@@ -15,6 +15,9 @@ package edu.cornell.opencomm.controller;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Handler;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
@@ -54,18 +57,35 @@ public class DashboardController {
 		// dashboardView.startActivity(i);
 
 		// Crystal's code
-		Intent myIntent = new Intent();
-		myIntent.setClass(dashboardView.getApplication(),
-				ConferencePlannerView.class);
-		dashboardView.startActivity(myIntent);
+//		Intent myIntent = new Intent();
+//		myIntent.setClass(dashboardView.getApplication(),
+//				ConferencePlannerView.class);
+//		dashboardView.startActivity(myIntent);
+		
+		//Non-activity code - Chris
+		LayoutInflater ifl=dashboardView.getInflater();
+		ConferencePlannerView cpv = new ConferencePlannerView(ifl,dashboardView);
+		cpv.launch();
 
-		// Log.v("Dashboardcontroller", "launch");
 		// Intent i= new Intent();
 		// LayoutInflater ifl=dashboardView.getInflater();
 		// ConferencePlannerView cpv= new ConferencePlannerView(ifl);
 		// cpv.setContext(Space.getMainSpace().getContext());
 		// cpv.launch();
-		// progress.dismiss();
+		 //dashboardView.getDashboardOverlay().setVisibility(View.INVISIBLE);
+		progress.dismiss();
+		
+		 //HUGE HACK to get the overlay to disappear (not currently used/working..)
+		 
+		 final Handler handler = new Handler();
+		 handler.postDelayed(new Runnable() {
+		   @Override
+		   public void run() {
+			   Log.v("handler", "setting dashboardoverlay to invis");
+			   dashboardView.getDashboardOverlay().setVisibility(View.INVISIBLE);
+		   }
+		 }, 500);
+
 
 	}
 

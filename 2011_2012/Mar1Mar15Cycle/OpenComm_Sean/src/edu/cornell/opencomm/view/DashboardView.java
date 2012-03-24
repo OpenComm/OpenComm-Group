@@ -191,7 +191,7 @@ public class DashboardView extends Activity {
         if (inflater != null && dashboardLayout != null) {
             window = new PopupWindow(dashboardLayout, Values.screenW,
                     Values.screenH, true);
-            window.showAtLocation(dashboardLayout, 0, 1, 1);
+            window.showAtLocation(dashboardLayout, 0, 0, 0);
             dashboardLayout.setOnClickListener(onClickListener);
         } else {
             Log.v(TAG,
