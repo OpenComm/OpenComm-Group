@@ -5,8 +5,8 @@ import edu.cornell.opencomm.view.PopupNotificationView;
 
 public class PopupNotificationController {
 	
-	private static String LOG_TAG = "OC_PopupNotificationController";
-	private PopupNotificationView  popupNotificationView = null;
+	protected static String LOG_TAG = "OC_PopupNotificationController";
+	protected PopupNotificationView  popupNotificationView = null;
 
 	public PopupNotificationController(PopupNotificationView popupNotificationView) {
 		this.popupNotificationView = popupNotificationView;
