@@ -18,6 +18,7 @@ public final class R {
         public static final int black_translucent=0x7f040005;
         public static final int blue=0x7f04000b;
         public static final int dark_grey=0x7f040006;
+        public static final int dark_grey_opaque=0x7f040018;
         public static final int grass_green=0x7f040012;
         public static final int gray=0x7f040001;
         public static final int green=0x7f040009;
@@ -74,7 +75,8 @@ public final class R {
         public static final int starting_icon=0x7f02001f;
         public static final int temp_sound_button=0x7f020020;
         public static final int volume_icon=0x7f020021;
-        public static final int yousmall=0x7f020022;
+        public static final int you_small=0x7f020022;
+        public static final int yousmall=0x7f020023;
     }
     public static final class id {
         public static final int EditText01=0x7f08008e;

@@ -69,7 +69,7 @@ To call it :
 	            window.showAtLocation(resetPasswordLayout, 0, 1, 1);
 	        } else {
 	            Log.v(LOG_TAG,
-	                    "Cannot launch invitation view as inflater/confirmation layout is nul");
+	                    "Cannot launch resetpassword view as inflater/confirmation layout is nul");
 	        }
 	    } // end launch
 //Don't think i need oncreate, but here justincase

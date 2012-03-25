@@ -14,6 +14,7 @@ import android.widget.PopupWindow;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.DashboardController;
+import edu.cornell.opencomm.controller.GoToConferencePopupController;
 
 public class DashboardView extends Activity {
 
@@ -31,6 +32,7 @@ public class DashboardView extends Activity {
     private ImageView dashboardOverlay;
     private Typeface font;
 
+    private PopupNotificationView pnv;
     /*
      * /** Called when an activity is first created
      */
@@ -58,7 +60,7 @@ public class DashboardView extends Activity {
                 if (D) Log.d(TAG, "initEaP: dashboardLayout -- null?: " + (this.dashboardLayout == null));
             }
         }
-
+        
         initializeContactsButtonClickedEvent();
         initializeHistoryButtonClickedEvent();
         initializeAccountButtonClickedEvent();
@@ -189,7 +191,7 @@ public class DashboardView extends Activity {
         if (inflater != null && dashboardLayout != null) {
             window = new PopupWindow(dashboardLayout, Values.screenW,
                     Values.screenH, true);
-            window.showAtLocation(dashboardLayout, 0, 1, 1);
+            window.showAtLocation(dashboardLayout, 0, 0, 0);
             dashboardLayout.setOnClickListener(onClickListener);
         } else {
             Log.v(TAG,
@@ -200,7 +202,29 @@ public class DashboardView extends Activity {
     @Override
     public void onStart() {
         super.onStart();
+        
+        //BACKEND: PLEASE CHANGE THIS TO CHECK WHETHER, AND WHAT, CONFERENCE IS SCHEDULED
+        if (true) {
+	    	pnv = new PopupNotificationView(this, "conference now", "a conference is happening now", "click to enter", Values.confirmation);
+	    	pnv.setController(new GoToConferencePopupController(pnv));
+	        dashboardLayout.post(new Runnable() {
+				public void run() {
+			       	pnv.createPopupWindow();
+				}
+	        	
+	        });
+        }
     } // end onStart method
+    
+    public void onPause() {
+    	pnv.getPopup().dismiss();
+    	super.onPause();
+    }
+    
+    public void onDestroy() {
+    	super.onDestroy();
+    	pnv.getPopup().dismiss();
+    }
 
 
     private View.OnClickListener onClickListener = new View.OnClickListener() {

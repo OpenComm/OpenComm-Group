@@ -23,24 +23,23 @@
 	<FrameLayout 
 		android:id="@+id/spaceViewFrame" 
 		android:background="@color/off_white"
-		android:layout_height="363.33dp" 
+		android:layout_height="371.33dp" 
 		android:layout_width="fill_parent">
 		<ImageView 
 			android:layout_height="wrap_content" 
-			android:src="@drawable/yousmall"
+			android:src="@drawable/you_small"
 			android:layout_marginBottom="13.33dp" 
 			android:layout_gravity="bottom|center_horizontal"
-			android:layout_width="fill_parent" 
+			android:layout_width="wrap_content" 
 			android:visibility="visible" />
 		<edu.cornell.opencomm.view.SpaceView
-			android:layout_height="363.33dp" 
+			android:layout_height="371.33dp" 
 			android:id="@+id/space_view"
 			android:layout_width="fill_parent" 
 			android:visibility="visible" />
 	</FrameLayout>
 	<ImageView 
 		android:layout_width="fill_parent" 
-		android:layout_weight="1"
 		android:layout_height="8dp" 
 		android:background="@color/dark_grey"
 		android:src="@drawable/sexy_bar" 
@@ -51,8 +50,7 @@
 		android:orientation="horizontal" 
 		android:layout_width="fill_parent"
 		android:layout_height="92dp" 
-		android:background="@color/dark_grey"
-		android:layout_weight="1">
+		android:background="@color/dark_grey">
 		<Button android:id="@+id/main_button" 
 			android:text="main"
 			android:layout_width="92dp" 
@@ -60,11 +58,9 @@
 			android:textColor="@color/off_white" 
 			android:textSize="30sp"
 			android:background="@color/dark_grey" 
-			android:gravity="center"
-			android:layout_weight="1" />
+			android:gravity="center"/>
 		<HorizontalScrollView 
 			android:layout_height="fill_parent"
-			android:layout_weight="3"
 			android:measureAllChildren="false" 
 			android:background="@color/light_grey"
 			android:paddingLeft="8dp" 

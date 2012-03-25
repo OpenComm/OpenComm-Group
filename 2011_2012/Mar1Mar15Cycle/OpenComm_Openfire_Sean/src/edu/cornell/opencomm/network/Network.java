@@ -34,24 +34,8 @@ public class Network {
 	
 	// ====================================================================== //
 	// ====================================================================== //
-	
-	// DATABASE CONNECTION CONSTANTS
-	/** = default database URL */
-	public static final String DEFAULT_DATABASE = "jdbc:mysql://localhost:3306/opencomm";
-	
-	/** = default database name */
-	public static final String DEFAULT_DB_NAME = "opencomm";
-	
-	/** = default database username */
-	public static final String DEFAULT_DB_USERNAME = "admin";
-	
-	/** = default database password */
-	public static final String DEFAULT_DB_PASSWORD = "opencomm";
 
-	// ====================================================================== //
-	// ====================================================================== //
-
-	// LOGIN INTENT CONSTANTS
+    	// LOGIN INTENT CONSTANTS
 	/** = action that calls the MainApplication from Login */
 	public static final String ACTION_LOGIN = packageName + "ACTION_LOGIN";
 

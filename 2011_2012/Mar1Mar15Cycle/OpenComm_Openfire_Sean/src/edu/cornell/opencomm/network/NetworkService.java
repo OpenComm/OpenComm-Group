@@ -55,7 +55,7 @@ public class NetworkService {
 	public NetworkService(String host, int port) throws XMPPException {
         // BUGFIX
         configure(ProviderManager.getInstance());
-        SmackConfiguration.setPacketReplyTimeout(5000);
+        SmackConfiguration.setPacketReplyTimeout(10000);
 		xmppConfig = new ConnectionConfiguration(host, port);
 		xmppConn = new XMPPConnection(xmppConfig);
 		xmppConn.connect();
@@ -339,5 +339,16 @@ public class NetworkService {
         }
         return temp;
     } // return printXMPPError method
+
+	public void loginAnonymously() {
+		try {
+			xmppConn.loginAnonymously();
+			Log.d(TAG, "Logged in as " + xmppConn.getUser());
+		} catch (XMPPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	 
 } // end Class NetworkService

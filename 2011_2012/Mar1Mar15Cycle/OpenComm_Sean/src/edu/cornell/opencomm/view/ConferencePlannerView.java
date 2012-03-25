@@ -11,23 +11,21 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.ConferencePlannerController;
 
-public class ConferencePlannerView extends Activity {
 
-	// Create context according to our view xml
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContext(this);
-		Log.d("Test", "Are you calling me?");
-		setContentView(R.layout.conference_layout);
-		conferencePlannerController = new ConferencePlannerController(this);
-		// initEventsAndProperties();
-		initEventsAndProperties();
+public class ConferencePlannerView{
+    public ConferencePlannerView(LayoutInflater inflater, Context context) {
+    	setContext(context);
+        this.inflater = inflater;
+        this.conferencePlannerController =  new ConferencePlannerController(
+                this);
+        initEventsAndProperties();
 
-	}
+    } 
 
-	// private static String LOG_TAG = "OC_ConfirmationView"; // for error
+	 private static String LOG_TAG = "Conference_Planner"; // for error
 	// checking
 	private Context context;
 	private LayoutInflater inflater;
@@ -39,25 +37,19 @@ public class ConferencePlannerView extends Activity {
 													// used at the moment (used
 													// with inflater)
 
-	public ConferencePlannerView() {
-		initEventsAndProperties();
-		setContext(this);
-	}
-
-	// Don't think I would ever inflate this
-	// public ConferencePlannerView(LayoutInflater inflater) {
-	// this.inflater = inflater;
-	// initEventsAndProperties();
-	// Log.v("onCreate", "Oncreate called!");
-	// setContext(this);
-	//
-	// }
-
 	private void initEventsAndProperties() {
 
 		// create property conferencePlannernLayout from inflalter and store it
 		// as a
 		// property
+		
+	    if (inflater != null) {
+            View invitationLayoutFromInflater = inflater.inflate(
+                    R.layout.conference_layout, null);
+            if (invitationLayoutFromInflater != null) {
+                this.conferencePlannerLayout= invitationLayoutFromInflater;
+            }
+        }
 
 		// Initialize all my buttons
 		initializeDateButton();
@@ -68,7 +60,7 @@ public class ConferencePlannerView extends Activity {
 		initializeCreateButtons();
 		initializeCancelButtons();
 
-		// Log.v("nullcheck", "getContext() null? " + getContext().toString());
+		
 	}
 
 	private void initializeDateButton() {
@@ -101,15 +93,11 @@ public class ConferencePlannerView extends Activity {
 
 	private void initializeAttendeesButton() {
 		Button attendeeNameButton = getAttendeeNameButton();
-		//Legacy button
-//		ImageView attendeeImageButton = getAttendeeImageButton();
 		if (attendeeNameButton != null) {
 			Log.v("Buttons","name button clicker set");
 			attendeeNameButton.setOnClickListener(onAttendeesClickListener);
 		}
-//		if (attendeeImageButton != null) {
-//			attendeeImageButton.setOnClickListener(onAttendeesClickListener);
-//		}
+
 
 	}
 
@@ -141,8 +129,8 @@ public class ConferencePlannerView extends Activity {
 	private Button getCancelButton() {
 		Button cancelButton = null;
 		if (getContext() != null) {
-			cancelButton = (Button) ((Activity) getContext())
-					.findViewById(R.id.buttonCancel);
+			cancelButton = (Button) (conferencePlannerLayout
+					.findViewById(R.id.buttonCancel));
 		}
 
 		return cancelButton;
@@ -151,8 +139,8 @@ public class ConferencePlannerView extends Activity {
 	private ImageButton getImageCancelButton() {
 		ImageButton imageCancelButton = null;
 		if (getContext() != null) {
-			imageCancelButton = (ImageButton) ((Activity) getContext())
-					.findViewById(R.id.imageCancel);
+			imageCancelButton = (ImageButton) (conferencePlannerLayout
+					.findViewById(R.id.imageCancel));
 		}
 
 		return imageCancelButton;
@@ -161,8 +149,8 @@ public class ConferencePlannerView extends Activity {
 	private Button getCreateButton() {
 		Button createButton = null;
 		if (getContext() != null) {
-			createButton = (Button) ((Activity) getContext())
-					.findViewById(R.id.buttonCreate);
+			createButton = (Button) (conferencePlannerLayout
+					.findViewById(R.id.buttonCreate));
 		}
 
 		return createButton;
@@ -171,8 +159,8 @@ public class ConferencePlannerView extends Activity {
 	private ImageButton getImageCreateButton() {
 		ImageButton imageCreateButton = null;
 		if (getContext() != null) {
-			imageCreateButton = (ImageButton) ((Activity) getContext())
-					.findViewById(R.id.imageCreate);
+			imageCreateButton = (ImageButton) (conferencePlannerLayout
+					.findViewById(R.id.imageCreate));
 		}
 
 		return imageCreateButton;
@@ -181,8 +169,8 @@ public class ConferencePlannerView extends Activity {
 	private ImageButton getDateButton() {
 		ImageButton dateButton = null;
 		if (getContext() != null) {
-			dateButton = (ImageButton) ((Activity) getContext())
-					.findViewById(R.id.calenderButton);
+			dateButton = (ImageButton) (conferencePlannerLayout
+					.findViewById(R.id.calenderButton));
 		}
 
 		return dateButton;
@@ -191,8 +179,8 @@ public class ConferencePlannerView extends Activity {
 	private ImageButton getStartButton() {
 		ImageButton startButton = null;
 		if (getContext() != null) {
-			startButton = (ImageButton) ((Activity) getContext())
-					.findViewById(R.id.startTimeButton);
+			startButton = (ImageButton) (conferencePlannerLayout
+					.findViewById(R.id.startTimeButton));
 		}
 
 		return startButton;
@@ -201,8 +189,8 @@ public class ConferencePlannerView extends Activity {
 	private ImageButton getEndButton() {
 		ImageButton endButton = null;
 		if (getContext() != null) {
-			endButton = (ImageButton) ((Activity) getContext())
-					.findViewById(R.id.endTimeButton);
+			endButton = (ImageButton) (conferencePlannerLayout
+					.findViewById(R.id.endTimeButton));
 		}
 
 		return endButton;
@@ -211,28 +199,18 @@ public class ConferencePlannerView extends Activity {
 	private ImageButton getRecurringButton() {
 		ImageButton recurringButton = null;
 		if (getContext() != null) {
-			recurringButton = (ImageButton) ((Activity) getContext())
-					.findViewById(R.id.recurringButton);
+			recurringButton = (ImageButton) (conferencePlannerLayout
+					.findViewById(R.id.recurringButton));
 		}
 
 		return recurringButton;
 	}
 
-//	private ImageView getAttendeeImageButton() {
-//		ImageView attendeeImageButton = null;
-//		if (getContext() != null) {
-//			attendeeImageButton = (ImageView) ((Activity) getContext())
-//					.findViewById(R.id.attendeesButton);
-//		}
-//
-//		return attendeeImageButton;
-//	}
-
 	public Button getAttendeeNameButton() {
 		Button attendeeNameButton = null;
 		if (getContext() != null) {
-			attendeeNameButton = (Button) ((Activity) getContext())
-					.findViewById(R.id.attendeeNameButton);
+			attendeeNameButton = (Button) (conferencePlannerLayout
+					.findViewById(R.id.attendeeNameButton));
 		}
 
 		return attendeeNameButton;
@@ -243,8 +221,8 @@ public class ConferencePlannerView extends Activity {
 	public ImageView getAttendeeButtonOverlay() {
 		ImageView attendeeButtonOverlay = null;
 		if (getContext() != null) {
-			attendeeButtonOverlay = (ImageView) ((Activity) getContext())
-					.findViewById(R.id.attendeeButtonOverlay);
+			attendeeButtonOverlay = (ImageView) (conferencePlannerLayout
+					.findViewById(R.id.attendeeButtonOverlay));
 		}
 		return attendeeButtonOverlay;
 	}
@@ -252,8 +230,8 @@ public class ConferencePlannerView extends Activity {
 	public View getStartButtonOverlay() {
 		ImageView startButtonOverlay = null;
 		if (getContext() != null) {
-			startButtonOverlay = (ImageView) ((Activity) getContext())
-					.findViewById(R.id.startButtonOverlay);
+			startButtonOverlay = (ImageView) (conferencePlannerLayout
+					.findViewById(R.id.startButtonOverlay));
 		}
 		return startButtonOverlay;
 	}
@@ -261,8 +239,8 @@ public class ConferencePlannerView extends Activity {
 	public View getRecurringButtonOverlay() {
 		ImageView recurringButtonOverlay = null;
 		if (getContext() != null) {
-			recurringButtonOverlay = (ImageView) ((Activity) getContext())
-					.findViewById(R.id.recurringButtonOverlay);
+			recurringButtonOverlay = (ImageView) (conferencePlannerLayout
+					.findViewById(R.id.recurringButtonOverlay));
 		}
 		return recurringButtonOverlay;
 	}
@@ -270,8 +248,8 @@ public class ConferencePlannerView extends Activity {
 	public View getEndButtonOverlay() {
 		ImageView endButtonOverlay = null;
 		if (getContext() != null) {
-			endButtonOverlay = (ImageView) ((Activity) getContext())
-					.findViewById(R.id.endButtonOverlay);
+			endButtonOverlay = (ImageView) (conferencePlannerLayout
+					.findViewById(R.id.endButtonOverlay));
 		}
 		return endButtonOverlay;
 	}
@@ -279,8 +257,8 @@ public class ConferencePlannerView extends Activity {
 	public View getDateButtonOverlay() {
 		ImageView dateButtonOverlay = null;
 		if (getContext() != null) {
-			dateButtonOverlay = (ImageView) ((Activity) getContext())
-					.findViewById(R.id.dateButtonOverlay);
+			dateButtonOverlay = (ImageView) (conferencePlannerLayout
+					.findViewById(R.id.dateButtonOverlay));
 		}
 		return dateButtonOverlay;
 	}
@@ -288,8 +266,8 @@ public class ConferencePlannerView extends Activity {
 	public View getCreateOverlay() {
 		ImageView createOverlay = null;
 		if (getContext() != null) {
-			createOverlay = (ImageView) ((Activity) getContext())
-					.findViewById(R.id.createOverlay);
+			createOverlay = (ImageView) (conferencePlannerLayout
+					.findViewById(R.id.createOverlay));
 		}
 		return createOverlay;
 	}
@@ -297,8 +275,8 @@ public class ConferencePlannerView extends Activity {
 	public View getCanceleOverlay() {
 		ImageView cancelOverlay = null;
 		if (getContext() != null) {
-			cancelOverlay = (ImageView) ((Activity) getContext())
-					.findViewById(R.id.cancelOverlay);
+			cancelOverlay = (ImageView) (conferencePlannerLayout
+					.findViewById(R.id.cancelOverlay));
 		}
 		return cancelOverlay;
 	}
@@ -326,22 +304,7 @@ public class ConferencePlannerView extends Activity {
 		this.inflater = inflater;
 	}
 
-	/*
-	 * this method launches the conferencePlanner layout on a popupwindow, can
-	 * be changed later to launch like a normal view, currently not used since
-	 * we are making this a view as of right now
-	 */
-	// public void launch() {
-	//
-	// if (inflater != null && getContext() != null) {
-	// window = new PopupWindow(getContext(), Values.screenW,
-	// Values.screenH, true);
-	// window.showAtLocation(getContext(), 0, 1, 1);
-	// } else {
-	// Log.v("123",
-	// "Cannot launch confirmation view as inflater/confirmation layout is nul");
-	// }
-	// }
+
 
 	// Click listeners for all the things that could be clicked in this view.
 
@@ -400,4 +363,31 @@ public class ConferencePlannerView extends Activity {
 		}
 	};
 
+	
+
+	/*
+	 * this method launches the conferencePlanner layout on a popupwindow, can
+	 * be changed later to launch like a normal view, but this method prevents this class from extending activity
+	 */
+	public void launch() {
+        if (inflater != null && conferencePlannerLayout != null) {
+            window = new PopupWindow(conferencePlannerLayout, Values.screenW,
+                    Values.screenH, true);
+            window.showAtLocation(conferencePlannerLayout, 0, 1, 1);
+        } else {
+            Log.v(LOG_TAG,
+                    "Cannot launch conferencePlanner view as inflater/confirmation layout is nul");
+        }
+    } // end launch
+	
+	/**Gets popup window */
+	public PopupWindow getWindow() {
+		return window;
+	}
+	
+	/**Gets the view thats popped up */
+	public View getView(){
+		return conferencePlannerLayout;
+		
+	}
 }
