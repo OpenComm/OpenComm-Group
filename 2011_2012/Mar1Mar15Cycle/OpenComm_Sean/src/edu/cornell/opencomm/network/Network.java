@@ -20,27 +20,30 @@ public class Network {
     /** = name of the cycle during which this app is created */
     public static final String cycleName = "saopaulo_hochiminh";
 
-    // ====================================================================== //
-    // ====================================================================== //
+	// ====================================================================== //
+	// ====================================================================== //
 
-    // CONNECTION CONSTANTS
-    /** = default host server */
-    public static final String DEFAULT_HOST = "jabber.org";
+	// CONNECTION CONSTANTS
+	/** = default host server */
+	public static final String DEFAULT_HOST = "cuopencomm.no-ip.org";
+	
+	/** = default host name */
+	public static final String DEFAULT_HOSTNAME = "localhost.localdomain";
 
-    /** = conference server */
-    public static final String DEFAULT_CONFERENCE = "conference.jabber.org";
+	/** = default port */
+	public static final int DEFAULT_PORT = 5222;
 
-    /** = default port */
-    public static final int DEFAULT_PORT = 5222;
+	/** = debug username */
+	public static final String DEBUG_USERNAME = "debug";
 
-    /** = debug username */
-    public static final String DEBUG_USERNAME = "opencommss";
-
-    /** = debug password */
-    public static final String DEBUG_PASSWORD = "ssopencomm";
-
-    // ====================================================================== //
-    // ====================================================================== //
+	/** = debug password */
+	public static final String DEBUG_PASSWORD = "debug";
+	
+	/** = conference server */ 
+	public static final String DEFAULT_CONFERENCE = "conference.localhost.localdomain";
+	
+	// ====================================================================== //
+	// ====================================================================== //
 
     // LOGIN INTENT CONSTANTS
     /** = action that calls the MainApplication from Login */
