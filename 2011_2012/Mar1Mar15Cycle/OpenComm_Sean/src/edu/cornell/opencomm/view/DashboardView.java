@@ -125,7 +125,7 @@ public class DashboardView extends Activity {
     private void initializeContactsButtonClickedEvent() {
         Button startContactsButton = getContactsButton();
         if (startContactsButton != null) {
-            Log.d(TAG, "Initialize Contacts Button");
+        	if (D) Log.d(TAG, "Initialize Contacts Button");
             //startContactsButton.setOnTouchListener(onStartConferenceButtonClickedListener);
         }
     }
@@ -133,7 +133,7 @@ public class DashboardView extends Activity {
     private void initializeHistoryButtonClickedEvent() {
         Button startHistoryButton = getHistoryButton();
         if (startHistoryButton != null) {
-            Log.d(TAG, "Initialize History Button");
+        	if (D) Log.d(TAG, "Initialize History Button");
             //startHistoryButton.setOnTouchListener(onStartConferenceButtonClickedListener);
         }
     }
@@ -141,8 +141,8 @@ public class DashboardView extends Activity {
     private void initializeAccountButtonClickedEvent() {
         Button startAccountButton = getAccountButton();
         if (startAccountButton != null) {
-            Log.d(TAG, "Initialize Account Button");
-            //startAccountButton.setOnTouchListener(onStartConferenceButtonClickedListener);
+            if (D) Log.d(TAG, "Initialize Account Button");
+            startAccountButton.setOnClickListener(onAccountButtonClickedListener);
         }
     }
 
@@ -234,11 +234,19 @@ public class DashboardView extends Activity {
             //dashboardController.handlePopupWindowClicked();
         }
     };
+    
+    private View.OnClickListener onAccountButtonClickedListener = new View.OnClickListener() {
+
+        public void onClick(View v) {
+        	Log.v(TAG, "listener recieved account button clicked");
+            dashboardController.handleAccountButtonClicked();
+        }
+    };
 
     private View.OnClickListener onStartConferenceButtonClickedListener = new View.OnClickListener() {
 
-        @Override
         public void onClick(View v) {
+        	Log.v(TAG, "listener recieved start conference button clicked");
             dashboardController.handleStartConferenceButtonClicked();
         }
     };

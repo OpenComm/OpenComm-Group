@@ -39,7 +39,7 @@
 		android:textColor="@color/green" 
 		android:layout_height="56dp"
 		android:layout_width="fill_parent" 
-		android:text="history"
+		android:text="conferences"
 		android:layout_marginTop="20dp" 
 		android:gravity="left|center_vertical"
 		android:textSize="38sp"

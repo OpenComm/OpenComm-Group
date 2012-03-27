@@ -24,6 +24,7 @@ import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.network.Network;
 import edu.cornell.opencomm.view.ConferencePlannerView;
 import edu.cornell.opencomm.view.DashboardView;
+import edu.cornell.opencomm.view.SettingsView;
 
 public class DashboardController {
 	// Debugging
@@ -94,7 +95,11 @@ public class DashboardController {
 	}
 
 	public void handleAccountButtonClicked() {
-
+		Log.v(TAG, "account button clicked");
+		dashboardView.getAccountButton().setBackgroundColor(R.color.light_grey);
+		Intent i = new Intent(dashboardView, SettingsView.class);
+		dashboardView.startActivity(i);
+		
 	}
 
 	public void handleHistoryButtonClicked() {
