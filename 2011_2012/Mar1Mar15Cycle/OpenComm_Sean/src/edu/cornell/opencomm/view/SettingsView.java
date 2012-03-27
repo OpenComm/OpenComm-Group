@@ -11,7 +11,6 @@ import android.widget.PopupWindow;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.SettingsController;
-import edu.cornell.opencomm.controller.SignupController;
 
 /**
  * View that handles account settings
@@ -37,18 +36,22 @@ public class SettingsView {
 
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            layout = inflater.inflate(R.layout.signup, null);
+            layout = inflater.inflate(R.layout.settings_layout, null);
             popup = new PopupWindow(layout, Values.screenW,
                     Values.screenH, true);
             controller = new SettingsController(this, context);
             initEventsAndProperties();
-        } // end SignupView
+        } // end SettingsView
 
         /**
          * Dismisses the popup window
          */
         public void dismiss() {
             if (D) Log.d(TAG, "dismiss called");
+            if(context instanceof DashboardView) {
+            	DashboardView dv = (DashboardView) context;
+            	dv.getAccountButtonOverlay().setVisibility(View.INVISIBLE);
+            }
             popup.dismiss();
         } // end dismiss
 
@@ -82,6 +85,10 @@ public class SettingsView {
             if (saveButton != null) {
                 saveButton.setOnClickListener(getSaveButtonHandler());
             }
+            saveButton = getSaveImageButton();
+            if (saveButton != null) {
+                saveButton.setOnClickListener(getSaveButtonHandler());
+            }
         }
 
         /**
@@ -90,6 +97,10 @@ public class SettingsView {
         public void initializeCancelButtonClickEvent() {
             if (D) Log.d(TAG, "initializeCancelButtonClickEvent called");
             View cancelButton = getCancelButton();
+            if (cancelButton != null) {
+                cancelButton.setOnClickListener(getCancelButtonHandler());
+            }
+            cancelButton = getCancelImageButton();
             if (cancelButton != null) {
                 cancelButton.setOnClickListener(getCancelButtonHandler());
             }
@@ -224,6 +235,16 @@ public class SettingsView {
             }
             return saveButton;
         }
+        
+        public View getSaveImageButton() {
+            if (D) Log.d(TAG, "getSaveImageButton called");
+            View saveButton = null;
+            if (getContext() != null) {
+                saveButton = (View)
+                        layout.findViewById(R.id.imageCreate);
+            }
+            return saveButton;
+        }
 
         /**
          * @return Cancel Button View
@@ -236,6 +257,16 @@ public class SettingsView {
                         .findViewById(R.id.buttonCancel);
             }
             return cancelButton;
+        }
+        
+        public View getCancelImageButton() {
+            if (D) Log.d(TAG, "getCancelImageButton called");
+            View saveButton = null;
+            if (getContext() != null) {
+                saveButton = (View)
+                        layout.findViewById(R.id.imageCancel);
+            }
+            return saveButton;
         }
 
         /**

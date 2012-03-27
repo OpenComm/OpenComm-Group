@@ -15,6 +15,7 @@ import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.DashboardController;
 import edu.cornell.opencomm.controller.GoToConferencePopupController;
+import edu.cornell.opencomm.network.Network;
 
 public class DashboardView extends Activity {
 
@@ -98,6 +99,14 @@ public class DashboardView extends Activity {
         }
 
         return startAccountButton;
+    }
+    
+    public ImageView getAccountButtonOverlay() {
+    	ImageView overlay = null;
+    	if(dashboardLayout != null) {
+    		overlay = (ImageView) findViewById(R.id.buttonAccountOverlay);
+    	}
+    	return overlay;
     }
 
     public ImageButton getStartConferenceButton() {
@@ -205,7 +214,9 @@ public class DashboardView extends Activity {
         
         //BACKEND: PLEASE CHANGE THIS TO CHECK WHETHER, AND WHAT, CONFERENCE IS SCHEDULED
         if (true) {
-	    	pnv = new PopupNotificationView(this, "conference now", "a conference is happening now", "click to enter", Values.confirmation);
+	    	final String[] args = new String[1];
+	    	args[0] = getIntent().getStringExtra(Network.KEY_USERNAME);
+	    	pnv = new PopupNotificationView(this, args, "conference now", "a conference is happening now", "click to enter", Values.confirmation);
 	    	pnv.setController(new GoToConferencePopupController(pnv));
 	        dashboardLayout.post(new Runnable() {
 				public void run() {
@@ -239,7 +250,7 @@ public class DashboardView extends Activity {
 
         public void onClick(View v) {
         	Log.v(TAG, "listener recieved account button clicked");
-            //dashboardController.handleAccountButtonClicked();
+            dashboardController.handleAccountButtonClicked();
         }
     };
 

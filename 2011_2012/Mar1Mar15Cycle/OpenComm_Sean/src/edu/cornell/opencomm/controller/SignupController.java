@@ -44,6 +44,7 @@ public class SignupController {
             NetworkService xmppService = new NetworkService(Network.DEFAULT_HOST, Network.DEFAULT_PORT);
             xmppService.login(Network.DEBUG_USERNAME, Network.DEBUG_PASSWORD);
             UserAccountManager manager = new UserAccountManager(xmppService.getXMPPConnection());
+            if (D) Log.d(TAG, "Email:"+email+"Password:"+password+"firstName"+firstName+"lastName"+lastName+"title"+title);
             manager.createUser(email, password, firstName, lastName, title);
             xmppService.disconnect();
             view.dismiss();

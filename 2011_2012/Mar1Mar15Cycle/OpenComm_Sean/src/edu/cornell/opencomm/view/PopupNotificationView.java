@@ -30,20 +30,23 @@ public class PopupNotificationView extends LinearLayout {
     private String line1;
     private String line2;
     private int type;
+    private String[] args;
 
     
     //0 is tip, 1 is notification, 2 is confirmation for type
     /**
      * Constructor
-     * @param context     - MainApplication
+     * @param context - MainApplication
+     * @param args - arguments to pass to the button handler for confirmation popup controllers. null if not needed 
      * @param head - text to display in tip header
      * @param line1 - text to display in line 1 of popup (holds about 60 chars, or 40 chars for confirmation type)
      * @param line2 - text to display in line 2 of popup (holds about 60 chars, or 40 chars for confirmation type)
      * @param type - type of popup to display, 0 for tip, 1 for notification, and 2 for confirmation (with button)
      */
-    public PopupNotificationView(Context context, String head, String line1, String line2, int type) {
+    public PopupNotificationView(Context context, String[] args, String head, String line1, String line2, int type) {
     	super(context);
     	popupNotificationController = new PopupNotificationController(this);
+    	this.args = args;
     	this.headerText = head;
     	this.line1 = line1;
     	this.line2 = line2;
@@ -127,7 +130,7 @@ public class PopupNotificationView extends LinearLayout {
 				public void onClick(View v) {
 					Log.d(LOG_TAG, "Confirm click");
 					findViewById(R.id.popOverlay).setVisibility(View.VISIBLE);
-					popupNotificationController.handleOkButtonClicked();
+					popupNotificationController.handleOkButtonClicked(args);
 					popup.dismiss();
 				}
 			});

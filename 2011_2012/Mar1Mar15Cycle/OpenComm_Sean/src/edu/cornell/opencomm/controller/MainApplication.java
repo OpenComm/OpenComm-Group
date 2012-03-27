@@ -684,12 +684,8 @@ public final class MainApplication extends Activity{
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                PopupNotificationView pnv = new PopupNotificationView(Space.getMainSpace().getContext(), "tip", Space.getMainSpace().getContext().getString(R.string.sidechat_tip), "", Values.tip);
+                PopupNotificationView pnv = new PopupNotificationView(Space.getMainSpace().getContext(), null, "tip", Space.getMainSpace().getContext().getString(R.string.sidechat_tip), "", Values.tip);
                 pnv.createPopupWindow();
-                //*DEPRECATED*
-                //NotificationView notificationView = new NotificationView(MainApplication.this);
-                //notificationView.launch(user.getNickname(), notify);
-                //*DEPRECATED
             }
         });
     }

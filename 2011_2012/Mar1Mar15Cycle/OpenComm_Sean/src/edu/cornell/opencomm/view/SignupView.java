@@ -81,6 +81,10 @@ public class SignupView {
             if (saveButton != null) {
                 saveButton.setOnClickListener(getSaveButtonHandler());
             }
+            saveButton = getSaveImageButton();
+            if (saveButton != null) {
+                saveButton.setOnClickListener(getSaveButtonHandler());
+            }
         }
 
         /**
@@ -89,6 +93,10 @@ public class SignupView {
         public void initializeCancelButtonClickEvent() {
             if (D) Log.d(TAG, "initializeCancelButtonClickEvent called");
             View cancelButton = getCancelButton();
+            if (cancelButton != null) {
+                cancelButton.setOnClickListener(getCancelButtonHandler());
+            }
+            cancelButton = getCancelImageButton();
             if (cancelButton != null) {
                 cancelButton.setOnClickListener(getCancelButtonHandler());
             }
@@ -223,6 +231,16 @@ public class SignupView {
             }
             return saveButton;
         }
+        
+        public View getSaveImageButton() {
+            if (D) Log.d(TAG, "getSaveImageButton called");
+            View saveButton = null;
+            if (getContext() != null) {
+                saveButton = (View)
+                        layout.findViewById(R.id.imageCreate);
+            }
+            return saveButton;
+        }
 
         /**
          * @return Cancel Button View
@@ -235,6 +253,16 @@ public class SignupView {
                         .findViewById(R.id.buttonCancel);
             }
             return cancelButton;
+        }
+        
+        public View getCancelImageButton() {
+            if (D) Log.d(TAG, "getCancelImageButton called");
+            View saveButton = null;
+            if (getContext() != null) {
+                saveButton = (View)
+                        layout.findViewById(R.id.imageCancel);
+            }
+            return saveButton;
         }
 
         /**
