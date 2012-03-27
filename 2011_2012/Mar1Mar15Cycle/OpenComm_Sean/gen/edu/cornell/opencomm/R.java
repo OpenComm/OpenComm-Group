@@ -103,9 +103,9 @@ public final class R {
         public static final int buttonCancel=0x7f080022;
         public static final int buttonCancelConfirm=0x7f080032;
         public static final int buttonCancelInvite=0x7f080046;
+        public static final int buttonConferences=0x7f080037;
         public static final int buttonContacts=0x7f080036;
         public static final int buttonCreate=0x7f080020;
-        public static final int buttonHistory=0x7f080037;
         public static final int buttonLogin=0x7f080055;
         public static final int buttonStartConference=0x7f08003b;
         public static final int calenderButton=0x7f080012;

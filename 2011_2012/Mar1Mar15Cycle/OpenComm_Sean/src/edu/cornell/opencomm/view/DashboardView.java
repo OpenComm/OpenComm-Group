@@ -62,7 +62,7 @@ public class DashboardView extends Activity {
         }
         
         initializeContactsButtonClickedEvent();
-        initializeHistoryButtonClickedEvent();
+        initializeConferencesButtonClickedEvent();
         initializeAccountButtonClickedEvent();
         initializeConferenceButtonClickedEvent();
         dashboardController = new DashboardController(this);
@@ -72,7 +72,7 @@ public class DashboardView extends Activity {
     public Button getContactsButton() {
         Button startContactsButton = null;
         if (dashboardLayout != null) {
-            startContactsButton = (Button) dashboardLayout.findViewById(R.id.buttonContacts);
+            startContactsButton = (Button) findViewById(R.id.buttonContacts);
             startContactsButton.setTypeface(font);
         }
 
@@ -80,20 +80,20 @@ public class DashboardView extends Activity {
     }
 
 
-    public Button getHistoryButton() {
-        Button startHistoryButton = null;
+    public Button getConferencesButton() {
+        Button startConferencesButton = null;
         if (dashboardLayout != null) {
-            startHistoryButton = (Button) dashboardLayout.findViewById(R.id.buttonHistory);
-            startHistoryButton.setTypeface(font);
+            startConferencesButton = (Button) findViewById(R.id.buttonConferences);
+            startConferencesButton.setTypeface(font);
         }
 
-        return startHistoryButton;
+        return startConferencesButton;
     }
 
     public Button getAccountButton() {
         Button startAccountButton = null;
         if (dashboardLayout != null) {
-            startAccountButton = (Button) dashboardLayout.findViewById(R.id.buttonAccount);
+            startAccountButton = (Button) findViewById(R.id.buttonAccount);
             startAccountButton.setTypeface(font);
         }
 
@@ -130,10 +130,10 @@ public class DashboardView extends Activity {
         }
     }
 
-    private void initializeHistoryButtonClickedEvent() {
-        Button startHistoryButton = getHistoryButton();
-        if (startHistoryButton != null) {
-        	if (D) Log.d(TAG, "Initialize History Button");
+    private void initializeConferencesButtonClickedEvent() {
+        Button startConferencesButton = getConferencesButton();
+        if (startConferencesButton != null) {
+        	if (D) Log.d(TAG, "Initialize Conferences Button");
             //startHistoryButton.setOnTouchListener(onStartConferenceButtonClickedListener);
         }
     }
@@ -239,7 +239,7 @@ public class DashboardView extends Activity {
 
         public void onClick(View v) {
         	Log.v(TAG, "listener recieved account button clicked");
-            dashboardController.handleAccountButtonClicked();
+            //dashboardController.handleAccountButtonClicked();
         }
     };
 

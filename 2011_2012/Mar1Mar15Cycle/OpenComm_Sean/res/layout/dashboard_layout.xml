@@ -35,7 +35,7 @@
 		android:layout_alignParentLeft="true" 
 		android:background="@color/dark_grey"
 		android:clickable="true" 
-		android:id="@+id/buttonHistory"
+		android:id="@+id/buttonConferences"
 		android:textColor="@color/green" 
 		android:layout_height="56dp"
 		android:layout_width="fill_parent" 
@@ -46,7 +46,7 @@
 		android:cursorVisible="false" 
 		android:paddingLeft="46.67dp"/>
 	<Button 
-		android:layout_below="@+id/buttonHistory"
+		android:layout_below="@+id/buttonConferences"
 		android:layout_alignParentLeft="true" 
 		android:background="@color/dark_grey"
 		android:clickable="true" 
