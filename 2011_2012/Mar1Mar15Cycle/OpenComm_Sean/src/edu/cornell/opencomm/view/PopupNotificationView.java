@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -129,9 +130,16 @@ public class PopupNotificationView extends LinearLayout {
 			goButton.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					Log.d(LOG_TAG, "Confirm click");
-					findViewById(R.id.popOverlay).setVisibility(View.VISIBLE);
+					setOverlay(true);
 					popupNotificationController.handleOkButtonClicked(args);
-					popup.dismiss();
+				}
+			});
+		}
+		if(type != Values.confirmation) {
+			this.setOnTouchListener(new View.OnTouchListener() {
+				public boolean onTouch(View v, MotionEvent event) {
+					dismiss();
+					return true;
 				}
 			});
 		}
@@ -148,6 +156,17 @@ public class PopupNotificationView extends LinearLayout {
 	 */
 	public PopupWindow getPopup() {
 		return popup;
+	}
+	
+	public void dismiss() {
+		popup.dismiss();
+	}
+	
+	public void setOverlay(boolean b) {
+		if(b)
+			findViewById(R.id.popOverlay).setVisibility(View.VISIBLE);
+		else
+			findViewById(R.id.popOverlay).setVisibility(View.INVISIBLE);
 	}
 }
 
