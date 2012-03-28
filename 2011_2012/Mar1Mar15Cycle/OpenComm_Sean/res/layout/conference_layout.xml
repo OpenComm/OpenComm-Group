@@ -120,7 +120,8 @@
                 android:layout_marginTop="5dp"
                 android:background="@color/dark_grey"
                 android:scaleType="fitXY"
-                android:src="@drawable/calendar_icon" />
+                android:src="@drawable/calendar_icon"
+                 />
 
             <ImageButton
                 android:id="@+id/startTimeButton"
@@ -367,6 +368,39 @@
                 android:textColor="@color/light_gray"
                 android:textSize="35dp"
                 android:width="0dp" />
+
+            <EditText
+                android:id="@+id/dateBox"
+                android:layout_width="146.67dp"
+                android:layout_height="27dp"
+                android:layout_alignTop="@+id/calenderButton"
+                android:layout_toLeftOf="@+id/calenderButton"
+                android:layout_toRightOf="@+id/recurringText"
+                android:background="@drawable/logintextback"
+                android:padding="0dp"
+                android:paddingLeft="15dp" android:clickable="false" android:inputType="none"/>
+
+            <EditText
+                android:id="@+id/startBox"
+                android:layout_width="146.67dp"
+                android:layout_height="27dp"
+                android:layout_alignTop="@+id/startTimeButton"
+                android:layout_toLeftOf="@+id/startTimeButton"
+                android:layout_toRightOf="@+id/recurringText"
+                android:background="@drawable/logintextback"
+                android:padding="0dp"
+                android:paddingLeft="15dp" android:clickable="false" android:inputType="none"/>
+
+            <EditText
+                android:id="@+id/endBox"
+                android:layout_width="146.67dp"
+                android:layout_height="27dp"
+                android:layout_alignTop="@+id/endTimeButton"
+                android:layout_toLeftOf="@+id/endTimeButton"
+                android:layout_toRightOf="@+id/recurringText"
+                android:background="@drawable/logintextback"
+                android:padding="0dp"
+                android:paddingLeft="15dp" android:clickable="false" android:inputType="none"/>
 
         </RelativeLayout>
 

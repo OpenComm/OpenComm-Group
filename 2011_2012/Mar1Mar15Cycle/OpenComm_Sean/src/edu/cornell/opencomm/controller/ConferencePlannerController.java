@@ -89,6 +89,7 @@ public class ConferencePlannerController {
 			endTime.set(Calendar.YEAR, year);
 			endTime.set(Calendar.MONTH, monthOfYear);
 			endTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+			conferencePlannerView.getDateBox().setText(" " +startMonth + "/" + startDay + "/" + startYear);
 //			Log.v("startTime", "day,month,year: " + startDay + "," + startMonth
 //					+ "," + startYear);
 			
@@ -107,6 +108,7 @@ public class ConferencePlannerController {
 			endHour = hourOfDay;
 			endTime.set(Calendar.HOUR, hourOfDay);
 			endTime.set(Calendar.MINUTE, minute);
+			conferencePlannerView.getEndBox().setText(" " + hourOfDay + ": " + minute);
 //			Log.v ("checkNull", "ConferencePlannerView null? " + conferencePlannerView );
 			//Hack to get invisible buttons after user click.
 			if (conferencePlannerView!=null){
@@ -122,6 +124,7 @@ public class ConferencePlannerController {
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 			startMinute = minute;
 			startHour = hourOfDay;
+			conferencePlannerView.getStartBox().setText(" " + hourOfDay + ": " + minute);
 			startDate.set(Calendar.HOUR, hourOfDay);
 			startDate.set(Calendar.MINUTE, minute);
 			if (conferencePlannerView!=null){

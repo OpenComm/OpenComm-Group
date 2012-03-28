@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -59,7 +60,7 @@ public class ConferencePlannerView{
 		initializeAttendeesButton();
 		initializeCreateButtons();
 		initializeCancelButtons();
-
+		initializeNameBoxes();
 		
 	}
 
@@ -122,7 +123,30 @@ public class ConferencePlannerView{
 		if (cancelButton != null) {
 			cancelButton.setOnClickListener(onCancelClickListener);
 		}
+	}
+	
+	private void initializeNameBoxes(){
+		EditText dateBox = getDateBox();
+		dateBox.setFocusable(false);
+		EditText startBox = getStartBox();
+		startBox.setFocusable(false);
+		EditText endBox = getEndBox();
+		endBox.setFocusable(false);
+	}
 
+	public EditText getDateBox() {
+		EditText dateBox = (EditText)(conferencePlannerLayout.findViewById(R.id.dateBox));
+		return dateBox;
+	}
+
+	public EditText getStartBox() {
+		EditText startBox = (EditText)(conferencePlannerLayout.findViewById(R.id.startBox));
+		return startBox;
+	}
+
+	public EditText getEndBox() {
+		EditText endBox = (EditText)(conferencePlannerLayout.findViewById(R.id.endBox));
+		return endBox;
 	}
 
 	// Getters for all the buttons and overlays associated with the buttons
