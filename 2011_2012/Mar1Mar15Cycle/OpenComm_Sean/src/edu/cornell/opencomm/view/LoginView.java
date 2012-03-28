@@ -81,10 +81,9 @@ public class LoginView extends Activity {
     /**Jump to the account creation page when sign-up button is clicked*/
     public void createAccount(View v){
     	Log.v("Crystal", "create Account");
+    	setSignupOverlay(true);
     	SignupView account=new SignupView(this);
     	account.launch();
-    	
-    	
     }
     /**Jump to the Reset Password page when forgot-password is clicked*/
     public void retrievePassword(View v){
@@ -125,5 +124,10 @@ public class LoginView extends Activity {
             loginController.handleLoginButtonClick(usernameEdit, passwordEdit);
         }
     };
+    
+    public void setSignupOverlay(boolean b) {
+    	if (b) findViewById(R.id.signUpOverlay).setVisibility(View.VISIBLE);
+    	else findViewById(R.id.signUpOverlay).setVisibility(View.INVISIBLE);
+    }
 }
      

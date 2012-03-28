@@ -36,6 +36,7 @@ public class SettingsController {
 
     public void handleSaveButtonClick() {
         if (D) Log.d(TAG, "handleSaveButtonClick called");
+        view.setCreateOverlay(true);
         String firstName = view.getFirstNameBox().getText().toString();
         String lastName = view.getLastNameBox().getText().toString();
         String email = view.getEmailBox().getText().toString();
@@ -51,6 +52,7 @@ public class SettingsController {
             xmppService.disconnect();*/
             view.dismiss();
         } else {
+        	view.setCreateOverlay(false);
             NotificationView notify = new NotificationView(context);
             notify.launch("Please fix the errors above","RED","WHITE", true);
         }
@@ -92,6 +94,7 @@ public class SettingsController {
 
     public void handleCancelButtonClick() {
         if (D) Log.d(TAG, "handleCancelButtonClick called");
+        view.setCancelOverlay(true);
         view.dismiss();
     }
 

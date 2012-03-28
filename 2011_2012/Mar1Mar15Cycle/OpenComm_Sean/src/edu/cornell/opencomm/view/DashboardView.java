@@ -216,7 +216,7 @@ public class DashboardView extends Activity {
         if (true) {
 	    	final String[] args = new String[1];
 	    	args[0] = getIntent().getStringExtra(Network.KEY_USERNAME);
-	    	pnv = new PopupNotificationView(this, args, "conference now", "a conference is happening now", "click to enter", Values.confirmation);
+	    	pnv = new PopupNotificationView(this, args, "conference", "one of your conferences has started", "click to enter", Values.confirmation);
 	    	pnv.setController(new GoToConferencePopupController(pnv));
 	        dashboardLayout.post(new Runnable() {
 				public void run() {

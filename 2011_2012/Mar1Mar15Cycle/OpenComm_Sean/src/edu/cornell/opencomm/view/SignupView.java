@@ -48,6 +48,10 @@ public class SignupView {
          */
         public void dismiss() {
             if (D) Log.d(TAG, "dismiss called");
+            if(context instanceof LoginView) {
+            	LoginView lv = (LoginView) context;
+            	lv.setSignupOverlay(false);
+            }
             popup.dismiss();
         } // end dismiss
 
@@ -341,6 +345,16 @@ public class SignupView {
                         .findViewById(R.id.photoButton);
             }
             return photoButton;
+        }
+        
+        public void setCreateOverlay(boolean b) {
+        	if(b) layout.findViewById(R.id.createOverlay).setVisibility(View.VISIBLE);
+        	else layout.findViewById(R.id.createOverlay).setVisibility(View.INVISIBLE);
+        }
+        
+        public void setCancelOverlay(boolean b) {
+        	if(b) layout.findViewById(R.id.cancelOverlay).setVisibility(View.VISIBLE);
+        	else layout.findViewById(R.id.cancelOverlay).setVisibility(View.INVISIBLE);
         }
 
         /**

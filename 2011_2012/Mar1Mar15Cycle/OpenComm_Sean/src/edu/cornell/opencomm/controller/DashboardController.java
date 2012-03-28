@@ -99,7 +99,6 @@ public class DashboardController {
 		dashboardView.getAccountButtonOverlay().setVisibility(View.VISIBLE);
 		SettingsView sv = new SettingsView(dashboardView);
 		sv.launch();
-		
 	}
 
 	public void handleHistoryButtonClicked() {

@@ -346,6 +346,16 @@ public class SettingsView {
             }
             return photoButton;
         }
+        
+        public void setCreateOverlay(boolean b) {
+        	if(b) layout.findViewById(R.id.createOverlay).setVisibility(View.VISIBLE);
+        	else layout.findViewById(R.id.createOverlay).setVisibility(View.INVISIBLE);
+        }
+        
+        public void setCancelOverlay(boolean b) {
+        	if(b) layout.findViewById(R.id.cancelOverlay).setVisibility(View.VISIBLE);
+        	else layout.findViewById(R.id.cancelOverlay).setVisibility(View.INVISIBLE);
+        }
 
         /**
          * Accessor for Context

@@ -32,6 +32,7 @@ public class SignupController {
     public final Pattern NAME_PATTERN = Pattern.compile("[a-zA-Z-]+");
 
     public void handleSaveButtonClick() {
+    	view.setCreateOverlay(true);
         if (D) Log.d(TAG, "handleSaveButtonClick called");
         String firstName = view.getFirstNameBox().getText().toString();
         String lastName = view.getLastNameBox().getText().toString();
@@ -49,6 +50,7 @@ public class SignupController {
             xmppService.disconnect();
             view.dismiss();
         } else {
+        	view.setCreateOverlay(false);
             NotificationView notify = new NotificationView(context);
             notify.launch("Please fix the errors above","RED","WHITE", true);
         }
@@ -90,6 +92,7 @@ public class SignupController {
 
     public void handleCancelButtonClick() {
         if (D) Log.d(TAG, "handleCancelButtonClick called");
+        view.setCancelOverlay(true);
         view.dismiss();
     }
 

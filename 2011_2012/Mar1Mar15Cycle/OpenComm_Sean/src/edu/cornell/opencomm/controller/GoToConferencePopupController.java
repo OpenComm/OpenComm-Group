@@ -21,8 +21,6 @@ public class GoToConferencePopupController extends PopupNotificationController {
 		i.putExtra(Network.KEY_USERNAME, args[0]);
 		i.setAction(Network.ACTION_LOGIN);
 		popupNotificationView.getContext().startActivity(i);
-		
-		popupNotificationView.dismiss();
 
 	}
 
