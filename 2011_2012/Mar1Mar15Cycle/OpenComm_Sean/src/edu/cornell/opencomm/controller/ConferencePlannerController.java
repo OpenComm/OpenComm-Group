@@ -26,11 +26,13 @@ import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.Network;
 import edu.cornell.opencomm.view.ConferencePlannerView;
 import edu.cornell.opencomm.view.DashboardView;
+import edu.cornell.opencomm.view.NotificationView;
 import edu.cornell.opencomm.view.UserView;
 
 public class ConferencePlannerController {
-	
+	//Note: Right now, conferences has to start and end on the same day.
 
+	
 	private Conference openfireInvitation;
 	// fields for our date widget
 	Calendar endTime;
@@ -44,6 +46,7 @@ public class ConferencePlannerController {
 	private int startHour;
 	private int endMinute;
 	private int endHour;
+	private boolean endTimeSet=false; //True if an end time is set
 	// associated conferencePlannerView
 	private ConferencePlannerView conferencePlannerView;
 	// fields for addUsers
@@ -79,25 +82,28 @@ public class ConferencePlannerController {
 					|| (year == stock.get(Calendar.YEAR)
 							&& monthOfYear == stock.get(Calendar.MONTH) && dayOfMonth < stock
 							.get(Calendar.DATE))) {
-				Toast.makeText(
-						conferencePlannerView.getContext(),
-						"You selected a start time that is before the current time. Please reselect an appropriate time.",
-						Toast.LENGTH_LONG).show();
+				
+				NotificationView popup1 = new NotificationView(conferencePlannerView.getContext());
+		    	//Should use a string xml
+		     	popup1.launch("You entered a date in the past. Please Retry.","RED", "WHITE",true);
+				
+//				Toast.makeText(
+//						conferencePlannerView.getContext(),
+//						"You selected a start time that is before the current time. Please reselect an appropriate time.",
+//						Toast.LENGTH_LONG).show();
 				handleDateButtonClicked();
 			}
+			else{
+				conferencePlannerView.getDateBox().setText(" " +startMonth + "/" + startDay + "/" + startYear);
+			}
 
+			//One day conferences, initialize to 0:00 for start/end times.
 			endTime.set(Calendar.YEAR, year);
 			endTime.set(Calendar.MONTH, monthOfYear);
 			endTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-			conferencePlannerView.getDateBox().setText(" " +startMonth + "/" + startDay + "/" + startYear);
-//			Log.v("startTime", "day,month,year: " + startDay + "," + startMonth
-//					+ "," + startYear);
-			
-//			//Hackish way to get rid of white overlay, not needed
-//			if (conferencePlannerView!= null){
-//			conferencePlannerView.getDateButtonOverlay().setVisibility(
-//					View.INVISIBLE);}
-
+			startDate.set(Calendar.YEAR, year);
+			startDate.set(Calendar.MONTH, monthOfYear);
+			startDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 		}
 	};
 
@@ -108,14 +114,18 @@ public class ConferencePlannerController {
 			endHour = hourOfDay;
 			endTime.set(Calendar.HOUR, hourOfDay);
 			endTime.set(Calendar.MINUTE, minute);
+			
+			if(endHour<startHour||
+					endHour==startHour&&endMinute<startMinute){
+				NotificationView wrongTime = new NotificationView(conferencePlannerView.getContext());
+		    	//Should use a string xml
+		     	wrongTime.launch("You entered an end time before your start time. Please Retry.","RED", "WHITE",true);
+		     	handleEndTimeButtonClicked();
+			}
+			else{			
 			conferencePlannerView.getEndBox().setText(" " + hourOfDay + ": " + minute);
-//			Log.v ("checkNull", "ConferencePlannerView null? " + conferencePlannerView );
-			//Hack to get invisible buttons after user click.
-			if (conferencePlannerView!=null){
-				Log.v("setOverlay", "Called setVisibility=false for Endbutton");
-			conferencePlannerView.getEndButtonOverlay().setVisibility(
-					View.INVISIBLE);
-	}
+			endTimeSet=true;}
+			
 		}
 	};
 
@@ -124,18 +134,22 @@ public class ConferencePlannerController {
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 			startMinute = minute;
 			startHour = hourOfDay;
-			conferencePlannerView.getStartBox().setText(" " + hourOfDay + ": " + minute);
+			
 			startDate.set(Calendar.HOUR, hourOfDay);
 			startDate.set(Calendar.MINUTE, minute);
-			if (conferencePlannerView!=null){
-				conferencePlannerView.getStartButtonOverlay().setVisibility(
-						View.INVISIBLE);
+			
+			if((endHour<startHour||
+					(endHour==startHour&&endMinute<startMinute))&&endTimeSet){
+				NotificationView wrongTime = new NotificationView(conferencePlannerView.getContext());
+		    	//Should use a string xml
+		     	wrongTime.launch("You had entered an end time before this start time. Please Retry.","RED", "WHITE",true);
+		     	handleStartTimeButtonClicked();
 			}
-		}
-
-	//}
-		
-	};
+			else{
+				conferencePlannerView.getStartBox().setText(" " + hourOfDay + ": " + minute);
+			}
+			}
+		};
 
 	public ConferencePlannerController(
 			ConferencePlannerView conferencePlannerView) {
