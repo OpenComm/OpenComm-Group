@@ -7,6 +7,7 @@
  *
  * @author rahularora, risanaka, kriskooi, anneedmundson, jp
  *
+ * Asmack - https://github.com/Flowdalic/asmack
  * */
 
 package edu.cornell.opencomm.network;
@@ -18,7 +19,7 @@ public class Network {
     public static final String packageName = "edu.cornell.opencomm.network.";
 
     /** = name of the cycle during which this app is created */
-    public static final String cycleName = "saopaulo_hochiminh";
+    public static final String cycleName = "saopaulo_sean";
 
 	// ====================================================================== //
 	// ====================================================================== //

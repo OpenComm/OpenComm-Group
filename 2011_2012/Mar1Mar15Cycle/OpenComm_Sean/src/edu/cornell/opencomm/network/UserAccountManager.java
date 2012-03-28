@@ -31,6 +31,7 @@ public class UserAccountManager {
 			attr.put("firstname", firstname); 
 			attr.put("lastname", lastname); 
 			attr.put("title", title); 
+
 			accountManager.createAccount(email, password, attr);
 			if (D){
 				Log.d(TAG, "Create user done");
@@ -38,8 +39,9 @@ public class UserAccountManager {
 			return true;
 		} catch (XMPPException e) {
 			if (D){
-				e.printStackTrace();
 				Log.d(TAG, "Create user failed");
+				Log.d(TAG,e.getMessage());
+				e.printStackTrace();
 			}
 		}
 		return false;

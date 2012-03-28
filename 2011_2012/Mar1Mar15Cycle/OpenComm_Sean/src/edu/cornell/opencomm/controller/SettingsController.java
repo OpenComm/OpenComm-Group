@@ -4,10 +4,12 @@ import java.util.regex.Pattern;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.network.Network;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.network.UserAccountManager;
+import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.NotificationView;
 import edu.cornell.opencomm.view.SettingsView;
 import edu.cornell.opencomm.view.SignupView;
@@ -34,6 +36,7 @@ public class SettingsController {
 
     public void handleSaveButtonClick() {
         if (D) Log.d(TAG, "handleSaveButtonClick called");
+        view.setCreateOverlay(true);
         String firstName = view.getFirstNameBox().getText().toString();
         String lastName = view.getLastNameBox().getText().toString();
         String email = view.getEmailBox().getText().toString();
@@ -41,14 +44,15 @@ public class SettingsController {
             String title = view.getTitleBox().getText().toString();
             String password = view.getPasswordBox().getText().toString();
             
-            //Log into the server as admin to create a new account
-            NetworkService xmppService = new NetworkService(Network.DEFAULT_HOST, Network.DEFAULT_PORT);
+            //UPDATE TO EDIT USER FUNCTIONS
+            /*NetworkService xmppService = new NetworkService(Network.DEFAULT_HOST, Network.DEFAULT_PORT);
             xmppService.login(Network.DEBUG_USERNAME, Network.DEBUG_PASSWORD);
             UserAccountManager manager = new UserAccountManager(xmppService.getXMPPConnection());
             manager.createUser(email, password, firstName, lastName, title);
-            xmppService.disconnect();
+            xmppService.disconnect();*/
             view.dismiss();
         } else {
+        	view.setCreateOverlay(false);
             NotificationView notify = new NotificationView(context);
             notify.launch("Please fix the errors above","RED","WHITE", true);
         }
@@ -90,6 +94,7 @@ public class SettingsController {
 
     public void handleCancelButtonClick() {
         if (D) Log.d(TAG, "handleCancelButtonClick called");
+        view.setCancelOverlay(true);
         view.dismiss();
     }
 

@@ -12,7 +12,7 @@ public class PopupNotificationController {
 		this.popupNotificationView = popupNotificationView;
 	    }
 	
-	public void handleOkButtonClicked() {
+	public void handleOkButtonClicked(String[] args) {
 		Log.d(LOG_TAG, "Button clicked");
 	}
 }

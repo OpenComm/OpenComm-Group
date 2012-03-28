@@ -96,10 +96,9 @@ public class DashboardController {
 
 	public void handleAccountButtonClicked() {
 		Log.v(TAG, "account button clicked");
-		dashboardView.getAccountButton().setBackgroundColor(R.color.light_grey);
-		Intent i = new Intent(dashboardView, SettingsView.class);
-		dashboardView.startActivity(i);
-		
+		dashboardView.getAccountButtonOverlay().setVisibility(View.VISIBLE);
+		SettingsView sv = new SettingsView(dashboardView);
+		sv.launch();
 	}
 
 	public void handleHistoryButtonClicked() {
