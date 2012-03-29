@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/black_translucent"
+    
+    android:gravity="left"
+    android:orientation="vertical" android:paddingBottom="0dp" android:visibility="visible">
+
+    <RelativeLayout
+        android:id="@+id/infoNewConf"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="0dp" >
+
+        <RelativeLayout
+            android:id="@+id/relativeTextLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="68dp" >
+
+            <TextView
+                android:id="@+id/textLabelConfirm"
+                android:layout_width="fill_parent"
+                android:layout_height="66dp"
+                android:background="@color/grey_dark_translucent"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:gravity="center_vertical"
+                android:paddingLeft="44dp"
+                android:text="@string/new_conf"
+                android:textColor="@color/green"
+                android:textSize="47dp" android:layout_marginBottom="0dp" android:paddingBottom="0dp" android:layout_marginTop="-5.5dp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relatievElements"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/relativeTextLabel" >
+
+            <TextView
+                android:id="@+id/nameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="44dp"
+                android:layout_marginTop="2dp"
+                android:padding="0dp"
+                android:text="name"
+                android:textSize="30dp" />
+
+            <TextView
+                android:id="@+id/dateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/nameText"
+                android:layout_below="@+id/nameText"
+                android:layout_marginTop="-5dp"
+                android:text="date"
+                android:textSize="30dp" />
+
+            <TextView
+                android:id="@+id/startText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/dateText"
+                android:layout_below="@+id/dateText"
+                android:layout_marginTop="-5dp"
+                android:text="start"
+                android:textSize="30dp" />
+
+            <TextView
+                android:id="@+id/endText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/startText"
+                android:layout_below="@+id/startText"
+                android:layout_marginTop="-5dp"
+                android:text="end"
+                android:textSize="30dp" />
+
+            <TextView
+                android:id="@+id/recurringText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/endText"
+                android:layout_below="@+id/endText"
+                android:layout_marginTop="-5dp"
+                android:text="recurring"
+                android:textSize="30dp" />
+
+            <EditText
+                android:id="@+id/nameBox"
+                android:layout_width="146.67dp"
+                android:layout_height="27dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/logintextback"
+                android:padding="0dp"
+                android:paddingLeft="15dp" >
+
+                <requestFocus />
+            </EditText>
+
+            <ImageButton
+                android:id="@+id/calenderButton"
+                android:layout_width="26.67dp"
+                android:layout_height="26.67dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignRight="@+id/nameBox"
+                android:layout_below="@+id/nameText"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/dark_grey"
+                android:scaleType="fitXY"
+                android:src="@drawable/calendar_icon"
+                 />
+
+            <ImageButton
+                android:id="@+id/startTimeButton"
+                android:layout_width="26.67dp"
+                android:layout_height="26.67dp"
+                android:layout_alignLeft="@+id/calenderButton"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/calenderButton"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/dark_grey"
+                android:scaleType="fitXY"
+                android:src="@drawable/starting_icon" />
+
+            <ImageButton
+                android:id="@+id/endTimeButton"
+                android:layout_width="26.67dp"
+                android:layout_height="26.67dp"
+                android:layout_alignLeft="@+id/startTimeButton"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/startTimeButton"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/dark_grey"
+                android:scaleType="fitXY"
+                android:src="@drawable/ending_icon" />
+
+            <ImageButton
+                android:id="@+id/recurringButton"
+                android:layout_width="26.67dp"
+                android:layout_height="26.67dp"
+                android:layout_alignLeft="@+id/endTimeButton"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/endTimeButton"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/dark_grey"
+                android:scaleType="fitXY"
+                android:src="@drawable/recurring_icon" />
+
+            <FrameLayout
+                android:id="@+id/attendeeFrame"
+                android:layout_width="fill_parent"
+                android:layout_height="37.33dp"
+                android:layout_below="@id/recurringButton"
+                android:layout_marginTop="20dp"
+                android:background="@color/dark_grey" android:clickable="true">
+
+                <ImageView
+                    android:id="@+id/attendeeButtonOverlay"
+                    android:layout_width="match_parent"
+                    android:layout_height="37.22dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/overlay_white"
+                    android:visibility="invisible" />
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/startButtonOverlay"
+                android:layout_width="26.67dp"
+                android:layout_height="26.67dp"
+                android:layout_above="@+id/endTimeButton"
+                android:layout_alignLeft="@+id/startTimeButton"
+                android:scaleType="fitXY"
+                android:src="@drawable/overlay_white"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/endButtonOverlay"
+                android:layout_width="26.67dp"
+                android:layout_height="26.67dp"
+                android:layout_alignLeft="@+id/endTimeButton"
+                android:layout_alignTop="@+id/endTimeButton"
+                android:scaleType="fitXY"
+                android:src="@drawable/overlay_white"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/recurringButtonOverlay"
+                android:layout_width="26.67dp"
+                android:layout_height="26.67dp"
+                android:layout_alignLeft="@+id/recurringButton"
+                android:layout_alignTop="@+id/recurringButton"
+                android:scaleType="fitXY"
+                android:src="@drawable/overlay_white"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/dateButtonOverlay"
+                android:layout_width="26.67dp"
+                android:layout_height="26.67dp"
+                android:layout_above="@+id/startTimeButton"
+                android:layout_alignLeft="@+id/calenderButton"
+                android:scaleType="fitXY"
+                android:src="@drawable/overlay_white"
+                android:visibility="invisible" />
+
+            <FrameLayout
+                android:id="@+id/confirmBarFrame"
+                android:layout_width="fill_parent"
+                android:layout_height="37.33dp"
+                android:layout_alignParentBottom="false"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/scrollView1"
+                android:layout_marginBottom="0dp" >
+
+                <LinearLayout
+                    android:id="@+id/confirmBar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="horizontal" >
+
+                    <ImageButton
+                        android:id="@+id/imageCreate"
+                        android:layout_width="58.67dp"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="center"
+                        android:background="@color/grey_dark_translucent"
+                        android:paddingBottom="5.33dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="12dp"
+                        android:paddingTop="5.33dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/acceptplus" />
+
+                    <Button
+                        android:id="@+id/buttonCreate"
+                        android:layout_width="101.33dp"
+                        android:layout_height="fill_parent"
+                        android:background="@color/grey_dark_translucent"
+                        android:clickable="true"
+                        android:cursorVisible="false"
+                        android:gravity="left|center_vertical"
+                        android:text="create"
+                        android:textColor="@color/blue"
+                        android:textSize="25sp" />
+
+                    <ImageButton
+                        android:id="@+id/imageCancel"
+                        android:layout_width="57.33dp"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="center"
+                        android:background="@color/grey_dark_translucent"
+                        android:paddingBottom="7.665dp"
+                        android:paddingLeft="22dp"
+                        android:paddingRight="13.33dp"
+                        android:paddingTop="7.665dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/cancelx" />
+
+                    <Button
+                        android:id="@+id/buttonCancel"
+                        android:layout_width="102.67dp"
+                        android:layout_height="fill_parent"
+                        android:background="@color/grey_dark_translucent"
+                        android:clickable="true"
+                        android:cursorVisible="false"
+                        android:gravity="left|center_vertical"
+                        android:text="cancel"
+                        android:textColor="@color/orange"
+                        android:textSize="25sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/confirmOverlay"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:id="@+id/createOverlay"
+                        android:layout_width="160dp"
+                        android:layout_height="fill_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/overlay_white"
+                        android:visibility="invisible" />
+
+                    <ImageView
+                        android:id="@+id/cancelOverlay"
+                        android:layout_width="160dp"
+                        android:layout_height="fill_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/overlay_white"
+                        android:visibility="invisible" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <ScrollView
+                android:id="@+id/scrollView1"
+                android:layout_width="fill_parent"
+                android:layout_height="90dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/attendeeFrame"
+                android:paddingLeft="44dp" >
+
+                <LinearLayout
+                    android:id="@+id/userIcons"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical" />
+            </ScrollView>
+
+            <ImageView
+                android:id="@+id/attendeesButton"
+                android:layout_width="26.67dp"
+                android:layout_height="26.67dp"
+                android:layout_alignLeft="@+id/recurringButton"
+                android:layout_below="@+id/recurringButton"
+                android:layout_marginTop="25dp"
+                android:layout_weight="0.01"
+                android:scaleType="centerInside"
+                android:src="@drawable/attendees_icon" />
+
+            <TextView
+                android:id="@+id/attendeesText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/scrollView1"
+                android:layout_alignParentLeft="true"
+                android:cursorVisible="false"
+                android:paddingBottom="0dp"
+                android:paddingLeft="44dp"
+                android:text="attendees"
+                android:textColor="@color/light_gray"
+                android:textSize="30dp" />
+
+            <Button
+                android:id="@+id/attendeeNameButton"
+                android:layout_width="match_parent"
+                android:layout_height="37.22dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignTop="@+id/attendeesText"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:cursorVisible="false"
+                android:gravity="left|center_vertical"
+                android:height="0dp"
+                android:paddingBottom="0dp"
+                android:paddingLeft="44dp"
+                android:paddingTop="0dp"
+                android:textColor="@color/light_gray"
+                android:textSize="35dp"
+                android:width="0dp" />
+
+            <EditText
+                android:id="@+id/dateBox"
+                android:layout_width="146.67dp"
+                android:layout_height="27dp"
+                android:layout_alignTop="@+id/calenderButton"
+                android:layout_toLeftOf="@+id/calenderButton"
+                android:layout_toRightOf="@+id/recurringText"
+                android:background="@drawable/logintextback"
+                android:padding="0dp"
+                android:paddingLeft="15dp" android:clickable="false" android:inputType="none"/>
+
+            <EditText
+                android:id="@+id/startBox"
+                android:layout_width="146.67dp"
+                android:layout_height="27dp"
+                android:layout_alignTop="@+id/startTimeButton"
+                android:layout_toLeftOf="@+id/startTimeButton"
+                android:layout_toRightOf="@+id/recurringText"
+                android:background="@drawable/logintextback"
+                android:padding="0dp"
+                android:paddingLeft="15dp" android:clickable="false" android:inputType="none"/>
+
+            <EditText
+                android:id="@+id/endBox"
+                android:layout_width="146.67dp"
+                android:layout_height="27dp"
+                android:layout_alignTop="@+id/endTimeButton"
+                android:layout_toLeftOf="@+id/endTimeButton"
+                android:layout_toRightOf="@+id/recurringText"
+                android:background="@drawable/logintextback"
+                android:padding="0dp"
+                android:paddingLeft="15dp" android:clickable="false" android:inputType="none"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>
