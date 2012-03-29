@@ -22,6 +22,12 @@ public class SignupController {
     private Context context;
     private SignupView view;
 
+    final public String INVALID_FIRST_NAME = "Invalid First Name";
+    final public String INVALID_LAST_NAME = "Invalid Last Name";
+    final public String INVALID_EMAIL = "Invalid Email";
+    final public String PASSWORDS_DONT_MATCH = "Passwords don't match";
+
+
     public SignupController(SignupView view, Context context) {
         if (D) Log.d(TAG, "SignupController constructor called");
         this.view = view;
@@ -37,32 +43,51 @@ public class SignupController {
         String firstName = view.getFirstNameBox().getText().toString();
         String lastName = view.getLastNameBox().getText().toString();
         String email = view.getEmailBox().getText().toString();
-        if(validateName(firstName) && validateName(lastName) && validateEmail(email)) {
-            String title = view.getTitleBox().getText().toString();
-            String password = view.getPasswordBox().getText().toString();
-            
-            //Log into the server as admin to create a new account
-            NetworkService xmppService = new NetworkService(Network.DEFAULT_HOST, Network.DEFAULT_PORT);
-            xmppService.login(Network.DEBUG_USERNAME, Network.DEBUG_PASSWORD);
-            UserAccountManager manager = new UserAccountManager(xmppService.getXMPPConnection());
-            if (D) Log.d(TAG, "Email:"+email+"Password:"+password+"firstName"+firstName+"lastName"+lastName+"title"+title);
-            manager.createUser(email, password, firstName, lastName, title);
-            xmppService.disconnect();
-            view.dismiss();
-        } else {
-        	view.setCreateOverlay(false);
-            NotificationView notify = new NotificationView(context);
-            notify.launch("Please fix the errors above","RED","WHITE", true);
+        String password = view.getPasswordBox().getText().toString();
+        String confirmPassword = view.getConfirmPasswordBox().getText().toString();
+        if(!password.equals(confirmPassword)) {
+            notify(PASSWORDS_DONT_MATCH);
+            return;
         }
+        if(!validateName(firstName)) {
+            notify(INVALID_FIRST_NAME);
+            return;
+        }
+        if(!validateName(lastName)) {
+            notify(INVALID_LAST_NAME);
+            return;
+        }
+        if(!validateEmail(email)) {
+            notify(INVALID_EMAIL);
+            return;
+        }
+        String title = view.getTitleBox().getText().toString();
+
+        //Log into the server as admin to create a new account
+        NetworkService xmppService = new NetworkService(Network.DEFAULT_HOST, Network.DEFAULT_PORT);
+        xmppService.login(Network.DEBUG_USERNAME, Network.DEBUG_PASSWORD);
+        UserAccountManager manager = new UserAccountManager(xmppService.getXMPPConnection());
+        if (D) Log.d(TAG, "Email:"+email+"Password:"+password+"firstName"+firstName+"lastName"+lastName+"title"+title);
+        manager.createUser(email, password, firstName, lastName, title);
+        xmppService.disconnect();
+        view.dismiss();
+    }
+
+    private void notify(String message) {
+        view.setCreateOverlay(false);
+        NotificationView notify = new NotificationView(context);
+        notify.launch(message,"RED","WHITE", true);
     }
 
     public void handleFirstNameFocusChange(boolean hasFocus) {
         if (D) Log.d(TAG, "handleFirstNameFocusChange called");
         if(!hasFocus) {
-            boolean valid = validateName(view.getFirstNameBox().getText().toString());
-            if(!valid) {
-                NotificationView notify = new NotificationView(context);
-                notify.launch("Invalid First Name","RED","WHITE", true);
+            String nameText = view.getFirstNameBox().getText().toString();
+            if(nameText != null && !nameText.equals("")) {
+                boolean valid = validateName(nameText);
+                if(!valid) {
+                    notify(INVALID_FIRST_NAME);
+                }
             }
         }
     }
@@ -70,10 +95,12 @@ public class SignupController {
     public void handleLastNameFocusChange(boolean hasFocus) {
         if (D) Log.d(TAG, "handleLastNameFocusChange called");
         if(!hasFocus) {
-            boolean valid = validateName(view.getLastNameBox().getText().toString());
-            if(!valid) {
-                NotificationView notify = new NotificationView(context);
-                notify.launch("Invalid Last Name","RED","WHITE", true);
+            String nameText = view.getLastNameBox().getText().toString();
+            if(nameText != null && !nameText.equals("")) {
+                boolean valid = validateName(nameText);
+                if(!valid) {
+                    notify(INVALID_LAST_NAME);
+                }
             }
         }
     }
@@ -81,10 +108,12 @@ public class SignupController {
     public void handleEmailFocusChange(boolean hasFocus) {
         if (D) Log.d(TAG, "handleEmailFocusChange called");
         if(!hasFocus) {
-            boolean valid = validateEmail(view.getEmailBox().getText().toString());
-            if(!valid) {
-                NotificationView notify = new NotificationView(context);
-                notify.launch("Invalid Email","RED","WHITE", true);
+            String emailText = view.getEmailBox().getText().toString();
+            if(emailText != null && !emailText.equals("")) {
+                boolean valid = validateEmail(emailText);
+                if(!valid) {
+                    notify(INVALID_EMAIL);
+                }
             }
         }
 

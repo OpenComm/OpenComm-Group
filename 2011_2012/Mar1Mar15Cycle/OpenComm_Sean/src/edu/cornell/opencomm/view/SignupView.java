@@ -235,7 +235,7 @@ public class SignupView {
             }
             return saveButton;
         }
-        
+
         public View getSaveImageButton() {
             if (D) Log.d(TAG, "getSaveImageButton called");
             View saveButton = null;
@@ -258,7 +258,7 @@ public class SignupView {
             }
             return cancelButton;
         }
-        
+
         public View getCancelImageButton() {
             if (D) Log.d(TAG, "getCancelImageButton called");
             View saveButton = null;
@@ -307,7 +307,7 @@ public class SignupView {
             }
             return lastNameBox;
         }
-        
+
         /**
          * @return Password Box
          */
@@ -316,7 +316,20 @@ public class SignupView {
             EditText passwordBox = null;
             if (getContext() != null) {
                 passwordBox = (EditText) layout
-                        .findViewById(R.id.emailBox);
+                        .findViewById(R.id.passwordBox);
+            }
+            return passwordBox;
+        }
+
+        /**
+         * @return Password Box
+         */
+        public EditText getConfirmPasswordBox() {
+            if (D) Log.d(TAG, "getPasswordConfirmBox called");
+            EditText passwordBox = null;
+            if (getContext() != null) {
+                passwordBox = (EditText) layout
+                        .findViewById(R.id.confirmPasswordBox);
             }
             return passwordBox;
         }
@@ -346,12 +359,12 @@ public class SignupView {
             }
             return photoButton;
         }
-        
+
         public void setCreateOverlay(boolean b) {
         	if(b) layout.findViewById(R.id.createOverlay).setVisibility(View.VISIBLE);
         	else layout.findViewById(R.id.createOverlay).setVisibility(View.INVISIBLE);
         }
-        
+
         public void setCancelOverlay(boolean b) {
         	if(b) layout.findViewById(R.id.cancelOverlay).setVisibility(View.VISIBLE);
         	else layout.findViewById(R.id.cancelOverlay).setVisibility(View.INVISIBLE);

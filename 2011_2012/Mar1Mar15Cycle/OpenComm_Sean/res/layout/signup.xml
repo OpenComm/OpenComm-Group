@@ -19,6 +19,8 @@
             android:layout_marginLeft="0dp"
             android:layout_marginTop="68dp" android:layout_alignParentRight="true">
         </RelativeLayout>
+        
+
 
         <RelativeLayout
             android:id="@+id/relativeElements"
@@ -34,7 +36,7 @@
                 android:layout_height="37.33dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
-                android:layout_marginBottom="15dp" >
+                android:layout_marginBottom="50dp" >
 
                 <LinearLayout
                     android:id="@+id/confirmBar"
@@ -115,18 +117,13 @@
               	</LinearLayout>
             </FrameLayout>
 
-            <TextView
-                android:id="@+id/firstNameText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="55dp"
-                android:padding="0dp"
-                android:text="first name"
-                android:textColor="@color/off_white"
-                android:textSize="22dp" >
-            </TextView>
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="337dp" android:layout_alignParentTop="true">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
             <EditText
                 android:id="@+id/firstNameBox"
@@ -163,8 +160,6 @@
                 android:padding="0dp"
                 android:paddingLeft="15dp" >
 
-                <requestFocus>
-                </requestFocus>
             </EditText>
 
             <TextView
@@ -234,7 +229,8 @@
                 android:textSize="22dp" />
 
             <EditText
-                android:id="@+id/EditText01"
+                android:id="@+id/passwordBox"
+                android:password="true"
                 android:layout_width="146.67dp"
                 android:layout_height="27dp"
                 android:layout_alignLeft="@+id/TextView01"
@@ -244,16 +240,6 @@
                 android:padding="0dp"
                 android:paddingLeft="15dp" />
 
-            <TextView
-                android:id="@+id/photoText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignRight="@+id/emailText"
-                android:layout_below="@+id/EditText01"
-                android:text="photo"
-                android:textColor="@color/off_white"
-                android:textSize="22dp" />
-
             <ImageView
                 android:id="@+id/photoButton"
                 android:layout_width="70dp"
@@ -262,11 +248,22 @@
                 android:layout_below="@+id/photoText"
                 android:scaleType="centerInside"
                 android:src="@drawable/imagearrow" />
+            <TextView android:text="confirm password" android:textSize="22dp" android:id="@+id/TextView02" android:textColor="@color/off_white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:padding="0dp" android:layout_below="@+id/passwordBox" android:layout_alignLeft="@+id/passwordBox"></TextView>
+            <EditText android:paddingLeft="15dp" android:layout_width="146.67dp" android:background="@drawable/logintextback" android:password="true" android:layout_height="27dp" android:id="@+id/confirmPasswordBox" android:padding="0dp" android:layout_below="@+id/TextView02" android:layout_alignLeft="@+id/TextView02" android:layout_alignRight="@+id/passwordBox"></EditText>
+            <TextView android:text="photo" android:textSize="22dp" android:id="@+id/photoText" android:textColor="@color/off_white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@+id/confirmPasswordBox" android:layout_alignLeft="@+id/confirmPasswordBox"></TextView>
+            <TextView android:text="first name" android:textSize="22dp" android:id="@+id/firstNameText" android:textColor="@color/off_white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:padding="0dp" android:layout_alignParentTop="true" android:layout_alignParentLeft="true" android:layout_marginLeft="53dp"></TextView>
+
+</RelativeLayout>
+
+            </ScrollView>
 
         </RelativeLayout>
+
 
         <TextView android:textColor="@color/green" android:layout_height="66dp" android:gravity="center_vertical" android:textSize="40dp" android:background="@color/grey_dark_translucent" android:paddingBottom="0dp" android:text="@string/signup" android:paddingLeft="44dp" android:layout_width="fill_parent" android:cursorVisible="false" android:clickable="false" android:id="@+id/signupTitle" android:layout_alignParentTop="true" android:layout_alignParentLeft="true"></TextView>
 
     </RelativeLayout>
+    
+
 
 </LinearLayout>
