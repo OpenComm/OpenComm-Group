@@ -52,6 +52,7 @@ public class ContactListController {
         //TODO: Move to view?
         //TODO: Split into display and set up functions
         if (D) Log.d(TAG, "showBuddyList called");
+        if (D) Log.d(TAG, "showing buddy list for " + MainApplication.userPrimary.getUsername());
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
         class DialogSelectionClickHandler implements DialogInterface.OnMultiChoiceClickListener {
@@ -101,7 +102,7 @@ public class ContactListController {
         for (int i = 0; i < buddySelection.length; i++) {
             if (buddySelection[i]) {
                 username = (String) buddyList[i];
-                User p = new User(username + "@" + Network.DEFAULT_HOST, username,
+                User p = new User(username + "@" + Network.DEFAULT_HOSTNAME, username,
                         R.drawable.question);
                 Log.v("ContactListController", "addFromBuddyList this space = " + MainApplication.screen.getSpace());
                 MainApplication.screen.getSpace().getInvitationController().inviteUser(p,

@@ -110,19 +110,20 @@ public class ConferencePlannerController {
 	TimePickerDialog.OnTimeSetListener end = new TimePickerDialog.OnTimeSetListener() {
 		@Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-			endMinute = minute;
-			endHour = hourOfDay;
+
 			endTime.set(Calendar.HOUR, hourOfDay);
 			endTime.set(Calendar.MINUTE, minute);
 			
-			if(endHour<startHour||
-					endHour==startHour&&endMinute<startMinute){
+			if(hourOfDay<startHour||
+					hourOfDay==startHour&&minute<startMinute){
 				NotificationView wrongTime = new NotificationView(conferencePlannerView.getContext());
 		    	//Should use a string xml
 		     	wrongTime.launch("You entered an end time before your start time. Please Retry.","RED", "WHITE",true);
 		     	handleEndTimeButtonClicked();
 			}
 			else{			
+				endMinute = minute;
+				endHour = hourOfDay;
 			conferencePlannerView.getEndBox().setText(" " + hourOfDay + ": " + minute);
 			endTimeSet=true;}
 			
@@ -132,20 +133,21 @@ public class ConferencePlannerController {
 	TimePickerDialog.OnTimeSetListener start = new TimePickerDialog.OnTimeSetListener() {
 		
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-			startMinute = minute;
-			startHour = hourOfDay;
+	
 			
 			startDate.set(Calendar.HOUR, hourOfDay);
 			startDate.set(Calendar.MINUTE, minute);
 			
-			if((endHour<startHour||
-					(endHour==startHour&&endMinute<startMinute))&&endTimeSet){
+			if((endHour<hourOfDay||
+					(endHour==hourOfDay&&endMinute<minute))&&endTimeSet){
 				NotificationView wrongTime = new NotificationView(conferencePlannerView.getContext());
 		    	//Should use a string xml
 		     	wrongTime.launch("You had entered an end time before this start time. Please Retry.","RED", "WHITE",true);
 		     	handleStartTimeButtonClicked();
 			}
 			else{
+				startMinute = minute;
+				startHour = hourOfDay;
 				conferencePlannerView.getStartBox().setText(" " + hourOfDay + ": " + minute);
 			}
 			}
