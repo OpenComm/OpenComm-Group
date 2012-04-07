@@ -276,13 +276,13 @@
                                 android:textColor="@color/blue"
                                 android:textSize="25sp" />
                         </LinearLayout>
-
+
                         <LinearLayout
-                            android:id="@+id/createOverlay"
+                            android:id="@+id/createFrame"
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
                             android:orientation="horizontal" >
-
+
                             <ImageView
                                 android:id="@+id/createOverlay"
                                 android:layout_width="match_parent"
@@ -290,6 +290,7 @@
                                 android:scaleType="fitXY"
                                 android:src="@drawable/overlay_white"
                                 android:visibility="invisible" />
+
                         </LinearLayout>
                     </FrameLayout>
                 </LinearLayout>
@@ -336,14 +337,15 @@
                                 android:textColor="@color/orange"
                                 android:textSize="25sp" />
                         </LinearLayout>
-
+
                         <ImageView
-                            android:id="@+id/cancelOverlay"
+                            android:id="@+id/cancelOverlay2"
                             android:layout_width="160dp"
                             android:layout_height="fill_parent"
                             android:scaleType="fitXY"
                             android:src="@drawable/overlay_white"
                             android:visibility="invisible" />
+
                     </FrameLayout>
                 </LinearLayout>
             </LinearLayout>
