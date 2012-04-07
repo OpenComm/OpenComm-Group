@@ -3,6 +3,7 @@ package edu.cornell.opencomm.view;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +18,19 @@ import edu.cornell.opencomm.controller.ConferencePlannerController;
 
 
 public class ConferencePlannerView{
+	
+	DisplayMetrics dm = new DisplayMetrics();
+	int height;
+	int width;
+
+	
     public ConferencePlannerView(LayoutInflater inflater, Context context) {
     	setContext(context);
+    	
+    	((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(dm);
+    	height = dm.heightPixels;
+    	width = dm.widthPixels;
+    	
         this.inflater = inflater;
         this.conferencePlannerController =  new ConferencePlannerController(
                 this);
@@ -395,9 +407,9 @@ public class ConferencePlannerView{
 	 */
 	public void launch() {
         if (inflater != null && conferencePlannerLayout != null) {
-            window = new PopupWindow(conferencePlannerLayout, Values.screenW,
-                    Values.screenH, true);
-            window.showAtLocation(conferencePlannerLayout, 0, 1, 1);
+            window = new PopupWindow(conferencePlannerLayout, width,
+                    height, true);
+            window.showAtLocation(conferencePlannerLayout, 0, 0, 0);
         } else {
             Log.v(LOG_TAG,
                     "Cannot launch conferencePlanner view as inflater/confirmation layout is nul");

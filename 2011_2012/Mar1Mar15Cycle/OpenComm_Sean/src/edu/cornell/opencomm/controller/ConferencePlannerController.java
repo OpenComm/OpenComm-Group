@@ -456,9 +456,9 @@ public class ConferencePlannerController {
 	public void handleCancelClicked() {
 		//Currently - make a new dashboard. since dismiss cause a weird effect :(
 		conferencePlannerView.getCanceleOverlay().setVisibility(View.VISIBLE);
-		Intent i = new Intent(conferencePlannerView.getContext(), DashboardView.class);
-		conferencePlannerView.getContext().startActivity(i);
-		//conferencePlannerView.getWindow().dismiss();
+//		Intent i = new Intent(conferencePlannerView.getContext(), DashboardView.class);
+//		conferencePlannerView.getContext().startActivity(i);
+		conferencePlannerView.getWindow().dismiss();
 	}
 
 	}
