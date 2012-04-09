@@ -305,7 +305,7 @@ public class InvitationView {
 
 	private View.OnClickListener onClickListener = new View.OnClickListener() {
 
-		@Override
+		
 		public void onClick(View v) {
 			invitationController.handlePopupWindowClicked();
 		}
@@ -313,7 +313,7 @@ public class InvitationView {
 
 	private View.OnClickListener onAcceptButtonClickListener = new View.OnClickListener() {
 
-		@Override
+		
 		public void onClick(View v) {
 			invitationController.handleAcceptButtonHover();
 		}
@@ -321,7 +321,7 @@ public class InvitationView {
 	
 	private View.OnClickListener onCancelButtonClickListener = new View.OnClickListener() {
 
-		@Override
+		
 		public void onClick(View v) {
 			invitationController.handleCancelButtonHover();
 		}

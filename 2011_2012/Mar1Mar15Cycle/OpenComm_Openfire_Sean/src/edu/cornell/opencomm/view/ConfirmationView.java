@@ -242,7 +242,7 @@ public class ConfirmationView {
 
 	private View.OnClickListener onClickListener = new View.OnClickListener() {
 
-		@Override
+		
 		public void onClick(View v) {
 			confirmationController.handlePopupWindowClicked();
 		}
@@ -250,7 +250,7 @@ public class ConfirmationView {
 
 	private View.OnClickListener onAcceptButtonClickListener = new View.OnClickListener() {
 
-		@Override
+		
 		public void onClick(View v) {
 			confirmationController.handleAcceptButtonHover();
 		}
@@ -258,7 +258,7 @@ public class ConfirmationView {
 	
 	private View.OnClickListener onCancelButtonClickListener = new View.OnClickListener() {
 
-		@Override
+		
 		public void onClick(View v) {
 			confirmationController.handleCancelButtonHover();
 		}

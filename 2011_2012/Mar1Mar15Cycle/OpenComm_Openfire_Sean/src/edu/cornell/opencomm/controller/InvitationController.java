@@ -340,7 +340,6 @@ public class InvitationController implements InvitationRejectionListener {
 	/**
 	 * Automagically called when an invitation this client sent was rejected (oh snap!)
 	 */
-	@Override
 	public void invitationDeclined(String invitee, String reason) {
 		//TODO: Trigger update to view (if any)
 		

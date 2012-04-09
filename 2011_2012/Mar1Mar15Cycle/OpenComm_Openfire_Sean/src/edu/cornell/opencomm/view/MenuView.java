@@ -52,7 +52,7 @@ public class MenuView {
 		Log.d(LOG_TAG, "initializing menu button click");
 		this.menuLayout.setOnKeyListener(new OnKeyListener() {
 
-			@Override
+			
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
 				if (event.getAction()!=KeyEvent.ACTION_DOWN) {
 					return true;
@@ -247,7 +247,7 @@ public class MenuView {
 
 	private View.OnClickListener onClickListener = new View.OnClickListener() {
 
-		@Override
+		
 		public void onClick(View v) {
 			menuController.handlePopupWindowClicked();
 		}
@@ -255,7 +255,7 @@ public class MenuView {
 
 	private View.OnClickListener onAddUserButtonClickListener = new View.OnClickListener() {
 
-		@Override
+		
 		public void onClick(View v) {
 			menuController.handleAddUserButtonHover();
 		}
@@ -263,7 +263,7 @@ public class MenuView {
 	
 	private View.OnClickListener onDeleteUserButtonClickListener = new View.OnClickListener() {
 
-		@Override
+		
 		public void onClick(View v) {
 			menuController.handleDeleteUserButtonHover();
 		}
@@ -271,7 +271,7 @@ public class MenuView {
 	
 	private View.OnClickListener onLeaveChatButtonClickListener = new View.OnClickListener() {
 
-		@Override
+		
 		public void onClick(View v) {
 			menuController.handleLeaveChatButtonHover();
 		}
@@ -279,7 +279,7 @@ public class MenuView {
 	
 	private View.OnClickListener onSettingsButtonClickListener = new View.OnClickListener() {
 
-		@Override
+		
 		public void onClick(View v) {
 			menuController.handleSettingsButtonHover();
 		}
@@ -287,7 +287,7 @@ public class MenuView {
 	
 	private View.OnClickListener onLogoutButtonClickListener = new View.OnClickListener() {
 
-		@Override
+		
 		public void onClick(View v) {
 			menuController.handleLogoutButtonHover();
 		}

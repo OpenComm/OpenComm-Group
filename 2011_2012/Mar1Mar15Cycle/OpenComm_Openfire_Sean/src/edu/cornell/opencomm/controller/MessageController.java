@@ -48,7 +48,6 @@ public class MessageController {
 	public PacketListener configMessageListener() {
 		PacketListener messageListener = new PacketListener() {
 			/** Process the messages coming in in packets */
-			@Override
 			public void processPacket(Packet packet) {
 				if(D) Log.d(TAG, "configMessageListener - processPacket");
 				Message message = (Message) packet;

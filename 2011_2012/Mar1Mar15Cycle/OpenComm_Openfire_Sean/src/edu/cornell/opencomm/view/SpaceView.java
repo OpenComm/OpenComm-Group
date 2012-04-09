@@ -88,7 +88,7 @@ public class SpaceView extends View {
 	public void setupEventListeners() {
 		// The onTouch Listener (responds to any touch events)
 		this.setOnTouchListener(new OnTouchListener() {
-			@Override
+			
 			public boolean onTouch(View view, MotionEvent event) {
 				int mouseX = (int) event.getX();
 				int mouseY = (int) event.getY();
@@ -127,7 +127,7 @@ public class SpaceView extends View {
 		// The long click listener (responds to press and hold)
 		this.setOnLongClickListener(new OnLongClickListener() {
 
-			@Override
+			
 			public boolean onLongClick(View arg0) {
 				if (clickOnIcon) {
 					boolean longpress = selectedIcon.getUserViewController()
@@ -166,7 +166,7 @@ public class SpaceView extends View {
 	 * 1) voice image 
 	 * 2) All icons of people in this space
 	 */
-	@Override
+	
 	protected void onDraw(Canvas canvas) {
 		Space mainSpace = Space.getMainSpace();
 		Log.v(LOG_TAG, mainSpace.getOwner().getNickname());

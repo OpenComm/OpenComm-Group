@@ -110,7 +110,7 @@ To call it :
 	        if (resetUsernameText != null){
 	 	       resetUsernameText.setOnFocusChangeListener(new OnFocusChangeListener()
 			     {
-			         @Override
+			         
 			         public void onFocusChange(View v, boolean hasFocus) 
 			         {
 			        	 Log.d(LOG_TAG, "Setting listeners for onfocusChange");
@@ -204,7 +204,7 @@ To call it :
 	    }
 
 	    private View.OnClickListener onResetButtonClickedListener = new View.OnClickListener() {
-	        @Override
+	        
 	        public void onClick(View v) {
 	            resetPasswordController.handleResetButtonClick();
 	        }
@@ -212,7 +212,7 @@ To call it :
 	    
 	    private View.OnClickListener onSignUpButtonClickedListener = new View.OnClickListener() {
 
-	        @Override
+	        
 	        public void onClick(View v) {
 	            resetPasswordController.handleSignUpButtonClick();
 	        }

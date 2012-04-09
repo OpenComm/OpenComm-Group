@@ -119,7 +119,7 @@ public final class MainApplication extends Activity{
 	 * Activity is called
 	 * </ul>
 	 */
-    @Override
+    
 	public void onCreate(Bundle savedInstanceState) {
     	if (D) Log.d(TAG,"onCreate - Started the MainApplication activity");
         super.onCreate(savedInstanceState);
@@ -184,7 +184,7 @@ public final class MainApplication extends Activity{
      */
     public View.OnKeyListener onKeyListener = new View.OnKeyListener() {
 
-		@Override
+		
 		public boolean onKey(View v, int keyCode, KeyEvent event) {
 			if (event.getAction()!=KeyEvent.ACTION_DOWN) {
 				return true;
@@ -397,7 +397,7 @@ public final class MainApplication extends Activity{
 		// set listener to main button
 		Button mainButton = (Button) findViewById(R.id.main_button);
 		mainButton.setOnTouchListener(new View.OnTouchListener() {
-			@Override
+			
 			public boolean onTouch(View view, MotionEvent evt) {
 				switch (evt.getAction()) {
 				case MotionEvent.ACTION_DOWN:
@@ -583,7 +583,7 @@ public final class MainApplication extends Activity{
     PopupWindow privateSpacePreviewPopupWindow = null;
 	private View.OnClickListener onClickListener = new View.OnClickListener() {
 
-		@Override
+		
 		public void onClick(View view) {
 			try {
 				LayoutInflater inflater = (LayoutInflater) MainApplication.this
@@ -628,7 +628,7 @@ public final class MainApplication extends Activity{
 
 	private View.OnClickListener onCancelClickListener = new View.OnClickListener() {
 
-		@Override
+		
 		public void onClick(View v) {
 			// ViewGroup popup =
 			// (ViewGroup)v.findViewById(R.id.popup_inner_layout);
@@ -774,7 +774,7 @@ public final class MainApplication extends Activity{
     /** Justin : Call when the sound button is clicked **/
     public View.OnClickListener getSoundButtonOnClickListener() {
     	View.OnClickListener soundButtonListener = new OnClickListener() {
-			@Override
+			
 			public void onClick(View v) {
 				//DashboardView dashboardView = new DashboardView();
 				//dashboardView.launch();
@@ -793,7 +793,7 @@ public final class MainApplication extends Activity{
     /** Rahul : Click on logo and go back to dashboard **/
     public View.OnClickListener logoOnClickListener() {
     	View.OnClickListener logoListener = new OnClickListener() {
-			@Override
+			
 			public void onClick(View v) {
 				Log.v(TAG, "Clicked on Logo");
 				
