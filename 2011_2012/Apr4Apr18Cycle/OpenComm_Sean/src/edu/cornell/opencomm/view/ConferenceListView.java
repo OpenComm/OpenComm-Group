@@ -19,15 +19,15 @@ public class ConferenceListView extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.conference_list_layout);
-        layout = getLayoutInflater().inflate(R.layout.conference_list_layout, null);
 
+        layout = getLayoutInflater().inflate(R.layout.conference_list_layout, null);
+        setContentView(layout);
         /*ConferenceListingView view = new ConferenceListingView(this.getApplicationContext(), null, null);
         ConferenceListingView view1 = new ConferenceListingView(this.getApplicationContext(), null, null);
         ConferenceListingView view2 = new ConferenceListingView(this.getApplicationContext(), null, null);*/
         LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        getHappeningNowConferences().addView(inflater.inflate(R.layout.conference_listing_layout, null));
-        getHappeningNowConferences().addView(inflater.inflate(R.layout.conference_listing_layout, null));
+        //getHappeningNowConferences().addView(inflater.inflate(R.layout.conference_listing_layout, null));
+        //getHappeningNowConferences().addView(inflater.inflate(R.layout.conference_listing_layout, null));
         getUpcomingConferences().addView(inflater.inflate(R.layout.conference_listing_layout, null));
         getHappeningNowConferences().invalidate();
         getUpcomingConferences().invalidate();
