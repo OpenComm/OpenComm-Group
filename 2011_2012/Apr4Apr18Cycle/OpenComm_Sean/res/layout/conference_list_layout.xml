@@ -33,7 +33,7 @@
             android:src="@drawable/arrowleft" 
    
              android:layout_marginLeft="37dp" android:layout_alignRight="@+id/rightArrow"/>
-
+
         <ImageView
             android:id="@+id/rightArrow"
             android:layout_width="wrap_content"
@@ -67,65 +67,6 @@
 
     </RelativeLayout>
 
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/happeningNow" 
-                android:text="happening now" 
-                android:textColor="@color/orange"
-                android:layout_height="15dp" 
-                android:layout_width="fill_parent"
-                android:textSize="10sp"
-                android:layout_marginLeft="10dp" android:background="@color/black">
-            </TextView>
-            <LinearLayout
-                android:id="@+id/happeningNowConferences"
-                android:orientation="vertical"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/blue">
-            </LinearLayout>
-            <TextView
-                android:id="@+id/upcoming" 
-                android:text="upcoming" 
-                android:layout_height="15dp" 
-                android:layout_width="fill_parent"
-                android:textSize="10sp"
-                android:layout_marginLeft="10dp"
-                android:background="@color/black"
-                android:textColor="@color/blue">
-            </TextView>
-            <LinearLayout
-                android:id="@+id/upcomingConferences"
-                android:orientation="vertical"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/blue">
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
-=======
-            android:layout_toLeftOf="@+id/arrowRight"
-
-
-        <DatePicker
-            android:id="@+id/date"
-            android:layout_width="51dp"
-            android:layout_height="30dp"
-            android:layout_alignLeft="@id/leftArrow"
-            android:layout_alignParentTop="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="25dp"
-            android:layout_toLeftOf="@+id/arrowRight"
-            android:visibility="visible" />
-
-    </RelativeLayout>
 <!--     <ScrollView -->
 <!--         android:layout_width="fill_parent" -->
 <!--         android:layout_height="fill_parent"> -->
@@ -147,7 +88,7 @@
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/off_white">
+                android:background="@color/blue">
             </LinearLayout>
             <TextView
                 android:id="@+id/upcoming" 
@@ -161,13 +102,11 @@
             </TextView>
             <LinearLayout
                 android:id="@+id/upcomingConferences"
-                android:gravity="top"
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/off_white">
+                android:background="@color/blue">
             </LinearLayout>
         </LinearLayout>
 <!--     </ScrollView> -->
 </LinearLayout>
->>>>>>> b34bf5695194b6eb4673ba99df4b3904d4d36b66
