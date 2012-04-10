@@ -76,7 +76,7 @@ public class NetworkService {
 			/**
 			 * Automagically called when this client receives an invitation to join a MUC
 			 */
-			@Override
+			
 			public void invitationReceived(Connection connection, String room, 
 					String inviter, String reason, String password, Message message) {
 				Invitation invitation = new edu.cornell.opencomm.model.Invitation(

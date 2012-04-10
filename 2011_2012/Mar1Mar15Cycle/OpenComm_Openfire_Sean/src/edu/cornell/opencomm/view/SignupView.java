@@ -88,7 +88,7 @@ public class SignupView {
         private View.OnClickListener getSaveButtonHandler() {
             return new View.OnClickListener() {
 
-                @Override
+                
                 public void onClick(View v) {
                     controller.handleSaveButtonClick();
                 }
@@ -97,7 +97,7 @@ public class SignupView {
 
         private View.OnClickListener getCancelButtonHandler() {
             return new View.OnClickListener() {
-                @Override
+                
                 public void onClick(View v) {
                     controller.handleCancelButtonClick();
                 }

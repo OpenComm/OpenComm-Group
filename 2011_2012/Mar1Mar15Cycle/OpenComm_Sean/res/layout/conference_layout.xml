@@ -3,9 +3,10 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:background="@color/black_translucent"
-    
     android:gravity="left"
-    android:orientation="vertical" android:paddingBottom="0dp" android:visibility="visible">
+    android:orientation="vertical"
+    android:paddingBottom="0dp"
+    android:visibility="visible" >
 
     <RelativeLayout
         android:id="@+id/infoNewConf"
@@ -25,16 +26,19 @@
                 android:id="@+id/textLabelConfirm"
                 android:layout_width="fill_parent"
                 android:layout_height="66dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginTop="-5.5dp"
                 android:background="@color/grey_dark_translucent"
                 android:clickable="false"
                 android:cursorVisible="false"
                 android:gravity="center_vertical"
+                android:paddingBottom="0dp"
                 android:paddingLeft="44dp"
                 android:text="@string/new_conf"
                 android:textColor="@color/green"
-                android:textSize="47dp" android:layout_marginBottom="0dp" android:paddingBottom="0dp" android:layout_marginTop="-5.5dp"/>
+                android:textSize="47dp" />
         </RelativeLayout>
-
+
         <RelativeLayout
             android:id="@+id/relatievElements"
             android:layout_width="fill_parent"
@@ -120,8 +124,7 @@
                 android:layout_marginTop="5dp"
                 android:background="@color/dark_grey"
                 android:scaleType="fitXY"
-                android:src="@drawable/calendar_icon"
-                 />
+                android:src="@drawable/calendar_icon" />
 
             <ImageButton
                 android:id="@+id/startTimeButton"
@@ -168,7 +171,8 @@
                 android:layout_height="37.33dp"
                 android:layout_below="@id/recurringButton"
                 android:layout_marginTop="20dp"
-                android:background="@color/dark_grey" android:clickable="true">
+                android:background="@color/dark_grey"
+                android:clickable="true" >
 
                 <ImageView
                     android:id="@+id/attendeeButtonOverlay"
@@ -219,8 +223,8 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/overlay_white"
                 android:visibility="invisible" />
-
-            <FrameLayout
+
+            <LinearLayout
                 android:id="@+id/confirmBarFrame"
                 android:layout_width="fill_parent"
                 android:layout_height="37.33dp"
@@ -230,85 +234,121 @@
                 android:layout_marginBottom="0dp" >
 
                 <LinearLayout
-                    android:id="@+id/confirmBar"
+                    android:id="@+id/createHalf"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:orientation="horizontal" >
+                    android:layout_height="fill_parent" 
+                    android:layout_weight="1">
+                    
 
-                    <ImageButton
-                        android:id="@+id/imageCreate"
-                        android:layout_width="58.67dp"
-                        android:layout_height="fill_parent"
-                        android:layout_gravity="center"
-                        android:background="@color/grey_dark_translucent"
-                        android:paddingBottom="5.33dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="12dp"
-                        android:paddingTop="5.33dp"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/acceptplus" />
+                    <FrameLayout
+                        android:id="@+id/bigCreate"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent" >
+
+                        <LinearLayout
+                            android:id="@+id/createButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="fill_parent"
+                            android:orientation="horizontal" >
 
-                    <Button
-                        android:id="@+id/buttonCreate"
-                        android:layout_width="101.33dp"
-                        android:layout_height="fill_parent"
-                        android:background="@color/grey_dark_translucent"
-                        android:clickable="true"
-                        android:cursorVisible="false"
-                        android:gravity="left|center_vertical"
-                        android:text="create"
-                        android:textColor="@color/blue"
-                        android:textSize="25sp" />
+                            <ImageButton
+                                android:id="@+id/imageCreate"
+                                android:layout_width="58.67dp"
+                                android:layout_height="fill_parent"
+                                android:layout_gravity="center"
+                                android:background="@color/grey_dark_translucent"
+                                android:paddingBottom="5.33dp"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="12dp"
+                                android:paddingTop="5.33dp"
+                                android:scaleType="centerInside"
+                                android:src="@drawable/acceptplus" />
 
-                    <ImageButton
-                        android:id="@+id/imageCancel"
-                        android:layout_width="57.33dp"
-                        android:layout_height="fill_parent"
-                        android:layout_gravity="center"
-                        android:background="@color/grey_dark_translucent"
-                        android:paddingBottom="7.665dp"
-                        android:paddingLeft="22dp"
-                        android:paddingRight="13.33dp"
-                        android:paddingTop="7.665dp"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/cancelx" />
+                            <Button
+                                android:id="@+id/buttonCreate"
+                                android:layout_width="101.33dp"
+                                android:layout_height="fill_parent"
+                                android:background="@color/grey_dark_translucent"
+                                android:clickable="true"
+                                android:cursorVisible="false"
+                                android:gravity="left|center_vertical"
+                                android:text="create"
+                                android:textColor="@color/blue"
+                                android:textSize="25sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/createFrame"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:orientation="horizontal" >
+
+                            <ImageView
+                                android:id="@+id/createOverlay"
+                                android:layout_width="match_parent"
+                                android:layout_height="fill_parent"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/overlay_white"
+                                android:visibility="invisible" />
 
-                    <Button
-                        android:id="@+id/buttonCancel"
-                        android:layout_width="102.67dp"
-                        android:layout_height="fill_parent"
-                        android:background="@color/grey_dark_translucent"
-                        android:clickable="true"
-                        android:cursorVisible="false"
-                        android:gravity="left|center_vertical"
-                        android:text="cancel"
-                        android:textColor="@color/orange"
-                        android:textSize="25sp" />
+                        </LinearLayout>
+                    </FrameLayout>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/confirmOverlay"
+                    android:id="@+id/cancelHalf"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:orientation="horizontal" >
+                    android:layout_weight="1"> >
+                    
 
-                    <ImageView
-                        android:id="@+id/createOverlay"
-                        android:layout_width="160dp"
-                        android:layout_height="fill_parent"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/overlay_white"
-                        android:visibility="invisible" />
+                    <FrameLayout
+                        android:id="@+id/bigCancel"
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent" >
 
-                    <ImageView
-                        android:id="@+id/cancelOverlay"
-                        android:layout_width="160dp"
-                        android:layout_height="fill_parent"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/overlay_white"
-                        android:visibility="invisible" />
+                        <LinearLayout
+                            android:id="@+id/cancelButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent" >
+
+                            <ImageButton
+                                android:id="@+id/imageCancel"
+                                android:layout_width="57.33dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:background="@color/grey_dark_translucent"
+                                android:paddingBottom="7.665dp"
+                                android:paddingLeft="22dp"
+                                android:paddingRight="13.33dp"
+                                android:paddingTop="7.665dp"
+                                android:scaleType="centerInside"
+                                android:src="@drawable/cancelx" />
+
+                            <Button
+                                android:id="@+id/buttonCancel"
+                                android:layout_width="102.67dp"
+                                android:layout_height="fill_parent"
+                                android:background="@color/grey_dark_translucent"
+                                android:clickable="true"
+                                android:cursorVisible="false"
+                                android:gravity="left|center_vertical"
+                                android:text="cancel"
+                                android:textColor="@color/orange"
+                                android:textSize="25sp" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/cancelOverlay2"
+                            android:layout_width="160dp"
+                            android:layout_height="fill_parent"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/overlay_white"
+                            android:visibility="invisible" />
+
+                    </FrameLayout>
                 </LinearLayout>
-            </FrameLayout>
+            </LinearLayout>
 
             <ScrollView
                 android:id="@+id/scrollView1"
@@ -349,7 +389,7 @@
                 android:text="attendees"
                 android:textColor="@color/light_gray"
                 android:textSize="30dp" />
-
+
             <Button
                 android:id="@+id/attendeeNameButton"
                 android:layout_width="match_parent"
@@ -368,7 +408,7 @@
                 android:textColor="@color/light_gray"
                 android:textSize="35dp"
                 android:width="0dp" />
-
+
             <EditText
                 android:id="@+id/dateBox"
                 android:layout_width="146.67dp"
@@ -377,9 +417,11 @@
                 android:layout_toLeftOf="@+id/calenderButton"
                 android:layout_toRightOf="@+id/recurringText"
                 android:background="@drawable/logintextback"
+                android:clickable="false"
+                android:inputType="none"
                 android:padding="0dp"
-                android:paddingLeft="15dp" android:clickable="false" android:inputType="none"/>
-
+                android:paddingLeft="15dp" />
+
             <EditText
                 android:id="@+id/startBox"
                 android:layout_width="146.67dp"
@@ -388,9 +430,11 @@
                 android:layout_toLeftOf="@+id/startTimeButton"
                 android:layout_toRightOf="@+id/recurringText"
                 android:background="@drawable/logintextback"
+                android:clickable="false"
+                android:inputType="none"
                 android:padding="0dp"
-                android:paddingLeft="15dp" android:clickable="false" android:inputType="none"/>
-
+                android:paddingLeft="15dp" />
+
             <EditText
                 android:id="@+id/endBox"
                 android:layout_width="146.67dp"
@@ -399,11 +443,11 @@
                 android:layout_toLeftOf="@+id/endTimeButton"
                 android:layout_toRightOf="@+id/recurringText"
                 android:background="@drawable/logintextback"
+                android:clickable="false"
+                android:inputType="none"
                 android:padding="0dp"
-                android:paddingLeft="15dp" android:clickable="false" android:inputType="none"/>
-
+                android:paddingLeft="15dp" />
         </RelativeLayout>
-
     </RelativeLayout>
 
 </LinearLayout>

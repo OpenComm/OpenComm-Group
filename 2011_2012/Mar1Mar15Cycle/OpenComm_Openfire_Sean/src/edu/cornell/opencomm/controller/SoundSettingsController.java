@@ -73,7 +73,7 @@ public class SoundSettingsController {
 	
 	private OnSeekBarChangeListener volumeControlProgressChanged = new OnSeekBarChangeListener() {
 
-		@Override
+		
 		public void onProgressChanged(SeekBar seekBar, int progress,
 				boolean fromUser) {
 			Space space = volumeControlsHashMap.get(seekBar.getTag());
@@ -82,13 +82,13 @@ public class SoundSettingsController {
 			
 		}
 
-		@Override
+		
 		public void onStartTrackingTouch(SeekBar seekBar) {
 			// TODO Auto-generated method stub
 			
 		}
 
-		@Override
+		
 		public void onStopTrackingTouch(SeekBar seekBar) {
 			// TODO Auto-generated method stub
 			

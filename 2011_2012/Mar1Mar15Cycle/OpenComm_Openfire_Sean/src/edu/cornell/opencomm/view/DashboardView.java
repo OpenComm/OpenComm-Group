@@ -203,7 +203,7 @@ public class DashboardView extends Activity {
 
 	private View.OnClickListener onClickListener = new View.OnClickListener() {
 
-		@Override
+		
 		public void onClick(View v) {
 			//dashboardController.handlePopupWindowClicked();
 		}
@@ -211,7 +211,7 @@ public class DashboardView extends Activity {
 
 	private View.OnClickListener onStartConferenceButtonClickedListener = new View.OnClickListener() {
 
-		@Override
+		
 		public void onClick(View v) {
 			dashboardController.handleStartConferenceButtonClicked();
 		}

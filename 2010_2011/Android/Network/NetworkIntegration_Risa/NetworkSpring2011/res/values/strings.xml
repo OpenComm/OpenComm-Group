@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="hello">Hello World, NetworkGUI!</string>
-    <string name="app_name">OpenComm Network SP2011</string>
-    <string name="networkGUI">Welcome to\nOpenComm\nNetwork GUI.\nRefer to LogCat with tags\nXMPPService, NetworkGUI, and MUCGUI</string>
-    <string name="mucGUI">Welcome to\nOpenComm\nNetwork\'s MUC GUI.\nRefer to LogCat with tags\nXMPPService, NetworkGUI, and MUCGUI</string>
-</resources>

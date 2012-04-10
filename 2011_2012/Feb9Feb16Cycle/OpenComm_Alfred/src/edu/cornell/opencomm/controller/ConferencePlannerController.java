@@ -378,7 +378,7 @@ public class ConferencePlannerController {
 
 	// Crystal: Cancel back to dashboard
 	public void handleCancelClicked() {
-		conferencePlannerView.getCanceleOverlay().setVisibility(View.VISIBLE);
+		conferencePlannerView.getCancelOverlay().setVisibility(View.VISIBLE);
 		Intent i = new Intent(conferencePlannerView, DashboardView.class);
 		conferencePlannerView.startActivity(i);
 	}

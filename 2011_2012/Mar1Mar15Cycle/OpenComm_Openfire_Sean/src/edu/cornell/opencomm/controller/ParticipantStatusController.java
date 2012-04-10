@@ -37,7 +37,7 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 		this.mSpace.getMUC().addParticipantStatusListener(this);
 	}
 
-	@Override
+	
 	/** Called when administrator privilege is granted to a user in the room 
 	 * @param userRoomInfo - the user receiving privilege<br>
 	 * (ex: room_name@conference.jabber.org/nickname)
@@ -58,7 +58,7 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 		}
 	} // end adminGranted method
 
-	@Override
+	
 	/** Called when administrator privilege is revoked from a user in the room 
 	 * @param userRoomInfo - the user whose privilege is revoked<br>
 	 * (ex: roomname@conference.jabber.org/nickname)
@@ -79,7 +79,7 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 		}
 	} // end adminRevoked method
 
-	@Override
+	
 	/** Called when a user bans another user from a room 
 	 * @param bannedUserRoomInfo - the user who is banned from the room<br>
 	 * (ex: roomname@conference.jabber.org/nickname)
@@ -116,7 +116,7 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 		}
 	} // end banned method
 
-	@Override
+	
 	/** Called when a user joins a room, either by invite or on its own
 	 * @param userRoomInfo - the user who joined the room<br>
 	 * (ex: roomname@conference.jabber.org/nickname)
@@ -165,7 +165,7 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 		
 	} // end joined method
 
-	@Override
+	
 	/** Called when a user kicks another user from a room 
 	 * @param kickedUserRoomInfo - the user who is kicked from the room<br>
 	 * (ex: roomname@conference.jabber.org/nickname)
@@ -210,7 +210,7 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 		}
 	} // end kicked method
 
-	@Override
+	
 	/** Called when a user leaves the room on its own 
 	 * @param userRoomInfo - the user leaving the room<br>
 	 * (ex: roomname@conference.jabber.org/nickname)
@@ -245,7 +245,7 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 		}
 	} // end left method
 
-	@Override
+	
 	/** Called when membership is granted to a user
 	 * @param userRoomInfo - the user and the room in which it is 
 	 * receiving membership<br>
@@ -267,7 +267,7 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 		}
 	} // end membershipGranted method
 
-	@Override
+	
 	/** Called when membership is revoked from a user
 	 * @param userRoomInfo - the user and the room in which its 
 	 * membership is revoked<br>
@@ -289,7 +289,7 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 		}
 	} // end membershipRevoked method
 
-	@Override
+	
 	/** Called when moderator privilege is granted to a user
 	 * @param userRoomInfo - the user and the room in which it is 
 	 * receiving membership<br>
@@ -312,7 +312,7 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 		}
 	} // end moderatorGranted method
 
-	@Override
+	
 	/** Called when moderator privilege is revoked from a user
 	 * @param userRoomInfo - the user and the room in which it is revoking moderator <br>
 	 * (ex: roomname@conference.jabber.org/nickname)
@@ -334,7 +334,7 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 		}
 	} // end moderatorRevoked method
 
-	@Override
+	
 	/** Called when a user changes its nickname in the room
 	 * @param userRoomInfo - the user and the room in which it is revoking moderator <br>
 	 * (ex: roomname@conference.jabber.org/nickname)
@@ -356,7 +356,7 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 		}
 	} // end nicknameChanged method
 
-	@Override
+	
 	/** Called when ownership privilege is granted to a user
 	 * @param userRoomInfo - the user and the room in which it is granting ownership <br>
 	 * (ex: roomname@conference.jabber.org/nickname)
@@ -378,7 +378,7 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 		}
 	} // end ownershipGranted method
 
-	@Override
+	
 	/** Called when ownership privilege is revoked from a user
 	 * @param userRoomInfo - the user and the room in which it is 
 	 * revoking ownership <br>
@@ -401,7 +401,7 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 		}
 	} // end ownershipRevoked method
 
-	@Override
+	
 	/** Called when voice is granted to a user
 	 * @param userRoomInfo - the user and the room in which it is receiving voice <br>
 	 * (ex: roomname@conference.jabber.org/nickname)
@@ -422,7 +422,7 @@ public class ParticipantStatusController implements ParticipantStatusListener {
 		}
 	} // end voiceGranted method
 
-	@Override
+	
 	/** Called when voice is granted to a user
 	 * @param userRoomInfo - the user and the room in which it is 
 	 * revoking moderator <br>

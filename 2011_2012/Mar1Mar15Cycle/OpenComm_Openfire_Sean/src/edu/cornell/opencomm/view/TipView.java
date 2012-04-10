@@ -119,7 +119,7 @@ public class TipView {
 
 	private View.OnClickListener onClickListener = new View.OnClickListener() {
 
-		@Override
+		
 		public void onClick(View v) {
 			tipController.handlePopupWindowClicked();
 		}
@@ -127,7 +127,7 @@ public class TipView {
 
 	private View.OnClickListener onAcceptButtonClickedListener = new View.OnClickListener() {
 
-		@Override
+		
 		public void onClick(View v) {
 			tipController.handleAcceptButtonClicked();
 		}

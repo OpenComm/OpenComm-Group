@@ -104,7 +104,7 @@ public class LoginView extends Activity {
 
 	private View.OnClickListener onLoginButtonClickedListener = new View.OnClickListener() {
 
-		@Override
+		
 		public void onClick(View v) {
 			loginController.handleLoginButtonClick(usernameEdit, passwordEdit);
 		}

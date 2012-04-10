@@ -118,7 +118,7 @@ public class AdminTipView {
 
 	private View.OnClickListener onClickListener = new View.OnClickListener() {
 
-		@Override
+		
 		public void onClick(View v) {
 			adminTipController.handlePopupWindowClicked();
 		}
@@ -126,7 +126,7 @@ public class AdminTipView {
 
 	private View.OnClickListener onAcceptButtonClickedListener = new View.OnClickListener() {
 
-		@Override
+		
 		public void onClick(View v) {
 			Log.d(LOG_TAG, "onClickAcceptBar");
 			adminTipController.handleAcceptButtonClicked();
