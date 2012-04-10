@@ -30,6 +30,7 @@
 			android:name=".view.DashboardView" 
 			android:screenOrientation="portrait"/>
 		<activity android:name=".view.ConferencePlannerView"></activity>
+		<activity android:name=".view.ConferenceListView"></activity>
 	</application>
 	
 	
