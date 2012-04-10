@@ -27,17 +27,17 @@
         <ImageView
             android:id="@+id/leftArrow"
             android:layout_width="wrap_content"
-            android:layout_height="15dp"
+            android:layout_height="20dp"
             android:layout_centerVertical="true"
-            android:layout_marginRight="14dp"
+            android:layout_marginRight="67dp"
             android:src="@drawable/arrowleft" 
    
-             android:layout_marginLeft="37dp" android:layout_alignRight="" android:layout_alignLeft="@id/addEmail"/>
+             android:layout_marginLeft="37dp" android:layout_alignRight="@id/arrowRight"/>
 
         <ImageView
             android:id="@+id/arrowRight"
             android:layout_width="wrap_content"
-            android:layout_height="15dp"
+            android:layout_height="20dp"
             android:layout_alignBottom="@+id/imageView1"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/leftArrow"
@@ -45,7 +45,7 @@
             android:src="@drawable/arrowright" android:layout_centerVertical="true"/>
 
         <ImageView
-            android:id="@+id/addEmail"
+            android:id="@+id/addEmailButton"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
