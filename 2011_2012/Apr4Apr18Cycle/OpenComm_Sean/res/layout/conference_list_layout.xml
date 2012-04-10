@@ -32,17 +32,18 @@
             android:layout_marginRight="67dp"
             android:src="@drawable/arrowleft" 
    
-             android:layout_marginLeft="37dp" android:layout_alignRight="@id/arrowRight"/>
-
+             android:layout_marginLeft="37dp" android:layout_alignRight="@+id/rightArrow"/>
+
         <ImageView
-            android:id="@+id/arrowRight"
+            android:id="@+id/rightArrow"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_alignBottom="@+id/imageView1"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/leftArrow"
+            android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
-            android:src="@drawable/arrowright" android:layout_centerVertical="true"/>
+            android:src="@drawable/arrowright" />
 
         <ImageView
             android:id="@+id/addEmailButton"
@@ -50,7 +51,7 @@
             android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="65dp"
-            android:layout_toLeftOf="@+id/arrowRight"
+            android:layout_toLeftOf="@+id/rightArrow"
             android:src="@drawable/addemail" />
 
         <DatePicker
