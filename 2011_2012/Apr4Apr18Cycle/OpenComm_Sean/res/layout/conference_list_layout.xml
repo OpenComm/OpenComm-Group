@@ -88,7 +88,7 @@
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/blue">
+                android:background="@color/off_white">
             </LinearLayout>
             <TextView
                 android:id="@+id/upcoming" 
@@ -105,7 +105,7 @@
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/blue">
+                android:background="@color/off_white">
             </LinearLayout>
         </LinearLayout>
 <!--     </ScrollView> -->
