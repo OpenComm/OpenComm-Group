@@ -6,22 +6,66 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/black">
+
     <RelativeLayout
-        android:paddingLeft="8dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/dark_grey">
-        <TextView 
-    		android:id="@+id/title" 
-    		android:text="Opencomm" 
-    		android:textColor="@color/off_white"
-    		android:layout_height="wrap_content" 
-    		android:layout_width="fill_parent"
-    		android:background="@color/grey_dark_translucent"
-    		android:textSize="28sp"
-            android:layout_marginLeft="10dp">
+        android:background="@color/dark_grey"
+        android:paddingLeft="8dp" >
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@color/grey_dark_translucent"
+            android:text="Opencomm"
+            android:textColor="@color/off_white"
+            android:textSize="28sp" >
         </TextView>
+
+        <ImageView
+            android:id="@+id/leftArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="14dp"
+            android:src="@drawable/arrowleft" 
+   
+             android:layout_marginLeft="37dp" android:layout_alignRight="" android:layout_alignLeft="@id/addEmail"/>
+
+        <ImageView
+            android:id="@+id/arrowRight"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_alignBottom="@+id/imageView1"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/leftArrow"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/arrowright" android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:id="@+id/addEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="65dp"
+            android:layout_toLeftOf="@+id/arrowRight"
+            android:src="@drawable/addemail" />
+
+        <DatePicker
+            android:id="@+id/date"
+            android:layout_width="51dp"
+            android:layout_height="30dp"
+            android:layout_alignLeft="@id/leftArrow"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="25dp"
+            android:layout_toLeftOf="@+id/arrowRight"
+            android:visibility="visible" />
+
     </RelativeLayout>
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
