@@ -480,7 +480,7 @@ public class ConferencePlannerController {
 		}else{
 		//go back to conference list view.
 			Log.v("Crystal", "conference value changed");
-	    //room=conferencePlannerView.getNameBox().getText().toString();
+	    room=conferencePlannerView.getNameBox().getText().toString();
 		openfireInvitation.setRoom(room);
 	    openfireInvitation.setStartYear(startYear);
 		openfireInvitation.setStartMonth(startMonth);

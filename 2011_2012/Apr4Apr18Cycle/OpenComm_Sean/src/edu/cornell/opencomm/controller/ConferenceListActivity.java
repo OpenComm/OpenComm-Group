@@ -75,10 +75,17 @@ public class ConferenceListActivity extends Activity {
 
         ArrayList<String> nora = new ArrayList<String>();
         nora.add("Nora Ng-Quinn");
-
+       //Crystal: giving the conferences the invitee list for testing
         String[] s6 = new String[]{"Jonathan Pullano"};
         String[] s1= new String[]{"Vinay Maloo"};
+        String[] s2=new String[]{"Flavian"};
         
+        String[] s3=new String[]{"Najla Elmachtoub"};
+        String[] s4=new String[]{"Graeme Bailey"};
+        String[] s5=openComm.toArray(new String[14]);
+        String[] s7=new String[]{"Nora Ng-Quinn"};
+        String[] s8=new String[]{"Hurp"};
+        String[] s9=new String[]{"Derp"};
         
         ArrayList<String> hurp = new ArrayList<String>();
         hurp.add("Hurpy McHurp");
@@ -87,21 +94,21 @@ public class ConferenceListActivity extends Activity {
         derp.add("Derpman");
 
          conferences = new ArrayList<Conference>();
-        Conference conference1 = new Conference(2012, 4, 27, 10, 00, 12, 00, null, "Vinay Maloo", "Graduation", mom);
+        Conference conference1 = new Conference(2012, 4, 27, 10, 00, 12, 00, s1, "Vinay Maloo", "Graduation", mom);
 
-        Conference conference2 = new Conference(2012, 10, 9, 12, 30, 13, 30, null, "Flavian", "Wine+Cheese", flavian);
-        Conference conference3 = new Conference(2012, 5, 25, 8, 30, 9, 15, null, "Najla Elmachtoub", "Canada Trip", najla);
-        Conference conference4 = new Conference(2015, 2, 14, 9, 26, 5, 35, null, "Graeme Bailey", "Pi Day", graeme);
-        Conference conference5 = new Conference(2012, 3, 12, 17, 45, 19, 45, null, "Risa Naka", "OpenComm", openComm);
+        Conference conference2 = new Conference(2012, 10, 9, 12, 30, 13, 30, s2, "Flavian", "Wine+Cheese", flavian);
+        Conference conference3 = new Conference(2012, 5, 25, 8, 30, 9, 15, s3, "Najla Elmachtoub", "Canada Trip", najla);
+        Conference conference4 = new Conference(2015, 2, 14, 9, 26, 5, 35, s4, "Graeme Bailey", "Pi Day", graeme);
+        Conference conference5 = new Conference(2012, 3, 12, 17, 45, 19, 45, s5, "Risa Naka", "OpenComm", openComm);
         Conference conference6 = new Conference(2012, 3, 12, 0, 0, 12, 0, s6, "Jonathan Pullano", "Debugging Late", jonathan);
-        Conference conference7 = new Conference(2012, 5, 16, 18, 24, 19, 51, null, "Nora Ng-Quinn", "lolcat party", nora);
-        Conference conference8 = new Conference(2013, 0, 1, 18, 24, 19, 51, null, "Hurp", "ABC", hurp);
-        Conference conference9 = new Conference(2013, 0, 2, 18, 24, 19, 51, null, "Derp", "123", derp);
-        Conference conference10 = new Conference(2013, 0, 3, 18, 24, 19, 51, null, "Derp", "YOU", derp);
-        Conference conference11 = new Conference(2013, 0, 4, 18, 24, 19, 51, null, "Derp", "AND", derp);
-        Conference conference12 = new Conference(2013, 0, 5, 18, 24, 19, 51, null, "Derp", "ME!", derp);
-        Conference conference13 = new Conference(2013, 0, 6, 18, 24, 19, 51, null, "Derp", "SecondToLast", derp);
-        Conference conference14 = new Conference(2013, 0, 7, 18, 24, 19, 51, null, "Derp", "Last", derp);
+        Conference conference7 = new Conference(2012, 5, 16, 18, 24, 19, 51, s7, "Nora Ng-Quinn", "lolcat party", nora);
+        Conference conference8 = new Conference(2013, 0, 1, 18, 24, 19, 51, s8, "Hurp", "ABC", hurp);
+        Conference conference9 = new Conference(2013, 0, 2, 18, 24, 19, 51, s9, "Derp", "123", derp);
+        Conference conference10 = new Conference(2013, 0, 3, 18, 24, 19, 51, s9, "Derp", "YOU", derp);
+        Conference conference11 = new Conference(2013, 0, 4, 18, 24, 19, 51, s9, "Derp", "AND", derp);
+        Conference conference12 = new Conference(2013, 0, 5, 18, 24, 19, 51, s9, "Derp", "ME!", derp);
+        Conference conference13 = new Conference(2013, 0, 6, 18, 24, 19, 51, s9, "Derp", "SecondToLast", derp);
+        Conference conference14 = new Conference(2013, 0, 7, 18, 24, 19, 51, s9, "Derp", "Last", derp);
         conferences.add(conference1);
         conferences.add(conference2);
         conferences.add(conference3);
