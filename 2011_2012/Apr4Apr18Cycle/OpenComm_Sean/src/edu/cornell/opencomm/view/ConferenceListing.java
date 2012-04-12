@@ -86,9 +86,9 @@ public class ConferenceListing {
 
         String dateString;
         if(now.getYear() == newDate.getYear())
-            dateString = "MM/dd hh:mma";
+            dateString = "M/dd h:mma";
         else
-            dateString = "yyyy/MM/dd hh:mma";
+            dateString = "yyyy/M/dd h:mma";
 
         SimpleDateFormat dateFormat = new SimpleDateFormat(dateString);
         TextView headerDate = (TextView)conferenceHeader.findViewById(R.id.date);
@@ -97,13 +97,13 @@ public class ConferenceListing {
         if(headerDate != null)
             headerDate.setText(date);
 
-        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mma");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("h:mma");
         TextView startTime = (TextView)conferenceDetails.findViewById(R.id.startTime);
         startTime.setText(timeFormat.format(newDate).toString());
     }
 
     private void setEndDate(Date newDate) {
-        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mma");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("h:mma");
         TextView detailsDate = (TextView)conferenceDetails.findViewById(R.id.endTime);
         detailsDate.setText(timeFormat.format(newDate).toString());
     }
