@@ -22,11 +22,7 @@ public class ConferenceListView extends Activity {
 
         layout = getLayoutInflater().inflate(R.layout.conference_list_layout, null);
         setContentView(layout);
-        /*LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        getUpcomingConferences().addView(inflater.inflate(R.layout.conference_listing_layout, null));
-        getHappeningNowConferences().invalidate();
-        getUpcomingConferences().invalidate();
-        layout.invalidate();*/
+
         ArrayList<String> openComm = new ArrayList<String>();
         openComm.add("Jonathan");
         openComm.add("Flavian");
@@ -59,9 +55,9 @@ public class ConferenceListView extends Activity {
         ArrayList<Conference> conferences = new ArrayList<Conference>();
         Conference conference1 = new Conference(2012, 4, 27, 10, 00, 12, 00, null, "Vinay Maloo", "Graduation", vinay);
         Conference conference2 = new Conference(2012, 10, 9, 12, 30, 13, 30, null, "Nora Ng-Quinn", "OMG", nora);
-        Conference conference3 = new Conference(2013, 5, 25, 8, 30, 9, 15, null, "Najla Elmachtoub", "Canada Trip", najla);
+        Conference conference3 = new Conference(2012, 5, 25, 8, 30, 9, 15, null, "Najla Elmachtoub", "Canada Trip", najla);
         Conference conference4 = new Conference(2015, 2, 14, 9, 26, 6, 53, null, "Graeme Bailey", "Pi Day", graeme);
-        Conference conference5 = new Conference(2011, 3, 12, 17, 45, 19, 45, null, "Risa Naka", "OpenComm Meeting", openComm);
+        Conference conference5 = new Conference(2012, 3, 12, 17, 45, 19, 45, null, "Risa Naka", "OpenComm", openComm);
         Conference conference6 = new Conference(2012, 3, 12, 0, 0, 10, 0, null, "Jonathan Pullano", "Debugging Late", jonathan);
         conferences.add(conference1);
         conferences.add(conference2);
