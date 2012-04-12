@@ -447,24 +447,8 @@ public class ConferencePlannerController {
 			counter++;
 		}
 		//conferencePlannerView.getWindow().dismiss();
-		if(openfireInvitation == null){
 		openfireInvitation = new Conference(startYear, startMonth, startDay, startHour, startMinute, endHour, endMinute,inviteList,username);
-		openfireInvitation.setPlannerView(conferencePlannerView);
 		conferencePlannerView.getContext().startActivity(i);
-		}else{
-		//go back to conference list view.
-		openfireInvitation.setStartYear(startYear);
-		openfireInvitation.setStartMonth(startMonth);
-		openfireInvitation.setStartDay(startDay);
-		openfireInvitation.setStartHour(startHour);
-		openfireInvitation.setStartMinute(startMinute);
-		openfireInvitation.setEndHour(endHour);
-		openfireInvitation.setEndMinute(endMinute);
-		openfireInvitation.setInviteInfo(inviteList);
-		openfireInvitation.setInviter(username);
-		conferencePlannerView.getWindow().dismiss();
-		}
-		
 		
 	}
 

@@ -61,8 +61,7 @@
             android:textColor="@color/black"
             android:layout_height="wrap_content" 
             android:layout_width="fill_parent"
-            android:textSize="22sp"
-            >
+            android:textSize="22sp">
          </TextView>
          <TextView 
             android:id="@+id/endTime" 
