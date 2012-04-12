@@ -1,12 +1,20 @@
 package edu.cornell.opencomm.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
+import android.widget.TextView;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.view.ConferenceListExpandableListAdapter;
@@ -17,6 +25,10 @@ public class ConferenceListActivity extends Activity {
     private View layout;
     private ConferenceListExpandableListAdapter upcomingAdapter;
     private ConferenceListExpandableListAdapter happeningNowAdapter;
+    private int monthDisplay,dayDisplay, yearDisplay;
+    private Calendar stock = Calendar.getInstance(); //stock calendar
+    private TextView textView;
+    private Button theButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,6 +80,24 @@ public class ConferenceListActivity extends Activity {
         conferences.add(conference5);
         conferences.add(conference6);
         initialize(conferences);
+
+        
+        monthDisplay = stock.get(Calendar.MONTH);
+        dayDisplay = stock.get(Calendar.DAY_OF_MONTH);
+        yearDisplay=stock.get(Calendar.YEAR);
+        
+        textView= getDateText();
+        textView.setFocusable(false);
+        
+        setDateText();
+        
+        getLeftArrow().setOnClickListener(onLeftArrowListener);
+        getRightArrow().setOnClickListener(onRightArrowListener);
+        
+        theButton = getTheButton();
+        theButton.setVisibility(View.VISIBLE);
+        theButton.setBackgroundColor(Color.TRANSPARENT);
+        theButton.setOnClickListener(onDatePickerListener);
 
     } // end onCreate method
 
@@ -152,4 +182,73 @@ public class ConferenceListActivity extends Activity {
             return (ExpandableListView) layout.findViewById(R.id.happeningNowConferences);
         return null;
     }
+    
+    
+	View.OnClickListener onDatePickerListener = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			Log.v("CLICK", "Should be popping up datePicker!");
+			handleDatePickerButtonClicked();
+		}};
+
+		//This is the controller for now
+		private void handleDatePickerButtonClicked() {
+			new DatePickerDialog(this, dateSetListener,stock.get(Calendar.YEAR),stock.get(Calendar.MONTH),stock.get(Calendar.DAY_OF_MONTH)).show();
+		};
+		
+		
+		DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+			@Override
+			public void onDateSet(DatePicker view, int year, int monthOfYear,
+					int dayOfMonth) {
+				dayDisplay = dayOfMonth;
+				monthDisplay = monthOfYear;
+				yearDisplay = year; 
+				stock.set(yearDisplay, monthDisplay, dayDisplay);
+				setDateText();
+			}
+			
+		};
+		
+		private void setDateText(){
+			
+			int tempMonthDisplay=stock.get(Calendar.MONTH)+1;
+			int tempDayDisplay=stock.get(Calendar.DAY_OF_MONTH);
+		textView.setText(" " +tempMonthDisplay + "/" + tempDayDisplay);
+		}
+		
+		public TextView getDateText(){
+			return (TextView)layout.findViewById(R.id.date);
+		}
+
+		public ImageView getLeftArrow(){
+			return (ImageView)layout.findViewById(R.id.leftArrow);
+		}
+		
+		public ImageView getRightArrow(){
+			return (ImageView)layout.findViewById(R.id.rightArrow);
+		}
+		
+		public Button getTheButton(){
+			return (Button)layout.findViewById(R.id.dateButton);
+		}
+		
+		View.OnClickListener onLeftArrowListener = new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				stock.add(Calendar.DAY_OF_MONTH, -1);
+				setDateText();
+			}
+		};
+		
+		View.OnClickListener onRightArrowListener = new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				
+				stock.add(Calendar.DAY_OF_MONTH, 1);
+				setDateText();
+			}
+		};
 }
+

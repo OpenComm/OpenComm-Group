@@ -22,7 +22,7 @@ public class ConferenceListingView extends SlidingDrawer {
 
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.conference_listing_layout, this);
+        inflater.inflate(R.layout.conference_list_layout, this);
         
         
     }
@@ -31,6 +31,8 @@ public class ConferenceListingView extends SlidingDrawer {
     	conference.getPlannerView().launch();
     }
     
+    
+
    
 
 

@@ -31,6 +31,9 @@
 			android:screenOrientation="portrait"/>
 		<activity android:name=".view.ConferencePlannerView"></activity>
 		<activity android:name=".view.ConferenceListView"></activity>
+		<activity 
+		    android:name=".controller.ConferenceListActivity"
+		    android:screenOrientation="portrait"/>
 	</application>
 	
 	
