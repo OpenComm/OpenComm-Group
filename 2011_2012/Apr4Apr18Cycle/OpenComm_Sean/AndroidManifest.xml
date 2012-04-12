@@ -29,7 +29,10 @@
 		<activity 
 			android:name=".view.DashboardView" 
 			android:screenOrientation="portrait"/>
-		<activity android:name=".controller.ConferenceListActivity" android:theme="@style/offwhiteTheme"></activity>
+
+		
+		<activity android:theme="@style/offwhiteTheme" android:name=".controller.ConferenceListActivity"></activity>
+
 	</application>
 	
 	

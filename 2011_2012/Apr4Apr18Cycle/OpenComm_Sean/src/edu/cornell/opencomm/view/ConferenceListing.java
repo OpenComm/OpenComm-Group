@@ -7,12 +7,18 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+
 import android.view.View.OnClickListener;
+
+import android.widget.DatePicker;
+
 import android.view.ViewGroup;
+
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,6 +33,7 @@ public class ConferenceListing {
     View conferenceDetails;
     View conferenceHeader;
     boolean current;
+    TextView datePicker;
 
     public ConferenceListing(Context context, Conference conference) {
         this.conference = conference;
@@ -142,6 +149,7 @@ public class ConferenceListing {
         setContacts(conference.getContactList());
         setStartDate(conference.getStartDate());
         setEndDate(conference.getEndDate());
+
         //setNotes(conference.getNotes());
     }
 
@@ -184,3 +192,4 @@ public class ConferenceListing {
     }
         
 }
+
