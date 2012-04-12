@@ -66,12 +66,12 @@ public class ConferenceListing {
             return "No contacts";
         StringBuilder builder = new StringBuilder(iter.next());
         int count = 1;
-        while(iter.hasNext() && count < 3) {
-            builder.append("," + iter.next());
+        while(iter.hasNext() && count++ < 3) {
+            builder.append(", " + iter.next());
         }
         if(iter.hasNext()) {
             count = contacts.size() - 3;
-            builder.append("and " + count + " more");
+            builder.append(" and " + count + " more");
         }
         return builder.toString();
     }
