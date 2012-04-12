@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+         android:layout_width="fill_parent"
+         android:layout_height="fill_parent"
+         android:background="@color/off_white">
+    <LinearLayout
+         android:id="@+id/content"
+         android:layout_width="fill_parent"
+         android:layout_height="fill_parent"
+         android:orientation="vertical"
+         android:background="@color/off_white">
+         <TextView 
+            android:id="@+id/startTime" 
+            android:text="start time" 
+            android:textColor="@color/black"
+            android:layout_height="wrap_content" 
+            android:layout_width="fill_parent"
+            android:paddingLeft="10dp"
+            android:textSize="22sp">
+         </TextView>
+         <TextView 
+            android:id="@+id/endTime" 
+            android:text="end time" 
+            android:textColor="@color/black"
+            android:layout_height="wrap_content" 
+            android:layout_width="fill_parent"
+            android:paddingLeft="10dp"
+            android:textSize="22sp">
+         </TextView>
+         <TextView 
+            android:id="@+id/repeat" 
+            android:text="every Thursday" 
+            android:textColor="@color/black"
+            android:layout_height="wrap_content" 
+            android:layout_width="fill_parent"
+            android:paddingLeft="10dp"
+            android:textSize="22sp">
+         </TextView>
+         <TextView 
+            android:id="@+id/notes" 
+            android:text="notes: (in our backlog)" 
+            android:textColor="@color/black"
+            android:layout_height="wrap_content" 
+            android:layout_width="fill_parent"
+            android:paddingLeft="10dp"
+            android:textSize="22sp">
+         </TextView>
+         <TextView 
+            android:id="@+id/attendees" 
+            android:text="attendees" 
+            android:textColor="@color/black"
+            android:layout_height="wrap_content" 
+            android:layout_width="fill_parent"
+            android:paddingLeft="10dp"
+            android:textSize="22sp">
+         </TextView>
+    <!--      <ScrollView -->
+    <!--          android:layout_width="wrap_content" -->
+    <!--          android:layout_height="wrap_content" -->
+    <!--          android:maxHeight="60dp"> -->
+             <LinearLayout
+                 android:layout_width="fill_parent"
+                 android:layout_height="fill_parent"
+                 android:orientation="vertical"
+                 android:id="@+id/attendeesList">
+             </LinearLayout>
+    <!--     </ScrollView> -->
+    </LinearLayout>
+    <ImageView android:src="@drawable/pencil" android:id="@+id/pencil" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_alignParentTop="true" android:layout_alignParentRight="true"
+               android:clickable="true" ></ImageView>
+</RelativeLayout>

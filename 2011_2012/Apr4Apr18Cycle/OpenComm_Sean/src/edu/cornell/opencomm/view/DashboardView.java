@@ -65,7 +65,7 @@ public class DashboardView extends Activity {
         initializeContactsButtonClickedEvent();
         initializeConferencesButtonClickedEvent();
         initializeAccountButtonClickedEvent();
-        initializeConferenceButtonClickedEvent();
+        initializeStartConferenceButtonClickedEvent();
         dashboardController = new DashboardController(this);
 
     }
@@ -143,7 +143,7 @@ public class DashboardView extends Activity {
         Button startConferencesButton = getConferencesButton();
         if (startConferencesButton != null) {
         	if (D) Log.d(TAG, "Initialize Conferences Button");
-            //startHistoryButton.setOnTouchListener(onStartConferenceButtonClickedListener);
+            startConferencesButton.setOnClickListener(onConferencesClickListener);
         }
     }
 
@@ -155,7 +155,7 @@ public class DashboardView extends Activity {
         }
     }
 
-    private void initializeConferenceButtonClickedEvent() {
+    private void initializeStartConferenceButtonClickedEvent() {
         ImageButton startConferenceButton = getStartConferenceButton();
         if (startConferenceButton != null) {
             startConferenceButton.setOnClickListener(onStartConferenceButtonClickedListener);
@@ -259,6 +259,14 @@ public class DashboardView extends Activity {
         public void onClick(View v) {
         	Log.v(TAG, "listener recieved start conference button clicked");
             dashboardController.handleStartConferenceButtonClicked();
+        }
+    };
+    
+    private View.OnClickListener onConferencesClickListener = new View.OnClickListener() {
+
+        public void onClick(View v) {
+        	Log.v(TAG, "listener recieved start conference button clicked");
+            dashboardController.handleConferencesButtonClicked();
         }
     };
 }
