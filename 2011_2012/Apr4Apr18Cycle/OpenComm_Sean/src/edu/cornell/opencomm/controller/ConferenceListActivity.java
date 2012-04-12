@@ -1,4 +1,4 @@
-package edu.cornell.opencomm.view;
+package edu.cornell.opencomm.controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,8 +9,10 @@ import android.view.View;
 import android.widget.ExpandableListView;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.model.Conference;
+import edu.cornell.opencomm.view.ConferenceListExpandableListAdapter;
+import edu.cornell.opencomm.view.ConferenceListing;
 
-public class ConferenceListView extends Activity {
+public class ConferenceListActivity extends Activity {
 
     private View layout;
     private ConferenceListExpandableListAdapter upcomingAdapter;
@@ -81,8 +83,62 @@ public class ConferenceListView extends Activity {
         }
         upcomingAdapter = new ConferenceListExpandableListAdapter(this, futureConferences);
         happeningNowAdapter = new ConferenceListExpandableListAdapter(this, currentConferences);
-        getUpcomingConferences().setAdapter(upcomingAdapter);
-        getHappeningNowConferences().setAdapter(happeningNowAdapter);
+        ExpandableListView upcomingConferences = getUpcomingConferences();
+        ExpandableListView happeningNowConferences = getHappeningNowConferences();
+
+        upcomingConferences.setAdapter(upcomingAdapter);
+        happeningNowConferences.setAdapter(happeningNowAdapter);
+        upcomingConferences.setGroupIndicator(null);
+        happeningNowConferences.setGroupIndicator(null);
+
+        upcomingConferences.setOnGroupExpandListener(new ExpandListener(upcomingConferences, happeningNowConferences));
+        upcomingConferences.setOnGroupCollapseListener(new CollapseListener(upcomingConferences));
+        happeningNowConferences.setOnGroupExpandListener(new ExpandListener(happeningNowConferences, upcomingConferences));
+        happeningNowConferences.setOnGroupCollapseListener(new CollapseListener(happeningNowConferences));
+
+    }
+
+    public class ExpandListener implements ExpandableListView.OnGroupExpandListener {
+
+        private ExpandableListView me;
+        private ExpandableListView other;
+
+        public ExpandListener(ExpandableListView me, ExpandableListView other) {
+            this.me = me;
+            this.other = other;
+        }
+
+        @Override
+        public void onGroupExpand(int groupPosition) {
+            ConferenceListExpandableListAdapter myAdapter = (ConferenceListExpandableListAdapter)me.getExpandableListAdapter();
+            ConferenceListExpandableListAdapter otherAdapter = (ConferenceListExpandableListAdapter)other.getExpandableListAdapter();
+            ((ConferenceListing)myAdapter.getGroup(groupPosition)).setPointer(true);
+
+            for(int i = 0; i < myAdapter.getGroupCount(); i++) {
+                if(i != groupPosition) {
+                    me.collapseGroup(i);
+                }
+            }
+
+            for(int i = 0; i < otherAdapter.getGroupCount(); i++) {
+                other.collapseGroup(i);
+            }
+        }
+    }
+
+    public class CollapseListener implements ExpandableListView.OnGroupCollapseListener {
+        private ExpandableListView me;
+
+        public CollapseListener(ExpandableListView me) {
+            this.me = me;
+        }
+
+        @Override
+        public void onGroupCollapse(int groupPosition) {
+            ConferenceListExpandableListAdapter myAdapter = (ConferenceListExpandableListAdapter)me.getExpandableListAdapter();
+            ((ConferenceListing)myAdapter.getGroup(groupPosition)).setPointer(false);
+        }
+
     }
 
     public ExpandableListView getUpcomingConferences() {
