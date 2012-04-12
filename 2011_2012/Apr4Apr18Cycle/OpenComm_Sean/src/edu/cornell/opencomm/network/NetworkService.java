@@ -28,13 +28,10 @@ import org.jivesoftware.smackx.packet.OfflineMessageInfo;
 import org.jivesoftware.smackx.packet.OfflineMessageRequest;
 import org.jivesoftware.smackx.packet.SharedGroupsInfo;
 import org.jivesoftware.smackx.provider.AdHocCommandDataProvider;
-//import org.jivesoftware.smackx.provider.BytestreamsProvider;
-//import org.jivesoftware.smackx.provider.IBBProviders;
 import org.jivesoftware.smackx.provider.DataFormProvider;
 import org.jivesoftware.smackx.provider.DelayInformationProvider;
 import org.jivesoftware.smackx.provider.DiscoverInfoProvider;
 import org.jivesoftware.smackx.provider.DiscoverItemsProvider;
-
 import org.jivesoftware.smackx.provider.MUCAdminProvider;
 import org.jivesoftware.smackx.provider.MUCOwnerProvider;
 import org.jivesoftware.smackx.provider.MUCUserProvider;
@@ -174,7 +171,10 @@ public class NetworkService {
 	                }
 	            }
 			} catch (XMPPException e) {
+			    //TODO: Force close can happen here if connection fails.
+			    //Maybe try again, and if it still fails, tell user login failed.
 				Log.e(TAG, printXMPPError(e));
+				return false;
 			}
         }
         else {

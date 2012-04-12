@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Handler;
+import android.text.Editable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -50,10 +51,10 @@ public class ConferencePlannerController {
 	// associated conferencePlannerView
 	private ConferencePlannerView conferencePlannerView;
 	// fields for addUsers
-	CharSequence[] buddyList = { "CrystalQin", "ChrisLiu" };// hard-code for now
+	public CharSequence[] buddyList = { "CrystalQin", "ChrisLiu" };// hard-code for now
 	// =ContactListController.buddyList; // list of the user's buddies in
 	// their username form
-	boolean[] buddySelection = { false, false };// hard-code for now
+	public boolean[] buddySelection = { false, false };// hard-code for now
 	// =ContactListController.buddySelection; // array of boolean for buddy
 	private String username = ""; // the username of this account
 	// selection
@@ -65,6 +66,7 @@ public class ConferencePlannerController {
 							// once clicked, we have a custom image icon
 
 	static ArrayList<String> addedUsers=new ArrayList<String>();
+	String room;
 	// OnSetListeners activate when the user presses the set key after selecting
 	// a time/date (thus, fields need to be updated)
 	DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -158,6 +160,30 @@ public class ConferencePlannerController {
 		endTime = Calendar.getInstance();
 		startDate = Calendar.getInstance();
 		this.conferencePlannerView = conferencePlannerView;
+	}
+	
+	//Crystal: alternative constructor for debugging conference listing view
+	public ConferencePlannerController(ConferencePlannerView conference,  Conference c){
+		
+		this(conference);
+		if(c==null)
+			Log.v("c","buddylist is null");
+		this.buddyList=c.getInvitees();
+		
+		boolean[] hack= new boolean[buddyList.length];
+	    for (int i=0; i<hack.length;i++){
+	    	hack[i]=true;
+	    }
+		this.buddySelection=hack;
+		this.openfireInvitation=c;
+	}
+
+	public Conference getOpenfireInvitation() {
+		return openfireInvitation;
+	}
+
+	public void setOpenfireInvitation(Conference openfireInvitation) {
+		this.openfireInvitation = openfireInvitation;
 	}
 
 	// TODO: All buttons that once clicked only pops up needs to be fixed so
@@ -380,7 +406,7 @@ public class ConferencePlannerController {
 		alert.show();
 		Log.v("ContactListController", "showBuddyList() 7");
 	}
-	private static void addUserIcon(String username, Context cpv, LinearLayout vs) {
+	public static void addUserIcon(String username, Context cpv, LinearLayout vs) {
 		int marginX = 0;
 		int marginY = 0;
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(80,80);
@@ -446,9 +472,51 @@ public class ConferencePlannerController {
 			}
 			counter++;
 		}
+		room=conferencePlannerView.getNameBox().getText().toString();
 		//conferencePlannerView.getWindow().dismiss();
+		if(openfireInvitation == null){
 		openfireInvitation = new Conference(startYear, startMonth, startDay, startHour, startMinute, endHour, endMinute,inviteList,username);
+        openfireInvitation.setRoom(room);
+        openfireInvitation.setPlannerView(conferencePlannerView);
 		conferencePlannerView.getContext().startActivity(i);
+		}else{
+		//go back to conference list view.
+			Log.v("Crystal", "conference value changed");
+	    
+		openfireInvitation.setRoom(room);
+	    openfireInvitation.setStartYear(startYear);
+		openfireInvitation.setStartMonth(startMonth);
+		openfireInvitation.setStartDay(startDay);
+		openfireInvitation.setStartHour(startHour);
+		openfireInvitation.setStartMinute(startMinute);
+		openfireInvitation.setEndHour(endHour);
+		openfireInvitation.setEndMinute(endMinute);
+		openfireInvitation.setInviteInfo(inviteList);
+		openfireInvitation.setInviter(username);
+		conferencePlannerView.getWindow().dismiss();
+		}
+		
+		
+	}
+	public String getRoom() {
+		return room;
+	}
+
+	public void setRoom(String room) {
+		this.room = room;
+	}
+
+	//for debugging-hard-code
+	public void setAll(Conference c){
+		this.startDay=c.getStartDay();
+		startMonth=c.getStartMonth();
+		this.startYear=c.getStartYear();
+		this.startHour=c.getStartHour();
+		startMinute=c.getStartMinute();
+		endHour=c.getEndHour();
+		endMinute=c.getEndMinute();
+		username=c.getInviter();
+		room=c.getRoom();
 		
 	}
 

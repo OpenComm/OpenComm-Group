@@ -90,8 +90,11 @@ public class DashboardController {
 
 	}
 
-	public void handleContactsButtonClicked() {
-
+	public void handleConferencesButtonClicked() {
+		Intent myIntent = new Intent();
+		myIntent.setClass(dashboardView.getApplication(),
+				ConferenceListActivity.class);
+		dashboardView.startActivity(myIntent);
 	}
 
 	public void handleAccountButtonClicked() {

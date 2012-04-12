@@ -30,6 +30,7 @@
 <string name="signup">new account</string>
 <string name="sign_up">sign up</string>
 <string name="forgotPassword"><u>Forgot your password?</u></string>
-<string name="account">my account</string> 
+<string name="account">my account</string>
+<string name="blank"></string> 
  
 </resources>

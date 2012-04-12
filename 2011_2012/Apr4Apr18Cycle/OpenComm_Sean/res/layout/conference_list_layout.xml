@@ -5,7 +5,7 @@
     android:gravity="top"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/black">
+    android:background="@color/off_white">
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_centerVertical="true"
-            android:layout_marginRight="67dp"
+            android:layout_marginRight="70dp"
             android:src="@drawable/arrowleft" 
    
              android:layout_marginLeft="37dp" android:layout_alignRight="@+id/rightArrow"/>
@@ -53,17 +53,30 @@
             android:layout_marginRight="65dp"
             android:layout_toLeftOf="@+id/rightArrow"
             android:src="@drawable/addemail" />
-
-        <DatePicker
+
+        <EditText
             android:id="@+id/date"
-            android:layout_width="51dp"
-            android:layout_height="30dp"
-            android:layout_alignLeft="@id/leftArrow"
-            android:layout_alignParentTop="true"
+            android:layout_width="45dp"
+            android:layout_height="27dp"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="25dp"
-            android:layout_toLeftOf="@+id/arrowRight"
-            android:visibility="visible" />
+            android:layout_marginRight="30dp"
+            android:layout_toLeftOf="@id/rightArrow"
+            android:background="@drawable/logintextback"
+            android:inputType="none"
+            android:clickable="false"
+            android:padding="0dp"
+            android:paddingLeft="15dp" />
+
+        <Button
+            android:id="@+id/dateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/date"
+            android:layout_alignLeft="@+id/date"
+            android:layout_alignRight="@+id/date"
+            android:layout_alignTop="@+id/date"
+            android:text="@string/blank"/>
 
     </RelativeLayout>
 
@@ -81,32 +94,33 @@
                 android:layout_height="15dp" 
                 android:layout_width="fill_parent"
                 android:textSize="10sp"
-                android:layout_marginLeft="10dp" android:background="@color/black">
+                android:paddingLeft="10dp"
+                android:background="@color/black">
             </TextView>
-            <LinearLayout
+            <ExpandableListView
                 android:id="@+id/happeningNowConferences"
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/off_white">
-            </LinearLayout>
+            </ExpandableListView>
             <TextView
                 android:id="@+id/upcoming" 
                 android:text="upcoming" 
                 android:layout_height="15dp" 
                 android:layout_width="fill_parent"
                 android:textSize="10sp"
-                android:layout_marginLeft="10dp"
+                android:paddingLeft="10dp"
                 android:background="@color/black"
                 android:textColor="@color/blue">
             </TextView>
-            <LinearLayout
+            <ExpandableListView
                 android:id="@+id/upcomingConferences"
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/off_white">
-            </LinearLayout>
+            </ExpandableListView>
         </LinearLayout>
 <!--     </ScrollView> -->
 </LinearLayout>
