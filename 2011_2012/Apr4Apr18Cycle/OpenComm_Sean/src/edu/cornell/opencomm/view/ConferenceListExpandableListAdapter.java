@@ -13,7 +13,8 @@ import edu.cornell.opencomm.model.Conference;
 
 public class ConferenceListExpandableListAdapter extends BaseExpandableListAdapter {
     private Context context;
-    private ArrayList<ConferenceListing> conferenceListings = new ArrayList<ConferenceListing>();
+    //Temp public
+    public ArrayList<ConferenceListing> conferenceListings = new ArrayList<ConferenceListing>();
 
     public ConferenceListExpandableListAdapter(Context context, List<Conference> conferenceList) {
         this.context = context;
