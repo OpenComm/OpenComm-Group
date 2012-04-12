@@ -149,6 +149,11 @@ public class ConferencePlannerView extends View{
 		EditText endBox = getEndBox();
 		endBox.setFocusable(false);
 	}
+	
+	public EditText getNameBox(){
+		EditText nameBox = (EditText)(conferencePlannerLayout.findViewById(R.id.nameBox));
+		return nameBox;
+	}
 
 	public EditText getDateBox() {
 		EditText dateBox = (EditText)(conferencePlannerLayout.findViewById(R.id.dateBox));
@@ -418,10 +423,11 @@ public class ConferencePlannerView extends View{
 	
 	//Crystal: for debugging conference listing
 	public void debugLaunch(String cfname,String date,String st, String end){
-		((EditText)(conferencePlannerLayout.findViewById(R.id.nameBox))).setText(cfname,TextView.BufferType.EDITABLE);
+		this.getNameBox().setText(cfname);
 	     this.getDateBox().setText(date);
 	     this.getStartBox().setText(st);
 	     this.getEndBox().setText(end);
+	     
 	}
 	
 	/**Gets popup window */

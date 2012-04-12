@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Handler;
+import android.text.Editable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -65,6 +66,7 @@ public class ConferencePlannerController {
 							// once clicked, we have a custom image icon
 
 	static ArrayList<String> addedUsers=new ArrayList<String>();
+	String room;
 	// OnSetListeners activate when the user presses the set key after selecting
 	// a time/date (thus, fields need to be updated)
 	DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -478,7 +480,9 @@ public class ConferencePlannerController {
 		}else{
 		//go back to conference list view.
 			Log.v("Crystal", "conference value changed");
-		openfireInvitation.setStartYear(startYear);
+	    //room=conferencePlannerView.getNameBox().getText().toString();
+		openfireInvitation.setRoom(room);
+	    openfireInvitation.setStartYear(startYear);
 		openfireInvitation.setStartMonth(startMonth);
 		openfireInvitation.setStartDay(startDay);
 		openfireInvitation.setStartHour(startHour);
@@ -490,6 +494,27 @@ public class ConferencePlannerController {
 		conferencePlannerView.getWindow().dismiss();
 		}
 		
+		
+	}
+	public String getRoom() {
+		return room;
+	}
+
+	public void setRoom(String room) {
+		this.room = room;
+	}
+
+	//for debugging-hard-code
+	public void setAll(Conference c){
+		this.startDay=c.getStartDay();
+		startMonth=c.getStartMonth();
+		this.startYear=c.getStartYear();
+		this.startHour=c.getStartHour();
+		startMinute=c.getStartMinute();
+		endHour=c.getEndHour();
+		endMinute=c.getEndMinute();
+		username=c.getInviter();
+		room=c.getRoom();
 		
 	}
 
