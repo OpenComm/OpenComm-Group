@@ -83,13 +83,13 @@
                 android:textSize="10sp"
                 android:layout_marginLeft="10dp" android:background="@color/black">
             </TextView>
-            <LinearLayout
+            <ExpandableListView
                 android:id="@+id/happeningNowConferences"
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/off_white">
-            </LinearLayout>
+            </ExpandableListView>
             <TextView
                 android:id="@+id/upcoming" 
                 android:text="upcoming" 
@@ -100,13 +100,13 @@
                 android:background="@color/black"
                 android:textColor="@color/blue">
             </TextView>
-            <LinearLayout
+            <ExpandableListView
                 android:id="@+id/upcomingConferences"
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/off_white">
-            </LinearLayout>
+            </ExpandableListView>
         </LinearLayout>
 <!--     </ScrollView> -->
 </LinearLayout>

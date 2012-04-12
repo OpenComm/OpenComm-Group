@@ -25,7 +25,7 @@ public class Conference {
     private ConferencePlannerView cpv;
 
     //Sets conference begin times, and invite list
-    public Conference(int startYear, int startMonth,int startDay, int startHour, int startMinute, int endHour, int endMinute,String[] inviteInfo, String inviter){
+    public Conference(int startYear, int startMonth,int startDay, int startHour, int startMinute, int endHour, int endMinute, String[] inviteInfo, String inviter){
         this.startYear = startYear;
         this.startMonth = startMonth;
         this.startDay = startDay;
@@ -35,6 +35,13 @@ public class Conference {
         this.endMinute=endMinute;
         this.inviteInfo=inviteInfo;
         this.inviter = inviter;
+    }
+
+    //Just as above, but with room.
+    //TODO: Consider refactoring into 1 constructor.
+    public Conference(int startYear, int startMonth,int startDay, int startHour, int startMinute, int endHour, int endMinute, String[] inviteInfo, String inviter, String room) {
+        this(startYear, startMonth, startDay, startHour, startMinute, endHour, endMinute, inviteInfo, inviter);
+        this.room = room;
     }
 
     //Getters for all fields

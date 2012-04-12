@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:id="@+id/handle"
+     android:layout_width="fill_parent"
+     android:layout_height="50dp"
+     android:orientation="horizontal"
+     android:background="@color/light_grey">
+     <ImageView
+         android:layout_marginTop="6dp"
+         android:layout_marginLeft="10dp"
+         android:id="@+id/pointer"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:src="@drawable/openconfinfo" />
+     <RelativeLayout
+         android:layout_width="fill_parent"
+         android:layout_height="fill_parent" 
+         android:layout_marginLeft="10dp">
+         <TextView 
+            android:id="@+id/conferenceTitle" 
+            android:layout_marginTop="5dp"
+            android:text="conference title" 
+            android:textColor="@color/off_white"
+            android:layout_height="wrap_content" 
+            android:layout_width="wrap_content"
+            android:textSize="20sp" />
+         <TextView
+             android:layout_height="wrap_content"
+             android:text="contact 1, contact 2, contact 3"
+             android:layout_width="wrap_content"
+             android:id="@+id/contactList"
+             android:textSize="10sp"
+             android:textColor="@color/off_white"
+             android:layout_below="@+id/conferenceTitle"
+             android:layout_alignParentLeft="true"/>
+         <TextView android:layout_height="wrap_content" android:text="4/12 12:00PM" android:layout_width="wrap_content" android:id="@+id/date" android:textSize="18sp" android:textColor="@color/off_white" android:layout_centerVertical="true" android:layout_alignParentRight="true"></TextView>
+     </RelativeLayout>
+</LinearLayout>
