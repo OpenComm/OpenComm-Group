@@ -46,6 +46,7 @@ public class Conference implements Comparable<Conference> {
         this(startYear, startMonth, startDay, startHour, startMinute, endHour, endMinute, inviteInfo, inviter);
         this.room = room;
         this.contactList = contactList;
+        
     }
 
     //Getters for all fields

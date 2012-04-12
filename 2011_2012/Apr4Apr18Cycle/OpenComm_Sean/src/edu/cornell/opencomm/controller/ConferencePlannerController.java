@@ -50,10 +50,10 @@ public class ConferencePlannerController {
 	// associated conferencePlannerView
 	private ConferencePlannerView conferencePlannerView;
 	// fields for addUsers
-	CharSequence[] buddyList = { "CrystalQin", "ChrisLiu" };// hard-code for now
+	public CharSequence[] buddyList = { "CrystalQin", "ChrisLiu" };// hard-code for now
 	// =ContactListController.buddyList; // list of the user's buddies in
 	// their username form
-	boolean[] buddySelection = { false, false };// hard-code for now
+	public boolean[] buddySelection = { false, false };// hard-code for now
 	// =ContactListController.buddySelection; // array of boolean for buddy
 	private String username = ""; // the username of this account
 	// selection
@@ -158,6 +158,30 @@ public class ConferencePlannerController {
 		endTime = Calendar.getInstance();
 		startDate = Calendar.getInstance();
 		this.conferencePlannerView = conferencePlannerView;
+	}
+	
+	//Crystal: alternative constructor for debugging conference listing view
+	public ConferencePlannerController(ConferencePlannerView conference,  Conference c){
+		
+		this(conference);
+		if(c==null)
+			Log.v("c","buddylist is null");
+		this.buddyList=c.getInvitees();
+		
+		boolean[] hack= new boolean[buddyList.length];
+	    for (int i=0; i<hack.length;i++){
+	    	hack[i]=true;
+	    }
+		this.buddySelection=hack;
+		this.openfireInvitation=c;
+	}
+
+	public Conference getOpenfireInvitation() {
+		return openfireInvitation;
+	}
+
+	public void setOpenfireInvitation(Conference openfireInvitation) {
+		this.openfireInvitation = openfireInvitation;
 	}
 
 	// TODO: All buttons that once clicked only pops up needs to be fixed so
@@ -380,7 +404,7 @@ public class ConferencePlannerController {
 		alert.show();
 		Log.v("ContactListController", "showBuddyList() 7");
 	}
-	private static void addUserIcon(String username, Context cpv, LinearLayout vs) {
+	public static void addUserIcon(String username, Context cpv, LinearLayout vs) {
 		int marginX = 0;
 		int marginY = 0;
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(80,80);
@@ -453,6 +477,7 @@ public class ConferencePlannerController {
 		conferencePlannerView.getContext().startActivity(i);
 		}else{
 		//go back to conference list view.
+			Log.v("Crystal", "conference value changed");
 		openfireInvitation.setStartYear(startYear);
 		openfireInvitation.setStartMonth(startMonth);
 		openfireInvitation.setStartDay(startDay);

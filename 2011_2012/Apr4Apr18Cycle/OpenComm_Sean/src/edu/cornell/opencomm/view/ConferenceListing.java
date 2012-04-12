@@ -8,12 +8,16 @@ import java.util.Date;
 import java.util.Iterator;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.controller.ConferencePlannerController;
 import edu.cornell.opencomm.model.Conference;
 
 public class ConferenceListing {
@@ -37,9 +41,11 @@ public class ConferenceListing {
             conferenceHeader = inflater.inflate(R.layout.future_conference_listing_layout, null);
         }
         initListeners();
+        
         update();
     }
 
+    
     public Conference getConference() {
         return conference;
     }
@@ -140,14 +146,41 @@ public class ConferenceListing {
     }
 
     public void initListeners() {
-        conferenceDetails.findViewById(R.id.pencil);
-        conferenceDetails.setOnClickListener(new View.OnClickListener() {
+    	ImageView edit=(ImageView) conferenceDetails.findViewById(R.id.pencil);
+        Log.v("Crystal", "set listener");
+        final Conference conf= this.conference;
+    	edit.setOnClickListener(new OnClickListener(){
 
-            @Override
-            public void onClick(View v) {
-                ConferencePlannerView planner = new ConferencePlannerView(inflater, context);
-                planner.launch();
-            }
-        });
+			@Override
+			public void onClick(View v) {
+				Log.v("Crystal", "editing conf info");
+			         if(conf== null){
+			        	 Log.v("Crystal", "conference is null");
+			         }
+			         
+			        // Crystal:have to hard-code for now for debugging
+			         ConferencePlannerView cpv1=new ConferencePlannerView(inflater,context,conf);
+			         conf.setPlannerView(cpv1);
+			         String date=String.valueOf(conf.getStartMonth())+"/"+String.valueOf(conf.getStartDay())+"/"+String.valueOf(conf.getStartYear());
+    	             String startT=String.valueOf(conf.getStartHour())+":"+String.valueOf(conf.getStartMinute());
+    	             String endT=String.valueOf(conf.getEndHour())+":"+String.valueOf(conf.getEndMinute());
+			         conf.getPlannerView().debugLaunch(conf.getRoom(), date, startT,endT);
+			          //cpv1.getConferencePlannerController().buddySelection;
+			         CharSequence[] buddyList=conf.getInvitees();//cpv1.getConferencePlannerController().buddyList;
+			         final  LinearLayout vs=(LinearLayout) cpv1.getView().findViewById(R.id.userIcons);
+			         for (int i = 0; i < buddyList.length; i++) {
+							
+								Log.v("c","drawing");
+						     ConferencePlannerController.addUserIcon((String)buddyList[i], context,vs);
+						    
+					    }
+			         
+			         conf.getPlannerView().launch();
+			   
+				
+			}
+    		
+    	});
     }
+        
 }

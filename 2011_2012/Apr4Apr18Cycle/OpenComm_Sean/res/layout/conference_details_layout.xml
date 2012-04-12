@@ -67,5 +67,6 @@
              </LinearLayout>
     <!--     </ScrollView> -->
     </LinearLayout>
-    <ImageView android:src="@drawable/pencil" android:id="@+id/pencil" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_alignParentTop="true" android:layout_alignParentRight="true"></ImageView>
+    <ImageView android:src="@drawable/pencil" android:id="@+id/pencil" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_alignParentTop="true" android:layout_alignParentRight="true"
+               android:clickable="true" ></ImageView>
 </RelativeLayout>

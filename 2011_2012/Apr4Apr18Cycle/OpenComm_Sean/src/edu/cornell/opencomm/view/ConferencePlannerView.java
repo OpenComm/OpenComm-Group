@@ -11,13 +11,20 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.ConferencePlannerController;
+import edu.cornell.opencomm.model.Conference;
 
 
-public class ConferencePlannerView{
+public class ConferencePlannerView extends View{
+	public ConferencePlannerView(Context c){
+		super(c);
+	}
     public ConferencePlannerView(LayoutInflater inflater, Context context) {
+    	
+    	this(context);
     	setContext(context);
         this.inflater = inflater;
         this.conferencePlannerController =  new ConferencePlannerController(
@@ -25,6 +32,15 @@ public class ConferencePlannerView{
         initEventsAndProperties();
 
     } 
+    //Crystal: alternative constructor for debugging conference listing
+    public ConferencePlannerView(LayoutInflater inflater, Context context, Conference conf){
+    	this(context);
+    	setContext(context);
+        this.inflater = inflater;
+        this.conferencePlannerController=new ConferencePlannerController(this, conf);
+        initEventsAndProperties();
+        
+    }
 
 	 private static String LOG_TAG = "Conference_Planner"; // for error
 	// checking
@@ -310,11 +326,7 @@ public class ConferencePlannerView{
 		return conferencePlannerController;
 	}
 
-	public Context getContext() {
-		// return context;
-		// Log.v("contextCheck", "context is null? "+ context.toString());
-		return context;
-	}
+	
 
 	public void setContext(Context context) {
 		this.context = context;
@@ -403,6 +415,14 @@ public class ConferencePlannerView{
                     "Cannot launch conferencePlanner view as inflater/confirmation layout is nul");
         }
     } // end launch
+	
+	//Crystal: for debugging conference listing
+	public void debugLaunch(String cfname,String date,String st, String end){
+		((EditText)(conferencePlannerLayout.findViewById(R.id.nameBox))).setText(cfname,TextView.BufferType.EDITABLE);
+	     this.getDateBox().setText(date);
+	     this.getStartBox().setText(st);
+	     this.getEndBox().setText(end);
+	}
 	
 	/**Gets popup window */
 	public PopupWindow getWindow() {

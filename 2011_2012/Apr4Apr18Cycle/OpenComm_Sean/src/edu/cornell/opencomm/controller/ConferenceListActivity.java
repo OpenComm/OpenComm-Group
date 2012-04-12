@@ -11,6 +11,7 @@ import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.view.ConferenceListExpandableListAdapter;
 import edu.cornell.opencomm.view.ConferenceListing;
+import edu.cornell.opencomm.view.ConferencePlannerView;
 
 public class ConferenceListActivity extends Activity {
 
@@ -59,14 +60,15 @@ public class ConferenceListActivity extends Activity {
 
         ArrayList<String> nora = new ArrayList<String>();
         nora.add("Nora Ng-Quinn");
-
+        String[] s6 = new String[]{"Jonathan Pullano"};
+        String[] s1= new String[]{"Vinay Maloo"};
         ArrayList<Conference> conferences = new ArrayList<Conference>();
-        Conference conference1 = new Conference(2012, 4, 27, 10, 00, 12, 00, null, "Vinay Maloo", "Graduation", mom);
+        Conference conference1 = new Conference(2012, 4, 27, 10, 00, 12, 00, s1, "Vinay Maloo", "Graduation", mom);
         Conference conference2 = new Conference(2012, 10, 9, 12, 30, 13, 30, null, "Flavian", "Wine+Cheese", flavian);
         Conference conference3 = new Conference(2012, 5, 25, 8, 30, 9, 15, null, "Najla Elmachtoub", "Canada Trip", najla);
         Conference conference4 = new Conference(2015, 2, 14, 9, 26, 5, 35, null, "Graeme Bailey", "Pi Day", graeme);
         Conference conference5 = new Conference(2012, 3, 12, 17, 45, 19, 45, null, "Risa Naka", "OpenComm", openComm);
-        Conference conference6 = new Conference(2012, 3, 12, 0, 0, 12, 0, null, "Jonathan Pullano", "Debugging Late", jonathan);
+        Conference conference6 = new Conference(2012, 3, 12, 0, 0, 12, 0, s6, "Jonathan Pullano", "Debugging Late", jonathan);
         Conference conference7 = new Conference(2012, 5, 16, 18, 24, 19, 51, null, "Nora Ng-Quinn", "lolcat party", nora);
         conferences.add(conference1);
         conferences.add(conference2);
@@ -75,6 +77,7 @@ public class ConferenceListActivity extends Activity {
         conferences.add(conference5);
         conferences.add(conference6);
         conferences.add(conference7);
+       
         initialize(conferences);
 
     } // end onCreate method
@@ -148,6 +151,7 @@ public class ConferenceListActivity extends Activity {
         }
 
     }
+    
 
     public ExpandableListView getUpcomingConferences() {
         if (layout != null)
