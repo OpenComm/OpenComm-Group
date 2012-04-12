@@ -1,7 +1,7 @@
 package edu.cornell.opencomm.view;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -27,20 +27,53 @@ public class ConferenceListView extends Activity {
         getHappeningNowConferences().invalidate();
         getUpcomingConferences().invalidate();
         layout.invalidate();*/
+        ArrayList<String> openComm = new ArrayList<String>();
+        openComm.add("Jonathan");
+        openComm.add("Flavian");
+        openComm.add("Najla");
+        openComm.add("Ashley");
+        openComm.add("Brandon");
+        openComm.add("Joey");
+        openComm.add("Rahul");
+        openComm.add("Risa");
+        openComm.add("Chris");
+        openComm.add("Vinay");
+        openComm.add("Crystal");
+        openComm.add("Kris");
+
+        ArrayList<String> najla = new ArrayList<String>();
+        najla.add("Najla Elmachtoub");
+
+        ArrayList<String> jonathan = new ArrayList<String>();
+        najla.add("Jonathan Pullano");
+
+        ArrayList<String> vinay = new ArrayList<String>();
+        najla.add("Vinay Maloo");
+
+        ArrayList<String> graeme = new ArrayList<String>();
+        najla.add("Graeme Bailey");
+
+        ArrayList<String> nora = new ArrayList<String>();
+        najla.add("Nora Ng-Quinn");
+
         ArrayList<Conference> conferences = new ArrayList<Conference>();
-        Conference conference1 = new Conference(2012, 5, 27, 10, 00, 12, 00, null, "Jonathan Pullano");
-        Conference conference2 = new Conference(2012, 11, 9, 12, 30, 13, 30, null, "Nora Ng-Quinn");
-        Conference conference3 = new Conference(2013, 6, 25, 8, 30, 9, 15, null, "Vinay Maloo");
-        Conference conference4 = new Conference(2014, 3, 2, 9, 45, 10, 30, null, "Risa Naka");
+        Conference conference1 = new Conference(2012, 4, 27, 10, 00, 12, 00, null, "Vinay Maloo", "Graduation", vinay);
+        Conference conference2 = new Conference(2012, 10, 9, 12, 30, 13, 30, null, "Nora Ng-Quinn", "OMG", nora);
+        Conference conference3 = new Conference(2013, 5, 25, 8, 30, 9, 15, null, "Najla Elmachtoub", "Canada Trip", najla);
+        Conference conference4 = new Conference(2015, 2, 14, 9, 26, 6, 53, null, "Graeme Bailey", "Pi Day", graeme);
+        Conference conference5 = new Conference(2011, 3, 12, 5, 45, 7, 45, null, "Risa Naka", "OpenComm Meeting", openComm);
+        Conference conference6 = new Conference(2012, 3, 12, 0, 0, 10, 0, null, "Jonathan Pullano", "Debugging Late", jonathan);
         conferences.add(conference1);
         conferences.add(conference2);
         conferences.add(conference3);
         conferences.add(conference4);
+        conferences.add(conference5);
+        conferences.add(conference6);
         initialize(conferences);
 
     } // end onCreate method
 
-    private void initialize(List<Conference> conferences) {
+    private void initialize(Collection<Conference> conferences) {
         ArrayList<Conference> currentConferences = new ArrayList<Conference>();
         ArrayList<Conference> futureConferences = new ArrayList<Conference>();
         //TODO: Should we consider past conferences?

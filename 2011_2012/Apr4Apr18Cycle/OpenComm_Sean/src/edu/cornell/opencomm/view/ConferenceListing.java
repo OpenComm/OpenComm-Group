@@ -1,6 +1,7 @@
 package edu.cornell.opencomm.view;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
@@ -80,29 +81,31 @@ public class ConferenceListing {
         contactsField.setText(getContactString(contacts));
     }
 
-    private void setDate(Date newDate) {
-        TextView date = (TextView)conferenceHeader.findViewById(R.id.date);
-        //layout for current conferences has no date
-        if(date != null) {
-            StringBuilder builder = new StringBuilder(newDate.getMonth());
-            builder.append("/");
-            builder.append(newDate.getDate());
-            builder.append(" ");
-            boolean AM = true;
-            int hours = newDate.getHours();
-            if(newDate.getHours() > 12) {
-                AM = false;
-                hours -= 12;
-            }
-            builder.append(hours);
-            builder.append(":");
-            builder.append(newDate.getMinutes());
-            if(AM)
-                builder.append("AM");
-            else
-                builder.append("PM");
-            date.setText(builder.toString());
-        }
+    private void setStartDate(Date newDate) {
+        Date now = Calendar.getInstance().getTime();
+
+        String dateString;
+        if(now.getYear() == newDate.getYear())
+            dateString = "MM/dd hh:mma";
+        else
+            dateString = "yyyy/MM/dd hh:mma";
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat(dateString);
+        TextView headerDate = (TextView)conferenceHeader.findViewById(R.id.date);
+        String date = dateFormat.format(newDate).toString();
+
+        if(headerDate != null)
+            headerDate.setText(date);
+
+        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mma");
+        TextView startTime = (TextView)conferenceDetails.findViewById(R.id.startTime);
+        startTime.setText(timeFormat.format(newDate).toString());
+    }
+
+    private void setEndDate(Date newDate) {
+        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mma");
+        TextView detailsDate = (TextView)conferenceDetails.findViewById(R.id.endTime);
+        detailsDate.setText(timeFormat.format(newDate).toString());
     }
 
     private void setNotes(String newNotes) {
@@ -113,10 +116,10 @@ public class ConferenceListing {
     public void update() {
         //TODO: Talk to backend about this stuff
         setConferenceTitle(conference.getRoom());
-        ArrayList<String> contacts = new ArrayList<String>();
-        contacts.add(conference.getInviter());
-        setContacts(contacts);
-        setDate(conference.getStartDate());
+        setContacts(conference.getContactList());
+        setStartDate(conference.getStartDate());
+        setEndDate(conference.getEndDate());
         //setNotes(conference.getNotes());
+        //setAttendees(conference.getContactList());
     }
 }

@@ -1,6 +1,7 @@
 package edu.cornell.opencomm.view;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import android.content.Context;
@@ -16,6 +17,7 @@ public class ConferenceListExpandableListAdapter extends BaseExpandableListAdapt
 
     public ConferenceListExpandableListAdapter(Context context, List<Conference> conferenceList) {
         this.context = context;
+        Collections.sort(conferenceList);
         for(Conference conference : conferenceList)
             this.conferenceListings.add(new ConferenceListing(context, conference));
     }

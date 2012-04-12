@@ -1,12 +1,13 @@
 package edu.cornell.opencomm.model;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 import edu.cornell.opencomm.view.ConferencePlannerView;
 
 //Modedled after Invitation.java, has fields relating to conference, has setters to change them
-public class Conference {
+public class Conference implements Comparable<Conference> {
     //TODO: need getters, as this is being created as a private object
     // private Connection connection;
     private String room;
@@ -15,6 +16,8 @@ public class Conference {
     private String password;
     //  private Message message;
     private String[] inviteInfo;
+
+    private ArrayList<String> contactList;
     // private MultiUserChat muc;
     private boolean isModeratorRequest;
     //Fields representing the start time of the conference
@@ -37,11 +40,12 @@ public class Conference {
         this.inviter = inviter;
     }
 
-    //Just as above, but with room.
+    //Just as above, but with room, contacts
     //TODO: Consider refactoring into 1 constructor.
-    public Conference(int startYear, int startMonth,int startDay, int startHour, int startMinute, int endHour, int endMinute, String[] inviteInfo, String inviter, String room) {
+    public Conference(int startYear, int startMonth,int startDay, int startHour, int startMinute, int endHour, int endMinute, String[] inviteInfo, String inviter, String room, ArrayList<String> contactList) {
         this(startYear, startMonth, startDay, startHour, startMinute, endHour, endMinute, inviteInfo, inviter);
         this.room = room;
+        this.contactList = contactList;
     }
 
     //Getters for all fields
@@ -143,8 +147,8 @@ public class Conference {
         Date startTime = getStartDate();
         Date endTime = getEndDate();
 
-        return (startTime.before(now) || startTime.equals(now) &&
-                endTime.before(now) || endTime.equals(now));
+        return ((startTime.before(now) || startTime.equals(now)) &&
+                (endTime.after(now) || endTime.equals(now)));
     }
 
     /**
@@ -159,5 +163,21 @@ public class Conference {
      */
     public void setRoom(String room) {
         this.room = room;
+    }
+
+    public ArrayList<String> getContactList() {
+        return contactList;
+    }
+
+    public void setContactList(ArrayList<String> contactList) {
+        this.contactList = contactList;
+    }
+
+    @Override
+    public int compareTo(Conference other) {
+        if(this == other) return 0;
+        Date startDate = getStartDate();
+        Date otherStartDate = other.getStartDate();
+        return startDate.compareTo(otherStartDate);
     }
 }
