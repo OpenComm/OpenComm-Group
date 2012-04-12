@@ -1,6 +1,7 @@
 package edu.cornell.opencomm.view;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -9,12 +10,15 @@ import java.util.Iterator;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.model.Conference;
 
 public class ConferenceListing {
+    LayoutInflater inflater;
+    Context context;
     Conference conference;
     View conferenceDetails;
     View conferenceHeader;
@@ -22,8 +26,9 @@ public class ConferenceListing {
 
     public ConferenceListing(Context context, Conference conference) {
         this.conference = conference;
+        this.context = context;
 
-        LayoutInflater inflater = (LayoutInflater) context
+        inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         conferenceDetails = inflater.inflate(R.layout.conference_details_layout, null);
         if(conference.isNow()) {
@@ -31,6 +36,7 @@ public class ConferenceListing {
         } else {
             conferenceHeader = inflater.inflate(R.layout.future_conference_listing_layout, null);
         }
+        initListeners();
         update();
     }
 
@@ -76,9 +82,20 @@ public class ConferenceListing {
         return builder.toString();
     }
 
-    private void setContacts(Collection<String> contacts) {
+    private void setContacts(ArrayList<String> contacts) {
         TextView contactsField = (TextView)conferenceHeader.findViewById(R.id.contactList);
         contactsField.setText(getContactString(contacts));
+
+        inflater = (LayoutInflater) context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        ViewGroup attendeesList = (ViewGroup)conferenceDetails.findViewById(R.id.attendeesList);
+        for(int i = 0; i < Math.min(contacts.size(), 3); i++) {
+            View contact = inflater.inflate(R.layout.attendee_layout, null);
+            TextView nameView = (TextView)contact.findViewById(R.id.name);
+            nameView.setText(contacts.get(i));
+            //TODO: Replace nora's smiling face with a more appropriate one
+            attendeesList.addView(contact);
+        }
     }
 
     private void setStartDate(Date newDate) {
@@ -120,6 +137,17 @@ public class ConferenceListing {
         setStartDate(conference.getStartDate());
         setEndDate(conference.getEndDate());
         //setNotes(conference.getNotes());
-        //setAttendees(conference.getContactList());
+    }
+
+    public void initListeners() {
+        conferenceDetails.findViewById(R.id.pencil);
+        conferenceDetails.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                ConferencePlannerView planner = new ConferencePlannerView(inflater, context);
+                planner.launch();
+            }
+        });
     }
 }

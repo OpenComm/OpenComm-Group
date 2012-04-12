@@ -26,18 +26,21 @@ public class ConferenceListActivity extends Activity {
         setContentView(layout);
 
         ArrayList<String> openComm = new ArrayList<String>();
-        openComm.add("Jonathan");
-        openComm.add("Flavian");
-        openComm.add("Najla");
+
         openComm.add("Ashley");
-        openComm.add("Brandon");
+        openComm.add("Risa");
         openComm.add("Joey");
         openComm.add("Rahul");
-        openComm.add("Risa");
+        openComm.add("Brandon");
+        openComm.add("Natalie");
         openComm.add("Chris");
         openComm.add("Vinay");
         openComm.add("Crystal");
         openComm.add("Kris");
+        openComm.add("Jonathan");
+        openComm.add("Flavian");
+        openComm.add("Najla");
+        openComm.add("Justin");
 
         ArrayList<String> najla = new ArrayList<String>();
         najla.add("Najla Elmachtoub");
@@ -54,19 +57,24 @@ public class ConferenceListActivity extends Activity {
         ArrayList<String> flavian = new ArrayList<String>();
         flavian.add("Flavian Hautbois");
 
+        ArrayList<String> nora = new ArrayList<String>();
+        nora.add("Nora Ng-Quinn");
+
         ArrayList<Conference> conferences = new ArrayList<Conference>();
         Conference conference1 = new Conference(2012, 4, 27, 10, 00, 12, 00, null, "Vinay Maloo", "Graduation", mom);
         Conference conference2 = new Conference(2012, 10, 9, 12, 30, 13, 30, null, "Flavian", "Wine+Cheese", flavian);
         Conference conference3 = new Conference(2012, 5, 25, 8, 30, 9, 15, null, "Najla Elmachtoub", "Canada Trip", najla);
-        Conference conference4 = new Conference(2015, 2, 14, 9, 26, 6, 53, null, "Graeme Bailey", "Pi Day", graeme);
+        Conference conference4 = new Conference(2015, 2, 14, 9, 26, 5, 35, null, "Graeme Bailey", "Pi Day", graeme);
         Conference conference5 = new Conference(2012, 3, 12, 17, 45, 19, 45, null, "Risa Naka", "OpenComm", openComm);
-        Conference conference6 = new Conference(2012, 3, 12, 0, 0, 10, 0, null, "Jonathan Pullano", "Debugging Late", jonathan);
+        Conference conference6 = new Conference(2012, 3, 12, 0, 0, 12, 0, null, "Jonathan Pullano", "Debugging Late", jonathan);
+        Conference conference7 = new Conference(2012, 5, 16, 18, 24, 19, 51, null, "Nora Ng-Quinn", "lolcat party", nora);
         conferences.add(conference1);
         conferences.add(conference2);
         conferences.add(conference3);
         conferences.add(conference4);
         conferences.add(conference5);
         conferences.add(conference6);
+        conferences.add(conference7);
         initialize(conferences);
 
     } // end onCreate method
