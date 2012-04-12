@@ -472,15 +472,17 @@ public class ConferencePlannerController {
 			}
 			counter++;
 		}
+		room=conferencePlannerView.getNameBox().getText().toString();
 		//conferencePlannerView.getWindow().dismiss();
 		if(openfireInvitation == null){
 		openfireInvitation = new Conference(startYear, startMonth, startDay, startHour, startMinute, endHour, endMinute,inviteList,username);
-		openfireInvitation.setPlannerView(conferencePlannerView);
+        openfireInvitation.setRoom(room);
+        openfireInvitation.setPlannerView(conferencePlannerView);
 		conferencePlannerView.getContext().startActivity(i);
 		}else{
 		//go back to conference list view.
 			Log.v("Crystal", "conference value changed");
-	    room=conferencePlannerView.getNameBox().getText().toString();
+	    
 		openfireInvitation.setRoom(room);
 	    openfireInvitation.setStartYear(startYear);
 		openfireInvitation.setStartMonth(startMonth);

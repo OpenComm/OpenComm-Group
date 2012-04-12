@@ -82,7 +82,17 @@ public class ConferenceListActivity extends Activity {
         
         String[] s3=new String[]{"Najla Elmachtoub"};
         String[] s4=new String[]{"Graeme Bailey"};
-        String[] s5=openComm.toArray(new String[14]);
+        String[] s5=new String[]{"Ashley","Risa","Joey","Rahul",
+        "Brandon",
+        "Natalie",
+        "Chris",
+        "Vinay",
+        "Crystal",
+        "Kris",
+        "Jonathan",
+        "Flavian",
+        "Najla",
+       "Justin"};
         String[] s7=new String[]{"Nora Ng-Quinn"};
         String[] s8=new String[]{"Hurp"};
         String[] s9=new String[]{"Derp"};
