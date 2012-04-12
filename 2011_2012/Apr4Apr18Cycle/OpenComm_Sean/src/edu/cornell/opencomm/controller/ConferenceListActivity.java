@@ -271,7 +271,8 @@ public class ConferenceListActivity extends Activity {
 			int tempDayDisplay=stock.get(Calendar.DAY_OF_MONTH);
 			boolean confFound=false;
 			
-			for(int i=0;i<conferences.size();i++){
+			//Scroll upcoming
+			for(int i=0;i<upcomingAdapter.getGroupCount();i++){
 //				int startMonth = ((Conference)upcomingAdapter.getGroup(i)).getStartMonth();
 //				int startDay = ((Conference)upcomingAdapter.getGroup(i)).getStartDay();
 				
@@ -289,6 +290,27 @@ public class ConferenceListActivity extends Activity {
 				}
 				if(confFound){break;}
 			}
+			
+			//Scroll happening now?? (I think its un-needed)
+//			for(int i=0;i<happeningNowAdapter.getGroupCount();i++){
+////				int startMonth = ((Conference)upcomingAdapter.getGroup(i)).getStartMonth();
+////				int startDay = ((Conference)upcomingAdapter.getGroup(i)).getStartDay();
+//				
+////				int startMonth = conferences.get(i).getStartMonth();
+////				int startDay= conferences.get(i).getStartDay();
+//				
+//				int startMonth = happeningNowAdapter.conferenceListings.get(i).getConference().getStartMonth();
+//				int startDay= happeningNowAdapter.conferenceListings.get(i).getConference().getStartDay();
+//				
+//				if(startMonth == tempMonthDisplay-1 && startDay ==tempDayDisplay){
+//					Log.v("HOLY CRAP", "YOU HAVE A CONFERENCE ON THAT DAY");
+//				
+//					upcomingConferences.smoothScrollToPosition(i);
+//					confFound=true;
+//				}
+//				if(confFound){break;}
+//			}
+//			
 			if(confFound==false){
 			Log.v("DANG","NO CONFERENCES ON " + tempMonthDisplay+"/" + tempDayDisplay);}
 			else{
