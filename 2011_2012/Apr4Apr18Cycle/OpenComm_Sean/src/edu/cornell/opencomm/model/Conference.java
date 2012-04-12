@@ -3,8 +3,9 @@ package edu.cornell.opencomm.model;
 import java.util.Calendar;
 import java.util.Date;
 
+import edu.cornell.opencomm.view.ConferencePlannerView;
 
-//Modeled after Invitation.java, has fields relating to conference, has setters to change them
+//Modedled after Invitation.java, has fields relating to conference, has setters to change them
 public class Conference {
     //TODO: need getters, as this is being created as a private object
     // private Connection connection;
@@ -20,6 +21,8 @@ public class Conference {
     private int startYear,startMonth,startDay,startHour,startMinute;
     //Fields representign the end time of the conference (Just hours)
     private int endHour, endMinute;
+    // the associated conferencePlannerView
+    private ConferencePlannerView cpv;
 
     //Sets conference begin times, and invite list
     public Conference(int startYear, int startMonth,int startDay, int startHour, int startMinute, int endHour, int endMinute,String[] inviteInfo, String inviter){
@@ -64,6 +67,54 @@ public class Conference {
     //String array of invited peoples
     public String[] getInvitees(){
         return inviteInfo;
+    }
+
+    public void setPlannerView(ConferencePlannerView cpv) {
+        this.cpv = cpv;
+    }
+
+    public ConferencePlannerView getPlannerView() {
+        return cpv;
+    }
+
+    public void setStartDay(int startDay) {
+        this.startDay = startDay;
+    }
+
+    public void setStartHour(int startHour) {
+        this.startHour = startHour;
+    }
+
+    public String[] getInviteInfo() {
+        return inviteInfo;
+    }
+
+    public void setInviteInfo(String[] inviteInfo) {
+        this.inviteInfo = inviteInfo;
+    }
+
+    public void setInviter(String inviter) {
+        this.inviter = inviter;
+    }
+
+    public void setStartYear(int startYear) {
+        this.startYear = startYear;
+    }
+
+    public void setStartMonth(int startMonth) {
+        this.startMonth = startMonth;
+    }
+
+    public void setStartMinute(int startMinute) {
+        this.startMinute = startMinute;
+    }
+
+    public void setEndHour(int endHour) {
+        this.endHour = endHour;
+    }
+
+    public void setEndMinute(int endMinute) {
+        this.endMinute = endMinute;
     }
 
     public Date getStartDate() {
