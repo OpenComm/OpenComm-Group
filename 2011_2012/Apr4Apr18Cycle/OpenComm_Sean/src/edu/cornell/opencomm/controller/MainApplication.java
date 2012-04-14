@@ -16,7 +16,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -26,7 +25,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
@@ -39,7 +37,6 @@ import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.InvitationView;
 import edu.cornell.opencomm.view.LoginView;
 import edu.cornell.opencomm.view.MenuView;
-import edu.cornell.opencomm.view.NotificationView;
 import edu.cornell.opencomm.view.PopupNotificationView;
 import edu.cornell.opencomm.view.PrivateSpaceIconView;
 import edu.cornell.opencomm.view.ResetPasswordView;
@@ -356,19 +353,19 @@ public final class MainApplication extends Activity{
                         debug1, Network.DEFAULT_INVITE);
                 break;
             }
-            
+
             case KeyEvent.KEYCODE_Y:{
             	Log.d(TAG, "contacts button clicked");
                 Intent i= new Intent();
              //   LayoutInflater ifl=dashboardView.getInflater();
-    
+
                 LayoutInflater ifl = (LayoutInflater) MainApplication.this
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 ResetPasswordView cpv= new ResetPasswordView(ifl,MainApplication.this);
                // cpv.setContext(Space.getMainSpace().getContext());
                 cpv.launch();
             }
-            
+
             }
             ;
             return true;
@@ -380,10 +377,6 @@ public final class MainApplication extends Activity{
     /** Adjust the parameters of the main layout according to the Values class.
      * For situations when the phone size is different */
     public void adjustLayoutParams(){
-        // Calculations
-        Display display = getWindowManager().getDefaultDisplay();
-
-        //viewDimensions.setValues(display.getWidth(), display.getHeight());
 
         // Adjust the space view
         View sv = findViewById(R.id.space_view);
@@ -561,27 +554,6 @@ public final class MainApplication extends Activity{
 
     }
 
-    PopupWindow privateSpacePreviewPopupWindow = null;
-    private View.OnClickListener onClickListener = new View.OnClickListener() {
-
-        @Override
-        public void onClick(View view) {
-
-        }
-    };
-
-    private View.OnClickListener onCancelClickListener = new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-            // ViewGroup popup =
-            // (ViewGroup)v.findViewById(R.id.popup_inner_layout);
-            //PopupWindow pw = (PopupWindow) v.getParent().getParent();
-            privateSpacePreviewPopupWindow.dismiss();
-        }
-    };
-
-
     /** Removes all UI traces of a privatespace/sidechat
      * 1) Removes space from hashmap of all spaces
      * 2) Removes the corresponding privatespaceButton
@@ -706,7 +678,7 @@ public final class MainApplication extends Activity{
                 // TODO NORA - might need to change to mainspace in Space class
                 try{
                     //Space.getMainSpace().getSpaceController().addSpace(Space.getMainSpace().getContext());
-                    Space newSpace=Space.getMainSpace().getSpaceController().addSpace(Space.getMainSpace().getContext());
+                    Space newSpace=SpaceController.addSpace(Space.getMainSpace().getContext());
                     PrivateSpaceIconView psIcon=new PrivateSpaceIconView(Space.getMainSpace().getContext(),newSpace);
                     newSpace.getSpaceController().setPSIV(psIcon);
                 }
