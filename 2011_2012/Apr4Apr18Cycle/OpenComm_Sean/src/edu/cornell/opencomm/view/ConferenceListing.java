@@ -7,37 +7,33 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-
 import android.view.View.OnClickListener;
-
-import android.widget.DatePicker;
-
 import android.view.ViewGroup;
-
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.ConferencePlannerController;
 import edu.cornell.opencomm.model.Conference;
 
 public class ConferenceListing {
-    LayoutInflater inflater;
-    Context context;
-    Conference conference;
-    View conferenceDetails;
-    View conferenceHeader;
-    boolean current;
-    TextView datePicker;
+    private LayoutInflater inflater;
+    private Context context;
+    private Conference conference;
+    private View conferenceDetails;
+    private View conferenceHeader;
+    private Typeface font;
 
     public ConferenceListing(Context context, Conference conference) {
         this.conference = conference;
         this.context = context;
+        font = Typeface.createFromAsset(context.getAssets(), Values.font);
 
         inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -48,11 +44,11 @@ public class ConferenceListing {
             conferenceHeader = inflater.inflate(R.layout.future_conference_listing_layout, null);
         }
         initListeners();
-        
+
         update();
     }
 
-    
+
     public Conference getConference() {
         return conference;
     }
@@ -68,6 +64,7 @@ public class ConferenceListing {
     private void setConferenceTitle(String title) {
         TextView conferenceTitle = (TextView)conferenceHeader.findViewById(R.id.conferenceTitle);
         conferenceTitle.setText(title);
+        conferenceTitle.setTypeface(font);
         conferenceTitle.invalidate();
     }
 
@@ -98,14 +95,16 @@ public class ConferenceListing {
     private void setContacts(ArrayList<String> contacts) {
         TextView contactsField = (TextView)conferenceHeader.findViewById(R.id.contactList);
         contactsField.setText(getContactString(contacts));
+        contactsField.setTypeface(font);
 
         inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ViewGroup attendeesList = (ViewGroup)conferenceDetails.findViewById(R.id.attendeesList);
-        for(int i = 0; i < Math.min(contacts.size(), 3); i++) {
+        for(int i = 0; i < contacts.size(); i++) {
             View contact = inflater.inflate(R.layout.attendee_layout, null);
             TextView nameView = (TextView)contact.findViewById(R.id.name);
             nameView.setText(contacts.get(i));
+            nameView.setTypeface(font);
             //TODO: Replace nora's smiling face with a more appropriate one
             attendeesList.addView(contact);
         }
@@ -124,23 +123,28 @@ public class ConferenceListing {
         TextView headerDate = (TextView)conferenceHeader.findViewById(R.id.date);
         String date = dateFormat.format(newDate).toString();
 
-        if(headerDate != null)
+        if(headerDate != null) {
             headerDate.setText(date);
+            headerDate.setTypeface(font);
+        }
 
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mma");
         TextView startTime = (TextView)conferenceDetails.findViewById(R.id.startTime);
         startTime.setText(timeFormat.format(newDate).toString());
+        startTime.setTypeface(font);
     }
 
     private void setEndDate(Date newDate) {
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mma");
         TextView detailsDate = (TextView)conferenceDetails.findViewById(R.id.endTime);
         detailsDate.setText(timeFormat.format(newDate).toString());
+        detailsDate.setTypeface(font);
     }
 
     private void setNotes(String newNotes) {
         TextView notes = (TextView)conferenceHeader.findViewById(R.id.notes);
         notes.setText(newNotes);
+        notes.setTypeface(font);
     }
 
     public void update() {
@@ -165,7 +169,7 @@ public class ConferenceListing {
 			         if(conf== null){
 			        	 Log.v("Crystal", "conference is null");
 			         }
-			         
+
 			        // Crystal:have to hard-code for now for debugging
 			         ConferencePlannerView cpv1=new ConferencePlannerView(inflater,context,conf);
 			         conf.setPlannerView(cpv1);
@@ -178,19 +182,19 @@ public class ConferenceListing {
 			         CharSequence[] buddyList=conf.getInvitees();//cpv1.getConferencePlannerController().buddyList;
 			         final  LinearLayout vs=(LinearLayout) cpv1.getView().findViewById(R.id.userIcons);
 			         for (int i = 0; i < buddyList.length; i++) {
-							
+
 								Log.v("c","drawing");
 						     ConferencePlannerController.addUserIcon((String)buddyList[i], context,vs);
-						    
+
 					    }
-			         
+
 			         conf.getPlannerView().launch();
-			   
-				
+
+
 			}
-    		
+
     	});
     }
-        
+
 }
 
