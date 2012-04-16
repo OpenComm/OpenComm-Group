@@ -44,8 +44,11 @@ import org.jivesoftware.smackx.provider.XHTMLExtensionProvider;
 import org.jivesoftware.smackx.search.UserSearch;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.LoginController;
 import edu.cornell.opencomm.controller.MainApplication;
@@ -369,4 +372,16 @@ public class NetworkService {
 		return this.isConnected;
 	}
 
+	
+	public boolean isOnline(View v) {
+	    ConnectivityManager cm =
+	         (ConnectivityManager) v.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo netInfo = cm.getActiveNetworkInfo();
+	    if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+	        return true;
+	    }
+	    return false;
+	}
+
+	
 } // end Class NetworkService

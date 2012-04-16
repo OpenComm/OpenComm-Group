@@ -19,7 +19,6 @@ import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.view.ConferenceListExpandableListAdapter;
 import edu.cornell.opencomm.view.ConferenceListing;
-import edu.cornell.opencomm.view.ConferencePlannerView;
 
 public class ConferenceListActivity extends Activity {
 
@@ -79,7 +78,7 @@ public class ConferenceListActivity extends Activity {
         String[] s6 = new String[]{"Jonathan Pullano"};
         String[] s1= new String[]{"Vinay Maloo"};
         String[] s2=new String[]{"Flavian"};
-        
+
         String[] s3=new String[]{"Najla Elmachtoub"};
         String[] s4=new String[]{"Graeme Bailey"};
         String[] s5=new String[]{"Ashley","Risa","Joey","Rahul",
@@ -96,10 +95,10 @@ public class ConferenceListActivity extends Activity {
         String[] s7=new String[]{"Nora Ng-Quinn"};
         String[] s8=new String[]{"Hurp"};
         String[] s9=new String[]{"Derp"};
-        
+
         ArrayList<String> hurp = new ArrayList<String>();
         hurp.add("Hurpy McHurp");
-        
+
         ArrayList<String> derp = new ArrayList<String>();
         derp.add("Derpman");
 
@@ -135,19 +134,19 @@ public class ConferenceListActivity extends Activity {
         conferences.add(conference13);
         conferences.add(conference14);
         initialize(conferences);
-        
+
         monthDisplay = stock.get(Calendar.MONTH);
         dayDisplay = stock.get(Calendar.DAY_OF_MONTH);
         yearDisplay=stock.get(Calendar.YEAR);
-        
+
         textView= getDateText();
         textView.setFocusable(false);
-        
+
         setDateText();
-        
+
         getLeftArrow().setOnClickListener(onLeftArrowListener);
         getRightArrow().setOnClickListener(onRightArrowListener);
-        
+
         theButton = getTheButton();
         theButton.setVisibility(View.VISIBLE);
         theButton.setBackgroundColor(Color.TRANSPARENT);
@@ -158,16 +157,15 @@ public class ConferenceListActivity extends Activity {
     private void initialize(Collection<Conference> conferences) {
         ArrayList<Conference> currentConferences = new ArrayList<Conference>();
         ArrayList<Conference> futureConferences = new ArrayList<Conference>();
-        //TODO: Should we consider past conferences?
         for(Conference conference : conferences) {
             if(conference.isNow())
                 currentConferences.add(conference);
-            else
+            else if(conference.isFuture())
                 futureConferences.add(conference);
         }
         upcomingAdapter = new ConferenceListExpandableListAdapter(this, futureConferences);
         happeningNowAdapter = new ConferenceListExpandableListAdapter(this, currentConferences);
-       upcomingConferences = getUpcomingConferences();
+        upcomingConferences = getUpcomingConferences();
         happeningNowConferences = getHappeningNowConferences();
 
         upcomingConferences.setAdapter(upcomingAdapter);
@@ -224,7 +222,7 @@ public class ConferenceListActivity extends Activity {
         }
 
     }
-    
+
 
     public ExpandableListView getUpcomingConferences() {
         if (layout != null)
@@ -237,8 +235,8 @@ public class ConferenceListActivity extends Activity {
             return (ExpandableListView) layout.findViewById(R.id.happeningNowConferences);
         return null;
     }
-    
-    
+
+
 	View.OnClickListener onDatePickerListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
@@ -250,76 +248,76 @@ public class ConferenceListActivity extends Activity {
 		private void handleDatePickerButtonClicked() {
 			new DatePickerDialog(this, dateSetListener,stock.get(Calendar.YEAR),stock.get(Calendar.MONTH),stock.get(Calendar.DAY_OF_MONTH)).show();
 		};
-		
-		
+
+
 		DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
 			@Override
 			public void onDateSet(DatePicker view, int year, int monthOfYear,
 					int dayOfMonth) {
 				dayDisplay = dayOfMonth;
 				monthDisplay = monthOfYear;
-				yearDisplay = year; 
+				yearDisplay = year;
 				stock.set(yearDisplay, monthDisplay, dayDisplay);
 				setDateText();
 			}
-			
+
 		};
-		
+
 		private void setDateText(){
 
 			int tempMonthDisplay=stock.get(Calendar.MONTH)+1;
 			int tempDayDisplay=stock.get(Calendar.DAY_OF_MONTH);
 			boolean confFound=false;
-			
+
 			//Scroll upcoming
 			for(int i=0;i<upcomingAdapter.getGroupCount();i++){
 //				int startMonth = ((Conference)upcomingAdapter.getGroup(i)).getStartMonth();
 //				int startDay = ((Conference)upcomingAdapter.getGroup(i)).getStartDay();
-				
+
 //				int startMonth = conferences.get(i).getStartMonth();
 //				int startDay= conferences.get(i).getStartDay();
-				
+
 				int startMonth = upcomingAdapter.conferenceListings.get(i).getConference().getStartMonth();
 				int startDay= upcomingAdapter.conferenceListings.get(i).getConference().getStartDay();
-				
+
 				if(startMonth == tempMonthDisplay-1 && startDay ==tempDayDisplay){
 					Log.v("HOLY CRAP", "YOU HAVE A CONFERENCE ON THAT DAY");
-				
+
 					upcomingConferences.smoothScrollToPosition(i);
 					confFound=true;
 				}
 				if(confFound){break;}
 			}
-			
+
 			//Scroll happening now?? (I think its un-needed)
 //			for(int i=0;i<happeningNowAdapter.getGroupCount();i++){
 ////				int startMonth = ((Conference)upcomingAdapter.getGroup(i)).getStartMonth();
 ////				int startDay = ((Conference)upcomingAdapter.getGroup(i)).getStartDay();
-//				
+//
 ////				int startMonth = conferences.get(i).getStartMonth();
 ////				int startDay= conferences.get(i).getStartDay();
-//				
+//
 //				int startMonth = happeningNowAdapter.conferenceListings.get(i).getConference().getStartMonth();
 //				int startDay= happeningNowAdapter.conferenceListings.get(i).getConference().getStartDay();
-//				
+//
 //				if(startMonth == tempMonthDisplay-1 && startDay ==tempDayDisplay){
 //					Log.v("HOLY CRAP", "YOU HAVE A CONFERENCE ON THAT DAY");
-//				
+//
 //					upcomingConferences.smoothScrollToPosition(i);
 //					confFound=true;
 //				}
 //				if(confFound){break;}
 //			}
-//			
+//
 			if(confFound==false){
 			Log.v("DANG","NO CONFERENCES ON " + tempMonthDisplay+"/" + tempDayDisplay);}
 			else{
-				
+
 				Log.v("OMG","FOUND A CONFERENCE");
 			}
 		textView.setText(" " +tempMonthDisplay + "/" + tempDayDisplay);
 		}
-		
+
 		public TextView getDateText(){
 			return (TextView)layout.findViewById(R.id.date);
 		}
@@ -327,28 +325,28 @@ public class ConferenceListActivity extends Activity {
 		public ImageView getLeftArrow(){
 			return (ImageView)layout.findViewById(R.id.leftArrow);
 		}
-		
+
 		public ImageView getRightArrow(){
 			return (ImageView)layout.findViewById(R.id.rightArrow);
 		}
-		
+
 		public Button getTheButton(){
 			return (Button)layout.findViewById(R.id.dateButton);
 		}
-		
+
 		View.OnClickListener onLeftArrowListener = new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				stock.add(Calendar.DAY_OF_MONTH, -1);
 				setDateText();
 			}
 		};
-		
+
 		View.OnClickListener onRightArrowListener = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
+
 				stock.add(Calendar.DAY_OF_MONTH, 1);
 				setDateText();
 			}
