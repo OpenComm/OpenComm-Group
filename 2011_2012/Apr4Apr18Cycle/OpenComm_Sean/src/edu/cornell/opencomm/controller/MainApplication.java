@@ -181,6 +181,7 @@ public final class MainApplication extends Activity{
 
         @Override
         public boolean onKey(View v, int keyCode, KeyEvent event) {
+            if (!D) return true;
             if (event.getAction()!=KeyEvent.ACTION_DOWN) {
                 return true;
             }
