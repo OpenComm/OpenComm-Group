@@ -9,6 +9,21 @@
 
 package edu.cornell.opencomm.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import 	java.io.InputStreamReader;
+import java.util.ArrayList;
+
+import org.apache.http.HttpResponse; 
+import org.apache.http.NameValuePair; 
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient; 
+import org.apache.http.client.entity.UrlEncodedFormEntity; 
+import org.apache.http.client.methods.HttpPost; 
+import org.apache.http.impl.client.DefaultHttpClient; 
+import org.apache.http.message.BasicNameValuePair;
+
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 
@@ -45,6 +60,7 @@ import edu.cornell.opencomm.view.SignupView;
 	    // Network service and Connection
 	    private NetworkService xmppService;
 	    private XMPPConnection xmppConn;
+		private String serverName = "199.167.198.149";
 
 
 	   public ResetPasswordController(ResetPasswordView resetPasswordView) {
@@ -124,7 +140,92 @@ import edu.cornell.opencomm.view.SignupView;
 		}
 		
 		/**checks of email is in the network (sends a new email to this if valid */
+	
+	private StringBuilder inputStreamToString(InputStream is) {
+	    String line = "";
+	    StringBuilder total = new StringBuilder();
+	    
+	    // Wrap a BufferedReader around the InputStream
+	    BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+
+	    // Read response until the end
+	    try {
+			while ((line = rd.readLine()) != null) { 
+			    total.append(line); 
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Log.e(LOG_TAG,"IO error");
+		}
+	    
+	    // Return full string
+	    return total;
+	}
+	
+	private boolean sendEmail(String userEmail) {
+		//Code from http://www.androidsnippets.com/executing-a-http-post-request-with-httpclient
+		//and http://www.androidsnippets.com/get-the-content-from-a-httpresponse-or-any-inputstream-as-a-string
+		//
+		// Sends an email via a script on page mail.php on the server
+
+        HttpClient httpclient = new DefaultHttpClient();
+        HttpPost httppost = new HttpPost("http://"+serverName+"/mail.php");
+        HttpResponse response=null;
+        InputStream verificationCode = null;
+        try {
+            // Add your data
+            ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+            nameValuePairs.add(new BasicNameValuePair("userEmail", userEmail));
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+            // Execute HTTP Post Request
+            response = httpclient.execute(httppost);
+            
+        } catch (ClientProtocolException e) {
+            // TODO Auto-generated catch block
+			Log.e(LOG_TAG,"IO Protocol error");
+			return false;
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+			Log.e(LOG_TAG,"IO error");
+			return false;
+        }
+        
+		try {
+			verificationCode = response.getEntity().getContent();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Log.e(LOG_TAG,"IllegalState error");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Log.e(LOG_TAG,"IO error");
+		}
+		
+		String verificationString = inputStreamToString(verificationCode).toString();
+		if(D) Log.v(LOG_TAG, verificationString);
+		Log.v(LOG_TAG, "The string: "+verificationString);
+		
+		if(verificationString.equals("OK")) return true;
+		else if(verificationString.equals("PB1")) {
+			Log.e(LOG_TAG,"Problem sending the email");
+			return false;
+		}
+		else if(verificationString.equals("PB2")) {
+			Log.e(LOG_TAG,"The email address is not valid");
+			return false;
+		}
+		else {
+			Log.e(LOG_TAG,"Unknown error. String: "+ verificationString);
+			return false;
+		}
+	}
+		
 	private boolean validEmail(String userEmail){		
+		
+		return sendEmail(userEmail);
 			
 			/* SEND AN HTTP REQUEST TO A REMOTE SERVER TO CHANGE THE PASSWORD FOR THE GIVEN USERNAME */
 			/*
@@ -154,7 +255,5 @@ import edu.cornell.opencomm.view.SignupView;
 			
 			//TODO: Server side in PHP: make the HTTP request. Ressource here: http://www.igniterealtime.org/projects/openfire/plugins/userservice/readme.html
 			
-		
-			return true;
 		}
 }
