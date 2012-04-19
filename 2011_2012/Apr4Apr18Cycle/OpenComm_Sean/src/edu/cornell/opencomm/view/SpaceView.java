@@ -1,11 +1,14 @@
 package edu.cornell.opencomm.view;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Point;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -36,6 +39,9 @@ public class SpaceView extends View {
     public UserView selectedIcon;
     boolean clickOnIcon = false;
     private boolean dim = false;
+    private boolean drag = true;
+    private boolean longclick = true;
+    private ArrayList<ArrayList<Point>> dragPoints = new ArrayList<ArrayList<Point>>();
 
     /** Controllers for SpaceView*/
     SpaceViewController spaceViewController;
@@ -94,6 +100,8 @@ public class SpaceView extends View {
                 int mouseY = (int) event.getY();
 
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    drag = longclick = false;
+                    dragPoints.add(new ArrayList<Point>());
                     // If clicked on an icon
                     selectedIcon = null;
                     for (UserView icon : space.getAllIcons()) {
@@ -105,6 +113,8 @@ public class SpaceView extends View {
                         }
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if(!drag && !longclick)
+                        dragPoints.clear();
                     // if clicked on an icon
                     if (clickOnIcon) {
                         selectedIcon.getUserViewController().handleClickUp(
@@ -113,11 +123,14 @@ public class SpaceView extends View {
                         clickOnIcon = false;
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                    drag = true;
                     /* If a person icon is selected, then move the icon to
 					 the current position */
                     if (clickOnIcon) {
                         selectedIcon.getUserViewController().handleMoved(
                                 mouseX, mouseY);
+                    } else {
+                        dragPoints.get(dragPoints.size()-1).add(new Point((int)event.getX(), (int)event.getY()));
                     }
                 }
                 invalidate();
@@ -129,16 +142,21 @@ public class SpaceView extends View {
 
             @Override
             public boolean onLongClick(View arg0) {
-                if (clickOnIcon) {
-                    boolean longpress = selectedIcon.getUserViewController()
-                            .handleLongPress();
-                    if (longpress) {
-                        selectedIcon = null;
-                        clickOnIcon = false;
+                longclick = true;
+                if (!drag) {
+                    if (clickOnIcon) {
+                        boolean longpress = selectedIcon.getUserViewController()
+                                .handleLongPress();
+                        if (longpress) {
+                            selectedIcon = null;
+                            clickOnIcon = false;
+                        }
+                        return longpress;
+                    } else {
+                        thisSpaceView.getSpaceViewController().handleLongClick();
+                        return true;
                     }
-                    return longpress;
                 } else {
-                    thisSpaceView.getSpaceViewController().handleLongClick();
                     return true;
                 }
             }
@@ -186,8 +204,19 @@ public class SpaceView extends View {
         }
         if (canvas != null && space != null && space.getAllIcons() != null) {
             for (UserView p : space.getAllIcons()) {
-                if (!p.getPerson().getNickname().equals(MainApplication.userPrimary.getNickname()))
+                if (!p.getPerson().getNickname().equals(MainApplication.userPrimary.getNickname())) {
+                    p.setGhost(true);
                     p.draw(canvas);
+                }
+
+            }
+        }
+        Paint paint = new Paint();
+        for(ArrayList<Point> pointList : dragPoints) {
+            for(int i = 0; i < pointList.size() - 1; i++) {
+                Point p1 = pointList.get(i);
+                Point p2 = pointList.get(i+1);
+                canvas.drawLine(p1.x, p1.y, p2.x, p2.y, paint);
             }
         }
     }

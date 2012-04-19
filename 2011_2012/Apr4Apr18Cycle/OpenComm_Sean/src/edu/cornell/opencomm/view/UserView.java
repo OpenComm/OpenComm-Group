@@ -305,4 +305,11 @@ public class UserView extends ImageButton{
     public void setMoved(boolean moved){
         isMoved = moved;
     }
+
+    public void setGhost(boolean ghost) {
+        if(ghost)
+            this.setAlpha(50);
+        else
+            this.setAlpha(100);
+    }
 }
