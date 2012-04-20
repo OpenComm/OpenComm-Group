@@ -28,6 +28,7 @@ public class UserView extends ImageButton{
     Bitmap image; // The actual image that will show on the user screen
     Bitmap nameBoxImage; // The name box on a user's icon
     Space space;
+    boolean ghost = false;
     
     //font
     private Typeface font;
@@ -39,6 +40,8 @@ public class UserView extends ImageButton{
     UserView thisUserView;
     static UserView selectedIcon;
     boolean clickOnIcon;
+    
+    final private static int GHOST_ALPHA = 50;
 
     /** Constructor:
      * 1)Initialize all variables
@@ -135,24 +138,37 @@ public class UserView extends ImageButton{
             //bord.getPaint().setStyle(Style.STROKE);
             // bord.getPaint().setStrokeWidth(b);
             bord.getPaint().setColor(getResources().getColor(person.user_color));
-            bord.setAlpha(204);
+            if(ghost)
+                bord.setAlpha(GHOST_ALPHA);
+            else
+                bord.setAlpha(204);
             bord.setBounds(x-b,y-b,x+image.getWidth()+b,y+image.getHeight()+b);
             Log.v(LOG_TAG, "SIZE"+(image.getWidth()+2*b)+""+(image.getHeight()+2*b));
             //border.setPadding(b,b,b,b);
+            
             bord.draw(canvas);
             //Crystal image
             Bitmap overlay = Bitmap.createBitmap(image.getWidth(),image.getHeight(), Bitmap.Config.ARGB_8888);
+            
             Canvas c = new Canvas(overlay);
 
             paint.setAntiAlias(true);
             paint.setTextSize(Values.nameTextSize);
-
-            c.drawBitmap(image, 0, 0, null);
+            if(ghost) {
+                paint.setAlpha(GHOST_ALPHA);
+                Paint imagePaint = new Paint();
+                imagePaint.setAntiAlias(true);
+                imagePaint.setAlpha(GHOST_ALPHA);
+                c.drawBitmap(image, 0, 0, imagePaint);
+            } else 
+                c.drawBitmap(image, 0, 0, null);
             RectShape nTag= new RectShape();
             ShapeDrawable nameTag= new ShapeDrawable(nTag);
             nameTag.getPaint().setColor(getResources().getColor(person.user_color));
             nameTag.setAlpha(204);
             nameTag.setBounds(0, image.getHeight()-namebox,image.getWidth(), image.getHeight());
+            if(ghost)
+                nameTag.setAlpha(GHOST_ALPHA);
             nameTag.draw(c);
             c.drawText(person.getUsername(), 0, Math.min(11,(person.getUsername()).length()),0/*Values.iconTextPadding*/,
                     image.getHeight()-namebox+Values.nameTextSize/*5/2*Values.iconBorderPadding+10*/, paint);
@@ -307,9 +323,6 @@ public class UserView extends ImageButton{
     }
 
     public void setGhost(boolean ghost) {
-        if(ghost)
-            this.setAlpha(50);
-        else
-            this.setAlpha(100);
+        this.ghost = ghost;
     }
 }

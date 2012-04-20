@@ -212,6 +212,7 @@ public class SpaceView extends View {
             }
         }
         Paint paint = new Paint();
+        paint.setAntiAlias(true);
         for(ArrayList<Point> pointList : dragPoints) {
             for(int i = 0; i < pointList.size() - 1; i++) {
                 Point p1 = pointList.get(i);
