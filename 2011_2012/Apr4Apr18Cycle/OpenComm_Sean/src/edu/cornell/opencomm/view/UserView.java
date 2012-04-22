@@ -1,5 +1,8 @@
 package edu.cornell.opencomm.view;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,6 +10,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
@@ -40,7 +44,8 @@ public class UserView extends ImageButton{
     UserView thisUserView;
     static UserView selectedIcon;
     boolean clickOnIcon;
-    
+    private boolean lassoed;
+
     final private static int GHOST_ALPHA = 50;
 
     /** Constructor:
@@ -91,6 +96,20 @@ public class UserView extends ImageButton{
         setPopupImage(image);
         //thisUserView = this;
         //setupListeners();
+    }
+
+    //Used to create spooky ghosts
+    public UserView(Context context, User person, Bitmap image, int x, int y) {
+        super(context);
+        this.context = context;
+        this.person = person;
+        this.x = x;
+        this.y = y;
+        this.image = image;
+        this.ghost = true;
+        setNameBoxImage(Values.icon_namebox);
+        setPaint(context); // set paint
+        userViewController = new UserViewController(this);
     }
 
     /* Return true if the mouseX and mouseY parameters are within this UserView's
@@ -160,7 +179,7 @@ public class UserView extends ImageButton{
                 imagePaint.setAntiAlias(true);
                 imagePaint.setAlpha(GHOST_ALPHA);
                 c.drawBitmap(image, 0, 0, imagePaint);
-            } else 
+            } else
                 c.drawBitmap(image, 0, 0, null);
             RectShape nTag= new RectShape();
             ShapeDrawable nameTag= new ShapeDrawable(nTag);
@@ -174,7 +193,7 @@ public class UserView extends ImageButton{
                     image.getHeight()-namebox+Values.nameTextSize/*5/2*Values.iconBorderPadding+10*/, paint);
             canvas.drawBitmap(overlay, x, y, null);
 
-            if(person==space.getOwner()){
+            if(space != null && person==space.getOwner()){
 
                 Bitmap adminTag = Bitmap.createBitmap(image.getWidth()+2*b,20, Bitmap.Config.ARGB_8888);
                 Canvas ac = new Canvas(adminTag);
@@ -325,4 +344,63 @@ public class UserView extends ImageButton{
     public void setGhost(boolean ghost) {
         this.ghost = ghost;
     }
+
+    //Returns a ghostly version of this UserView
+    public UserView getGhost() {
+        return new UserView(context,person,image,x,y);
+    }
+
+    public void setLassoed(boolean lassoed) {
+        this.lassoed = lassoed;
+    }
+
+    public boolean isLassoed() {
+        return lassoed;
+    }
+
+    //Implementation of the reply to:
+    //http://stackoverflow.com/questions/99353/how-to-test-if-a-line-segment-intersects-an-axis-aligned-rectange-in-2d
+    public boolean segmentIntersects(Point p1, Point p2) {
+        int b = Values.iconBorderPadding;
+        int right = x + image.getWidth() + 2*b;
+        int bottom = y + image.getHeight() + 2*b;
+        Point TL = new Point(x, y);
+        Point TR = new Point(right, y);
+        Point BR = new Point(right, bottom);
+        Point BL = new Point(x, bottom);
+
+        if(p1.x > TR.x && p2.x > TR.x) { return false; }
+        if(p1.x < BL.x && p2.x < BL.x) { return false; }
+        if(p1.y < TR.y && p2.y < TR.y) { return false; }
+        if(p1.y > BL.y && p2.y > BL.y) { return false; }
+
+        ArrayList<Point> corners = new ArrayList<Point>(
+            Arrays.asList(TL, TR, BR, BL)
+        );
+
+        ArrayList<Integer> funcs = new ArrayList<Integer>();
+        for(Point p : corners) {
+            int func = (p2.y - p1.y) * p.x + (p1.x - p2.x) * p.y + (p2.x * p1.y - p1.x * p2.y);
+            Log.d("TEXAS", "hogFunc:" + func);
+            if(func == 0){
+                return true;
+            }
+            funcs.add(func);
+        }
+        if(funcs.get(0) > 0 && findVal(funcs, true) ||
+           funcs.get(0) < 0 && findVal(funcs, false)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean findVal(ArrayList<Integer> funcs, boolean positive) {
+        for(int i = 1; i < funcs.size(); i++) {
+            if(positive != (funcs.get(i) > 0))
+                return false;
+        }
+        return true;
+    }
+
 }

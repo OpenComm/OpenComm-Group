@@ -29,8 +29,6 @@ import edu.cornell.opencomm.model.Space;
 public class SpaceView extends View {
     private static String LOG_TAG = "OC_SpaceView"; // for error checking
     private Context context;
-    /** A variable containing this spaceView object */
-    public SpaceView thisSpaceView;
     /** The space that this SpaceViwe is currently representing */
     Space space;
     Bitmap voice_image;
@@ -41,6 +39,8 @@ public class SpaceView extends View {
     private boolean dim = false;
     private boolean drag = true;
     private boolean longclick = true;
+    private boolean lassomode = false;
+    private Point savedPoint = null;
     private ArrayList<ArrayList<Point>> dragPoints = new ArrayList<ArrayList<Point>>();
 
     /** Controllers for SpaceView*/
@@ -48,6 +48,7 @@ public class SpaceView extends View {
     EmptySpaceMenuController empytSpaceMenuController;
     UserIconMenuController userIconMenuController;
     ParticipantView pView;
+    private UserView ghost;
 
     /**
      * Constructor: This one is used by the XML file to automatically generate a
@@ -58,7 +59,6 @@ public class SpaceView extends View {
         this.context = context;
         setFocusable(true);
         setFocusableInTouchMode(true);
-        thisSpaceView = this;
         setupControllers();
         setupImage();
         setupEventListeners();
@@ -74,7 +74,6 @@ public class SpaceView extends View {
         this.space = space;
         setFocusable(true);
         setFocusableInTouchMode(true);
-        thisSpaceView = this;
         setupControllers();
         setupImage();
         setupEventListeners();
@@ -94,6 +93,7 @@ public class SpaceView extends View {
     public void setupEventListeners() {
         // The onTouch Listener (responds to any touch events)
         this.setOnTouchListener(new OnTouchListener() {
+
             @Override
             public boolean onTouch(View view, MotionEvent event) {
                 int mouseX = (int) event.getX();
@@ -102,35 +102,56 @@ public class SpaceView extends View {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     drag = longclick = false;
                     dragPoints.add(new ArrayList<Point>());
+                    savedPoint = new Point(mouseX, mouseY);
                     // If clicked on an icon
                     selectedIcon = null;
                     for (UserView icon : space.getAllIcons()) {
                         if (icon.clickedInside(mouseX, mouseY)) {
-                            selectedIcon = icon;
-                            icon.getUserViewController().handleClickDown(
-                                    icon.getX(), icon.getY());
+                            if(!icon.isLassoed()) {
+                                icon.getUserViewController().handleClickDown(
+                                        icon.getX(), icon.getY());
+                            } else {
+
+                            }
                             clickOnIcon = true;
+                            selectedIcon = icon;
                         }
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    if(!drag && !longclick)
-                        dragPoints.clear();
+                    if(!drag && !longclick) {
+                        cancelLassoMode();
+                    }
+                    if(savedPoint != null)
+                        savedPoint = null;
                     // if clicked on an icon
                     if (clickOnIcon) {
-                        selectedIcon.getUserViewController().handleClickUp(
-                                mouseX, mouseY);
+                        if (ghost == null) {
+                            selectedIcon.getUserViewController().handleClickUp(
+                                    mouseX, mouseY);
+                        } else {
+                            ghost = null;
+                        }
                         selectedIcon = null;
                         clickOnIcon = false;
                     }
+
                 } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
                     drag = true;
                     /* If a person icon is selected, then move the icon to
 					 the current position */
-                    if (clickOnIcon) {
+                    if (clickOnIcon && !lassomode) {
                         selectedIcon.getUserViewController().handleMoved(
                                 mouseX, mouseY);
+                    } else if(clickOnIcon && lassomode) {
+                        if(!selectedIcon.isLassoed()) {
+                            cancelLassoMode();
+                            selectedIcon.getUserViewController().handleMoved(
+                                    mouseX, mouseY);
+                        } else {
+                            performGhostDrag(mouseX, mouseY);
+                        }
                     } else {
-                        dragPoints.get(dragPoints.size()-1).add(new Point((int)event.getX(), (int)event.getY()));
+                        createLasso(view, event);
                     }
                 }
                 invalidate();
@@ -153,7 +174,7 @@ public class SpaceView extends View {
                         }
                         return longpress;
                     } else {
-                        thisSpaceView.getSpaceViewController().handleLongClick();
+                        SpaceView.this.getSpaceViewController().handleLongClick();
                         return true;
                     }
                 } else {
@@ -161,6 +182,47 @@ public class SpaceView extends View {
                 }
             }
         });
+    }
+
+    private void cancelLassoMode() {
+        lassomode = false;
+        dragPoints.clear();
+        for (UserView p : space.getAllIcons()) {
+            p.setLassoed(false);
+        }
+    }
+
+    private void performGhostDrag(int mouseX, int mouseY) {
+        if(ghost == null) {
+            ghost = selectedIcon.getGhost();
+
+        }
+        ghost.getUserViewController().handleMoved(
+                mouseX, mouseY);
+    }
+
+    private void createLasso(View view, MotionEvent event) {
+        lassomode = true;
+        ArrayList<Point> curPath = dragPoints.get(dragPoints.size() - 1);
+        if(savedPoint != null) {
+            curPath.add(savedPoint);
+            savedPoint = null;
+        }
+        Point newPoint = new Point((int)event.getX(), (int)event.getY());
+        if(curPath.size() > 0) {
+            Point prevPoint = curPath.get(curPath.size()-1);
+            if(newPoint.x == prevPoint.x && newPoint.y == prevPoint.y)
+                return;
+            for (UserView p : space.getAllIcons()) {
+                if (!p.getPerson().getNickname().equals(MainApplication.userPrimary.getNickname())) {
+                    if(p.segmentIntersects(prevPoint, newPoint)) {
+                        p.setLassoed(true);
+                        Log.d("TEXAS", "I hogtied that userview");
+                    }
+                }
+            }
+        }
+        curPath.add(newPoint);
     }
 
     /** Add the image of the voice coming from you */
@@ -205,11 +267,12 @@ public class SpaceView extends View {
         if (canvas != null && space != null && space.getAllIcons() != null) {
             for (UserView p : space.getAllIcons()) {
                 if (!p.getPerson().getNickname().equals(MainApplication.userPrimary.getNickname())) {
-                    p.setGhost(true);
                     p.draw(canvas);
                 }
 
             }
+            if(ghost != null)
+                ghost.draw(canvas);
         }
         Paint paint = new Paint();
         paint.setAntiAlias(true);
