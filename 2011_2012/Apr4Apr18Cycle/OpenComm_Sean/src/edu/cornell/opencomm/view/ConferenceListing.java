@@ -110,18 +110,18 @@ public class ConferenceListing {
         }
     }
 
-    private void setStartDate(Date newDate) {
+    private void setDate(Date startDate, Date endDate) {
         Date now = Calendar.getInstance().getTime();
 
         String dateString;
-        if(now.getYear() == newDate.getYear())
+        if(now.getYear() == startDate.getYear())
             dateString = "M/dd h:mma";
         else
             dateString = "yyyy/M/dd h:mma";
 
         SimpleDateFormat dateFormat = new SimpleDateFormat(dateString);
         TextView headerDate = (TextView)conferenceHeader.findViewById(R.id.date);
-        String date = dateFormat.format(newDate).toString();
+        String date = dateFormat.format(startDate).toString();
 
         if(headerDate != null) {
             headerDate.setText(date);
@@ -129,16 +129,9 @@ public class ConferenceListing {
         }
 
         SimpleDateFormat timeFormat = new SimpleDateFormat("h:mma");
-        TextView startTime = (TextView)conferenceDetails.findViewById(R.id.startTime);
-        startTime.setText(timeFormat.format(newDate).toString());
-        startTime.setTypeface(font);
-    }
-
-    private void setEndDate(Date newDate) {
-        SimpleDateFormat timeFormat = new SimpleDateFormat("h:mma");
-        TextView detailsDate = (TextView)conferenceDetails.findViewById(R.id.endTime);
-        detailsDate.setText(timeFormat.format(newDate).toString());
-        detailsDate.setTypeface(font);
+        TextView time = (TextView)conferenceDetails.findViewById(R.id.time);
+        time.setText(timeFormat.format(startDate).toString() +  "-" + timeFormat.format(endDate).toString());
+        time.setTypeface(font);
     }
 
     private void setNotes(String newNotes) {
@@ -151,8 +144,7 @@ public class ConferenceListing {
         //TODO: Talk to backend about this stuff
         setConferenceTitle(conference.getRoom());
         setContacts(conference.getContactList());
-        setStartDate(conference.getStartDate());
-        setEndDate(conference.getEndDate());
+        setDate(conference.getStartDate(), conference.getEndDate());
 
         //setNotes(conference.getNotes());
     }
