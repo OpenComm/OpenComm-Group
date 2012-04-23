@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/private_space_preview_popup"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="1">
+
+    <RelativeLayout
+        android:id="@+id/entire_bar"
+        android:layout_width="match_parent"
+        android:layout_height="133dp" >
+
+        <RelativeLayout
+            android:id="@+id/invitation_bar"
+            android:layout_width="match_parent"
+            android:layout_height="27dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/seventyfivepercentblack" >
+
+            <TextView
+                android:id="@+id/TextView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="13.4dp"
+                android:text="invitation"
+                android:textColor="@color/off_white" android:textSize="24sp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/button_bar"
+            android:layout_width="match_parent"
+            android:layout_height="67dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/invitation_bar"
+            android:background="@color/fiftypercentblack" >
+
+            <LinearLayout
+                android:id="@+id/button_weight_bar"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
+
+                <LinearLayout
+                    android:id="@+id/right_preview"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="0dp" android:layout_weight="0.34">
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/middle_placeholder"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="0dp"
+                    android:layout_weight="0.40" >
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/left_preview"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="0dp" android:layout_weight="0.34">
+                </LinearLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/icon_bar"
+            android:layout_width="match_parent"
+            android:layout_height="27dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/button_bar"
+            android:background="@color/seventyfivepercentblack" >
+
+            <LinearLayout
+                android:id="@+id/linear_icon_bar"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true" >
+
+                <LinearLayout
+                    android:id="@+id/left_accept"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.30" android:clickable="true">
+
+                    <RelativeLayout
+                        android:id="@+id/left_stuff"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent" android:clickable="false">
+
+                        <ImageView
+                            android:id="@+id/left_plus"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="13.3dp"
+                            android:src="@drawable/acceptplus" />
+
+                        <TextView
+                            android:id="@+id/left_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/left_plus"
+                            android:text="@string/accept_here"
+                            android:textColor="@color/blue"
+                            android:textSize="14sp" android:layout_marginLeft="4dp"/>
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/middle_decline"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.35"
+                    android:orientation="vertical" android:clickable="true">
+
+                    <RelativeLayout
+                        android:id="@+id/middle_stuff"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent" >
+
+                        <ImageView
+                            android:id="@+id/middle_cancel"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/cancelx" android:layout_marginLeft="13.33dp"/>
+
+                        <TextView
+                            android:id="@+id/middle_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/middle_cancel"
+                            android:text="@string/decline"
+                            android:textColor="@color/orange"
+                            android:textSize="14sp" android:layout_marginLeft="4dp"/>
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/right_accept"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.30"
+                    android:orientation="vertical" android:clickable="true">
+
+                    <RelativeLayout
+                        android:id="@+id/right_stuff"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent" >
+
+                        <ImageView
+                            android:id="@+id/right_accept"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="13.33dp"
+                            android:src="@drawable/acceptplus" />
+
+                        <TextView
+                            android:id="@+id/right_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/right_accept"
+                            android:text="@string/accept_here"
+                            android:textColor="@color/blue"
+                            android:textSize="14sp" android:layout_marginLeft="4dp"/>
+
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>
