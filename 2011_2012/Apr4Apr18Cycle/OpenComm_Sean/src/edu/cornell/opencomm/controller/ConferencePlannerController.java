@@ -51,10 +51,10 @@ public class ConferencePlannerController {
 	// associated conferencePlannerView
 	private ConferencePlannerView conferencePlannerView;
 	// fields for addUsers
-	public CharSequence[] buddyList = { "CrystalQin", "ChrisLiu" };// hard-code for now
+	public CharSequence[] buddyList = { "CrystalQin", "ChrisLiu", "Third", "Forth" };// hard-code for now
 	// =ContactListController.buddyList; // list of the user's buddies in
 	// their username form
-	public boolean[] buddySelection = { false, false };// hard-code for now
+	public boolean[] buddySelection = { false, false, false, false };// hard-code for now
 	// =ContactListController.buddySelection; // array of boolean for buddy
 	private String username = ""; // the username of this account
 	// selection
