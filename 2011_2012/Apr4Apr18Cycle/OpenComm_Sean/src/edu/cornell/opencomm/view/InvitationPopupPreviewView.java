@@ -70,16 +70,16 @@ public class InvitationPopupPreviewView extends LinearLayout {
 	void createPopupWindow() {
 		// TODO: Make these values scale to different resolutions
 		// TODO: Move to Values.java
-		final int PADDING = 100;
-		final int PREVIEW_BAR_HEIGHT = 160;
-		final int PREVIEW_BAR_POSITION_Y = 160;
+		final int PADDING = 140;
+		final int PREVIEW_BAR_HEIGHT = 220;
+		final int PREVIEW_BAR_POSITION_Y = 135;
 
-		popup = new PopupWindow(this, Values.screenW + PADDING,
-				PREVIEW_BAR_HEIGHT + 100, true);
+		popup = new PopupWindow(this, Values.screenW ,
+				PREVIEW_BAR_HEIGHT, true);
 		popup.setOutsideTouchable(true); // TODO: Is this needed?
 
 		popup.showAtLocation(layout, Gravity.BOTTOM, 0,
-				PREVIEW_BAR_POSITION_Y - 100);
+				PREVIEW_BAR_POSITION_Y);
 	}
 
 	/**
@@ -138,18 +138,21 @@ public class InvitationPopupPreviewView extends LinearLayout {
 
 	@Override
 	public void onDraw(Canvas canvas) {
-		int[] pos = new int[2];
-		psiv.getLocationOnScreen(pos);
+		final int TRIANGLE_WIDTH = 38;
+		final int TRIANGLE_HEIGHT = 33;
 
-		int xTip = pos[0] + psiv.getWidth() / 2;
-		int yTip = 160 + 28;
+		int yTip = 215;
+		int xTip1 = Values.screenW*1/6;
+		int xTip2 = Values.screenW*5/6;
 
-		final int TRIANGLE_WIDTH = 30;
-		final int TRIANGLE_HEIGHT = 37;
 
-		drawTriangle(new Point(xTip, yTip), new Point(
-				xTip - TRIANGLE_WIDTH / 2, yTip - TRIANGLE_HEIGHT), new Point(
-				xTip + TRIANGLE_WIDTH / 2, yTip - TRIANGLE_HEIGHT), canvas);
+
+		drawTriangle(new Point(xTip1, yTip), new Point(
+				xTip1 - TRIANGLE_WIDTH / 2, yTip - TRIANGLE_HEIGHT), new Point(
+				xTip1 + TRIANGLE_WIDTH / 2, yTip - TRIANGLE_HEIGHT), canvas);
+		drawTriangle(new Point(xTip2, yTip), new Point(
+				xTip2 - TRIANGLE_WIDTH / 2, yTip - TRIANGLE_HEIGHT), new Point(
+				xTip2 + TRIANGLE_WIDTH / 2, yTip - TRIANGLE_HEIGHT), canvas);
 	}
 
 	/**
@@ -169,7 +172,7 @@ public class InvitationPopupPreviewView extends LinearLayout {
 		Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
 		paint.setStrokeWidth(2);
-		paint.setColor(getResources().getColor(R.color.light_grey_translucent));
+		paint.setColor(getResources().getColor(R.color.seventyfivepercentblack));
 		paint.setStyle(Paint.Style.FILL_AND_STROKE);
 		paint.setAntiAlias(true);
 

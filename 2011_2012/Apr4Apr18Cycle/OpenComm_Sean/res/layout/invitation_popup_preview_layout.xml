@@ -21,13 +21,13 @@
 
             <TextView
                 android:id="@+id/TextView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
+                android:layout_centerVertical="false"
                 android:layout_marginLeft="13.4dp"
                 android:text="invitation"
-                android:textColor="@color/off_white" android:textSize="24sp"/>
+                android:textColor="@color/off_white" android:textSize="24sp" android:layout_alignParentTop="false" android:layout_alignParentBottom="true" android:layout_marginBottom="0dp" android:layout_marginTop="-4dp"/>
 
         </RelativeLayout>
 
@@ -82,13 +82,13 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true" >
+                android:layout_centerVertical="true" android:weightSum="1">
 
                 <LinearLayout
                     android:id="@+id/left_accept"
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.30" android:clickable="true">
+                    android:layout_weight="0.33" android:clickable="true">
 
                     <RelativeLayout
                         android:id="@+id/left_stuff"
@@ -101,7 +101,7 @@
                             android:layout_height="20dp"
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
-                            android:layout_marginLeft="13.3dp"
+                            android:layout_marginLeft="6dp"
                             android:src="@drawable/acceptplus" />
 
                         <TextView
@@ -121,7 +121,7 @@
                     android:id="@+id/middle_decline"
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.35"
+                    android:layout_weight="0.34"
                     android:orientation="vertical" android:clickable="true">
 
                     <RelativeLayout
@@ -135,7 +135,7 @@
                             android:layout_height="20dp"
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
-                            android:src="@drawable/cancelx" android:layout_marginLeft="13.33dp"/>
+                            android:src="@drawable/cancelx" android:layout_marginLeft="12dp"/>
 
                         <TextView
                             android:id="@+id/middle_text"
@@ -154,13 +154,13 @@
                     android:id="@+id/right_accept"
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.30"
+                    android:layout_weight="0.33"
                     android:orientation="vertical" android:clickable="true">
 
                     <RelativeLayout
                         android:id="@+id/right_stuff"
                         android:layout_width="fill_parent"
-                        android:layout_height="fill_parent" >
+                        android:layout_height="fill_parent">
 
                         <ImageView
                             android:id="@+id/right_accept"
@@ -168,7 +168,7 @@
                             android:layout_height="20dp"
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
-                            android:layout_marginLeft="13.33dp"
+                            android:layout_marginLeft="2dp"
                             android:src="@drawable/acceptplus" />
 
                         <TextView
