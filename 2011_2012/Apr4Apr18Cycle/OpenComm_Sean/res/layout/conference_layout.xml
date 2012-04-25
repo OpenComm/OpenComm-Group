@@ -200,11 +200,11 @@
                         <LinearLayout
                             android:id="@+id/LinearLayout1"
                             android:layout_width="fill_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="fill_parent"
                             android:layout_alignParentBottom="false"
                             android:layout_alignParentRight="true"
                             android:layout_below="@+id/attendeeFrame"
-                            android:paddingLeft="44dp" >
+                            android:paddingLeft="44dp" android:paddingBottom="100dp">
 
                             <LinearLayout
                                 android:id="@+id/userIcons"

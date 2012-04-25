@@ -45,7 +45,7 @@ public class InvitationPopupPreviewView extends LinearLayout {
 				R.layout.invitation_popup_preview_layout, this);
 
 		LinearLayout scroll = (LinearLayout) layout
-				.findViewById(R.id.private_space_popup_preview_linear_layout);
+				.findViewById(R.id.preview_icon_bar);
 
 		final int USER_ICON_DIMENSION = 90;
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
@@ -70,7 +70,7 @@ public class InvitationPopupPreviewView extends LinearLayout {
 	void createPopupWindow() {
 		// TODO: Make these values scale to different resolutions
 		// TODO: Move to Values.java
-		final int PADDING = 140;
+		//final int PADDING = 140;
 		final int PREVIEW_BAR_HEIGHT = 220;
 		final int PREVIEW_BAR_POSITION_Y = 135;
 

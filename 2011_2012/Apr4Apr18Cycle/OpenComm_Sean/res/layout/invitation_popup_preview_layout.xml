@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/private_space_preview_popup"
-    android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:weightSum="1">
-
+    android:orientation="horizontal"
+    android:weightSum="1" >
+
     <RelativeLayout
         android:id="@+id/entire_bar"
         android:layout_width="match_parent"
         android:layout_height="133dp" >
-
+
         <RelativeLayout
             android:id="@+id/invitation_bar"
             android:layout_width="match_parent"
@@ -18,19 +18,23 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:background="@color/seventyfivepercentblack" >
-
+
             <TextView
                 android:id="@+id/TextView1"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
+                android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="false"
                 android:layout_centerVertical="false"
+                android:layout_marginBottom="0dp"
                 android:layout_marginLeft="13.4dp"
+                android:layout_marginTop="-4dp"
                 android:text="invitation"
-                android:textColor="@color/off_white" android:textSize="24sp" android:layout_alignParentTop="false" android:layout_alignParentBottom="true" android:layout_marginBottom="0dp" android:layout_marginTop="-4dp"/>
-
+                android:textColor="@color/off_white"
+                android:textSize="24sp" />
         </RelativeLayout>
-
+
         <RelativeLayout
             android:id="@+id/button_bar"
             android:layout_width="match_parent"
@@ -40,35 +44,20 @@
             android:background="@color/fiftypercentblack" >
 
             <LinearLayout
-                android:id="@+id/button_weight_bar"
+                android:id="@+id/preview_icon_bar"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent" >
 
-                <LinearLayout
-                    android:id="@+id/right_preview"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_marginLeft="0dp" android:layout_weight="0.34">
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/middle_placeholder"
+                <ScrollView
+                    android:id="@+id/icon_previews"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_marginLeft="0dp"
-                    android:layout_weight="0.40" >
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/left_preview"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_marginLeft="0dp" android:layout_weight="0.34">
-                </LinearLayout>
+                    android:layout_weight="0.34" >
+                </ScrollView>
             </LinearLayout>
-
         </RelativeLayout>
-
+
         <RelativeLayout
             android:id="@+id/icon_bar"
             android:layout_width="match_parent"
@@ -76,25 +65,28 @@
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/button_bar"
             android:background="@color/seventyfivepercentblack" >
-
+
             <LinearLayout
                 android:id="@+id/linear_icon_bar"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true" android:weightSum="1">
+                android:layout_centerVertical="true"
+                android:weightSum="1" >
 
                 <LinearLayout
                     android:id="@+id/left_accept"
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.33" android:clickable="true">
+                    android:layout_weight="0.33"
+                    android:clickable="true" >
 
                     <RelativeLayout
                         android:id="@+id/left_stuff"
                         android:layout_width="fill_parent"
-                        android:layout_height="fill_parent" android:clickable="false">
-
+                        android:layout_height="fill_parent"
+                        android:clickable="false" >
+
                         <ImageView
                             android:id="@+id/left_plus"
                             android:layout_width="20dp"
@@ -109,11 +101,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
+                            android:layout_marginLeft="4dp"
                             android:layout_toRightOf="@+id/left_plus"
                             android:text="@string/accept_here"
                             android:textColor="@color/blue"
-                            android:textSize="14sp" android:layout_marginLeft="4dp"/>
-
+                            android:textSize="14sp" />
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -122,31 +114,33 @@
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.34"
-                    android:orientation="vertical" android:clickable="true">
+                    android:clickable="true"
+                    android:orientation="vertical" >
 
                     <RelativeLayout
                         android:id="@+id/middle_stuff"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent" >
-
+
                         <ImageView
                             android:id="@+id/middle_cancel"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
-                            android:src="@drawable/cancelx" android:layout_marginLeft="12dp"/>
+                            android:layout_marginLeft="12dp"
+                            android:src="@drawable/cancelx" />
 
                         <TextView
                             android:id="@+id/middle_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
+                            android:layout_marginLeft="4dp"
                             android:layout_toRightOf="@+id/middle_cancel"
                             android:text="@string/decline"
                             android:textColor="@color/orange"
-                            android:textSize="14sp" android:layout_marginLeft="4dp"/>
-
+                            android:textSize="14sp" />
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -155,13 +149,14 @@
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.33"
-                    android:orientation="vertical" android:clickable="true">
+                    android:clickable="true"
+                    android:orientation="vertical" >
 
                     <RelativeLayout
                         android:id="@+id/right_stuff"
                         android:layout_width="fill_parent"
-                        android:layout_height="fill_parent">
-
+                        android:layout_height="fill_parent" >
+
                         <ImageView
                             android:id="@+id/right_accept"
                             android:layout_width="20dp"
@@ -176,17 +171,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
+                            android:layout_marginLeft="4dp"
                             android:layout_toRightOf="@+id/right_accept"
                             android:text="@string/accept_here"
                             android:textColor="@color/blue"
-                            android:textSize="14sp" android:layout_marginLeft="4dp"/>
-
+                            android:textSize="14sp" />
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
-
         </RelativeLayout>
-
     </RelativeLayout>
 
 </LinearLayout>
