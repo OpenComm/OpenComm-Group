@@ -154,11 +154,11 @@ public final class MainApplication extends Activity{
             //Space.getMainSpace().setEntered(true);
 
             font = Typeface.createFromAsset(getAssets(), Values.font);
-            Button mainButtonText = (Button) findViewById(R.id.main_button);
-            mainButtonText.setTypeface(font);
+            //Button mainButtonText = (Button) findViewById(R.id.main_button);
+            //mainButtonText.setTypeface(font);
 
         }
-        this.plusButtonSetUp(0);
+        //this.plusButtonSetUp(0);
         initializeButtons();
 
         //Initializes the onKeyListener to record keypad events
@@ -390,9 +390,9 @@ public final class MainApplication extends Activity{
         bb.setLayoutParams(lp);
 
         // Adjust the main button
-        View mb = findViewById(R.id.main_button);
-        lp = new LinearLayout.LayoutParams(Values.bottomBarH, Values.bottomBarH);
-        mb.setLayoutParams(lp);
+        //View mb = findViewById(R.id.main_button);
+        //lp = new LinearLayout.LayoutParams(Values.bottomBarH, Values.bottomBarH);
+        //mb.setLayoutParams(lp);
 
     }
 
@@ -400,8 +400,8 @@ public final class MainApplication extends Activity{
      * Main button: add a touch listener, when clicked should take you back to the main conversation */
     public void initializeButtons() {
         // set listener to main button
-        Button mainButton = (Button) findViewById(R.id.main_button);
-        mainButton.setOnTouchListener(new View.OnTouchListener() {
+      //  Button mainButton = (Button) findViewById(R.id.main_button);
+     /*   mainButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent evt) {
                 switch (evt.getAction()) {
@@ -418,7 +418,27 @@ public final class MainApplication extends Activity{
                 return false;
             }
         });
-
+*/
+    	try {
+    		//sidechat 1
+    		//Log.v("C", "Problem on adding space");
+    		Space newSpace = SpaceController.addSpace(Space.getMainSpace().getContext());
+           
+    		PrivateSpaceIconView side1=new PrivateSpaceIconView(Space.getMainSpace().getContext(),newSpace);
+            newSpace.getSpaceController().setPSIV(side1);
+            //main chat
+            PrivateSpaceIconView main=new PrivateSpaceIconView(Space.getMainSpace().getContext(),Space.getMainSpace());
+            Space.getMainSpace().getSpaceController().setPSIV(main);
+           //sidechat 2
+            Space newSpace2=SpaceController.addSpace(Space.getMainSpace().getContext());
+            PrivateSpaceIconView side2=new PrivateSpaceIconView(Space.getMainSpace().getContext(),newSpace2);
+            newSpace2.getSpaceController().setPSIV(side2);
+    		} catch (XMPPException e) {
+    			// TODO Auto-generated catch block
+    			
+    			e.printStackTrace();
+    		}
+            
         TextView logo = (TextView) findViewById(R.id.logo);
         logo.setClickable(true);
         logo.setOnClickListener(this.logoOnClickListener());
@@ -539,18 +559,19 @@ public final class MainApplication extends Activity{
 
     /** Need to add the new PrivateSpace button to the bottom GUI by altering the XML code */
     public void addPrivateSpaceButton(PrivateSpaceIconView psv){
-        LinearLayout bottomBar = (LinearLayout) findViewById(R.id.privateSpaceLinearLayout);
+        Log.v("Crystal", "addPrivateSpaceButton");
+    	LinearLayout bottomBar = (LinearLayout) findViewById(R.id.bottom_bar);
 
         //Crystal
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(Values.privateSpaceButtonW,  Values.privateSpaceButtonW);
-        lp.setMargins(0, 0, Values.iconBorderPaddingH, 0);
+        lp.setMargins(Values.iconBorderPaddingH, 0, Values.iconBorderPaddingH, 0);
 
 
         psv.setLayoutParams(new LinearLayout.LayoutParams(Values.privateSpaceButtonW,  Values.privateSpaceButtonW));
         psv.setPadding(Values.iconBorderPaddingH, Values.iconBorderPaddingV,Values.iconBorderPaddingH, Values.iconBorderPaddingV);
-        bottomBar.removeViewAt(PrivateSpaceIconView.allPSIcons.size()-1);
+       // bottomBar.removeViewAt(PrivateSpaceIconView.allPSIcons.size()-1);
         bottomBar.addView(psv,lp);
-        plusButtonSetUp(PrivateSpaceIconView.allPSIcons.size());
+        //plusButtonSetUp(PrivateSpaceIconView.allPSIcons.size());
         bottomBar.invalidate();
 
     }
@@ -585,7 +606,7 @@ public final class MainApplication extends Activity{
 
     /** Need to delete the this PrivateSpace button to the bottom GUI by altering the XML code */
     public void delPrivateSpaceButton(PrivateSpaceIconView psv){
-        LinearLayout bottomBar = (LinearLayout) findViewById(R.id.privateSpaceLinearLayout);
+        LinearLayout bottomBar = (LinearLayout) findViewById(R.id.bottom_bar);
         bottomBar.removeView(psv);
         bottomBar.invalidate();
         PrivateSpaceIconView.allPSIcons.remove(psv);
@@ -665,7 +686,7 @@ public final class MainApplication extends Activity{
 
     /**Crystal: add the plus button to the bottom bar*/
     public void plusButtonSetUp(int position){
-        LinearLayout bottomBar = (LinearLayout) findViewById(R.id.privateSpaceLinearLayout);
+        LinearLayout bottomBar = (LinearLayout) findViewById(R.id.bottom_bar);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(Values.privateSpaceButtonW,  Values.privateSpaceButtonW);
         lp.setMargins(0, 0, Values.iconBorderPaddingH, 0);
         ImageView plus=PrivateSpaceIconView.plusSpaceButton(getResources().getColor(R.color.off_white),this);

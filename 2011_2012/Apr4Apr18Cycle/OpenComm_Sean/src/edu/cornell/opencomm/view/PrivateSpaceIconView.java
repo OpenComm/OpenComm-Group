@@ -200,7 +200,7 @@ public class PrivateSpaceIconView extends ImageButton{
         Log.v(TAG, "THIS HEIGHT"+this.getHeight());
         //(1)
 
-        int backgroundColor = (getResources().getColor(R.color.dark_grey));
+        int backgroundColor = (space.isMainSpace()?getResources().getColor(R.color.light_grey):getResources().getColor(R.color.dark_grey));
         canvas.drawColor(backgroundColor);
         //(2)Crystal
         /* This function checks for people in the space. If there are at least 1 person,
@@ -237,14 +237,15 @@ public class PrivateSpaceIconView extends ImageButton{
         ShapeDrawable myPaint = new ShapeDrawable(r);
 
         myPaint.getPaint().setStyle(Paint.Style.STROKE);
-        myPaint.getPaint().setStrokeWidth(2);
-        myPaint.getPaint().setColor(Color.BLACK);
+        myPaint.getPaint().setStrokeWidth(6);
+        
+        myPaint.getPaint().setColor(space.isScreenOn()? getResources().getColor(R.color.off_white):Color.BLACK);
+       // myPaint.getPaint().setColor(Color.GREEN);
         myPaint.setBounds(0,0,this.getWidth(), this.getHeight());
         myPaint.draw(canvas);
         canvas.drawBitmap(subview, Values.selectedBorder, Values.selectedBorder, null);
 
     }
-
 
     /** Return true if this person clicked within this icon's area on the screen */
     public boolean contains(int x, int y) {

@@ -175,10 +175,12 @@ public class Space {
                     + (this.muc.getOccupant(occ) != null));
             Log.d(TAG, "Their affiliation is: " + this.muc.getOccupant(occ).getAffiliation());
             allOccupants.put(occJID, this.muc.getOccupant(occ));
+            
             if(!u.getUsername().split("@")[0].equals(MainApplication.userPrimary.getUsername()))
                 allIcons.add(new UserView(context, u, R.drawable.question, this, start, start));
             start+= Values.userIconW/5;
         }
+        Log.v("c","space put");
         allSpaces.put(this.roomID, this);
         // moderators
         if(selfCreated){

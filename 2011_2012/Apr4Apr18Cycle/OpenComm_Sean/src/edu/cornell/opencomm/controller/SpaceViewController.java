@@ -23,7 +23,9 @@ public class SpaceViewController {
      */
     public void changeSpace(Space newSpace){
         Log.v("SpaceViewController", "changeSpace() from " + MainApplication.screen.getSpace() + " to " + newSpace);
+        MainApplication.screen.getSpace().setScreenOn(false);
         MainApplication.screen.setSpace(newSpace);
+        newSpace.setScreenOn(true);
         MainApplication m = (MainApplication)spaceView.getContext();
         m.invalidateSpaceView();
         if(!MainApplication.screen.getSpace().getEntered()){
