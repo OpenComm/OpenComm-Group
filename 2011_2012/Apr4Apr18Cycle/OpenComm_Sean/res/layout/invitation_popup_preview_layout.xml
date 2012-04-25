@@ -42,20 +42,21 @@
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/invitation_bar"
             android:background="@color/fiftypercentblack" >
-
-            <LinearLayout
-                android:id="@+id/preview_icon_bar"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" >
 
-                <ScrollView
-                    android:id="@+id/icon_previews"
-                    android:layout_width="fill_parent"
+            <ScrollView
+                android:id="@+id/scrollyButtonWeightBar"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignParentLeft="true" android:paddingLeft="0dp">
+
+                <LinearLayout
+                    android:id="@+id/button_weight_bar"
+                    android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
-                    android:layout_marginLeft="0dp"
-                    android:layout_weight="0.34" >
-                </ScrollView>
-            </LinearLayout>
+                    android:gravity="left" >
+
+                </LinearLayout>
+            </ScrollView>
         </RelativeLayout>
 
         <RelativeLayout

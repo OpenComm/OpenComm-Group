@@ -284,15 +284,16 @@ public class UserView extends ImageButton{
         BitmapFactory.Options opts = new BitmapFactory.Options();
         opts.inJustDecodeBounds = true;
         this.image = BitmapFactory.decodeResource(context.getResources(), imageID);
-        int width = (this.image).getWidth();
-        int height = (this.image).getHeight();
+//        int width = (this.image).getWidth();
+//        int height = (this.image).getHeight();
         int newWidth = Values.userIconW;
         int newHeight = Values.userIconH;
-        float scaleWidth = ((float) newWidth)/width;
-        float scaleHeight = ((float) newHeight) / height;
-        Matrix matrix = new Matrix();
-        matrix.postScale(scaleWidth, scaleHeight);
-        this.image = Bitmap.createBitmap(this.image, 0, 0, width, height, matrix, true);
+        rescaleSize(newWidth,newHeight);
+//        float scaleWidth = ((float) newWidth)/width;
+//        float scaleHeight = ((float) newHeight) / height;
+//        Matrix matrix = new Matrix();
+//        matrix.postScale(scaleWidth, scaleHeight);
+//        this.image = Bitmap.createBitmap(this.image, 0, 0, width, height, matrix, true);
     }
 
     /** Set an image and resize for an image in the popup */
@@ -310,7 +311,17 @@ public class UserView extends ImageButton{
         matrix.postScale(scaleWidth, scaleHeight);
         this.image = Bitmap.createBitmap(oldImage, 0, 0, width, height, matrix, true);
     }
-
+    
+    //rescale current image to given size
+    public void rescaleSize(int newWidth, int newHeight){
+    	 int width = (image).getWidth();
+         int height = (image).getHeight();
+         float scaleWidth = ((float) newWidth)/width;
+         float scaleHeight = ((float) newHeight) / height;
+         Matrix matrix = new Matrix();
+         matrix.postScale(scaleWidth, scaleHeight);
+         image=Bitmap.createBitmap(this.image, 0, 0, width, height, matrix, true);
+    }
     /* Set the name box image and resize */
     public void setNameBoxImage(int imageID){
         BitmapFactory.Options opts = new BitmapFactory.Options();

@@ -32,6 +32,7 @@ public class InvitationPopupPreviewView extends LinearLayout {
 	 *            - MainApplication
 	 * @param personViews
 	 *            - list of UserViews for people in the space
+	 *            //TODO: Get rid of magic #s and make this scalable on resolutions
 	 */
 	public InvitationPopupPreviewView(Context context, PrivateSpaceIconView psiv) {
 		super(context);
@@ -45,11 +46,12 @@ public class InvitationPopupPreviewView extends LinearLayout {
 				R.layout.invitation_popup_preview_layout, this);
 
 		LinearLayout scroll = (LinearLayout) layout
-				.findViewById(R.id.preview_icon_bar);
+				.findViewById(R.id.button_weight_bar);
 
-		final int USER_ICON_DIMENSION = 90;
+		final int USER_ICON_DIMENSION = 100;
+		
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-				USER_ICON_DIMENSION, USER_ICON_DIMENSION);
+				USER_ICON_DIMENSION-5, USER_ICON_DIMENSION);
 
 		// Populate view with user icons except for yourself
 		for (UserView view : psiv.space.getAllIcons()) {
@@ -57,9 +59,14 @@ public class InvitationPopupPreviewView extends LinearLayout {
 				Log.d(TAG, "Adding View");
 			if (!view.getPerson().getUsername().split("@")[0]
 					.equals(MainApplication.userPrimary.getUsername()))
-				scroll.addView(new UserView(context, view.getPerson(),
-						R.drawable.question, psiv.space, 11, 11), lp);
+			{
+				UserView temp = new UserView(context, view.getPerson(),
+						R.drawable.question, psiv.space, 11, 11);
+				
+				temp.rescaleSize(USER_ICON_DIMENSION-20, USER_ICON_DIMENSION-20);
+				scroll.addView(temp, lp);
 
+			}
 		}
 		initClickHandlers();
 	}

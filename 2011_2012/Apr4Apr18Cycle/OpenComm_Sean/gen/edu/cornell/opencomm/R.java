@@ -126,6 +126,7 @@ public final class R {
         public static final int buttonSend=0x7f080062;
         public static final int buttonStartConference=0x7f08005b;
         public static final int button_bar=0x7f080077;
+        public static final int button_weight_bar=0x7f080079;
         public static final int calenderButton=0x7f08001b;
         public static final int cancelConfirmOverlay=0x7f08004f;
         public static final int cancelInviteOverlay=0x7f080072;
@@ -171,7 +172,6 @@ public final class R {
         public static final int iconImage=0x7f080046;
         public static final int icon_bar=0x7f08007a;
         public static final int icon_clone=0x7f0800db;
-        public static final int icon_previews=0x7f080079;
         public static final int imageAcceptAdminTip=0x7f080005;
         public static final int imageAcceptConfirm=0x7f08004a;
         public static final int imageAcceptInvite=0x7f08006c;
@@ -245,7 +245,6 @@ public final class R {
         public static final int pointer=0x7f080051;
         public static final int popOverlay=0x7f0800b3;
         public static final int popup_header_text=0x7f0800dd;
-        public static final int preview_icon_bar=0x7f080078;
         public static final int private_space_popup_preview_linear_layout=0x7f0800b4;
         public static final int private_space_preview_popup=0x7f080073;
         public static final int private_space_preview_popup_layout=0x7f0800dc;
@@ -266,6 +265,7 @@ public final class R {
         public static final int right_text=0x7f080086;
         public static final int scrollBehind=0x7f080013;
         public static final int scrollingRelativeElements=0x7f080014;
+        public static final int scrollyButtonWeightBar=0x7f080078;
         public static final int search=0x7f080000;
         public static final int sendInvite=0x7f08005f;
         public static final int sendOverlay=0x7f080064;
