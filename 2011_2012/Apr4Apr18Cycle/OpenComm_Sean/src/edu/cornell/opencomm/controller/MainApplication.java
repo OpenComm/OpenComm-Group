@@ -18,11 +18,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -85,6 +83,9 @@ public final class MainApplication extends Activity{
 
     // A counter for spaces (to generate SpaceID's). TODO Will use for now, takeout later when add network
     public static int spaceCounter = -1;
+
+    public PrivateSpaceIconView side1;
+    public PrivateSpaceIconView side2;
 
 
     /** TODO Network - There are many times when the the onCreate method failes to create a
@@ -373,8 +374,6 @@ public final class MainApplication extends Activity{
         }
     };
 
-
-
     /** Adjust the parameters of the main layout according to the Values class.
      * For situations when the phone size is different */
     public void adjustLayoutParams(){
@@ -423,22 +422,22 @@ public final class MainApplication extends Activity{
     		//sidechat 1
     		//Log.v("C", "Problem on adding space");
     		Space newSpace = SpaceController.addSpace(Space.getMainSpace().getContext());
-           
-    		PrivateSpaceIconView side1=new PrivateSpaceIconView(Space.getMainSpace().getContext(),newSpace);
+
+    		side1=new PrivateSpaceIconView(Space.getMainSpace().getContext(),newSpace);
             newSpace.getSpaceController().setPSIV(side1);
             //main chat
             PrivateSpaceIconView main=new PrivateSpaceIconView(Space.getMainSpace().getContext(),Space.getMainSpace());
             Space.getMainSpace().getSpaceController().setPSIV(main);
            //sidechat 2
             Space newSpace2=SpaceController.addSpace(Space.getMainSpace().getContext());
-            PrivateSpaceIconView side2=new PrivateSpaceIconView(Space.getMainSpace().getContext(),newSpace2);
+            side2=new PrivateSpaceIconView(Space.getMainSpace().getContext(),newSpace2);
             newSpace2.getSpaceController().setPSIV(side2);
     		} catch (XMPPException e) {
     			// TODO Auto-generated catch block
-    			
+
     			e.printStackTrace();
     		}
-            
+
         TextView logo = (TextView) findViewById(R.id.logo);
         logo.setClickable(true);
         logo.setOnClickListener(this.logoOnClickListener());

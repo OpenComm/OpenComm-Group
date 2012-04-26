@@ -20,6 +20,7 @@ import edu.cornell.opencomm.controller.MainApplication;
 import edu.cornell.opencomm.controller.SpaceViewController;
 import edu.cornell.opencomm.controller.UserIconMenuController;
 import edu.cornell.opencomm.model.Space;
+import edu.cornell.opencomm.network.Network;
 
 /* A SpaceView is the graphical representation of a space, aka the screen you see on the monitor
  * showing all the icons of the people in the space (above the privatespace bar).
@@ -42,6 +43,7 @@ public class SpaceView extends View {
     private boolean lassomode = false;
     private Point savedPoint = null;
     private ArrayList<ArrayList<Point>> dragPoints = new ArrayList<ArrayList<Point>>();
+    private ArrayList<UserView> lassoedIcons = new ArrayList<UserView>();
 
     /** Controllers for SpaceView*/
     SpaceViewController spaceViewController;
@@ -110,12 +112,12 @@ public class SpaceView extends View {
                             if(!icon.isLassoed()) {
                                 icon.getUserViewController().handleClickDown(
                                         icon.getX(), icon.getY());
-                            } else {
-
                             }
                             clickOnIcon = true;
                             selectedIcon = icon;
                         }
+                        if(icon.isLassoed())
+                            lassoedIcons.add(icon);
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     if(!drag && !longclick) {
@@ -130,6 +132,18 @@ public class SpaceView extends View {
                                     mouseX, mouseY);
                         } else {
                             ghost = null;
+                            MainApplication mainApp = (MainApplication)context;
+                            if(mainApp.side1.contains(mouseX, mouseY)) {
+                                for(UserView user : lassoedIcons) {
+                                    mainApp.side1.space.getInvitationController().inviteUser(user.getPerson(), Network.DEFAULT_INVITE);
+                                }
+                            } else if(mainApp.side2.contains(mouseX, mouseY)) {
+                                for(UserView user : lassoedIcons) {
+                                    mainApp.side2.space.getInvitationController().inviteUser(user.getPerson(), Network.DEFAULT_INVITE);
+                                }
+                            }
+                            cancelLassoMode();
+
                         }
                         selectedIcon = null;
                         clickOnIcon = false;
@@ -184,9 +198,10 @@ public class SpaceView extends View {
         });
     }
 
-    private void cancelLassoMode() {
+    public void cancelLassoMode() {
         lassomode = false;
         dragPoints.clear();
+        lassoedIcons.clear();
         for (UserView p : space.getAllIcons()) {
             p.setLassoed(false);
         }
@@ -258,7 +273,7 @@ public class SpaceView extends View {
                 /*LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 //AdminTipView adminTipView = new AdminTipView(inflater);
                 //adminTipView.launch();*/
-                
+
                 //TO DO: put values for header and such in strings table
                 PopupNotificationView pnv = new PopupNotificationView(context, null, "tip", context.getString(R.string.admin_tip), "", Values.tip);
                 pnv.createPopupWindow();
