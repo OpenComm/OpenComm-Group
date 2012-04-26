@@ -14,16 +14,19 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
+import edu.cornell.opencomm.controller.InvitationPopupPreviewController;
 import edu.cornell.opencomm.controller.MainApplication;
+import edu.cornell.opencomm.model.Space;
 
 public class InvitationPopupPreviewView extends LinearLayout {
-	private PrivateSpaceIconView psiv; // The Icon this popup is associated with
+	private Space space; // The Icon this popup is associated with
 	private LinearLayout layout; // The layout representing the popup
 	private PopupWindow popup; // The window containing the popup
+	private InvitationPopupPreviewController ippc;
 
 	private static String TAG = "InvitationPopupPreviewView"; // Debug Tag
 
-	private boolean D = false; // Debug Mode
+	private static boolean D = Values.D;
 
 	/**
 	 * Constructor
@@ -34,10 +37,11 @@ public class InvitationPopupPreviewView extends LinearLayout {
 	 *            - list of UserViews for people in the space
 	 *            //TODO: Get rid of magic #s and make this scalable on resolutions
 	 */
-	public InvitationPopupPreviewView(Context context, PrivateSpaceIconView psiv) {
+	public InvitationPopupPreviewView(Context context, Space space) {
 		super(context);
 
-		this.psiv = psiv;
+		this.space = space;
+		this.ippc = new InvitationPopupPreviewController(this, context);
 
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -54,14 +58,14 @@ public class InvitationPopupPreviewView extends LinearLayout {
 				USER_ICON_DIMENSION-5, USER_ICON_DIMENSION);
 
 		// Populate view with user icons except for yourself
-		for (UserView view : psiv.space.getAllIcons()) {
+		for (UserView view : space.getAllIcons()) {
 			if (D)
 				Log.d(TAG, "Adding View");
 			if (!view.getPerson().getUsername().split("@")[0]
 					.equals(MainApplication.userPrimary.getUsername()))
 			{
 				UserView temp = new UserView(context, view.getPerson(),
-						R.drawable.question, psiv.space, 11, 11);
+						R.drawable.question, space, 11, 11);
 				
 				temp.rescaleSize(USER_ICON_DIMENSION-20, USER_ICON_DIMENSION-20);
 				scroll.addView(temp, lp);
@@ -78,7 +82,7 @@ public class InvitationPopupPreviewView extends LinearLayout {
 		// TODO: Make these values scale to different resolutions
 		// TODO: Move to Values.java
 		//final int PADDING = 140;
-		final int PREVIEW_BAR_HEIGHT = 220;
+		final int PREVIEW_BAR_HEIGHT = 215;
 		final int PREVIEW_BAR_POSITION_Y = 135;
 
 		popup = new PopupWindow(this, Values.screenW ,
@@ -90,25 +94,38 @@ public class InvitationPopupPreviewView extends LinearLayout {
 	}
 
 	/**
-	 * Initializes click handlers for go and cancel
+	 * dismisses popup
+	 */
+    public void dismiss() {
+        if (D) Log.d(TAG, "dismiss called");
+        popup.dismiss();
+    }
+	
+	/**
+	 * Initializes click handlers for go left, go right, and cancel
 	 */
 	private void initClickHandlers() {
 		getLeftButton().setOnClickListener(new View.OnClickListener() {
 
-			@Override
 			public void onClick(View v) {
-				Log.d(TAG, "Go Clicked");
-				MainApplication.screen.getSpaceViewController().changeSpace(
-						psiv.space);
-				popup.dismiss();
+				Log.d(TAG, "Go Left Clicked");
+				ippc.handleGoLeftClicked();
 			}
 		});
+		
+		getRightButton().setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				Log.d(TAG, "Go Right Clicked");
+				ippc.handleGoRightClicked();
+			}
+		});
+		
 		getMiddleButton().setOnClickListener(new View.OnClickListener() {
 
-			@Override
 			public void onClick(View arg0) {
+				ippc.handleCancelClicked();
 				Log.d(TAG, "Dismiss Click");
-				popup.dismiss();
 			}
 		});
 	}
@@ -148,7 +165,7 @@ public class InvitationPopupPreviewView extends LinearLayout {
 		final int TRIANGLE_WIDTH = 38;
 		final int TRIANGLE_HEIGHT = 33;
 
-		int yTip = 215;
+		int yTip = 217;
 		int xTip1 = Values.screenW*1/6;
 		int xTip2 = Values.screenW*5/6;
 
@@ -193,4 +210,9 @@ public class InvitationPopupPreviewView extends LinearLayout {
 
 		canvas.drawPath(path, paint);
 	}
+	
+	public Space getSpace () {
+		return space;
+	}
 }
+

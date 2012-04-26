@@ -171,12 +171,10 @@ public class PrivateSpaceIconView extends ImageButton{
             @Override
             public void onClick(View v) {
                 if(D) Log.d(TAG, "Click");
-               InvitationPopupPreviewView popup = new InvitationPopupPreviewView(context, PrivateSpaceIconView.this);
-                // PrivateSpacePreviewPopupView popup = new PrivateSpacePreviewPopupView(context, PrivateSpaceIconView.this);
-                popup.createPopupWindow();
-
-
-
+               //InvitationPopupPreviewView popup = new InvitationPopupPreviewView(context, space);
+               //  PrivateSpacePreviewPopupView popup = new PrivateSpacePreviewPopupView(context, PrivateSpaceIconView.this);
+                //popup.createPopupWindow();
+                MainApplication.screen.getSpaceViewController().changeSpace(getSpace());
 
             }
         });
