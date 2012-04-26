@@ -1,5 +1,8 @@
 package edu.cornell.opencomm.view;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,6 +10,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
@@ -28,6 +32,7 @@ public class UserView extends ImageButton{
     Bitmap image; // The actual image that will show on the user screen
     Bitmap nameBoxImage; // The name box on a user's icon
     Space space;
+    boolean ghost = false;
     
     //font
     private Typeface font;
@@ -39,6 +44,9 @@ public class UserView extends ImageButton{
     UserView thisUserView;
     static UserView selectedIcon;
     boolean clickOnIcon;
+    private boolean lassoed;
+
+    final private static int GHOST_ALPHA = 50;
 
     /** Constructor:
      * 1)Initialize all variables
@@ -90,6 +98,20 @@ public class UserView extends ImageButton{
         //setupListeners();
     }
 
+    //Used to create spooky ghosts
+    public UserView(Context context, User person, Bitmap image, int x, int y) {
+        super(context);
+        this.context = context;
+        this.person = person;
+        this.x = x;
+        this.y = y;
+        this.image = image;
+        this.ghost = true;
+        setNameBoxImage(Values.icon_namebox);
+        setPaint(context); // set paint
+        userViewController = new UserViewController(this);
+    }
+
     /* Return true if the mouseX and mouseY parameters are within this UserView's
      * area onscreen. Used to see if the user tapped on the icon */
     public boolean clickedInside(int mouseX, int mouseY){
@@ -135,30 +157,43 @@ public class UserView extends ImageButton{
             //bord.getPaint().setStyle(Style.STROKE);
             // bord.getPaint().setStrokeWidth(b);
             bord.getPaint().setColor(getResources().getColor(person.user_color));
-            bord.setAlpha(204);
+            if(ghost)
+                bord.setAlpha(GHOST_ALPHA);
+            else
+                bord.setAlpha(204);
             bord.setBounds(x-b,y-b,x+image.getWidth()+b,y+image.getHeight()+b);
             Log.v(LOG_TAG, "SIZE"+(image.getWidth()+2*b)+""+(image.getHeight()+2*b));
             //border.setPadding(b,b,b,b);
+            
             bord.draw(canvas);
             //Crystal image
             Bitmap overlay = Bitmap.createBitmap(image.getWidth(),image.getHeight(), Bitmap.Config.ARGB_8888);
+            
             Canvas c = new Canvas(overlay);
 
             paint.setAntiAlias(true);
             paint.setTextSize(Values.nameTextSize);
-
-            c.drawBitmap(image, 0, 0, null);
+            if(ghost) {
+                paint.setAlpha(GHOST_ALPHA);
+                Paint imagePaint = new Paint();
+                imagePaint.setAntiAlias(true);
+                imagePaint.setAlpha(GHOST_ALPHA);
+                c.drawBitmap(image, 0, 0, imagePaint);
+            } else
+                c.drawBitmap(image, 0, 0, null);
             RectShape nTag= new RectShape();
             ShapeDrawable nameTag= new ShapeDrawable(nTag);
             nameTag.getPaint().setColor(getResources().getColor(person.user_color));
             nameTag.setAlpha(204);
             nameTag.setBounds(0, image.getHeight()-namebox,image.getWidth(), image.getHeight());
+            if(ghost)
+                nameTag.setAlpha(GHOST_ALPHA);
             nameTag.draw(c);
             c.drawText(person.getUsername(), 0, Math.min(11,(person.getUsername()).length()),0/*Values.iconTextPadding*/,
                     image.getHeight()-namebox+Values.nameTextSize/*5/2*Values.iconBorderPadding+10*/, paint);
             canvas.drawBitmap(overlay, x, y, null);
 
-            if(person==space.getOwner()){
+            if(space != null && person==space.getOwner()){
 
                 Bitmap adminTag = Bitmap.createBitmap(image.getWidth()+2*b,20, Bitmap.Config.ARGB_8888);
                 Canvas ac = new Canvas(adminTag);
@@ -249,15 +284,16 @@ public class UserView extends ImageButton{
         BitmapFactory.Options opts = new BitmapFactory.Options();
         opts.inJustDecodeBounds = true;
         this.image = BitmapFactory.decodeResource(context.getResources(), imageID);
-        int width = (this.image).getWidth();
-        int height = (this.image).getHeight();
+//        int width = (this.image).getWidth();
+//        int height = (this.image).getHeight();
         int newWidth = Values.userIconW;
         int newHeight = Values.userIconH;
-        float scaleWidth = ((float) newWidth)/width;
-        float scaleHeight = ((float) newHeight) / height;
-        Matrix matrix = new Matrix();
-        matrix.postScale(scaleWidth, scaleHeight);
-        this.image = Bitmap.createBitmap(this.image, 0, 0, width, height, matrix, true);
+        rescaleSize(newWidth,newHeight);
+//        float scaleWidth = ((float) newWidth)/width;
+//        float scaleHeight = ((float) newHeight) / height;
+//        Matrix matrix = new Matrix();
+//        matrix.postScale(scaleWidth, scaleHeight);
+//        this.image = Bitmap.createBitmap(this.image, 0, 0, width, height, matrix, true);
     }
 
     /** Set an image and resize for an image in the popup */
@@ -275,7 +311,17 @@ public class UserView extends ImageButton{
         matrix.postScale(scaleWidth, scaleHeight);
         this.image = Bitmap.createBitmap(oldImage, 0, 0, width, height, matrix, true);
     }
-
+    
+    //rescale current image to given size
+    public void rescaleSize(int newWidth, int newHeight){
+    	 int width = (image).getWidth();
+         int height = (image).getHeight();
+         float scaleWidth = ((float) newWidth)/width;
+         float scaleHeight = ((float) newHeight) / height;
+         Matrix matrix = new Matrix();
+         matrix.postScale(scaleWidth, scaleHeight);
+         image=Bitmap.createBitmap(this.image, 0, 0, width, height, matrix, true);
+    }
     /* Set the name box image and resize */
     public void setNameBoxImage(int imageID){
         BitmapFactory.Options opts = new BitmapFactory.Options();
@@ -305,4 +351,67 @@ public class UserView extends ImageButton{
     public void setMoved(boolean moved){
         isMoved = moved;
     }
+
+    public void setGhost(boolean ghost) {
+        this.ghost = ghost;
+    }
+
+    //Returns a ghostly version of this UserView
+    public UserView getGhost() {
+        return new UserView(context,person,image,x,y);
+    }
+
+    public void setLassoed(boolean lassoed) {
+        this.lassoed = lassoed;
+    }
+
+    public boolean isLassoed() {
+        return lassoed;
+    }
+
+    //Implementation of the reply to:
+    //http://stackoverflow.com/questions/99353/how-to-test-if-a-line-segment-intersects-an-axis-aligned-rectange-in-2d
+    public boolean segmentIntersects(Point p1, Point p2) {
+        int b = Values.iconBorderPadding;
+        int right = x + image.getWidth() + 2*b;
+        int bottom = y + image.getHeight() + 2*b;
+        Point TL = new Point(x, y);
+        Point TR = new Point(right, y);
+        Point BR = new Point(right, bottom);
+        Point BL = new Point(x, bottom);
+
+        if(p1.x > TR.x && p2.x > TR.x) { return false; }
+        if(p1.x < BL.x && p2.x < BL.x) { return false; }
+        if(p1.y < TR.y && p2.y < TR.y) { return false; }
+        if(p1.y > BL.y && p2.y > BL.y) { return false; }
+
+        ArrayList<Point> corners = new ArrayList<Point>(
+            Arrays.asList(TL, TR, BR, BL)
+        );
+
+        ArrayList<Integer> funcs = new ArrayList<Integer>();
+        for(Point p : corners) {
+            int func = (p2.y - p1.y) * p.x + (p1.x - p2.x) * p.y + (p2.x * p1.y - p1.x * p2.y);
+            Log.d("TEXAS", "hogFunc:" + func);
+            if(func == 0){
+                return true;
+            }
+            funcs.add(func);
+        }
+        if(funcs.get(0) > 0 && findVal(funcs, true) ||
+           funcs.get(0) < 0 && findVal(funcs, false)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean findVal(ArrayList<Integer> funcs, boolean positive) {
+        for(int i = 1; i < funcs.size(); i++) {
+            if(positive != (funcs.get(i) > 0))
+                return false;
+        }
+        return true;
+    }
+
 }

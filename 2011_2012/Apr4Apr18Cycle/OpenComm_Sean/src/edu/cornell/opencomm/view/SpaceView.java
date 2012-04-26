@@ -1,11 +1,14 @@
 package edu.cornell.opencomm.view;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Point;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -17,6 +20,7 @@ import edu.cornell.opencomm.controller.MainApplication;
 import edu.cornell.opencomm.controller.SpaceViewController;
 import edu.cornell.opencomm.controller.UserIconMenuController;
 import edu.cornell.opencomm.model.Space;
+import edu.cornell.opencomm.network.Network;
 
 /* A SpaceView is the graphical representation of a space, aka the screen you see on the monitor
  * showing all the icons of the people in the space (above the privatespace bar).
@@ -26,8 +30,6 @@ import edu.cornell.opencomm.model.Space;
 public class SpaceView extends View {
     private static String LOG_TAG = "OC_SpaceView"; // for error checking
     private Context context;
-    /** A variable containing this spaceView object */
-    public SpaceView thisSpaceView;
     /** The space that this SpaceViwe is currently representing */
     Space space;
     Bitmap voice_image;
@@ -36,12 +38,19 @@ public class SpaceView extends View {
     public UserView selectedIcon;
     boolean clickOnIcon = false;
     private boolean dim = false;
+    private boolean drag = true;
+    private boolean longclick = true;
+    private boolean lassomode = false;
+    private Point savedPoint = null;
+    private ArrayList<ArrayList<Point>> dragPoints = new ArrayList<ArrayList<Point>>();
+    private ArrayList<UserView> lassoedIcons = new ArrayList<UserView>();
 
     /** Controllers for SpaceView*/
     SpaceViewController spaceViewController;
     EmptySpaceMenuController empytSpaceMenuController;
     UserIconMenuController userIconMenuController;
     ParticipantView pView;
+    private UserView ghost;
 
     /**
      * Constructor: This one is used by the XML file to automatically generate a
@@ -52,7 +61,6 @@ public class SpaceView extends View {
         this.context = context;
         setFocusable(true);
         setFocusableInTouchMode(true);
-        thisSpaceView = this;
         setupControllers();
         setupImage();
         setupEventListeners();
@@ -68,7 +76,6 @@ public class SpaceView extends View {
         this.space = space;
         setFocusable(true);
         setFocusableInTouchMode(true);
-        thisSpaceView = this;
         setupControllers();
         setupImage();
         setupEventListeners();
@@ -88,36 +95,77 @@ public class SpaceView extends View {
     public void setupEventListeners() {
         // The onTouch Listener (responds to any touch events)
         this.setOnTouchListener(new OnTouchListener() {
+
             @Override
             public boolean onTouch(View view, MotionEvent event) {
                 int mouseX = (int) event.getX();
                 int mouseY = (int) event.getY();
 
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    drag = longclick = false;
+                    dragPoints.add(new ArrayList<Point>());
+                    savedPoint = new Point(mouseX, mouseY);
                     // If clicked on an icon
                     selectedIcon = null;
                     for (UserView icon : space.getAllIcons()) {
                         if (icon.clickedInside(mouseX, mouseY)) {
-                            selectedIcon = icon;
-                            icon.getUserViewController().handleClickDown(
-                                    icon.getX(), icon.getY());
+                            if(!icon.isLassoed()) {
+                                icon.getUserViewController().handleClickDown(
+                                        icon.getX(), icon.getY());
+                            }
                             clickOnIcon = true;
+                            selectedIcon = icon;
                         }
+                        if(icon.isLassoed())
+                            lassoedIcons.add(icon);
                     }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if(!drag && !longclick) {
+                        cancelLassoMode();
+                    }
+                    if(savedPoint != null)
+                        savedPoint = null;
                     // if clicked on an icon
                     if (clickOnIcon) {
-                        selectedIcon.getUserViewController().handleClickUp(
-                                mouseX, mouseY);
+                        if (ghost == null) {
+                            selectedIcon.getUserViewController().handleClickUp(
+                                    mouseX, mouseY);
+                        } else {
+                            ghost = null;
+                            MainApplication mainApp = (MainApplication)context;
+                            if(mainApp.side1.contains(mouseX, mouseY)) {
+                                for(UserView user : lassoedIcons) {
+                                    mainApp.side1.space.getInvitationController().inviteUser(user.getPerson(), Network.DEFAULT_INVITE);
+                                }
+                            } else if(mainApp.side2.contains(mouseX, mouseY)) {
+                                for(UserView user : lassoedIcons) {
+                                    mainApp.side2.space.getInvitationController().inviteUser(user.getPerson(), Network.DEFAULT_INVITE);
+                                }
+                            }
+                            cancelLassoMode();
+
+                        }
                         selectedIcon = null;
                         clickOnIcon = false;
                     }
+
                 } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                    drag = true;
                     /* If a person icon is selected, then move the icon to
 					 the current position */
-                    if (clickOnIcon) {
+                    if (clickOnIcon && !lassomode) {
                         selectedIcon.getUserViewController().handleMoved(
                                 mouseX, mouseY);
+                    } else if(clickOnIcon && lassomode) {
+                        if(!selectedIcon.isLassoed()) {
+                            cancelLassoMode();
+                            selectedIcon.getUserViewController().handleMoved(
+                                    mouseX, mouseY);
+                        } else {
+                            performGhostDrag(mouseX, mouseY);
+                        }
+                    } else {
+                        createLasso(view, event);
                     }
                 }
                 invalidate();
@@ -129,20 +177,67 @@ public class SpaceView extends View {
 
             @Override
             public boolean onLongClick(View arg0) {
-                if (clickOnIcon) {
-                    boolean longpress = selectedIcon.getUserViewController()
-                            .handleLongPress();
-                    if (longpress) {
-                        selectedIcon = null;
-                        clickOnIcon = false;
+                longclick = true;
+                if (!drag) {
+                    if (clickOnIcon) {
+                        boolean longpress = selectedIcon.getUserViewController()
+                                .handleLongPress();
+                        if (longpress) {
+                            selectedIcon = null;
+                            clickOnIcon = false;
+                        }
+                        return longpress;
+                    } else {
+                        SpaceView.this.getSpaceViewController().handleLongClick();
+                        return true;
                     }
-                    return longpress;
                 } else {
-                    thisSpaceView.getSpaceViewController().handleLongClick();
                     return true;
                 }
             }
         });
+    }
+
+    public void cancelLassoMode() {
+        lassomode = false;
+        dragPoints.clear();
+        lassoedIcons.clear();
+        for (UserView p : space.getAllIcons()) {
+            p.setLassoed(false);
+        }
+    }
+
+    private void performGhostDrag(int mouseX, int mouseY) {
+        if(ghost == null) {
+            ghost = selectedIcon.getGhost();
+
+        }
+        ghost.getUserViewController().handleMoved(
+                mouseX, mouseY);
+    }
+
+    private void createLasso(View view, MotionEvent event) {
+        lassomode = true;
+        ArrayList<Point> curPath = dragPoints.get(dragPoints.size() - 1);
+        if(savedPoint != null) {
+            curPath.add(savedPoint);
+            savedPoint = null;
+        }
+        Point newPoint = new Point((int)event.getX(), (int)event.getY());
+        if(curPath.size() > 0) {
+            Point prevPoint = curPath.get(curPath.size()-1);
+            if(newPoint.x == prevPoint.x && newPoint.y == prevPoint.y)
+                return;
+            for (UserView p : space.getAllIcons()) {
+                if (!p.getPerson().getNickname().equals(MainApplication.userPrimary.getNickname())) {
+                    if(p.segmentIntersects(prevPoint, newPoint)) {
+                        p.setLassoed(true);
+                        Log.d("TEXAS", "I hogtied that userview");
+                    }
+                }
+            }
+        }
+        curPath.add(newPoint);
     }
 
     /** Add the image of the voice coming from you */
@@ -178,7 +273,7 @@ public class SpaceView extends View {
                 /*LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 //AdminTipView adminTipView = new AdminTipView(inflater);
                 //adminTipView.launch();*/
-                
+
                 //TO DO: put values for header and such in strings table
                 PopupNotificationView pnv = new PopupNotificationView(context, null, "tip", context.getString(R.string.admin_tip), "", Values.tip);
                 pnv.createPopupWindow();
@@ -186,8 +281,21 @@ public class SpaceView extends View {
         }
         if (canvas != null && space != null && space.getAllIcons() != null) {
             for (UserView p : space.getAllIcons()) {
-                if (!p.getPerson().getNickname().equals(MainApplication.userPrimary.getNickname()))
+                if (!p.getPerson().getNickname().equals(MainApplication.userPrimary.getNickname())) {
                     p.draw(canvas);
+                }
+
+            }
+            if(ghost != null)
+                ghost.draw(canvas);
+        }
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        for(ArrayList<Point> pointList : dragPoints) {
+            for(int i = 0; i < pointList.size() - 1; i++) {
+                Point p1 = pointList.get(i);
+                Point p2 = pointList.get(i+1);
+                canvas.drawLine(p1.x, p1.y, p2.x, p2.y, paint);
             }
         }
     }

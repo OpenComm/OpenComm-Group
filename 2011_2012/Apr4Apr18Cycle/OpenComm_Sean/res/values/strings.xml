@@ -31,6 +31,8 @@
 <string name="sign_up">sign up</string>
 <string name="forgotPassword"><u>Forgot your password?</u></string>
 <string name="account">my account</string>
-<string name="blank"></string> 
+<string name="blank"></string>
+<string name="accept_here">accept here</string>
+<string name="decline">decline</string> 
  
 </resources>

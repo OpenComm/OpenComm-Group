@@ -11,17 +11,8 @@
          android:orientation="vertical"
          android:background="@color/off_white">
          <TextView 
-            android:id="@+id/startTime" 
+            android:id="@+id/time" 
             android:text="start time" 
-            android:textColor="@color/black"
-            android:layout_height="wrap_content" 
-            android:layout_width="fill_parent"
-            android:paddingLeft="10dp"
-            android:textSize="22sp">
-         </TextView>
-         <TextView 
-            android:id="@+id/endTime" 
-            android:text="end time" 
             android:textColor="@color/black"
             android:layout_height="wrap_content" 
             android:layout_width="fill_parent"

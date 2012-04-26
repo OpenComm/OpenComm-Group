@@ -26,22 +26,22 @@ public class Network {
 
 	// CONNECTION CONSTANTS
 	/** = default host server */
-	public static final String DEFAULT_HOST = "cuopencomm.no-ip.org";
+	public static final String DEFAULT_HOST = "jabber.org";//"cuopencomm.no-ip.org";
 	
 	/** = default host name */
-	public static final String DEFAULT_HOSTNAME = "localhost.localdomain";
+	public static final String DEFAULT_HOSTNAME = "jabber.org";//"localhost.localdomain";
 
 	/** = default port */
 	public static final int DEFAULT_PORT = 5222;
 
 	/** = debug username */
-	public static final String DEBUG_USERNAME = "debug";
+	public static final String DEBUG_USERNAME = "opencommsec";//"debug";
 
 	/** = debug password */
-	public static final String DEBUG_PASSWORD = "debug";
+	public static final String DEBUG_PASSWORD = "secopencomm";//"debug";
 	
 	/** = conference server */ 
-	public static final String DEFAULT_CONFERENCE = "conference.localhost.localdomain";
+	public static final String DEFAULT_CONFERENCE = "conference.jabber.org";//"conference.localhost.localdomain";
 	
 	// ====================================================================== //
 	// ====================================================================== //

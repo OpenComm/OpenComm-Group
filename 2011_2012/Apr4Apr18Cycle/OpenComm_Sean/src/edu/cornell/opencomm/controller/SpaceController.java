@@ -183,8 +183,9 @@ public class SpaceController {
         Space space = new Space(context, false, String.valueOf(spaceID), true/*MainApplication.user_primary*/);
         Space.allSpaces.put(space.getRoomID(), space);
         
-        PopupNotificationView pnv = new PopupNotificationView(context, null, "tip", context.getString(R.string.sidechat_tip), "", Values.tip);
-        pnv.createPopupWindow();
+        Log.v("C", "pop-up notification");
+       // PopupNotificationView pnv = new PopupNotificationView(context, null, "tip", context.getString(R.string.sidechat_tip), "", Values.tip);
+        //pnv.createPopupWindow();
 
         if(D) Log.d(TAG, "Created a new space with ID:" + spaceID);
         return space;
