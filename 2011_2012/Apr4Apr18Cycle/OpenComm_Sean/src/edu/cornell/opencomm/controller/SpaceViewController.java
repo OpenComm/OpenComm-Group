@@ -22,6 +22,7 @@ public class SpaceViewController {
      * to
      */
     public void changeSpace(Space newSpace){
+        MainApplication.screen.cancelLassoMode();
         Log.v("SpaceViewController", "changeSpace() from " + MainApplication.screen.getSpace() + " to " + newSpace);
         MainApplication.screen.getSpace().setScreenOn(false);
         MainApplication.screen.setSpace(newSpace);
@@ -52,7 +53,6 @@ public class SpaceViewController {
                 //tipView.launch();
             }
         }
-        spaceView.cancelLassoMode();
         Log.v("SpaceViewController", "changeSpace() successfuly to " + MainApplication.screen.getSpace());
     }
 
