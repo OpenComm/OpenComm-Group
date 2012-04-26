@@ -22,9 +22,13 @@ public class SpaceViewController {
      * to
      */
     public void changeSpace(Space newSpace){
+        MainApplication.screen.cancelLassoMode();
         Log.v("SpaceViewController", "changeSpace() from " + MainApplication.screen.getSpace() + " to " + newSpace);
+        MainApplication.screen.getSpace().setScreenOn(false);
         MainApplication.screen.setSpace(newSpace);
+        newSpace.setScreenOn(true);
         MainApplication m = (MainApplication)spaceView.getContext();
+
         m.invalidateSpaceView();
         if(!MainApplication.screen.getSpace().getEntered()){
             Space s = MainApplication.screen.getSpace();

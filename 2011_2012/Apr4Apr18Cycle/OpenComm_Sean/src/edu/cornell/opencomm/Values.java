@@ -38,12 +38,12 @@ public class Values {
     public static int voice_imageSpaceH = 20; // Space between you_image and the bottom bar
 
     // PrivateSpace buttons in bottom bar
-    public static int privateSpaceButtonW = 116;
+    public static int privateSpaceButtonW = 140;
     public static int privateSpacePadding = 3;
-    public static int selectedBorder=2;
-    public static int squarePadding=4;
-    public static int iconBorderPaddingV = 11;
-    public static int iconBorderPaddingH=11;
+    public static int selectedBorder=6;
+    public static int squarePadding=5;
+    public static int iconBorderPaddingV = 5;
+    public static int iconBorderPaddingH=9;
     public static int plusButtonLength=83;
     public static int plusButtonWidth=12;
 

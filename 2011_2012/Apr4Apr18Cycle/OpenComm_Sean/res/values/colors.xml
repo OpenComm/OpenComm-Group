@@ -25,5 +25,6 @@
 <color name="translucent">#80000000</color>
 <color name="overlay">#66FFFFFF</color>
 <color name="dark_grey_opaque">#FF333333</color>
-     
+   <color name="fiftypercentblack">#80000000</color> 
+   <color name="seventyfivepercentblack">#BF000000</color> 
 </resources>
