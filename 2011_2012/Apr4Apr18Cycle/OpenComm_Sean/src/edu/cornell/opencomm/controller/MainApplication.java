@@ -42,6 +42,7 @@ import edu.cornell.opencomm.view.SignupView;
 import edu.cornell.opencomm.view.SoundSettingsView;
 import edu.cornell.opencomm.view.SpaceView;
 import edu.cornell.opencomm.view.TipView;
+import edu.cornell.opencomm.view.UserView;
 
 public final class MainApplication extends Activity{
     /** String identifier for error checking with LOGCAT */
@@ -442,14 +443,19 @@ public final class MainApplication extends Activity{
         logo.setClickable(true);
         logo.setOnClickListener(this.logoOnClickListener());
 
-        ImageView soundButton = (ImageView) findViewById(R.id.sound_button);
-        soundButton.setClickable(true);
-        soundButton.setOnClickListener(this.getSoundButtonOnClickListener());
+       // ImageView soundButton = (ImageView) findViewById(R.id.sound_button);
+       // soundButton.setClickable(true);
+       // soundButton.setOnClickListener(this.getSoundButtonOnClickListener());
         /*Log.v(TAG, "Clicked on MENU key");
 		LayoutInflater inflater = (LayoutInflater) MainApplication.this
 		.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		MenuView menuView = new MenuView(inflater);
 		menuView.launch();*/
+        
+         ImageView spatializationButton = (ImageView) findViewById(R.id.auto_spatialization);
+         spatializationButton.setClickable(true);
+         spatializationButton.setOnClickListener(this.getSpatializationListener());
+        
     }
 
     /** You are exiting the application! Definitely tell the network so it can tell
@@ -715,6 +721,7 @@ public final class MainApplication extends Activity{
     }
 
     /** Justin : Call when the sound button is clicked **/
+    /**Currently not used, since the specs got rid of sound button.. */
     public View.OnClickListener getSoundButtonOnClickListener() {
         View.OnClickListener soundButtonListener = new OnClickListener() {
             @Override
@@ -730,6 +737,71 @@ public final class MainApplication extends Activity{
             }
         };
         return soundButtonListener;
+    }
+    
+    
+    public View.OnClickListener getSpatializationListener() {
+        View.OnClickListener temp = new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //DashboardView dashboardView = new DashboardView();
+                //dashboardView.launch();
+            	//TODO: FInd the constants to replace these magic #s
+                Log.v(TAG, "Clicked on spatialize button");
+                int size = screen.getAllIcons().size();
+                int center= size/2;
+                int counter=0;
+                final int MIN_DIST_FROM_TOP=50;
+                boolean odd = (size%2)!=0;
+                int xMin=0,xMax=0, yMin=0, yMax=0;
+                
+                //Odd config: single icon top
+                if(odd){
+               for(UserView x: screen.getAllIcons()){
+            	   if(counter==center){
+            		   x.setXY(screen.getWidth()/2-55, MIN_DIST_FROM_TOP);
+            	   }
+            	   else{x.setXY(0, 0);}
+            	   if(counter < center){
+            		   
+            	   }
+            	   else{
+            		   
+            	   }
+            	   
+            	   counter++;
+               }
+               }
+                //even config: 2 icons top
+                if(!odd){
+                	for(UserView x:screen.getAllIcons()){
+                	if(counter==center-1){
+                		 x.setXY(screen.getWidth()/3-55, MIN_DIST_FROM_TOP);
+                	}
+                	if(counter==center){
+                		 x.setXY(screen.getWidth()/1-(110*2), MIN_DIST_FROM_TOP);
+                	}
+                	if (counter < center-1){
+                		xMin = 0;xMax = screen.getWidth()/4-55;
+                		yMin = screen.getHeight()-110;
+                		yMax = MIN_DIST_FROM_TOP;
+                	}
+                	else{ 
+                 		xMin = 0;xMax = screen.getWidth()/4-55;
+                		yMin = screen.getHeight()-110;
+                		yMax = MIN_DIST_FROM_TOP;
+                		
+                		
+                	}
+                	
+                	counter++;
+                }
+                }
+               invalidateSpaceView();
+
+            }
+        };
+        return temp;
     }
 
 
