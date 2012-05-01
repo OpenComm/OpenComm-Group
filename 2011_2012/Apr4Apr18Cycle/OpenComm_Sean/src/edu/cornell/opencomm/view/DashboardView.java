@@ -2,6 +2,7 @@ package edu.cornell.opencomm.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.DashboardController;
 import edu.cornell.opencomm.controller.GoToConferencePopupController;
+import edu.cornell.opencomm.controller.LoginController;
 import edu.cornell.opencomm.network.Network;
 
 public class DashboardView extends Activity {
@@ -167,6 +169,13 @@ public class DashboardView extends Activity {
             startConferenceTextButton.setOnClickListener(onStartConferenceButtonClickedListener);
         }
     }
+    public void logoutButtonClicked(View v){
+	  	Log.v(TAG, "logout button clicked");
+	  	Intent myIntent = new Intent();
+		myIntent.setClass(this.getApplication(),
+				LoginView.class);
+		this.startActivity(myIntent);
+	}
 
     public Context getContext() {
         return context;
@@ -269,4 +278,5 @@ public class DashboardView extends Activity {
             dashboardController.handleConferencesButtonClicked();
         }
     };
+    
 }

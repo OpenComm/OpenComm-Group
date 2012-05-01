@@ -88,6 +88,9 @@ public class SpaceController {
         view.getActivity().launchNotificationView(user, "adduser");
     }
 
+    public PrivateSpaceIconView getPSIV (){
+    	return psiv;
+    }
 
     /** set the associated PrivateSpaceIconView psIcon*/
     public void setPSIV( PrivateSpaceIconView psIcon) {

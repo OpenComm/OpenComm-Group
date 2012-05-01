@@ -108,6 +108,7 @@ public class DashboardController {
 
 	}
 
+	
 	/*
 	 * public void handlePopupWindowClicked() {
 	 * dashboardView.getWindow().dismiss(); }
