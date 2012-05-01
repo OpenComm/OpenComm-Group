@@ -13,12 +13,17 @@
                 android:textSize="20sp"  android:layout_height="wrap_content"
                 android:text="Opencomm" android:paddingLeft="10.67dp" 
                 android:id="@+id/logo"/>
- 
-        <ImageView android:src="@drawable/volume_icon" 
-                android:layout_width="36.67dp" android:layout_alignParentRight="true"
-                android:layout_centerVertical="true" android:id="@+id/sound_button"
-                android:layout_marginRight="12dp" android:layout_height="fill_parent"
-                android:scaleType="fitXY" />
+ 
+        <ImageView
+            android:id="@+id/auto_spatialization"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/autospatialization" />
+
 </RelativeLayout>
 	<FrameLayout 
 		android:id="@+id/spaceViewFrame" 

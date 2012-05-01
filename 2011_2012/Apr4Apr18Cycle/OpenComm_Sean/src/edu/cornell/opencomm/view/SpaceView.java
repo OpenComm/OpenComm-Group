@@ -137,18 +137,19 @@ public class SpaceView extends View {
                                 for(UserView user : lassoedIcons) {
                                     mainApp.side1.space.getInvitationController().inviteUser(user.getPerson(), Network.DEFAULT_INVITE);
                                 }
+                                cancelLassoMode();
                             } else if(mainApp.side2.contains(mouseX, mouseY)) {
                                 for(UserView user : lassoedIcons) {
                                     mainApp.side2.space.getInvitationController().inviteUser(user.getPerson(), Network.DEFAULT_INVITE);
                                 }
+                                cancelLassoMode();
                             }
-                            cancelLassoMode();
 
                         }
                         selectedIcon = null;
                         clickOnIcon = false;
                     }
-
+                    lassoedIcons.clear();
                 } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
                     drag = true;
                     /* If a person icon is selected, then move the icon to
@@ -199,6 +200,7 @@ public class SpaceView extends View {
     }
 
     public void cancelLassoMode() {
+        Log.d("LOL", "CANCEL LASSSOMODEEEEE");
         lassomode = false;
         dragPoints.clear();
         lassoedIcons.clear();
@@ -264,6 +266,7 @@ public class SpaceView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         Space mainSpace = Space.getMainSpace();
+        if(mainSpace == null) return;
         Log.v(LOG_TAG, mainSpace.getOwner().getNickname());
         Log.v(LOG_TAG, "Room ID is "+ mainSpace.getRoomID());
 
