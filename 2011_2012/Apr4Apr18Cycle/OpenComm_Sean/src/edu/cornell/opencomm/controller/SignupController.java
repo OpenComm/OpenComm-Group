@@ -1,8 +1,14 @@
 package edu.cornell.opencomm.controller;
 
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.jivesoftware.smack.XMPPConnection;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.network.Network;
@@ -13,7 +19,7 @@ import edu.cornell.opencomm.view.SignupView;
 
 /**
  * Controller for new user account creation.
- * @author jonathan
+ * @author jonathan, flav
  */
 public class SignupController {
 
@@ -22,6 +28,10 @@ public class SignupController {
     private Context context;
     private SignupView view;
 
+	private NetworkService xmppService;
+	private XMPPConnection xmppConn;
+    private UserAccountManager userAccountManager;
+    
     final public String INVALID_FIRST_NAME = "Invalid First Name";
     final public String INVALID_LAST_NAME = "Invalid Last Name";
     final public String INVALID_EMAIL = "Invalid Email";
@@ -32,6 +42,10 @@ public class SignupController {
         if (D) Log.d(TAG, "SignupController constructor called");
         this.view = view;
         this.context = context;
+		this.xmppService = new NetworkService(Network.DEFAULT_HOST,
+				Network.DEFAULT_PORT);
+		this.xmppConn = xmppService.getXMPPConnection();
+        this.userAccountManager = new UserAccountManager(xmppConn);
     }
 
     public final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[.][a-zA-Z]{2,4}$");
@@ -135,5 +149,35 @@ public class SignupController {
         return NAME_PATTERN.matcher(name).matches();
     }
 
+    //main function to add a user; returns true if the operation has been successful
+	@SuppressWarnings("unchecked")
+	private boolean makeChange(String userEmail) {
+		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
+				2);
+		nameValuePairs.add(new BasicNameValuePair("userEmail", userEmail));
+		nameValuePairs.add(new BasicNameValuePair("action", "add"));
+		//nameValuePairs.add(new BasicNameValuePair("server", ""));
+		
+		try {
+			AsyncTask<ArrayList<NameValuePair>, Void, Boolean> sent = new LongOperation();
+			return sent.execute(nameValuePairs).get();
+			
+		} catch (InterruptedException e) {
+			Log.e(TAG, e.toString());
+		} catch (ExecutionException e) {
+			Log.e(TAG, e.toString());
+		}
+		return false;
 
+	}
+	
+  //As per tutorial on http://sankarganesh-info-exchange.blogspot.com/p/need-and-vital-role-of-asynctas-in.html
+    private class LongOperation extends AsyncTask<ArrayList<NameValuePair>, Void, Boolean> {
+
+    @Override
+	    protected Boolean doInBackground(ArrayList<NameValuePair>... params) {
+	    	
+	    	return userAccountManager.userChange(params[0]);
+	    }
+    }	
 }
