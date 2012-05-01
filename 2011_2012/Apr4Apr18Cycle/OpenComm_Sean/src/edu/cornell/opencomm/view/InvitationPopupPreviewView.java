@@ -1,5 +1,7 @@
 package edu.cornell.opencomm.view;
 
+import org.jivesoftware.smack.XMPPException;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -16,10 +18,12 @@ import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.InvitationPopupPreviewController;
 import edu.cornell.opencomm.controller.MainApplication;
+import edu.cornell.opencomm.model.Invitation;
 import edu.cornell.opencomm.model.Space;
 
 public class InvitationPopupPreviewView extends LinearLayout {
 	private Space space; // The Icon this popup is associated with
+	private Invitation invitation; //The invitation this preveiew is representing
 	private LinearLayout layout; // The layout representing the popup
 	private PopupWindow popup; // The window containing the popup
 	private InvitationPopupPreviewController ippc;
@@ -36,11 +40,16 @@ public class InvitationPopupPreviewView extends LinearLayout {
 	 * @param personViews
 	 *            - list of UserViews for people in the space
 	 *            //TODO: Get rid of magic #s and make this scalable on resolutions
+	 * @throws XMPPException 
 	 */
-	public InvitationPopupPreviewView(Context context, Space space) {
+	public InvitationPopupPreviewView(Context context, Invitation invitation) throws XMPPException {
 		super(context);
 
-		this.space = space;
+		this.invitation=invitation;
+		space = new Space(
+				context,
+				false, invitation.getRoom(), false/* owner */);
+		
 		this.ippc = new InvitationPopupPreviewController(this, context);
 
 		LayoutInflater inflater = (LayoutInflater) context
@@ -57,9 +66,10 @@ public class InvitationPopupPreviewView extends LinearLayout {
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
 				USER_ICON_DIMENSION-5, USER_ICON_DIMENSION);
 
+		Log.v("IPPV ICONS", "icon #: "+ space.getAllIcons().size());
 		// Populate view with user icons except for yourself
 		for (UserView view : space.getAllIcons()) {
-			if (D)
+			//if (D)
 				Log.d(TAG, "Adding View");
 			if (!view.getPerson().getUsername().split("@")[0]
 					.equals(MainApplication.userPrimary.getUsername()))
@@ -78,10 +88,11 @@ public class InvitationPopupPreviewView extends LinearLayout {
 	/**
 	 * Causes the popup window to be rendered on screen
 	 */
-	void createPopupWindow() {
+	public void createPopupWindow() {
 		// TODO: Make these values scale to different resolutions
 		// TODO: Move to Values.java
 		//final int PADDING = 140;
+		Log.v("IPPV", "Creating popup window");
 		final int PREVIEW_BAR_HEIGHT = 215;
 		final int PREVIEW_BAR_POSITION_Y = 135;
 

@@ -82,7 +82,8 @@ public class SpaceController {
         }
 
         if(space != Space.getMainSpace()){
-        	view.getActivity().invalidatePSIconView(psiv);
+        	//Null pointered for something - commented out atm...
+        	//view.getActivity().invalidatePSIconView(psiv);
         }
         view.getActivity().launchNotificationView(user, "adduser");
     }

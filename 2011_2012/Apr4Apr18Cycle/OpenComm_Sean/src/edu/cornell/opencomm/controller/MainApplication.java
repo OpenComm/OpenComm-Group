@@ -32,6 +32,7 @@ import edu.cornell.opencomm.network.Network;
 import edu.cornell.opencomm.view.AdminTipView;
 import edu.cornell.opencomm.view.ConfirmationView;
 import edu.cornell.opencomm.view.DashboardView;
+import edu.cornell.opencomm.view.InvitationPopupPreviewView;
 import edu.cornell.opencomm.view.InvitationView;
 import edu.cornell.opencomm.view.LoginView;
 import edu.cornell.opencomm.view.MenuView;
@@ -821,6 +822,15 @@ public final class MainApplication extends Activity{
             }
         };
         return logoListener;
+    }
+
+	public void displayPopup(final InvitationPopupPreviewView ippv) {
+        runOnUiThread(new Runnable(){
+            @Override
+            public void run(){
+                ippv.createPopupWindow();
+            }
+        });
     }
 
 }
