@@ -12,6 +12,8 @@ package edu.cornell.opencomm.network;
 
 import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.ConnectionConfiguration;
+import org.jivesoftware.smack.ConnectionListener;
+import org.jivesoftware.smack.ReconnectionManager;
 import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
@@ -67,6 +69,7 @@ public class NetworkService {
 	private XMPPConnection xmppConn = null;
 	private ConnectionConfiguration xmppConfig = null;
 	private InvitationListener invitationListener;
+	private ConnectionListener connectionListener;
 	private boolean isConnected;
 
 	/**
@@ -96,6 +99,49 @@ public class NetworkService {
 							+ " through " + port);
 				}
 
+				connectionListener = new ConnectionListener(){
+					ReconnectionManager reconnectionManager;
+					@Override
+					public void connectionClosed() {
+						// connection was closed by the foreign host
+						// or we have closed the connection
+						Log.d(TAG, "ConnectionListener: connectionClosed() called - " +
+								"connection was shutdown by foreign host or by us");
+						reconnectionManager.connectionClosed();
+					}
+
+					@Override
+					public void connectionClosedOnError(Exception e) {
+						// this happens mainly because of on IOException
+						// eg. connection timeouts because of lost connectivity
+						Log.d(TAG, "xmpp disconnected due to error: ", e);
+						reconnectionManager.connectionClosedOnError(e);
+						
+					}
+
+					@Override
+					public void reconnectingIn(int arg0) {
+						reconnectionManager.reconnectingIn(arg0);
+						Log.d(TAG, "Reconnecting in "+arg0);
+					}
+
+					@Override
+					public void reconnectionFailed(Exception arg0) {
+						reconnectionManager.reconnectionFailed(arg0);
+						Log.d(TAG, "Reconnection Manager is running");
+					}
+
+					@Override
+					public void reconnectionSuccessful() {
+						reconnectionManager.reconnectionSuccessful();
+						Log.d(TAG, "Reconnection Manager is sucessful");
+					}
+
+
+				};
+				
+				xmppConn.addConnectionListener(connectionListener); 
+
 				invitationListener = new InvitationListener() {
 					/**
 					 * Automatically called when this client receives an
@@ -123,7 +169,7 @@ public class NetworkService {
 						// Create regular invitation popup.
 						Log.v("Space size", ""
 								+ Space.getMainSpace().getAllParticipants()
-										.size());
+								.size());
 						Log.v("Owner nickname", Space.getMainSpace().getOwner()
 								.getNickname());
 						Log.v("Invitation nickname", nickname);
@@ -143,31 +189,29 @@ public class NetworkService {
 									"None", "None");
 							MainApplication.screen.getActivity().displayPopup(
 									invitationView);
-						} else
+						} else{
 							try {
-								{
-									Log.v("InvitationPopupPreviewView: ",
-											"Attempting to create invitation preview popup");
-									
-									InvitationPopupPreviewView ippv = null;
-									try {
-										ippv = new InvitationPopupPreviewView(
-												MainApplication.screen.getContext(), invitation);
-									} catch (XMPPException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-									MainApplication.screen.getActivity().displayPopup(
-											ippv);
-									// SpaceController.addExistingSpace(MainApplication.screen.getContext(),
-									// false,
-									// invitation.getRoom());
+								Log.v("InvitationPopupPreviewView: ",
+										"Attempting to create invitation preview popup");
+
+								InvitationPopupPreviewView ippv = null;
+								try {
+									ippv = new InvitationPopupPreviewView(
+											MainApplication.screen.getContext(), invitation);
+								} catch (XMPPException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
 								}
+								MainApplication.screen.getActivity().displayPopup(
+										ippv);
+								// SpaceController.addExistingSpace(MainApplication.screen.getContext(),
+								// false,
+								// invitation.getRoom());
 							} catch (Exception e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-
+						}
 					}
 				};
 
@@ -268,22 +312,22 @@ public class NetworkService {
 				+ "\n\tAre certificates presented checked for validity? "
 				+ (this.xmppConfig.isExpiredCertificatesCheckEnabled() ? "yes"
 						: "no")
-				+ "\n\tAre certificates presented checked for their domain? "
-				+ (this.xmppConfig.isNotMatchingDomainCheckEnabled() ? "yes"
-						: "no")
-				+ "\n\tIs reconnection allowed? "
-				+ (this.xmppConfig.isReconnectionAllowed() ? "yes" : "no")
-				+ "\n\tIs the roster loaded at log in? "
-				+ (this.xmppConfig.isRosterLoadedAtLogin() ? "yes" : "no")
-				+ "\n\tSASL authentication enabled? "
-				+ (this.xmppConfig.isSASLAuthenticationEnabled() ? "yes" : "no")
-				+ "\n\tAre self-signed certificates accepted? "
-				+ (this.xmppConfig.isSelfSignedCertificateEnabled() ? "yes"
-						: "no")
-				+ "\n\tIs the whole chain of certificates presented checked? "
-				+ (this.xmppConfig.isVerifyChainEnabled() ? "yes" : "no")
-				+ "\n\tIs the root CA checking performed? "
-				+ (this.xmppConfig.isVerifyRootCAEnabled() ? "yes" : "no");
+						+ "\n\tAre certificates presented checked for their domain? "
+						+ (this.xmppConfig.isNotMatchingDomainCheckEnabled() ? "yes"
+								: "no")
+								+ "\n\tIs reconnection allowed? "
+								+ (this.xmppConfig.isReconnectionAllowed() ? "yes" : "no")
+								+ "\n\tIs the roster loaded at log in? "
+								+ (this.xmppConfig.isRosterLoadedAtLogin() ? "yes" : "no")
+								+ "\n\tSASL authentication enabled? "
+								+ (this.xmppConfig.isSASLAuthenticationEnabled() ? "yes" : "no")
+								+ "\n\tAre self-signed certificates accepted? "
+								+ (this.xmppConfig.isSelfSignedCertificateEnabled() ? "yes"
+										: "no")
+										+ "\n\tIs the whole chain of certificates presented checked? "
+										+ (this.xmppConfig.isVerifyChainEnabled() ? "yes" : "no")
+										+ "\n\tIs the root CA checking performed? "
+										+ (this.xmppConfig.isVerifyRootCAEnabled() ? "yes" : "no");
 
 		if (this.xmppConn.isConnected()) {
 			networkServiceRepresentation += "\nXMPP Connection established";
