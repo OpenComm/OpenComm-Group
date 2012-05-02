@@ -81,10 +81,10 @@ public class SpaceController {
             view.getActivity().invalidateSpaceView();
         }
 
-        if(space != Space.getMainSpace()){
+//        if(space != Space.getMainSpace()){
         	//Null pointered for something - commented out atm...
-        	//view.getActivity().invalidatePSIconView(psiv);
-        }
+        	view.getActivity().invalidatePSIconView(psiv);
+     //   }
         view.getActivity().launchNotificationView(user, "adduser");
     }
 
@@ -165,6 +165,7 @@ public class SpaceController {
         Space space = null;
         try {
             space = new Space(context, true, roomID, false);
+            space.getSpaceController().setPSIV(PrivateSpaceIconView.allPSIcons.get(1));
             Space.setMainSpace(space);
             MainApplication.screen.getSpaceViewController().changeSpace(space);
             MainApplication.screen.getActivity().invalidateSpaceView();

@@ -190,6 +190,7 @@ public class NetworkService {
 							MainApplication.screen.getActivity().displayPopup(
 									invitationView);
 						} else{
+							//Side chat invitation
 							try {
 								Log.v("InvitationPopupPreviewView: ",
 										"Attempting to create invitation preview popup");

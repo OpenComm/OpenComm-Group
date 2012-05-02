@@ -23,12 +23,13 @@ public class InvitationPopupPreviewController {
     }
     
     public void handleGoLeftClicked () {
+    	
     	Space templeft = Space.allSpaces.get(String.valueOf(0));
     	Space.allSpaces.remove(String.valueOf(0));
     	templeft.getSpaceController().deleteSpace();
     	Space newleft = SpaceController.addExistingSpace(Space.getMainSpace().getContext(), false, String.valueOf(0));
     	//PrivateSpaceIconView left = new PrivateSpaceIconView(Space.getMainSpace().getContext(), newleft);
-    	//newleft.getSpaceController().setPSIV(left);
+    	//newleft.getSpaceController().setPSIV(left);s
     	
 		MainApplication.screen.getSpaceViewController().changeSpace(
 				view.getSpace());

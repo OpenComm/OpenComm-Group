@@ -14,6 +14,10 @@ package edu.cornell.opencomm.network;
 
 public class Network {
     private Network() {}
+    
+    //Use this switch to go betewen jabber and openfire when one or the other is down
+    static boolean isJabber=true;
+    
 
     /** = package name of this class */
     public static final String packageName = "edu.cornell.opencomm.network.";
@@ -26,22 +30,22 @@ public class Network {
 
 	// CONNECTION CONSTANTS
 	/** = default host server */
-	public static final String DEFAULT_HOST = /*"jabber.org"*/"cuopencomm.no-ip.org";
+	public static final String DEFAULT_HOST = isJabber?"jabber.org":"cuopencomm.no-ip.org";
 	
 	/** = default host name */
-	public static final String DEFAULT_HOSTNAME = /*"jabber.org";*/"localhost.localdomain";
+	public static final String DEFAULT_HOSTNAME = isJabber?"jabber.org":"localhost.localdomain";
 
 	/** = default port */
 	public static final int DEFAULT_PORT = 5222;
 
 	/** = debug username */
-	public static final String DEBUG_USERNAME = /*"opencommsec";*/"debug";
+	public static final String DEBUG_USERNAME = isJabber?"opencommsec":"debug";
 
 	/** = debug password */
-	public static final String DEBUG_PASSWORD = /*"secopencomm";*/"debug";
+	public static final String DEBUG_PASSWORD = isJabber?"secopencomm":"debug";
 	
 	/** = conference server */ 
-	public static final String DEFAULT_CONFERENCE = /*"conference.jabber.org";*/"conference.localhost.localdomain";
+	public static final String DEFAULT_CONFERENCE = isJabber?"conference.jabber.org":"conference.localhost.localdomain";
 	
 	// ====================================================================== //
 	// ====================================================================== //
