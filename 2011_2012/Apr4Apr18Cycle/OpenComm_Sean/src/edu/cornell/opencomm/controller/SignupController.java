@@ -151,12 +151,14 @@ public class SignupController {
 
     //main function to add a user; returns true if the operation has been successful
 	@SuppressWarnings("unchecked")
-	private boolean makeChange(String userEmail) {
+	private boolean createUser(String userEmail, String password, String firstname, String lastname, 
+			String title) {
 		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
-				2);
+				4);
 		nameValuePairs.add(new BasicNameValuePair("userEmail", userEmail));
+		nameValuePairs.add(new BasicNameValuePair("id",title+"+"+firstname+"+"+lastname));
+		nameValuePairs.add(new BasicNameValuePair("password", password));
 		nameValuePairs.add(new BasicNameValuePair("action", "add"));
-		//nameValuePairs.add(new BasicNameValuePair("server", ""));
 		
 		try {
 			AsyncTask<ArrayList<NameValuePair>, Void, Boolean> sent = new LongOperation();

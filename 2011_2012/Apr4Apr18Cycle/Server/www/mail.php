@@ -47,22 +47,30 @@ function smtpmailer($to, $from, $from_name, $subject, $body) {
 <?php
 		
 $serverOpenfire = 'http://cuopencomm.no-ip.org';
-$userEmail = $_POST['userEmail'];
-$action = $_POST['action'];
 
-if(isset($userEmail) && isset($action)) {
-
+if(isset($_POST['userEmail']) && isset($_POST['action'])) {
+	$userEmail = $_POST['userEmail'];
+	$action = $_POST['action'];
 	if($action === "forgot") {
 		$password = createPassword(8);
 		$usernameArray = preg_split('/@/',$userEmail);
 		$username = $usernameArray[0];
 		$subject = 'Your new password';
 		$body = 'Your password is now: '.$password;
-		$suffix = ':9090/plugins/userService/userservice?type=update&secret=opencomm.123&username='.$username.'&password='.$password.'&name=flavieee';
+		$suffix = ':9090/plugins/userService/userservice?type=update&secret=opencomm.123&username='.$username.'&password='.$password;
 	}
 	else if($action === "add") {
-		$subject = 'You have signed up to OpenComm!';
-		$body = 'We are glad.';
+		if(isset($_POST['id']) && isset($_POST['password'])) {
+			$id = $_POST['id'];
+			$password = $_POST['password'];
+			$subject = 'OpenComm registration';
+			$body = $id.', you have signed up to OpenComm!';
+			$suffix =':9090/plugins/userService/userservice?type=add&secret=opencomm.123&username='.$username.'&password='.$password.'&name='.$id.'&email='.$userEmail;
+		}
+		else {
+			echo "PB1";
+			break;	
+		}
 	}
 	else {
 		echo "PB4";
@@ -70,8 +78,7 @@ if(isset($userEmail) && isset($action)) {
 	}
 
 	if(smtpmailer($userEmail, 'opencomm.cs@gmail.com', 'OpenComm Consumer Service', $subject, $body)) {		
-		echo "ok";
-		/*$fp = fopen($serverOpenfire.$suffix, 'rb');
+		$fp = fopen($serverOpenfire.$suffix, 'rb');
 		
 		if (!$fp) {
 			echo "PB2";
@@ -85,7 +92,7 @@ if(isset($userEmail) && isset($action)) {
 				$response = preg_replace('/<[^>]*>|[^a-zA-Z]/', '', $response);
 				echo $response;
 				}
-			}*/
+			}
 		}
 	else {
 		echo "PB5";	

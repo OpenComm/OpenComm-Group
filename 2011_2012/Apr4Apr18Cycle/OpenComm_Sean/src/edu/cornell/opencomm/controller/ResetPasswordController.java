@@ -167,7 +167,6 @@ public class ResetPasswordController {
 	
 //As per tutorial on http://sankarganesh-info-exchange.blogspot.com/p/need-and-vital-role-of-asynctas-in.html
 	private class LongOperation extends AsyncTask<ArrayList<NameValuePair>, Void, Boolean> {
-	
 		@Override
 		protected Boolean doInBackground(ArrayList<NameValuePair>... params) {
 			return userAccountManager.userChange(params[0]);
