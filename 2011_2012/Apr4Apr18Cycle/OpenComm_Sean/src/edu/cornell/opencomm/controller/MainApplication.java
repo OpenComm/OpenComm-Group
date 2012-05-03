@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import edu.cornell.opencomm.ContextTracker;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.model.Space;
@@ -104,9 +105,9 @@ public final class MainApplication extends Activity {
 	 * network service. The source of the error is the line:
 	 * this.muc.sendConfigurationForm(new Form(Form.TYPE_SUBMIT)); in the Space
 	 * class. Please fix this so that it works 100% of the time.
-	 * 
+	 *
 	 * -Nora 11/6
-	 * 
+	 *
 	 */
 
 	/**
@@ -128,6 +129,7 @@ public final class MainApplication extends Activity {
 		if (D)
 			Log.d(TAG, "onCreate - Started the MainApplication activity");
 		super.onCreate(savedInstanceState);
+		ContextTracker.setContext(this);
 
 		// Open up the layout specified by the main XML
 		setContentView(R.layout.main);
@@ -456,7 +458,7 @@ public final class MainApplication extends Activity {
 		// Button mainButton = (Button) findViewById(R.id.main_button);
 		/*
 		 * mainButton.setOnTouchListener(new View.OnTouchListener() {
-		 * 
+		 *
 		 * @Override public boolean onTouch(View view, MotionEvent evt) { switch
 		 * (evt.getAction()) { case MotionEvent.ACTION_DOWN: break; case
 		 * MotionEvent.ACTION_MOVE: break; case MotionEvent.ACTION_UP:
@@ -563,7 +565,7 @@ public final class MainApplication extends Activity {
 	 * TODO: UI/Network - is this still necessary? YOU created a new
 	 * PrivateSpace, therefore can call createPrivateSpace however in addition
 	 * need to notify the network of the newly created Private Space
-	 * 
+	 *
 	 * @throws XMPPException
 	 */
 	// public Space init_createPrivateSpace(boolean isMainSpace) throws
@@ -584,24 +586,24 @@ public final class MainApplication extends Activity {
 	 * Create a new Private Space, makes sure to put yourself (User) in the
 	 * Private Space. The creation can be done in the PrivateSpace constructor,
 	 * if preferred but called from here.
-	 * 
+	 *
 	 * PARAMETERS: ICreatedThis->true if YOU created this, isMainSpace->true if
 	 * is a mainspace, existingbuddies->list of people already in this
 	 * privatespace if applicable, spaceID->network number for this space,
 	 * moderator->person object who can control this group
-	 * 
+	 *
 	 * Two situations in which this method is called:
-	 * 
+	 *
 	 * 1) This method is called (by network) if someone else invited you to a
 	 * PrivateSpace and you accepted. Therefore this method should be called by
 	 * the network, and this assumes that the network already has added you to
 	 * its network private space. Then existing_buddies will hold all the people
 	 * already in that PrivateSpace.
-	 * 
+	 *
 	 * 2) Called by init_createPrivateSpace() if YOU created this privateSpace
 	 * with intention, then existing buddies should be null and ICreatedThis
 	 * should be true
-	 * 
+	 *
 	 * @throws XMPPException
 	 */
 	/*
@@ -632,7 +634,7 @@ public final class MainApplication extends Activity {
 	 * (SpaceView)findViewById(R.id.space_view);
 	 * screen.getSpace().setScreenOn(false); spaceView.changeSpace(s);
 	 * s.setScreenOn(true);
-	 * 
+	 *
 	 * /* TODO network: 1) Adjust sound in network (if you want the space
 	 * onscreen to be louder than other for example)
 	 */
@@ -708,7 +710,7 @@ public final class MainApplication extends Activity {
 	 * in your mainspace, this person removed him/herself from the privatespace,
 	 * the privatespace got deleted, you kicked someone out of the group (if you
 	 * are moderator)
-	 * 
+	 *
 	 * @throws XMPPException
 	 */
 	public void deletePerson(Space space, User person) throws XMPPException {
@@ -736,7 +738,7 @@ public final class MainApplication extends Activity {
 	/**
 	 * Same reasons as invalidateSpaceView() except to invalidate a
 	 * privatespaceicon when someone is add/removed from the space
-	 * 
+	 *
 	 * @param psv
 	 *            - the PrivateSpaceIconView whose GUI needs to be updated
 	 */
@@ -752,7 +754,7 @@ public final class MainApplication extends Activity {
 	/**
 	 * Same reasons as invalidateSpaceView() except to launch a PopupWindow. In
 	 * this case used to launch invitation/confirmation views
-	 * 
+	 *
 	 * @param iv
 	 */
 	public void displayPopup(final InvitationView iv) {

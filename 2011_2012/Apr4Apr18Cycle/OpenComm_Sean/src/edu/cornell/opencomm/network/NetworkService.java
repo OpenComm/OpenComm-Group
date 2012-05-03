@@ -54,7 +54,6 @@ import android.view.View;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.LoginController;
 import edu.cornell.opencomm.controller.MainApplication;
-import edu.cornell.opencomm.controller.SpaceController;
 import edu.cornell.opencomm.model.Invitation;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.view.InvitationPopupPreviewView;
@@ -75,7 +74,7 @@ public class NetworkService {
 	/**
 	 * Constructor: a network service for the application that creates and
 	 * maintains an XMPP connection for a specific host and port
-	 * 
+	 *
 	 * @param host
 	 *            - the host where the XMPP server is running.
 	 * @param port
@@ -116,7 +115,7 @@ public class NetworkService {
 						// eg. connection timeouts because of lost connectivity
 						Log.d(TAG, "xmpp disconnected due to error: ", e);
 						reconnectionManager.connectionClosedOnError(e);
-						
+
 					}
 
 					@Override
@@ -139,8 +138,8 @@ public class NetworkService {
 
 
 				};
-				
-				xmppConn.addConnectionListener(connectionListener); 
+
+				xmppConn.addConnectionListener(connectionListener);
 
 				invitationListener = new InvitationListener() {
 					/**
@@ -176,7 +175,7 @@ public class NetworkService {
 						// if(!nickname.equals(Space.getMainSpace().getOwner().getNickname())){
 						// If invite is not from someone from your main space,
 						// accept invitation to main space. Else create popup
-						// for side chat acceptance.	
+						// for side chat acceptance.
 						if (!Space.getMainSpace().getAllNicknames()
 								.containsKey(nickname)) {
 							// Create the invitations
@@ -254,7 +253,7 @@ public class NetworkService {
 	/**
 	 * Logs in to the server using the strongest authentication mode supported
 	 * by the server, then sets presence to available
-	 * 
+	 *
 	 * @param uname
 	 *            - the username
 	 * @param pwd
@@ -346,7 +345,7 @@ public class NetworkService {
 
 	/**
 	 * TODO Ask Kris about it and write the comments
-	 * 
+	 *
 	 * @param pm
 	 */
 	public void configure(ProviderManager pm) {

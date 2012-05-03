@@ -1,6 +1,8 @@
 package edu.cornell.opencomm.controller;
 
+import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smackx.muc.ParticipantStatusListener;
 
 import android.util.Log;
@@ -9,6 +11,7 @@ import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.Network;
+import edu.cornell.opencomm.view.UserView;
 
 /** A ParticipantStatusListener that listens for the change in
  * status of participants (does not include the primary user -- for primary
@@ -205,10 +208,30 @@ public class ParticipantStatusController implements ParticipantStatusListener {
      */
     public void left(String userRoomInfo) {
         if (D) Log.d(TAG, "left called");
+
         String[] userRoomSplit = this.splitUserRoomInfo(userRoomInfo);
-        if(userRoomSplit !=null) {
+        boolean disconnected = false;
+        if(userRoomSplit != null) {
             User user = User.nicknameToUser.get(userRoomSplit[1]);
-            mSpace.getSpaceController().deleteUser(userRoomInfo, user);
+            Roster roster = LoginController.xmppService.getXMPPConnection().getRoster();
+            Presence p = roster.getPresence(user.getUsername());
+            if(p != null && (
+                    p.getType() == Presence.Type.unavailable ||
+                    p.getType() == Presence.Type.error)) {//User intentionally d/c
+                if(D) Log.d(TAG, "User dc");
+                for(UserView view : MainApplication.screen.getAllIcons()) {
+                    if(view.getPerson().getUsername() == user.getUsername()) {
+                        view.setDisconnected(true);
+                        view.invalidate();
+                        MainApplication m = (MainApplication)view.getContext();
+                        m.invalidateSpaceView();
+                    }
+                }
+                disconnected = true;
+            } else {
+                mSpace.getSpaceController().deleteUser(userRoomInfo, user);
+                if(D) Log.d(TAG, "User left");
+            }
         }
         if (D) {
             String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
@@ -220,10 +243,10 @@ public class ParticipantStatusController implements ParticipantStatusListener {
             }
         }
         String[] userSplit = this.splitUserRoomInfo(userRoomInfo);
-        if(userSplit != null){
+        if(userSplit != null && !disconnected){
             User u = User.getAllNicknames().get(userSplit[1]);
             Space s = Space.getAllSpaces().get(userSplit[0]);
-            if (u != null && s != null){
+            if (u != null && s != null) {
                 s.getAllParticipants().remove(u.getUsername());
                 s.getAllNicknames().remove(u.getNickname());
             }

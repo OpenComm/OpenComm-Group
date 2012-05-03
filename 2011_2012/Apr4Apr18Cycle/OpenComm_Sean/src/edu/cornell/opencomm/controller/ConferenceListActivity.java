@@ -15,6 +15,7 @@ import android.widget.DatePicker;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import edu.cornell.opencomm.ContextTracker;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.view.ConferenceListExpandableListAdapter;
@@ -36,6 +37,7 @@ public class ConferenceListActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ContextTracker.setContext(this);
 
         layout = getLayoutInflater().inflate(R.layout.conference_list_layout, null);
         setContentView(layout);

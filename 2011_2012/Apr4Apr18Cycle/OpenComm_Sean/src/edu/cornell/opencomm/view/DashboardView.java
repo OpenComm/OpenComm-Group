@@ -12,11 +12,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import edu.cornell.opencomm.ContextTracker;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.DashboardController;
 import edu.cornell.opencomm.controller.GoToConferencePopupController;
-import edu.cornell.opencomm.controller.LoginController;
 import edu.cornell.opencomm.network.Network;
 
 public class DashboardView extends Activity {
@@ -42,6 +42,7 @@ public class DashboardView extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ContextTracker.setContext(this);
         font = Typeface.createFromAsset(getAssets(), Values.font);
         setContentView(R.layout.dashboard_layout);
         this.dashboardOverlay = (ImageView) findViewById(R.id.dashboardOverlay);
@@ -63,7 +64,7 @@ public class DashboardView extends Activity {
                 if (D) Log.d(TAG, "initEaP: dashboardLayout -- null?: " + (this.dashboardLayout == null));
             }
         }
-        
+
         initializeContactsButtonClickedEvent();
         initializeConferencesButtonClickedEvent();
         initializeAccountButtonClickedEvent();
@@ -102,7 +103,7 @@ public class DashboardView extends Activity {
 
         return startAccountButton;
     }
-    
+
     public ImageView getAccountButtonOverlay() {
     	ImageView overlay = null;
     	if(dashboardLayout != null) {
@@ -220,7 +221,7 @@ public class DashboardView extends Activity {
     @Override
     public void onStart() {
         super.onStart();
-        
+
         //BACKEND: PLEASE CHANGE THIS TO CHECK WHETHER, AND WHAT, CONFERENCE IS SCHEDULED
         if (true) {
 	    	final String[] args = new String[1];
@@ -228,19 +229,22 @@ public class DashboardView extends Activity {
 	    	pnv = new PopupNotificationView(this, args, "conference", "one of your conferences has started", "click to enter", Values.confirmation);
 	    	pnv.setController(new GoToConferencePopupController(pnv));
 	        dashboardLayout.post(new Runnable() {
-				public void run() {
+				@Override
+                public void run() {
 			       	pnv.createPopupWindow();
 				}
-	        	
+
 	        });
         }
     } // end onStart method
-    
+
+    @Override
     public void onPause() {
     	pnv.getPopup().dismiss();
     	super.onPause();
     }
-    
+
+    @Override
     public void onDestroy() {
     	super.onDestroy();
     	pnv.getPopup().dismiss();
@@ -254,9 +258,10 @@ public class DashboardView extends Activity {
             //dashboardController.handlePopupWindowClicked();
         }
     };
-    
+
     private View.OnClickListener onAccountButtonClickedListener = new View.OnClickListener() {
 
+        @Override
         public void onClick(View v) {
         	Log.v(TAG, "listener recieved account button clicked");
             dashboardController.handleAccountButtonClicked();
@@ -265,18 +270,20 @@ public class DashboardView extends Activity {
 
     private View.OnClickListener onStartConferenceButtonClickedListener = new View.OnClickListener() {
 
+        @Override
         public void onClick(View v) {
         	Log.v(TAG, "listener recieved start conference button clicked");
             dashboardController.handleStartConferenceButtonClicked();
         }
     };
-    
+
     private View.OnClickListener onConferencesClickListener = new View.OnClickListener() {
 
+        @Override
         public void onClick(View v) {
         	Log.v(TAG, "listener recieved start conference button clicked");
             dashboardController.handleConferencesButtonClicked();
         }
     };
-    
+
 }

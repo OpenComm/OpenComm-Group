@@ -20,8 +20,6 @@
             android:layout_marginTop="68dp" android:layout_alignParentRight="true">
         </RelativeLayout>
         
-
-
         <RelativeLayout
             android:id="@+id/relativeElements"
             android:layout_width="fill_parent"
@@ -121,139 +119,175 @@
             android:layout_width="fill_parent"
             android:layout_height="337dp" android:layout_alignParentTop="true">
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/firstNameBox"
-                android:layout_width="127dp"
-                android:layout_height="27dp"
-                android:layout_alignLeft="@+id/firstNameText"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/firstNameText"
-                android:layout_marginRight="55dp"
-                android:background="@drawable/logintextback"
-                android:padding="0dp"
-                android:paddingLeft="15dp" >
-            </EditText>
+        <TextView
+            android:text="first name"
+            android:textSize="22dp"
+            android:id="@+id/firstNameText"
+            android:textColor="@color/off_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="0dp"
+            android:layout_marginLeft="53dp">
+        </TextView>
 
-            <TextView
-                android:id="@+id/lastNameText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/firstNameBox"
-                android:layout_below="@+id/firstNameBox"
-                android:text="last name"
-                android:textColor="@color/off_white"
-                android:textSize="22dp" >
-            </TextView>
+        <EditText
+            android:id="@+id/firstNameBox"
+            android:layout_height="27dp"
+            android:layout_alignLeft="@+id/firstNameText"
+            android:layout_marginRight="55dp"
+            android:background="@drawable/logintextback"
+            android:padding="0dp"
+            android:paddingLeft="15dp"
+            android:layout_marginLeft="53dp"
+            android:layout_width="211dp">
+        </EditText>
 
-            <EditText
-                android:id="@+id/lastNameBox"
-                android:layout_width="146.67dp"
-                android:layout_height="27dp"
-                android:layout_alignLeft="@+id/lastNameText"
-                android:layout_alignRight="@+id/firstNameBox"
-                android:layout_below="@+id/lastNameText"
-                android:background="@drawable/logintextback"
-                android:padding="0dp"
-                android:paddingLeft="15dp" >
+        <TextView
+            android:id="@+id/lastNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="last name"
+            android:textColor="@color/off_white"
+            android:textSize="22dp"
+            android:layout_marginLeft="53dp">
+        </TextView>
 
-            </EditText>
+        <EditText
+            android:id="@+id/lastNameBox"
+            android:layout_height="27dp"
+            android:layout_alignLeft="@+id/lastNameText"
+            android:layout_alignRight="@+id/firstNameBox"
+            android:layout_below="@+id/lastNameText"
+            android:background="@drawable/logintextback"
+            android:padding="0dp"
+            android:paddingLeft="15dp"
+            android:layout_marginLeft="53dp"
+            android:layout_width="211dp">
+        </EditText>
+        
+        <TextView
+            android:id="@+id/passwordText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/titleBox"
+            android:layout_below="@+id/titleBox"
+            android:padding="0dp"
+            android:text="password"
+            android:textColor="@color/off_white"
+            android:textSize="22dp"
+            android:layout_marginLeft="53dp"/>
 
-            <TextView
-                android:id="@+id/emailText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/lastNameBox"
-                android:layout_below="@+id/lastNameBox"
-                android:text="email"
-                android:textColor="@color/off_white"
-                android:textSize="22dp" >
-            </TextView>
+        <EditText
+            android:id="@+id/passwordBox"
+            android:password="true"
+            android:layout_height="27dp"
+            android:background="@drawable/logintextback"
+            android:padding="0dp"
+            android:paddingLeft="15dp"
+            android:layout_marginLeft="53dp" 
+            android:layout_width="211dp"/>
+            
+        <TextView 
+            android:text="confirm password" 
+            android:textSize="22dp" 
+            android:id="@+id/TextView02" 
+            android:textColor="@color/off_white" 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:padding="0dp" 
+            android:layout_marginLeft="53dp"/>
+        
+        <EditText 
+            android:paddingLeft="15dp" 
+            android:background="@drawable/logintextback" 
+            android:password="true" 
+            android:layout_height="27dp" 
+            android:id="@+id/confirmPasswordBox" 
+            android:padding="0dp" 
+            android:layout_marginLeft="53dp"
+            android:layout_width="211dp"/>
 
-            <EditText
-                android:id="@+id/emailBox"
-                android:layout_width="146.67dp"
-                android:layout_height="27dp"
-                android:layout_alignLeft="@+id/emailText"
-                android:layout_alignRight="@+id/lastNameBox"
-                android:layout_below="@+id/emailText"
-                android:background="@drawable/logintextback"
-                android:padding="0dp"
-                android:paddingLeft="15dp" >
-            </EditText>
+        <TextView
+            android:id="@+id/emailText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/lastNameBox"
+            android:layout_below="@+id/lastNameBox"
+            android:text="email"
+            android:textColor="@color/off_white"
+            android:textSize="22dp"
+            android:layout_marginLeft="53dp">
+        </TextView>
 
-            <EditText
-                android:id="@+id/titleBox"
-                android:layout_width="146.67dp"
-                android:layout_height="27dp"
-                android:layout_alignLeft="@+id/titleText"
-                android:layout_alignRight="@+id/emailBox"
-                android:layout_below="@+id/titleText"
-                android:background="@drawable/logintextback"
-                android:padding="0dp"
-                android:paddingLeft="15dp" >
-            </EditText>
+        <EditText
+            android:id="@+id/emailBox"
+            android:layout_height="27dp"
+            android:layout_alignLeft="@+id/emailText"
+            android:layout_alignRight="@+id/lastNameBox"
+            android:layout_below="@+id/emailText"
+            android:background="@drawable/logintextback"
+            android:padding="0dp"
+            android:paddingLeft="15dp"
+            android:layout_marginLeft="53dp" android:layout_width="211dp">
+        </EditText>
 
-            <RelativeLayout
-                android:id="@+id/relativeTextLabel"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/firstNameText"
-                android:layout_alignParentLeft="true" >
-            </RelativeLayout>
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/emailBox"
+            android:layout_below="@+id/emailBox"
+            android:padding="0dp"
+            android:text="title"
+            android:textColor="@color/off_white"
+            android:textSize="22dp"
+            android:layout_marginLeft="53dp">
+        </TextView>
 
-            <TextView
-                android:id="@+id/titleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/emailBox"
-                android:layout_below="@+id/emailBox"
-                android:padding="0dp"
-                android:text="title"
-                android:textColor="@color/off_white"
-                android:textSize="22dp" >
-            </TextView>
+        <EditText
+            android:id="@+id/titleBox"
+            android:layout_height="27dp"
+            android:layout_alignLeft="@+id/titleText"
+            android:layout_alignRight="@+id/emailBox"
+            android:layout_below="@+id/titleText"
+            android:background="@drawable/logintextback"
+            android:padding="0dp"
+            android:paddingLeft="15dp"
+            android:layout_marginLeft="53dp" android:layout_width="211dp">
+        </EditText>
 
-            <TextView
-                android:id="@+id/TextView01"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/titleBox"
-                android:layout_below="@+id/titleBox"
-                android:padding="0dp"
-                android:text="password"
-                android:textColor="@color/off_white"
-                android:textSize="22dp" />
+        <TextView 
+            android:text="photo" 
+            android:textSize="22dp" 
+            android:id="@+id/photoText"
+            android:textColor="@color/off_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/confirmPasswordBox"
+            android:layout_alignLeft="@+id/confirmPasswordBox"
+            android:layout_marginLeft="53dp">
+        </TextView>
 
-            <EditText
-                android:id="@+id/passwordBox"
-                android:password="true"
-                android:layout_width="146.67dp"
-                android:layout_height="27dp"
-                android:layout_alignLeft="@+id/TextView01"
-                android:layout_alignRight="@+id/titleBox"
-                android:layout_below="@+id/TextView01"
-                android:background="@drawable/logintextback"
-                android:padding="0dp"
-                android:paddingLeft="15dp" />
+        <ImageView
+            android:id="@+id/photoButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignLeft="@+id/photoText"
+            android:layout_below="@+id/photoText"
+            android:scaleType="centerInside"
+            android:src="@drawable/imagearrow"
+            android:layout_marginLeft="53dp"
+            />
+            
 
-            <ImageView
-                android:id="@+id/photoButton"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_alignLeft="@+id/photoText"
-                android:layout_below="@+id/photoText"
-                android:scaleType="centerInside"
-                android:src="@drawable/imagearrow" />
-            <TextView android:text="confirm password" android:textSize="22dp" android:id="@+id/TextView02" android:textColor="@color/off_white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:padding="0dp" android:layout_below="@+id/passwordBox" android:layout_alignLeft="@+id/passwordBox"></TextView>
-            <EditText android:paddingLeft="15dp" android:layout_width="146.67dp" android:background="@drawable/logintextback" android:password="true" android:layout_height="27dp" android:id="@+id/confirmPasswordBox" android:padding="0dp" android:layout_below="@+id/TextView02" android:layout_alignLeft="@+id/TextView02" android:layout_alignRight="@+id/passwordBox"></EditText>
-            <TextView android:text="photo" android:textSize="22dp" android:id="@+id/photoText" android:textColor="@color/off_white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@+id/confirmPasswordBox" android:layout_alignLeft="@+id/confirmPasswordBox"></TextView>
-            <TextView android:text="first name" android:textSize="22dp" android:id="@+id/firstNameText" android:textColor="@color/off_white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:padding="0dp" android:layout_alignParentTop="true" android:layout_alignParentLeft="true" android:layout_marginLeft="53dp"></TextView>
 
-</RelativeLayout>
+
+</LinearLayout>
 
             </ScrollView>
 

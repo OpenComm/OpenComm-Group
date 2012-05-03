@@ -33,7 +33,7 @@ public class UserView extends ImageButton{
     Bitmap nameBoxImage; // The name box on a user's icon
     Space space;
     boolean ghost = false;
-    
+
     //font
     private Typeface font;
 
@@ -45,6 +45,7 @@ public class UserView extends ImageButton{
     static UserView selectedIcon;
     boolean clickOnIcon;
     private boolean lassoed;
+    private boolean disconnected;
 
     final private static int GHOST_ALPHA = 50;
 
@@ -164,11 +165,11 @@ public class UserView extends ImageButton{
             bord.setBounds(x-b,y-b,x+image.getWidth()+b,y+image.getHeight()+b);
             Log.v(LOG_TAG, "SIZE"+(image.getWidth()+2*b)+""+(image.getHeight()+2*b));
             //border.setPadding(b,b,b,b);
-            
+
             bord.draw(canvas);
             //Crystal image
             Bitmap overlay = Bitmap.createBitmap(image.getWidth(),image.getHeight(), Bitmap.Config.ARGB_8888);
-            
+
             Canvas c = new Canvas(overlay);
 
             paint.setAntiAlias(true);
@@ -192,6 +193,21 @@ public class UserView extends ImageButton{
             c.drawText(person.getUsername(), 0, Math.min(11,(person.getUsername()).length()),0/*Values.iconTextPadding*/,
                     image.getHeight()-namebox+Values.nameTextSize/*5/2*Values.iconBorderPadding+10*/, paint);
             canvas.drawBitmap(overlay, x, y, null);
+            if(disconnected) {
+                Bitmap dcOverlay = Bitmap.createBitmap(image.getWidth()+2*b,image.getHeight()+2*b, Bitmap.Config.ARGB_8888);
+                Canvas dcCanvas = new Canvas(dcOverlay);
+                Paint ad= new Paint();
+                ad.setColor(Color.rgb(0,0,0));
+                ad.setAlpha(204);
+                dcCanvas.drawRect( 0, 0, image.getWidth()+2*b,image.getHeight()+2*b, ad);
+                ad.setAlpha(255);
+                ad.setColor(Color.WHITE);
+                ad.setStyle(Paint.Style.FILL);
+                ad.setAntiAlias(true);
+                ad.setTextSize(Values.adminTextSize);
+                dcCanvas.drawText("disconnected",15, (image.getHeight()/2+3*Values.textAdjust), ad);
+                canvas.drawBitmap(dcOverlay,x-b, y-b, null);
+            }
 
             if(space != null && person==space.getOwner()){
 
@@ -311,7 +327,7 @@ public class UserView extends ImageButton{
         matrix.postScale(scaleWidth, scaleHeight);
         this.image = Bitmap.createBitmap(oldImage, 0, 0, width, height, matrix, true);
     }
-    
+
     //rescale current image to given size
     public void rescaleSize(int newWidth, int newHeight){
     	 int width = (image).getWidth();
@@ -414,4 +430,7 @@ public class UserView extends ImageButton{
         return true;
     }
 
+    public void setDisconnected(boolean disconnected) {
+        this.disconnected = disconnected;
+    }
 }
