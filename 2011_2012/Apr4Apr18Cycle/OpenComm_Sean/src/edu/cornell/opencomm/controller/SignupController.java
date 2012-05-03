@@ -85,13 +85,7 @@ public class SignupController {
         xmppService.login(Network.DEBUG_USERNAME, Network.DEBUG_PASSWORD);
         UserAccountManager manager = new UserAccountManager(xmppService.getXMPPConnection());
         if (D) Log.d(TAG, "Email:"+email+"Password:"+password+"firstName"+firstName+"lastName"+lastName+"title"+title);
-        ArrayList<NameValuePair> pairs = new ArrayList<NameValuePair>();
-        pairs.add(new BasicNameValuePair("email", email));
-        pairs.add(new BasicNameValuePair("password", password));
-        pairs.add(new BasicNameValuePair("firstName", firstName));
-        pairs.add(new BasicNameValuePair("lastName", lastName));
-        pairs.add(new BasicNameValuePair("title", title));
-        manager.userChange(pairs);
+        createUser(email, password, firstName, lastName, title);
         xmppService.disconnect();
         view.dismiss();
     }
