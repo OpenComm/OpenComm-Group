@@ -140,6 +140,8 @@ public class SpaceController {
         if(space.equals(Space.getMainSpace())){
             Space.setMainSpace(null);
         }
+        
+        psiv.deleteThisPSView();
     } // end of deleteSpace method
 
     public static Space addExistingSpace(Context context, boolean isMainSpace, String roomID,boolean isLeft) {
@@ -168,13 +170,21 @@ public class SpaceController {
     public static Space swapMainSpace(Context context, String roomID) {
     	//Get rid of old main space.
         Space.allSpaces.remove(Space.getMainSpace().getRoomID());
+      
         Space.getMainSpace().getSpaceController().deleteSpace();
         Space space = null;
         try {
             space = new Space(context, true, roomID, false);
-            //Next 2 lines makes PS icon from newly made space, sets it to our allIcons at index 1 (center space)
+            //Nexss 2 lines makes PS icon from newly made space, sets it to our allIcons at index 1 (center space)
+            PrivateSpaceIconView temp = PrivateSpaceIconView.allPSIcons.get(1);//should be 2, but we just deleted the middle
+            PrivateSpaceIconView.allPSIcons.get(1).deleteThisPSView();
+            
             PrivateSpaceIconView psIcon=new PrivateSpaceIconView(Space.getMainSpace().getContext(),space);
-            PrivateSpaceIconView.allPSIcons.set(1, psIcon);
+            PrivateSpaceIconView.allPSIcons.add(psIcon);
+            
+            PrivateSpaceIconView temp2 = new PrivateSpaceIconView(Space.getMainSpace().getContext(),temp.space);
+            PrivateSpaceIconView.allPSIcons.add(temp2);
+            //PrivateSpaceIconView.allPSIcons.get(1)
             space.getSpaceController().setPSIV(PrivateSpaceIconView.allPSIcons.get(1));
             Space.setMainSpace(space);
             MainApplication.screen.getSpaceViewController().changeSpace(space);
