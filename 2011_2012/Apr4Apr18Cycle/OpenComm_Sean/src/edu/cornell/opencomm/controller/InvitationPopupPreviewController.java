@@ -28,7 +28,7 @@ public class InvitationPopupPreviewController {
     	Space templeft = Space.allSpaces.get(String.valueOf(0));
     	Space.allSpaces.remove(String.valueOf(0));
     	templeft.getSpaceController().deleteSpace();
-    	Space newleft = SpaceController.addExistingSpace(Space.getMainSpace().getContext(), false, String.valueOf(0));
+    	Space newleft = SpaceController.addExistingSpace(Space.getMainSpace().getContext(), false, String.valueOf(0),true/*isLeft*/);
     	//PrivateSpaceIconView left = new PrivateSpaceIconView(Space.getMainSpace().getContext(), newleft);
     	//newleft.getSpaceController().setPSIV(left);s
     	
@@ -41,7 +41,7 @@ public class InvitationPopupPreviewController {
 		Space tempright = Space.allSpaces.get(String.valueOf(2));
     	Space.allSpaces.remove(String.valueOf(2));
     	tempright.getSpaceController().deleteSpace();
-    	Space newright = SpaceController.addExistingSpace(Space.getMainSpace().getContext(), false, String.valueOf(2));
+    	Space newright = SpaceController.addExistingSpace(Space.getMainSpace().getContext(), false, String.valueOf(2),false/*isLeft*/);
     	//PrivateSpaceIconView left = new PrivateSpaceIconView(Space.getMainSpace().getContext(), newright);
     	//newright.getSpaceController().setPSIV(left);
     	
