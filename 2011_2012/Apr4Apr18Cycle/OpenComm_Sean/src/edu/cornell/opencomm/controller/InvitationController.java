@@ -96,9 +96,9 @@ public class InvitationController {
                 SpaceController.swapMainSpace(MainApplication.screen.getContext(),
                         invite.getMUC().getRoom());
             // else create a new space
-            else
+            else//This is never called atm. Dead code
                 SpaceController.addExistingSpace(MainApplication.screen.getContext(), false,
-                        invite.getRoom());
+                        invite.getRoom(),true);
         }
     } //end handleAcceptButtonHover
 
