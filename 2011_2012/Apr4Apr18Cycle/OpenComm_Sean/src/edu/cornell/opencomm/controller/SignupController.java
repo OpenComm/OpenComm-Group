@@ -83,7 +83,6 @@ public class SignupController {
         //Log into the server as admin to create a new account
         NetworkService xmppService = new NetworkService(Network.DEFAULT_HOST, Network.DEFAULT_PORT);
         xmppService.login(Network.DEBUG_USERNAME, Network.DEBUG_PASSWORD);
-        UserAccountManager manager = new UserAccountManager(xmppService.getXMPPConnection());
         if (D) Log.d(TAG, "Email:"+email+"Password:"+password+"firstName"+firstName+"lastName"+lastName+"title"+title);
         createUser(email, password, firstName, lastName, title);
         xmppService.disconnect();

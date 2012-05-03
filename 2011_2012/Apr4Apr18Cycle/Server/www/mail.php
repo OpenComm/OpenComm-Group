@@ -72,14 +72,46 @@ if(isset($_POST['userEmail']) && isset($_POST['action'])) {
 			break;	
 		}
 	}
+	else if($action === "edit") {
+		if(isset($_POST['id']) && isset($_POST['password'])) {
+			$id = $_POST['id'];
+			$password = $_POST['password'];
+			$suffix =':9090/plugins/userService/userservice?type=update&secret=opencomm.123&username='.$username.'&password='.$password.'&name='.$id.'&email='.$userEmail;
+		}
+		else {
+			echo "PB1";
+			break;	
+		}
+	}
 	else {
 		echo "PB4";
 		break;	
 	}
 
-	if(smtpmailer($userEmail, 'opencomm.cs@gmail.com', 'OpenComm Consumer Service', $subject, $body)) {		
-		$fp = fopen($serverOpenfire.$suffix, 'rb');
-		
+	if($action === "add" || $action === "forgot") { 
+		if(smtpmailer($userEmail, 'opencomm.cs@gmail.com', 'OpenComm Consumer Service', $subject, $body)) {		
+			$fp = fopen($serverOpenfire.$suffix, 'rb');
+			
+			if (!$fp) {
+				echo "PB2";
+			  }
+			else {
+				$response = @stream_get_contents($fp);
+				if ($response === false) {
+					echo "PB3";
+					}
+				else {
+					$response = preg_replace('/<[^>]*>|[^a-zA-Z]/', '', $response);
+					echo $response;
+					}
+				}
+			}
+		else {
+			echo "PB5";	
+			}
+		}
+	else {
+		$fp = fopen($serverOpenfire.$suffix, 'rb');	
 		if (!$fp) {
 			echo "PB2";
 		  }
@@ -94,10 +126,7 @@ if(isset($_POST['userEmail']) && isset($_POST['action'])) {
 				}
 			}
 		}
-	else {
-		echo "PB5";	
 	}
-}
 else {
 	echo "PB1";	
 	}
