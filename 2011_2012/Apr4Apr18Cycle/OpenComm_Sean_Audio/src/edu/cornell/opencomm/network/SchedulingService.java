@@ -31,6 +31,7 @@ public class SchedulingService {
 	private ChatManager chatManager;
 	private Chat schedulingChat;
 	private static LinkedList<Timer> allTimers;
+	private static Collection<ConferenceData> allConferences;
 
 	/** A wrapper inner class for conference data pulled from the database. */
 	class ConferenceData {
@@ -72,6 +73,7 @@ public class SchedulingService {
 					public void processMessage(Chat arg0, Message arg1) {
 						if (arg1.getSubject().equals("ConferenceInfo")) {
 							// TODO: Parse out conference info and pass to UI
+							allConferences = parseConferences(arg1.getBody());
 						} else if (arg1.getSubject().equals(
 								"ConferencePushResult")) {
 							if (arg1.getBody().equals("Sucess!")) {
@@ -80,11 +82,20 @@ public class SchedulingService {
 								// TODO: UI - give error message
 							}
 						} else if (arg1.getSubject().equals("Error")) {
-							// TODO: UI - give error message. Or maybe throw
-							// exception?
+							// TODO: UI - give error message.
 						}
 					}
 				});
+		// Create a Timer to pull conferences every hour
+		Timer pullConferences = new Timer();
+		pullConferences.scheduleAtFixedRate(new TimerTask() {
+
+			@Override
+			public void run() {
+				pullConferences();
+			}		
+		}, 0, 3600000);
+		
 	}
 
 	/** Sends conference info to the database. */
@@ -109,13 +120,24 @@ public class SchedulingService {
 		}
 	}
 
+	/** Sends a message to the server asking for conference data. */
+	public void pullConferences() {
+		Message pull = new Message();
+		pull.setPacketID("pullConferences");
+		try {
+			schedulingChat.sendMessage(pull);
+		} catch (XMPPException e) {
+			Log.v(LOG_TAG, e.getMessage());
+		}
+	}
+	
 	/**
 	 * Retrieve conference info from the database.
 	 * 
 	 * @return - a Collection of ConferenceData representing conferences the
 	 *         primary user is a part of
 	 */
-	public Collection<ConferenceData> pullConferences(String rawData) {
+	public Collection<ConferenceData> parseConferences(String rawData) {
 		Collection<ConferenceData> data = new LinkedList<ConferenceData>();
 		String[] conferences = rawData.split("\n");
 		for (String conferenceData : conferences) {
@@ -139,7 +161,7 @@ public class SchedulingService {
 				}
 				data.add(info);
 				if (info.start < 3600000) {
-					allTimers.add(createTimer(info));
+					allTimers.add(createConferenceTimer(info));
 				}
 			}
 		}
@@ -185,7 +207,7 @@ public class SchedulingService {
 	}
 	
 	/** Create a timer for a conference notification. */
-	public Timer createTimer(final ConferenceData info) {
+	public Timer createConferenceTimer(final ConferenceData info) {
 		Timer startConference = new Timer();
 		Date start = new Date(info.start);
 		startConference.schedule(new TimerTask() {
@@ -201,5 +223,9 @@ public class SchedulingService {
 			
 		}, start);
 		return startConference;
+	}
+	
+	public static Collection<ConferenceData> getAllConferences() {
+		return allConferences;
 	}
 }
