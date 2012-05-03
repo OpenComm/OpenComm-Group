@@ -1,6 +1,9 @@
 package edu.cornell.opencomm.view;
 
 import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smackx.muc.MultiUserChat;
+import org.jivesoftware.smackx.muc.Occupant;
+import org.jivesoftware.smackx.muc.RoomInfo;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -17,9 +20,11 @@ import android.widget.PopupWindow;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.InvitationPopupPreviewController;
+import edu.cornell.opencomm.controller.LoginController;
 import edu.cornell.opencomm.controller.MainApplication;
 import edu.cornell.opencomm.model.Invitation;
 import edu.cornell.opencomm.model.Space;
+import edu.cornell.opencomm.model.User;
 
 public class InvitationPopupPreviewView extends LinearLayout {
 	private Space space; // The Icon this popup is associated with
@@ -46,9 +51,6 @@ public class InvitationPopupPreviewView extends LinearLayout {
 		super(context);
 
 		this.invitation=invitation;
-		space = new Space(
-				context,
-				false, invitation.getRoom(), false/* owner */);
 		
 		this.ippc = new InvitationPopupPreviewController(this, context);
 
@@ -65,23 +67,32 @@ public class InvitationPopupPreviewView extends LinearLayout {
 		
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
 				USER_ICON_DIMENSION-5, USER_ICON_DIMENSION);
-
-		Log.v("IPPV ICONS", "icon #: "+ space.getAllIcons().size());
+		
+		//Hardcode "troll":s
+		UserView troll = new UserView(context, new User(invitation.getInviter(),invitation.getInviter(),R.drawable.question),
+				R.drawable.question, space, 11, 11);
+		
+		troll.rescaleSize(USER_ICON_DIMENSION-20, USER_ICON_DIMENSION-20);
+		scroll.addView(troll, lp);
+		
+		
+		
+		//Log.v("IPPV ICONS", "icon #: "+ space.getAllIcons().size());
 		// Populate view with user icons except for yourself
-		for (UserView view : space.getAllIcons()) {
-			//if (D)
-				Log.d(TAG, "Adding View");
-			if (!view.getPerson().getUsername().split("@")[0]
-					.equals(MainApplication.userPrimary.getUsername()))
-			{
-				UserView temp = new UserView(context, view.getPerson(),
-						R.drawable.question, space, 11, 11);
-				
-				temp.rescaleSize(USER_ICON_DIMENSION-20, USER_ICON_DIMENSION-20);
-				scroll.addView(temp, lp);
-
-			}
-		}
+//		for (UserView view : space.getAllIcons()) {
+//			//if (D)
+//				Log.d(TAG, "Adding View");
+//			if (!view.getPerson().getUsername().split("@")[0]
+//					.equals(MainApplication.userPrimary.getUsername()))
+//			{
+//				UserView temp = new UserView(context, view.getPerson(),
+//						R.drawable.question, space, 11, 11);
+//				
+//				temp.rescaleSize(USER_ICON_DIMENSION-20, USER_ICON_DIMENSION-20);
+//				scroll.addView(temp, lp);
+//
+//			}
+//		}
 		initClickHandlers();
 	}
 
@@ -224,6 +235,20 @@ public class InvitationPopupPreviewView extends LinearLayout {
 	
 	public Space getSpace () {
 		return space;
+	}
+
+	/**
+	 * @return the invitation
+	 */
+	public Invitation getInvitation() {
+		return invitation;
+	}
+
+	/**
+	 * @param invitation the invitation to set
+	 */
+	public void setInvitation(Invitation invitation) {
+		this.invitation = invitation;
 	}
 }
 

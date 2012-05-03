@@ -10,6 +10,10 @@
 
 package edu.cornell.opencomm.network;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedList;
+
 import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.ConnectionListener;
@@ -24,6 +28,7 @@ import org.jivesoftware.smackx.GroupChatInvitation;
 import org.jivesoftware.smackx.PrivateDataManager;
 import org.jivesoftware.smackx.muc.InvitationListener;
 import org.jivesoftware.smackx.muc.MultiUserChat;
+import org.jivesoftware.smackx.muc.Occupant;
 import org.jivesoftware.smackx.packet.ChatStateExtension;
 import org.jivesoftware.smackx.packet.LastActivity;
 import org.jivesoftware.smackx.packet.OfflineMessageInfo;
@@ -153,11 +158,39 @@ public class NetworkService {
 
 						Log.v("NetworkService", "Invitation Received for room "
 								+ room);
-
-						String roomID = room;
+						Log.v("NetworkService","password: " + password);
+						//String roomID = room;
 						MultiUserChat muc = new MultiUserChat(
-								LoginController.xmppService.getXMPPConnection(),
-								roomID);
+								connection,
+								room);
+						
+						//This bock of comments are my debug code. It did't work.
+//						try {
+//							//Try join  and then ask for collection of users/stuff?
+//							muc.join(MainApplication.userPrimary.getNickname());
+//							Thread.sleep(2000);
+//						} catch (XMPPException e1) {
+//							// TODO Auto-generated catch block
+//							e1.printStackTrace();
+//						} catch (InterruptedException e) {
+//							// TODO Auto-generated catch block
+//							e.printStackTrace();
+//						}
+//						
+//						Collection<Occupant> occupants = null;
+//						try {
+//							occupants = muc.getParticipants();
+//						} catch (XMPPException e2) {
+//							// TODO Auto-generated catch block
+//							e2.printStackTrace();
+//						}
+//					Log.v("NetworkServiceOccupants", "participant empty?: " +	occupants.isEmpty());
+//						
+//						Log.v("MUC CHECK", "ROOM: " + muc.getRoom());
+//						Log.v("XMPP NULL CHECK", "XMPP: " + connection);
+//						 Log.v("MUC CHECK", "Occupant hasNext: " + muc.getOccupants().hasNext());
+						
+						
 						String nickname = inviter.split("@")[0];
 
 						Invitation invitation = new Invitation(connection,

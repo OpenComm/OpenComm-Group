@@ -1,6 +1,7 @@
 package edu.cornell.opencomm.controller;
 
 import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smackx.muc.MultiUserChat;
 
 import android.content.Context;
 import android.util.Log;
@@ -50,6 +51,7 @@ public class InvitationPopupPreviewController {
 	}
 
 	public void handleCancelClicked() {
+		 MultiUserChat.decline(view.getInvitation().getConnection(),view.getInvitation().getRoom(), view.getInvitation().getInviter(), null);
 		view.dismiss();
 	}
     
