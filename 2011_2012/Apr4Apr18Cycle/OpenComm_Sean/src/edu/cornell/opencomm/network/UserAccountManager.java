@@ -79,6 +79,8 @@ public class UserAccountManager {
 		//
 		// Sends an email via a script on page mail.php on the server
 
+		Log.v(TAG, "Send " + nameValuePairs.toString());
+		
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpPost httppost = new HttpPost("http://" + serverName + "/mail.php");
 		HttpResponse response = null;
