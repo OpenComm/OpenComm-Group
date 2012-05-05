@@ -55,7 +55,7 @@ if(isset($_POST['userEmail']) && isset($_POST['action'])) {
 	$username = $usernameArray[0];
 	if($action === "forgot") {
 		$password = createPassword(8);
-		$subject = 'Your new password';
+		$subject = 'Your new password for OpenComm';
 		$body = 'Your password is now: '.$password;
 		$suffix = ':9090/plugins/userService/userservice?type=update&secret=opencomm.123&username='.$username.'&password='.$password;
 	}
@@ -64,7 +64,7 @@ if(isset($_POST['userEmail']) && isset($_POST['action'])) {
 			$id = preg_replace('/ +/', '%20', $_POST['id']);
 			$password = $_POST['password'];
 			$subject = 'OpenComm registration';
-			$body = $id.', you have signed up to OpenComm!';
+			$body = $id.'You have signed up to OpenComm! Your username is: '.$username;
 			$suffix =':9090/plugins/userService/userservice?type=add&secret=opencomm.123&username='.$username.'&password='.$password.'&name='.$id.'&email='.$userEmail;
 		}
 		else {
@@ -74,7 +74,7 @@ if(isset($_POST['userEmail']) && isset($_POST['action'])) {
 	}
 	else if($action === "edit") {
 		if(isset($_POST['id']) && isset($_POST['password'])) {
-			$id = $_POST['id'];
+			$id = preg_replace('/ +/', '%20', $_POST['id']);
 			$password = $_POST['password'];
 			$suffix =':9090/plugins/userService/userservice?type=update&secret=opencomm.123&username='.$username.'&password='.$password.'&name='.$id.'&email='.$userEmail;
 		}
