@@ -68,9 +68,12 @@ public class InvitationPopupPreviewView extends LinearLayout {
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
 				USER_ICON_DIMENSION-5, USER_ICON_DIMENSION);
 		
+		//This has to be done for each of the person being in the conf.
+           User temp = User.getAllNicknames().get(invitation.getInviter().split("@")[0]);
+           Log.v("USERNAME IPPV", invitation.getInviter().split("@")[0]);
 		//Hardcode "troll":s
-		UserView troll = new UserView(context, new User(invitation.getInviter(),invitation.getInviter(),R.drawable.question),
-				R.drawable.question, space, 11, 11);
+		UserView troll = new UserView(context, 
+				temp,R.drawable.question, space, 11, 11);
 		
 		troll.rescaleSize(USER_ICON_DIMENSION-20, USER_ICON_DIMENSION-20);
 		scroll.addView(troll, lp);

@@ -6,6 +6,7 @@ import org.jivesoftware.smackx.muc.MultiUserChat;
 import android.content.Context;
 import android.util.Log;
 import edu.cornell.opencomm.Values;
+import edu.cornell.opencomm.model.Invitation;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.view.InvitationPopupPreviewView;
 import edu.cornell.opencomm.view.PrivateSpaceIconView;
@@ -25,28 +26,29 @@ public class InvitationPopupPreviewController {
     
     public void handleGoLeftClicked () {
     	
-    	Space templeft = Space.allSpaces.get(String.valueOf(0));
-    	Space.allSpaces.remove(String.valueOf(0));
-    	templeft.getSpaceController().deleteSpace();
-    	Space newleft = SpaceController.addExistingSpace(Space.getMainSpace().getContext(), false, String.valueOf(0),true/*isLeft*/);
+    	//PrivateSpaceIconView.allPSIcons.get(0).space.getSpaceController().deleteSpace();
+//    	Space templeft = Space.allSpaces.get(String.valueOf(0));
+//    	Space.allSpaces.remove(String.valueOf(0));
+//    	templeft.getSpaceController().deleteSpace();
+    	SpaceController.addExistingSpace(Space.getMainSpace().getContext(), false, view.getInvitation().getRoom(),true/*isLeft*/);
     	//PrivateSpaceIconView left = new PrivateSpaceIconView(Space.getMainSpace().getContext(), newleft);
     	//newleft.getSpaceController().setPSIV(left);s
     	
-		MainApplication.screen.getSpaceViewController().changeSpace(
-				view.getSpace());
+    	MainApplication.screen.getSpaceViewController().changeSpace(PrivateSpaceIconView.allPSIcons.get(0).space);
 		view.dismiss();
     }
 
 	public void handleGoRightClicked() {
-		Space tempright = Space.allSpaces.get(String.valueOf(2));
-    	Space.allSpaces.remove(String.valueOf(2));
-    	tempright.getSpaceController().deleteSpace();
-    	Space newright = SpaceController.addExistingSpace(Space.getMainSpace().getContext(), false, String.valueOf(2),false/*isLeft*/);
+	//	PrivateSpaceIconView.allPSIcons.get(2).space.getSpaceController().deleteSpace();
+		
+//		Space tempright = Space.allSpaces.get(String.valueOf(2));
+//    	Space.allSpaces.remove(String.valueOf(2));
+//    	tempright.getSpaceController().deleteSpace();
+    	SpaceController.addExistingSpace(Space.getMainSpace().getContext(), false, view.getInvitation().getRoom(),false/*isLeft*/);
     	//PrivateSpaceIconView left = new PrivateSpaceIconView(Space.getMainSpace().getContext(), newright);
     	//newright.getSpaceController().setPSIV(left);
     	
-		MainApplication.screen.getSpaceViewController().changeSpace(
-				view.getSpace());
+		MainApplication.screen.getSpaceViewController().changeSpace(PrivateSpaceIconView.allPSIcons.get(2).space);
 		view.dismiss();
 	}
 

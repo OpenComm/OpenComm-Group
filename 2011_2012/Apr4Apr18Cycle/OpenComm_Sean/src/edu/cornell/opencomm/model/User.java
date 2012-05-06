@@ -25,7 +25,7 @@ public class User {
         R.color.light_purple,R.color.red, R.color.pink, R.color.grass_green,R.color.ocean_blue,
         R.color.showy_green};
     static int color_pointer=0;
-    static Hashtable<String, Integer> user_color_table= new Hashtable<String, Integer> ();
+    private static Hashtable<String, Integer> user_color_table= new Hashtable<String, Integer> ();
 
     // Maps JID to User
     private static HashMap<String, User> allUsers = new HashMap<String, User>();
@@ -102,5 +102,7 @@ public class User {
     public static HashMap<String, User> getAllNicknames(){
         return nicknameToUser;
     }
+
+
 }
 
