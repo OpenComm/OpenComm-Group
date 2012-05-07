@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import edu.cornell.opencomm.network.Network;
 import edu.cornell.opencomm.view.ConferencePlannerView;
 
 //Modedled after Invitation.java, has fields relating to conference, has setters to change them
@@ -14,7 +15,7 @@ public class Conference implements Comparable<Conference> {
     private String inviter;
    
     private Date startDate, endDate;//Date objects representing start and end time of conference
-
+    private String[]inviteList;
     private ArrayList<String> contactList;
     // private MultiUserChat muc;
 
@@ -77,7 +78,7 @@ public class Conference implements Comparable<Conference> {
     public int getEndMinute(){
         return endDate.getMinutes();
     }
-    //username of the one who created this conference
+    /**Returns inviter username (does not include server IP) */
     public String getInviter(){
         return inviter;
     }
@@ -219,4 +220,49 @@ public class Conference implements Comparable<Conference> {
         Date otherStartDate = other.getStartDate();
         return startDate.compareTo(otherStartDate);
     }
+    
+    /**Returns ararylist of contactlist as a string array*/
+    public String[] getContactsAsArray(){
+    	return getContactList().toArray(new String[0]);
+    }
+    
+    /**Anything that floats our boat for now: change later */
+    public String getRecurring(){
+    	return "once";
+    }
+    
+    /**Returns unix time of start date object, for pushing to server */
+    public long getStartLong(){
+    	return startDate.getTime();
+    }
+    
+    /**Returns unix time of end date object, for pushing to server */
+    public long getEndLong(){
+    	return endDate.getTime();
+    }
+    
+    /**Returns date in string of format dd/mm/yyyy*/
+    public String getDateString(){
+    	int day = getStartDay();
+    	int month = getStartMonth();
+    	int year = getStartYear();
+    	String dayString = ""+ day;
+    	
+    	if(day<10){
+    		dayString = "0"+day;
+    	}
+    	
+    	String monthString = ""+ month;
+    	if(month<10){
+    		monthString = "0"+ month;
+    	}
+    	
+    	return dayString+"/"+ monthString + "/" + year;
+    }
+    
+    /**Returns inviter name + server */
+    public String getHostName(){
+    	return getInviter() + Network.DEFAULT_HOSTNAME;//@opencomm-no-ip.org by default
+    }
+    
 }
