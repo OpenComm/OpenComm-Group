@@ -43,10 +43,10 @@ public class SignupController {
         if (D) Log.d(TAG, "SignupController constructor called");
         this.view = view;
         this.context = context;
-		this.xmppService = new NetworkService(Network.DEFAULT_HOST,
-				Network.DEFAULT_PORT);
-		this.xmppConn = xmppService.getXMPPConnection();
-        this.userAccountManager = new UserAccountManager(xmppConn);
+		//this.xmppService = new NetworkService(Network.DEFAULT_HOST,
+		//		Network.DEFAULT_PORT);
+		//this.xmppConn = xmppService.getXMPPConnection();
+        //this.userAccountManager = new UserAccountManager(xmppConn);
     }
 
     public final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[.][a-zA-Z]{2,4}$");
