@@ -171,7 +171,7 @@ public class ConferenceListing {
     	             String endT=String.valueOf(conf.getEndHour())+":"+String.valueOf(conf.getEndMinute());
 			         conf.getPlannerView().debugLaunch(conf.getRoom(), date, startT,endT);
 			          //cpv1.getConferencePlannerController().buddySelection;
-			         CharSequence[] buddyList=conf.getInvitees();//cpv1.getConferencePlannerController().buddyList;
+			         CharSequence[] buddyList=conf.getContactList().toArray(new CharSequence[0]);//getInvitees();//cpv1.getConferencePlannerController().buddyList;
 			         final  LinearLayout vs=(LinearLayout) cpv1.getView().findViewById(R.id.userIcons);
 			         for (int i = 0; i < buddyList.length; i++) {
 

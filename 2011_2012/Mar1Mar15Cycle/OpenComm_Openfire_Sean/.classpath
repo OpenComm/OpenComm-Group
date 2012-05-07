@@ -3,6 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry exported="true" kind="lib" path="asmack-issue-13.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Kris/Downloads/mysql-connector-java-5.1.18/mysql-connector-java-5.1.18/mysql-connector-java-5.1.18-bin.jar"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="output" path="bin/classes"/>

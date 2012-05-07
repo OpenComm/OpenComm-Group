@@ -31,18 +31,29 @@ public class DashboardView extends Activity {
     private LayoutInflater inflater = null;
     private PopupWindow window = null;
     private DashboardController dashboardController;
+    private static DashboardView dashboardInstance;
 
     private View dashboardLayout;
     private ImageView dashboardOverlay;
     private Typeface font;
 
     private PopupNotificationView pnv;
+	private static boolean popupGo;//If true: 
+	
+	public static void setPopupGo(boolean popupGo){
+		DashboardView.popupGo=popupGo;
+	}
+	
+	public static DashboardView getDashboardInstance(){
+		return dashboardInstance;
+	}
     /*
      * /** Called when an activity is first created
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dashboardInstance=this;
         ContextTracker.setContext(this);
         font = Typeface.createFromAsset(getAssets(), Values.font);
         setContentView(R.layout.dashboard_layout);
@@ -225,7 +236,8 @@ public class DashboardView extends Activity {
         super.onStart();
 
         //BACKEND: PLEASE CHANGE THIS TO CHECK WHETHER, AND WHAT, CONFERENCE IS SCHEDULED
-        if (true) {
+        if (popupGo) {
+        	popupGo=false;
 	    	final String[] args = new String[1];
 	    	args[0] = getIntent().getStringExtra(Network.KEY_USERNAME);
 	    	pnv = new PopupNotificationView(this, args, "conference", "one of your conferences has started", "click to enter", Values.confirmation);
@@ -242,14 +254,16 @@ public class DashboardView extends Activity {
 
     @Override
     public void onPause() {
-    	pnv.getPopup().dismiss();
+    	if(pnv!=null){
+    	pnv.getPopup().dismiss();}
     	super.onPause();
     }
 
     @Override
     public void onDestroy() {
     	super.onDestroy();
-    	pnv.getPopup().dismiss();
+    	if(pnv!=null){
+    	pnv.getPopup().dismiss();}
     }
 
 
