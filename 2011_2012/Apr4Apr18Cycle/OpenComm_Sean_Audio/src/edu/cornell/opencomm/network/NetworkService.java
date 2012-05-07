@@ -12,10 +12,13 @@ package edu.cornell.opencomm.network;
 
 import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.ConnectionConfiguration;
+import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.filter.PacketFilter;
 import org.jivesoftware.smack.packet.Message;
+import org.jivesoftware.smack.packet.Packet;
 import org.jivesoftware.smack.provider.PrivacyProvider;
 import org.jivesoftware.smack.provider.ProviderManager;
 import org.jivesoftware.smackx.GroupChatInvitation;
@@ -55,6 +58,7 @@ import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.LoginController;
 import edu.cornell.opencomm.controller.MainApplication;
 import edu.cornell.opencomm.model.Invitation;
+import edu.cornell.opencomm.model.SchedulingPacket;
 import edu.cornell.opencomm.view.InvitationView;
 
 
@@ -121,6 +125,44 @@ public class NetworkService {
 
         		MultiUserChat.addInvitationListener(xmppConn,invitationListener);
         		JingleIQBuddyPacketRouter.setup(xmppConn);
+        		
+        		//Listen for alert packets
+        		xmppConn.addPacketListener(new PacketListener() {
+
+					@Override
+					public void processPacket(Packet arg0) {
+						// TODO: pass info to UI and create popup alert
+						
+					}
+        			
+        		}, new PacketFilter() {
+
+					@Override
+					public boolean accept(Packet arg0) {
+						return arg0.getProperty("scheduling").equals(true) &&
+								arg0.getProperty("alert").equals(true);
+					}
+        			
+        		});
+        		
+        		//Listen for packets to populate conferences list
+        		xmppConn.addPacketListener(new PacketListener() {
+
+					@Override
+					public void processPacket(Packet arg0) {
+						// TODO: pass info to UI to populate list
+						
+					}
+        			
+        		}, new PacketFilter() {
+
+					@Override
+					public boolean accept(Packet arg0) {
+						return arg0.getProperty("scheduling").equals(true) &&
+								arg0.getProperty("alert").equals(false);
+					}
+        			
+        		});
         	}
 
         	else {

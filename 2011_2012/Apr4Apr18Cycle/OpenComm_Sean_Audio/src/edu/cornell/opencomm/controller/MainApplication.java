@@ -369,6 +369,10 @@ public final class MainApplication extends Activity{
                 cpv.launch();
             }
             
+            case KeyEvent.KEYCODE_I: {
+            	
+            }
+            
             }
             ;
             return true;
