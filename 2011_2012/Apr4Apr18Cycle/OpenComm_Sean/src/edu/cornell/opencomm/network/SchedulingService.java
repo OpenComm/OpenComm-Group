@@ -18,10 +18,13 @@ import org.jivesoftware.smack.RosterGroup;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
 
+import android.content.Intent;
 import android.util.Log;
 
 import edu.cornell.opencomm.controller.LoginController;
 import edu.cornell.opencomm.controller.MainApplication;
+import edu.cornell.opencomm.view.DashboardView;
+import edu.cornell.opencomm.view.LoginView;
 
 /** A class to interact with the conference scheduling plugin. */
 public class SchedulingService {
@@ -58,9 +61,12 @@ public class SchedulingService {
 						@Override
 						public void processMessage(Chat arg0, Message arg1) {
 							if (arg1.getSubject().equals("Broadcast")) {
+								startDashboard();
 								// TODO: UI - popup reminder
 							}
 						}
+
+
 					});
 				}
 			}
@@ -217,7 +223,8 @@ public class SchedulingService {
 			RosterGroup group = createGroup(info);
 			Message broadcastMessage = new Message();
 			broadcastMessage.setSubject("Broadcast");
-			// TODO: create useful message to pass to other users
+			// TODO: create useful message to pass to other users 
+			startDashboard();
 			broadcast(group, broadcastMessage);
 			}
 			
@@ -228,4 +235,13 @@ public class SchedulingService {
 	public static Collection<ConferenceData> getAllConferences() {
 		return allConferences;
 	}
+	
+	private void startDashboard() {
+		DashboardView.setPopupGo(true);
+		Intent i = new Intent((DashboardView.getDashboardInstance()), DashboardView.class);
+		MainApplication.screen
+		.getActivity().startActivity(i);
+		
+	}
+	
 }
