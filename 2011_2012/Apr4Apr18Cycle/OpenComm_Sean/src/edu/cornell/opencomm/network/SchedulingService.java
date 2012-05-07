@@ -75,7 +75,7 @@ public class SchedulingService {
 					public void processMessage(Chat arg0, Message arg1) {
 						if (arg1.getSubject().equals("ConferenceInfo")) {
 							// TODO: Parse out conference info and pass to UI
-
+							Log.v(LOG_TAG, "Conference info pull received");
 							allScheduledConferences=(parseConferences(arg1.getBody()));
 							ConferenceListActivity.setServerConferences(allScheduledConferences);
 							Log.v(LOG_TAG,"allScheduled: " + allScheduledConferences.size());
@@ -150,6 +150,7 @@ public class SchedulingService {
 		} catch (XMPPException e) {
 			Log.v(LOG_TAG, e.getMessage());
 		}
+		Log.v(LOG_TAG,"pull message sent");
 	}
 
 	/**
