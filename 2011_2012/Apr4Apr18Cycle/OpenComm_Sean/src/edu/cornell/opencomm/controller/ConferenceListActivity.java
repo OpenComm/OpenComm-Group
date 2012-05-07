@@ -22,6 +22,8 @@ import edu.cornell.opencomm.view.ConferenceListExpandableListAdapter;
 import edu.cornell.opencomm.view.ConferenceListing;
 
 public class ConferenceListActivity extends Activity {
+	
+	private static Collection<Conference> serverConferences;
 
     private View layout;
     private ConferenceListExpandableListAdapter upcomingAdapter;
@@ -137,7 +139,10 @@ public class ConferenceListActivity extends Activity {
 //        conferences.add(conference14);
 //        initialize(conferences);
 
-
+        //Updates conference view
+      
+        initialize(serverConferences);
+        
         monthDisplay = stock.get(Calendar.MONTH);
         dayDisplay = stock.get(Calendar.DAY_OF_MONTH);
         yearDisplay=stock.get(Calendar.YEAR);
@@ -354,5 +359,19 @@ public class ConferenceListActivity extends Activity {
 				setDateText();
 			}
 		};
+
+		/**
+		 * @return the serverConferences
+		 */
+		public static Collection<Conference> getServerConferences() {
+			return serverConferences;
+		}
+
+		/**
+		 * @param serverConferences the serverConferences to set
+		 */
+		public static void setServerConferences(Collection<Conference> serverConferences) {
+			ConferenceListActivity.serverConferences = serverConferences;
+		}
 }
 

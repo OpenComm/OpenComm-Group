@@ -22,6 +22,7 @@ import org.jivesoftware.smack.packet.Message;
 import android.content.Intent;
 import android.util.Log;
 
+import edu.cornell.opencomm.controller.ConferenceListActivity;
 import edu.cornell.opencomm.controller.LoginController;
 import edu.cornell.opencomm.controller.MainApplication;
 
@@ -72,7 +73,8 @@ public class SchedulingService {
 					public void processMessage(Chat arg0, Message arg1) {
 						if (arg1.getSubject().equals("ConferenceInfo")) {
 							// TODO: Parse out conference info and pass to UI
-							allScheduledConferences.addAll(parseConferences(arg1.getBody()));
+							allScheduledConferences=(parseConferences(arg1.getBody()));
+							ConferenceListActivity.setServerConferences(allScheduledConferences);
 						} else if (arg1.getSubject().equals(
 								"ConferencePushResult")) {
 							if (arg1.getBody().equals("Sucess!")) {
