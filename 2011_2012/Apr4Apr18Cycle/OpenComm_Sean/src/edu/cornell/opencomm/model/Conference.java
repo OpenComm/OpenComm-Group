@@ -155,7 +155,23 @@ public class Conference implements Comparable<Conference> {
     public Date getEndDate(){
     	return endDate;
     }
+    public void setStartDate(int year, int month, int day, int hour, int min ){
+    	startDate.setYear(year);
+    	startDate.setMonth(month);
+    	startDate.setDate(day);
+    	startDate.setHours(hour);
+    	startDate.setMinutes(min);	
+    
+    }
   
+    public void setEndDate(int year, int month, int day, int hour, int min ){
+    	endDate.setYear(year);
+    	endDate.setMonth(month);
+    	endDate.setDate(day);
+    	endDate.setHours(hour);
+    	endDate.setMinutes(min);	
+    
+    }
     
     public boolean isNow() {
         //TODO: Should check if the conference is actually still happening

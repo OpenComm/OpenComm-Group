@@ -105,7 +105,7 @@ public class ConferenceListActivity extends Activity {
         derp.add("Derpman");
 
          conferences = new ArrayList<Conference>();
-        Conference conference1 = new Conference(2012, 4, 27, 10, 00, 12, 00, s1, "Vinay Maloo", "Graduation", mom);
+      /*  Conference conference1 = new Conference(2012, 4, 27, 10, 00, 12, 00, s1, "Vinay Maloo", "Graduation", mom);
 
         Conference conference2 = new Conference(2012, 10, 9, 12, 30, 13, 30, s2, "Flavian", "Wine+Cheese", flavian);
         Conference conference3 = new Conference(2012, 5, 25, 8, 30, 9, 15, s3, "Najla Elmachtoub", "Canada Trip", najla);
@@ -120,6 +120,7 @@ public class ConferenceListActivity extends Activity {
         Conference conference12 = new Conference(2013, 0, 5, 18, 24, 19, 51, s9, "Derp", "ME!", derp);
         Conference conference13 = new Conference(2013, 0, 6, 18, 24, 19, 51, s9, "Derp", "SecondToLast", derp);
         Conference conference14 = new Conference(2013, 0, 7, 18, 24, 19, 51, s9, "Derp", "Last", derp);
+        
         conferences.add(conference1);
         conferences.add(conference2);
         conferences.add(conference3);
@@ -136,7 +137,7 @@ public class ConferenceListActivity extends Activity {
         conferences.add(conference13);
         conferences.add(conference14);
         initialize(conferences);
-
+             */
         monthDisplay = stock.get(Calendar.MONTH);
         dayDisplay = stock.get(Calendar.DAY_OF_MONTH);
         yearDisplay=stock.get(Calendar.YEAR);
