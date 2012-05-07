@@ -483,7 +483,7 @@ public class ConferencePlannerController {
 		//conferencePlannerView.getWindow().dismiss();
 		if(openfireInvitation == null){
 		openfireInvitation = new Conference(new Date(startYear, startMonth, startDay, startHour, startMinute), new Date(startYear, startMonth, startDay, endHour, endMinute),room,username,(ArrayList)Arrays.asList(inviteList));
-		LoginController.xmppService.getSchedulingService().pushConference(username, date, start, end, recurring, participants)
+		LoginController.xmppService.getSchedulingService().pushConference(openfireInvitation.getHostName(),openfireInvitation.getDateString(), openfireInvitation.getStartLong(),openfireInvitation.getEndLong(), openfireInvitation.getRecurring(), openfireInvitation.getContactsAsArray());
 		//openfireInvitation.setRoom(room);
         
 		openfireInvitation.setPlannerView(conferencePlannerView);
@@ -506,6 +506,7 @@ public class ConferencePlannerController {
 		
 		openfireInvitation.setContactList((ArrayList<String>)Arrays.asList(inviteList));
 		openfireInvitation.setInviter(username);
+		
 		conferencePlannerView.getWindow().dismiss();
 		}
 		
