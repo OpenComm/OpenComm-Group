@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import edu.cornell.opencomm.network.Network;
 import edu.cornell.opencomm.view.ConferencePlannerView;
 
 //Modedled after Invitation.java, has fields relating to conference, has setters to change them
@@ -77,7 +78,7 @@ public class Conference implements Comparable<Conference> {
     public int getEndMinute(){
         return endDate.getMinutes();
     }
-    /**Returns JabberID of inviter (includes @opencomm-no-ip.org)*/
+    /**Returns inviter username (does not include server IP) */
     public String getInviter(){
         return inviter;
     }
@@ -227,7 +228,7 @@ public class Conference implements Comparable<Conference> {
     
     /**Anything that floats our boat for now: change later */
     public String getRecurring(){
-    	return "lol";
+    	return "once";
     }
     
     /**Returns unix time of start date object, for pushing to server */
@@ -257,6 +258,11 @@ public class Conference implements Comparable<Conference> {
     	}
     	
     	return dayString+"/"+ monthString + "/" + year;
+    }
+    
+    /**Returns inviter name + server */
+    public String getHostName(){
+    	return getInviter() + Network.DEFAULT_HOSTNAME;//@opencomm-no-ip.org by default
     }
     
 }
