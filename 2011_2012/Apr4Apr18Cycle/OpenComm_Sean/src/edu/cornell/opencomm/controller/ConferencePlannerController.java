@@ -488,6 +488,7 @@ public class ConferencePlannerController {
 			Log.v("Crystal", "conference value changed");
 	    
 		openfireInvitation.setRoom(room);
+		//openfireInvitation.set
 	    openfireInvitation.setStartYear(startYear);
 		openfireInvitation.setStartMonth(startMonth);
 		openfireInvitation.setStartDay(startDay);

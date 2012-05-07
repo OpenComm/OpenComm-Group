@@ -155,6 +155,7 @@ public class Conference implements Comparable<Conference> {
     public Date getEndDate(){
     	return endDate;
     }
+  
     
     public boolean isNow() {
         //TODO: Should check if the conference is actually still happening
