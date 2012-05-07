@@ -483,6 +483,7 @@ public class ConferencePlannerController {
 		//conferencePlannerView.getWindow().dismiss();
 		if(openfireInvitation == null){
 		openfireInvitation = new Conference(new Date(startYear, startMonth, startDay, startHour, startMinute), new Date(startYear, startMonth, startDay, endHour, endMinute),room,username,(ArrayList<String>)Arrays.asList(inviteList));
+
 		LoginController.xmppService.getSchedulingService().pushConference(openfireInvitation.getHostName(),openfireInvitation.getDateString(), openfireInvitation.getStartLong(),openfireInvitation.getEndLong(), openfireInvitation.getRecurring(), openfireInvitation.getContactsAsArray());
 		//openfireInvitation.setRoom(room);
         
