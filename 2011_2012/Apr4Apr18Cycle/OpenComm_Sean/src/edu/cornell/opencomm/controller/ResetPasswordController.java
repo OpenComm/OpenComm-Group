@@ -50,9 +50,9 @@ public class ResetPasswordController {
 	public ResetPasswordController(ResetPasswordView resetPasswordView) {
 		this.xmppService = new NetworkService(Network.DEFAULT_HOST,
 				Network.DEFAULT_PORT);
-		this.xmppConn = xmppService.getXMPPConnection();
-		this.resetPasswordView = resetPasswordView;
-		this.userAccountManager = new UserAccountManager(xmppConn);
+		//this.xmppConn = xmppService.getXMPPConnection();
+		//this.resetPasswordView = resetPasswordView;
+		//this.userAccountManager = new UserAccountManager(xmppConn);
 	}
 
 	/**
