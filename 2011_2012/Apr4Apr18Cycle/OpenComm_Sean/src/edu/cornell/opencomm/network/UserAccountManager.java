@@ -38,9 +38,13 @@ public class UserAccountManager {
 	 * Constructor: Account manager for creating editing 
 	 * and deleting accounts
 	 */
+	public UserAccountManager(){
+		
+	} 
+	
 	public UserAccountManager(XMPPConnection xmppConnection){
 		accountManager = xmppConnection.getAccountManager();
-	} 
+	}
 	
 	@Deprecated
 	public boolean createUser(String email,String password, String firstname, String lastname, 
