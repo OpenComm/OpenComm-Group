@@ -1,7 +1,10 @@
 package edu.cornell.opencomm.controller;
 
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -172,7 +175,7 @@ public class ConferencePlannerController {
 		this(conference);
 		if(c==null)
 			Log.v("c","buddylist is null");
-		this.buddyList=c.getInvitees();
+		this.buddyList=c.getContactList().toArray(new CharSequence[0]);
 		
 		boolean[] hack= new boolean[buddyList.length];
 	    for (int i=0; i<hack.length;i++){
@@ -479,23 +482,26 @@ public class ConferencePlannerController {
 		room=conferencePlannerView.getNameBox().getText().toString();
 		//conferencePlannerView.getWindow().dismiss();
 		if(openfireInvitation == null){
-		openfireInvitation = new Conference(startYear, startMonth, startDay, startHour, startMinute, endHour, endMinute,inviteList,username);
+		openfireInvitation = new Conference(new Date(startYear, startMonth, startDay, startHour, startMinute), new Date(startYear, startMonth, startDay, endHour, endMinute),room,username,(ArrayList)Arrays.asList(inviteList));
         openfireInvitation.setRoom(room);
         openfireInvitation.setPlannerView(conferencePlannerView);
 		conferencePlannerView.getContext().startActivity(i);
 		}else{
 		//go back to conference list view.
 			Log.v("Crystal", "conference value changed");
-	    
+			openfireInvitation.setStartDate(startYear,startMonth,startDay, startHour, startMinute);
+		openfireInvitation.setStartDate(startYear, startMonth, startDay, startHour, startMinute);	
 		openfireInvitation.setRoom(room);
-	    openfireInvitation.setStartYear(startYear);
+	    /*openfireInvitation.setStartYear(startYear);
 		openfireInvitation.setStartMonth(startMonth);
 		openfireInvitation.setStartDay(startDay);
 		openfireInvitation.setStartHour(startHour);
 		openfireInvitation.setStartMinute(startMinute);
 		openfireInvitation.setEndHour(endHour);
-		openfireInvitation.setEndMinute(endMinute);
-		openfireInvitation.setInviteInfo(inviteList);
+		openfireInvitation.setEndMinute(endMinute);*/
+		openfireInvitation.setEndDate(startYear, startMonth, startDay, endHour, endMinute);
+		
+		openfireInvitation.setContactList((ArrayList<String>)Arrays.asList(inviteList));
 		openfireInvitation.setInviter(username);
 		conferencePlannerView.getWindow().dismiss();
 		}
