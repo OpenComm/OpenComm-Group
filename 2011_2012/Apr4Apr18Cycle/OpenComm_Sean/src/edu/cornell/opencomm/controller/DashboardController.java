@@ -91,6 +91,9 @@ public class DashboardController {
 	}
 
 	public void handleConferencesButtonClicked() {
+		//Before creating, pull.
+		  LoginController.xmppService.getSchedulingService().pullConferences();
+		  
 		Intent myIntent = new Intent();
 		myIntent.setClass(dashboardView.getApplication(),
 				ConferenceListActivity.class);

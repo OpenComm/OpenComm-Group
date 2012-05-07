@@ -163,22 +163,24 @@ public class ConferenceListing {
 			         }
 
 			        // Crystal:have to hard-code for now for debugging
-			         ConferencePlannerView cpv1=new ConferencePlannerView(inflater,context,conf);
-			         conf.setPlannerView(cpv1);
-			         cpv1.getConferencePlannerController().setAll(conf);
-			         String date=String.valueOf(conf.getStartMonth())+"/"+String.valueOf(conf.getStartDay())+"/"+String.valueOf(conf.getStartYear());
-    	             String startT=String.valueOf(conf.getStartHour())+":"+String.valueOf(conf.getStartMinute());
-    	             String endT=String.valueOf(conf.getEndHour())+":"+String.valueOf(conf.getEndMinute());
-			         conf.getPlannerView().debugLaunch(conf.getRoom(), date, startT,endT);
-			          //cpv1.getConferencePlannerController().buddySelection;
-			         CharSequence[] buddyList=conf.getContactList().toArray(new CharSequence[0]);//getInvitees();//cpv1.getConferencePlannerController().buddyList;
+			        // ConferencePlannerView cpv1=new ConferencePlannerView(inflater,context,conf);
+			        // conf.setPlannerView(cpv1);
+			        // cpv1.getConferencePlannerController().setAll(conf);
+			        // String date=String.valueOf(conf.getStartMonth())+"/"+String.valueOf(conf.getStartDay())+"/"+String.valueOf(conf.getStartYear());
+    	            // String startT=String.valueOf(conf.getStartHour())+":"+String.valueOf(conf.getStartMinute());
+    	            // String endT=String.valueOf(conf.getEndHour())+":"+String.valueOf(conf.getEndMinute());
+			         //conf.getPlannerView().debugLaunch(conf.getRoom(), date, startT,endT);
+			       
+    	             //cpv1.getConferencePlannerController().buddySelection;
+			       /*  CharSequence[] buddyList=conf.getContactList().toArray(new CharSequence[0]);//getInvitees();//cpv1.getConferencePlannerController().buddyList;
 			         final  LinearLayout vs=(LinearLayout) cpv1.getView().findViewById(R.id.userIcons);
 			         for (int i = 0; i < buddyList.length; i++) {
 
 								Log.v("c","drawing");
 						     ConferencePlannerController.addUserIcon((String)buddyList[i], context,vs);
 
-					    }
+					    }*/
+			         
                      conf.getPlannerView().getCreateButton().setText("update");
 			         conf.getPlannerView().launch();
 
