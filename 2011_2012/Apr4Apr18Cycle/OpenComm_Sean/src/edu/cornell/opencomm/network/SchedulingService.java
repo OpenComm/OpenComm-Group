@@ -31,7 +31,9 @@ import edu.cornell.opencomm.view.LoginView;
 
 import edu.cornell.opencomm.model.Conference;
 
-/** A class to interact with the conference scheduling plugin. 
+/**
+ * A class to interact with the conference scheduling plugin.
+ * 
  * @author - Kris Kooi
  * */
 public class SchedulingService {
@@ -73,8 +75,10 @@ public class SchedulingService {
 					public void processMessage(Chat arg0, Message arg1) {
 						if (arg1.getSubject().equals("ConferenceInfo")) {
 							// TODO: Parse out conference info and pass to UI
+
 							allScheduledConferences=(parseConferences(arg1.getBody()));
 							ConferenceListActivity.setServerConferences(allScheduledConferences);
+
 						} else if (arg1.getSubject().equals(
 								"ConferencePushResult")) {
 							if (arg1.getBody().equals("Sucess!")) {
@@ -104,21 +108,37 @@ public class SchedulingService {
 			String recurring, String[] participants) {
 		Message push = new Message();
 		push.setPacketID("pushConference");
-		push.setBody("INSERT INTO CONFERENCES SET OWNER='" + owner + "', DATE='"
-				+ date + "', START=" + new Timestamp(start).toString()
-				+ ", END=" + new Timestamp(end).toString() + ", RECURRING='"
-				+ recurring + "', PARTICIPANT1='" + participants[0]
-				+ "', PARTICIPANT2='" + participants[1] + "', PARTICIPANT3='"
-				+ participants[2] + "', PARTICIPANT4='" + participants[3]
-				+ "', PARTICIPANT5='" + participants[4] + "', PARTICIPANT6='"
-				+ participants[5] + ", PARTICIPANT7=" + participants[6]
-				+ "', PARTICIPANT8='" + participants[7] + "', PARTICIPANT9='"
-				+ participants[8] + "';");
+		push.setBody("INSERT INTO CONFERENCES SET OWNER='" + owner
+				+ "', DATE='" + date + "', START="
+				+ new Timestamp(start).toString() + ", END="
+				+ new Timestamp(end).toString() + ", RECURRING='" + recurring
+				+ "', PARTICIPANT1='" + participants[0] + "', PARTICIPANT2='"
+				+ participants[1] + "', PARTICIPANT3='" + participants[2]
+				+ "', PARTICIPANT4='" + participants[3] + "', PARTICIPANT5='"
+				+ participants[4] + "', PARTICIPANT6='" + participants[5]
+				+ ", PARTICIPANT7=" + participants[6] + "', PARTICIPANT8='"
+				+ participants[7] + "', PARTICIPANT9='" + participants[8]
+				+ "';");
 		try {
 			schedulingChat.sendMessage(push);
 		} catch (XMPPException e) {
 			Log.v(LOG_TAG, e.getMessage());
 		}
+	}
+
+	/**
+	 * Update a conferences on the database.
+	 */
+	public void updateConference(Conference toUpdate) {
+		Message push = new Message();
+		push.setPacketID("pushConference");
+		push.setBody("UPDATE CONFERENCES SET OWNER='" + "', DATE='" + "', END="
+				+ ", END=" + ", RECURRING='" + "', PARTICIPANT1='"
+				+ "', PARTICIPANT2='" + "', PARTICIPANT3='"
+				+ "', PARTICIPANT4='" + "', PARTICIPANT5='"
+				+ "', PARTICIPANT6='" + "', PARTICIPANT7='"
+				+ "', PARTICIPANT8='" + "', PARTICIPANT9='" + "' WHERE id=" + 
+				toUpdate.getRoom() + ";");
 	}
 
 	/** Sends a message to the server asking for conference data. */
@@ -154,8 +174,9 @@ public class SchedulingService {
 					i++;
 					j++;
 				}
-				Conference info = new Conference(new Date(Long.parseLong(splitData[3])),
-						new Date(Long.parseLong(splitData[4])), splitData[1],
+				Conference info = new Conference(new Date(
+						Long.parseLong(splitData[3])), new Date(
+						Long.parseLong(splitData[4])), splitData[1],
 						splitData[0], participants);
 				data.add(info);
 				if (info.getStartDate().getTime() - new Date().getTime() < 3600000) {
@@ -213,12 +234,12 @@ public class SchedulingService {
 			@Override
 			public void run() {
 
-			RosterGroup group = createGroup(info);
-			Message broadcastMessage = new Message();
-			broadcastMessage.setSubject("Broadcast");
-			// TODO: create useful message to pass to other users 
-			startDashboard();
-			broadcast(group, broadcastMessage);
+				RosterGroup group = createGroup(info);
+				Message broadcastMessage = new Message();
+				broadcastMessage.setSubject("Broadcast");
+				// TODO: create useful message to pass to other users
+				startDashboard();
+				broadcast(group, broadcastMessage);
 
 			}
 
@@ -229,13 +250,13 @@ public class SchedulingService {
 	public static Collection<Conference> getAllConferences() {
 		return allScheduledConferences;
 	}
-	
+
 	private void startDashboard() {
 		DashboardView.setPopupGo(true);
-		Intent i = new Intent((DashboardView.getDashboardInstance()), DashboardView.class);
-		MainApplication.screen
-		.getActivity().startActivity(i);
-		
+		Intent i = new Intent((DashboardView.getDashboardInstance()),
+				DashboardView.class);
+		MainApplication.screen.getActivity().startActivity(i);
+
 	}
-	
+
 }

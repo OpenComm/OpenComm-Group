@@ -483,9 +483,12 @@ public class ConferencePlannerController {
 		//conferencePlannerView.getWindow().dismiss();
 		if(openfireInvitation == null){
 		openfireInvitation = new Conference(new Date(startYear, startMonth, startDay, startHour, startMinute), new Date(startYear, startMonth, startDay, endHour, endMinute),room,username,(ArrayList)Arrays.asList(inviteList));
-        openfireInvitation.setRoom(room);
-        openfireInvitation.setPlannerView(conferencePlannerView);
-		conferencePlannerView.getContext().startActivity(i);
+		LoginController.xmppService.getSchedulingService().pushConference(openfireInvitation.getHostName(),openfireInvitation.getDateString(), openfireInvitation.getStartLong(),openfireInvitation.getEndLong(), openfireInvitation.getRecurring(), openfireInvitation.getContactsAsArray());
+		//openfireInvitation.setRoom(room);
+        
+		openfireInvitation.setPlannerView(conferencePlannerView);
+		
+        conferencePlannerView.getContext().startActivity(i);
 		}else{
 		//go back to conference list view.
 			Log.v("Crystal", "conference value changed");
@@ -503,6 +506,7 @@ public class ConferencePlannerController {
 		
 		openfireInvitation.setContactList((ArrayList<String>)Arrays.asList(inviteList));
 		openfireInvitation.setInviter(username);
+		LoginController.xmppService.getSchedulingService().updateConference(openfireInvitation);
 		conferencePlannerView.getWindow().dismiss();
 		}
 		
@@ -516,7 +520,7 @@ public class ConferencePlannerController {
 		this.room = room;
 	}
 
-	//for debugging-hard-code
+//for debugging
 	public void setAll(Conference c){
 		this.startDay=c.getStartDay();
 		startMonth=c.getStartMonth();
