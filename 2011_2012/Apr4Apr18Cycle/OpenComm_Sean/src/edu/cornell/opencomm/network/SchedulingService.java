@@ -79,7 +79,7 @@ public class SchedulingService {
 
 							allScheduledConferences=(parseConferences(arg1.getBody()));
 							ConferenceListActivity.setServerConferences(allScheduledConferences);
-
+							Log.v(LOG_TAG,"allScheduled: " + allScheduledConferences.size());
 						} else if (arg1.getSubject().equals(
 								"ConferencePushResult")) {
 							if (arg1.getBody().equals("Sucess!")) {
