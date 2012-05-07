@@ -90,6 +90,7 @@ public class LoginController {
 
 		if (islogin){
 			//Start DashboardView when the login is successful
+//			Intent i = new Intent(loginView, DashboardView.class);
 			Intent i = new Intent(loginView, DashboardView.class);
 			i.putExtra(Network.KEY_USERNAME, username);
 	        i.setAction(Network.ACTION_LOGIN);

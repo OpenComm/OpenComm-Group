@@ -13,7 +13,7 @@ import edu.cornell.opencomm.Values;
 public class UserAccountManager {
 	// Debugging
 	private static final String TAG = "NetworkService";
-	private static final boolean D = Values.D;
+	private static final boolean D = true;
 	
 	private static AccountManager accountManager;
 	

@@ -4,7 +4,7 @@ public class Values {
     /** These values will be changed in MainApplication's adjustLayoutParams() */
 
 	// Debugging mode
-    public static final boolean D = true;
+    public static final boolean D = false;
 
     // Logs
     private static final String LOG_TAG = "LoginController";

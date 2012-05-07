@@ -24,6 +24,7 @@ public class LoginView extends Activity {
     private LayoutInflater inflater = null;
     // private PopupWindow window = null;
     private LoginController loginController = null;
+    private static Context loginContext = null;
 
     /* Debugging
 	private static final String TAG = "Controller.Login";
@@ -46,6 +47,7 @@ public class LoginView extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loginContext=(Context)this;
         ContextTracker.setContext(this);
         setContentView(R.layout.login_layout);
 

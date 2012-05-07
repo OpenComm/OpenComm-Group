@@ -1,7 +1,10 @@
 package edu.cornell.opencomm.controller;
 
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -56,9 +59,9 @@ public class ConferencePlannerController {
 	// their username form
 	public boolean[] buddySelection = { false, false, false, false };// hard-code for now
 	// =ContactListController.buddySelection; // array of boolean for buddy
-	private String username = ""; // the username of this account
+	private String username = DashboardController.username.split("@")[0]; // the username of this account
 	// selection
-	private String occurance; // String description of how many times conference
+	private String occurance="once"; // String description of how many times conference
 								// should be repeated
 
 	AlertDialog recurring;// Spinner hack for popups (spinner needs an initial
@@ -126,7 +129,9 @@ public class ConferencePlannerController {
 			else{			
 				endMinute = minute;
 				endHour = hourOfDay;
-			conferencePlannerView.getEndBox().setText(" " + hourOfDay + ": " + minute);
+				String tempMinute =Integer.toString(minute);//Add a leading zero for aestetic reason
+				if(minute<10){tempMinute = "0"+tempMinute;};
+			conferencePlannerView.getEndBox().setText(" " + hourOfDay + ": " + tempMinute);
 			endTimeSet=true;}
 			
 		}
@@ -150,7 +155,9 @@ public class ConferencePlannerController {
 			else{
 				startMinute = minute;
 				startHour = hourOfDay;
-				conferencePlannerView.getStartBox().setText(" " + hourOfDay + ": " + minute);
+				String tempMinute =Integer.toString(minute);//Add a leading zero for aestetic reason
+				if(minute<10){tempMinute = "0"+tempMinute;};
+				conferencePlannerView.getStartBox().setText(" " + hourOfDay + ": " + tempMinute);
 			}
 			}
 		};
@@ -168,7 +175,7 @@ public class ConferencePlannerController {
 		this(conference);
 		if(c==null)
 			Log.v("c","buddylist is null");
-		this.buddyList=c.getInvitees();
+		this.buddyList=c.getContactList().toArray(new CharSequence[0]);
 		
 		boolean[] hack= new boolean[buddyList.length];
 	    for (int i=0; i<hack.length;i++){
@@ -475,24 +482,31 @@ public class ConferencePlannerController {
 		room=conferencePlannerView.getNameBox().getText().toString();
 		//conferencePlannerView.getWindow().dismiss();
 		if(openfireInvitation == null){
-		openfireInvitation = new Conference(startYear, startMonth, startDay, startHour, startMinute, endHour, endMinute,inviteList,username);
-        openfireInvitation.setRoom(room);
-        openfireInvitation.setPlannerView(conferencePlannerView);
-		conferencePlannerView.getContext().startActivity(i);
+		openfireInvitation = new Conference(new Date(startYear, startMonth, startDay, startHour, startMinute), new Date(startYear, startMonth, startDay, endHour, endMinute),room,username,new ArrayList<String>(Arrays.asList(inviteList)));
+		LoginController.xmppService.getSchedulingService().pushConference(openfireInvitation.getHostName(),openfireInvitation.getDateString(), openfireInvitation.getStartLong(),openfireInvitation.getEndLong(), openfireInvitation.getRecurring(), openfireInvitation.getContactsAsArray());
+		//openfireInvitation.setRoom(room);
+        
+		openfireInvitation.setPlannerView(conferencePlannerView);
+		
+        conferencePlannerView.getContext().startActivity(i);
 		}else{
 		//go back to conference list view.
 			Log.v("Crystal", "conference value changed");
-	    
+			openfireInvitation.setStartDate(startYear,startMonth,startDay, startHour, startMinute);
+		openfireInvitation.setStartDate(startYear, startMonth, startDay, startHour, startMinute);	
 		openfireInvitation.setRoom(room);
-	    openfireInvitation.setStartYear(startYear);
+	    /*openfireInvitation.setStartYear(startYear);
 		openfireInvitation.setStartMonth(startMonth);
 		openfireInvitation.setStartDay(startDay);
 		openfireInvitation.setStartHour(startHour);
 		openfireInvitation.setStartMinute(startMinute);
 		openfireInvitation.setEndHour(endHour);
-		openfireInvitation.setEndMinute(endMinute);
-		openfireInvitation.setInviteInfo(inviteList);
+		openfireInvitation.setEndMinute(endMinute);*/
+		openfireInvitation.setEndDate(startYear, startMonth, startDay, endHour, endMinute);
+		
+		openfireInvitation.setContactList((ArrayList<String>)Arrays.asList(inviteList));
 		openfireInvitation.setInviter(username);
+		LoginController.xmppService.getSchedulingService().updateConference(openfireInvitation);
 		conferencePlannerView.getWindow().dismiss();
 		}
 		
@@ -506,7 +520,7 @@ public class ConferencePlannerController {
 		this.room = room;
 	}
 
-	//for debugging-hard-code
+//for debugging
 	public void setAll(Conference c){
 		this.startDay=c.getStartDay();
 		startMonth=c.getStartMonth();

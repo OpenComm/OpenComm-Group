@@ -75,6 +75,7 @@ public class NetworkService {
 	private InvitationListener invitationListener;
 	private ConnectionListener connectionListener;
 	private boolean isConnected;
+	private SchedulingService schedulingService;
 
 	/**
 	 * Constructor: a network service for the application that creates and
@@ -247,7 +248,7 @@ public class NetworkService {
 						}
 					}
 				};
-
+				schedulingService = new SchedulingService(xmppConn);
 				MultiUserChat.addInvitationListener(xmppConn,
 						invitationListener);
 			}
@@ -281,6 +282,13 @@ public class NetworkService {
 	 * */
 	public InvitationListener getInvitiationListener() {
 		return this.invitationListener;
+	}
+	
+	/**
+	 * get the SchedulingService
+	 */
+	public SchedulingService getSchedulingService() {
+		return this.schedulingService;
 	}
 
 	/**
