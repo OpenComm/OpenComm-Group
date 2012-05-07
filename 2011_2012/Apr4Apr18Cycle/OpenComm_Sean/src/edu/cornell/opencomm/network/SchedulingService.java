@@ -30,8 +30,9 @@ import edu.cornell.opencomm.view.LoginView;
 
 import edu.cornell.opencomm.model.Conference;
 
-
-/** A class to interact with the conference scheduling plugin. */
+/** A class to interact with the conference scheduling plugin. 
+ * @author - Kris Kooi
+ * */
 public class SchedulingService {
 
 	public static final String LOG_TAG = "Network.SchedulingService";
@@ -59,8 +60,6 @@ public class SchedulingService {
 								// TODO: UI - popup reminder
 							}
 						}
-
-
 					});
 				}
 			}
@@ -103,16 +102,16 @@ public class SchedulingService {
 			String recurring, String[] participants) {
 		Message push = new Message();
 		push.setPacketID("pushConference");
-		push.setBody("INSERT INTO conferences SET OWNER=" + owner + ", DATE= "
-				+ date + ", START='" + new Timestamp(start).toString()
-				+ "', END='" + new Timestamp(end).toString() + "', RECURRING="
-				+ recurring + ", PARTICIPANT1=" + participants[0]
-				+ ", PARTICIPANT2=" + participants[1] + ", PARTICIPANT3="
-				+ participants[2] + ", PARTICIPANT4=" + participants[3]
-				+ ", PARTICIPANT5=" + participants[4] + ", PARTICIPANT6="
+		push.setBody("INSERT INTO CONFERENCES SET OWNER='" + owner + "', DATE='"
+				+ date + "', START=" + new Timestamp(start).toString()
+				+ ", END=" + new Timestamp(end).toString() + ", RECURRING='"
+				+ recurring + "', PARTICIPANT1='" + participants[0]
+				+ "', PARTICIPANT2='" + participants[1] + "', PARTICIPANT3='"
+				+ participants[2] + "', PARTICIPANT4='" + participants[3]
+				+ "', PARTICIPANT5='" + participants[4] + "', PARTICIPANT6='"
 				+ participants[5] + ", PARTICIPANT7=" + participants[6]
-				+ ", PARTICIPANT8=" + participants[7] + ", PARTICIPANT9="
-				+ participants[8] + ";");
+				+ "', PARTICIPANT8='" + participants[7] + "', PARTICIPANT9='"
+				+ participants[8] + "';");
 		try {
 			schedulingChat.sendMessage(push);
 		} catch (XMPPException e) {

@@ -42,6 +42,7 @@ public class ConferenceListActivity extends Activity {
         layout = getLayoutInflater().inflate(R.layout.conference_list_layout, null);
         setContentView(layout);
 
+
 //        ArrayList<String> openComm = new ArrayList<String>();
 //
 //        openComm.add("Ashley");
@@ -135,6 +136,7 @@ public class ConferenceListActivity extends Activity {
 //        conferences.add(conference13);
 //        conferences.add(conference14);
 //        initialize(conferences);
+
 
         monthDisplay = stock.get(Calendar.MONTH);
         dayDisplay = stock.get(Calendar.DAY_OF_MONTH);
