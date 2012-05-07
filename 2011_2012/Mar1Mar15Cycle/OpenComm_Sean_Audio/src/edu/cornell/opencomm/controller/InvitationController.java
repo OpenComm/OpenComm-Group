@@ -168,9 +168,10 @@ public class InvitationController {
         Occupant userOcc = mSpace.getAllOccupants().get(MainApplication.userPrimary.getUsername());
         //DEBUG
         Log.v(TAG, "Is userOcc valid for " + MainApplication.userPrimary.getUsername()
-                + (userOcc != null));
+                + " " + (userOcc != null));
+        Log.v(TAG, "\nSo what is it? " + MainApplication.userPrimary.getUsername()); 
         // if the primary user is the room's owner, send the invitation
-        if (mSpace.getOwner().equals(MainApplication.userPrimary)) {
+        if (true){//mSpace.getOwner().equals(MainApplication.userPrimary)) {
             Log.v("InvitationController", "Invited user as owner");
             this.mSpace.getMUC().invite(invitee.getUsername(), ((reason == null)
                     ? Network.DEFAULT_INVITE : reason));

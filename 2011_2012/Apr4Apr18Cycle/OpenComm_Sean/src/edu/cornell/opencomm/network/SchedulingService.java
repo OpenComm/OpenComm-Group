@@ -22,6 +22,7 @@ import android.util.Log;
 
 import edu.cornell.opencomm.controller.LoginController;
 import edu.cornell.opencomm.controller.MainApplication;
+import edu.cornell.opencomm.model.Conference;
 
 /** A class to interact with the conference scheduling plugin. */
 public class SchedulingService {
@@ -31,15 +32,15 @@ public class SchedulingService {
 	private ChatManager chatManager;
 	private Chat schedulingChat;
 	private static LinkedList<Timer> allTimers;
-	private static Collection<ConferenceData> allConferences;
+	private static Collection<Conference> allConferences;
 
 	/** A wrapper inner class for conference data pulled from the database. */
 	class ConferenceData {
 		String id;
 		String owner;
 		String date;
-		long start;
-		long end;
+		Date start;
+		Date end;
 		String recurring;
 		String[] participants = new String[9];
 	}
@@ -137,20 +138,20 @@ public class SchedulingService {
 	 * @return - a Collection of ConferenceData representing conferences the
 	 *         primary user is a part of
 	 */
-	public Collection<ConferenceData> parseConferences(String rawData) {
-		Collection<ConferenceData> data = new LinkedList<ConferenceData>();
+	public Collection<Conference> parseConferences(String rawData) {
+		Collection<Conference> data = new LinkedList<Conference>();
 		String[] conferences = rawData.split("\n");
 		for (String conferenceData : conferences) {
 			String[] splitData = conferenceData.split("//");
 			if (Arrays.asList(splitData).contains(
 					MainApplication.userPrimary.getUsername())
 					&& Long.parseLong(splitData[3]) < new Date().getTime()) {
-				ConferenceData info = new ConferenceData();
+				Conference info = new Conference();
 				info.id = splitData[0];
-				info.owner = splitData[1];
+				info.inviter = splitData[1];
 				info.date = splitData[2];
-				info.start = Long.parseLong(splitData[3]);
-				info.end = Long.parseLong(splitData[4]);
+				info.start = new Date(Long.parseLong(splitData[3]));
+				info.end = new Date(Long.parseLong(splitData[4]));
 				info.recurring = splitData[5];
 				int i = 6;
 				int j = 0;
