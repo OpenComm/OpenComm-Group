@@ -126,7 +126,9 @@ public class ConferencePlannerController {
 			else{			
 				endMinute = minute;
 				endHour = hourOfDay;
-			conferencePlannerView.getEndBox().setText(" " + hourOfDay + ": " + minute);
+				String tempMinute =Integer.toString(minute);//Add a leading zero for aestetic reason
+				if(minute<10){tempMinute = "0"+tempMinute;};
+			conferencePlannerView.getEndBox().setText(" " + hourOfDay + ": " + tempMinute);
 			endTimeSet=true;}
 			
 		}
@@ -150,7 +152,9 @@ public class ConferencePlannerController {
 			else{
 				startMinute = minute;
 				startHour = hourOfDay;
-				conferencePlannerView.getStartBox().setText(" " + hourOfDay + ": " + minute);
+				String tempMinute =Integer.toString(minute);//Add a leading zero for aestetic reason
+				if(minute<10){tempMinute = "0"+tempMinute;};
+				conferencePlannerView.getStartBox().setText(" " + hourOfDay + ": " + tempMinute);
 			}
 			}
 		};
