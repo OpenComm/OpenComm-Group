@@ -180,6 +180,7 @@ public class ConferenceListing {
 						     ConferencePlannerController.addUserIcon((String)buddyList[i], context,vs);
 
 					    }*/
+			         
                      conf.getPlannerView().getCreateButton().setText("update");
 			         conf.getPlannerView().launch();
 

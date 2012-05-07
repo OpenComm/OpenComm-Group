@@ -506,7 +506,7 @@ public class ConferencePlannerController {
 		
 		openfireInvitation.setContactList((ArrayList<String>)Arrays.asList(inviteList));
 		openfireInvitation.setInviter(username);
-		
+		LoginController.xmppService.getSchedulingService().updateConference(openfireInvitation);
 		conferencePlannerView.getWindow().dismiss();
 		}
 		
