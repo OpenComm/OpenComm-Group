@@ -59,9 +59,9 @@ public class ConferencePlannerController {
 	// their username form
 	public boolean[] buddySelection = { false, false, false, false };// hard-code for now
 	// =ContactListController.buddySelection; // array of boolean for buddy
-	private String username = ""; // the username of this account
+	private String username = DashboardController.username.split("@")[0]; // the username of this account
 	// selection
-	private String occurance; // String description of how many times conference
+	private String occurance="once"; // String description of how many times conference
 								// should be repeated
 
 	AlertDialog recurring;// Spinner hack for popups (spinner needs an initial
