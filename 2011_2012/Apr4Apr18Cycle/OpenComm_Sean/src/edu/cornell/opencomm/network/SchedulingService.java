@@ -25,7 +25,9 @@ import edu.cornell.opencomm.controller.LoginController;
 import edu.cornell.opencomm.controller.MainApplication;
 import edu.cornell.opencomm.model.Conference;
 
-/** A class to interact with the conference scheduling plugin. */
+/** A class to interact with the conference scheduling plugin. 
+ * @author - Kris Kooi
+ * */
 public class SchedulingService {
 
 	public static final String LOG_TAG = "Network.SchedulingService";
