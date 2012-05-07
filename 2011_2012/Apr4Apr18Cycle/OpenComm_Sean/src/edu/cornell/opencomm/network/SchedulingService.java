@@ -109,14 +109,14 @@ public class SchedulingService {
 		Message push = new Message();
 		push.setPacketID("pushConference");
 		push.setBody("INSERT INTO CONFERENCES SET OWNER='" + owner
-				+ "', DATE='" + date + "', START="
-				+ new Timestamp(start).toString() + ", END="
-				+ new Timestamp(end).toString() + ", RECURRING='" + recurring
+				+ "', DATE='" + date + "', START='"
+				+ new Timestamp(start).toString() + "', END='"
+				+ new Timestamp(end).toString() + "', RECURRING='" + recurring
 				+ "', PARTICIPANT1='" + participants[0] + "', PARTICIPANT2='"
 				+ participants[1] + "', PARTICIPANT3='" + participants[2]
 				+ "', PARTICIPANT4='" + participants[3] + "', PARTICIPANT5='"
 				+ participants[4] + "', PARTICIPANT6='" + participants[5]
-				+ ", PARTICIPANT7=" + participants[6] + "', PARTICIPANT8='"
+				+ "', PARTICIPANT7='" + participants[6] + "', PARTICIPANT8='"
 				+ participants[7] + "', PARTICIPANT9='" + participants[8]
 				+ "';");
 		try {
