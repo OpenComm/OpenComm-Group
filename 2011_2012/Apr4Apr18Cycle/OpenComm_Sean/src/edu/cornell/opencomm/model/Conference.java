@@ -54,6 +54,7 @@ public class Conference implements Comparable<Conference> {
     	this.endDate=endDate;
     	this.room=room;
     	this.contactList=contactList;
+    	this.inviter=inviter;
     }
     
 //    //Getters for all fields
@@ -262,7 +263,7 @@ public class Conference implements Comparable<Conference> {
     
     /**Returns inviter name + server */
     public String getHostName(){
-    	return getInviter() + Network.DEFAULT_HOSTNAME;//@opencomm-no-ip.org by default
+    	return getInviter() + "@" + Network.DEFAULT_HOSTNAME;//@opencomm-no-ip.org by default
     }
     
 }
