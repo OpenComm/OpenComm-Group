@@ -12,6 +12,7 @@ import java.util.TimerTask;
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ChatManager;
 import org.jivesoftware.smack.ChatManagerListener;
+import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.MessageListener;
 import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
@@ -44,9 +45,8 @@ public class SchedulingService {
 	private static LinkedList<Timer> allTimers;
 	private static Collection<Conference> allScheduledConferences;
 
-	public SchedulingService() {
-		chatManager = LoginController.xmppService.getXMPPConnection()
-				.getChatManager();
+	public SchedulingService(Connection xmppConn) {
+		chatManager = xmppConn.getChatManager();
 		// Listen for incoming notifications
 		chatManager.addChatListener(new ChatManagerListener() {
 

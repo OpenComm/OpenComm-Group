@@ -248,10 +248,9 @@ public class NetworkService {
 						}
 					}
 				};
-
+				schedulingService = new SchedulingService(xmppConn);
 				MultiUserChat.addInvitationListener(xmppConn,
 						invitationListener);
-				schedulingService = new SchedulingService();
 			}
 
 			else {

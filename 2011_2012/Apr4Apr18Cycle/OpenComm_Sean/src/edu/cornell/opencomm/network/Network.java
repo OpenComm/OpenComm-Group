@@ -16,7 +16,7 @@ public class Network {
     private Network() {}
 
     //Use this switch to go betewen jabber and openfire when one or the other is down
-    static boolean isJabber = true;
+    static boolean isJabber = false;
 
 
     /** = package name of this class */
