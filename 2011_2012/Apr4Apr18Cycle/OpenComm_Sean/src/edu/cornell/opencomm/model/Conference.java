@@ -56,27 +56,27 @@ public class Conference implements Comparable<Conference> {
     }
     
 //    //Getters for all fields
-//    public int getStartYear(){
-//        return startYear;
-//    }
-//    public int getStartMonth(){
-//        return startMonth;
-//    }
-//    public int getStartDay(){
-//        return startDay;
-//    }
-//    public int getStartHour(){
-//        return startHour;
-//    }
-//    public int getStartMinute(){
-//        return startMinute;
-//    }
-//    public int getEndHour(){
-//        return endHour;
-//    }
-//    public int getEndMinute(){
-//        return endMinute;
-//    }
+    public int getStartYear(){
+        return startDate.getYear();
+    }
+    public int getStartMonth(){
+        return startDate.getMonth();
+    }
+    public int getStartDay(){
+        return startDate.getDay();
+    }
+    public int getStartHour(){
+        return startDate.getHours();
+    }
+    public int getStartMinute(){
+        return startDate.getMinutes();
+    }
+    public int getEndHour(){
+        return endDate.getHours();
+    }
+    public int getEndMinute(){
+        return endDate.getMinutes();
+    }
     //username of the one who created this conference
     public String getInviter(){
         return inviter;
@@ -95,13 +95,13 @@ public class Conference implements Comparable<Conference> {
         return cpv;
     }
 
-//    public void setStartDay(int startDay) {
-//        this.startDay = startDay;
-//    }
-//
-//    public void setStartHour(int startHour) {
-//        this.startHour = startHour;
-//    }
+    public void setStartDay(int startDay) {
+        startDate.setDate(startDay);
+    }
+
+    public void setStartHour(int startHour) {
+        startDate.setHours(startHour);
+    }
 
 //    public String[] getInviteInfo() {
 //        return inviteInfo;
@@ -115,25 +115,25 @@ public class Conference implements Comparable<Conference> {
         this.inviter = inviter;
     }
 
-//    public void setStartYear(int startYear) {
-//        this.startYear = startYear;
-//    }
-//
-//    public void setStartMonth(int startMonth) {
-//        this.startMonth = startMonth;
-//    }
-//
-//    public void setStartMinute(int startMinute) {
-//        this.startMinute = startMinute;
-//    }
+    public void setStartYear(int startYear) {
+        startDate.setYear(startYear);
+    }
 
-//    public void setEndHour(int endHour) {
-//        this.endHour = endHour;
-//    }
-//
-//    public void setEndMinute(int endMinute) {
-//        this.endMinute = endMinute;
-//    }
+    public void setStartMonth(int startMonth) {
+        startDate.setMonth(startMonth);
+    }
+
+    public void setStartMinute(int startMinute) {
+        startDate.setMinutes(startMinute);
+    }
+
+    public void setEndHour(int endHour) {
+        endDate.setHours(endHour);
+    }
+
+    public void setEndMinute(int endMinute) {
+        endDate.setMinutes(endMinute);
+    }
 
 //    public Date getStartDate() {
 //        Calendar startCal = Calendar.getInstance();
