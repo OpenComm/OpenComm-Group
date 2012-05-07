@@ -32,7 +32,7 @@ public class UserAccountManager {
 	private static final String TAG = "NetworkService";
 	private static final boolean D = Values.D;
 	private String serverName = "199.167.198.149";
-	//private static AccountManager accountManager;
+	private static AccountManager accountManager;
 	
 	public UserAccountManager(){
 		
@@ -41,34 +41,34 @@ public class UserAccountManager {
 	 * Constructor: Account manager for creating editing 
 	 * and deleting accounts
 	 */
-//	public UserAccountManager(XMPPConnection xmppConnection){
-//		accountManager = xmppConnection.getAccountManager();
-//	} 
+	public UserAccountManager(XMPPConnection xmppConnection){
+		accountManager = xmppConnection.getAccountManager();
+	} 
 	
-//	public boolean createUser(String email,String password, String firstname, String lastname, 
-//			String title){
-//		try {
-//			HashMap<String, String> attr = new HashMap<String, String>(); 
-//			attr.put("firstname", firstname); 
-//			attr.put("lastname", lastname); 
-//			attr.put("title", title); 
-//
-//			accountManager.createAccount(email, password, attr);
-//			if (D){
-//				Log.d(TAG, "Create user done");
-//			}
-//			return true;
-//		} catch (XMPPException e) {
-//			if (D){
-//				Log.d(TAG, "Create user failed");
-//				Log.d(TAG,e.getMessage());
-//				e.printStackTrace();
-//			}
-//		}
-//		return false;
-//		
-//	}
-//	
+	public boolean createUser(String email,String password, String firstname, String lastname, 
+			String title){
+		try {
+			HashMap<String, String> attr = new HashMap<String, String>(); 
+			attr.put("firstname", firstname); 
+			attr.put("lastname", lastname); 
+			attr.put("title", title); 
+
+			accountManager.createAccount(email, password, attr);
+			if (D){
+				Log.d(TAG, "Create user done");
+			}
+			return true;
+		} catch (XMPPException e) {
+			if (D){
+				Log.d(TAG, "Create user failed");
+				Log.d(TAG,e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		return false;
+		
+	}
+	
 	public boolean deleteUser(String username){
 		return false;
 	}
