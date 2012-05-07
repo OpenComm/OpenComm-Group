@@ -129,7 +129,8 @@ public class SettingsController {
 		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
 				4);
 		nameValuePairs.add(new BasicNameValuePair("userEmail", userEmail));
-		nameValuePairs.add(new BasicNameValuePair("id",title+"+"+firstname+"+"+lastname));
+		//%2B is a "+" encoded for URLs: http://www.blooberry.com/indexdot/html/topics/urlencoding.htm#whatwhy
+		nameValuePairs.add(new BasicNameValuePair("id",title+"%2B"+firstname+"%2B"+lastname));
 		nameValuePairs.add(new BasicNameValuePair("password", password));
 		nameValuePairs.add(new BasicNameValuePair("action", "edit"));
 
