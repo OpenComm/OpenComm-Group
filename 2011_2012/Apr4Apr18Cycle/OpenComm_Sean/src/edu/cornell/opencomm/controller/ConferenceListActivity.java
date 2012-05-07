@@ -32,7 +32,7 @@ public class ConferenceListActivity extends Activity {
     private Calendar stock = Calendar.getInstance(); //stock calendar
     private TextView textView;
     private Button theButton;
-    private ArrayList<Conference> conferences;
+    //private ArrayList<Conference> conferences;
     ExpandableListView upcomingConferences;
     ExpandableListView happeningNowConferences;
 
@@ -141,7 +141,7 @@ public class ConferenceListActivity extends Activity {
 
         //Updates conference view
       
-        initialize(serverConferences);
+        initialize();
         
         monthDisplay = stock.get(Calendar.MONTH);
         dayDisplay = stock.get(Calendar.DAY_OF_MONTH);
@@ -160,12 +160,14 @@ public class ConferenceListActivity extends Activity {
         theButton.setBackgroundColor(Color.TRANSPARENT);
         theButton.setOnClickListener(onDatePickerListener);
 
-    } // end onCreate method
+    } // end onCreate methods
 
-    private void initialize(Collection<Conference> conferences) {
+    private void initialize() {
         ArrayList<Conference> currentConferences = new ArrayList<Conference>();
         ArrayList<Conference> futureConferences = new ArrayList<Conference>();
-        for(Conference conference : conferences) {
+        Log.v("CLA","serverConferences size: " + serverConferences.size());
+        
+        for(Conference conference : serverConferences) {
             if(conference.isNow())
                 currentConferences.add(conference);
             else if(conference.isFuture())
