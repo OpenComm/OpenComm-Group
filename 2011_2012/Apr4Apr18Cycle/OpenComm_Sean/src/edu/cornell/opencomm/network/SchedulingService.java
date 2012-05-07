@@ -40,6 +40,7 @@ import edu.cornell.opencomm.model.Conference;
 public class SchedulingService {
 
 	public static final String LOG_TAG = "Network.SchedulingService";
+	public static final boolean D = true;
 
 	private ChatManager chatManager;
 	private Chat schedulingChat;
@@ -159,6 +160,7 @@ public class SchedulingService {
 	 *         primary user is a part of
 	 */
 	public Collection<Conference> parseConferences(String rawData) {
+		if (D) Log.v(LOG_TAG, "Received raw data: " + rawData);
 		Collection<Conference> data = new LinkedList<Conference>();
 		String[] conferences = rawData.split("\n");
 		for (String conferenceData : conferences) {
