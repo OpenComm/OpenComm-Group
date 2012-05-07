@@ -1,6 +1,7 @@
 package edu.cornell.opencomm.network;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -32,18 +33,7 @@ public class SchedulingService {
 	private ChatManager chatManager;
 	private Chat schedulingChat;
 	private static LinkedList<Timer> allTimers;
-	private static Collection<Conference> allConferences;
-
-	/** A wrapper inner class for conference data pulled from the database. */
-	class ConferenceData {
-		String id;
-		String owner;
-		String date;
-		Date start;
-		Date end;
-		String recurring;
-		String[] participants = new String[9];
-	}
+	private static Collection<Conference> allScheduledConferences;
 
 	public SchedulingService() {
 		chatManager = LoginController.xmppService.getXMPPConnection()
@@ -74,7 +64,7 @@ public class SchedulingService {
 					public void processMessage(Chat arg0, Message arg1) {
 						if (arg1.getSubject().equals("ConferenceInfo")) {
 							// TODO: Parse out conference info and pass to UI
-							allConferences = parseConferences(arg1.getBody());
+							allScheduledConferences.addAll(parseConferences(arg1.getBody()));
 						} else if (arg1.getSubject().equals(
 								"ConferencePushResult")) {
 							if (arg1.getBody().equals("Sucess!")) {
@@ -94,9 +84,9 @@ public class SchedulingService {
 			@Override
 			public void run() {
 				pullConferences();
-			}		
+			}
 		}, 0, 3600000);
-		
+
 	}
 
 	/** Sends conference info to the database. */
@@ -131,7 +121,7 @@ public class SchedulingService {
 			Log.v(LOG_TAG, e.getMessage());
 		}
 	}
-	
+
 	/**
 	 * Retrieve conference info from the database.
 	 * 
@@ -146,22 +136,19 @@ public class SchedulingService {
 			if (Arrays.asList(splitData).contains(
 					MainApplication.userPrimary.getUsername())
 					&& Long.parseLong(splitData[3]) < new Date().getTime()) {
-				Conference info = new Conference();
-				info.id = splitData[0];
-				info.inviter = splitData[1];
-				info.date = splitData[2];
-				info.start = new Date(Long.parseLong(splitData[3]));
-				info.end = new Date(Long.parseLong(splitData[4]));
-				info.recurring = splitData[5];
+				ArrayList<String> participants = new ArrayList<String>();
 				int i = 6;
 				int j = 0;
 				while (i < splitData.length) {
-					info.participants[j] = splitData[i];
+					participants.add(splitData[i]);
 					i++;
 					j++;
 				}
+				Conference info = new Conference(new Date(Long.parseLong(splitData[3])),
+						new Date(Long.parseLong(splitData[4])), splitData[1],
+						splitData[0], participants);
 				data.add(info);
-				if (info.start < 3600000) {
+				if (info.getStartDate().getTime() - new Date().getTime() < 3600000) {
 					allTimers.add(createConferenceTimer(info));
 				}
 			}
@@ -170,12 +157,12 @@ public class SchedulingService {
 	}
 
 	/** Create a RosterGroup associated with a ConferenceData instance */
-	public RosterGroup createGroup(ConferenceData info) {
+	public RosterGroup createGroup(Conference info) {
 		Roster roster = LoginController.xmppService.getXMPPConnection()
 				.getRoster();
-		RosterGroup group = roster.createGroup(info.id);
+		RosterGroup group = roster.createGroup(info.getRoom());
 		RosterEntry[] entries = (RosterEntry[]) roster.getEntries().toArray();
-		for (String user : info.participants) {
+		for (String user : info.getContactList()) {
 			for (RosterEntry entry : entries) {
 				if (entry.getUser().equals(user)) {
 					try {
@@ -206,27 +193,27 @@ public class SchedulingService {
 			}
 		}
 	}
-	
+
 	/** Create a timer for a conference notification. */
-	public Timer createConferenceTimer(final ConferenceData info) {
+	public Timer createConferenceTimer(final Conference info) {
 		Timer startConference = new Timer();
-		Date start = new Date(info.start);
+		Date start = info.getStartDate();
 		startConference.schedule(new TimerTask() {
 
 			@Override
 			public void run() {
-			RosterGroup group = createGroup(info);
-			Message broadcastMessage = new Message();
-			broadcastMessage.setSubject("Broadcast");
-			// TODO: create useful message to pass to other users
-			broadcast(group, broadcastMessage);
+				RosterGroup group = createGroup(info);
+				Message broadcastMessage = new Message();
+				broadcastMessage.setSubject("Broadcast");
+				// TODO: create useful message to pass to other users
+				broadcast(group, broadcastMessage);
 			}
-			
+
 		}, start);
 		return startConference;
 	}
-	
-	public static Collection<ConferenceData> getAllConferences() {
-		return allConferences;
+
+	public static Collection<Conference> getAllConferences() {
+		return allScheduledConferences;
 	}
 }
