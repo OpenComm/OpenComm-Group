@@ -28,7 +28,7 @@ public class LoginController {
     private LoginView loginView;
 
     // Debugging
-    private static final boolean D = false;//Values.D;
+    private static final boolean D = Values.D;
 
     // Logs
     private static final String LOG_TAG = "LoginController";
