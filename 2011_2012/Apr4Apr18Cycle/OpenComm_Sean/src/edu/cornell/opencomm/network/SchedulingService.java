@@ -12,6 +12,7 @@ import java.util.TimerTask;
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ChatManager;
 import org.jivesoftware.smack.ChatManagerListener;
+import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.MessageListener;
 import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
@@ -22,6 +23,7 @@ import org.jivesoftware.smack.packet.Message;
 import android.content.Intent;
 import android.util.Log;
 
+import edu.cornell.opencomm.controller.ConferenceListActivity;
 import edu.cornell.opencomm.controller.LoginController;
 import edu.cornell.opencomm.controller.MainApplication;
 
@@ -44,9 +46,8 @@ public class SchedulingService {
 	private static LinkedList<Timer> allTimers;
 	private static Collection<Conference> allScheduledConferences;
 
-	public SchedulingService() {
-		chatManager = LoginController.xmppService.getXMPPConnection()
-				.getChatManager();
+	public SchedulingService(Connection xmppConn) {
+		chatManager = xmppConn.getChatManager();
 		// Listen for incoming notifications
 		chatManager.addChatListener(new ChatManagerListener() {
 
@@ -74,8 +75,10 @@ public class SchedulingService {
 					public void processMessage(Chat arg0, Message arg1) {
 						if (arg1.getSubject().equals("ConferenceInfo")) {
 							// TODO: Parse out conference info and pass to UI
-							allScheduledConferences = parseConferences(arg1
-									.getBody());
+
+							allScheduledConferences=(parseConferences(arg1.getBody()));
+							ConferenceListActivity.setServerConferences(allScheduledConferences);
+
 						} else if (arg1.getSubject().equals(
 								"ConferencePushResult")) {
 							if (arg1.getBody().equals("Sucess!")) {
