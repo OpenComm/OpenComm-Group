@@ -70,7 +70,7 @@ public class SchedulingService {
 		});
 		// Create a chat for communicating with the scheduling plugin
 		schedulingChat = chatManager.createChat(
-				"scheduling.localhost.localdomain", new MessageListener() {
+				"schedulingfairy.localhost.localdomain", new MessageListener() {
 
 					@Override
 					public void processMessage(Chat arg0, Message arg1) {
@@ -110,9 +110,9 @@ public class SchedulingService {
 		Message push = new Message();
 		push.setPacketID("pushConference");
 		push.setBody("INSERT INTO CONFERENCES SET OWNER='" + owner
-				+ "', DATE='" + date + "', START="
-				+ new Timestamp(start).toString() + ", END="
-				+ new Timestamp(end).toString() + ", RECURRING='" + recurring
+				+ "', DATE='" + date + "', START='"
+				+ new Timestamp(start).toString() + "', END='"
+				+ new Timestamp(end).toString() + "', RECURRING='" + recurring
 				+ "', PARTICIPANT1='" + participants[0] + "', PARTICIPANT2='"
 				+ participants[1] + "', PARTICIPANT3='" + participants[2]
 				+ "', PARTICIPANT4='" + participants[3] + "', PARTICIPANT5='"
