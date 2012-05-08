@@ -186,10 +186,12 @@ public class SchedulingService {
 				int i = 6;
 				int j = 0;
 				while (i < splitData.length) {
-					if(splitData[i]!=null){
+					Log.v(LOG_TAG, "splitData[i]: " + splitData[i]);
+					if(!"null".equals(splitData[i])){
 					participants.add(splitData[i]);
-					i++;
+					
 					j++;}
+					i++;
 				}
 				Conference info = new Conference(new Date(
 						Long.parseLong(splitData[3])), new Date(
