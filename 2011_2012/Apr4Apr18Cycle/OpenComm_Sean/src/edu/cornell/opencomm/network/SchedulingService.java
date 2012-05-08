@@ -2,7 +2,6 @@ package edu.cornell.opencomm.network;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
@@ -12,7 +11,6 @@ import java.util.TimerTask;
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ChatManager;
 import org.jivesoftware.smack.ChatManagerListener;
-import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.MessageListener;
 import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
@@ -20,18 +18,12 @@ import org.jivesoftware.smack.RosterGroup;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
-import org.jivesoftware.smack.packet.PacketExtension;
-
 import android.content.Intent;
 import android.util.Log;
 
 import edu.cornell.opencomm.controller.ConferenceListActivity;
 import edu.cornell.opencomm.controller.LoginController;
-import edu.cornell.opencomm.controller.MainApplication;
-
 import edu.cornell.opencomm.view.DashboardView;
-import edu.cornell.opencomm.view.LoginView;
-
 import edu.cornell.opencomm.model.Conference;
 
 /**
@@ -100,6 +92,7 @@ public class SchedulingService {
 						}
 					}
 				});
+		/*
 		// Create a Timer to pull conferences every hour
 		Timer pullConferences = new Timer();
 		pullConferences.scheduleAtFixedRate(new TimerTask() {
@@ -109,6 +102,7 @@ public class SchedulingService {
 				pullConferences();
 			}
 		}, 0, 3600000);
+		*/
 
 	}
 
