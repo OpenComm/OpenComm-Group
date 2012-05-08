@@ -68,6 +68,8 @@ public class InvitationPopupPreviewView extends LinearLayout {
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
 				USER_ICON_DIMENSION-5, USER_ICON_DIMENSION);
 		
+		
+		Log.v("IPPV MUC OCC", "has next? " + Space.getMainSpace().getMUC().getOccupants().hasNext());
 		//This has to be done for each of the person being in the conf.
            User temp = User.getAllNicknames().get(invitation.getInviter().split("@")[0]);
            Log.v("USERNAME IPPV", invitation.getInviter().split("@")[0]);

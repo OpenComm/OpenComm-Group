@@ -91,9 +91,13 @@ public class DashboardController {
 	}
 
 	public void handleConferencesButtonClicked() {
-		//Before creating, pull.
+		//Before creating, pull.s
 		  LoginController.xmppService.getSchedulingService().pullConferences();
-		  
+		  try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		Intent myIntent = new Intent();
 		myIntent.setClass(dashboardView.getApplication(),
 				ConferenceListActivity.class);

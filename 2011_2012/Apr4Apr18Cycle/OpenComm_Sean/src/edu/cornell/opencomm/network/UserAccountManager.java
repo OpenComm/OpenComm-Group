@@ -34,6 +34,9 @@ public class UserAccountManager {
 	private String serverName = "199.167.198.149";
 	private static AccountManager accountManager;
 	
+	public UserAccountManager(){
+		
+		} 
 	/* 
 	 * Constructor: Account manager for creating editing 
 	 * and deleting accounts
@@ -42,7 +45,6 @@ public class UserAccountManager {
 		accountManager = xmppConnection.getAccountManager();
 	} 
 	
-	@Deprecated
 	public boolean createUser(String email,String password, String firstname, String lastname, 
 			String title){
 		try {
@@ -79,6 +81,8 @@ public class UserAccountManager {
 		//
 		// Sends an email via a script on page mail.php on the server
 
+		Log.v(TAG, "Send " + nameValuePairs.toString());
+		
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpPost httppost = new HttpPost("http://" + serverName + "/mail.php");
 		HttpResponse response = null;

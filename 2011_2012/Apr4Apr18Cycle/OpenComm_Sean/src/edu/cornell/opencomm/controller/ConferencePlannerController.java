@@ -4,7 +4,12 @@ package edu.cornell.opencomm.controller;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
+
+import org.jivesoftware.smack.Roster;
+import org.jivesoftware.smack.RosterEntry;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -26,6 +31,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.model.Conference;
+import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.Network;
 import edu.cornell.opencomm.view.ConferencePlannerView;
@@ -164,6 +170,19 @@ public class ConferencePlannerController {
 
 	public ConferencePlannerController(
 			ConferencePlannerView conferencePlannerView) {
+		Roster xmppRoster = LoginController.xmppService.getXMPPConnection().getRoster();
+        Collection<RosterEntry> entryCollection = xmppRoster.getEntries();
+        Iterator<RosterEntry> entryItr = entryCollection.iterator();
+        buddyList = new CharSequence[entryCollection.size()];
+        int i = 0;
+        while (entryItr.hasNext()) {
+            String nickname= entryItr.next().getUser().split("@")[0];
+            buddyList[i++] = (CharSequence) nickname;
+            
+        }
+        
+        Log.v("Cyt",Integer.toString(entryCollection.size()));
+		
 		endTime = Calendar.getInstance();
 		startDate = Calendar.getInstance();
 		this.conferencePlannerView = conferencePlannerView;
@@ -470,7 +489,7 @@ public class ConferencePlannerController {
 		for (boolean b: buddySelection){
 			if (b){inviteCounter++;}
 		}
-		String[] inviteList= new String[inviteCounter];
+		String[] inviteList= new String[inviteCounter > 10? inviteCounter:10];
 		int counter=0;
 		inviteCounter=0;
 		for (CharSequence s: buddyList){
@@ -482,9 +501,10 @@ public class ConferencePlannerController {
 		room=conferencePlannerView.getNameBox().getText().toString();
 		//conferencePlannerView.getWindow().dismiss();
 		if(openfireInvitation == null){
-		openfireInvitation = new Conference(new Date(startYear, startMonth, startDay, startHour, startMinute), new Date(startYear, startMonth, startDay, endHour, endMinute),room,username,(ArrayList<String>)Arrays.asList(inviteList));
-
+			
+		openfireInvitation = new Conference(new Date(startYear-1900, startMonth, startDay, startHour, startMinute), new Date(startYear-1900, startMonth, startDay, endHour, endMinute),username,room, new ArrayList<String>(Arrays.asList(inviteList)));
 		LoginController.xmppService.getSchedulingService().pushConference(openfireInvitation.getHostName(),openfireInvitation.getDateString(), openfireInvitation.getStartLong(),openfireInvitation.getEndLong(), openfireInvitation.getRecurring(), openfireInvitation.getContactsAsArray());
+		Log.v("date", String.valueOf(openfireInvitation.getStartLong()));
 		//openfireInvitation.setRoom(room);
         
 		openfireInvitation.setPlannerView(conferencePlannerView);

@@ -17,8 +17,10 @@ import org.jivesoftware.smack.MessageListener;
 import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.RosterGroup;
+import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
+import org.jivesoftware.smack.packet.PacketExtension;
 
 import android.content.Intent;
 import android.util.Log;
@@ -46,8 +48,10 @@ public class SchedulingService {
 	private Chat schedulingChat;
 	private static LinkedList<Timer> allTimers;
 	private static Collection<Conference> allScheduledConferences;
+	private XMPPConnection xmppConn;
 
-	public SchedulingService(Connection xmppConn) {
+	public SchedulingService(XMPPConnection xmppConn) {
+		this.xmppConn = xmppConn;
 		chatManager = xmppConn.getChatManager();
 		// Listen for incoming notifications
 		chatManager.addChatListener(new ChatManagerListener() {
@@ -68,20 +72,22 @@ public class SchedulingService {
 				}
 			}
 		});
-		// Create a chat for communicating with the scheduling plugin
+		// Create a chat for communicating with the scheduling plugins
 		schedulingChat = chatManager.createChat(
 				"schedulingfairy.localhost.localdomain", new MessageListener() {
-
 					@Override
 					public void processMessage(Chat arg0, Message arg1) {
-						if (arg1.getSubject().equals("ConferenceInfo")) {
+						Log.v(LOG_TAG, "Message Received");
+						Log.v(LOG_TAG, "Message to XML:" + arg1.toXML());
+						if (arg1.getPacketID().equals("ConferenceInfo")) {
 							// TODO: Parse out conference info and pass to UI
-
+							Log.v(LOG_TAG, "Conference info pull received");
 							allScheduledConferences=(parseConferences(arg1.getBody()));
 							ConferenceListActivity.setServerConferences(allScheduledConferences);
 							Log.v(LOG_TAG,"allScheduled: " + allScheduledConferences.size());
 						} else if (arg1.getSubject().equals(
 								"ConferencePushResult")) {
+							Log.v(LOG_TAG,"Conference pushed!");
 							if (arg1.getBody().equals("Sucess!")) {
 								// TODO: UI - give confirmation screen
 							} else if (arg1.getBody().equals("Failure...")) {
@@ -108,6 +114,7 @@ public class SchedulingService {
 	public void pushConference(String owner, String date, long start, long end,
 			String recurring, String[] participants) {
 		Message push = new Message();
+		push.setFrom(xmppConn.getUser());
 		push.setPacketID("pushConference");
 		push.setBody("INSERT INTO CONFERENCES SET OWNER='" + owner
 				+ "', DATE='" + date + "', START='"
@@ -117,7 +124,7 @@ public class SchedulingService {
 				+ participants[1] + "', PARTICIPANT3='" + participants[2]
 				+ "', PARTICIPANT4='" + participants[3] + "', PARTICIPANT5='"
 				+ participants[4] + "', PARTICIPANT6='" + participants[5]
-				+ ", PARTICIPANT7=" + participants[6] + "', PARTICIPANT8='"
+				+ "', PARTICIPANT7='" + participants[6] + "', PARTICIPANT8='"
 				+ participants[7] + "', PARTICIPANT9='" + participants[8]
 				+ "';");
 		try {
@@ -145,12 +152,14 @@ public class SchedulingService {
 	/** Sends a message to the server asking for conference data. */
 	public void pullConferences() {
 		Message pull = new Message();
+		pull.setFrom(xmppConn.getUser());
 		pull.setPacketID("pullConferences");
 		try {
 			schedulingChat.sendMessage(pull);
 		} catch (XMPPException e) {
 			Log.v(LOG_TAG, e.getMessage());
 		}
+		Log.v(LOG_TAG,"pull message sent");
 	}
 
 	/**

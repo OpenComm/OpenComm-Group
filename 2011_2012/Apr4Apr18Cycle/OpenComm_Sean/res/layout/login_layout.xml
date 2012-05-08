@@ -24,7 +24,8 @@
 			android:layout_centerVertical="true" 
 			android:id="@+id/editTextUsername" 
 			android:textSize="25sp" 
-			android:paddingLeft="10dp"/>
+			android:paddingLeft="10dp"
+            android:inputType="textEmailAddress"/>
 		<TextView 
 			android:id="@+id/textUsernameAligner"
 			android:layout_height="wrap_content" 
