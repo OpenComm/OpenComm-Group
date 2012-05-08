@@ -74,7 +74,7 @@ public class SchedulingService {
 		});
 		// Create a chat for communicating with the scheduling plugins
 		schedulingChat = chatManager.createChat(
-				"schedulingfairy.localhost.localdomain", new MessageListener() {
+				"scheduling.localhost.localdomain", new MessageListener() {
 					@Override
 					public void processMessage(Chat arg0, Message arg1) {
 						Log.v(LOG_TAG, "Message Received");
@@ -154,6 +154,7 @@ public class SchedulingService {
 		Message pull = new Message();
 		pull.setFrom(xmppConn.getUser());
 		pull.setPacketID("pullConferences");
+		pull.setBody("test");
 		try {
 			schedulingChat.sendMessage(pull);
 		} catch (XMPPException e) {
