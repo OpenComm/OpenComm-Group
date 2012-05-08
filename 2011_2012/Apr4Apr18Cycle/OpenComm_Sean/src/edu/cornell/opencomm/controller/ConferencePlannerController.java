@@ -513,8 +513,8 @@ public class ConferencePlannerController {
 		}else{
 		//go back to conference list view.
 			Log.v("Crystal", "conference value changed");
-			openfireInvitation.setStartDate(startYear,startMonth,startDay, startHour, startMinute);
-		openfireInvitation.setStartDate(startYear, startMonth, startDay, startHour, startMinute);	
+			openfireInvitation.setStartDate(startYear-1900,startMonth,startDay, startHour, startMinute);
+		openfireInvitation.setStartDate(startYear-1900, startMonth, startDay, startHour, startMinute);	
 		openfireInvitation.setRoom(room);
 	    /*openfireInvitation.setStartYear(startYear);
 		openfireInvitation.setStartMonth(startMonth);
