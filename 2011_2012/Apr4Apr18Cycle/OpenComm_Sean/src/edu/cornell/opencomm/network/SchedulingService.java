@@ -67,13 +67,14 @@ public class SchedulingService {
 				}
 			}
 		});
-		// Create a chat for communicating with the scheduling plugin
+		// Create a chat for communicating with the scheduling plugins
 		schedulingChat = chatManager.createChat(
-				"scheduling.localhost.localdomain", new MessageListener() {
+				"Schedulingfairy.localhost.localdomain", new MessageListener() {
 
 					@Override
 					public void processMessage(Chat arg0, Message arg1) {
-						if (arg1.getSubject().equals("ConferenceInfo")) {
+						Log.v(LOG_TAG, "Message Received");
+						if (arg1.getPacketID().equals("ConferenceInfo")) {
 							// TODO: Parse out conference info and pass to UI
 							Log.v(LOG_TAG, "Conference info pull received");
 							allScheduledConferences=(parseConferences(arg1.getBody()));
@@ -81,6 +82,7 @@ public class SchedulingService {
 							Log.v(LOG_TAG,"allScheduled: " + allScheduledConferences.size());
 						} else if (arg1.getSubject().equals(
 								"ConferencePushResult")) {
+							Log.v(LOG_TAG,"Conference pushed!");
 							if (arg1.getBody().equals("Sucess!")) {
 								// TODO: UI - give confirmation screen
 							} else if (arg1.getBody().equals("Failure...")) {

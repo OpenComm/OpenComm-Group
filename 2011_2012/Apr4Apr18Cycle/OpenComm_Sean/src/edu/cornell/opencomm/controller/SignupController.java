@@ -29,8 +29,6 @@ public class SignupController {
     private Context context;
     private SignupView view;
 
-	private NetworkService xmppService;
-	private XMPPConnection xmppConn;
     private UserAccountManager userAccountManager;
 
     final public String INVALID_FIRST_NAME = "Invalid First Name";
@@ -43,10 +41,7 @@ public class SignupController {
         if (D) Log.d(TAG, "SignupController constructor called");
         this.view = view;
         this.context = context;
-		//this.xmppService = new NetworkService(Network.DEFAULT_HOST,
-		//		Network.DEFAULT_PORT);
-		//this.xmppConn = xmppService.getXMPPConnection();
-        //this.userAccountManager = new UserAccountManager(xmppConn);
+        this.userAccountManager = new UserAccountManager();
     }
 
     public final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[.][a-zA-Z]{2,4}$");

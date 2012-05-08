@@ -42,17 +42,17 @@ public class ResetPasswordController {
 	private String username;
 
 	// Network service and Connection
-	private NetworkService xmppService;
-	private XMPPConnection xmppConn;
 	
 	private UserAccountManager userAccountManager;
 
 	public ResetPasswordController(ResetPasswordView resetPasswordView) {
-		this.xmppService = new NetworkService(Network.DEFAULT_HOST,
-				Network.DEFAULT_PORT);
-		//this.xmppConn = xmppService.getXMPPConnection();
-		//this.resetPasswordView = resetPasswordView;
-		//this.userAccountManager = new UserAccountManager(xmppConn);
+
+		
+		this.resetPasswordView = resetPasswordView;
+
+
+		this.userAccountManager = new UserAccountManager();
+
 	}
 
 	/**

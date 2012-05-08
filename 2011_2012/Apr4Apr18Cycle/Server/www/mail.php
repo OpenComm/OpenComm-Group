@@ -51,9 +51,8 @@ $serverOpenfire = 'http://cuopencomm.no-ip.org';
 if(isset($_POST['userEmail']) && isset($_POST['action'])) {
 	$userEmail = $_POST['userEmail'];
 	$action = $_POST['action'];
-/* 	$usernameArray = preg_split('/@/',$userEmail);
-	$username = $usernameArray[0]; */
-	$username = $userEmail;
+ 	$usernameArray = preg_split('/@/',$userEmail);
+	$username = $usernameArray[0].$usernameArray[1]; 
 	if($action === "forgot") {
 		$password = createPassword(8);
 		$subject = 'Your new password for OpenComm';
