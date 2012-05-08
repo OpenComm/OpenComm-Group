@@ -79,6 +79,8 @@ public class SchedulingService {
 					public void processMessage(Chat arg0, Message arg1) {
 						Log.v(LOG_TAG, "Message Received");
 						Log.v(LOG_TAG, "Message to XML:" + arg1.toXML());
+						allScheduledConferences=(parseConferences(arg1.getBody()));
+						ConferenceListActivity.setServerConferences(allScheduledConferences);
 						if (arg1.getPacketID().equals("ConferenceInfo")) {
 							// TODO: Parse out conference info and pass to UI
 							Log.v(LOG_TAG, "Conference info pull received");
@@ -175,27 +177,32 @@ public class SchedulingService {
 		String[] conferences = rawData.split("\n");
 		for (String conferenceData : conferences) {
 			String[] splitData = conferenceData.split("//");
-			if (Arrays.asList(splitData).contains(
-					MainApplication.userPrimary.getUsername())
-					&& Long.parseLong(splitData[3]) < new Date().getTime()) {
+			if (
+					//Maybe use xmppConn.getUser().
+//					Arrays.asList(splitData).contains(
+//					MainApplication.userPrimary.getUsername())&&
+					 Long.parseLong(splitData[3]) < new Date().getTime()) {
 				ArrayList<String> participants = new ArrayList<String>();
 				int i = 6;
 				int j = 0;
 				while (i < splitData.length) {
+					if(splitData[i]!=null){
 					participants.add(splitData[i]);
 					i++;
-					j++;
+					j++;}
 				}
 				Conference info = new Conference(new Date(
 						Long.parseLong(splitData[3])), new Date(
 						Long.parseLong(splitData[4])), splitData[1],
 						splitData[0], participants);
 				data.add(info);
-				if (info.getStartDate().getTime() - new Date().getTime() < 3600000) {
-					allTimers.add(createConferenceTimer(info));
-				}
+				Log.v(LOG_TAG,"Conference added. Number " + data.size());
+//				if (info.getStartDate().getTime() - new Date().getTime() < 3600000) {
+//					allTimers.add(createConferenceTimer(info));
+//				}
 			}
 		}
+		Log.v(LOG_TAG, "Raw data parsed: number of conferences: " + data.size());
 		return data;
 	}
 
@@ -204,7 +211,7 @@ public class SchedulingService {
 		Roster roster = LoginController.xmppService.getXMPPConnection()
 				.getRoster();
 		RosterGroup group = roster.createGroup(info.getRoom());
-		RosterEntry[] entries = (RosterEntry[]) roster.getEntries().toArray();
+		RosterEntry[] entries = roster.getEntries().toArray(new RosterEntry[0]);
 		for (String user : info.getContactList()) {
 			for (RosterEntry entry : entries) {
 				if (entry.getUser().equals(user)) {
@@ -267,7 +274,7 @@ public class SchedulingService {
 		DashboardView.setPopupGo(true);
 		Intent i = new Intent((DashboardView.getDashboardInstance()),
 				DashboardView.class);
-		MainApplication.screen.getActivity().startActivity(i);
+		DashboardView.getDashboardInstance().startActivity(i);
 
 	}
 

@@ -24,6 +24,7 @@ import edu.cornell.opencomm.view.ConferenceListing;
 public class ConferenceListActivity extends Activity {
 	
 	private static Collection<Conference> serverConferences;
+	private static String LOG_TAG = "ConferenceListActivity";
 
     private View layout;
     private ConferenceListExpandableListAdapter upcomingAdapter;
@@ -171,6 +172,7 @@ public class ConferenceListActivity extends Activity {
             if(conference.isNow())
                 currentConferences.add(conference);
             else if(conference.isFuture())
+            	Log.v(LOG_TAG,"Added conference to the FUTURE!");
                 futureConferences.add(conference);
         }
         upcomingAdapter = new ConferenceListExpandableListAdapter(this, futureConferences);

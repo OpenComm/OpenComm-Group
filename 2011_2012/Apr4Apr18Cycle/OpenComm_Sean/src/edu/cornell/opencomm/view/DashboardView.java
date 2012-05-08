@@ -254,8 +254,8 @@ public class DashboardView extends Activity {
 
     @Override
     public void onPause() {
-    	if(pnv!=null){
-    	pnv.getPopup().dismiss();}
+//    	if(pnv!=null){
+//    	pnv.getPopup().dismiss();}
     	super.onPause();
     }
 
