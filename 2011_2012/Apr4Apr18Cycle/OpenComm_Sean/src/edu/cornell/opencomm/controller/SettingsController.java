@@ -31,18 +31,13 @@ public class SettingsController {
     private Context context;
     private SettingsView view;
     
-	private NetworkService xmppService;
-	private XMPPConnection xmppConn;
     private UserAccountManager userAccountManager;
 
     public SettingsController(SettingsView settingsView, Context context) {
         if (D) Log.d(TAG, "SettingsController constructor called");
         this.view = settingsView;
         this.context = context;
-		this.xmppService = new NetworkService(Network.DEFAULT_HOST,
-				Network.DEFAULT_PORT);
-		this.xmppConn = xmppService.getXMPPConnection();
-        this.userAccountManager = new UserAccountManager(xmppConn);
+        userAccountManager = new UserAccountManager();
     }
 
     public final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[.][a-zA-Z]{2,4}$");
@@ -138,7 +133,7 @@ public class SettingsController {
 			AsyncTask<ArrayList<NameValuePair>, Void, Boolean> sent = new LongOperation();
 			return sent.execute(nameValuePairs).get();
 
-		} catch (InterruptedException e) {
+    	} catch (InterruptedException e) {
 			Log.e(TAG, e.toString());
 		} catch (ExecutionException e) {
 			Log.e(TAG, e.toString());
@@ -151,10 +146,9 @@ public class SettingsController {
     private class LongOperation extends AsyncTask<ArrayList<NameValuePair>, Void, Boolean> {
 
     @Override
-	    protected Boolean doInBackground(ArrayList<NameValuePair>... params) {
+    protected Boolean doInBackground(ArrayList<NameValuePair>... params) {
 
-	    	return userAccountManager.userChange(params[0]);
+    	return userAccountManager.userChange(params[0]);
 	    }
     }
-
 }

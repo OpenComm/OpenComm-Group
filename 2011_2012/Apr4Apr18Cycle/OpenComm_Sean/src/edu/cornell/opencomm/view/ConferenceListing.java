@@ -163,8 +163,8 @@ public class ConferenceListing {
 			         }
 
 			        // Crystal:have to hard-code for now for debugging
-			        // ConferencePlannerView cpv1=new ConferencePlannerView(inflater,context,conf);
-			        // conf.setPlannerView(cpv1);
+			         ConferencePlannerView cpv1=new ConferencePlannerView(inflater,context,conf);
+			         conf.setPlannerView(cpv1);
 			        // cpv1.getConferencePlannerController().setAll(conf);
 			        // String date=String.valueOf(conf.getStartMonth())+"/"+String.valueOf(conf.getStartDay())+"/"+String.valueOf(conf.getStartYear());
     	            // String startT=String.valueOf(conf.getStartHour())+":"+String.valueOf(conf.getStartMinute());

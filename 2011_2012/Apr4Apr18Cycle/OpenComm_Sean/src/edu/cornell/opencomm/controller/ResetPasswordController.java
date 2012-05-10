@@ -42,9 +42,7 @@ public class ResetPasswordController {
 	private String username;
 
 	// Network service and Connection
-	private NetworkService xmppService;
-	private XMPPConnection xmppConn;
-	
+
 	private UserAccountManager userAccountManager;
 
 	public ResetPasswordController(ResetPasswordView resetPasswordView) {
@@ -53,6 +51,10 @@ public class ResetPasswordController {
 		//this.xmppConn = xmppService.getXMPPConnection();
 		//this.resetPasswordView = resetPasswordView;
 		//this.userAccountManager = new UserAccountManager(xmppConn);
+
+		this.resetPasswordView = resetPasswordView;
+
+		this.userAccountManager = new UserAccountManager();
 	}
 
 	/**
@@ -151,11 +153,11 @@ public class ResetPasswordController {
 				2);
 		nameValuePairs.add(new BasicNameValuePair("userEmail", userEmail));
 		nameValuePairs.add(new BasicNameValuePair("action", "forgot"));
-		
+
 		try {
 			AsyncTask<ArrayList<NameValuePair>, Void, Boolean> sent = new LongOperation();
 			return sent.execute(nameValuePairs).get();
-			
+
 		} catch (InterruptedException e) {
 			Log.e(LOG_TAG, e.toString());
 		} catch (ExecutionException e) {
@@ -164,12 +166,14 @@ public class ResetPasswordController {
 		return false;
 
 	}
-	
-//As per tutorial on http://sankarganesh-info-exchange.blogspot.com/p/need-and-vital-role-of-asynctas-in.html
-	private class LongOperation extends AsyncTask<ArrayList<NameValuePair>, Void, Boolean> {
+
+	// As per tutorial on
+	// http://sankarganesh-info-exchange.blogspot.com/p/need-and-vital-role-of-asynctas-in.html
+	private class LongOperation extends
+			AsyncTask<ArrayList<NameValuePair>, Void, Boolean> {
 		@Override
 		protected Boolean doInBackground(ArrayList<NameValuePair>... params) {
 			return userAccountManager.userChange(params[0]);
 		}
-	}	
+	}
 }

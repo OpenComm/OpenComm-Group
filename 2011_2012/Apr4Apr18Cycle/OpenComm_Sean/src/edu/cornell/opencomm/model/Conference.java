@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import android.util.Log;
+
 import edu.cornell.opencomm.network.Network;
 import edu.cornell.opencomm.view.ConferencePlannerView;
 
@@ -17,6 +19,7 @@ public class Conference implements Comparable<Conference> {
     private Date startDate, endDate;//Date objects representing start and end time of conference
     private String[]inviteList;
     private ArrayList<String> contactList;
+    private static String LOG_TAG = "ConferenceModel";
     // private MultiUserChat muc;
 
 //    //Fields representing the start time of the conference
@@ -54,6 +57,8 @@ public class Conference implements Comparable<Conference> {
     	this.endDate=endDate;
     	this.room=room;
     	this.contactList=contactList;
+    	this.inviter=inviter;
+    	Log.v(LOG_TAG, "Conference Constructor called!");
     }
     
 //    //Getters for all fields
@@ -262,7 +267,7 @@ public class Conference implements Comparable<Conference> {
     
     /**Returns inviter name + server */
     public String getHostName(){
-    	return getInviter() + Network.DEFAULT_HOSTNAME;//@opencomm-no-ip.org by default
+    	return getInviter() + "@" + Network.DEFAULT_HOSTNAME;//@opencomm-no-ip.org by default
     }
     
 }
