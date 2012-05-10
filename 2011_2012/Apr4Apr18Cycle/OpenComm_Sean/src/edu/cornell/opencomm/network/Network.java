@@ -39,10 +39,10 @@ public class Network {
 	public static final int DEFAULT_PORT = 5222;
 
 	/** = debug username */
-	public static final String DEBUG_USERNAME = isJabber ? "opencommsec" : "debug";
+	public static final String DEBUG_USERNAME = isJabber ? "opencommsec" : "opencommsec";
 
 	/** = debug password */
-	public static final String DEBUG_PASSWORD = isJabber ? "secopencomm" : "debug";
+	public static final String DEBUG_PASSWORD = isJabber ? "secopencomm" : "secopencomm";
 
 	/** = conference server */
 	public static final String DEFAULT_CONFERENCE = isJabber ? "conference.jabber.org" : "conference.localhost.localdomain";
