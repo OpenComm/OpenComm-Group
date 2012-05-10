@@ -2,7 +2,6 @@ package edu.cornell.opencomm.network;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
@@ -12,24 +11,19 @@ import java.util.TimerTask;
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ChatManager;
 import org.jivesoftware.smack.ChatManagerListener;
-import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.MessageListener;
 import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.RosterGroup;
+import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
-
 import android.content.Intent;
 import android.util.Log;
 
 import edu.cornell.opencomm.controller.ConferenceListActivity;
 import edu.cornell.opencomm.controller.LoginController;
-import edu.cornell.opencomm.controller.MainApplication;
-
 import edu.cornell.opencomm.view.DashboardView;
-import edu.cornell.opencomm.view.LoginView;
-
 import edu.cornell.opencomm.model.Conference;
 
 /**
@@ -40,13 +34,16 @@ import edu.cornell.opencomm.model.Conference;
 public class SchedulingService {
 
 	public static final String LOG_TAG = "Network.SchedulingService";
+	public static final boolean D = true;
 
 	private ChatManager chatManager;
 	private Chat schedulingChat;
 	private static LinkedList<Timer> allTimers;
 	private static Collection<Conference> allScheduledConferences;
+	private XMPPConnection xmppConn;
 
-	public SchedulingService(Connection xmppConn) {
+	public SchedulingService(XMPPConnection xmppConn) {
+		this.xmppConn = xmppConn;
 		chatManager = xmppConn.getChatManager();
 		// Listen for incoming notifications
 		chatManager.addChatListener(new ChatManagerListener() {
@@ -69,11 +66,13 @@ public class SchedulingService {
 		});
 		// Create a chat for communicating with the scheduling plugins
 		schedulingChat = chatManager.createChat(
-				"Schedulingfairy.localhost.localdomain", new MessageListener() {
-
+				"scheduling.localhost.localdomain", new MessageListener() {
 					@Override
 					public void processMessage(Chat arg0, Message arg1) {
 						Log.v(LOG_TAG, "Message Received");
+						Log.v(LOG_TAG, "Message to XML:" + arg1.toXML());
+						allScheduledConferences=(parseConferences(arg1.getBody()));
+						ConferenceListActivity.setServerConferences(allScheduledConferences);
 						if (arg1.getPacketID().equals("ConferenceInfo")) {
 							// TODO: Parse out conference info and pass to UI
 							Log.v(LOG_TAG, "Conference info pull received");
@@ -93,6 +92,7 @@ public class SchedulingService {
 						}
 					}
 				});
+		/*
 		// Create a Timer to pull conferences every hour
 		Timer pullConferences = new Timer();
 		pullConferences.scheduleAtFixedRate(new TimerTask() {
@@ -102,6 +102,7 @@ public class SchedulingService {
 				pullConferences();
 			}
 		}, 0, 3600000);
+		*/
 
 	}
 
@@ -109,6 +110,7 @@ public class SchedulingService {
 	public void pushConference(String owner, String date, long start, long end,
 			String recurring, String[] participants) {
 		Message push = new Message();
+		push.setFrom(xmppConn.getUser());
 		push.setPacketID("pushConference");
 		push.setBody("INSERT INTO CONFERENCES SET OWNER='" + owner
 				+ "', DATE='" + date + "', START='"
@@ -146,7 +148,9 @@ public class SchedulingService {
 	/** Sends a message to the server asking for conference data. */
 	public void pullConferences() {
 		Message pull = new Message();
+		pull.setFrom(xmppConn.getUser());
 		pull.setPacketID("pullConferences");
+		pull.setBody("test");
 		try {
 			schedulingChat.sendMessage(pull);
 		} catch (XMPPException e) {
@@ -162,31 +166,39 @@ public class SchedulingService {
 	 *         primary user is a part of
 	 */
 	public Collection<Conference> parseConferences(String rawData) {
+		if (D) Log.v(LOG_TAG, "Received raw data: " + rawData);
 		Collection<Conference> data = new LinkedList<Conference>();
 		String[] conferences = rawData.split("\n");
 		for (String conferenceData : conferences) {
 			String[] splitData = conferenceData.split("//");
-			if (Arrays.asList(splitData).contains(
-					MainApplication.userPrimary.getUsername())
-					&& Long.parseLong(splitData[3]) < new Date().getTime()) {
+			if (
+					//Maybe use xmppConn.getUser().
+//					Arrays.asList(splitData).contains(
+//					MainApplication.userPrimary.getUsername())&&
+					 Long.parseLong(splitData[3]) < new Date().getTime()) {
 				ArrayList<String> participants = new ArrayList<String>();
 				int i = 6;
 				int j = 0;
 				while (i < splitData.length) {
+					Log.v(LOG_TAG, "splitData[i]: " + splitData[i]);
+					if(!"null".equals(splitData[i])){
 					participants.add(splitData[i]);
+					
+					j++;}
 					i++;
-					j++;
 				}
 				Conference info = new Conference(new Date(
 						Long.parseLong(splitData[3])), new Date(
 						Long.parseLong(splitData[4])), splitData[1],
 						splitData[0], participants);
 				data.add(info);
-				if (info.getStartDate().getTime() - new Date().getTime() < 3600000) {
-					allTimers.add(createConferenceTimer(info));
-				}
+				Log.v(LOG_TAG,"Conference added. Number " + data.size());
+//				if (info.getStartDate().getTime() - new Date().getTime() < 3600000) {
+//					allTimers.add(createConferenceTimer(info));
+//				}
 			}
 		}
+		Log.v(LOG_TAG, "Raw data parsed: number of conferences: " + data.size());
 		return data;
 	}
 
@@ -195,7 +207,7 @@ public class SchedulingService {
 		Roster roster = LoginController.xmppService.getXMPPConnection()
 				.getRoster();
 		RosterGroup group = roster.createGroup(info.getRoom());
-		RosterEntry[] entries = (RosterEntry[]) roster.getEntries().toArray();
+		RosterEntry[] entries = roster.getEntries().toArray(new RosterEntry[0]);
 		for (String user : info.getContactList()) {
 			for (RosterEntry entry : entries) {
 				if (entry.getUser().equals(user)) {
@@ -258,7 +270,7 @@ public class SchedulingService {
 		DashboardView.setPopupGo(true);
 		Intent i = new Intent((DashboardView.getDashboardInstance()),
 				DashboardView.class);
-		MainApplication.screen.getActivity().startActivity(i);
+		DashboardView.getDashboardInstance().startActivity(i);
 
 	}
 
