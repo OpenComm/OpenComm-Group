@@ -184,11 +184,14 @@ public class DashboardView extends Activity {
     }
     public void logoutButtonClicked(View v){
 	  	Log.v(TAG, "logout button clicked");
+	  	//Log.v(TAG, )
+	  	Log.v(TAG,LoginController.xmppService.toString());
 	  	LoginController.xmppService.disconnect();
 	  	Intent myIntent = new Intent();
 		myIntent.setClass(this.getApplication(),
 				LoginView.class);
 		this.startActivity(myIntent);
+		this.finish();
 	}
 
     public Context getContext() {
