@@ -13,6 +13,8 @@
 
 package edu.cornell.opencomm.controller;
 
+import org.jivesoftware.smack.XMPPException;
+
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
@@ -25,92 +27,91 @@ import edu.cornell.opencomm.view.LoginView;
 import edu.cornell.opencomm.view.NotificationView;
 
 public class LoginController {
-    private LoginView loginView;
+	private LoginView loginView;
 
-    // Debugging
-    private static final boolean D = Values.D;
+	// Debugging
+	private static final boolean D = Values.D;
 
-    // Logs
-    private static final String LOG_TAG = "LoginController";
+	// Logs
+	private static final String LOG_TAG = "LoginController";
 
-    // Check successful login
-    private boolean islogin;
+	// Check successful login
+	private boolean islogin;
 
-    // Username and password strings
-    private String username;
-    private String password;
+	// Username and password strings
+	private String username;
+	private String password;
 
-    // Instance of XMPP connection
-    public static NetworkService xmppService;
+	// Instance of XMPP connection
+	public static NetworkService xmppService;
 
-   public LoginController(LoginView loginView) {
-        this.loginView = loginView;
-    }
+	public LoginController(LoginView loginView) {
+		this.loginView = loginView;
+	}
 
-    public void handleLoginButtonClick(EditText usernameEdit, EditText passwordEdit) {
-        loginView.getLoginOverlay().setVisibility(View.VISIBLE);
+	public void handleLoginButtonClick(EditText usernameEdit, EditText passwordEdit) {
+		loginView.getLoginOverlay().setVisibility(View.VISIBLE);
 
-        //ProgressDialog.show(this.loginView, "", "Loading. Please wait...", true);
+		//ProgressDialog.show(this.loginView, "", "Loading. Please wait...", true);
 
-        /** Take care of all Debug related things
-         */
-        if (D) {
-        	Log.d(LOG_TAG, "Android app is attempting to connect to the server");
-        	username = Network.DEBUG_USERNAME;
-        	password = Network.DEBUG_PASSWORD;
-        }
-        else{
-        	username = usernameEdit.getText().toString();
-        	password = passwordEdit.getText().toString();
-        }
-
-        /** Check whether the XMPP connection is already established or not
-        / @author: rahularora **/
-        if (xmppService == null) {
-        	xmppService = new NetworkService(Network.DEFAULT_HOST, Network.DEFAULT_PORT);
-        	if (!xmppService.isConnected()){
-        		loginView.finish();
-        	}
-            if (D){
-              	Log.d(LOG_TAG, xmppService.toString());
-               	Log.d(LOG_TAG, "XMPP Connection established");
-            }
-        }
-        else{
-        	if (D) {
-            	Log.d(LOG_TAG, "XMPP Connection already established. No need to connect to the server.");
-            }
-        }
-
-        /** Check whether the login is successful or not
-         * In case it is, start DashboardView using Intent else, [TODO]
-        / @author: rahularora, vinaymaloo **/
-
-		islogin = xmppService.login(username, password);
-
-		if (islogin){
-			//Start DashboardView when the login is successful
-//			Intent i = new Intent(loginView, DashboardView.class);
-			Intent i = new Intent(loginView, DashboardView.class);
-			i.putExtra(Network.KEY_USERNAME, username);
-	        i.setAction(Network.ACTION_LOGIN);
-
-	        loginView.startActivity(i);
+		/** Take care of all Debug related things
+		 */
+		if (D) {
+			Log.d(LOG_TAG, "Android app is attempting to connect to the server");
+			username = Network.DEBUG_USERNAME;
+			password = Network.DEBUG_PASSWORD;
 		}
-
 		else{
-			//[TODO] Do something to remove ProgressDialog here.
-			NotificationView nv=new NotificationView(loginView);
-			nv.launch("incorrect username or password","RED", "WHITE", true);
-			Log.v(LOG_TAG, "Login failed for username "+username+" failed");
+			username = usernameEdit.getText().toString();
+			password = passwordEdit.getText().toString();
 		}
 
-		//[TODO] VINAY - Remove this code if you do not want it.
-        //dialog.dismiss();
-        /*LayoutInflater inflater = (LayoutInflater) loginView .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    	DashboardView dashboardView = new DashboardView(inflater);
-    	loginView.finish();
-    	dashboardView.launch();*/
+		/** Check whether the XMPP connection is already established or not
+        / @author: rahularora **/
+ 
+		try{
+			xmppService = new NetworkService(Network.DEFAULT_HOST, Network.DEFAULT_PORT);
+			if (xmppService.isConnected()){
+				if (D){
+					Log.d(LOG_TAG, xmppService.toString());
+					Log.d(LOG_TAG, "XMPP Connection established");
+				}
+			}
+			
+			/** Check whether the login is successful or not
+			 * In case it is, start DashboardView using Intent else, [TODO]
+	        / @author: rahularora, vinaymaloo **/
+			
+			islogin = xmppService.login(username, password);
+			
+			if (islogin){
+				Intent i = new Intent(loginView, DashboardView.class);
+				i.putExtra(Network.KEY_USERNAME, username);
+				i.setAction(Network.ACTION_LOGIN);
 
-    }
+				loginView.startActivity(i);
+				loginView.finish();
+			}
+
+			else{
+				//[TODO] Do something to remove ProgressDialog here.
+				NotificationView nv=new NotificationView(loginView);
+				nv.launch("incorrect username or password","RED", "WHITE", true);
+				Log.v(LOG_TAG, "Login failed for username "+username+" failed");
+			}
+		}
+		catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (XMPPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (NullPointerException e) {
+			// TODO Auto-generated catch block
+			
+			e.printStackTrace();
+		}
+
+	}
 }
