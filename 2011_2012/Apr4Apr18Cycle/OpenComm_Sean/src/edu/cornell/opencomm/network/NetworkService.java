@@ -105,14 +105,12 @@ public class NetworkService {
 				}
 
 				connectionListener = new ConnectionListener(){
-					ReconnectionManager reconnectionManager;
 					@Override
 					public void connectionClosed() {
 						// connection was closed by the foreign host
 						// or we have closed the connection
 						Log.d(TAG, "ConnectionListener: connectionClosed() called - " +
 								"connection was shutdown by foreign host or by us");
-						reconnectionManager.connectionClosed();
 					}
 
 					@Override
@@ -120,25 +118,20 @@ public class NetworkService {
 						// this happens mainly because of on IOException
 						// eg. connection timeouts because of lost connectivity
 						Log.d(TAG, "xmpp disconnected due to error: ", e);
-						reconnectionManager.connectionClosedOnError(e);
-
 					}
 
 					@Override
 					public void reconnectingIn(int arg0) {
-						reconnectionManager.reconnectingIn(arg0);
 						Log.d(TAG, "Reconnecting in "+arg0);
 					}
 
 					@Override
 					public void reconnectionFailed(Exception arg0) {
-						reconnectionManager.reconnectionFailed(arg0);
 						Log.d(TAG, "Reconnection Manager is running");
 					}
 
 					@Override
 					public void reconnectionSuccessful() {
-						reconnectionManager.reconnectionSuccessful();
 						Log.d(TAG, "Reconnection Manager is sucessful");
 					}
 
