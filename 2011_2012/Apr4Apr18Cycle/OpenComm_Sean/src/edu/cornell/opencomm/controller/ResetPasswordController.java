@@ -48,8 +48,8 @@ public class ResetPasswordController {
 	private UserAccountManager userAccountManager;
 
 	public ResetPasswordController(ResetPasswordView resetPasswordView) {
-		this.xmppService = new NetworkService(Network.DEFAULT_HOST,
-				Network.DEFAULT_PORT);
+		//this.xmppService = new NetworkService(Network.DEFAULT_HOST,
+		//		Network.DEFAULT_PORT);
 		//this.xmppConn = xmppService.getXMPPConnection();
 		//this.resetPasswordView = resetPasswordView;
 		//this.userAccountManager = new UserAccountManager(xmppConn);
@@ -113,7 +113,7 @@ public class ResetPasswordController {
 		LayoutInflater ifl = (LayoutInflater) resetPasswordView.getContext()
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		SignupView suv = new SignupView(resetPasswordView.getContext());
-		suv.launch();
+		suv.launch(); 
 		// Dismisses the window for now
 		// NotificationView popup = new
 		// NotificationView(resetPasswordView.getContext());
