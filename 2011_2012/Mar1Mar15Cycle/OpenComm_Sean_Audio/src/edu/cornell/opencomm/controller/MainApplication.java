@@ -167,10 +167,10 @@ public final class MainApplication extends Activity{
         //Initializes the onKeyListener to record keypad events
         screen.setOnKeyListener(onKeyListener);
 
-        //DEBUG: create User object to test invitations and kickouts
+        /*//DEBUG: create User object to test invitations and kickouts
         debug = new User("opencommsec@" + Network.DEFAULT_HOST, "opencommsec", 0);
         //for (Space s : Space.allSpaces) Log.v(TAG, s.getRoomID());
-        debug1 = new User("mucopencomm@" + Network.DEFAULT_HOST, "mucopencomm", 0);
+        debug1 = new User("mucopencomm@" + Network.DEFAULT_HOST, "mucopencomm", 0);*/
 
         // Change screen dimensions to 480x800
         Values.setValues(480, 800);

@@ -191,7 +191,7 @@ public class ConferencePlannerView extends View{
 		return imageCancelButton;
 	}
 
-	private Button getCreateButton() {
+	public Button getCreateButton() {
 		Button createButton = null;
 		if (getContext() != null) {
 			createButton = (Button) (conferencePlannerLayout

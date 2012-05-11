@@ -25,6 +25,7 @@ public class SpaceViewController {
         MainApplication.screen.cancelLassoMode();
         Log.v("SpaceViewController", "changeSpace() from " + MainApplication.screen.getSpace() + " to " + newSpace);
         MainApplication.screen.getSpace().setScreenOn(false);
+        MainApplication.screen.getSpace().getSpaceController().getPSIV().invalidate();
         MainApplication.screen.setSpace(newSpace);
         newSpace.setScreenOn(true);
         MainApplication m = (MainApplication)spaceView.getContext();

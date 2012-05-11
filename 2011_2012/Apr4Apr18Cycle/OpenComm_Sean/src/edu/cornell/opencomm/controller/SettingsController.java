@@ -1,8 +1,14 @@
 package edu.cornell.opencomm.controller;
 
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.jivesoftware.smack.XMPPConnection;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import edu.cornell.opencomm.Values;
@@ -24,11 +30,14 @@ public class SettingsController {
     private static boolean D = Values.D;
     private Context context;
     private SettingsView view;
+    
+    private UserAccountManager userAccountManager;
 
     public SettingsController(SettingsView settingsView, Context context) {
         if (D) Log.d(TAG, "SettingsController constructor called");
         this.view = settingsView;
         this.context = context;
+        userAccountManager = new UserAccountManager();
     }
 
     public final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[.][a-zA-Z]{2,4}$");
@@ -43,7 +52,7 @@ public class SettingsController {
         if(validateName(firstName) && validateName(lastName) && validateEmail(email)) {
             String title = view.getTitleBox().getText().toString();
             String password = view.getPasswordBox().getText().toString();
-            
+            editUser(email, password, firstName, lastName, title);
             //UPDATE TO EDIT USER FUNCTIONS
             /*NetworkService xmppService = new NetworkService(Network.DEFAULT_HOST, Network.DEFAULT_PORT);
             xmppService.login(Network.DEBUG_USERNAME, Network.DEBUG_PASSWORD);
@@ -108,5 +117,38 @@ public class SettingsController {
         return NAME_PATTERN.matcher(name).matches();
     }
 
+    //main function to add a user; returns true if the operation has been successful
+	@SuppressWarnings("unchecked")
+	private boolean editUser(String userEmail, String password, String firstname, String lastname,
+			String title) {
+		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
+				4);
+		nameValuePairs.add(new BasicNameValuePair("userEmail", userEmail));
+		//%2B is a "+" encoded for URLs: http://www.blooberry.com/indexdot/html/topics/urlencoding.htm#whatwhy
+		nameValuePairs.add(new BasicNameValuePair("id",title+"%2B"+firstname+"%2B"+lastname));
+		nameValuePairs.add(new BasicNameValuePair("password", password));
+		nameValuePairs.add(new BasicNameValuePair("action", "edit"));
 
+		try {
+			AsyncTask<ArrayList<NameValuePair>, Void, Boolean> sent = new LongOperation();
+			return sent.execute(nameValuePairs).get();
+
+    	} catch (InterruptedException e) {
+			Log.e(TAG, e.toString());
+		} catch (ExecutionException e) {
+			Log.e(TAG, e.toString());
+		}
+		return false;
+
+	}
+
+  //As per tutorial on http://sankarganesh-info-exchange.blogspot.com/p/need-and-vital-role-of-asynctas-in.html
+    private class LongOperation extends AsyncTask<ArrayList<NameValuePair>, Void, Boolean> {
+
+    @Override
+    protected Boolean doInBackground(ArrayList<NameValuePair>... params) {
+
+    	return userAccountManager.userChange(params[0]);
+	    }
+    }
 }

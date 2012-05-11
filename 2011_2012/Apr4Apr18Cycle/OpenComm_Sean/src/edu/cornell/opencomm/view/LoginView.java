@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import edu.cornell.opencomm.ContextTracker;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.controller.LoginController;
@@ -23,6 +24,7 @@ public class LoginView extends Activity {
     private LayoutInflater inflater = null;
     // private PopupWindow window = null;
     private LoginController loginController = null;
+    private static Context loginContext = null;
 
     /* Debugging
 	private static final String TAG = "Controller.Login";
@@ -45,6 +47,8 @@ public class LoginView extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loginContext=(Context)this;
+        ContextTracker.setContext(this);
         setContentView(R.layout.login_layout);
 
         this.inflater = this.getLayoutInflater();
@@ -90,7 +94,7 @@ public class LoginView extends Activity {
     	Log.v("Crystal", "retrievePassword");
     	ResetPasswordView account=new ResetPasswordView(inflater, this);
     	account.launch();
-    	
+
     }
 
     public ImageButton getLoginButton() {
@@ -124,10 +128,10 @@ public class LoginView extends Activity {
             loginController.handleLoginButtonClick(usernameEdit, passwordEdit);
         }
     };
-    
+
     public void setSignupOverlay(boolean b) {
     	if (b) findViewById(R.id.signUpOverlay).setVisibility(View.VISIBLE);
     	else findViewById(R.id.signUpOverlay).setVisibility(View.INVISIBLE);
     }
 }
-     
+

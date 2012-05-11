@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import android.util.Log;
+
+import edu.cornell.opencomm.network.Network;
 import edu.cornell.opencomm.view.ConferencePlannerView;
 
 //Modedled after Invitation.java, has fields relating to conference, has setters to change them
@@ -12,74 +15,83 @@ public class Conference implements Comparable<Conference> {
     // private Connection connection;
     private String room;
     private String inviter;
-    private String reason;
-    private String password;
-    //  private Message message;
-    private String[] inviteInfo;
-
+   
+    private Date startDate, endDate;//Date objects representing start and end time of conference
+    private String[]inviteList;
     private ArrayList<String> contactList;
+    private static String LOG_TAG = "ConferenceModel";
     // private MultiUserChat muc;
-    private boolean isModeratorRequest;
-    //Fields representing the start time of the conference
-    private int startYear,startMonth,startDay,startHour,startMinute;
-    //Fields representign the end time of the conference (Just hours)
-    private int endHour, endMinute;
+
+//    //Fields representing the start time of the conference
+////    private int startYear,startMonth,startDay,startHour,startMinute;
+//    //Fields representign the end time of the conference (Just hours)
+//    private int endHour, endMinute;
     // the associated conferencePlannerView
     private ConferencePlannerView cpv;
 
     //Sets conference begin times, and invite list
-    public Conference(int startYear, int startMonth,int startDay, int startHour, int startMinute, int endHour, int endMinute, String[] inviteInfo, String inviter){
-        this.startYear = startYear;
-        this.startMonth = startMonth;
-        this.startDay = startDay;
-        this.startHour = startHour;
-        this.startMinute = startMinute;
-        this.endHour=endHour;
-        this.endMinute=endMinute;
-        this.inviteInfo=inviteInfo;
-        this.inviter = inviter;
-    }
+//    public Conference(int startYear, int startMonth,int startDay, int startHour, int startMinute, int endHour, int endMinute, String[] inviteInfo, String inviter){
+//        this.startYear = startYear;
+//        this.startMonth = startMonth;
+//        this.startDay = startDay;
+//        this.startHour = startHour;
+//        this.startMinute = startMinute;
+//        this.endHour=endHour;
+//        this.endMinute=endMinute;
+//        this.inviteInfo=inviteInfo;
+//        this.inviter = inviter;
+//    }
 
+  //  public Con
     //Just as above, but with room, contacts
     //TODO: Consider refactoring into 1 constructor.
-    public Conference(int startYear, int startMonth,int startDay, int startHour, int startMinute, int endHour, int endMinute, String[] inviteInfo, String inviter, String room, ArrayList<String> contactList) {
-        this(startYear, startMonth, startDay, startHour, startMinute, endHour, endMinute, inviteInfo, inviter);
-        this.room = room;
-        this.contactList = contactList;
+//    public Conference(int startYear, int startMonth,int startDay, int startHour, int startMinute, int endHour, int endMinute, String[] inviteInfo, String inviter, String room, ArrayList<String> contactList) {
+//        this(startYear, startMonth, startDay, startHour, startMinute, endHour, endMinute, inviteInfo, inviter);
+//        this.room = room;
+//        this.contactList = contactList;
+//
+//    }
 
+    public Conference(Date startDate, Date endDate, String inviter, String room, ArrayList<String> contactList){
+    	this.startDate=startDate;
+    	this.endDate=endDate;
+    	this.room=room;
+    	this.contactList=contactList;
+    	this.inviter=inviter;
+    	Log.v(LOG_TAG, "Conference Constructor called!");
     }
-
-    //Getters for all fields
+    
+//    //Getters for all fields
     public int getStartYear(){
-        return startYear;
+        return startDate.getYear();
     }
     public int getStartMonth(){
-        return startMonth;
+        return startDate.getMonth();
     }
     public int getStartDay(){
-        return startDay;
+        return startDate.getDay();
     }
     public int getStartHour(){
-        return startHour;
+        return startDate.getHours();
     }
     public int getStartMinute(){
-        return startMinute;
+        return startDate.getMinutes();
     }
     public int getEndHour(){
-        return endHour;
+        return endDate.getHours();
     }
     public int getEndMinute(){
-        return endMinute;
+        return endDate.getMinutes();
     }
-    //username of the one who created this conference
+    /**Returns inviter username (does not include server IP) */
     public String getInviter(){
         return inviter;
     }
 
     //String array of invited peoples
-    public String[] getInvitees(){
-        return inviteInfo;
-    }
+//    public String[] getInvitees(){
+//        return inviteInfo;
+//    }
 
     public void setPlannerView(ConferencePlannerView cpv) {
         this.cpv = cpv;
@@ -90,57 +102,83 @@ public class Conference implements Comparable<Conference> {
     }
 
     public void setStartDay(int startDay) {
-        this.startDay = startDay;
+        startDate.setDate(startDay);
     }
 
     public void setStartHour(int startHour) {
-        this.startHour = startHour;
+        startDate.setHours(startHour);
     }
 
-    public String[] getInviteInfo() {
-        return inviteInfo;
-    }
-
-    public void setInviteInfo(String[] inviteInfo) {
-        this.inviteInfo = inviteInfo;
-    }
+//    public String[] getInviteInfo() {
+//        return inviteInfo;
+//    }
+//
+//    public void setInviteInfo(String[] inviteInfo) {
+//        this.inviteInfo = inviteInfo;
+//    }
 
     public void setInviter(String inviter) {
         this.inviter = inviter;
     }
 
     public void setStartYear(int startYear) {
-        this.startYear = startYear;
+        startDate.setYear(startYear);
     }
 
     public void setStartMonth(int startMonth) {
-        this.startMonth = startMonth;
+        startDate.setMonth(startMonth);
     }
 
     public void setStartMinute(int startMinute) {
-        this.startMinute = startMinute;
+        startDate.setMinutes(startMinute);
     }
 
     public void setEndHour(int endHour) {
-        this.endHour = endHour;
+        endDate.setHours(endHour);
     }
 
     public void setEndMinute(int endMinute) {
-        this.endMinute = endMinute;
+        endDate.setMinutes(endMinute);
     }
 
-    public Date getStartDate() {
-        Calendar startCal = Calendar.getInstance();
-        startCal.set(getStartYear(), getStartMonth(), getStartDay(), getStartHour(), getStartMinute());
-        return startCal.getTime();
-    }
+//    public Date getStartDate() {
+//        Calendar startCal = Calendar.getInstance();
+//        startCal.set(getStartYear(), getStartMonth(), getStartDay(), getStartHour(), getStartMinute());
+//        return startCal.getTime();
+//    }
 
-    public Date getEndDate() {
-        Calendar endCal = Calendar.getInstance();
-        endCal.set(getStartYear(), getStartMonth(), getStartDay(), getEndHour(), getEndMinute());
-        return endCal.getTime();
-    }
+//    public Date getEndDate() {
+//        Calendar endCal = Calendar.getInstance();
+//        endCal.set(getStartYear(), getStartMonth(), getStartDay(), getEndHour(), getEndMinute());
+//        return endCal.getTime();
+//    }
 
+    
+    public Date getStartDate(){
+    	return startDate;
+    }
+    
+    public Date getEndDate(){
+    	return endDate;
+    }
+    public void setStartDate(int year, int month, int day, int hour, int min ){
+    	startDate.setYear(year);
+    	startDate.setMonth(month);
+    	startDate.setDate(day);
+    	startDate.setHours(hour);
+    	startDate.setMinutes(min);	
+    
+    }
+  
+    public void setEndDate(int year, int month, int day, int hour, int min ){
+    	endDate.setYear(year);
+    	endDate.setMonth(month);
+    	endDate.setDate(day);
+    	endDate.setHours(hour);
+    	endDate.setMinutes(min);	
+    
+    }
+    
     public boolean isNow() {
         //TODO: Should check if the conference is actually still happening
         //via a network call to server, rather than using approximate end time.
@@ -187,4 +225,49 @@ public class Conference implements Comparable<Conference> {
         Date otherStartDate = other.getStartDate();
         return startDate.compareTo(otherStartDate);
     }
+    
+    /**Returns ararylist of contactlist as a string array*/
+    public String[] getContactsAsArray(){
+    	return getContactList().toArray(new String[0]);
+    }
+    
+    /**Anything that floats our boat for now: change later */
+    public String getRecurring(){
+    	return "once";
+    }
+    
+    /**Returns unix time of start date object, for pushing to server */
+    public long getStartLong(){
+    	return startDate.getTime();
+    }
+    
+    /**Returns unix time of end date object, for pushing to server */
+    public long getEndLong(){
+    	return endDate.getTime();
+    }
+    
+    /**Returns date in string of format dd/mm/yyyy*/
+    public String getDateString(){
+    	int day = getStartDay();
+    	int month = getStartMonth();
+    	int year = getStartYear();
+    	String dayString = ""+ day;
+    	
+    	if(day<10){
+    		dayString = "0"+day;
+    	}
+    	
+    	String monthString = ""+ month;
+    	if(month<10){
+    		monthString = "0"+ month;
+    	}
+    	
+    	return dayString+"/"+ monthString + "/" + year;
+    }
+    
+    /**Returns inviter name + server */
+    public String getHostName(){
+    	return getInviter() + "@" + Network.DEFAULT_HOSTNAME;//@opencomm-no-ip.org by default
+    }
+    
 }

@@ -37,6 +37,7 @@ public class DashboardController {
 	public static String username;
 
 	public DashboardController(DashboardView dashboardView) {
+
 		this.dashboardView = dashboardView;
 	}
 
@@ -91,6 +92,15 @@ public class DashboardController {
 	}
 
 	public void handleConferencesButtonClicked() {
+		//Before creating, pull.s
+		username = this.dashboardView.getIntent().getStringExtra(
+				Network.KEY_USERNAME);
+		  LoginController.xmppService.getSchedulingService().pullConferences();
+		  try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		Intent myIntent = new Intent();
 		myIntent.setClass(dashboardView.getApplication(),
 				ConferenceListActivity.class);
@@ -108,6 +118,7 @@ public class DashboardController {
 
 	}
 
+	
 	/*
 	 * public void handlePopupWindowClicked() {
 	 * dashboardView.getWindow().dismiss(); }

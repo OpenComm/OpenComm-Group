@@ -1,8 +1,15 @@
 package edu.cornell.opencomm.controller;
 
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.jivesoftware.smack.XMPPConnection;
+
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 import edu.cornell.opencomm.Values;
 import edu.cornell.opencomm.network.Network;
@@ -13,7 +20,7 @@ import edu.cornell.opencomm.view.SignupView;
 
 /**
  * Controller for new user account creation.
- * @author jonathan
+ * @author jonathan, flav
  */
 public class SignupController {
 
@@ -21,6 +28,8 @@ public class SignupController {
     private static boolean D = Values.D;
     private Context context;
     private SignupView view;
+
+    private UserAccountManager userAccountManager;
 
     final public String INVALID_FIRST_NAME = "Invalid First Name";
     final public String INVALID_LAST_NAME = "Invalid Last Name";
@@ -32,10 +41,13 @@ public class SignupController {
         if (D) Log.d(TAG, "SignupController constructor called");
         this.view = view;
         this.context = context;
+        this.userAccountManager = new UserAccountManager();
     }
 
     public final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[.][a-zA-Z]{2,4}$");
-    public final Pattern NAME_PATTERN = Pattern.compile("[a-zA-Z-]+");
+    public final Pattern NAME_PATTERN_SAVE = Pattern.compile("[a-zA-Z-]+");
+
+    public final Pattern NAME_PATTERN_FOCUS_CHANGE = Pattern.compile("[ a-zA-Z-]+");
 
     public void handleSaveButtonClick() {
     	view.setCreateOverlay(true);
@@ -49,11 +61,11 @@ public class SignupController {
             notify(PASSWORDS_DONT_MATCH);
             return;
         }
-        if(!validateName(firstName)) {
+        if(!validateNameSave(firstName)) {
             notify(INVALID_FIRST_NAME);
             return;
         }
-        if(!validateName(lastName)) {
+        if(!validateNameSave(lastName)) {
             notify(INVALID_LAST_NAME);
             return;
         }
@@ -64,12 +76,12 @@ public class SignupController {
         String title = view.getTitleBox().getText().toString();
 
         //Log into the server as admin to create a new account
-        NetworkService xmppService = new NetworkService(Network.DEFAULT_HOST, Network.DEFAULT_PORT);
-        xmppService.login(Network.DEBUG_USERNAME, Network.DEBUG_PASSWORD);
-        UserAccountManager manager = new UserAccountManager(xmppService.getXMPPConnection());
+//        NetworkService xmppService = new NetworkService(Network.DEFAULT_HOST, Network.DEFAULT_PORT);
+//        xmppService.login(Network.DEBUG_USERNAME, Network.DEBUG_PASSWORD);
+//        UserAccountManager manager = new UserAccountManager(xmppService.getXMPPConnection());
         if (D) Log.d(TAG, "Email:"+email+"Password:"+password+"firstName"+firstName+"lastName"+lastName+"title"+title);
-        manager.createUser(email, password, firstName, lastName, title);
-        xmppService.disconnect();
+        createUser(email, password, firstName, lastName, title);
+//        xmppService.disconnect();
         view.dismiss();
     }
 
@@ -84,7 +96,7 @@ public class SignupController {
         if(!hasFocus) {
             String nameText = view.getFirstNameBox().getText().toString();
             if(nameText != null && !nameText.equals("")) {
-                boolean valid = validateName(nameText);
+                boolean valid = validateNameFocusChange(nameText);
                 if(!valid) {
                     notify(INVALID_FIRST_NAME);
                 }
@@ -97,7 +109,7 @@ public class SignupController {
         if(!hasFocus) {
             String nameText = view.getLastNameBox().getText().toString();
             if(nameText != null && !nameText.equals("")) {
-                boolean valid = validateName(nameText);
+                boolean valid = validateNameFocusChange(nameText);
                 if(!valid) {
                     notify(INVALID_LAST_NAME);
                 }
@@ -126,14 +138,52 @@ public class SignupController {
     }
 
     private boolean validateEmail(String email) {
-        if (D) Log.d(TAG, "validateEmail called");
+        if (D) Log.d(TAG, "validateEmailSave called");
         return EMAIL_ADDRESS_PATTERN.matcher(email).matches();
     }
 
-    private boolean validateName(String name) {
-        if (D) Log.d(TAG, "validateName called");
-        return NAME_PATTERN.matcher(name).matches();
+    private boolean validateNameSave(String name) {
+        if (D) Log.d(TAG, "validateNameSave called");
+        return NAME_PATTERN_SAVE.matcher(name).matches();
     }
 
+    private boolean validateNameFocusChange(String name) {
+        if (D) Log.d(TAG, "validateNameFocusChange called");
+        return NAME_PATTERN_FOCUS_CHANGE.matcher(name).matches();
+    }
 
+    //main function to add a user; returns true if the operation has been successful
+	@SuppressWarnings("unchecked")
+	private boolean createUser(String userEmail, String password, String firstname, String lastname,
+			String title) {
+		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
+				4);
+		nameValuePairs.add(new BasicNameValuePair("userEmail", userEmail));
+		//%2B is a "+" encoded for URLs: http://www.blooberry.com/indexdot/html/topics/urlencoding.htm#whatwhy
+		nameValuePairs.add(new BasicNameValuePair("id",title+"%2B"+firstname+"%2B"+lastname));
+		nameValuePairs.add(new BasicNameValuePair("password", password));
+		nameValuePairs.add(new BasicNameValuePair("action", "add"));
+
+		try {
+			AsyncTask<ArrayList<NameValuePair>, Void, Boolean> sent = new LongOperation();
+			return sent.execute(nameValuePairs).get();
+
+		} catch (InterruptedException e) {
+			Log.e(TAG, e.toString());
+		} catch (ExecutionException e) {
+			Log.e(TAG, e.toString());
+		}
+		return false;
+
+	}
+
+  //As per tutorial on http://sankarganesh-info-exchange.blogspot.com/p/need-and-vital-role-of-asynctas-in.html
+    private class LongOperation extends AsyncTask<ArrayList<NameValuePair>, Void, Boolean> {
+
+    @Override
+	    protected Boolean doInBackground(ArrayList<NameValuePair>... params) {
+
+	    	return userAccountManager.userChange(params[0]);
+	    }
+    }
 }
