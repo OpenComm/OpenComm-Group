@@ -11,7 +11,9 @@
 package edu.cornell.opencomm.network;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import org.jivesoftware.smack.Connection;
@@ -50,6 +52,10 @@ import org.jivesoftware.smackx.provider.VCardProvider;
 import org.jivesoftware.smackx.provider.XHTMLExtensionProvider;
 import org.jivesoftware.smackx.search.UserSearch;
 
+import com.cornell.opencomm.jingleimpl.JingleIQPacket;
+import com.cornell.opencomm.jingleimpl.ReasonElementType;
+import com.cornell.opencomm.jingleimpl.sessionmgmt.JingleIQBuddyPacketRouter;
+
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -57,6 +63,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import edu.cornell.opencomm.Values;
+import edu.cornell.opencomm.audio.JingleController;
 import edu.cornell.opencomm.controller.LoginController;
 import edu.cornell.opencomm.controller.MainApplication;
 import edu.cornell.opencomm.model.Invitation;
@@ -80,7 +87,7 @@ public class NetworkService {
 	/**
 	 * Constructor: a network service for the application that creates and
 	 * maintains an XMPP connection for a specific host and port
-	 *
+	 * 
 	 * @param host
 	 *            - the host where the XMPP server is running.
 	 * @param port
@@ -104,13 +111,14 @@ public class NetworkService {
 							+ " through " + port);
 				}
 
-				connectionListener = new ConnectionListener(){
+				connectionListener = new ConnectionListener() {
 					@Override
 					public void connectionClosed() {
 						// connection was closed by the foreign host
 						// or we have closed the connection
-						Log.d(TAG, "ConnectionListener: connectionClosed() called - " +
-								"connection was shutdown by foreign host or by us");
+						Log.d(TAG,
+								"ConnectionListener: connectionClosed() called - "
+										+ "connection was shutdown by foreign host or by us");
 					}
 
 					@Override
@@ -122,7 +130,7 @@ public class NetworkService {
 
 					@Override
 					public void reconnectingIn(int arg0) {
-						Log.d(TAG, "Reconnecting in "+arg0);
+						Log.d(TAG, "Reconnecting in " + arg0);
 					}
 
 					@Override
@@ -134,7 +142,6 @@ public class NetworkService {
 					public void reconnectionSuccessful() {
 						Log.d(TAG, "Reconnection Manager is sucessful");
 					}
-
 
 				};
 
@@ -152,38 +159,39 @@ public class NetworkService {
 
 						Log.v("NetworkService", "Invitation Received for room "
 								+ room);
-						Log.v("NetworkService","password: " + password);
-						//String roomID = room;
-						MultiUserChat muc = new MultiUserChat(
-								connection,
-								room);
+						Log.v("NetworkService", "password: " + password);
+						// String roomID = room;
+						MultiUserChat muc = new MultiUserChat(connection, room);
 
-						//This bock of comments are my debug code. It did't work.
-						//						try {
-						//							//Try join  and then ask for collection of users/stuff?
-						//							muc.join(MainApplication.userPrimary.getNickname());
-						//							Thread.sleep(2000);
-						//						} catch (XMPPException e1) {
-						//							// TODO Auto-generated catch block
-						//							e1.printStackTrace();
-						//						} catch (InterruptedException e) {
-						//							// TODO Auto-generated catch block
-						//							e.printStackTrace();
-						//						}
-						//						
-						//						Collection<Occupant> occupants = null;
-						//						try {
-						//							occupants = muc.getParticipants();
-						//						} catch (XMPPException e2) {
-						//							// TODO Auto-generated catch block
-						//							e2.printStackTrace();
-						//						}
-						//					Log.v("NetworkServiceOccupants", "participant empty?: " +	occupants.isEmpty());
-						//						
-						//						Log.v("MUC CHECK", "ROOM: " + muc.getRoom());
-						//						Log.v("XMPP NULL CHECK", "XMPP: " + connection);
-						//						 Log.v("MUC CHECK", "Occupant hasNext: " + muc.getOccupants().hasNext());
-
+						// This bock of comments are my debug code. It did't
+						// work.
+						// try {
+						// //Try join and then ask for collection of
+						// users/stuff?
+						// muc.join(MainApplication.userPrimary.getNickname());
+						// Thread.sleep(2000);
+						// } catch (XMPPException e1) {
+						// // TODO Auto-generated catch block
+						// e1.printStackTrace();
+						// } catch (InterruptedException e) {
+						// // TODO Auto-generated catch block
+						// e.printStackTrace();
+						// }
+						//
+						// Collection<Occupant> occupants = null;
+						// try {
+						// occupants = muc.getParticipants();
+						// } catch (XMPPException e2) {
+						// // TODO Auto-generated catch block
+						// e2.printStackTrace();
+						// }
+						// Log.v("NetworkServiceOccupants",
+						// "participant empty?: " + occupants.isEmpty());
+						//
+						// Log.v("MUC CHECK", "ROOM: " + muc.getRoom());
+						// Log.v("XMPP NULL CHECK", "XMPP: " + connection);
+						// Log.v("MUC CHECK", "Occupant hasNext: " +
+						// muc.getOccupants().hasNext());
 
 						String nickname = inviter.split("@")[0];
 
@@ -195,7 +203,7 @@ public class NetworkService {
 						// Create regular invitation popup.
 						Log.v("Space size", ""
 								+ Space.getMainSpace().getAllParticipants()
-								.size());
+										.size());
 						Log.v("Owner nickname", Space.getMainSpace().getOwner()
 								.getNickname());
 						Log.v("Invitation nickname", nickname);
@@ -215,8 +223,8 @@ public class NetworkService {
 									"None", "None");
 							MainApplication.screen.getActivity().displayPopup(
 									invitationView);
-						} else{
-							//Side chat invitation
+						} else {
+							// Side chat invitation
 							try {
 								Log.v("InvitationPopupPreviewView: ",
 										"Attempting to create invitation preview popup");
@@ -224,13 +232,14 @@ public class NetworkService {
 								InvitationPopupPreviewView ippv = null;
 								try {
 									ippv = new InvitationPopupPreviewView(
-											MainApplication.screen.getContext(), invitation);
+											MainApplication.screen.getContext(),
+											invitation);
 								} catch (XMPPException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
-								MainApplication.screen.getActivity().displayPopup(
-										ippv);
+								MainApplication.screen.getActivity()
+										.displayPopup(ippv);
 								// SpaceController.addExistingSpace(MainApplication.screen.getContext(),
 								// false,
 								// invitation.getRoom());
@@ -244,6 +253,7 @@ public class NetworkService {
 				schedulingService = new SchedulingService(xmppConn);
 				MultiUserChat.addInvitationListener(xmppConn,
 						invitationListener);
+				JingleIQBuddyPacketRouter.setup(xmppConn);
 			}
 
 			else {
@@ -287,7 +297,7 @@ public class NetworkService {
 	/**
 	 * Logs in to the server using the strongest authentication mode supported
 	 * by the server, then sets presence to available
-	 *
+	 * 
 	 * @param uname
 	 *            - the username
 	 * @param pwd
@@ -295,7 +305,8 @@ public class NetworkService {
 	 * @throws XMPPException
 	 *             - if an error occurs
 	 */
-	public boolean login(String uname, String pwd) throws XMPPException, IllegalStateException{
+	public boolean login(String uname, String pwd) throws XMPPException,
+			IllegalStateException {
 		// check that the connection is not already authenticated
 		if (!xmppConn.isAuthenticated()) {
 
@@ -320,6 +331,20 @@ public class NetworkService {
 	 * Disconnect the XMPP connection
 	 */
 	public void disconnect() {
+		HashMap<String, JingleController> allJCtrls = JingleController
+				.getUsernameToJingleController();
+		Iterator<String> jctrlItr = allJCtrls.keySet().iterator();
+		while (jctrlItr.hasNext()) {
+			JingleController jCtrl = allJCtrls.get(jctrlItr.next());
+			ReasonElementType reason = new ReasonElementType(
+					ReasonElementType.TYPE_SUCCESS, "Done, Logging Off!");
+			reason.setAttributeSID(jCtrl.getSID());
+			jCtrl.getJiqActionMessageSender().sendSessionTerminate(
+					MainApplication.userPrimary.getJingle().getBuddyJID(),
+					jCtrl.getBuddyJID(), jCtrl.getSID(), reason, jCtrl);
+			jCtrl.getSessionState().changeSessionState(
+					JingleIQPacket.AttributeActionValues.SESSION_TERMINATE);
+		}
 		xmppConn.disconnect();
 	}
 
@@ -340,22 +365,22 @@ public class NetworkService {
 				+ "\n\tAre certificates presented checked for validity? "
 				+ (this.xmppConfig.isExpiredCertificatesCheckEnabled() ? "yes"
 						: "no")
-						+ "\n\tAre certificates presented checked for their domain? "
-						+ (this.xmppConfig.isNotMatchingDomainCheckEnabled() ? "yes"
-								: "no")
-								+ "\n\tIs reconnection allowed? "
-								+ (this.xmppConfig.isReconnectionAllowed() ? "yes" : "no")
-								+ "\n\tIs the roster loaded at log in? "
-								+ (this.xmppConfig.isRosterLoadedAtLogin() ? "yes" : "no")
-								+ "\n\tSASL authentication enabled? "
-								+ (this.xmppConfig.isSASLAuthenticationEnabled() ? "yes" : "no")
-								+ "\n\tAre self-signed certificates accepted? "
-								+ (this.xmppConfig.isSelfSignedCertificateEnabled() ? "yes"
-										: "no")
-										+ "\n\tIs the whole chain of certificates presented checked? "
-										+ (this.xmppConfig.isVerifyChainEnabled() ? "yes" : "no")
-										+ "\n\tIs the root CA checking performed? "
-										+ (this.xmppConfig.isVerifyRootCAEnabled() ? "yes" : "no");
+				+ "\n\tAre certificates presented checked for their domain? "
+				+ (this.xmppConfig.isNotMatchingDomainCheckEnabled() ? "yes"
+						: "no")
+				+ "\n\tIs reconnection allowed? "
+				+ (this.xmppConfig.isReconnectionAllowed() ? "yes" : "no")
+				+ "\n\tIs the roster loaded at log in? "
+				+ (this.xmppConfig.isRosterLoadedAtLogin() ? "yes" : "no")
+				+ "\n\tSASL authentication enabled? "
+				+ (this.xmppConfig.isSASLAuthenticationEnabled() ? "yes" : "no")
+				+ "\n\tAre self-signed certificates accepted? "
+				+ (this.xmppConfig.isSelfSignedCertificateEnabled() ? "yes"
+						: "no")
+				+ "\n\tIs the whole chain of certificates presented checked? "
+				+ (this.xmppConfig.isVerifyChainEnabled() ? "yes" : "no")
+				+ "\n\tIs the root CA checking performed? "
+				+ (this.xmppConfig.isVerifyRootCAEnabled() ? "yes" : "no");
 
 		if (this.xmppConn.isConnected()) {
 			networkServiceRepresentation += "\nXMPP Connection established";
@@ -373,7 +398,7 @@ public class NetworkService {
 
 	/**
 	 * TODO Ask Kris about it and write the comments
-	 *
+	 * 
 	 * @param pm
 	 */
 	public void configure(ProviderManager pm) {

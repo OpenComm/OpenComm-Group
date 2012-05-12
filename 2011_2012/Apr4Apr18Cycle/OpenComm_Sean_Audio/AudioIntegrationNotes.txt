@@ -1,0 +1,47 @@
+add to NetworkService.(init): JingleIQBuddyPacketRouter.setup(xmppConn);
+
+add to NetworkService.disconnect():
+HashMap<String, JingleController> allJCtrls = JingleController
+				.getUsernameToJingleController();
+		Iterator<String> jctrlItr = allJCtrls.keySet().iterator();
+		while (jctrlItr.hasNext()) {
+			JingleController jCtrl = allJCtrls.get(jctrlItr.next());
+			ReasonElementType reason = new ReasonElementType(
+					ReasonElementType.TYPE_SUCCESS, "Done, Logging Off!");
+			reason.setAttributeSID(jCtrl.getSID());
+			jCtrl.getJiqActionMessageSender().sendSessionTerminate(
+					MainApplication.userPrimary.getJingle().getBuddyJID(),
+					jCtrl.getBuddyJID(), jCtrl.getSID(), reason, jCtrl);
+			jCtrl.getSessionState().changeSessionState(
+					JingleIQPacket.AttributeActionValues.SESSION_TERMINATE);
+		}
+
+add to User.init: private JingleController jCtrl; this.setjCtrl(new JingleController(this));
+
+add to InvitationController.handleAcceptButtonHover:
+// Initiate Jingle session with all members of the chat room.
+            Log.d(TAG, "Initiating Jingle session");
+            Iterator<String> partItr = Space.getMainSpace().getAllParticipants().keySet().iterator();
+			if(Space.getMainSpace().getAllParticipants() == null || !partItr.hasNext()){
+				Log.i("InvitationController", "Space has no occupants!!");
+			}
+			else {
+				while(partItr.hasNext()){
+					String participant = partItr.next();
+					User partUser = Space.getMainSpace().getAllParticipants().get(participant);
+					if (!MainApplication.userPrimary.equals(partUser) && (Space.getMainSpace() != null && !Space.getMainSpace().getOwner().equals(MainApplication.userPrimary))) {
+						// Send session-initiate to the buddy.
+						partUser.getJingle().getJiqActionMessageSender().sendSessionInitiate(MainApplication.userPrimary.getUsername() + "@" + Network.DEFAULT_HOST + "/Smack", participant + "/Smack", partUser.getJingle());
+						partUser.getJingle().getSessionState().changeSessionState(JingleIQPacket.AttributeActionValues.SESSION_INITIATE);
+						Log.d("InvitationController", "JingleController sent");
+					}
+				}												
+			}
+
+
+add to UserViewController.handleClickUp:
+// move location of sound source
+            this.userView.getPerson().getjCtrl().getSoundSpatializer().moveTo(newX, newY);				
+
+add to Userview:
+user.getJCtrl().receiver.talking
