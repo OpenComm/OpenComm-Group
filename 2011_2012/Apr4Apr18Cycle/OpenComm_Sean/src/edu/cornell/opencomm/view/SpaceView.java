@@ -51,6 +51,9 @@ public class SpaceView extends View {
     UserIconMenuController userIconMenuController;
     ParticipantView pView;
     private UserView ghost;
+    private boolean D = Values.D;
+    
+    private double INSENSITIVITY = 50.0;
 
     /**
      * Constructor: This one is used by the XML file to automatically generate a
@@ -151,7 +154,7 @@ public class SpaceView extends View {
                     }
                     lassoedIcons.clear();
                 } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-                    drag = true;
+                    //drag = true;
                     /* If a person icon is selected, then move the icon to
 					 the current position */
                     if (clickOnIcon && !lassomode) {
@@ -177,7 +180,7 @@ public class SpaceView extends View {
         this.setOnLongClickListener(new OnLongClickListener() {
 
             @Override
-            public boolean onLongClick(View arg0) {
+            public synchronized boolean onLongClick(View arg0) {
                 longclick = true;
                 if (!drag) {
                     if (clickOnIcon) {
@@ -186,10 +189,12 @@ public class SpaceView extends View {
                         if (longpress) {
                             selectedIcon = null;
                             clickOnIcon = false;
+                            //longclick = false;
                         }
                         return longpress;
                     } else {
                         SpaceView.this.getSpaceViewController().handleLongClick();
+                        //longclick = false;
                         return true;
                     }
                 } else {
@@ -217,15 +222,37 @@ public class SpaceView extends View {
         ghost.getUserViewController().handleMoved(
                 mouseX, mouseY);
     }
+    
+    private double distance(Point p1, Point p2) {
+        double diffX = p1.x - p2.x;
+        double diffY = p1.y - p2.y;
+        return Math.sqrt(diffX*diffX + diffY*diffY);
+    } 
 
-    private void createLasso(View view, MotionEvent event) {
+    private synchronized void createLasso(View view, MotionEvent event) {
         lassomode = true;
         ArrayList<Point> curPath = dragPoints.get(dragPoints.size() - 1);
         if(savedPoint != null) {
             curPath.add(savedPoint);
             savedPoint = null;
+            Log.d("TEXAS", "hogSavedPoint added");
         }
+        
         Point newPoint = new Point((int)event.getX(), (int)event.getY());
+        if(/*dragPoints.size() == 1 && */curPath.size() == 1) {
+            Log.d("TEXAS", "hog SinglePoint");
+            Point lastPoint = curPath.get(0);
+            if(distance(newPoint, lastPoint) < INSENSITIVITY) {
+                Log.d("TEXAS", "hog insensitive");
+                Log.d("Last Point", "hog:" + lastPoint.toString());
+                Log.d("Cur Point", "hog" + newPoint.toString());
+                Log.d("Distance", "hog" + distance(newPoint, lastPoint));
+                return;
+            }
+        }
+        if(longclick)
+            return;
+        drag = true;
         if(curPath.size() > 0) {
             Point prevPoint = curPath.get(curPath.size()-1);
             if(newPoint.x == prevPoint.x && newPoint.y == prevPoint.y)
@@ -234,7 +261,7 @@ public class SpaceView extends View {
                 if (!p.getPerson().getNickname().equals(MainApplication.userPrimary.getNickname())) {
                     if(p.segmentIntersects(prevPoint, newPoint)) {
                         p.setLassoed(true);
-                        Log.d("TEXAS", "I hogtied that userview");
+                        if (D) Log.d("TEXAS", "I hogtied that userview");
                     }
                 }
             }
