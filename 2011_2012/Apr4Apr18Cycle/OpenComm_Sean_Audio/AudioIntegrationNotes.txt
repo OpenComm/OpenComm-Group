@@ -1,4 +1,21 @@
 add to NetworkService.(init): JingleIQBuddyPacketRouter.setup(xmppConn);
+
+add to NetworkService.disconnect():
+HashMap<String, JingleController> allJCtrls = JingleController
+				.getUsernameToJingleController();
+		Iterator<String> jctrlItr = allJCtrls.keySet().iterator();
+		while (jctrlItr.hasNext()) {
+			JingleController jCtrl = allJCtrls.get(jctrlItr.next());
+			ReasonElementType reason = new ReasonElementType(
+					ReasonElementType.TYPE_SUCCESS, "Done, Logging Off!");
+			reason.setAttributeSID(jCtrl.getSID());
+			jCtrl.getJiqActionMessageSender().sendSessionTerminate(
+					MainApplication.userPrimary.getJingle().getBuddyJID(),
+					jCtrl.getBuddyJID(), jCtrl.getSID(), reason, jCtrl);
+			jCtrl.getSessionState().changeSessionState(
+					JingleIQPacket.AttributeActionValues.SESSION_TERMINATE);
+		}
+
 add to User.init: private JingleController jCtrl; this.setjCtrl(new JingleController(this));
 
 add to InvitationController.handleAcceptButtonHover:
@@ -20,23 +37,6 @@ add to InvitationController.handleAcceptButtonHover:
 					}
 				}												
 			}
-
-
-add to LogoutController:
-HashMap<String, JingleController> allJCtrls = JingleController
-				.getUsernameToJingleController();
-		Iterator<String> jctrlItr = allJCtrls.keySet().iterator();
-		while (jctrlItr.hasNext()) {
-			JingleController jCtrl = allJCtrls.get(jctrlItr.next());
-			ReasonElementType reason = new ReasonElementType(
-					ReasonElementType.TYPE_SUCCESS, "Done, Logging Off!");
-			reason.setAttributeSID(jCtrl.getSID());
-			jCtrl.getJiqActionMessageSender().sendSessionTerminate(
-					MainApplication.userPrimary.getJingle().getBuddyJID(),
-					jCtrl.getBuddyJID(), jCtrl.getSID(), reason, jCtrl);
-			jCtrl.getSessionState().changeSessionState(
-					JingleIQPacket.AttributeActionValues.SESSION_TERMINATE);
-		}
 
 
 add to UserViewController.handleClickUp:
