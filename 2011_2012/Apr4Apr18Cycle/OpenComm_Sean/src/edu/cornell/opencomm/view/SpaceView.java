@@ -41,6 +41,7 @@ public class SpaceView extends View {
     private boolean drag = true;
     private boolean longclick = true;
     private boolean lassomode = false;
+    private boolean menuPopup = false;
     private Point savedPoint = null;
     private ArrayList<ArrayList<Point>> dragPoints = new ArrayList<ArrayList<Point>>();
     private ArrayList<UserView> lassoedIcons = new ArrayList<UserView>();
@@ -105,7 +106,7 @@ public class SpaceView extends View {
                 int mouseY = (int) event.getY();
 
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    drag = longclick = false;
+                    drag = longclick = menuPopup = false;
                     dragPoints.add(new ArrayList<Point>());
                     savedPoint = new Point(mouseX, mouseY);
                     // If clicked on an icon
@@ -189,12 +190,12 @@ public class SpaceView extends View {
                         if (longpress) {
                             selectedIcon = null;
                             clickOnIcon = false;
-                            //longclick = false;
+                            menuPopup = true;
                         }
                         return longpress;
                     } else {
                         SpaceView.this.getSpaceViewController().handleLongClick();
-                        //longclick = false;
+                        menuPopup = true;
                         return true;
                     }
                 } else {
@@ -230,6 +231,8 @@ public class SpaceView extends View {
     } 
 
     private synchronized void createLasso(View view, MotionEvent event) {
+        if(menuPopup)
+            return;
         lassomode = true;
         ArrayList<Point> curPath = dragPoints.get(dragPoints.size() - 1);
         if(savedPoint != null) {
@@ -250,8 +253,6 @@ public class SpaceView extends View {
                 return;
             }
         }
-        if(longclick)
-            return;
         drag = true;
         if(curPath.size() > 0) {
             Point prevPoint = curPath.get(curPath.size()-1);
