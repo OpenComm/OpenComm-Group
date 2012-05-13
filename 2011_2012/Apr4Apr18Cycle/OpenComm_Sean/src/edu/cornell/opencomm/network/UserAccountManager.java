@@ -29,7 +29,7 @@ import edu.cornell.opencomm.Values;
 
 public class UserAccountManager {
 	// Debugging
-	private static final String TAG = "NetworkService";
+	private static final String TAG = "UserAccountManager";
 	private static final boolean D = Values.D;
 	private String serverName = "199.167.198.149";
 	private static AccountManager accountManager;
