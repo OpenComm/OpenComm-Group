@@ -32,7 +32,7 @@ public class ConferencePlannerView extends View{
         initEventsAndProperties();
 
     } 
-    //Crystal: alternative constructor for debugging conference listing
+    /*constructor that takes in a conference object that is associated with this view*/
     public ConferencePlannerView(LayoutInflater inflater, Context context, Conference conf){
     	this(context);
     	setContext(context);
@@ -421,8 +421,8 @@ public class ConferencePlannerView extends View{
         }
     } // end launch
 	
-	//Crystal: for debugging conference listing
-	public void debugLaunch(String cfname,String date,String st, String end){
+	/*set the fields of this Conference Planner View for auto-pop-up*/
+	public void setFields(String cfname,String date,String st, String end){
 		this.getNameBox().setText(cfname);
 	     this.getDateBox().setText(date);
 	     this.getStartBox().setText(st);
