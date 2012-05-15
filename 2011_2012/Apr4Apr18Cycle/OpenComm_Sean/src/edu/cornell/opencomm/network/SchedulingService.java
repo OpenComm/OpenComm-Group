@@ -92,6 +92,7 @@ public class SchedulingService {
 						}
 					}
 				});
+		//Crhis: Commented out: Crashed 
 		/*
 		// Create a Timer to pull conferences every hour
 		Timer pullConferences = new Timer();

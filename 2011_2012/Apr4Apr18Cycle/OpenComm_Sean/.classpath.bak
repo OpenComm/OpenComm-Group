@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+<<<<<<< HEAD
+	<classpathentry kind="lib" path="D:/Uni/OpenComm/OpenComm-Group/2011_2012/Apr4Apr18Cycle/OpenComm_Sean/asmack-issue-13.jar"/>
+=======
+	<classpathentry exported="true" kind="lib" path="asmack-issue-13.jar"/>
+>>>>>>> d346dd880d29df0ac25354fea894daea6cd3bfb2
+	<classpathentry kind="output" path="bin/classes"/>
+</classpath>
