@@ -198,11 +198,13 @@ public class SpaceView extends View {
                             selectedIcon = null;
                             clickOnIcon = false;
                             menuPopup = true;
+                            cancelLassoMode();
                         }
                         return longpress;
                     } else {
                         SpaceView.this.getSpaceViewController().handleLongClick();
                         menuPopup = true;
+                        cancelLassoMode();
                         return true;
                     }
                 } else {
