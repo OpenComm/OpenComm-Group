@@ -39,7 +39,6 @@ public class SpaceView extends View {
     boolean clickOnIcon = false;
     private boolean dim = false;
     private boolean drag = true;
-    private boolean longclick = true;
     private boolean lassomode = false;
     private boolean menuPopup = false;
     private Point savedPoint = null;
@@ -53,7 +52,7 @@ public class SpaceView extends View {
     ParticipantView pView;
     private UserView ghost;
     private boolean D = Values.D;
-    
+
     private double INSENSITIVITY = 50.0;
 
     /**
@@ -106,7 +105,7 @@ public class SpaceView extends View {
                 int mouseY = (int) event.getY();
 
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    drag = longclick = menuPopup = false;
+                    drag = menuPopup = false;
                     dragPoints.add(new ArrayList<Point>());
                     savedPoint = new Point(mouseX, mouseY);
                     // If clicked on an icon
@@ -123,26 +122,34 @@ public class SpaceView extends View {
                         if(icon.isLassoed())
                             lassoedIcons.add(icon);
                     }
+                    Log.d("TEXAS", "hog 1size" + lassoedIcons.size());
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    if(!drag && !longclick) {
+                    if(!drag && !menuPopup && ghost == null) {
+                        Log.d("TEXAS", "hog got here" + drag + menuPopup);
                         cancelLassoMode();
                     }
                     if(savedPoint != null)
                         savedPoint = null;
                     // if clicked on an icon
                     if (clickOnIcon) {
+                        Log.d("TEXAS", "hog icon was clicked");
                         if (ghost == null) {
                             selectedIcon.getUserViewController().handleClickUp(
                                     mouseX, mouseY);
                         } else {
+                            Log.d("TEXAS", "hog ghosted");
                             ghost = null;
                             MainApplication mainApp = (MainApplication)context;
                             if(mainApp.side1.contains(mouseX, mouseY)) {
+                                Log.d("TEXAS", "hog contains1");
+                                Log.d("TEXAS", "hog size" + lassoedIcons.size());
                                 for(UserView user : lassoedIcons) {
                                     mainApp.side1.space.getInvitationController().inviteUser(user.getPerson(), Network.DEFAULT_INVITE);
                                 }
                                 cancelLassoMode();
                             } else if(mainApp.side2.contains(mouseX, mouseY)) {
+                                Log.d("TEXAS", "hog contains2");
+                                Log.d("TEXAS", "hog size" + lassoedIcons.size());
                                 for(UserView user : lassoedIcons) {
                                     mainApp.side2.space.getInvitationController().inviteUser(user.getPerson(), Network.DEFAULT_INVITE);
                                 }
@@ -182,8 +189,8 @@ public class SpaceView extends View {
 
             @Override
             public synchronized boolean onLongClick(View arg0) {
-                longclick = true;
-                if (!drag) {
+                //Log.d("TEXAS", "hogsize " + dragPoints.get(0).size());
+                if (dragPoints.size() == 0 || dragPoints.size() == 1 && dragPoints.get(0).size() == 0) {
                     if (clickOnIcon) {
                         boolean longpress = selectedIcon.getUserViewController()
                                 .handleLongPress();
@@ -206,7 +213,7 @@ public class SpaceView extends View {
     }
 
     public void cancelLassoMode() {
-        Log.d("LOL", "CANCEL LASSSOMODEEEEE");
+        Log.d("LOL", "hog CANCEL LASSSOMODEEEEE");
         lassomode = false;
         dragPoints.clear();
         lassoedIcons.clear();
@@ -223,14 +230,15 @@ public class SpaceView extends View {
         ghost.getUserViewController().handleMoved(
                 mouseX, mouseY);
     }
-    
+
     private double distance(Point p1, Point p2) {
         double diffX = p1.x - p2.x;
         double diffY = p1.y - p2.y;
         return Math.sqrt(diffX*diffX + diffY*diffY);
-    } 
+    }
 
     private synchronized void createLasso(View view, MotionEvent event) {
+        Log.d("TEXAS", "hog create lasso called");
         if(menuPopup)
             return;
         lassomode = true;
@@ -240,7 +248,7 @@ public class SpaceView extends View {
             savedPoint = null;
             Log.d("TEXAS", "hogSavedPoint added");
         }
-        
+
         Point newPoint = new Point((int)event.getX(), (int)event.getY());
         if(/*dragPoints.size() == 1 && */curPath.size() == 1) {
             Log.d("TEXAS", "hog SinglePoint");
