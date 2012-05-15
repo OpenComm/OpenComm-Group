@@ -71,9 +71,9 @@ public class SchedulingService {
 					public void processMessage(Chat arg0, Message arg1) {
 						Log.v(LOG_TAG, "Message Received");
 						Log.v(LOG_TAG, "Message to XML:" + arg1.toXML());
-						allScheduledConferences=(parseConferences(arg1.getBody()));
-						ConferenceListActivity.setServerConferences(allScheduledConferences);
-						if (arg1.getPacketID().equals("ConferenceInfo")) {
+						Log.v(LOG_TAG, "PacketID : " + arg1.getPacketID());
+						Log.v(LOG_TAG, "PacketSubject : " + arg1.getSubject());
+						if (arg1.getSubject().equals("ConferenceInfo")) {
 							// TODO: Parse out conference info and pass to UI
 							Log.v(LOG_TAG, "Conference info pull received");
 							allScheduledConferences=(parseConferences(arg1.getBody()));
@@ -112,7 +112,7 @@ public class SchedulingService {
 		Message push = new Message();
 		push.setFrom(xmppConn.getUser());
 		push.setPacketID("pushConference");
-		push.setBody("INSERT INTO CONFERENCES SET OWNER='" + owner
+		String pushConferenceData = "INSERT INTO CONFERENCES SET OWNER='" + owner
 				+ "', DATE='" + date + "', START='"
 				+ new Timestamp(start).toString() + "', END='"
 				+ new Timestamp(end).toString() + "', RECURRING='" + recurring
@@ -122,7 +122,11 @@ public class SchedulingService {
 				+ participants[4] + "', PARTICIPANT6='" + participants[5]
 				+ "', PARTICIPANT7='" + participants[6] + "', PARTICIPANT8='"
 				+ participants[7] + "', PARTICIPANT9='" + participants[8]
-				+ "';");
+				+ "';";
+		push.setBody(pushConferenceData);
+		
+		Log.v(LOG_TAG, pushConferenceData);
+		
 		try {
 			schedulingChat.sendMessage(push);
 		} catch (XMPPException e) {
@@ -193,6 +197,7 @@ public class SchedulingService {
 						splitData[0], participants);
 				data.add(info);
 				Log.v(LOG_TAG,"Conference added. Number " + data.size());
+				// Commented out by Chris. It broke the code because of casting error.
 //				if (info.getStartDate().getTime() - new Date().getTime() < 3600000) {
 //					allTimers.add(createConferenceTimer(info));
 //				}
