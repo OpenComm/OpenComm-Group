@@ -3,6 +3,7 @@ package edu.cornell.opencomm.model;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Hashtable;
 
 import android.util.Log;
 
@@ -13,13 +14,17 @@ import edu.cornell.opencomm.view.ConferencePlannerView;
 public class Conference implements Comparable<Conference> {
     //TODO: need getters, as this is being created as a private object
     // private Connection connection;
-    private String room;
+   
+	// hashtable for all the conferencePlannerView
+    static Hashtable<Integer,ConferencePlannerView> plannerViews= new Hashtable<Integer, ConferencePlannerView>();; 
+	private String room;
     private String inviter;
    
     private Date startDate, endDate;//Date objects representing start and end time of conference
     private String[]inviteList;
     private ArrayList<String> contactList;
     private static String LOG_TAG = "ConferenceModel";
+    private int id;
     // private MultiUserChat muc;
 
 //    //Fields representing the start time of the conference
@@ -52,7 +57,11 @@ public class Conference implements Comparable<Conference> {
 //
 //    }
 
-    public Conference(Date startDate, Date endDate, String inviter, String room, ArrayList<String> contactList){
+    public static Hashtable getPlannerViews() {
+		return plannerViews;
+	}
+
+	public Conference(Date startDate, Date endDate, String inviter, String room, ArrayList<String> contactList){
     	this.startDate=startDate;
     	this.endDate=endDate;
     	this.room=room;
@@ -269,5 +278,13 @@ public class Conference implements Comparable<Conference> {
     public String getHostName(){
     	return getInviter() + "@" + Network.DEFAULT_HOSTNAME;//@opencomm-no-ip.org by default
     }
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getId() {
+		return id;
+	}
     
 }

@@ -6,9 +6,11 @@ import java.util.Collection;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -20,6 +22,7 @@ import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.view.ConferenceListExpandableListAdapter;
 import edu.cornell.opencomm.view.ConferenceListing;
+import edu.cornell.opencomm.view.ConferencePlannerView;
 
 public class ConferenceListActivity extends Activity {
 	
@@ -33,6 +36,7 @@ public class ConferenceListActivity extends Activity {
     private Calendar stock = Calendar.getInstance(); //stock calendar
     private TextView textView;
     private Button theButton;
+    private ImageView newConfButton; 
     //private ArrayList<Conference> conferences;
     ExpandableListView upcomingConferences;
     ExpandableListView happeningNowConferences;
@@ -161,6 +165,8 @@ public class ConferenceListActivity extends Activity {
         theButton.setBackgroundColor(Color.TRANSPARENT);
         theButton.setOnClickListener(onDatePickerListener);
 
+        newConfButton = getAddConfButton();
+        newConfButton.setOnClickListener(onAddConfButtonListener);
     } // end onCreate methods
 
     private void initialize() {
@@ -345,7 +351,25 @@ public class ConferenceListActivity extends Activity {
 		public Button getTheButton(){
 			return (Button)layout.findViewById(R.id.dateButton);
 		}
+		
+		public ImageView getAddConfButton(){
+			return (ImageView)layout.findViewById(R.id.addEmailButton);
+		}
 
+		View.OnClickListener onAddConfButtonListener = new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				LayoutInflater ifl= (LayoutInflater)getSystemService
+					      (Context.LAYOUT_INFLATER_SERVICE);
+				ConferencePlannerView cpv = new ConferencePlannerView(ifl,layout.getContext());
+				cpv.launch();
+				LoginController.xmppService.getSchedulingService().pullConferences();
+				initialize();
+				
+			}
+		};
+		
 		View.OnClickListener onLeftArrowListener = new View.OnClickListener() {
 
 			@Override
