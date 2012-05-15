@@ -509,10 +509,12 @@ public class ConferencePlannerController {
         
 		openfireInvitation.setPlannerView(conferencePlannerView);
 		
+		//Conference.getPlannerViews().put(, conferencePlannerView);
         conferencePlannerView.getContext().startActivity(i);
 		}else{
 		//go back to conference list view.
-			Log.v("Crystal", "conference value changed");
+			//TO-DO: updating the conference in the backend database.
+			Log.v("Conference Planner Controller", "conference value changed");
 			openfireInvitation.setStartDate(startYear-1900,startMonth,startDay, startHour, startMinute);
 		openfireInvitation.setStartDate(startYear-1900, startMonth, startDay, startHour, startMinute);	
 		openfireInvitation.setRoom(room);
