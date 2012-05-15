@@ -1,3 +1,72 @@
+add to AndroidManifest.xml:
+<uses-permission android:name="android.permission.RECORD_AUDIO"></uses-permission>
+    <uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
+
+add to MainApplication:
+	onCreate:
+	PowerManager pm = (PowerManager)getSystemService(Context.POWER_SERVICE);
+        mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "MyTag");
+        mWakeLock.acquire();
+		
+	@Override
+    public void onDestroy() {
+    	super.onDestroy();
+    	if (mWakeLock != null) {
+    	    mWakeLock.release();
+    	    mWakeLock = null;
+    	} 
+    }
+	
+	
+add to JingleController:
+private static HashMap<String, JingleController> UsernameToJingleController = new HashMap<String, JingleController> ();
+
+	private SoundSpatializer soundSpatializer;
+	
+		public JingleController(User user) {
+		state = new SessionCallStateMachine();
+		this.user = user;
+		this.connection = LoginController.xmppService.getXMPPConnection();
+		this.soundSpatializer = new SoundSpatializer();
+		jiqActionMessageSender = new JingleIQActionMessages();
+		iqMessageSender = new IQMessages();
+		this.buddyJID = user + Network.DEFAULT_HOSTNAME +  "/Smack";
+		jiqActionMessageSender.setConnection(connection);
+		iqMessageSender.setConnection(connection);
+		JingleController.UsernameToJingleController.put(this.user.getUsername(), this);
+	}
+	
+	public static HashMap<String, JingleController> getUsernameToJingleController() {
+		return UsernameToJingleController;
+	}
+	
+	public SoundSpatializer getSoundSpatializer() {
+		return soundSpatializer;
+	}
+
+
+	public void setSoundSpatializer(SoundSpatializer soundSpatializer) {
+		this.soundSpatializer = soundSpatializer;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	public String getBuddyJID() {
+		return buddyJID;
+	}
+
+change in JingleIQActionMessages.sendSessionTerminate():
+2nd to last line:
+buddy.pusher.removeQueue(buddy.getBuddyJID());
+	
+	
 add to NetworkService.(init): JingleIQBuddyPacketRouter.setup(xmppConn);
 
 add to NetworkService.disconnect():
@@ -16,7 +85,57 @@ HashMap<String, JingleController> allJCtrls = JingleController
 					JingleIQPacket.AttributeActionValues.SESSION_TERMINATE);
 		}
 
-add to User.init: private JingleController jCtrl; this.setjCtrl(new JingleController(this));
+add to User.init: private JingleController jCtrl; this.jCtrl = new JingleController(this);
+
+remove from JingleIQBuddyPacketRouter:
+
+	private static XMPPClient xmppClient = null;
+	
+	/**
+	 * Provides easy access to the <code>XMPPClient</code> object in order to fetch the <code>ongoingChatBuddyList</code>
+	 * @param client the instance of the XMPPClient object
+	 */
+	public static void setXMPPClient(XMPPClient client){
+		xmppClient = client;
+	}
+	
+replace in JingleIQBuddyPacketRouter:
+User user = null;
+						JingleController jCtrl = null;
+						Log.i(JingleIQBuddyPacketRouter.TAG, "Looking for User: " + jiq.getFrom() + " in OngoingChatBuddyList");
+						String userJid = jiq.getFrom().split("/")[0];
+						if(!JingleController.getUsernameToJingleControllerMap().containsKey(userJid)){
+							Log.i(JingleIQBuddyPacketRouter.TAG, "Does not contain key " + userJid);
+							if (!User.getAllUsers().containsKey(userJid)) {
+								user = new User(userJid, userJid.split("@")[0], 0);
+							}
+							else {
+								user = User.getAllUsers().get(userJid);
+							}
+							jCtrl = new JingleController(user);
+							jCtrl.setSID(jiq.getAttributeSID());
+							// TODO update the buddy list <- automatically completed by the network?
+							//xmppClient.getOngoingChatBuddyList().put(jiq.getFrom(), buddy);
+							Log.i(JingleIQBuddyPacketRouter.TAG, "Created user: Jsername = " + jCtrl.getbuddyJID() + 
+									" Session SID: " + jCtrl.getSID());
+							jCtrl.processPacket(jiq);
+						} else {
+							jCtrl = JingleController.getUsernameToJingleControllerMap().get(userJid);
+							jCtrl.setSID(jiq.getAttributeSID());
+							Log.i(JingleIQBuddyPacketRouter.TAG, "Found user: Username = " + jCtrl.getbuddyJID());
+							jCtrl.processPacket(jiq);
+						}
+						
+					} else if (p instanceof IQ) {
+						Log.i(JingleIQBuddyPacketRouter.TAG, "PacketType: IQ packet");
+						IQ iq = (IQ) p;
+						Log.i(JingleIQBuddyPacketRouter.TAG, "From: "  + iq.getFrom()+ "To: " + iq.getTo());
+						String fromJID = iq.getFrom().split("/")[0];
+						if (Space.getMainSpace().getAllParticipants().containsKey(fromJID)) {
+							Space.getMainSpace().getAllParticipants().get(fromJID).getjCtrl().processPacket(iq);
+						}
+
+					}
 
 add to InvitationController.handleAcceptButtonHover:
 // Initiate Jingle session with all members of the chat room.
