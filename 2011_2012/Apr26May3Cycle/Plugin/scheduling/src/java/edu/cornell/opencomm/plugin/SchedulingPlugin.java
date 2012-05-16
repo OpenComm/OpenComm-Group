@@ -68,7 +68,6 @@ public class SchedulingPlugin implements Plugin, Component,
 		}
 		componentManager = null;
 		pluginManager = null;
-		databaseService.closeConnection();
 		databaseService = null;
 	}
 
@@ -101,20 +100,25 @@ public class SchedulingPlugin implements Plugin, Component,
 	@Override
 	public void processPacket(Packet arg0) {
 		Message reply = new Message();
+		reply.setFrom("scheduling.localhost.localdomain");
 		reply.setTo(arg0.getFrom());
-		reply.setFrom("schedulingfairy.localhost.localdomain");
 		String subject = "";
 		String body = "";
+		Log.error("Received message!");
+		Log.error("Message:" + arg0.toXML());
 
 		if (arg0.getID().equals("pullConferences")) {
+			Log.error("Received pull message!");
 			body = databaseService.pullConferences();
 			subject = "ConferenceInfo";
 		}
-		if (arg0.getID().equals("pushConference")) {
+		else if (arg0.getID().equals("pushConference")) {
+			Log.error("Received push message!");
 			body = databaseService.push(((Message) arg0).getBody()) ? "Success!"
 					: "Failure...";
 			subject = "ConferencePushResult";
 		} else {
+			Log.error("Woe betide us all!");
 			body = "Invalid packet.";
 			subject = "Error";
 		}

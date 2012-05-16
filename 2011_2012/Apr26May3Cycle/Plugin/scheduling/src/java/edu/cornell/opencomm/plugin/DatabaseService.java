@@ -11,16 +11,13 @@ import org.slf4j.LoggerFactory;
 
 public class DatabaseService {
 
-	public static final String DB_URL = "jdbc:mysql://localhost:3306/scheduling";
-	public static final String DB_NAME = "scheduling";
-	public static final String DB_TABLE = "conferences";
-	public static final String DB_USER = "scheduler";
-	public static final String DB_PASSWORD = "opencommsec";
+	public static final String DB_TABLE = "CONFERENCES";
 
 	private static final Logger Log = LoggerFactory
 			.getLogger(DatabaseService.class);
 	
 	private String id;
+	private String name;
 	private String owner;
 	private String date;
 	private String start;
@@ -36,35 +33,16 @@ public class DatabaseService {
 	private String participant8;
 	private String participant9;
 
-	static Connection dbConn;
-
-	public DatabaseService() {
-		connect();
-	}
-
-	public void connect() {
-		try {
-			dbConn = DbConnectionManager.getTransactionConnection();
-		} catch (SQLException e) {
-			Log.error("SQLException: " + e.getMessage(), e);
-			Log.error("SQLState: " + e.getSQLState(), e);
-			Log.error("VendorError: " + e.getErrorCode(), e);
-		}
-	}
-
-	public void closeConnection() {
-		DbConnectionManager.closeTransactionConnection(dbConn, true);
-	}
-
 	public String pullConferences() {
 		try {
+			Connection dbConn = DbConnectionManager.getTransactionConnection();
 			Statement stmt = dbConn.createStatement();
 			ResultSet rs = stmt.getResultSet();
-			rs = stmt.executeQuery("select * from " + 
-					DB_NAME + "." + DB_TABLE);
+			rs = stmt.executeQuery("select * from " + DB_TABLE);
 			String result = "";
 			while (rs.next()) {
 				id = rs.getString("id");
+				name = rs.getString("NAME");
 				owner = rs.getString("OWNER");
 				date = rs.getString("DATE");
 				start = rs.getTimestamp("START").getTime() + "";
@@ -79,7 +57,7 @@ public class DatabaseService {
 				participant7 = rs.getString("PARTICIPANT7");
 				participant8 = rs.getString("PARTICIPANT8");
 				participant9 = rs.getString("PARTICIPANT9");
-				result += id + "//" + owner + "//" + date + "//" + start + "//" 
+				result += name + "//" + id + "//" + owner + "//" + date + "//" + start + "//" 
 						+ end + "//" + recurring + "//" + participant1 + 
 						"//" + participant2 + "//"+ participant3 + "//"
 						+ participant4 + "//"+ participant5 + "//"
@@ -95,6 +73,7 @@ public class DatabaseService {
 
 	public boolean push(String sqlString) {
 		try {
+			Connection dbConn = DbConnectionManager.getTransactionConnection();
 			Statement stmt = dbConn.createStatement();
 			stmt.executeUpdate(sqlString);
 			return true;
