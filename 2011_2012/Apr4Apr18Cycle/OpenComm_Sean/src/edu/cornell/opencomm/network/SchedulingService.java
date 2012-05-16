@@ -112,7 +112,7 @@ public class SchedulingService {
 		Message push = new Message();
 		push.setFrom(xmppConn.getUser());
 		push.setPacketID("pushConference");
-		push.setBody("INSERT INTO CONFERENCES SET OWNER='" + owner
+		push.setBody("INSERT INTO CONFERENCES SET NAME='" + null + "' OWNER='" + owner
 				+ "', DATE='" + date + "', START='"
 				+ new Timestamp(start).toString() + "', END='"
 				+ new Timestamp(end).toString() + "', RECURRING='" + recurring
@@ -136,7 +136,7 @@ public class SchedulingService {
 	public void updateConference(Conference toUpdate) {
 		Message push = new Message();
 		push.setPacketID("pushConference");
-		push.setBody("UPDATE CONFERENCES SET OWNER='" + "', DATE='" + "', END="
+		push.setBody("UPDATE CONFERENCES SET NAME='" + "' SET OWNER='" + "', DATE='" + "', END="
 				+ ", END=" + ", RECURRING='" + "', PARTICIPANT1='"
 				+ "', PARTICIPANT2='" + "', PARTICIPANT3='"
 				+ "', PARTICIPANT4='" + "', PARTICIPANT5='"
@@ -175,15 +175,13 @@ public class SchedulingService {
 					//Maybe use xmppConn.getUser().
 //					Arrays.asList(splitData).contains(
 //					MainApplication.userPrimary.getUsername())&&
-					 Long.parseLong(splitData[3]) < new Date().getTime()) {
+					 Long.parseLong(splitData[4]) < new Date().getTime()) {
 				ArrayList<String> participants = new ArrayList<String>();
-				int i = 6;
-				int j = 0;
+				int i = 7;
 				while (i < splitData.length) {
 					if(splitData[i]!=null){
 					participants.add(splitData[i]);
-					i++;
-					j++;}
+					i++;}
 				}
 				Conference info = new Conference(new Date(
 						Long.parseLong(splitData[3])), new Date(
