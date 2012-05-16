@@ -20,6 +20,7 @@ public class Conference implements Comparable<Conference> {
 	private String room;
     private String inviter;
    
+    private String name;
     private Date startDate, endDate;//Date objects representing start and end time of conference
     private String[]inviteList;
     private ArrayList<String> contactList;
@@ -61,8 +62,9 @@ public class Conference implements Comparable<Conference> {
 		return plannerViews;
 	}
 
-	public Conference(Date startDate, Date endDate, String inviter, String room, ArrayList<String> contactList){
-    	this.startDate=startDate;
+	public Conference(String name, Date startDate, Date endDate, String inviter, String room, ArrayList<String> contactList){
+    	this.name = name;
+		this.startDate=startDate;
     	this.endDate=endDate;
     	this.room=room;
     	this.contactList=contactList;
@@ -71,6 +73,10 @@ public class Conference implements Comparable<Conference> {
     }
     
 //    //Getters for all fields
+		
+	public String getName() {
+		return name;
+	}
     public int getStartYear(){
         return startDate.getYear();
     }

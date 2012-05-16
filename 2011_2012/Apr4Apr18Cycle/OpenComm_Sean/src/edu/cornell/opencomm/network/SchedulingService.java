@@ -76,12 +76,15 @@ public class SchedulingService {
 						if (arg1.getSubject().equals("ConferenceInfo")) {
 							// TODO: Parse out conference info and pass to UI
 							Log.v(LOG_TAG, "Conference info pull received");
-							allScheduledConferences=(parseConferences(arg1.getBody()));
-							ConferenceListActivity.setServerConferences(allScheduledConferences);
-							Log.v(LOG_TAG,"allScheduled: " + allScheduledConferences.size());
+							allScheduledConferences = (parseConferences(arg1
+									.getBody()));
+							ConferenceListActivity
+									.setServerConferences(allScheduledConferences);
+							Log.v(LOG_TAG, "allScheduled: "
+									+ allScheduledConferences.size());
 						} else if (arg1.getSubject().equals(
 								"ConferencePushResult")) {
-							Log.v(LOG_TAG,"Conference pushed!");
+							Log.v(LOG_TAG, "Conference pushed!");
 							if (arg1.getBody().equals("Sucess!")) {
 								// TODO: UI - give confirmation screen
 							} else if (arg1.getBody().equals("Failure...")) {
@@ -92,29 +95,25 @@ public class SchedulingService {
 						}
 					}
 				});
-		//Crhis: Commented out: Crashed 
+		// Crhis: Commented out: Crashed
 		/*
-		// Create a Timer to pull conferences every hour
-		Timer pullConferences = new Timer();
-		pullConferences.scheduleAtFixedRate(new TimerTask() {
-
-			@Override
-			public void run() {
-				pullConferences();
-			}
-		}, 0, 3600000);
-		*/
+		 * // Create a Timer to pull conferences every hour Timer
+		 * pullConferences = new Timer();
+		 * pullConferences.scheduleAtFixedRate(new TimerTask() {
+		 * 
+		 * @Override public void run() { pullConferences(); } }, 0, 3600000);
+		 */
 
 	}
 
 	/** Sends conference info to the database. */
-	public void pushConference(String owner, String date, long start, long end,
+	public void pushConference(String name, String owner, String date, long start, long end,
 			String recurring, String[] participants) {
 		Message push = new Message();
 		push.setFrom(xmppConn.getUser());
 		push.setPacketID("pushConference");
-		push.setBody("INSERT INTO CONFERENCES SET NAME='" + null + "' OWNER='" + owner
-		String pushConferenceData = "INSERT INTO CONFERENCES SET OWNER='" + owner
+		String pushConferenceData = "INSERT INTO CONFERENCES SET NAME='" + name +
+				"' OWNER='" + owner
 				+ "', DATE='" + date + "', START='"
 				+ new Timestamp(start).toString() + "', END='"
 				+ new Timestamp(end).toString() + "', RECURRING='" + recurring
@@ -142,13 +141,17 @@ public class SchedulingService {
 	public void updateConference(Conference toUpdate) {
 		Message push = new Message();
 		push.setPacketID("pushConference");
-		push.setBody("UPDATE CONFERENCES SET NAME='" + "' SET OWNER='" + "', DATE='" + "', END="
-				+ ", END=" + ", RECURRING='" + "', PARTICIPANT1='"
-				+ "', PARTICIPANT2='" + "', PARTICIPANT3='"
-				+ "', PARTICIPANT4='" + "', PARTICIPANT5='"
-				+ "', PARTICIPANT6='" + "', PARTICIPANT7='"
-				+ "', PARTICIPANT8='" + "', PARTICIPANT9='" + "' WHERE id=" + 
-				toUpdate.getRoom() + ";");
+		push.setBody("UPDATE CONFERENCES SET NAME='" + toUpdate.getName() + 
+				"' SET OWNER='" + toUpdate.getHostName()
+				+ "', DATE='" + toUpdate.getDateString() +
+				"', START=" + toUpdate.getStartDate() + ", END=" + toUpdate.getEndDate() +
+				", RECURRING='" + toUpdate.getRecurring() 
+				+ "', PARTICIPANT1='" + "', PARTICIPANT2='"
+				+ "', PARTICIPANT3='" + "', PARTICIPANT4='"
+				+ "', PARTICIPANT5='" + "', PARTICIPANT6='"
+				+ "', PARTICIPANT7='" + "', PARTICIPANT8='"
+				+ "', PARTICIPANT9='" + "' WHERE id=" + toUpdate.getRoom()
+				+ ";");
 	}
 
 	/** Sends a message to the server asking for conference data. */
@@ -162,7 +165,7 @@ public class SchedulingService {
 		} catch (XMPPException e) {
 			Log.v(LOG_TAG, e.getMessage());
 		}
-		Log.v(LOG_TAG,"pull message sent");
+		Log.v(LOG_TAG, "pull message sent");
 	}
 
 	/**
@@ -172,34 +175,38 @@ public class SchedulingService {
 	 *         primary user is a part of
 	 */
 	public Collection<Conference> parseConferences(String rawData) {
-		if (D) Log.v(LOG_TAG, "Received raw data: " + rawData);
+		if (D)
+			Log.v(LOG_TAG, "Received raw data: " + rawData);
 		Collection<Conference> data = new LinkedList<Conference>();
 		String[] conferences = rawData.split("\n");
 		for (String conferenceData : conferences) {
 			String[] splitData = conferenceData.split("//");
 			if (
-					//Maybe use xmppConn.getUser().
-//					Arrays.asList(splitData).contains(
-//					MainApplication.userPrimary.getUsername())&&
-					 Long.parseLong(splitData[4]) < new Date().getTime()) {
+			// Maybe use xmppConn.getUser().
+			// Arrays.asList(splitData).contains(
+			// MainApplication.userPrimary.getUsername())&&
+			Long.parseLong(splitData[4]) < new Date().getTime()) {
 				ArrayList<String> participants = new ArrayList<String>();
 				int i = 7;
 				while (i < splitData.length) {
 					Log.v(LOG_TAG, "splitData[i]: " + splitData[i]);
-					if(!"null".equals(splitData[i])){
-					participants.add(splitData[i]);
-					i++;}
+					if (!"null".equals(splitData[i])) {
+						participants.add(splitData[i]);
+						i++;
+					}
 				}
-				Conference info = new Conference(new Date(
+				Conference info = new Conference(splitData[0], new Date(
 						Long.parseLong(splitData[3])), new Date(
 						Long.parseLong(splitData[4])), splitData[1],
 						splitData[0], participants);
 				data.add(info);
-				Log.v(LOG_TAG,"Conference added. Number " + data.size());
-				// Commented out by Chris. It broke the code because of casting error.
-//				if (info.getStartDate().getTime() - new Date().getTime() < 3600000) {
-//					allTimers.add(createConferenceTimer(info));
-//				}
+				Log.v(LOG_TAG, "Conference added. Number " + data.size());
+				// Commented out by Chris. It broke the code because of casting
+				// error.
+				// if (info.getStartDate().getTime() - new Date().getTime() <
+				// 3600000) {
+				// allTimers.add(createConferenceTimer(info));
+				// }
 			}
 		}
 		Log.v(LOG_TAG, "Raw data parsed: number of conferences: " + data.size());
