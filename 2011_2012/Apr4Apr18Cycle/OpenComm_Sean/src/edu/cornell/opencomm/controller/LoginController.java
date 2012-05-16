@@ -13,7 +13,12 @@
 
 package edu.cornell.opencomm.controller;
 
+import java.util.concurrent.locks.ReentrantLock;
+
+import org.jivesoftware.smack.XMPPException;
+
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -25,92 +30,137 @@ import edu.cornell.opencomm.view.LoginView;
 import edu.cornell.opencomm.view.NotificationView;
 
 public class LoginController {
-    private LoginView loginView;
+	private LoginView loginView;
 
-    // Debugging
-    private static final boolean D = Values.D;
+	// Debugging
+	private static final boolean D = Values.D;
 
-    // Logs
-    private static final String LOG_TAG = "LoginController";
+	// Logs
+	private static final String LOG_TAG = "LoginController";
 
-    // Check successful login
-    private boolean islogin;
+	// Check successful login
+	private boolean islogin;
 
-    // Username and password strings
-    private String username;
-    private String password;
+	private enum ReturnState{SUCEEDED, COULDNT_CONNECT, WRONG_PASSWORD, ALREADY_CLICKED};
 
-    // Instance of XMPP connection
-    public static NetworkService xmppService;
+	// Username and password strings
+	private String username;
+	private String password;
 
-   public LoginController(LoginView loginView) {
-        this.loginView = loginView;
-    }
+	private ReentrantLock loginLock = new ReentrantLock();
 
-    public void handleLoginButtonClick(EditText usernameEdit, EditText passwordEdit) {
-        loginView.getLoginOverlay().setVisibility(View.VISIBLE);
+	// Instance of XMPP connection
+	public static NetworkService xmppService;
 
-        //ProgressDialog.show(this.loginView, "", "Loading. Please wait...", true);
+	public LoginController(LoginView loginView) {
+		this.loginView = loginView;
+	}
 
-        /** Take care of all Debug related things
-         */
-        if (D) {
-        	Log.d(LOG_TAG, "Android app is attempting to connect to the server");
-        	username = Network.DEBUG_USERNAME;
-        	password = Network.DEBUG_PASSWORD;
-        }
-        else{
-        	username = usernameEdit.getText().toString();
-        	password = passwordEdit.getText().toString();
-        }
+	public void handleLoginButtonClick(final EditText usernameEdit, final EditText passwordEdit) {
+		new LoginTask().execute(usernameEdit.getText().toString(), passwordEdit.getText().toString());
 
-        /** Check whether the XMPP connection is already established or not
-        / @author: rahularora **/
-        if (xmppService == null) {
-        	xmppService = new NetworkService(Network.DEFAULT_HOST, Network.DEFAULT_PORT);
-        	if (!xmppService.isConnected()){
-        		loginView.finish();
-        	}
-            if (D){
-              	Log.d(LOG_TAG, xmppService.toString());
-               	Log.d(LOG_TAG, "XMPP Connection established");
-            }
-        }
-        else{
-        	if (D) {
-            	Log.d(LOG_TAG, "XMPP Connection already established. No need to connect to the server.");
-            }
-        }
+	}
 
-        /** Check whether the login is successful or not
-         * In case it is, start DashboardView using Intent else, [TODO]
-        / @author: rahularora, vinaymaloo **/
+	private class LoginTask extends AsyncTask<String, Void, ReturnState> {
 
-		islogin = xmppService.login(username, password);
 
-		if (islogin){
-			//Start DashboardView when the login is successful
-//			Intent i = new Intent(loginView, DashboardView.class);
-			Intent i = new Intent(loginView, DashboardView.class);
-			i.putExtra(Network.KEY_USERNAME, username);
-	        i.setAction(Network.ACTION_LOGIN);
-
-	        loginView.startActivity(i);
+		@Override
+		protected void onPreExecute() {
+			loginView.getLoginOverlay().setVisibility(View.VISIBLE);
 		}
 
-		else{
-			//[TODO] Do something to remove ProgressDialog here.
-			NotificationView nv=new NotificationView(loginView);
-			nv.launch("incorrect username or password","RED", "WHITE", true);
-			Log.v(LOG_TAG, "Login failed for username "+username+" failed");
+		@Override
+		protected ReturnState doInBackground(String... strings) {
+			if(loginLock.isLocked()) return ReturnState.ALREADY_CLICKED;
+			loginLock.lock();
+			try{
+				if (D) {
+					Log.d(LOG_TAG, "Android app is attempting to connect to the server");
+					username = Network.DEBUG_USERNAME;
+					password = Network.DEBUG_PASSWORD;
+				}
+				else{
+					//username = strings[0];
+					
+					String[] temp = strings[0].split("@");
+					try{
+						username = temp[0]+temp[1];
+					}
+					catch (ArrayIndexOutOfBoundsException e) {
+						username = temp[0];
+					}
+					password = strings[1];
+				}
+
+				if (D) Log.d(LOG_TAG, "Got Here1");
+
+				xmppService = new NetworkService(Network.DEFAULT_HOST, Network.DEFAULT_PORT);
+				if (xmppService.isConnected()){
+					if (D) {
+						Log.d(LOG_TAG, xmppService.toString());
+						Log.d(LOG_TAG, "XMPP Connection established");
+
+					}
+				}
+				else {
+					return ReturnState.COULDNT_CONNECT;
+				}
+
+				/** Check whether the login is successful or not
+				 * In case it is, start DashboardView using Intent else, [TODO]
+                 / @author: rahularora, vinaymaloo **/
+				if (D) Log.d(LOG_TAG, "Got Here2");
+				try {
+					islogin = xmppService.login(username, password);
+				} catch(XMPPException e) {
+					return ReturnState.WRONG_PASSWORD;
+				}
+
+				if (D) Log.d(LOG_TAG, "Got Here3");
+				if (islogin){
+					Intent i = new Intent(loginView, DashboardView.class);
+					i.putExtra(Network.KEY_USERNAME, username);
+					i.setAction(Network.ACTION_LOGIN);
+
+					loginView.startActivity(i);
+					loginView.finish();
+					return ReturnState.SUCEEDED;
+				}
+
+				else{
+					return ReturnState.WRONG_PASSWORD;
+				}
+			}
+			catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			catch (NullPointerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			finally {
+				loginLock.unlock();
+			}
+			if (D) Log.d(LOG_TAG, "Got Here5");
+			return ReturnState.COULDNT_CONNECT;
 		}
 
-		//[TODO] VINAY - Remove this code if you do not want it.
-        //dialog.dismiss();
-        /*LayoutInflater inflater = (LayoutInflater) loginView .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    	DashboardView dashboardView = new DashboardView(inflater);
-    	loginView.finish();
-    	dashboardView.launch();*/
-
-    }
+		@Override
+		protected void onPostExecute(ReturnState state) {
+			if(state == ReturnState.WRONG_PASSWORD) {
+				NotificationView nv=new NotificationView(loginView);
+				nv.launch("incorrect username or password","RED", "WHITE", true);
+				Log.v(LOG_TAG, "Login failed for username "+username+" failed");
+				loginView.getLoginOverlay().setVisibility(View.INVISIBLE);
+			} else if(state == ReturnState.COULDNT_CONNECT) {
+				NotificationView nv=new NotificationView(loginView);
+				nv.launch("Could not connect to server","RED", "WHITE", true);
+				Log.v(LOG_TAG, "Could not connect to server.");
+				loginView.getLoginOverlay().setVisibility(View.INVISIBLE);
+			}
+		}
+	}
 }

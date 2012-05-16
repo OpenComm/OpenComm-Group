@@ -105,14 +105,12 @@ public class NetworkService {
 				}
 
 				connectionListener = new ConnectionListener(){
-					ReconnectionManager reconnectionManager;
 					@Override
 					public void connectionClosed() {
 						// connection was closed by the foreign host
 						// or we have closed the connection
 						Log.d(TAG, "ConnectionListener: connectionClosed() called - " +
 								"connection was shutdown by foreign host or by us");
-						reconnectionManager.connectionClosed();
 					}
 
 					@Override
@@ -120,25 +118,20 @@ public class NetworkService {
 						// this happens mainly because of on IOException
 						// eg. connection timeouts because of lost connectivity
 						Log.d(TAG, "xmpp disconnected due to error: ", e);
-						reconnectionManager.connectionClosedOnError(e);
-
 					}
 
 					@Override
 					public void reconnectingIn(int arg0) {
-						reconnectionManager.reconnectingIn(arg0);
 						Log.d(TAG, "Reconnecting in "+arg0);
 					}
 
 					@Override
 					public void reconnectionFailed(Exception arg0) {
-						reconnectionManager.reconnectionFailed(arg0);
 						Log.d(TAG, "Reconnection Manager is running");
 					}
 
 					@Override
 					public void reconnectionSuccessful() {
-						reconnectionManager.reconnectionSuccessful();
 						Log.d(TAG, "Reconnection Manager is sucessful");
 					}
 
@@ -164,34 +157,34 @@ public class NetworkService {
 						MultiUserChat muc = new MultiUserChat(
 								connection,
 								room);
-						
+
 						//This bock of comments are my debug code. It did't work.
-//						try {
-//							//Try join  and then ask for collection of users/stuff?
-//							muc.join(MainApplication.userPrimary.getNickname());
-//							Thread.sleep(2000);
-//						} catch (XMPPException e1) {
-//							// TODO Auto-generated catch block
-//							e1.printStackTrace();
-//						} catch (InterruptedException e) {
-//							// TODO Auto-generated catch block
-//							e.printStackTrace();
-//						}
-//						
-//						Collection<Occupant> occupants = null;
-//						try {
-//							occupants = muc.getParticipants();
-//						} catch (XMPPException e2) {
-//							// TODO Auto-generated catch block
-//							e2.printStackTrace();
-//						}
-//					Log.v("NetworkServiceOccupants", "participant empty?: " +	occupants.isEmpty());
-//						
-//						Log.v("MUC CHECK", "ROOM: " + muc.getRoom());
-//						Log.v("XMPP NULL CHECK", "XMPP: " + connection);
-//						 Log.v("MUC CHECK", "Occupant hasNext: " + muc.getOccupants().hasNext());
-						
-						
+						//						try {
+						//							//Try join  and then ask for collection of users/stuff?
+						//							muc.join(MainApplication.userPrimary.getNickname());
+						//							Thread.sleep(2000);
+						//						} catch (XMPPException e1) {
+						//							// TODO Auto-generated catch block
+						//							e1.printStackTrace();
+						//						} catch (InterruptedException e) {
+						//							// TODO Auto-generated catch block
+						//							e.printStackTrace();
+						//						}
+						//						
+						//						Collection<Occupant> occupants = null;
+						//						try {
+						//							occupants = muc.getParticipants();
+						//						} catch (XMPPException e2) {
+						//							// TODO Auto-generated catch block
+						//							e2.printStackTrace();
+						//						}
+						//					Log.v("NetworkServiceOccupants", "participant empty?: " +	occupants.isEmpty());
+						//						
+						//						Log.v("MUC CHECK", "ROOM: " + muc.getRoom());
+						//						Log.v("XMPP NULL CHECK", "XMPP: " + connection);
+						//						 Log.v("MUC CHECK", "Occupant hasNext: " + muc.getOccupants().hasNext());
+
+
 						String nickname = inviter.split("@")[0];
 
 						Invitation invitation = new Invitation(connection,
@@ -283,7 +276,7 @@ public class NetworkService {
 	public InvitationListener getInvitiationListener() {
 		return this.invitationListener;
 	}
-	
+
 	/**
 	 * get the SchedulingService
 	 */
@@ -302,27 +295,21 @@ public class NetworkService {
 	 * @throws XMPPException
 	 *             - if an error occurs
 	 */
-	public boolean login(String uname, String pwd) {
+	public boolean login(String uname, String pwd) throws XMPPException, IllegalStateException{
 		// check that the connection is not already authenticated
 		if (!xmppConn.isAuthenticated()) {
-			try {
-				xmppConn.login(uname, pwd);
-				if (D) {
-					if (xmppConn.isAuthenticated()) {
-						Log.d(TAG, "Logged in as " + uname);
-						return true;
-					} else {
-						Log.d(TAG, "login: Log in attempt failed");
-						return false;
-					}
+
+			xmppConn.login(uname, pwd);
+			if (D) {
+				if (xmppConn.isAuthenticated()) {
+					Log.d(TAG, "Logged in as " + uname);
+					return true;
+				} else {
+					Log.d(TAG, "login: Log in attempt failed");
+					return false;
 				}
-			} catch (XMPPException e) {
-				// TODO: Force close can happen here if connection fails.
-				// Maybe try again, and if it still fails, tell user login
-				// failed.
-				Log.e(TAG, printXMPPError(e));
-				return false;
 			}
+
 		} else {
 			Log.v(TAG, "login: Already logged in as " + xmppConn.getUser());
 		}
