@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 import java.util.HashMap;
 
 import org.apache.http.HttpResponse;
@@ -45,6 +44,7 @@ public class UserAccountManager {
 		accountManager = xmppConnection.getAccountManager();
 	} 
 	
+	//Deprecated
 	public boolean createUser(String email,String password, String firstname, String lastname, 
 			String title){
 		try {
@@ -69,6 +69,7 @@ public class UserAccountManager {
 		
 	}
 	
+	//Deprecated
 	public boolean deleteUser(String username){
 		return false;
 	}
@@ -84,7 +85,7 @@ public class UserAccountManager {
 		Log.v(TAG, "Send " + nameValuePairs.toString());
 		
 		HttpClient httpclient = new DefaultHttpClient();
-		HttpPost httppost = new HttpPost("http://" + serverName + "/mail.php");
+		HttpPost httppost = new HttpPost("http://" + serverName + "/userchange.php");
 		HttpResponse response = null;
 		InputStream verificationCode = null;
 		try {
@@ -92,7 +93,7 @@ public class UserAccountManager {
 			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 			// Execute HTTP Post Request
 			response = httpclient.execute(httppost);
-			Log.v(TAG, "Request sent to "+"http://" + serverName + "/mail.php");
+			Log.v(TAG, "Request sent to "+"http://" + serverName + "/userchange.php");
 
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
@@ -119,8 +120,6 @@ public class UserAccountManager {
 		}
 
 		String verificationString = inputStreamToString(verificationCode).toString();
-		if (D)
-			Log.v(TAG, "The string: " + verificationString);
 		
 		if (verificationString.equals("ok"))
 			return true;

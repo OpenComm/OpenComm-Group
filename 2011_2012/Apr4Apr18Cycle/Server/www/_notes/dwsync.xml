@@ -5,6 +5,9 @@
 <file name="index.html" server="199.167.198.149" local="129789159554666413" remote="129789303600000000" />
 <file name="nginx-logo.png" server="199.167.198.149" local="129484368000000000" remote="129484368000000000" />
 <file name="poweredby.png" server="199.167.198.149" local="129484368000000000" remote="129484368000000000" />
-<file name="mail.php" server="199.167.198.149" local="129808911363481667" remote="129809058600000000" />
+<file name="mail.php" server="199.167.198.149" local="129808911363481667" remote="129809082600000000" />
 <file name="info.php" server="199.167.198.149" local="129790985556928953" remote="129791131800000000" />
+<file name="userChange.php" server="199.167.198.149" local="129816677846456353" remote="129816825000000000" />
+<file name="confirmation.php" server="199.167.198.149" local="129816763045074643" remote="129816906600000000" />
+<file name="userchange.php" server="199.167.198.149" local="129816762610000000" remote="129816906600000000" />
 </dwsync>
