@@ -558,13 +558,15 @@ public class ConferencePlannerController {
 		}
 		conferenceName = conferencePlannerView.getNameBox().getText().toString();
 		// If not pre-populated, populate w/ user inputs
+		// TODO: make the UI accomodate the room name
 		if (openfireInvitation == null) {
-			openfireInvitation = new Conference(new Date(startYear - 1900,
+			openfireInvitation = new Conference(null, new Date(startYear - 1900,
 					startMonth, startDay, startHour, startMinute),
 					new Date(startYear - 1900, startMonth, startDay, endHour,
 							endMinute), username, conferenceName, new ArrayList<String>(
 							Arrays.asList(inviteList)));
 			LoginController.xmppService.getSchedulingService().pushConference(
+					openfireInvitation.getName(),
 					openfireInvitation.getHostName(),
 					openfireInvitation.getDateString(),
 					openfireInvitation.getStartLong(),
