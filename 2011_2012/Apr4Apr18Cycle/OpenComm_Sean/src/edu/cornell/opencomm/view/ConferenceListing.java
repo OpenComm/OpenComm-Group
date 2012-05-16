@@ -142,7 +142,7 @@ public class ConferenceListing {
 
     public void update() {
         //TODO: Talk to backend about this stuff
-        setConferenceTitle(conference.getRoom());
+        setConferenceTitle(conference.getName());
         setContacts(conference.getContactList());
         setDate(conference.getStartDate(), conference.getEndDate());
 
@@ -169,7 +169,7 @@ public class ConferenceListing {
 			         String date=String.valueOf(conf.getStartMonth())+"/"+String.valueOf(conf.getStartDay())+"/"+String.valueOf(conf.getStartYear());
     	             String startT=String.valueOf(conf.getStartHour())+":"+String.valueOf(conf.getStartMinute());
     	             String endT=String.valueOf(conf.getEndHour())+":"+String.valueOf(conf.getEndMinute());
-			         conf.getPlannerView().setFields(conf.getRoom(), date, startT,endT);
+			         conf.getPlannerView().setFields(conf.getName(), date, startT,endT);
 			         
     	             //cpv1.getConferencePlannerController();
 			         CharSequence[] buddyList=conf.getContactList().toArray(new CharSequence[0]);//getInvitees();//cpv1.getConferencePlannerController().buddyList;

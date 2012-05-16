@@ -17,9 +17,10 @@ public class Conference implements Comparable<Conference> {
    
 	// hashtable for all the conferencePlannerView
     static Hashtable<Integer,ConferencePlannerView> plannerViews= new Hashtable<Integer, ConferencePlannerView>();; 
-	private String room;
+	private String roomID;
     private String inviter;
    
+    private String name;
     private Date startDate, endDate;//Date objects representing start and end time of conference
     private String[]inviteList;
     private ArrayList<String> contactList;
@@ -61,16 +62,21 @@ public class Conference implements Comparable<Conference> {
 		return plannerViews;
 	}
 
-	public Conference(Date startDate, Date endDate, String inviter, String room, ArrayList<String> contactList){
-    	this.startDate=startDate;
+	public Conference(String name, Date startDate, Date endDate, String inviter, String room, ArrayList<String> contactList){
+    	this.name = name;
+		this.startDate=startDate;
     	this.endDate=endDate;
-    	this.room=room;
+    	this.roomID=room;
     	this.contactList=contactList;
     	this.inviter=inviter;
     	Log.v(LOG_TAG, "Conference Constructor called!");
     }
     
 //    //Getters for all fields
+		
+	public String getName() {
+		return name;
+	}
     public int getStartYear(){
         return startDate.getYear();
     }
@@ -110,6 +116,9 @@ public class Conference implements Comparable<Conference> {
         return cpv;
     }
 
+    public void setName(String name) {
+    	this.name = name;
+    }
     public void setStartDay(int startDay) {
         startDate.setDate(startDay);
     }
@@ -208,15 +217,15 @@ public class Conference implements Comparable<Conference> {
     /**
      * @return the room
      */
-    public String getRoom() {
-        return room;
+    public String getRoomID() {
+        return roomID;
     }
 
     /**
      * @param room the room to set
      */
-    public void setRoom(String room) {
-        this.room = room;
+    public void setRoomID(String room) {
+        this.roomID = room;
     }
 
     public ArrayList<String> getContactList() {
