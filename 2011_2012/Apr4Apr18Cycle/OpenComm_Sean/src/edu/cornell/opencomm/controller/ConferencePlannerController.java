@@ -586,7 +586,7 @@ public class ConferencePlannerController {
 					startDay, startHour, startMinute);
 			openfireInvitation.setStartDate(startYear - 1900, startMonth,
 					startDay, startHour, startMinute);
-			openfireInvitation.setRoom(conferenceName);
+			openfireInvitation.setName(conferenceName);
 
 			openfireInvitation.setEndDate(startYear, startMonth, startDay,
 					endHour, endMinute);
@@ -618,7 +618,7 @@ public class ConferencePlannerController {
 		endHour = c.getEndHour();
 		endMinute = c.getEndMinute();
 		username = c.getInviter();
-		conferenceName = c.getRoom();
+		conferenceName = c.getName();
 
 	}
 

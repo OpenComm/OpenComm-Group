@@ -150,7 +150,7 @@ public class SchedulingService {
 				+ "', PARTICIPANT3='" + "', PARTICIPANT4='"
 				+ "', PARTICIPANT5='" + "', PARTICIPANT6='"
 				+ "', PARTICIPANT7='" + "', PARTICIPANT8='"
-				+ "', PARTICIPANT9='" + "' WHERE id=" + toUpdate.getRoom()
+				+ "', PARTICIPANT9='" + "' WHERE id=" + toUpdate.getRoomID()
 				+ ";");
 	}
 
@@ -196,9 +196,9 @@ public class SchedulingService {
 					}
 				}
 				Conference info = new Conference(splitData[0], new Date(
-						Long.parseLong(splitData[3])), new Date(
-						Long.parseLong(splitData[4])), splitData[1],
-						splitData[0], participants);
+						Long.parseLong(splitData[4])), new Date(
+						Long.parseLong(splitData[5])), splitData[2],
+						splitData[1], participants);
 				data.add(info);
 				Log.v(LOG_TAG, "Conference added. Number " + data.size());
 				// Commented out by Chris. It broke the code because of casting
@@ -217,7 +217,7 @@ public class SchedulingService {
 	public RosterGroup createGroup(Conference info) {
 		Roster roster = LoginController.xmppService.getXMPPConnection()
 				.getRoster();
-		RosterGroup group = roster.createGroup(info.getRoom());
+		RosterGroup group = roster.createGroup(info.getRoomID());
 		RosterEntry[] entries = roster.getEntries().toArray(new RosterEntry[0]);
 		for (String user : info.getContactList()) {
 			for (RosterEntry entry : entries) {
