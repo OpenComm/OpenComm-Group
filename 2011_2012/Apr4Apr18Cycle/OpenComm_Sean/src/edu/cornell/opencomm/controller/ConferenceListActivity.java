@@ -410,6 +410,13 @@ public class ConferenceListActivity extends Activity {
 		@Override
 		public void onResume(){
 			super.onResume();
+			LoginController.xmppService.getSchedulingService().pullConferences();
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			initialize();
 		}
 }
