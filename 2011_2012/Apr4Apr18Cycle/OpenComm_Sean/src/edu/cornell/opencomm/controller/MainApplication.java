@@ -779,10 +779,11 @@ public final class MainApplication extends Activity {
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
+				int resId = getResources().getIdentifier("edu.cornell.opencomm:string/" + notify + "_tip", null, null);
 				PopupNotificationView pnv = new PopupNotificationView(Space
-						.getMainSpace().getContext(), null, "tip", Space
+						.getMainSpace().getContext(), null, "tip", user.getNickname()+ " " + Space
 						.getMainSpace().getContext()
-						.getString(R.string.sidechat_tip), "", Values.tip);
+						.getString(resId), "", Values.tip);
 				pnv.createPopupWindow();
 			}
 		});

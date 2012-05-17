@@ -24,9 +24,9 @@ import edu.cornell.opencomm.view.UserView;
 public class UserIconMenuController {
 	
 	private static UserView userView = null;
-    private static SpaceView spaceView = null;
+    private SpaceView spaceView = null;
     private static Context context;
-    private static boolean kickoutStatus;
+    private boolean kickoutStatus;
     
     /** Constructor
      **/
@@ -39,7 +39,7 @@ public class UserIconMenuController {
      * Show a menu after long-pressing on a user icon (UserView)
      * Menu options are: Delete User, Cancel 
      * */
-    public static void showIconMenu(UserView uv){
+    public static  void showIconMenu(UserView uv){
     	userView = uv;
         if (context == null){
             Log.v("User Icon Menu", "NULL");
@@ -54,12 +54,13 @@ public class UserIconMenuController {
             	 * Event when User clicks on Delete User
             	 */
                 if (Values.userviewMenu[item].equals("Delete User")){
-                    /**
+                    /**	
                    	 * Kick out the selected user
                    	 */
-                	kickoutStatus = spaceView.getSpace().getKickoutController().kickoutUser(
+                	
+                	boolean kickoutStatus = MainApplication.screen.getSpace().getKickoutController().kickoutUser(
                 									userView.getPerson(),"Because you should leave");
-                   
+                   MainApplication.screen.getSpace().getSpaceController().getPSIV().invalidate();
                 	/**
                    	 * For dealing with unsuccessful kick-out
                    	 */
