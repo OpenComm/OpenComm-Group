@@ -71,7 +71,6 @@ public class SchedulingService {
 					public void processMessage(Chat arg0, Message arg1) {
 						Log.v(LOG_TAG, "Message Received");
 						Log.v(LOG_TAG, "Message to XML:" + arg1.toXML());
-						Log.v(LOG_TAG, "PacketID : " + arg1.getPacketID());
 						Log.v(LOG_TAG, "PacketSubject : " + arg1.getSubject());
 						if (arg1.getSubject().equals("ConferenceInfo")) {
 							// TODO: Parse out conference info and pass to UI
@@ -95,6 +94,7 @@ public class SchedulingService {
 						}
 					}
 				});
+		pullConferences();
 		// Crhis: Commented out: Crashed
 		/*
 		 * // Create a Timer to pull conferences every hour Timer
@@ -113,7 +113,7 @@ public class SchedulingService {
 		push.setFrom(xmppConn.getUser());
 		push.setPacketID("pushConference");
 		String pushConferenceData = "INSERT INTO CONFERENCES SET NAME='" + name +
-				"' OWNER='" + owner
+				"', OWNER='" + owner
 				+ "', DATE='" + date + "', START='"
 				+ new Timestamp(start).toString() + "', END='"
 				+ new Timestamp(end).toString() + "', RECURRING='" + recurring
