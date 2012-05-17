@@ -178,11 +178,12 @@ public class ConferenceListActivity extends Activity {
         Log.v("CLA","serverConferences size: " + serverConferences.size());
         
         for(Conference conference : serverConferences) {
+        	Log.v(LOG_TAG,"Time of conference: " + conference.getDateString());
             if(conference.isNow())
                 currentConferences.add(conference);
-            else if(conference.isFuture())
+            else if(conference.isFuture()){
             	Log.v(LOG_TAG,"Added conference to the FUTURE!");
-                futureConferences.add(conference);
+                futureConferences.add(conference);}
         }
         upcomingAdapter = new ConferenceListExpandableListAdapter(this, futureConferences);
         happeningNowAdapter = new ConferenceListExpandableListAdapter(this, currentConferences);
