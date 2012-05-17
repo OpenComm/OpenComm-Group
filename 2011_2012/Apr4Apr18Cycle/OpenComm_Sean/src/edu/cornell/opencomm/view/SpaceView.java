@@ -106,17 +106,19 @@ public class SpaceView extends View {
 				int mouseY = (int) event.getY();
 
 				if (event.getAction() == MotionEvent.ACTION_DOWN) {
-					drag = menuPopup = false;
+					drag = menuPopup = clickOnIcon = false;
 					dragPoints.add(new ArrayList<Point>());
 					savedPoint = new Point(mouseX, mouseY);
 					// If clicked on an icon
 					selectedIcon = null;
+					Log.d("TEXAS", "hogdown");
 					for (UserView icon : space.getAllIcons()) {
 						if (icon.clickedInside(mouseX, mouseY)) {
 							if (!icon.isLassoed()) {
 								icon.getUserViewController().handleClickDown(
 										icon.getX(), icon.getY());
 							}
+							Log.d("TEXAS", "hogclick");
 							clickOnIcon = true;
 							selectedIcon = icon;
 						}
@@ -191,7 +193,7 @@ public class SpaceView extends View {
 								}
 								cancelLassoMode();
 							}
-
+ 
 						}
 						selectedIcon = null;
 						clickOnIcon = false;
@@ -203,12 +205,10 @@ public class SpaceView extends View {
 					 * If a person icon is selected, then move the icon to the
 					 * current position
 					 */
+				    Log.d("TEXAS", "hogstate " + clickOnIcon + "," + lassomode);
 					if (clickOnIcon && !lassomode) {
 						selectedIcon.getUserViewController().handleMoved(
 								mouseX, mouseY);
-
-
-
 					} else if (clickOnIcon && lassomode) {
 						if (!selectedIcon.isLassoed()) {
 							cancelLassoMode();
@@ -231,8 +231,7 @@ public class SpaceView extends View {
 			@Override
 			public synchronized boolean onLongClick(View arg0) {
 				// Log.d("TEXAS", "hogsize " + dragPoints.get(0).size());
-				if (dragPoints.size() == 0 || dragPoints.size() == 1
-						&& dragPoints.get(0).size() == 0) {
+				if (dragPoints.size() == 0 || (dragPoints.size() == 1 && dragPoints.get(0).size() == 1 || dragPoints.get(0).size() == 0)) {
 					if (clickOnIcon) {
 						boolean longpress = selectedIcon
 								.getUserViewController().handleLongPress();
@@ -261,6 +260,7 @@ public class SpaceView extends View {
 		Log.d("LOL", "hog CANCEL LASSSOMODEEEEE");
 		lassomode = false;
 		dragPoints.clear();
+		//clickOnIcon = false;
 		lassoedIcons.clear();
 		for (UserView p : space.getAllIcons()) {
 			p.setLassoed(false);
@@ -286,6 +286,7 @@ public class SpaceView extends View {
 		if (menuPopup)
 			return;
 		lassomode = true;
+		
 		ArrayList<Point> curPath = dragPoints.get(dragPoints.size() - 1);
 		if (savedPoint != null) {
 			curPath.add(savedPoint);
@@ -315,8 +316,7 @@ public class SpaceView extends View {
 						.equals(MainApplication.userPrimary.getNickname())) {
 					if (p.segmentIntersects(prevPoint, newPoint)) {
 						p.setLassoed(true);
-						if (D)
-							Log.d("TEXAS", "I hogtied that userview");
+						if (D) Log.d("TEXAS", "I hogtied that userview");
 					}
 				}
 			}
