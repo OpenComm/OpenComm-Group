@@ -83,6 +83,7 @@ public class UserViewController {
      */
     public boolean handleLongPress() {
         if (!dragged) {
+        	
             UserIconMenuController.showIconMenu(userView);
             return true;
         }
