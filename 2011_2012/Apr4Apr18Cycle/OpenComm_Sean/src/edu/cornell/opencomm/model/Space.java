@@ -153,7 +153,7 @@ public class Space {
         while (occItr.hasNext()) {
 
             String occ = occItr.next();
-            String occJID = occ.substring(occ.indexOf('/') + 1) + "@" + Network.DEFAULT_HOST;
+            String occJID = occ.substring(occ.indexOf('/') + 1) + "@" + Network.DEFAULT_HOSTNAME;
             Log.v("Space", "Adding person " + occJID);
             User u = User.getAllUsers().get(occJID);
             // if there is an instance of User already created

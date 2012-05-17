@@ -178,10 +178,10 @@ public final class MainApplication extends Activity {
 		screen.setOnKeyListener(onKeyListener);
 
 		// DEBUG: create User object to test invitations and kickouts
-		debug = new User("opencommsec@" + Network.DEFAULT_HOST, "opencommsec",
+		debug = new User("opencommsec@" + Network.DEFAULT_HOSTNAME, "opencommsec",
 				0);
 		// for (Space s : Space.allSpaces) Log.v(TAG, s.getRoomID());
-		debug1 = new User("mucopencomm@" + Network.DEFAULT_HOST, "mucopencomm",
+		debug1 = new User("mucopencomm@" + Network.DEFAULT_HOSTNAME, "mucopencomm",
 				0);
 
 		// Change screen dimensions to 480x800
@@ -285,7 +285,7 @@ public final class MainApplication extends Activity {
 				Log.v(TAG, "pressed V key - change owner");
 				Space.getMainSpace()
 						.getParticipantController()
-						.grantOwnership("opencommsec@" + Network.DEFAULT_HOST,
+						.grantOwnership("opencommsec@" + Network.DEFAULT_HOSTNAME,
 								false);
 				break;
 			}

@@ -55,7 +55,7 @@ public class ContactListView {
 		for( int i = 0; i < buddySelection.length; i++ ){
 			if(buddySelection[i]){
 				username = (String) buddyList[i];
-				User p = new User(username + "@" + Network.DEFAULT_HOST, username, R.drawable.question);
+				User p = new User(username + "@" + Network.DEFAULT_HOSTNAME, username, R.drawable.question);
 				//if (D) Log.d(LOG_TAG, "Adding person " + username + " to mainspace");
 	        	initAddPerson(mainspace, p);
 			}

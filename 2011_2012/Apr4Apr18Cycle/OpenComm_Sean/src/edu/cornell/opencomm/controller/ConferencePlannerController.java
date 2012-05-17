@@ -476,7 +476,7 @@ public class ConferencePlannerController {
 		lp.setMargins(0, 10, 20, 0);
 		LinearLayout.LayoutParams l = new LinearLayout.LayoutParams(200, 100);
 
-		User p = new User(username + "@" + Network.DEFAULT_HOST, username,
+		User p = new User(username + "@" + Network.DEFAULT_HOSTNAME, username,
 				R.drawable.question);
 
 		UserView invited = new UserView(cpv, p, R.drawable.question, null,
