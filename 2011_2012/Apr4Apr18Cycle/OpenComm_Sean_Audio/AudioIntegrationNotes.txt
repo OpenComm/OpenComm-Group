@@ -138,7 +138,7 @@ User user = null;
 					}
 
 add to InvitationController.handleAcceptButtonHover:
-// Initiate Jingle session with all members of the chat room.
+ // Initiate Jingle session with all members of the chat room.
             Log.d(TAG, "Initiating Jingle session");
             Iterator<String> partItr = Space.getMainSpace().getAllParticipants().keySet().iterator();
 			if(Space.getMainSpace().getAllParticipants() == null || !partItr.hasNext()){
@@ -150,7 +150,7 @@ add to InvitationController.handleAcceptButtonHover:
 					User partUser = Space.getMainSpace().getAllParticipants().get(participant);
 					if (!MainApplication.userPrimary.equals(partUser) && (Space.getMainSpace() != null && !Space.getMainSpace().getOwner().equals(MainApplication.userPrimary))) {
 						// Send session-initiate to the buddy.
-						partUser.getJingle().getJiqActionMessageSender().sendSessionInitiate(MainApplication.userPrimary.getUsername() + "@" + Network.DEFAULT_HOST + "/Smack", participant + "/Smack", partUser.getJingle());
+						partUser.getJingle().getJiqActionMessageSender().sendSessionInitiate(MainApplication.userPrimary.getJingle().getBuddyJID(), partUser.getJingle().getBuddyJID(), partUser.getJingle());
 						partUser.getJingle().getSessionState().changeSessionState(JingleIQPacket.AttributeActionValues.SESSION_INITIATE);
 						Log.d("InvitationController", "JingleController sent");
 					}

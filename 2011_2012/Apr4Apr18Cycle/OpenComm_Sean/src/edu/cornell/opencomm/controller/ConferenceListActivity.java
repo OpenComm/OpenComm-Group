@@ -145,18 +145,18 @@ public class ConferenceListActivity extends Activity {
 //        initialize(conferences);
 
         //Updates conference view
-      
+        if(serverConferences!=null){
         initialize();
-        
+        }
+
         monthDisplay = stock.get(Calendar.MONTH);
         dayDisplay = stock.get(Calendar.DAY_OF_MONTH);
         yearDisplay=stock.get(Calendar.YEAR);
 
         textView= getDateText();
         textView.setFocusable(false);
-
         setDateText();
-
+        
         getLeftArrow().setOnClickListener(onLeftArrowListener);
         getRightArrow().setOnClickListener(onRightArrowListener);
 
@@ -167,11 +167,13 @@ public class ConferenceListActivity extends Activity {
 
         newConfButton = getAddConfButton();
         newConfButton.setOnClickListener(onAddConfButtonListener);
+        
     } // end onCreate methods
 
     private void initialize() {
         ArrayList<Conference> currentConferences = new ArrayList<Conference>();
         ArrayList<Conference> futureConferences = new ArrayList<Conference>();
+        
         Log.v("CLA","serverConferences size: " + serverConferences.size());
         
         for(Conference conference : serverConferences) {
@@ -195,7 +197,7 @@ public class ConferenceListActivity extends Activity {
         upcomingConferences.setOnGroupCollapseListener(new CollapseListener(upcomingConferences));
         happeningNowConferences.setOnGroupExpandListener(new ExpandListener(happeningNowConferences, upcomingConferences));
         happeningNowConferences.setOnGroupCollapseListener(new CollapseListener(happeningNowConferences));
-
+        
     }
 
     public class ExpandListener implements ExpandableListView.OnGroupExpandListener {
@@ -288,6 +290,7 @@ public class ConferenceListActivity extends Activity {
 			boolean confFound=false;
 
 			//Scroll upcoming
+			if(upcomingAdapter!=null){
 			for(int i=0;i<upcomingAdapter.getGroupCount();i++){
 //				int startMonth = ((Conference)upcomingAdapter.getGroup(i)).getStartMonth();
 //				int startDay = ((Conference)upcomingAdapter.getGroup(i)).getStartDay();
@@ -306,7 +309,7 @@ public class ConferenceListActivity extends Activity {
 				}
 				if(confFound){break;}
 			}
-
+			}
 			//Scroll happening now?? (I think its un-needed)
 //			for(int i=0;i<happeningNowAdapter.getGroupCount();i++){
 ////				int startMonth = ((Conference)upcomingAdapter.getGroup(i)).getStartMonth();
@@ -328,10 +331,10 @@ public class ConferenceListActivity extends Activity {
 //			}
 //
 			if(confFound==false){
-			Log.v("DANG","NO CONFERENCES ON " + tempMonthDisplay+"/" + tempDayDisplay);}
+			Log.v(LOG_TAG,"NO CONFERENCES ON " + tempMonthDisplay+"/" + tempDayDisplay);}
 			else{
 
-				Log.v("OMG","FOUND A CONFERENCE");
+				Log.v(LOG_TAG,"FOUND A CONFERENCE");
 			}
 		textView.setText(" " +tempMonthDisplay + "/" + tempDayDisplay);
 		}
