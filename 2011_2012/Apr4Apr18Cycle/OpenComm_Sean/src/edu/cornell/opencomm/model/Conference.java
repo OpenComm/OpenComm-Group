@@ -66,7 +66,6 @@ public class Conference implements Comparable<Conference> {
     	this.name = name;
 		this.startDate=startDate;
     	this.endDate=endDate;
-    	this.roomID=room;
     	this.contactList=contactList;
     	this.inviter=inviter;
     	Log.v(LOG_TAG, "Conference Constructor called!");
