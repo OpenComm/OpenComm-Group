@@ -179,17 +179,14 @@ public class SchedulingService {
 			Log.v(LOG_TAG, "Received raw data: " + rawData);
 		Collection<Conference> data = new LinkedList<Conference>();
 		String[] conferences = rawData.split("\n");
+		Log.v(LOG_TAG, "How long is rawData.split? " + conferences.length);
 		for (String conferenceData : conferences) {
 			String[] splitData = conferenceData.split("//");
-			if (
-			// Maybe use xmppConn.getUser().
-			// Arrays.asList(splitData).contains(
-			// MainApplication.userPrimary.getUsername())&&
-			Long.parseLong(splitData[4]) < new Date().getTime()) {
+			//if (conferenceData.contains(xmppConn.getUser())) {
 				ArrayList<String> participants = new ArrayList<String>();
 				int i = 7;
 				while (i < splitData.length) {
-					Log.v(LOG_TAG, "splitData[i]: " + splitData[i]);
+					//Log.v(LOG_TAG, "splitData[i]: " + splitData[i]);
 					if (!"null".equals(splitData[i])) {
 						participants.add(splitData[i]);
 						i++;
@@ -207,7 +204,7 @@ public class SchedulingService {
 				// 3600000) {
 				// allTimers.add(createConferenceTimer(info));
 				// }
-			}
+			//}
 		}
 		Log.v(LOG_TAG, "Raw data parsed: number of conferences: " + data.size());
 		return data;
