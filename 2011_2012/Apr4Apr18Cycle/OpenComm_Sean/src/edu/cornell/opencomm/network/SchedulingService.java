@@ -189,8 +189,9 @@ public class SchedulingService {
 					//Log.v(LOG_TAG, "splitData[i]: " + splitData[i]);
 					if (!"null".equals(splitData[i])) {
 						participants.add(splitData[i]);
-						i++;
+						
 					}
+					i++;
 				}
 				Conference info = new Conference(splitData[0], new Date(
 						Long.parseLong(splitData[4])), new Date(
