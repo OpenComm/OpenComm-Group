@@ -139,19 +139,18 @@ public class SchedulingService {
 	 * Update a conferences on the database.
 	 */
 	public void updateConference(Conference toUpdate) {
-		String[] participants = toUpdate.getContactsAsArray();
 		Message push = new Message();
 		push.setPacketID("pushConference");
 		push.setBody("UPDATE CONFERENCES SET NAME='" + toUpdate.getName() + 
-				"', SET OWNER='" + toUpdate.getHostName()
+				"' SET OWNER='" + toUpdate.getHostName()
 				+ "', DATE='" + toUpdate.getDateString() +
 				"', START=" + toUpdate.getStartDate() + ", END=" + toUpdate.getEndDate() +
 				", RECURRING='" + toUpdate.getRecurring() 
-				+ "', PARTICIPANT1='" + participants[0] + "', PARTICIPANT2='" + participants[1]
-				+ "', PARTICIPANT3='" + participants[2] + "', PARTICIPANT4='" + participants[3] 
-				+ "', PARTICIPANT5='" + participants[4] + "', PARTICIPANT6='" + participants[5]
-				+ "', PARTICIPANT7='" + participants[6] + "', PARTICIPANT8='" + participants[7]
-				+ "', PARTICIPANT9='" + participants[8] + "' WHERE id=" + toUpdate.getRoomID()
+				+ "', PARTICIPANT1='" + "', PARTICIPANT2='"
+				+ "', PARTICIPANT3='" + "', PARTICIPANT4='"
+				+ "', PARTICIPANT5='" + "', PARTICIPANT6='"
+				+ "', PARTICIPANT7='" + "', PARTICIPANT8='"
+				+ "', PARTICIPANT9='" + "' WHERE id=" + toUpdate.getRoomID()
 				+ ";");
 	}
 
@@ -190,9 +189,8 @@ public class SchedulingService {
 					//Log.v(LOG_TAG, "splitData[i]: " + splitData[i]);
 					if (!"null".equals(splitData[i])) {
 						participants.add(splitData[i]);
-						
+						i++;
 					}
-					i++;
 				}
 				Conference info = new Conference(splitData[0], new Date(
 						Long.parseLong(splitData[4])), new Date(

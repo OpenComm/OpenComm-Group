@@ -30,7 +30,7 @@ private static HashMap<String, JingleController> UsernameToJingleController = ne
 		this.soundSpatializer = new SoundSpatializer();
 		jiqActionMessageSender = new JingleIQActionMessages();
 		iqMessageSender = new IQMessages();
-		this.buddyJID = user + Network.DEFAULT_HOSTNAME +  "/Smack";
+		this.buddyJID = user.getUsername().split("@")[0] + Network.DEFAULT_HOSTNAME +  "/Smack";
 		jiqActionMessageSender.setConnection(connection);
 		iqMessageSender.setConnection(connection);
 		JingleController.UsernameToJingleController.put(this.user.getUsername(), this);
@@ -69,6 +69,7 @@ buddy.pusher.removeQueue(buddy.getBuddyJID());
 	
 add to NetworkService.(init): JingleIQBuddyPacketRouter.setup(xmppConn);
 
+
 add to NetworkService.disconnect():
 HashMap<String, JingleController> allJCtrls = JingleController
 				.getUsernameToJingleController();
@@ -85,7 +86,14 @@ HashMap<String, JingleController> allJCtrls = JingleController
 					JingleIQPacket.AttributeActionValues.SESSION_TERMINATE);
 		}
 
-add to User.init: private JingleController jCtrl; this.jCtrl = new JingleController(this);
+add to User.init:
+private JingleController jCtrl;
+this.jCtrl = new JingleController(this);
+
+    /** @return - the jingle controller associated with this user */
+    public JingleController getJingle() {
+    	return this.jCtrl;
+    }
 
 remove from JingleIQBuddyPacketRouter:
 
@@ -100,11 +108,11 @@ remove from JingleIQBuddyPacketRouter:
 	}
 	
 replace in JingleIQBuddyPacketRouter:
-User user = null;
+						User user = null;
 						JingleController jCtrl = null;
 						Log.i(JingleIQBuddyPacketRouter.TAG, "Looking for User: " + jiq.getFrom() + " in OngoingChatBuddyList");
 						String userJid = jiq.getFrom().split("/")[0];
-						if(!JingleController.getUsernameToJingleControllerMap().containsKey(userJid)){
+						if(!JingleController.getUsernameToJingleController().containsKey(userJid)){
 							Log.i(JingleIQBuddyPacketRouter.TAG, "Does not contain key " + userJid);
 							if (!User.getAllUsers().containsKey(userJid)) {
 								user = new User(userJid, userJid.split("@")[0], 0);
@@ -116,13 +124,13 @@ User user = null;
 							jCtrl.setSID(jiq.getAttributeSID());
 							// TODO update the buddy list <- automatically completed by the network?
 							//xmppClient.getOngoingChatBuddyList().put(jiq.getFrom(), buddy);
-							Log.i(JingleIQBuddyPacketRouter.TAG, "Created user: Jsername = " + jCtrl.getbuddyJID() + 
+							Log.i(JingleIQBuddyPacketRouter.TAG, "Created user: Jsername = " + jCtrl.getBuddyJID() + 
 									" Session SID: " + jCtrl.getSID());
 							jCtrl.processPacket(jiq);
 						} else {
-							jCtrl = JingleController.getUsernameToJingleControllerMap().get(userJid);
+							jCtrl = JingleController.getUsernameToJingleController().get(userJid);
 							jCtrl.setSID(jiq.getAttributeSID());
-							Log.i(JingleIQBuddyPacketRouter.TAG, "Found user: Username = " + jCtrl.getbuddyJID());
+							Log.i(JingleIQBuddyPacketRouter.TAG, "Found user: Username = " + jCtrl.getBuddyJID());
 							jCtrl.processPacket(jiq);
 						}
 						
@@ -132,13 +140,13 @@ User user = null;
 						Log.i(JingleIQBuddyPacketRouter.TAG, "From: "  + iq.getFrom()+ "To: " + iq.getTo());
 						String fromJID = iq.getFrom().split("/")[0];
 						if (Space.getMainSpace().getAllParticipants().containsKey(fromJID)) {
-							Space.getMainSpace().getAllParticipants().get(fromJID).getjCtrl().processPacket(iq);
+							Space.getMainSpace().getAllParticipants().get(fromJID).getJingle().processPacket(iq);
 						}
 
 					}
 
 add to InvitationController.handleAcceptButtonHover:
-// Initiate Jingle session with all members of the chat room.
+ // Initiate Jingle session with all members of the chat room.
             Log.d(TAG, "Initiating Jingle session");
             Iterator<String> partItr = Space.getMainSpace().getAllParticipants().keySet().iterator();
 			if(Space.getMainSpace().getAllParticipants() == null || !partItr.hasNext()){
@@ -150,7 +158,7 @@ add to InvitationController.handleAcceptButtonHover:
 					User partUser = Space.getMainSpace().getAllParticipants().get(participant);
 					if (!MainApplication.userPrimary.equals(partUser) && (Space.getMainSpace() != null && !Space.getMainSpace().getOwner().equals(MainApplication.userPrimary))) {
 						// Send session-initiate to the buddy.
-						partUser.getJingle().getJiqActionMessageSender().sendSessionInitiate(MainApplication.userPrimary.getUsername() + "@" + Network.DEFAULT_HOST + "/Smack", participant + "/Smack", partUser.getJingle());
+						partUser.getJingle().getJiqActionMessageSender().sendSessionInitiate(MainApplication.userPrimary.getJingle().getBuddyJID(), partUser.getJingle().getBuddyJID(), partUser.getJingle());
 						partUser.getJingle().getSessionState().changeSessionState(JingleIQPacket.AttributeActionValues.SESSION_INITIATE);
 						Log.d("InvitationController", "JingleController sent");
 					}
@@ -160,7 +168,7 @@ add to InvitationController.handleAcceptButtonHover:
 
 add to UserViewController.handleClickUp:
 // move location of sound source
-            this.userView.getPerson().getjCtrl().getSoundSpatializer().moveTo(newX, newY);				
+            this.userView.getPerson().getJingle().getSoundSpatializer().moveTo(newX, newY);				
 
 add to Userview:
 user.getJCtrl().receiver.talking

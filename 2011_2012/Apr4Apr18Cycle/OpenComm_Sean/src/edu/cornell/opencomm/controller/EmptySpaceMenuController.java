@@ -42,6 +42,7 @@ public class EmptySpaceMenuController {
                 else if (Values.emptyspaceMenu[item].equals("Delete Users")){
                     Log.v(TAG, "pressed Delete Users");
                     ParticipantView.deleteParticipants();
+                    MainApplication.screen.getSpace().getSpaceController().getPSIV().invalidate();
                 }
                 else if (Values.emptyspaceMenu[item].equals("Leave Conference")){
                     Log.v(TAG, "pressed Leave Chat");

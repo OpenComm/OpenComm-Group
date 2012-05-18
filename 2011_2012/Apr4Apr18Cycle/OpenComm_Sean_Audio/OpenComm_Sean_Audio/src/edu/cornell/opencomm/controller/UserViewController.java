@@ -72,6 +72,7 @@ public class UserViewController {
             newX = clickX - (userView.getImage().getWidth() / 2);
             newY = clickY - (userView.getImage().getWidth() / 2);
             userView.setXY(newX, newY);
+            this.userView.getPerson().getJingle().getSoundSpatializer().moveTo(newX, newY);	
         }
     }
 
@@ -83,7 +84,6 @@ public class UserViewController {
      */
     public boolean handleLongPress() {
         if (!dragged) {
-        	
             UserIconMenuController.showIconMenu(userView);
             return true;
         }

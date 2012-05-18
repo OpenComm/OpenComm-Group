@@ -190,7 +190,8 @@ public class UserView extends ImageButton{
             if(ghost)
                 nameTag.setAlpha(GHOST_ALPHA);
             nameTag.draw(c);
-            c.drawText(person.getUsername(), 0, Math.min(11,(person.getUsername()).length()),0/*Values.iconTextPadding*/,
+            
+            c.drawText(person.getUsername(), 0, Math.min(11,(person.getNickname()).length()),0/*Values.iconTextPadding*/,
                     image.getHeight()-namebox+Values.nameTextSize/*5/2*Values.iconBorderPadding+10*/, paint);
             canvas.drawBitmap(overlay, x, y, null);
             if(disconnected) {

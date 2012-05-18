@@ -15,6 +15,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -97,6 +99,8 @@ public final class MainApplication extends Activity {
 
 	public PrivateSpaceIconView side1;
 	public PrivateSpaceIconView side2;
+	
+	private WakeLock mWakeLock;
 
 	/**
 	 * TODO Network - There are many times when the the onCreate method failes
@@ -130,7 +134,9 @@ public final class MainApplication extends Activity {
 			Log.d(TAG, "onCreate - Started the MainApplication activity");
 		super.onCreate(savedInstanceState);
 		ContextTracker.setContext(this);
-
+		PowerManager pm = (PowerManager)getSystemService(Context.POWER_SERVICE);
+        mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "MyTag");
+        mWakeLock.acquire();
 		// Open up the layout specified by the main XML
 		setContentView(R.layout.main);
 		// Change the parameters of the appearance according to screen size
@@ -188,6 +194,15 @@ public final class MainApplication extends Activity {
 		Values.setValues(480, 800);
 
 	}
+	
+	@Override
+    public void onDestroy() {
+    	super.onDestroy();
+    	if (mWakeLock != null) {
+    	    mWakeLock.release();
+    	    mWakeLock = null;
+    	} 
+    }
 
 	/**
 	 * An onKeyListner to listen to any key events. Will be used mainly for
@@ -779,11 +794,10 @@ public final class MainApplication extends Activity {
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				int resId = getResources().getIdentifier("edu.cornell.opencomm:string/" + notify + "_tip", null, null);
 				PopupNotificationView pnv = new PopupNotificationView(Space
-						.getMainSpace().getContext(), null, "tip", user.getNickname()+ " " + Space
+						.getMainSpace().getContext(), null, "tip", Space
 						.getMainSpace().getContext()
-						.getString(resId), "", Values.tip);
+						.getString(R.string.sidechat_tip), "", Values.tip);
 				pnv.createPopupWindow();
 			}
 		});

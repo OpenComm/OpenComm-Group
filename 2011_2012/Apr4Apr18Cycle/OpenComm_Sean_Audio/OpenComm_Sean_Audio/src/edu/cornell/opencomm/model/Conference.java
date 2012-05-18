@@ -77,7 +77,7 @@ public class Conference implements Comparable<Conference> {
 		return name;
 	}
     public int getStartYear(){
-        return startDate.getYear()+1900;
+        return startDate.getYear();
     }
     public int getStartMonth(){
         return startDate.getMonth();
@@ -203,16 +203,13 @@ public class Conference implements Comparable<Conference> {
         Date startTime = getStartDate();
         Date endTime = getEndDate();
 
-        Log.v(LOG_TAG, "endTime: " + endTime.toGMTString());
         return ((startTime.before(now) || startTime.equals(now)) &&
                 (endTime.after(now) || endTime.equals(now)));
     }
 
     public boolean isFuture() {
-    	
         Date now = Calendar.getInstance().getTime();
         Date startTime = getStartDate();
-        Log.v(LOG_TAG,"startTime: " + startTime.toGMTString());
         return startTime.after(now);
     }
 

@@ -145,9 +145,9 @@ public class ConferenceListActivity extends Activity {
 //        initialize(conferences);
 
         //Updates conference view
-        
+        if(serverConferences!=null){
         initialize();
-        
+        }
 
         monthDisplay = stock.get(Calendar.MONTH);
         dayDisplay = stock.get(Calendar.DAY_OF_MONTH);
@@ -171,19 +171,17 @@ public class ConferenceListActivity extends Activity {
     } // end onCreate methods
 
     private void initialize() {
-    	if(serverConferences!=null){
         ArrayList<Conference> currentConferences = new ArrayList<Conference>();
         ArrayList<Conference> futureConferences = new ArrayList<Conference>();
         
         Log.v("CLA","serverConferences size: " + serverConferences.size());
         
         for(Conference conference : serverConferences) {
-        	Log.v(LOG_TAG,"Time of conference: " + conference.getDateString());
             if(conference.isNow())
                 currentConferences.add(conference);
-            else if(conference.isFuture()){
+            else if(conference.isFuture())
             	Log.v(LOG_TAG,"Added conference to the FUTURE!");
-                futureConferences.add(conference);}
+                futureConferences.add(conference);
         }
         upcomingAdapter = new ConferenceListExpandableListAdapter(this, futureConferences);
         happeningNowAdapter = new ConferenceListExpandableListAdapter(this, currentConferences);
@@ -199,7 +197,7 @@ public class ConferenceListActivity extends Activity {
         upcomingConferences.setOnGroupCollapseListener(new CollapseListener(upcomingConferences));
         happeningNowConferences.setOnGroupExpandListener(new ExpandListener(happeningNowConferences, upcomingConferences));
         happeningNowConferences.setOnGroupCollapseListener(new CollapseListener(happeningNowConferences));
-    	}
+        
     }
 
     public class ExpandListener implements ExpandableListView.OnGroupExpandListener {
@@ -405,20 +403,6 @@ public class ConferenceListActivity extends Activity {
 		 */
 		public static void setServerConferences(Collection<Conference> serverConferences) {
 			ConferenceListActivity.serverConferences = serverConferences;
-		}
-		
-		/**On pause and resume, reinitialize the listings */
-		@Override
-		public void onResume(){
-			super.onResume();
-			LoginController.xmppService.getSchedulingService().pullConferences();
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			initialize();
 		}
 }
 
