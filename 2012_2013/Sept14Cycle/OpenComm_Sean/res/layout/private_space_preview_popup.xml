@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/private_space_preview_popup"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="1">
+    <HorizontalScrollView 
+        android:background="@color/light_grey_translucent"
+        android:paddingLeft="8dp"
+        android:layout_width="220dp"
+        android:layout_height="100dp"
+        android:layout_weight="0.12">
+        <LinearLayout 
+            android:id="@+id/private_space_popup_preview_linear_layout"
+            android:paddingTop="7.33dp"
+            android:paddingBottom="7.33dp"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center" />
+    </HorizontalScrollView>
+    <Button android:id="@+id/go_button"
+            android:text="go"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:textColor="@color/off_white"
+            android:textSize="30sp"
+            android:background="@color/dark_grey"
+            android:gravity="center"/>
+</LinearLayout>
