@@ -1,0 +1,85 @@
+OpenComm Basecamp Tutorial
+Risa Naka (rn96) - Modified Sep.18.2012
+================================================================================
+
+
+What is Basecamp?
+- project management software
+
+Group link:
+https://opencommgroup.basecamphq.com/
+
+Login page:
+- Check that the logo is there for security reasons
+- Input username and password
+
+Dashboard:
+- Your project: OpenComm 
+- Any overdue milestones
+- Calendar: all events across all of your projects
+- History: all actions across all of your project
+- People on this project
+	- if it goes past 2, I'll be sad :(
+- New message/New to-do list/New event
+	- shortcut to creation pages
+	
+Messages:
+- all messages are stored in here
+- expanded vs list view
+- Categories:
+	- if you can't find a good category, please create it
+- Post a new message:
+	- same page you'll see if you click "New Message" on Dashboard
+
+Clicking All of OpenComm Group:
+- messages that are relevant to everyone
+- you can click it, and then unclick irrelevant people if there are only 1 - 2
+(ex: you want all programmers but not Bailey, Najla, Publication and Design teams)
+
+To-Dos:
+- Each list has a milestone associated with it
+	- in italics under the to-do list title
+- Add an item
+	- brief description
+	- if entire group, assign to team lead
+	- set deadline
+- Edit item
+	- hover over item
+	- click Edit on left
+- Delete item
+	- hover over item
+	- click trash icon on left
+- Move to another todolist
+	- hover over item
+	- click move icon on left (2 lines with 1 arrow pointing up, 1 arrow pointing down)
+	and drag the item
+- Commenting on an item
+	- hover over item
+	- click comment icon on right
+- Complete an item
+	- Click box on left
+	- Team leads will review your work; if it needs fixes or follow-ups, 
+	depending on the caliber, they will either unclick it and send you a comment
+	or they will create a new item that says "fix this..."
+
+Calendar:
+- Milestones and meeting times
+	- Meeting outlines will be posted on the comments section
+	- No comment icon?
+		- click on the event; next to title input: comment icon
+- Deleting events
+	- click on event
+	- click on trash icon lower right
+	
+Writeboards/Chat/Files:
+- not using it this year
+
+People & Permissions:
+- Edit: contact info, your team name
+
+Search
+- search for stuff
+
+
+
+	
