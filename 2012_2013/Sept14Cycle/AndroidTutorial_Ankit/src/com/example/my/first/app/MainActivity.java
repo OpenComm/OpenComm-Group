@@ -21,7 +21,6 @@ public class MainActivity extends Activity {
         return true;
     }
     /**Called when the user clicks on the Send button
-     * 
      * @param view
      */
     public void sendMessage(View view){
