@@ -5,12 +5,27 @@
 	android:layout_height="fill_parent" 
 	android:layout_width="fill_parent"
 	android:background="@color/off_white" >
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        android:background="@color/dark_grey"
+        >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="135dp"
+            android:layout_height="30dp"
+            android:src="@drawable/logo_oneline" />
+
+    </FrameLayout>
+
 	<RelativeLayout 
 		android:id="@+id/userInputs"
 		android:layout_height="266.67dp" 
 		android:layout_width="fill_parent"
 		android:fadingEdge="horizontal" 
-		android:layout_marginTop="41.33dp" 
+		android:layout_marginTop="11.33dp" 
 		android:background="@color/dark_grey">
 		<EditText 
 			android:layout_alignParentTop="true"
@@ -37,7 +52,7 @@
 		<TextView 
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:text="email" 
+			android:text="username" 
 			android:textColor="@color/orange"
 			android:textSize="38sp" 
 			android:id="@+id/textLabelUsername"
