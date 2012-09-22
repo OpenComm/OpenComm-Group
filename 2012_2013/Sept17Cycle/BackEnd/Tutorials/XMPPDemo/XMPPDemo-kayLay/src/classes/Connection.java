@@ -31,13 +31,8 @@ public class Connection {
 	}
 	
 	/**Connects the user to an XMPP Server after a connection has been made with a host and port*/
-	public void connectMe(String userName, String pw){
-		try {
-			connection.login(userName, pw);
-			
-		} catch (XMPPException e) {
-			System.out.println("Sorry, there was a connection error that occured");
-		}
+	public void connectMe(String userName, String pw) throws XMPPException{
+		connection.login(userName, pw);
 	}
 	
 	public void disconnect(){
