@@ -33,10 +33,16 @@ public class Main {
 						hostBoolean=false;
 						userConnection(connectionMain);
 						
+						optionMethod(connectionMain);
+						
+						//multiUserChat(connectionMain);
+						
+						
 						//connect user to specific login
 					
 						
 					} catch (Exception e) {
+						e.printStackTrace();
 						System.out.println("Failure in connection");
 					}
 					
@@ -73,6 +79,39 @@ public class Main {
 		
 	}
 	
+	public static void optionMethod(Connection connectionMain) throws XMPPException{
+		String input;
+		System.out.println("Hello, you have reached the option menu, what would you like to do next?");
+		input=scanner.nextLine();
+		
+		
+		if( input.equals("MUC")){
+			System.out.println("hello");
+			multiUserChat(connectionMain);
+		}
+		else {
+			System.out.println("Sorry, please enter a valid command");
+			optionMethod(connectionMain);
+		}
+		
+	}
+	
+	public static void multiUserChat(Connection connectionMain) throws XMPPException{
+		System.out.println("Enter the name of the room you want to create");
+		String roomName;
+		roomName= scanner.nextLine();
+		
+		try {
+			MUC muc= new MUC(connectionMain, roomName);
+		} catch (XMPPException e) {
+			System.out.println("you have reached an error in creating a MUC");
+			optionMethod(connectionMain);
+			e.printStackTrace();
+		}
+		System.out.println("You have successfully created a room");
+		
+		
+	}
 	
 	
 
