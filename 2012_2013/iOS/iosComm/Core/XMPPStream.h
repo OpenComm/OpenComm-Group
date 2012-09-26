@@ -1,10 +1,10 @@
 #import <Foundation/Foundation.h>
-#import "XMPPSASLAuthentication.h"
-#import "GCDAsyncSocket.h"
-#import "GCDMulticastDelegate.h"
+#import "../Authentication/XMPPSASLAuthentication.h"
+#import "../CocoaAsyncSocket/GCDAsyncSocket.h"
+#import "../Utilities/GCDMulticastDelegate.h"
 
 #if TARGET_OS_IPHONE
-  #import "DDXML.h"
+  #import "../KissXML/DDXML.h"
 #endif
 
 @class XMPPSRVResolver;

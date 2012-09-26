@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 
 #if TARGET_OS_IPHONE
-  #import "DDXML.h"
+  #import "../KissXML/DDXML.h"
 #endif
 
 
