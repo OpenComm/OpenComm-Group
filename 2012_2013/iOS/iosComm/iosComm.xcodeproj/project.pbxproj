@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4DBE6E801613712200DDF8BC /* topBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DBE6E7F1613712200DDF8BC /* topBar.png */; };
+		4DBE6E851613784B00DDF8BC /* whiteSquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DBE6E841613784B00DDF8BC /* whiteSquare.png */; };
 		4DE6A440160FC14B005F7857 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DE6A43F160FC14B005F7857 /* UIKit.framework */; };
 		4DE6A442160FC14B005F7857 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DE6A441160FC14B005F7857 /* Foundation.framework */; };
 		4DE6A444160FC14B005F7857 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DE6A443160FC14B005F7857 /* CoreGraphics.framework */; };
@@ -37,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4DBE6E7F1613712200DDF8BC /* topBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topBar.png; sourceTree = "<group>"; };
+		4DBE6E841613784B00DDF8BC /* whiteSquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteSquare.png; sourceTree = "<group>"; };
 		4DE6A43B160FC14B005F7857 /* iosComm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosComm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DE6A43F160FC14B005F7857 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4DE6A441160FC14B005F7857 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -119,6 +123,8 @@
 		4DE6A445160FC14B005F7857 /* iosComm */ = {
 			isa = PBXGroup;
 			children = (
+				4DBE6E841613784B00DDF8BC /* whiteSquare.png */,
+				4DBE6E7F1613712200DDF8BC /* topBar.png */,
 				4DE6A44E160FC14B005F7857 /* OCAppDelegate.h */,
 				4DE6A44F160FC14B005F7857 /* OCAppDelegate.m */,
 				4DE6A457160FC14B005F7857 /* MainStoryboard_iPhone.storyboard */,
@@ -241,6 +247,8 @@
 				4DE6A456160FC14B005F7857 /* Default-568h@2x.png in Resources */,
 				4DE6A459160FC14B005F7857 /* MainStoryboard_iPhone.storyboard in Resources */,
 				4DE6A45C160FC14B005F7857 /* MainStoryboard_iPad.storyboard in Resources */,
+				4DBE6E801613712200DDF8BC /* topBar.png in Resources */,
+				4DBE6E851613784B00DDF8BC /* whiteSquare.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,6 +469,7 @@
 				4DE6A479160FC14B005F7857 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4DE6A47A160FC14B005F7857 /* Build configuration list for PBXNativeTarget "iosCommTests" */ = {
 			isa = XCConfigurationList;
@@ -469,6 +478,7 @@
 				4DE6A47C160FC14B005F7857 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface OCViewController : UIViewController
+@property (strong, nonatomic) IBOutlet UITextField *loginPasswordField;
+@property (strong, nonatomic) IBOutlet UITextField *loginUsernameField;
+- (IBAction)loginButtonPressed:(id)sender;
 
 @end

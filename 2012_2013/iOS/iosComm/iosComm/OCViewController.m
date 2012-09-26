@@ -26,4 +26,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)loginButtonPressed:(id)sender {
+    NSLog(@"Username: %@, Password: %@", _loginUsernameField.text,
+          _loginPasswordField.text);
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    // when you touch away from these, then remove the keyboard
+    [_loginUsernameField resignFirstResponder];
+    [_loginPasswordField resignFirstResponder];
+}
+
 @end
