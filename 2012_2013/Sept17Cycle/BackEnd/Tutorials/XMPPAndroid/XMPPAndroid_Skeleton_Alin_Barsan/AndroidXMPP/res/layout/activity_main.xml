@@ -1,7 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:gravity="top" >
 
     <Button
         android:id="@+id/button1"
@@ -59,15 +60,6 @@
         android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/button2"
-        android:layout_width="75dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/button3"
-        android:onClick="terminate"
-        android:text="@string/end" />
-
-    <Button
         android:id="@+id/inviteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -105,25 +97,13 @@
         android:onClick="sendMessage"
         android:text="@string/sendmessage" />
 
-    <EditText
-        android:id="@+id/online"
-        android:layout_width="115dp"
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/sendmessage"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:inputType="text" />
-
-    <EditText
-        android:id="@+id/offline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignTop="@+id/online"
-        android:layout_toLeftOf="@+id/button2"
-        android:layout_toRightOf="@+id/online"
-        android:ems="10"
-        android:inputType="text" />
+        android:layout_alignParentRight="true"
+        android:onClick="terminate"
+        android:text="@string/end" />
 
 </RelativeLayout>

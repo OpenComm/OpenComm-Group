@@ -15,8 +15,6 @@ public class MainActivity extends Activity {
 	private EditText passwordText;
 	private EditText inviteUserText;
 	private EditText sendMessageText;
-	//private static EditText onlineText;
-	//private static EditText offlineText;
 	private Toast toast;
 	private Context context;
 	private Controller controller;
@@ -29,12 +27,9 @@ public class MainActivity extends Activity {
         userNameText = (EditText) this.findViewById(R.id.username);
         passwordText = (EditText) this.findViewById(R.id.password);
         inviteUserText = (EditText) this.findViewById(R.id.inviteUser);
-        sendMessageText = (EditText) this.findViewById(R.id.sendmessage);      
-      //  onlineText = (EditText) this.findViewById(R.id.online);
-    	//offlineText = (EditText) this.findViewById(R.id.offline);
+        sendMessageText = (EditText) this.findViewById(R.id.sendmessage);
         context = getBaseContext();
-        controller = new Controller();
-        controller.setContext(context);
+        controller = new Controller(context);
     }
 
     @Override
@@ -42,12 +37,7 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
     }
-    
-    public static void writeBuddyList(String onlineInRoom, String online, String offline){
-    	//onlineText.setText(onlineInRoom + "\n" + online);
-    	//offlineText.setText(offline);
-    }
-    
+        
     public void terminate(View view){
     	controller.disconnect();
     	this.finish();
@@ -67,25 +57,17 @@ public class MainActivity extends Activity {
     	controller.login(userName, password);
     }
     
-    public void inviteUser(View view){
+    public void invite(View view){
     	String userToInvite = inviteUserText.getText().toString();
     	controller.invite(userToInvite);
     }
 
-    /*
+
     public void sendMessage(View view){
-    	if(chatRoomGenerated){
     		String message = sendMessageText.getText().toString();
-    		controller.sendMessage(groupChat, message);
-    	}
-    	else{
-    		String text = "Must generate a chat room before sending messages\nTry inviting another user!";
-			toast = Toast.makeText(context, text, Toast.LENGTH_LONG);
-			toast.show();
-    	}
+    		controller.sendMessage(message);
+    	
     	
     	
     }
-    */
-    
 }

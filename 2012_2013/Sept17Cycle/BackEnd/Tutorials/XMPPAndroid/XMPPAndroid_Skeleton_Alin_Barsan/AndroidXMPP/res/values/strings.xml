@@ -27,5 +27,7 @@
     <string name="invite">Invite</string>
     <string name="messageHint">Type a Message Here</string>
     <string name="sendmessage">Send</string>
+    <string name="budd">Online buddy list will be shown here</string>
+    <string name="fsdbefebr">Online\\nBuddies</string>
 
 </resources>

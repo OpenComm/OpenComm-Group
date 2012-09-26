@@ -1,24 +1,24 @@
 package com.androidxmpp;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
-import android.content.Context;
-import android.util.Log;
-import android.widget.EditText;
-import android.widget.Toast;
-
-import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.PacketListener;
-import org.jivesoftware.smack.Roster;
-import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Packet;
-import org.jivesoftware.smackx.Form;
+import org.jivesoftware.smack.provider.ProviderManager;
+import org.jivesoftware.smackx.GroupChatInvitation;
 import org.jivesoftware.smackx.muc.InvitationRejectionListener;
 import org.jivesoftware.smackx.muc.MultiUserChat;
+import org.jivesoftware.smackx.provider.DataFormProvider;
+import org.jivesoftware.smackx.provider.MUCAdminProvider;
+import org.jivesoftware.smackx.provider.MUCOwnerProvider;
+import org.jivesoftware.smackx.provider.MUCUserProvider;
+import org.jivesoftware.smackx.provider.MessageEventProvider;
+import org.jivesoftware.smackx.provider.RosterExchangeProvider;
 
+import android.content.Context;
+import android.widget.Toast;
 
 public class Controller {
 
@@ -31,13 +31,13 @@ public class Controller {
 	private String userName;
 	private boolean chatRoomGenerated;
 	private MultiUserChat groupChat;
-	private PacketListenerController pcktListen;
-	private PacketListener packetListener;
 	private ArrayList<String> invitedUsers = new ArrayList<String>();
 	
-	public void setContext(Context context){
-		this.context = context;
+	public Controller(Context context){
+		configure(ProviderManager.getInstance());
 	}
+	
+
 	public void disconnect(){
 		connection.disconnect();
 	}
@@ -63,15 +63,7 @@ public class Controller {
     	}
 	}
 	
-	public void reEstablishConnection(){
-		XMPPConnection connection = new XMPPConnection(server);
-		this.connection = connection;
-		try {
-			connection.connect();
-		} catch (XMPPException e) {
-			//do nothing, should work since this is just rebuilding initial successfull connection
-		}
-	}
+
 	public void login(String userName, String password){
 		this.userName = userName;
     	if(!connection.isConnected()){
@@ -92,19 +84,18 @@ public class Controller {
     		toast.show();
     		return;
     	}
-		try {
+    	else{try {
 			connection.login(userName, password);
 			String text = "Successfully logged in";
     		Toast toast = Toast.makeText(context, text, Toast.LENGTH_LONG);
     		toast.show();
-			this.createMultiUserChat();
 		} 
-		catch (XMPPException e) {
-			String text = "Failed to log in...\n\nPlease wait...";
+		catch (Exception e) {
+			String text = "Failed to log in...";
     		Toast toast = Toast.makeText(context, text, Toast.LENGTH_LONG);
     		toast.show();
-    		this.reEstablishConnection();
 		}
+    	}
 
 	}
 	
@@ -136,9 +127,15 @@ public class Controller {
 	          	}
 			});
 			if(!packetListenerBuilt){
-				pcktListen = new PacketListenerController();
-				pcktListen.createPacketListener(context);
-				pcktListen.addPacketListenerTo(groupChat);
+				PacketListener packetListener = new PacketListener() {
+					public void processPacket(Packet arg0) {
+						String message = arg0.toString();
+						String text = "A message has been posted on the chat room:\n\n" + message;    			
+						Toast toast = Toast.makeText(context, text, Toast.LENGTH_LONG);
+		    			toast.show();							
+					}
+				    };
+				groupChat.addMessageListener(packetListener);
 				packetListenerBuilt = true;
 			}
 		}
@@ -151,13 +148,15 @@ public class Controller {
 		}
 	}
 	
-	public void sendMessage(MultiUserChat groupChat, String message){
+	public void sendMessage(String message){
 		try {
 			groupChat.sendMessage(message);
 		} catch (XMPPException e) {
 			//do nothing, packetlistener will indicate whether message sent or not.
 		}
 	}
+	
+	/*
 	public void printBuddyList(){
 		Roster roster = connection.getRoster(); //gets other users on this connection
 		Collection<RosterEntry> entries = roster.getEntries();
@@ -209,11 +208,25 @@ public class Controller {
 
 			}
 		}
-		MainActivity.writeBuddyList(onlineInRoom, online, offline);
 	}
+	*/
 	
-	
-	
+	public void configure(ProviderManager pm){
+		//Roster Exchange
+		pm.addExtensionProvider("x","jabber:x:roster", new RosterExchangeProvider());
+		//Message Events
+		pm.addExtensionProvider("x","jabber:x:event", new MessageEventProvider());
+		//Group Chat Invitations
+		pm.addExtensionProvider("x","jabber:x:conference", new GroupChatInvitation.Provider());
+		//Data Forms
+		pm.addExtensionProvider("x","jabber:x:data", new DataFormProvider());
+		//MUC User
+		pm.addExtensionProvider("x","http://jabber.org/protocol/muc#user",  new MUCUserProvider());
+		//MUC Admin
+		pm.addIQProvider("query","http://jabber.org/protocol/muc#admin", new MUCAdminProvider());
+		//MUC Owner
+		pm.addIQProvider("query","http://jabber.org/protocol/muc#owner", new MUCOwnerProvider());
+	}
 }
 
 
