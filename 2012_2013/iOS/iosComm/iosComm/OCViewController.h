@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "../Core/XMPP.h"
 
 @interface OCViewController : UIViewController
 @property (strong, nonatomic) IBOutlet UITextField *loginPasswordField;

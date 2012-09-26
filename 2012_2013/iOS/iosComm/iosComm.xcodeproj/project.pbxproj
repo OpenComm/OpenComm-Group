@@ -7,6 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A31E5DA161392C100D88DF9 /* CocoaLumberjack in Resources */ = {isa = PBXBuildFile; fileRef = 0A31E5D9161392C100D88DF9 /* CocoaLumberjack */; };
+		0A31E5DB161392C100D88DF9 /* CocoaLumberjack in Resources */ = {isa = PBXBuildFile; fileRef = 0A31E5D9161392C100D88DF9 /* CocoaLumberjack */; };
+		0A31E5DE161392F900D88DF9 /* CocoaAsyncSocket in Resources */ = {isa = PBXBuildFile; fileRef = 0A31E5DD161392F900D88DF9 /* CocoaAsyncSocket */; };
+		0A31E5DF161392F900D88DF9 /* CocoaAsyncSocket in Resources */ = {isa = PBXBuildFile; fileRef = 0A31E5DD161392F900D88DF9 /* CocoaAsyncSocket */; };
+		0A31E5E21613931C00D88DF9 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A31E5E01613931C00D88DF9 /* CFNetwork.framework */; };
+		0A31E5E31613931C00D88DF9 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A31E5E11613931C00D88DF9 /* Security.framework */; };
+		0A31E5E81613940200D88DF9 /* KissXML in Resources */ = {isa = PBXBuildFile; fileRef = 0A31E5E71613940200D88DF9 /* KissXML */; };
+		0A31E5E91613940200D88DF9 /* KissXML in Resources */ = {isa = PBXBuildFile; fileRef = 0A31E5E71613940200D88DF9 /* KissXML */; };
+		0A31E5ED1613942B00D88DF9 /* libidn.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A31E5EB1613942B00D88DF9 /* libidn.a */; };
+		0A31E5EE1613942C00D88DF9 /* libidn.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A31E5EB1613942B00D88DF9 /* libidn.a */; };
+		0A31E5F31613945500D88DF9 /* Authentication in Resources */ = {isa = PBXBuildFile; fileRef = 0A31E5EF1613945500D88DF9 /* Authentication */; };
+		0A31E5F41613945500D88DF9 /* Authentication in Resources */ = {isa = PBXBuildFile; fileRef = 0A31E5EF1613945500D88DF9 /* Authentication */; };
+		0A31E5F51613945500D88DF9 /* Categories in Resources */ = {isa = PBXBuildFile; fileRef = 0A31E5F01613945500D88DF9 /* Categories */; };
+		0A31E5F61613945500D88DF9 /* Categories in Resources */ = {isa = PBXBuildFile; fileRef = 0A31E5F01613945500D88DF9 /* Categories */; };
+		0A31E5F71613945500D88DF9 /* Core in Resources */ = {isa = PBXBuildFile; fileRef = 0A31E5F11613945500D88DF9 /* Core */; };
+		0A31E5F81613945500D88DF9 /* Core in Resources */ = {isa = PBXBuildFile; fileRef = 0A31E5F11613945500D88DF9 /* Core */; };
+		0A31E5F91613945500D88DF9 /* Utilities in Resources */ = {isa = PBXBuildFile; fileRef = 0A31E5F21613945500D88DF9 /* Utilities */; };
+		0A31E5FA1613945500D88DF9 /* Utilities in Resources */ = {isa = PBXBuildFile; fileRef = 0A31E5F21613945500D88DF9 /* Utilities */; };
+		0A31E5FC1613947900D88DF9 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A31E5FB1613947900D88DF9 /* libresolv.dylib */; };
+		0A31E5FE161394A900D88DF9 /* XEP-0045 in Resources */ = {isa = PBXBuildFile; fileRef = 0A31E5FD161394A900D88DF9 /* XEP-0045 */; };
+		0A31E5FF161394A900D88DF9 /* XEP-0045 in Resources */ = {isa = PBXBuildFile; fileRef = 0A31E5FD161394A900D88DF9 /* XEP-0045 */; };
 		4DBE6E801613712200DDF8BC /* topBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DBE6E7F1613712200DDF8BC /* topBar.png */; };
 		4DBE6E851613784B00DDF8BC /* whiteSquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DBE6E841613784B00DDF8BC /* whiteSquare.png */; };
 		4DE6A440160FC14B005F7857 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DE6A43F160FC14B005F7857 /* UIKit.framework */; };
@@ -39,6 +60,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A31E5D9161392C100D88DF9 /* CocoaLumberjack */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CocoaLumberjack; sourceTree = "<group>"; };
+		0A31E5DD161392F900D88DF9 /* CocoaAsyncSocket */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CocoaAsyncSocket; sourceTree = "<group>"; };
+		0A31E5E01613931C00D88DF9 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		0A31E5E11613931C00D88DF9 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		0A31E5E71613940200D88DF9 /* KissXML */ = {isa = PBXFileReference; lastKnownFileType = folder; path = KissXML; sourceTree = "<group>"; };
+		0A31E5EA1613942B00D88DF9 /* idn-int.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "idn-int.h"; sourceTree = "<group>"; };
+		0A31E5EB1613942B00D88DF9 /* libidn.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libidn.a; sourceTree = "<group>"; };
+		0A31E5EC1613942B00D88DF9 /* stringprep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stringprep.h; sourceTree = "<group>"; };
+		0A31E5EF1613945500D88DF9 /* Authentication */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Authentication; sourceTree = "<group>"; };
+		0A31E5F01613945500D88DF9 /* Categories */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Categories; sourceTree = "<group>"; };
+		0A31E5F11613945500D88DF9 /* Core */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Core; sourceTree = "<group>"; };
+		0A31E5F21613945500D88DF9 /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Utilities; sourceTree = "<group>"; };
+		0A31E5FB1613947900D88DF9 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
+		0A31E5FD161394A900D88DF9 /* XEP-0045 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "XEP-0045"; sourceTree = "<group>"; };
 		4DBE6E7F1613712200DDF8BC /* topBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topBar.png; sourceTree = "<group>"; };
 		4DBE6E841613784B00DDF8BC /* whiteSquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteSquare.png; sourceTree = "<group>"; };
 		4DE6A43B160FC14B005F7857 /* iosComm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosComm.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,9 +106,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A31E5FC1613947900D88DF9 /* libresolv.dylib in Frameworks */,
+				0A31E5E21613931C00D88DF9 /* CFNetwork.framework in Frameworks */,
+				0A31E5E31613931C00D88DF9 /* Security.framework in Frameworks */,
 				4DE6A440160FC14B005F7857 /* UIKit.framework in Frameworks */,
 				4DE6A442160FC14B005F7857 /* Foundation.framework in Frameworks */,
 				4DE6A444160FC14B005F7857 /* CoreGraphics.framework in Frameworks */,
+				0A31E5ED1613942B00D88DF9 /* libidn.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,15 +123,38 @@
 				4DE6A467160FC14B005F7857 /* SenTestingKit.framework in Frameworks */,
 				4DE6A468160FC14B005F7857 /* UIKit.framework in Frameworks */,
 				4DE6A469160FC14B005F7857 /* Foundation.framework in Frameworks */,
+				0A31E5EE1613942C00D88DF9 /* libidn.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A31E600161394D900D88DF9 /* XMPP */ = {
+			isa = PBXGroup;
+			children = (
+				0A31E5FD161394A900D88DF9 /* XEP-0045 */,
+				0A31E5FB1613947900D88DF9 /* libresolv.dylib */,
+				0A31E5EF1613945500D88DF9 /* Authentication */,
+				0A31E5F01613945500D88DF9 /* Categories */,
+				0A31E5F11613945500D88DF9 /* Core */,
+				0A31E5F21613945500D88DF9 /* Utilities */,
+				0A31E5EA1613942B00D88DF9 /* idn-int.h */,
+				0A31E5EB1613942B00D88DF9 /* libidn.a */,
+				0A31E5EC1613942B00D88DF9 /* stringprep.h */,
+				0A31E5E71613940200D88DF9 /* KissXML */,
+				0A31E5E01613931C00D88DF9 /* CFNetwork.framework */,
+				0A31E5E11613931C00D88DF9 /* Security.framework */,
+				0A31E5DD161392F900D88DF9 /* CocoaAsyncSocket */,
+				0A31E5D9161392C100D88DF9 /* CocoaLumberjack */,
+			);
+			name = XMPP;
+			sourceTree = "<group>";
+		};
 		4DE6A430160FC14B005F7857 = {
 			isa = PBXGroup;
 			children = (
+				0A31E600161394D900D88DF9 /* XMPP */,
 				4DE6A445160FC14B005F7857 /* iosComm */,
 				4DE6A46C160FC14B005F7857 /* iosCommTests */,
 				4DE6A43E160FC14B005F7857 /* Frameworks */,
@@ -249,6 +311,14 @@
 				4DE6A45C160FC14B005F7857 /* MainStoryboard_iPad.storyboard in Resources */,
 				4DBE6E801613712200DDF8BC /* topBar.png in Resources */,
 				4DBE6E851613784B00DDF8BC /* whiteSquare.png in Resources */,
+				0A31E5DA161392C100D88DF9 /* CocoaLumberjack in Resources */,
+				0A31E5DE161392F900D88DF9 /* CocoaAsyncSocket in Resources */,
+				0A31E5E81613940200D88DF9 /* KissXML in Resources */,
+				0A31E5F31613945500D88DF9 /* Authentication in Resources */,
+				0A31E5F51613945500D88DF9 /* Categories in Resources */,
+				0A31E5F71613945500D88DF9 /* Core in Resources */,
+				0A31E5F91613945500D88DF9 /* Utilities in Resources */,
+				0A31E5FE161394A900D88DF9 /* XEP-0045 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +327,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DE6A471160FC14B005F7857 /* InfoPlist.strings in Resources */,
+				0A31E5DB161392C100D88DF9 /* CocoaLumberjack in Resources */,
+				0A31E5DF161392F900D88DF9 /* CocoaAsyncSocket in Resources */,
+				0A31E5E91613940200D88DF9 /* KissXML in Resources */,
+				0A31E5F41613945500D88DF9 /* Authentication in Resources */,
+				0A31E5F61613945500D88DF9 /* Categories in Resources */,
+				0A31E5F81613945500D88DF9 /* Core in Resources */,
+				0A31E5FA1613945500D88DF9 /* Utilities in Resources */,
+				0A31E5FF161394A900D88DF9 /* XEP-0045 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,7 +477,13 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iosComm/iosComm-Prefix.pch";
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "iosComm/iosComm-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -410,7 +494,13 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iosComm/iosComm-Prefix.pch";
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "iosComm/iosComm-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -427,6 +517,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iosComm/iosComm-Prefix.pch";
 				INFOPLIST_FILE = "iosCommTests/iosCommTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
@@ -444,6 +538,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iosComm/iosComm-Prefix.pch";
 				INFOPLIST_FILE = "iosCommTests/iosCommTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
