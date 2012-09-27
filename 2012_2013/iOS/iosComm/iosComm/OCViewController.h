@@ -7,11 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "../Core/XMPP.h"
+#import "XMPP.h"
 
-@interface OCViewController : UIViewController
+@interface OCViewController : UIViewController {
+    /*From iPhoneXMPP*/
+    //XMPPStream *xmppStream;
+    BOOL debug;
+    NSString *DEFAULT_JID;
+}
 @property (strong, nonatomic) IBOutlet UITextField *loginPasswordField;
 @property (strong, nonatomic) IBOutlet UITextField *loginUsernameField;
 - (IBAction)loginButtonPressed:(id)sender;
+
+
 
 @end
