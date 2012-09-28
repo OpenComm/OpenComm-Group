@@ -10,15 +10,14 @@ public class Connection {
 	private int port;
 	
 	
-	private ConnectionConfiguration config=null;
-	private XMPPConnection connection=null;
+	private ConnectionConfiguration config;
+	private XMPPConnection connection;
 	
 
 	public Connection(String host){
-		
-		
 		this.host=host;
 		connection= new XMPPConnection(host);
+	
 	}
 	
 	
@@ -26,7 +25,7 @@ public class Connection {
 		this.host=host; this.port=port;
 		config= new ConnectionConfiguration(host,port);
 		config.setCompressionEnabled(true);
-		config.setSASLAuthenticationEnabled(true);
+		//config.setSASLAuthenticationEnabled(true);
 		
 	}
 	

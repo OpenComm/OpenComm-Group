@@ -28,18 +28,21 @@ public class Main {
 						Connection connectionMain= new Connection(host);
 						connectionMain.getXMPPConnection().connect();
 						//connectionMain.connectMe("designopencomm@jabber.org", "opencommdesign");
+						
 						System.out.println("Connected");
+						
+						System.out.println("the XMPP Connection is: " + connectionMain.getXMPPConnection().isConnected());
+						
 						dc.terminate=true;
 						hostBoolean=false;
+						
+						
 						userConnection(connectionMain);
 						
 						optionMethod(connectionMain);
 						
-						//multiUserChat(connectionMain);
-						
-						
-						//connect user to specific login
-					
+						connectionMain.disconnect();
+						connectionMain.getXMPPConnection().disconnect();
 						
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -65,11 +68,13 @@ public class Main {
 		try{
 		connectionMain.connectMe(username, pw);
 		System.out.println("Login Successful");
+		System.out.println("the XMPP Connection authentication: " + connectionMain.getXMPPConnection().isAuthenticated());
+
 		userBoolean = false;
 		}
 		
 		catch(Exception e){
-			//e.printStackTrace();
+			e.printStackTrace();
 			System.out.println("Sorry something wrong happened, let's try again \n");
 			userConnection(connectionMain);
 		}
@@ -89,6 +94,10 @@ public class Main {
 			System.out.println("hello");
 			multiUserChat(connectionMain);
 		}
+		else if(input.equals("roster")){
+			
+		}
+		
 		else {
 			System.out.println("Sorry, please enter a valid command");
 			optionMethod(connectionMain);
@@ -97,22 +106,58 @@ public class Main {
 	}
 	
 	public static void multiUserChat(Connection connectionMain) throws XMPPException{
-		System.out.println("Enter the name of the room you want to create");
 		String roomName;
+		String nickName;
+		String optionORchat;
+		String message;
+		String invitee;
+		boolean chatBoolean=true;
+		
+		//enter room name
+		System.out.println("Enter the name of the room you want to create");
 		roomName= scanner.nextLine();
 		
-		try {
-			MUC muc= new MUC(connectionMain, roomName);
-		} catch (XMPPException e) {
-			System.out.println("you have reached an error in creating a MUC");
-			optionMethod(connectionMain);
-			e.printStackTrace();
+		//enter nickname
+		System.out.println("Enter your nickname");
+		nickName= scanner.nextLine();
+		
+		//make MUC connection
+		MUC muc= new MUC(connectionMain, roomName + "@conference.jabber.org", nickName);
+		System.out.println("Your join status is: " + muc.getMUC().isJoined());
+		
+		//what you want to do next after you connect
+		System.out.println("What you you like to do? Type 'option' or 'chat'");
+		optionORchat=scanner.nextLine();
+		
+		if(optionORchat.equals("option")){
+		optionMethod(connectionMain);
 		}
-		System.out.println("You have successfully created a room");
+		
+		else if(optionORchat.equals("chat")){
+			muc.listenForMessage();
+			System.out.println("Enter who you want to invite");
+			invitee=scanner.nextLine();
+			muc.invite(invitee);
+			
+			System.out.println("Enter your message:");
+			while(chatBoolean){
+			//muc.getMessages();
+			message=scanner.nextLine();
+			if(message.equals("leave")){
+				chatBoolean=false;
+				optionMethod(connectionMain);
+			}
+			else{
+				
+			//muc.getMessages();
+			muc.sendMessage(message);
+			
+			}
+			}
+		}
 		
 		
 	}
-	
 	
 
 }

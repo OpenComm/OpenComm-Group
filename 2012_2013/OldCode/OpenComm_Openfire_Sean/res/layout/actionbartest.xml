@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal" android:layout_width="fill_parent"
+        android:layout_height="36.67dp" android:background="@color/dark_grey">
+        <TextView android:layout_width="wrap_content" android:layout_centerVertical="true"
+                android:textColor="@color/off_white" android:gravity="center_vertical"
+                android:textSize="20sp"  android:layout_height="wrap_content"
+                android:text="Opencomm" android:paddingLeft="10.67dp" />
+ 
+        <ImageView android:src="@drawable/volume_icon" 
+                android:layout_width="36.67dp" android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" android:id="@+id/search"
+                android:layout_marginRight="12dp" android:layout_height="fill_parent"
+                android:scaleType="fitXY" />
+</RelativeLayout>
