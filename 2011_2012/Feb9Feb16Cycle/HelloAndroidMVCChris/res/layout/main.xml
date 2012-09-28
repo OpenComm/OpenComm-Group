@@ -1,46 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main_screen"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
-
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.00" >
-
-        <TextView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/textview"
-            android:layout_width="75dp"
-            android:layout_height="65dp"
-            android:layout_gravity="center|left"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="7dp"
-            android:gravity="center_horizontal"
-            android:text="@string/name"
-            android:textSize="10pt" />
-
-        <EditText
-            android:id="@+id/editText1"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.00"
-            android:gravity="center"
-            android:inputType="textPersonName"
-            android:text="@string/here" >
-
-            <requestFocus />
-        </EditText>
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="115dp"
-        android:layout_height="65dp"
-        android:text="@string/GO" />
-
-</LinearLayout>
