@@ -1,5 +1,5 @@
 /** Automatically generated file. DO NOT MODIFY */
-package edu.cornell.opencomm;
+package com.example.xmppdemonew;
 
 public final class BuildConfig {
     public final static boolean DEBUG = true;

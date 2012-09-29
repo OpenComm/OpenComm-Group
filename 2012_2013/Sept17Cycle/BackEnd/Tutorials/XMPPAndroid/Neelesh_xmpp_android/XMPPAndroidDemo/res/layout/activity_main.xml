@@ -1,0 +1,64 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/hello_world"
+        tools:context=".MainActivity" />
+
+    <Button
+        android:id="@+id/connectbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/textView1"
+        android:layout_marginTop="40dp"
+        android:onClick="connect"
+        android:text="Connect" />
+
+    <Button
+        android:id="@+id/muc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/connectbutton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:onClick="multiuserchat"
+        android:text="MultiUserChat" />
+
+    <Button
+        android:id="@+id/sendmessagebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView1"
+        android:layout_alignRight="@+id/muc"
+        android:onClick="message"
+        android:text="SendMessage" />
+
+    <Button
+        android:id="@+id/buddylistbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/connectbutton"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="18dp"
+        android:onClick="buddylist"
+        android:text="BuddyList" />
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/textView1"
+        android:layout_below="@+id/buddylistbutton"
+        android:layout_marginTop="32dp" 
+        android:onClick="logout"
+        android:text="Logout" />
+
+</RelativeLayout>
