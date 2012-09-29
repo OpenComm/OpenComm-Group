@@ -1,0 +1,33 @@
+<resources>
+
+    <string name="app_name">AndroidXMPP</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">XMPP</string>
+    <string name="statusMessage">You can see the program\'s status here</string>
+    <string name="connect">Connect</string>
+    <string name="connectHint">ex: jabber.org</string>
+    <string name="status">Status:</string>
+    <string name="blank"></string>
+    <string name="notConnected">Not Connected.</string>
+    <string name="close">Terminate</string>
+    <string name="end">End</string>
+    <string name="userNameHint">ex: MyUserName</string>
+    <string name="loginButton">Login</string>
+    <string name="passwordHint">ex: MyPassword</string>
+    <string name="inviteHint">Enter user to invite-  ex: opencommss@jabber.org</string>
+    <string name="inviteUserHint">ex: otherUser@jabber.org</string>
+    <string name="inviteUserHint2">ex: someone@jabber.org</string>
+    <string name="adfdw">Enter Server Name</string>
+    <string name="svva">Enter Your UserName</string>
+    <string name="svsdv">Enter Your Password</string>
+    <string name="dvwd">Enter a Password</string>
+    <string name="sds">Enter User To Invite</string>
+    <string name="wvwdv">Enter Password</string>
+    <string name="invite">Invite</string>
+    <string name="messageHint">Type a Message Here</string>
+    <string name="sendmessage">Send</string>
+    <string name="budd">Online buddy list will be shown here</string>
+    <string name="fsdbefebr">Online\\nBuddies</string>
+
+</resources>

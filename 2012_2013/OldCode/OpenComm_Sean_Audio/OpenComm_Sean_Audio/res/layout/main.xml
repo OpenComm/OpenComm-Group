@@ -37,11 +37,13 @@
 			android:layout_gravity="bottom|center_horizontal"
 			android:layout_width="wrap_content" 
 			android:visibility="visible" />
+
 		<edu.cornell.opencomm.view.SpaceView
-			android:layout_height="371.33dp" 
-			android:id="@+id/space_view"
-			android:layout_width="fill_parent" 
-			android:visibility="visible" />
+		    android:id="@+id/space_view"
+		    android:layout_width="fill_parent"
+		    android:layout_height="371.33dp"
+		    android:visibility="visible" />
+
 	</FrameLayout>
 	
 	<LinearLayout 
