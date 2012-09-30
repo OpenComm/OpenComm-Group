@@ -20,6 +20,7 @@ public class AuthorizationCheck {
 	public static final int CAN_PASS_MODERATOR_PRIVILEGES = 7;
 	public static final int CAN_LEAVE_CONFERENCE_MAIN = 8;
 	public static final int CAN_LEAVE_CONFERENCE_SIDE = 9;
+	public static final int CAN_EDIT_CONFERENCE = 10;
 	
 	/**
 	 * TODO: checks whether or not the user has the credentials/privileges that are 
@@ -50,6 +51,8 @@ public class AuthorizationCheck {
 		case CAN_LEAVE_CONFERENCE_MAIN:
 			break;
 		case CAN_LEAVE_CONFERENCE_SIDE:
+			break;
+		case CAN_EDIT_CONFERENCE:
 			break;
 		}
 		return false;
