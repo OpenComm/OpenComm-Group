@@ -23,7 +23,7 @@ public class Network {
 	String s="Network";
 	String t="the user cannot connect";
 	static ArrayList<String> inroombuddy= new ArrayList<String>();
-	XMPPConnection connection=null;
+	XMPPConnection connection;
 
 	public Network() {
 		configure(ProviderManager.getInstance());
@@ -37,8 +37,10 @@ public class Network {
 		// Add parameters and code as needed
 		try{
 			connection=new XMPPConnection("jabber.org");
-			connection.login("designopencomm@jabber.org", "opencommdesign");
 			connection.connect();
+			Log.v("Networks","is it connection null?" + (connection == null));
+			connection.login("designopencomm@jabber.org", "opencommdesign");
+			
 		} catch (XMPPException e) {
 			// TODO Auto-generated catch block
 			Log.v("Networks","It is not getting connected");
@@ -77,7 +79,7 @@ public class Network {
 		}
 	}
 	public void inviteUser() {
-		muc.invite("ssopencomm@jabber.org","testing");
+		muc.invite("opencommss@jabber.org","testing");
 		Log.v("Networks","the invitation works!!");
 		inroombuddy.add("ssopencomm@jabber.org");
 	}
