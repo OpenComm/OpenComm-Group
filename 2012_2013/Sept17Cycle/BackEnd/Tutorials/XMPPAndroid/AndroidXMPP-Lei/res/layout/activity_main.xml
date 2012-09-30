@@ -4,17 +4,19 @@
     android:layout_height="match_parent"
     android:orientation="horizontal" >
 
- 
     <Button
         android:id="@+id/connectButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:layout_marginLeft="112dp"
         android:layout_marginTop="54dp"
-        android:text="Connect!" 
         android:onClick="connect"
-        />
+        android:text="Connect!" />
+
+    <EditText
+        android:id="@+id/editTextSimple"
+        android:layout_width="wrap_content"
+        android:layout_height="449dp"
+        android:ems="10" />
 
 </LinearLayout>

@@ -1,4 +1,5 @@
 package com.example.androidxmpp;
+
 import android.app.Dialog;
 import android.util.Log;
 import android.view.View;
@@ -9,13 +10,15 @@ import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Presence;
 
-public class AndroidMuc extends Dialog implements android.view.View.OnClickListener {
+public class AndroidMuc implements android.view.View.OnClickListener {
 	
- 	private MainActivity xmppClient;
+ 	private MainActivity xmpp;
+ 	//EditText simpleEditText = (EditText) findViewById(R.id.editTextSimple);
+ 	//String strValue = simpleEditText.getText().toString();
  	
  	public AndroidMuc(MainActivity xmppClient){
- 		super(xmppClient);
- 		this.xmppClient=xmppClient;	
+ 		this.xmpp=xmppClient;	
+ 		
  	}
  	
 	
@@ -23,33 +26,40 @@ public class AndroidMuc extends Dialog implements android.view.View.OnClickListe
 
 	public void connect(View v) {
 		
-		Log.i("??", "test");
+		//Log.v("??", "test");
 		
-		/**
-		XMPPConnection connection= new XMPPConnection("jabber.org");
+		ConnectionConfiguration config= new ConnectionConfiguration("jabber.org");
+		config.setReconnectionAllowed(true);
+		config.setSASLAuthenticationEnabled(true);
+		XMPPConnection connection= new XMPPConnection(config);
+		
+		
 		try {
 			connection.connect();
-			 Log.i("XMPPClient", "[SettingsDialog] Connected to " + connection.getHost());
+			 Log.v("AndroidMUC", "[SettingsDialog] Connected to " + connection.getHost());
 		} catch (XMPPException e) {
-			 Log.e("XMPPClient", "[SettingsDialog] Failed to connect to " + connection.getHost());
-	         Log.e("XMPPClient", e.toString());
+			 Log.v("AndroidMUC", "[SettingsDialog] Failed to connect to " + connection.getHost());
+	         Log.v("AndroidMUC", e.toString());
 	         
 		}
 		
 		try{
 			connection.login("mucopencomm", "opencommmuc");
+			Log.v("AndroidMUC","You have successfully connected!");
 			Presence presence = new Presence (Presence.Type.available);
 			connection.sendPacket(presence);
+			xmpp.connetionSetup(connection);
 			
 		}
 		catch(XMPPException ex){
+			Log.v("AndroidMUC", "failure to login");
+			Log.v("AndroidMUC", ex.toString());
 			
 		}
 		
-		dismiss();
 		
 		
-		*/
+		
 		
 	}
 

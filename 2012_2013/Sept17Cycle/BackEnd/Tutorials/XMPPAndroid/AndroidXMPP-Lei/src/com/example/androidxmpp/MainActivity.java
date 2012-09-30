@@ -23,21 +23,16 @@ import org.jivesoftware.smack.util.StringUtils;
 public class MainActivity extends Activity {
 	
 	private AndroidMuc androidMuc;
+	private XMPPConnection connection;
+	private Handler handler= new Handler();
 	
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-       
-   
+    	
     	super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
-   
-        
-        
-        
-        
-      //  androidMuc.show();
+
     }
 
     @Override
@@ -49,6 +44,29 @@ public class MainActivity extends Activity {
     public void connect(View v){
     	androidMuc= new AndroidMuc(this);
     	androidMuc.connect(v);
+    }
+    
+    public void connetionSetup(XMPPConnection connection){
+    	this.connection=connection;
+    	if(connection !=null){
+    		PacketFilter filter= new MessageTypeFilter(Message.Type.chat);
+    		connection.addPacketListener(new PacketListener(){ 
+    			public void processPacket(Packet packet){
+    			Message message = (Message) packet;
+    			if(message.getBody() != null) {
+    				Log.v("MainActivity", message.getBody());
+    				handler.post(new Runnable(){
+    					public void run(){
+    						//setListAdapter();
+    					}
+    				});
+    			}}}, filter);
+    			
+    		}
+    		
+    	
+    	
+    	
     }
 
 
