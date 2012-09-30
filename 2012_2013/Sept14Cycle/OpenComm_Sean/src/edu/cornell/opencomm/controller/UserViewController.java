@@ -29,13 +29,13 @@ public class UserViewController {
      * When a user presses down on a UserView,
      * save the initial icon position
      * 
-     * @param clickX - initial position of icon
-     * @param clickY - initial position of icon
+     * @param f - initial position of icon
+     * @param g - initial position of icon
      */
-    public void handleClickDown(int clickX, int clickY) {
+    public void handleClickDown(float f, float g) {
         dragged = false;
-        this.initialX = clickX;
-        this.initialY = clickY;
+        this.initialX = (int) f;
+        this.initialY = (int) g;
     }
 
     /**
