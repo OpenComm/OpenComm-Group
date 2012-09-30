@@ -1,7 +1,7 @@
 package edu.cornell.opencomm.security;
 
 /**
- * 
+ * For Server-Side.
  * Handles all writing to the audit log.  Should not ever read the audit log.
  *
  */

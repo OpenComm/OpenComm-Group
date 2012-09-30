@@ -1,14 +1,20 @@
 package edu.cornell.opencomm.security;
 
 /**
- * 
+ * For Client- and Server- Side.
  * This class will handle all encryption, decryption, and hashing functionality
  *
  */
 public class Cryptography {
 
 	/**
-	 * TODO: Should set up keys and protocols and run the protocol to 
+	 * TODO: set up keys depending on if it is client or server.
+	 */
+	public Cryptography(){
+	}
+	
+	/**
+	 * TODO: Should run the protocol to 
 	 * 		authenticate a user to the server.
 	 * @param TODO: we will need to add the necessary parameters
 	 * @return return true if successful or false if the process failed at some point

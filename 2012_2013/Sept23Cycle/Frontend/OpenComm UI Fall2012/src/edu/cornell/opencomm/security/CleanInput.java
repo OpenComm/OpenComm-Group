@@ -1,7 +1,7 @@
 package edu.cornell.opencomm.security;
 
 /**
- * 
+ * For Client-Side.
  * This should be used to validate and clean all user input (for account creation, login, 
  * 		forgetting login, creating a new conference, editing a conference, edit account info).  
  *

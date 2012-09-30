@@ -1,7 +1,7 @@
 package edu.cornell.opencomm.security;
 
 /**
- * 
+ * For Client- and Server- Side.
  * Use to check if users are allowed to do what they are requesting to do.
  *
  */
