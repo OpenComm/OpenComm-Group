@@ -1,49 +1,4 @@
-<<<<<<< HEAD
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.cornell.opencomm"
-    android:versionCode="1"
-    android:versionName="1.0" >
 
-    <uses-sdk
-        android:minSdkVersion="10"
-        android:targetSdkVersion="15" />
-
-    <application
-        android:icon="@drawable/icon"
-        android:label="@string/app_name"
-        android:theme="@style/Theme.offwhite" >
-        <activity
-            android:name=".view.StartAppActivity"
-            android:label="@string/title_activity_startApp"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_dark" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".view.LoginView"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name=".view.DashboardView"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity android:name=".view.ResetPasswordView" >
-        </activity>
-        <activity
-            android:name=".SignupView">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-    </application>
-
-=======
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.cornell.opencomm"
     android:versionCode="1"
@@ -89,5 +44,4 @@
         </activity>
     </application>
 
->>>>>>> Intermediate changes for signup and new account
 </manifest>
