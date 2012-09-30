@@ -3,6 +3,7 @@ package edu.cornell.opencomm.controller;
 /**
  * 
  * Handles all operations associated with the dashboard view.
+ * NOTE: This list of functions probably is not complete.
  *
  */
 public class DashboardController {
