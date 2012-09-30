@@ -1,0 +1,13 @@
+<resources>
+
+ 	<string name="email">email</string>
+    <string name="enter_email">Enter your email</string>
+    <string name="button_signup">sign up</string>
+    <string name="enter_password">Enter your password</string>
+    <string name="password">password</string>
+    <string name="forgot_password">Forgot your password?</string>
+    <string name="goArrow">Go arrow</string>
+    <string name="bar">Separator bar</string>
+    <string name="login">login</string>
+
+</resources>
