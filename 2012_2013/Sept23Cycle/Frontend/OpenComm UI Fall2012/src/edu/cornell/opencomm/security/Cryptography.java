@@ -53,4 +53,17 @@ public class Cryptography {
 		return new String("");
 	}
 	
+	/**
+	 * TODO: Should apply a hash function and salt to the inputed password value. The 
+	 * 		return type may change when the function is implemented.
+	 * TODO: THIS SHOULD ONLY BE CALLED ON THE CLIENT SIDE (it should be hashed before sent 
+	 * 		to the server.
+	 * @param s the password value to hash
+	 * @param TODO: add salt value
+	 * @return the hashed password
+	 */
+	public String passHash(String s){
+		return new String("");
+	}
+	
 }

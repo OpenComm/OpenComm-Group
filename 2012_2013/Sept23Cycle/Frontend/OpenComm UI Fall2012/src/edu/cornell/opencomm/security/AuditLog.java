@@ -14,7 +14,9 @@ public class AuditLog {
 	}
 	
 	/**
-	 * TODO: Write the message to the log.  This needs synchronization primitives.
+	 * TODO: Write the message to the log.  We need to record what event, who 
+	 * 		performed it, and what date and time it occurred at.  
+	 * TODO: This needs synchronization primitives.
 	 * @param s the message to write
 	 */
 	public void writeAuditLog(String s){
