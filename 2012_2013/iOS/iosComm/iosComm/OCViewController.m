@@ -37,6 +37,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 /*
 - (void)xmppStreamDidStartNegotiation:(XMPPStream *)sender
 {
@@ -55,6 +56,8 @@
         }
     }*/
     NSLog(@"I get in here at Did Connect");
+    /*DigestMD5 should be used to connect to Facebook instead of XFacebook, because XFacebook
+     *Requires a appID and token. MD5 only requires the password*/
     XMPPDigestMD5Authentication *auth = [[XMPPDigestMD5Authentication alloc]initWithStream: sender password: myPassword];
     NSError *error = nil;
     
@@ -63,11 +66,12 @@
         NSLog(@"Oops, I probably forgot something: %@", error);
     }
     if (sender.isAuthenticated) {
-        NSLog(@"I'm authenticated");
+        NSLog(@"I'm authenticated in Did Connect");
     }
     NSLog(@"Goodbye!");
     
-    //
+    //This is not really printed... so I hypothesize that this delegate is called
+    //Before the state is set to connected.
     if (sender.isConnected) {
         NSLog(@"Connected 2!");
     }
@@ -76,13 +80,55 @@
 - (void)xmppStreamDidAuthenticate:(XMPPStream *)sender
 {
     NSLog(@"I get in here too");
-    if (sender.isAuthenticated) {
-        NSLog(@"I'm authenticated");
+    if (sender.isAuthenticated) { //This usually prints
+        NSLog(@"I'm authenticated in Did Authenticate");
     }
-    if (sender.isConnected) {
+    if (sender.isConnected) { //This always prints
         NSLog(@"I'm connected in Did Authenticate");
     }
-    [sender disconnect];
+    /*I think it's safe to assume that, in this method, EVERYTHING is good with the state
+     *as in, authentication and connection have fully succeeded. So write stuff here to do!*/
+    
+    /*This gets me online!*/
+    [self goOnline:sender];
+    
+    //[self sendMessage: sender];
+    
+    //NSLog(@"I've sent the presence");
+    //[NSThread sleepForTimeInterval: 10];
+    //NSLog(@"I'm about to disc!");
+    
+    //[sender disconnect];
+}
+
+/* kfc35 Created Method to go online*/
+- (void) goOnline:(XMPPStream *) sender
+{
+    XMPPPresence *presc = [XMPPPresence presence];
+    [sender sendElement: presc]; //available is implicit supposedly
+    NSLog(@"I'm supposedly online");
+}
+
+- (void)xmppStream:(XMPPStream *)sender didSendPresence:(XMPPPresence *)presence {
+    NSLog(@"I sent my presence");
+    [NSThread sleepForTimeInterval: 30];
+    [self sendMessage: sender];
+}
+
+/* kfc35 Created Method to send a test message*/
+- (void) sendMessage:(XMPPStream *)sender
+{
+    //http://stackoverflow.com/questions/4460823/send-a-message-via-xmppframework-for-ios
+    //MY CODE IS NEARLY LIKE THIS WHY ISNT IT SENDINGGGG
+    
+    NSXMLElement *message = [NSXMLElement elementWithName:@"body"];
+    [message setStringValue: @"hi sweet"];
+    XMPPMessage *msg = [XMPPMessage messageWithType:@"chat" to:[XMPPJID jidWithString:@"shihui.song@chat.facebook.com"]];
+    [msg addChild: message];
+    
+    [sender sendElement: msg];
+    
+    NSLog(@"%@", [[msg elementForName: @"body"] stringValue]);
 }
 
 - (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(NSXMLElement *)error
@@ -134,8 +180,11 @@
             NSLog(@"Oops, I probably forgot something: %@", error);
         }
     }
-    
-    
+}
+
+- (void)xmppStream:(XMPPStream *)sender didReceiveError:(id)error
+{
+	NSLog(@"Received an error");
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
