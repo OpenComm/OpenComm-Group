@@ -11,13 +11,22 @@
 		<activity
             android:name=".view.StartAppActivity"
             android:label="@string/title_activity_startApp"
-            android:theme="@style/Theme.grey_dark">
-        </activity>
-		<activity android:name=".view.LoginView">
-			<intent-filter>
+            android:theme="@style/Theme.grey_dark"
+            android:screenOrientation="portrait">
+            <intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
 				<category android:name="android.intent.category.LAUNCHER"/>
 			</intent-filter>
+        </activity>
+		<activity
+		    android:name=".view.LoginView"
+		    android:screenOrientation="portrait">
+		</activity>
+		<activity
+		    android:name=".view.DashboardView"
+		    android:screenOrientation="portrait">
+		</activity>
+		<activity android:name=".view.ResetPasswordView">
 		</activity>
     </application>   
 </manifest>
