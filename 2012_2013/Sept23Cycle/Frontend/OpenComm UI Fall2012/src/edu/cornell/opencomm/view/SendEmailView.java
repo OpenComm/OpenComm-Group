@@ -1,5 +1,6 @@
-package edu.cornell.opencomm;
+package edu.cornell.opencomm.view;
 
+import edu.cornell.opencomm.R;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
