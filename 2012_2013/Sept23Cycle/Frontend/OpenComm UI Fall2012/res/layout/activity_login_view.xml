@@ -1,12 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:background="@color/off_white" >
-
+    
     <LinearLayout 
-        android:id="@+id/userInputs"
         android:layout_marginTop="16dp"
         android:layout_width="fill_parent"
         android:layout_height="263.33dp"
@@ -76,11 +76,12 @@
         android:layout_height="92dp"
         android:orientation="horizontal"
         android:background="@color/dark_grey">
-        <ImageButton android:id="@+id/loginButton"
+        <ImageView android:id="@+id/loginButton"
             android:layout_width="92dp"
             android:layout_height="92dp"
             android:src="@drawable/arrow"
-            android:contentDescription="@string/goArrow"/>
+            android:contentDescription="@string/goArrow"
+            android:background="@color/dark_grey"/>
         <Button android:id="@+id/loginText"
             android:layout_width="228dp"
             android:layout_height="92dp"
@@ -91,5 +92,5 @@
             android:paddingLeft="9.33dp"
             android:background="@color/light_grey"/>
     </LinearLayout>
-    
 </LinearLayout>
+
