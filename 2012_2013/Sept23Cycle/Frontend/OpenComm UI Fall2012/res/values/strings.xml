@@ -1,6 +1,4 @@
 <resources>
     <string name="app_name">OC UI F12</string>
     <string name="title_activity_startApp">OpenComm :: Starting Application</string>
-    <string name="reset_password">Reset Password</string>
-    <string name="sign_up">Sign Up</string>
 </resources>

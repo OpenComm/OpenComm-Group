@@ -9,5 +9,7 @@
     <string name="goArrow">Go arrow</string>
     <string name="bar">Separator bar</string>
     <string name="login">login</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="sign_up">Sign Up</string>
 
 </resources>
