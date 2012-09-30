@@ -33,8 +33,7 @@
         <activity android:name=".view.ResetPasswordView" >
         </activity>
         <activity
-            android:name=".SignupView"
-            android:label="@string/title_activity_signup_view" >
+            android:name=".SignupView">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
