@@ -54,8 +54,8 @@
             NSLog(@"I'm not connected");
         }
     }*/
-    NSLog(@"I get in here");
-    XMPPXFacebookPlatformAuthentication *auth = [[XMPPXFacebookPlatformAuthentication alloc]initWithStream: sender password: myPassword];
+    NSLog(@"I get in here at Did Connect");
+    XMPPDigestMD5Authentication *auth = [[XMPPDigestMD5Authentication alloc]initWithStream: sender password: myPassword];
     NSError *error = nil;
     
     BOOL result = [sender authenticate:auth error:&error];
@@ -79,6 +79,9 @@
     if (sender.isAuthenticated) {
         NSLog(@"I'm authenticated");
     }
+    if (sender.isConnected) {
+        NSLog(@"I'm connected in Did Authenticate");
+    }
     [sender disconnect];
 }
 
@@ -92,7 +95,7 @@
           //_loginPasswordField.text);
     if (debug == YES) {
         myXMPPStream.myJID = [XMPPJID jidWithString:DEFAULT_JID];
-        myXMPPStream.hostName = @"chat.facebook.com";
+        myXMPPStream.hostName = DEFAULT_HOSTNAME;
         /*Don't need to set port. The default is always 5222*/
         //myXMPPStream.hostPort = 5222;
         
