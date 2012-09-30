@@ -2,4 +2,10 @@
 <resources>
     <color name="grey_dark">#333333</color>
     <color name="offwhite">#F5F5F5</color>
+    <color name="green">#AEE278</color>
+    <color name= "orange">#FFAB63</color>
+    <color name= "light_grey">#878787</color>
+    <color name="blue">#94C4FF</color>
+    <color name="teal">#9DF6FF</color>     
+  
 </resources>
