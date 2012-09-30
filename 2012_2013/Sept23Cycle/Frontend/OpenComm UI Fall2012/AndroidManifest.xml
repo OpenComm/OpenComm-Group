@@ -9,13 +9,15 @@
         android:icon="@drawable/icon"
         android:theme="@style/Theme.offwhite">
 		<activity
-            android:name=".StartAppActivity"
+            android:name=".view.StartAppActivity"
             android:label="@string/title_activity_startApp"
             android:theme="@style/Theme.grey_dark">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
+		<activity android:name=".view.LoginView">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN"/>
+				<category android:name="android.intent.category.LAUNCHER"/>
+			</intent-filter>
+		</activity>
     </application>   
 </manifest>

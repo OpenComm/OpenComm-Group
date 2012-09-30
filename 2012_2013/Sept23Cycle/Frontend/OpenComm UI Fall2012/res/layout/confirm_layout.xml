@@ -14,7 +14,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="68dp"
-        android:background="@color/grey_dark"
+        android:background="@color/dark_grey"
         android:clickable="false"
         android:cursorVisible="false"
         android:gravity="center_vertical"
@@ -88,7 +88,7 @@
         android:id="@+id/confirmBarFrame"
         android:layout_width="fill_parent"
         android:layout_height="37.33dp"
-        android:background="@color/grey_dark" >
+        android:background="@color/dark_grey" >
 
         <LinearLayout
             android:id="@+id/confirmBar"
@@ -101,20 +101,20 @@
                 android:layout_width="58.67dp"
                 android:layout_height="fill_parent"
                 android:layout_gravity="center"
-                android:background="@color/grey_dark_translucent"
+                android:background="@color/dark_grey_translucent"
                 android:paddingBottom="5.33dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="12dp"
                 android:paddingTop="5.33dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/AcceptPlus"
+                android:src="@drawable/accept_plus"
                 tools:ignore="ContentDescription" />
 
             <Button
                 android:id="@+id/buttonAcceptConfirm"
                 android:layout_width="101.33dp"
                 android:layout_height="fill_parent"
-                android:background="@color/grey_dark_translucent"
+                android:background="@color/dark_grey_translucent"
                 android:clickable="true"
                 android:cursorVisible="false"
                 android:gravity="left|center_vertical"
@@ -128,7 +128,7 @@
                 android:layout_width="57.33dp"
                 android:layout_height="fill_parent"
                 android:layout_gravity="center"
-                android:background="@color/grey_dark_translucent"
+                android:background="@color/dark_grey_translucent"
                 android:paddingBottom="7.665dp"
                 android:paddingLeft="22dp"
                 android:paddingRight="13.33dp"
@@ -141,7 +141,7 @@
                 android:id="@+id/buttonCancelConfirm"
                 android:layout_width="102.67dp"
                 android:layout_height="fill_parent"
-                android:background="@color/grey_dark_translucent"
+                android:background="@color/dark_grey_translucent"
                 android:clickable="true"
                 android:cursorVisible="false"
                 android:gravity="left|center_vertical"
@@ -174,9 +174,10 @@
                 android:layout_height="fill_parent"
                 android:background="@color/light_grey"
                 android:scaleType="fitXY"
-                android:src="@color/offwhite"
+                android:src="@color/off_white"
                 android:visibility="invisible"
                 tools:ignore="ContentDescription" />
 
         </LinearLayout>
     </FrameLayout>
+</LinearLayout>

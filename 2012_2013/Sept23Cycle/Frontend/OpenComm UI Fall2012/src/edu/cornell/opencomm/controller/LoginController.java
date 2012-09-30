@@ -14,7 +14,7 @@
 package edu.cornell.opencomm.controller;
 
 import java.util.concurrent.locks.ReentrantLock;
-
+/*
 import org.jivesoftware.smack.XMPPException;
 
 import android.content.Intent;
@@ -28,9 +28,9 @@ import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.LoginView;
 import edu.cornell.opencomm.view.NotificationView;
-
+*/
 public class LoginController {
-	private LoginView loginView;
+/*	private LoginView loginView;
 
 	// Debugging
 	private static final boolean D = Values.D;
@@ -103,7 +103,7 @@ public class LoginController {
 				/** Check whether the login is successful or not
 				 * In case it is, start DashboardView using Intent else, [TODO]
                  / @author: rahularora, vinaymaloo **/
-				if (D) Log.d(LOG_TAG, "Got Here2");
+		/*		if (D) Log.d(LOG_TAG, "Got Here2");
 				try {
 					islogin = xmppService.login(username, password);
 				} catch(XMPPException e) {
@@ -154,5 +154,5 @@ public class LoginController {
 				Log.v(LOG_TAG, "Could not connect to server.");
 			}
 		}
-	}
+	} */
 }

@@ -1,25 +1,19 @@
 package edu.cornell.opencomm.view;
 
+import edu.cornell.opencomm.R;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
-import edu.cornell.opencomm.ContextTracker;
-import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.Values;
-import edu.cornell.opencomm.controller.LoginController;
 
 
 public class LoginView extends Activity {
-    private static String LOG_TAG = "OC_LoginView"; // for error checking
+	
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.login_layout);
+	}
+	
+  /*  private static String LOG_TAG = "OC_LoginView"; // for error checking
     private Context context;
     private LayoutInflater inflater = null;
     private LoginController loginController = null;
@@ -62,13 +56,13 @@ public class LoginView extends Activity {
         }
     }
     /**Jump to the account creation page when sign-up button is clicked*/
-    public void createAccount(View v){
+  /*  public void createAccount(View v){
     	Log.v("Crystal", "create Account");
     	SignupView account=new SignupView(this);
     	account.launch();
     }
     /**Jump to the Reset Password page when forgot-password is clicked*/
-    public void retrievePassword(View v){
+ /*   public void retrievePassword(View v){
     	Log.v("Crystal", "retrievePassword");
     	ResetPasswordView account=new ResetPasswordView(inflater, this);
     	account.launch();
@@ -101,6 +95,6 @@ public class LoginView extends Activity {
         public void onClick(View v) {
             loginController.handleLoginButtonClick(usernameEdit, passwordEdit);
         }
-    };
+    }; */
 }
 
