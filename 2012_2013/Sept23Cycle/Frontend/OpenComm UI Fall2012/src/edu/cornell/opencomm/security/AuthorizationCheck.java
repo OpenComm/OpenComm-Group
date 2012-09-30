@@ -1,5 +1,8 @@
 package edu.cornell.opencomm.security;
 
+import edu.cornell.opencomm.R;
+import android.content.Context;
+
 /**
  * For Client- and Server- Side.
  * Use to check if users are allowed to do what they are requesting to do.
@@ -10,17 +13,17 @@ public class AuthorizationCheck {
 	/**
 	 * Possible events that require authorization checks.
 	 */
-	public static final int CAN_CREATE_CONFERENCE = 0;
-	public static final int CAN_INVITE_USERS_TO_MAIN = 1;
-	public static final int CAN_INVITE_USERS_TO_SIDE = 2;
-	public static final int CAN_REMOVE_USERS_FROM_MAIN = 3;
-	public static final int CAN_REMOVE_USERS_FROM_SIDE = 4;
-	public static final int CAN_UPDATE_INFO = 5;
-	public static final int CAN_JOIN_CONFERENCE = 6;
-	public static final int CAN_PASS_MODERATOR_PRIVILEGES = 7;
-	public static final int CAN_LEAVE_CONFERENCE_MAIN = 8;
-	public static final int CAN_LEAVE_CONFERENCE_SIDE = 9;
-	public static final int CAN_EDIT_CONFERENCE = 10;
+//	public static final int CAN_CREATE_CONFERENCE = 0;
+//	public static final int CAN_INVITE_USERS_TO_MAIN = 1;
+//	public static final int CAN_INVITE_USERS_TO_SIDE = 2;
+//	public static final int CAN_REMOVE_USERS_FROM_MAIN = 3;
+//	public static final int CAN_REMOVE_USERS_FROM_SIDE = 4;
+//	public static final int CAN_UPDATE_INFO = 5;
+//	public static final int CAN_JOIN_CONFERENCE = 6;
+//	public static final int CAN_PASS_MODERATOR_PRIVILEGES = 7;
+//	public static final int CAN_LEAVE_CONFERENCE_MAIN = 8;
+//	public static final int CAN_LEAVE_CONFERENCE_SIDE = 9;
+//	public static final int CAN_EDIT_CONFERENCE = 10;
 	
 	/**
 	 * TODO: checks whether or not the user has the credentials/privileges that are 
@@ -32,27 +35,27 @@ public class AuthorizationCheck {
 	 */
 	public boolean checkAuthRules(int event){
 		switch(event){
-		case CAN_CREATE_CONFERENCE:
+		case R.integer.CAN_CREATE_CONFERENCE:
 			break;
-		case CAN_INVITE_USERS_TO_MAIN:
+		case R.integer.CAN_INVITE_USERS_TO_MAIN:
 			break;
-		case CAN_INVITE_USERS_TO_SIDE:
+		case R.integer.CAN_INVITE_USERS_TO_SIDE:
 			break;
-		case CAN_REMOVE_USERS_FROM_MAIN:
+		case R.integer.CAN_REMOVE_USERS_FROM_MAIN:
 			break;
-		case CAN_REMOVE_USERS_FROM_SIDE:
+		case R.integer.CAN_REMOVE_USERS_FROM_SIDE:
 			break;
-		case CAN_UPDATE_INFO:
+		case R.integer.CAN_UPDATE_INFO:
 			break;
-		case CAN_JOIN_CONFERENCE:
+		case R.integer.CAN_JOIN_CONFERENCE:
 			break;
-		case CAN_PASS_MODERATOR_PRIVILEGES:
+		case R.integer.CAN_PASS_MODERATOR_PRIVILEGES:
 			break;
-		case CAN_LEAVE_CONFERENCE_MAIN:
+		case R.integer.CAN_LEAVE_CONFERENCE_MAIN:
 			break;
-		case CAN_LEAVE_CONFERENCE_SIDE:
+		case R.integer.CAN_LEAVE_CONFERENCE_SIDE:
 			break;
-		case CAN_EDIT_CONFERENCE:
+		case R.integer.CAN_EDIT_CONFERENCE:
 			break;
 		}
 		return false;
