@@ -1,7 +1,6 @@
 package edu.cornell.opencomm.security;
 
 import edu.cornell.opencomm.R;
-import android.content.Context;
 
 /**
  * For Client- and Server- Side.
@@ -9,21 +8,6 @@ import android.content.Context;
  *
  */
 public class AuthorizationCheck {
-
-	/**
-	 * Possible events that require authorization checks.
-	 */
-//	public static final int CAN_CREATE_CONFERENCE = 0;
-//	public static final int CAN_INVITE_USERS_TO_MAIN = 1;
-//	public static final int CAN_INVITE_USERS_TO_SIDE = 2;
-//	public static final int CAN_REMOVE_USERS_FROM_MAIN = 3;
-//	public static final int CAN_REMOVE_USERS_FROM_SIDE = 4;
-//	public static final int CAN_UPDATE_INFO = 5;
-//	public static final int CAN_JOIN_CONFERENCE = 6;
-//	public static final int CAN_PASS_MODERATOR_PRIVILEGES = 7;
-//	public static final int CAN_LEAVE_CONFERENCE_MAIN = 8;
-//	public static final int CAN_LEAVE_CONFERENCE_SIDE = 9;
-//	public static final int CAN_EDIT_CONFERENCE = 10;
 	
 	/**
 	 * TODO: checks whether or not the user has the credentials/privileges that are 
