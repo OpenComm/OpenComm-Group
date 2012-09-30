@@ -13,8 +13,15 @@ import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Packet;
 import org.jivesoftware.smack.provider.ProviderManager;
 import org.jivesoftware.smackx.Form;
+import org.jivesoftware.smackx.GroupChatInvitation;
 import org.jivesoftware.smackx.muc.InvitationRejectionListener;
 import org.jivesoftware.smackx.muc.MultiUserChat;
+import org.jivesoftware.smackx.provider.DataFormProvider;
+import org.jivesoftware.smackx.provider.MUCAdminProvider;
+import org.jivesoftware.smackx.provider.MUCOwnerProvider;
+import org.jivesoftware.smackx.provider.MUCUserProvider;
+import org.jivesoftware.smackx.provider.MessageEventProvider;
+import org.jivesoftware.smackx.provider.RosterExchangeProvider;
 import org.jivesoftware.smack.XMPPConnection;
 
 import android.util.Log;
@@ -24,10 +31,14 @@ public class Network {
 	MultiUserChat muc= null;
 	XMPPConnection connection=null;	
 	ArrayList<String> inroombuddy = new ArrayList<String>();
-	
+
+	public Network() {
+		configure(ProviderManager.getInstance());
+	}
+
 	public void Login(){
 		try{
-			XMPPConnection connection = new XMPPConnection("jabber.org");
+			connection = new XMPPConnection("jabber.org");
 			connection.connect();
 			connection.login("designopencomm@jabber.org","opencommdesign");
 		}
@@ -77,9 +88,9 @@ public class Network {
 		});
 	}    
 	public void inviteUser(){
-		muc.invite("ssopencomm@jabber.org", "Testing");
+		muc.invite("opencommss@jabber.org", "Testing");
 		Log.v("Networks","Your invitation was recieved!!!");
-		inroombuddy.add("ssopencomm");
+		inroombuddy.add("opencommss");
 	}
 
 	public void sendMessage(){
@@ -139,7 +150,36 @@ public class Network {
 		connection.disconnect();
 	}
 
+	public void configure(ProviderManager pm) {
 
+		//  Roster Exchange
+		pm.addExtensionProvider("x","jabber:x:roster", 
+				new RosterExchangeProvider());
+
+		//  Message Events
+		pm.addExtensionProvider("x","jabber:x:event", 
+				new MessageEventProvider());
+
+		//  Group Chat Invitations
+		pm.addExtensionProvider("x","jabber:x:conference", 
+				new GroupChatInvitation.Provider());
+
+		//  Data Forms
+		pm.addExtensionProvider("x","jabber:x:data", new DataFormProvider());
+
+		//  MUC User
+		pm.addExtensionProvider("x","http://jabber.org/protocol/muc#user", 
+				new MUCUserProvider());
+
+		//  MUC Admin    
+		pm.addIQProvider("query","http://jabber.org/protocol/muc#admin", 
+				new MUCAdminProvider());
+
+		//  MUC Owner    
+		pm.addIQProvider("query","http://jabber.org/protocol/muc#owner", 
+				new MUCOwnerProvider());
+
+	}
 
 
 
