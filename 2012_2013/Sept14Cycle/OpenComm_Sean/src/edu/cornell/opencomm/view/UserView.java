@@ -243,11 +243,11 @@ public class UserView extends ImageButton{
         return person;
     }
     /* Returns X position of icon (Top-Left) */
-    public int getX(){
+    public float getX(){
         return x;
     }
     /* Returns Y position of icon (Top-Left) */
-    public int getY(){
+    public float getY(){
         return y;
     }
     /* Returns actual image of icon that will show on screen */
