@@ -19,8 +19,15 @@
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_splash_view">SplashView</string>
-    <string name="save">Save</string>
-    <string name="cancel">Cancel</string>
-    <string name="loadingExtended">loading&#8230;</string>
+    <string name="save">save</string>
+    <string name="cancel">cancel</string>
+    <string name="loading_extended">loading&#8230;</string>
     <string name="todo_need_to_write_a_content_desc">TODO - Need to write a content desc</string>
+    <string name="new_account">new account</string>
+    <string name="first_name">first name</string>
+    <string name="last_name">last name</string>
+    <string name="confirm_password">confirm password</string>
+    <string name="title">title</string>
+    <string name="photo">photo</string>
+    
 </resources>
