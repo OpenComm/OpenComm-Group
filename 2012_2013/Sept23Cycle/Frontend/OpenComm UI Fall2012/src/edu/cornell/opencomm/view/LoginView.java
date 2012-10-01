@@ -1,9 +1,8 @@
 package edu.cornell.opencomm.view;
 
-import edu.cornell.opencomm.R;
 import android.app.Activity;
 import android.os.Bundle;
-
+import edu.cornell.opencomm.R;
 public class LoginView extends Activity {
 
     @Override

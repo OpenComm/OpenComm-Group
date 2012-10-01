@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">OC UI F12</string>
     <string name="title_activity_startApp">OpenComm :: Starting Application</string>
     <string name="email">email</string>
@@ -10,9 +11,16 @@
     <string name="goArrow">Go arrow</string>
     <string name="bar">Separator bar</string>
     <string name="login">login</string>
-    <string name="reset_password">Reset Password</string>
-    <string name="sign_up">Sign Up</string>
+    <string name="reset_password">reset password</string>
+    <string name="sign_up">sign up</string>
     <string name="send_email">send email</string>
     <string name="send">send</string>
     <string name="desc">Generic description for image</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_splash_view">SplashView</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="todo_need_to_write_a_content_desc">TODO - Need to write a content desc</string>
+
 </resources>

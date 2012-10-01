@@ -1,3 +1,4 @@
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.cornell.opencomm"
     android:versionCode="1"
@@ -16,7 +17,7 @@
             android:label="@string/title_activity_startApp"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.grey_dark" >
-            <intent-filter>
+               <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -32,12 +33,13 @@
         </activity>
         <activity android:name=".view.ResetPasswordView" >
         </activity>
+        <activity android:name=".view.SignupView" >
+         
+        </activity>
         <activity
-            android:name=".SignupView">
+            android:name=".SplashView"
+            android:label="@string/title_activity_splash_view" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>

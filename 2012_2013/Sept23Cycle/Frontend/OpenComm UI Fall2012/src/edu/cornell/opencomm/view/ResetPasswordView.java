@@ -11,4 +11,8 @@ public class ResetPasswordView extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reset_password_layout);
     }
+    //TODO
+    //1. Implement the reset password button - send the control to the controller
+    //2. Sign up button - implement onClick functionality- send to sign up page
+
 }
