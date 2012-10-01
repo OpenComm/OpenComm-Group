@@ -4,7 +4,7 @@
     android:id="@+id/entireScreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0F0F0F"
+    android:background="@color/black_translucent"
     android:orientation="vertical" >
 
     <TextView
@@ -59,9 +59,9 @@
             android:textColor="#FFFFFF"
             android:textSize="15sp"
             tools:ignore="TextViewEdits,HardcodedText" />
-
+
         <QuickContactBadge
-            android:id="@+id/quickContactBadge1"
+            android:id="@+id/contactPicture"
             android:layout_width="66.67dp"
             android:layout_height="66.67dp"
             android:layout_alignParentLeft="true"
@@ -72,7 +72,7 @@
             android:id="@+id/textViewConfTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/quickContactBadge1"
+            android:layout_alignLeft="@+id/contactPicture"
             android:layout_centerVertical="true"
             android:clickable="false"
             android:cursorVisible="false"
