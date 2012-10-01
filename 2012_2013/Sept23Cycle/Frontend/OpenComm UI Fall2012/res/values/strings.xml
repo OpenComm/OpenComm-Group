@@ -21,6 +21,6 @@
     <string name="title_activity_splash_view">SplashView</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
+    <string name="loadingExtended">loading&#8230;</string>
     <string name="todo_need_to_write_a_content_desc">TODO - Need to write a content desc</string>
-
 </resources>
