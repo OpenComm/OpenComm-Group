@@ -2,23 +2,16 @@ package edu.cornell.opencomm.view;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.widget.EditText;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.controller.SignupController;
 
-public class SignupView extends Activity {
+public class SignupView extends Activity{
 	/**
-	 * The constant for save click
-	 */
-	public static final int SAVE_CLICK = 1;
-	/**
-	 * The constant for cancel click
-	 */
-	public static final int CANCEL_CLICK = 2;
 	/**
 	 * The controller for signup
 	 */
@@ -34,6 +27,7 @@ public class SignupView extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_signup_view);
 		FontSetter.applySanSerifFont(SignupView.this, findViewById(R.layout.activity_signup_view));
+		controller = new SignupController(this,SignupView.this);
 		init();
 	}
 
@@ -43,10 +37,7 @@ public class SignupView extends Activity {
 	private void init() {
 		initFirstNameFocusChangeListner();
 		initLastNameFocusChangeListner();
-		initPasswordChangeListner();
-		initConfirmPasswordChangeListner();
 		initEmailFocusChangeListner();
-		initTitleFocusChangeListner();
 		initPhotoButtonClickEvent();
 		initSaveButtonClickEvent();
 		initSaveImageClickEvent();
@@ -93,44 +84,8 @@ public class SignupView extends Activity {
 		email.setOnFocusChangeListener(listner);
 	}
 
-	/**
-	 * Initialize the Password box
-	 */
-	private void initPasswordChangeListner() {
-		OnFocusChangeListener listner = new View.OnFocusChangeListener() {
-			public void onFocusChange(View view, boolean hasFocus) {
-				controller.handlePasswordFocusChange(view, hasFocus);
-			}
-		};
-		View password = findViewById(R.id.passwordBox);
-		password.setOnFocusChangeListener(listner);
-	}
 
-	/**
-	 * Initialize the confirm password box
-	 */
-	private void initConfirmPasswordChangeListner() {
-		OnFocusChangeListener listner = new View.OnFocusChangeListener() {
-			public void onFocusChange(View view, boolean hasFocus) {
-				controller.handleConfirmPasswordFocusChange(view, hasFocus);
-			}
-		};
-		View confirmPassword = findViewById(R.id.confirmPassword);
-		confirmPassword.setOnFocusChangeListener(listner);
-	}
 
-	/**
-	 * Initialize the title box
-	 */
-	private void initTitleFocusChangeListner() {
-		OnFocusChangeListener listner = new View.OnFocusChangeListener() {
-			public void onFocusChange(View view, boolean hasFocus) {
-				controller.handleTitleFocusChange(view, hasFocus);
-			}
-		};
-		View title = findViewById(R.id.titleBox);
-		title.setOnFocusChangeListener(listner);
-	}
 
 	/**
 	 * initialize photo button click event listner
@@ -206,5 +161,28 @@ public class SignupView extends Activity {
 		View saveButton = findViewById(R.id.cancelImage);
 		saveButton.setOnClickListener(listner);
 	}
-
+	public String getPasswordText(){
+		EditText passwordTextBox = (EditText) findViewById(R.id.passwordBox);
+		return passwordTextBox.getText().toString();
+	}
+	public String getConfirmPasswordText(){
+		EditText cnfPasswordTextBox = (EditText) findViewById(R.id.confirmPasswordBox);
+		return cnfPasswordTextBox.getText().toString();
+	}
+	public String getFirstNameText(){
+		EditText firstName = (EditText) findViewById(R.id.firstNameBox);
+		return firstName.getText().toString();
+	}
+	public String getLastNameText(){
+		EditText textBox = (EditText) findViewById(R.id.lastNameBox);
+		return textBox.getText().toString();
+	}
+	public String getEmailText(){
+		EditText textBox = (EditText) findViewById(R.id.emailBox);
+		return textBox.getText().toString();
+	}
+	public String getTitleText(){
+		EditText textBox = (EditText) findViewById(R.id.titleBox);
+		return textBox.getText().toString();
+	}
 }

@@ -29,5 +29,8 @@
     <string name="confirm_password">confirm password</string>
     <string name="title">title</string>
     <string name="photo">photo</string>
+    <string name="invalid_first_name">Invalid First Name</string>
+    <string name="invalid_last_name">Invalid Last Name</string>
+    <string name="invalid_email">Invalid Email</string>
     
 </resources>

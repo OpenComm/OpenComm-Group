@@ -126,6 +126,9 @@ public final class R {
         public static final int forgot_password=0x7f060007;
         public static final int goArrow=0x7f060008;
         public static final int hello_world=0x7f060010;
+        public static final int invalid_email=0x7f06001f;
+        public static final int invalid_first_name=0x7f06001d;
+        public static final int invalid_last_name=0x7f06001e;
         public static final int last_name=0x7f060019;
         public static final int loading_extended=0x7f060015;
         public static final int login=0x7f06000a;
