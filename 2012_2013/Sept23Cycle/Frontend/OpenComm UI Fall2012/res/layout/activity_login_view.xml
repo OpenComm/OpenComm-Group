@@ -12,7 +12,7 @@
         android:background="@color/dark_grey">
     	<ImageView
         	android:layout_width="160dp"
-  	      	android:layout_height="35.33dp"
+  	      	android:layout_height="25.33dp"
     	    android:src="@drawable/logo_oneline"
         	android:contentDescription="@string/desc"
        		android:scaleType="centerInside"
