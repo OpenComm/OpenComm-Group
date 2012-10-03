@@ -13,13 +13,14 @@ import android.widget.ImageView;
 import android.app.Activity;
 
 public class LoginView extends Activity {
-	private static ImageView loginOverlay;
+	
 	private LoginController loginController = null;
 	
 	private static EditText emailEdit;
 	private static EditText passwordEdit;
 	private static ImageButton loginButton;
 	private static Button loginText;
+	private static ImageView loginOverlay;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,7 +55,6 @@ public class LoginView extends Activity {
 	}
 	private View.OnClickListener onLoginButtonClickedListener = new View.OnClickListener() {
 
-		@Override
 		public void onClick(View v) {
 			loginController.handleLoginButtonClick(emailEdit, passwordEdit);
 		}
