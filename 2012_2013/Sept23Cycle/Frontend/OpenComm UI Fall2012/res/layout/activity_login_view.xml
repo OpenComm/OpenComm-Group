@@ -12,7 +12,7 @@
         android:background="@color/dark_grey">
     	<ImageView
         	android:layout_width="160dp"
-  	      	android:layout_height="35.33dp"
+  	      	android:layout_height="25.33dp"
     	    android:src="@drawable/logo_oneline"
         	android:contentDescription="@string/desc"
        		android:scaleType="centerInside"
@@ -106,6 +106,12 @@
             android:gravity="center_vertical"
             android:paddingLeft="9.33dp"
             android:background="@color/light_grey"/>
+        <ImageView android:id="@+id/loginOverlay" 
+			android:layout_width="fill_parent" 
+			android:layout_height="92dp"
+			android:src="@drawable/overlay_white" 
+			android:contentDescription="@string/desc"
+			android:scaleType="fitXY" 
+			android:visibility="invisible"/>
     </LinearLayout>
 </LinearLayout>
-

@@ -1,6 +1,7 @@
 package edu.cornell.opencomm.controller;
 
 import android.os.AsyncTask;
+import android.view.View;
 import android.widget.EditText;
 import edu.cornell.opencomm.view.LoginView;
 
@@ -31,10 +32,8 @@ public class LoginController  {
 	 * @param usernameEdit
 	 * @param passwordEdit
 	 */
-	public void handleLoginButtonClick(final EditText userEmail, final EditText passwordEdit) {
-		//TODO exectue the login task 
-
-
+	public void handleLoginButtonClick(EditText usernameEdit, EditText passwordEdit) {
+		loginView.getLoginOverlay().setVisibility(View.VISIBLE);
 	}
 
 
