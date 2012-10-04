@@ -16,6 +16,7 @@
     NSString *DEFAULT_JID;
     NSString *DEFAULT_HOSTNAME;
     NSString *DEFAULT_PASSWORD;
+    int DEFAULT_PORT;
     NSString *myPassword;
     XMPPStream *myXMPPStream;
 }

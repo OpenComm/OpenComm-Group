@@ -32,24 +32,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "iosComm/OCViewController.m"
-         timestampString = "370663221.934731"
+         timestampString = "371078060.689846"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "148"
-         endingLineNumber = "148"
-         landmarkName = "-loginButtonPressed:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "iosComm/OCViewController.m"
-         timestampString = "370663221.934731"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "154"
-         endingLineNumber = "154"
+         startingLineNumber = "160"
+         endingLineNumber = "160"
          landmarkName = "-loginButtonPressed:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -71,11 +58,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "iosComm/OCViewController.m"
-         timestampString = "370659076.434151"
+         timestampString = "371078060.689846"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "67"
-         endingLineNumber = "67"
+         startingLineNumber = "80"
+         endingLineNumber = "80"
          landmarkName = "-xmppStreamDidConnect:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -90,6 +77,19 @@
          startingLineNumber = "1620"
          endingLineNumber = "1620"
          landmarkName = "-authenticate:error:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "iosComm/OCViewController.m"
+         timestampString = "371078060.689846"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "182"
+         endingLineNumber = "182"
+         landmarkName = "-loginButtonPressed:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

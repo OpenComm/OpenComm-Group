@@ -24,10 +24,15 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     /*STUBBED - INITIAL INFORMATION*/
-    debug = NO;
-    DEFAULT_JID = @"opencommsec";
-    DEFAULT_PASSWORD = @"secopencomm";
+    //TODO put these constants in an XML file, create a controller to access the fields.
+    //Site to do this: https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/PropertyLists/QuickStartPlist/QuickStartPlist.html
+    //TODO we can make a separate class handler for XMPP stuff.
+    debug = YES;
+    DEFAULT_JID = @"ios_team@cuopencomm.no-ip.org";
+    DEFAULT_PASSWORD = @"opencomm";
     DEFAULT_HOSTNAME = @"cuopencomm.no-ip.org";
+    DEFAULT_PORT = 5222;
+    
     
     myXMPPStream = [[XMPPStream alloc] init];
 }
@@ -58,10 +63,18 @@
     NSLog(@"I get in here at Did Connect");
     /*DigestMD5 should be used to connect to Facebook instead of XFacebook, because XFacebook
      *Requires a appID and token. MD5 only requires the password*/
-    XMPPDigestMD5Authentication *auth = [[XMPPDigestMD5Authentication alloc]initWithStream: sender password: myPassword];
-    NSError *error = nil;
     
-    BOOL result = [sender authenticate:auth error:&error];
+    NSError *error = nil;
+    BOOL result;
+    if (DEBUG == YES) {
+        XMPPPlainAuthentication *auth = [[XMPPPlainAuthentication alloc]initWithStream: sender password: myPassword];
+        result = [sender authenticate:auth error:&error];
+        
+    }
+    else {
+        XMPPDigestMD5Authentication *auth = [[XMPPDigestMD5Authentication alloc]initWithStream: sender password: myPassword];
+        result = [sender authenticate:auth error:&error];
+    }
     if (!result) {
         NSLog(@"Oops, I probably forgot something: %@", error);
     }
@@ -111,7 +124,7 @@
 
 - (void)xmppStream:(XMPPStream *)sender didSendPresence:(XMPPPresence *)presence {
     NSLog(@"I sent my presence");
-    [NSThread sleepForTimeInterval: 30];
+    //[NSThread sleepForTimeInterval: 30];
     [self sendMessage: sender];
 }
 
@@ -134,6 +147,7 @@
 - (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(NSXMLElement *)error
 {
     NSLog(@"I did not authenticate");
+    NSLog(@"%@", error);
 }
 
 - (IBAction)loginButtonPressed:(id)sender {
@@ -143,42 +157,29 @@
         myXMPPStream.myJID = [XMPPJID jidWithString:DEFAULT_JID];
         myXMPPStream.hostName = DEFAULT_HOSTNAME;
         /*Don't need to set port. The default is always 5222*/
-        //myXMPPStream.hostPort = 5222;
-        
-        [myXMPPStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
-        
-        NSError *error = nil;
-        
-        if (![myXMPPStream isDisconnected]) {
-            NSLog(@"I'm already connected");
-        }
-        /*This only returns an error if JID and hostname are not set, which is dumb
-         *The method is asynchronous, so it returns even though there is not a full connection*/
-        if (![myXMPPStream connect:&error])
-        {
-            NSLog(@"Oops, I probably forgot something: %@", error);
-        }
+        myXMPPStream.hostPort = DEFAULT_PORT;
+        myPassword = DEFAULT_PASSWORD;
     }
+
     else {
         NSString *myJID = _loginUsernameField.text;
         myPassword = _loginPasswordField.text;
         
         myXMPPStream.myJID = [XMPPJID jidWithString:myJID];
         myXMPPStream.hostName = @"chat.facebook.com";
-        
-        [myXMPPStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
-        
-        NSError *error = nil;
-        
-        if (![myXMPPStream isDisconnected]) {
-            NSLog(@"I'm already connected");
-        }
-        /*This only returns an error if JID and hostname are not set, which is dumb
-         *The method is asynchronous, so it returns even though there is not a full connection*/
-        if (![myXMPPStream connect:&error])
-        {
-            NSLog(@"Oops, I probably forgot something: %@", error);
-        }
+    }
+    
+    [myXMPPStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
+    NSError *error = nil;
+    
+    if (![myXMPPStream isDisconnected]) {
+        NSLog(@"I'm already connected");
+    }
+    /*This only returns an error if JID and hostname are not set, which is dumb
+     *The method is asynchronous, so it returns even though there is not a full connection*/
+    if (![myXMPPStream connect:&error])
+    {
+        NSLog(@"Oops, I probably forgot something: %@", error);
     }
 }
 

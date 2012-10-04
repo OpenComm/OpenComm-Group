@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A057985161E1642006F4B5D /* DefaultServerConstants.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A057984161E1642006F4B5D /* DefaultServerConstants.plist */; };
+		0A057989161E330C006F4B5D /* DefaultServerConstantsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A057988161E330C006F4B5D /* DefaultServerConstantsController.m */; };
+		0A05798C161E33A4006F4B5D /* XMPPDelegateHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A05798B161E33A4006F4B5D /* XMPPDelegateHandler.m */; };
 		0A9D8F721615093800A18E14 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A9D8F711615093800A18E14 /* CFNetwork.framework */; };
 		0A9D8F741615094100A18E14 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A9D8F731615094100A18E14 /* Security.framework */; };
 		0A9D8F8A16150A0D00A18E14 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A9D8F8916150A0D00A18E14 /* libresolv.dylib */; };
@@ -118,6 +121,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A057984161E1642006F4B5D /* DefaultServerConstants.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DefaultServerConstants.plist; sourceTree = "<group>"; };
+		0A057987161E330C006F4B5D /* DefaultServerConstantsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultServerConstantsController.h; sourceTree = "<group>"; };
+		0A057988161E330C006F4B5D /* DefaultServerConstantsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultServerConstantsController.m; sourceTree = "<group>"; };
+		0A05798A161E33A4006F4B5D /* XMPPDelegateHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPDelegateHandler.h; sourceTree = "<group>"; };
+		0A05798B161E33A4006F4B5D /* XMPPDelegateHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPDelegateHandler.m; sourceTree = "<group>"; };
 		0A9D8F711615093800A18E14 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		0A9D8F731615094100A18E14 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		0A9D8F8916150A0D00A18E14 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
@@ -496,6 +504,11 @@
 				4DE6A45D160FC14B005F7857 /* OCViewController.h */,
 				4DE6A45E160FC14B005F7857 /* OCViewController.m */,
 				4DE6A446160FC14B005F7857 /* Supporting Files */,
+				0A057984161E1642006F4B5D /* DefaultServerConstants.plist */,
+				0A057987161E330C006F4B5D /* DefaultServerConstantsController.h */,
+				0A057988161E330C006F4B5D /* DefaultServerConstantsController.m */,
+				0A05798A161E33A4006F4B5D /* XMPPDelegateHandler.h */,
+				0A05798B161E33A4006F4B5D /* XMPPDelegateHandler.m */,
 			);
 			path = iosComm;
 			sourceTree = "<group>";
@@ -613,6 +626,7 @@
 				4DE6A45C160FC14B005F7857 /* MainStoryboard_iPad.storyboard in Resources */,
 				4DBE6E801613712200DDF8BC /* topBar.png in Resources */,
 				4DBE6E851613784B00DDF8BC /* whiteSquare.png in Resources */,
+				0A057985161E1642006F4B5D /* DefaultServerConstants.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -685,6 +699,8 @@
 				0A9D90AA1615126500A18E14 /* RFImageToDataTransformer.m in Sources */,
 				0A9D90AC1615126500A18E14 /* XMPPIDTracker.m in Sources */,
 				0A9D90AE1615126500A18E14 /* XMPPSRVResolver.m in Sources */,
+				0A057989161E330C006F4B5D /* DefaultServerConstantsController.m in Sources */,
+				0A05798C161E33A4006F4B5D /* XMPPDelegateHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

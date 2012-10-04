@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>DEBUG</key>
+	<string>YES</string>
+	<key>DEFAULT_HOSTNAME</key>
+	<string>cuopencomm.no-ip.org</string>
+	<key>DEFAULT_JID</key>
+	<string>ios_team</string>
+	<key>DEFAULT_PASSWORD</key>
+	<string>opencomm</string>
+</dict>
+</plist>
