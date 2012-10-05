@@ -68,18 +68,29 @@
             android:background="@color/dark_grey"/>
     </LinearLayout>
     
-    <Button android:id="@+id/signupButton"
-		android:layout_marginTop="22.67dp"
+    <LinearLayout
+        android:layout_marginTop="22.67dp"
       	android:layout_width="fill_parent"
-        android:layout_height="58dp"
-        android:text="@string/button_signup"
-        android:textColor="@color/green"
-        android:textSize="38sp"
-        android:scaleType="centerInside"
-        android:gravity="center_vertical"
-        android:paddingLeft="46.67dp"
-        android:paddingBottom="8dp"
-        android:background="@color/dark_grey"/>
+        android:layout_height="58dp">
+    	<Button android:id="@+id/signupButton"
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="fill_parent"
+        	android:text="@string/button_signup"
+       		android:textColor="@color/green"
+        	android:textSize="38sp"
+        	android:scaleType="centerInside"
+        	android:gravity="center_vertical"
+        	android:paddingLeft="46.67dp"
+        	android:paddingBottom="8dp"
+        	android:background="@color/dark_grey"/>
+    <ImageView android:id="@+id/signupOverlay" 
+			android:layout_width="fill_parent" 
+			android:layout_height="fill_parent"
+			android:src="@drawable/overlay_white" 
+			android:contentDescription="@string/desc"
+			android:scaleType="fitXY" 
+			android:visibility="invisible"/>
+    </LinearLayout>
     
     <ImageView
         android:layout_marginTop="22.67dp"

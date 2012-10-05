@@ -25,6 +25,7 @@ public class LoginView extends Activity {
 	private static Button loginText;
 	private static ImageView loginOverlay;
 	private LayoutInflater inflater = null;
+	private static ImageView signupOverlay;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class LoginView extends Activity {
 		loginText = (Button) findViewById(R.id.loginText);
 		loginButton = (ImageButton) findViewById(R.id.loginButton);
 		loginOverlay = (ImageView) findViewById(R.id.loginOverlay);
+		signupOverlay = (ImageView) findViewById(R.id.loginOverlay);
 		
 		initializeLoginButtonClickedEvent();
 		loginController = new LoginController(this);
@@ -54,6 +56,9 @@ public class LoginView extends Activity {
 	public ImageView getLoginOverlay() {
 		return loginOverlay;
 	}
+	public ImageView getSignupOverlay() {
+		return signupOverlay;
+	}
 	public ImageButton getLoginButton() {
 		return loginButton;
 	}
@@ -70,13 +75,14 @@ public class LoginView extends Activity {
 	 /**Jump to the account creation page when sign-up button is clicked*/
     public void createAccount(View v){
     	Log.v("Crystal", "create Account");
+    	this.getSignupOverlay().setVisibility(View.VISIBLE);
     	Intent account = new Intent(this,SignupView.class);
     	startActivity(account);
     }
     /**Jump to the Reset Password page when forgot-password is clicked*/
     public void retrievePassword(View v){
     	Log.v("Crystal", "retrievePassword");
-    	Intent account = new Intent(this,SignupView.class);
+    	Intent account = new Intent(this,ResetPasswordView.class);
     	startActivity(account);
     }
 }
