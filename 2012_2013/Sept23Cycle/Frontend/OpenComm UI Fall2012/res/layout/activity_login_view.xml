@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:background="@color/dark_grey">
     	<ImageView
-        	android:layout_width="160dp"
+        	android:layout_width="120dp"
   	      	android:layout_height="25.33dp"
     	    android:src="@drawable/logo_oneline"
         	android:contentDescription="@string/desc"
@@ -28,7 +28,7 @@
         android:orientation="vertical"
         android:background="@color/dark_grey">
         <TextView android:id="@+id/textLabelEmail"
- 		    android:layout_marginTop="5dp"
+ 		    android:layout_marginTop="18dp"
  		    android:layout_marginLeft="46.67dp"
  		    android:layout_width="226.67dp"
  		    android:layout_height="52.33dp"
@@ -57,14 +57,14 @@
             android:layout_height="36dp"
             android:hint=""
             android:textSize="32sp"/>
-        <Button
-            android:layout_marginTop="2.67dp"
-            android:layout_marginLeft="40.67dp"
+        <Button android:id="@+id/forgotPassword"
+            android:layout_marginTop="4.67dp"
+            android:layout_marginLeft="46.67dp"
             android:layout_width="156.67dp"
             android:layout_height="20dp"
             android:text="@string/forgot_password"
             android:textColor="@color/off_white"
-            android:textSize="14sp"
+            android:textSize="14.5sp"
             android:background="@color/dark_grey"/>
     </LinearLayout>
     
@@ -75,8 +75,10 @@
         android:text="@string/button_signup"
         android:textColor="@color/green"
         android:textSize="38sp"
+        android:scaleType="centerInside"
         android:gravity="center_vertical"
         android:paddingLeft="46.67dp"
+        android:paddingBottom="8dp"
         android:background="@color/dark_grey"/>
     
     <ImageView
@@ -91,9 +93,10 @@
         android:layout_height="92dp"
         android:orientation="horizontal"
         android:background="@color/dark_grey">
-        <ImageView android:id="@+id/loginButton"
+        <ImageButton android:id="@+id/loginButton"
             android:layout_width="92dp"
             android:layout_height="92dp"
+            android:scaleType="centerInside" 
             android:src="@drawable/arrow"
             android:contentDescription="@string/goArrow"
             android:background="@color/dark_grey"/>
