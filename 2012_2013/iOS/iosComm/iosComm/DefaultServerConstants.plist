@@ -2,15 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>DEBUG</key>
-	<BOOL>YES</BOOL>
+	<key>DEBUG_PARAM</key>
+	<true/>
 	<key>DEFAULT_HOSTNAME</key>
 	<string>cuopencomm.no-ip.org</string>
 	<key>DEFAULT_JID</key>
-	<string>ios_team</string>
+	<string>ios_team@cuopencomm.no-ip.org</string>
 	<key>DEFAULT_PASSWORD</key>
 	<string>opencomm</string>
 	<key>DEFAULT_PORT</key>
-	<int>5222</int>
+	<integer>5222</integer>
 </dict>
 </plist>

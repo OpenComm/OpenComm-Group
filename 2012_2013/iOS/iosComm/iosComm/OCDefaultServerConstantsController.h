@@ -9,17 +9,17 @@
 #import <Foundation/Foundation.h>
 
 @interface OCDefaultServerConstantsController : NSObject {
-	BOOL *DEBUG;
+	Boolean DEBUG_PARAM;
 	NSString *DEFAULT_HOSTNAME;
 	NSString *DEFAULT_JID;
 	NSString *DEFAULT_PASSWORD;
 	int DEFAULT_PORT;
 }
 
-@property (copy, nonatomic) BOOL *DEBUG;
-@property (copy, nonatomic) NSString *DEAULT_HOSTNAME;
+@property (nonatomic) Boolean DEBUG_PARAM;
+@property (copy, nonatomic) NSString *DEFAULT_HOSTNAME;
 @property (copy, nonatomic) NSString *DEFAULT_JID;
 @property (copy, nonatomic) NSString *DEFAULT_PASSWORD;
-@property (copy, nonatomic) int DEFAULT_PORT;
+@property (nonatomic) int DEFAULT_PORT;
 
 @end

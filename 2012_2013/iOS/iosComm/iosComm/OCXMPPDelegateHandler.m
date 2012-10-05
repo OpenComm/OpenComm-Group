@@ -10,6 +10,42 @@
 
 @implementation OCXMPPDelegateHandler
 
+- (id)initWithPassword: (NSString *) passwordParam {
+    self = [super init];
+    if (self) {
+        password = passwordParam;
+    }
+    return self;
+}
+
+//-------------------------------------------------------------------
+// kfc35 Created Method to go online
+//-------------------------------------------------------------------
+- (void) goOnline:(XMPPStream *) sender
+{
+    XMPPPresence *presc = [XMPPPresence presence];
+    [sender sendElement: presc]; //available is implicit supposedly
+    NSLog(@"I'm supposedly online");
+}
+
+//-------------------------------------------------------------------
+// kfc35 Created Method to send a test message
+//-------------------------------------------------------------------
+- (void) sendMessage:(XMPPStream *)sender
+{
+    //http://stackoverflow.com/questions/4460823/send-a-message-via-xmppframework-for-ios
+    //MY CODE IS NEARLY LIKE THIS WHY ISNT IT SENDINGGGG
+    
+    NSXMLElement *message = [NSXMLElement elementWithName:@"body"];
+    [message setStringValue: @"hi sweet"];
+    XMPPMessage *msg = [XMPPMessage messageWithType:@"chat" to:[XMPPJID jidWithString:@"shihui.song@chat.facebook.com"]];
+    [msg addChild: message];
+    
+    [sender sendElement: msg];
+    
+    NSLog(@"%@", [[msg elementForName: @"body"] stringValue]);
+}
+
 //-------------------------------------------------------------------
 // Delegate method called once the stream is connected, implements XMPP stream delegate
 //-------------------------------------------------------------------
@@ -31,12 +67,12 @@
     NSError *error = nil;
     BOOL result;
     if (DEBUG == YES) {
-        XMPPPlainAuthentication *auth = [[XMPPPlainAuthentication alloc]initWithStream: sender password: myPassword];
+        XMPPPlainAuthentication *auth = [[XMPPPlainAuthentication alloc]initWithStream: sender password: password];
         result = [sender authenticate:auth error:&error];
         
     }
     else {
-        XMPPDigestMD5Authentication *auth = [[XMPPDigestMD5Authentication alloc]initWithStream: sender password: myPassword];
+        XMPPDigestMD5Authentication *auth = [[XMPPDigestMD5Authentication alloc]initWithStream: sender password: password];
         result = [sender authenticate:auth error:&error];
     }
     if (!result) {

@@ -20,9 +20,9 @@
 		// this should be the current directory
         NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
            NSUserDomainMask, YES) objectAtIndex:0];
-        plistPath = [rootPath stringByAppendingPathComponent:@"Data.plist"];
+        plistPath = [rootPath stringByAppendingPathComponent:@"DefaultServerConstants.plist"];
         if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
-            plistPath = [[NSBundle mainBundle] pathForResource:@"Data" ofType:@"plist"];
+            plistPath = [[NSBundle mainBundle] pathForResource:@"DefaultServerConstants" ofType:@"plist"];
         }
         NSData *plistXML = [[NSFileManager defaultManager] contentsAtPath:plistPath];
         NSDictionary *temp = (NSDictionary *)[NSPropertyListSerialization
@@ -33,17 +33,17 @@
         if (!temp) {
             NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
         }
-        self.DEBUG = [temp objectForKey:@"DEBUG"];
+        self.DEBUG_PARAM = (Boolean) [temp objectForKey:@"DEBUG_PARAM"];
 		self.DEFAULT_JID = [temp objectForKey:@"DEFAULT_JID"];
 		self.DEFAULT_HOSTNAME = [temp objectForKey:@"DEFAULT_HOSTNAME"];
  		self.DEFAULT_PASSWORD = [temp objectForKey:@"DEFAULT_PASSWORD"];
-		self.DEFAULT_PORT = [temp objectForKey:@"DEFAULT_PORT"];
+		self.DEFAULT_PORT = (int) [[temp objectForKey:@"DEFAULT_PORT"] intValue];
     }
     return self;
 
 }
 
-@synthesize DEBUG;
+@synthesize DEBUG_PARAM;
 @synthesize DEFAULT_HOSTNAME;
 @synthesize DEFAULT_JID;
 @synthesize DEFAULT_PASSWORD;

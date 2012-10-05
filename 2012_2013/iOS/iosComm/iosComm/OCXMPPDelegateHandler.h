@@ -10,8 +10,10 @@
 #import "XMPP.h"
 
 @interface OCXMPPDelegateHandler : NSObject {
+    NSString *password;
 }
 
+- (id)initWithPassword: (NSString *) password;
 - (void)xmppStreamDidConnect:(XMPPStream *) sender;
 - (void)xmppStreamDidAuthenticate:(XMPPStream *) sender;
 - (void)xmppStream:(XMPPStream *)sender didSendPresence:(XMPPPresence *)presence;

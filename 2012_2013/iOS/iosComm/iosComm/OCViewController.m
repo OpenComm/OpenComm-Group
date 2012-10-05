@@ -54,47 +54,18 @@
     NSLog(@"I'm starting the negotiation");
 }*/
 
-
-//-------------------------------------------------------------------
-// kfc35 Created Method to go online
-//-------------------------------------------------------------------
-- (void) goOnline:(XMPPStream *) sender
-{
-    XMPPPresence *presc = [XMPPPresence presence];
-    [sender sendElement: presc]; //available is implicit supposedly
-    NSLog(@"I'm supposedly online");
-}
-
-//-------------------------------------------------------------------
-// kfc35 Created Method to send a test message
-//-------------------------------------------------------------------
-- (void) sendMessage:(XMPPStream *)sender
-{
-    //http://stackoverflow.com/questions/4460823/send-a-message-via-xmppframework-for-ios
-    //MY CODE IS NEARLY LIKE THIS WHY ISNT IT SENDINGGGG
-    
-    NSXMLElement *message = [NSXMLElement elementWithName:@"body"];
-    [message setStringValue: @"hi sweet"];
-    XMPPMessage *msg = [XMPPMessage messageWithType:@"chat" to:[XMPPJID jidWithString:@"shihui.song@chat.facebook.com"]];
-    [msg addChild: message];
-    
-    [sender sendElement: msg];
-    
-    NSLog(@"%@", [[msg elementForName: @"body"] stringValue]);
-}
-
 //-------------------------------------------------------------------
 // What happens when the login button is pressed
 //-------------------------------------------------------------------
 - (IBAction)loginButtonPressed:(id)sender {
     //NSLog(@"Username: %@, Password: %@", _loginUsernameField.text,
           //_loginPasswordField.text);
-    if (debug == YES) {
-        myXMPPStream.myJID = [XMPPJID jidWithString:DEFAULT_JID];
-        myXMPPStream.hostName = DEFAULT_HOSTNAME;
+    if ([defaults DEBUG_PARAM]) {
+        myXMPPStream.myJID = [XMPPJID jidWithString:[defaults DEFAULT_JID]];
+        myXMPPStream.hostName = [defaults DEFAULT_HOSTNAME];
         /*Don't need to set port. The default is always 5222*/
-        myXMPPStream.hostPort = DEFAULT_PORT;
-        myPassword = DEFAULT_PASSWORD;
+        myXMPPStream.hostPort = [defaults DEFAULT_PORT];
+        myPassword = [defaults DEFAULT_PASSWORD];
     }
 
     else {
@@ -102,8 +73,11 @@
         myPassword = _loginPasswordField.text;
         
         myXMPPStream.myJID = [XMPPJID jidWithString:myJID];
-        myXMPPStream.hostName = @"chat.facebook.com";
+        myXMPPStream.hostPort = [defaults DEFAULT_PORT];
+        myPassword = [defaults DEFAULT_PASSWORD];
     }
+    
+    delegateHandler = [[OCXMPPDelegateHandler alloc] initWithPassword: myPassword];
     
     [myXMPPStream addDelegate:delegateHandler delegateQueue:dispatch_get_main_queue()];
     NSError *error = nil;
