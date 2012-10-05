@@ -31,19 +31,23 @@
 //-------------------------------------------------------------------
 // kfc35 Created Method to send a test message
 //-------------------------------------------------------------------
-- (void) sendMessage:(XMPPStream *)sender
+- (void) sendMessageWith:(XMPPStream *)sender message:(NSString *)content to:(NSString *)to
 {
     //http://stackoverflow.com/questions/4460823/send-a-message-via-xmppframework-for-ios
     //MY CODE IS NEARLY LIKE THIS WHY ISNT IT SENDINGGGG
+    //10.5.2012: Qiming - fixed. Can send messages now
     
-    NSXMLElement *message = [NSXMLElement elementWithName:@"body"];
-    [message setStringValue: @"hi sweet"];
-    XMPPMessage *msg = [XMPPMessage messageWithType:@"chat" to:[XMPPJID jidWithString:@"shihui.song@chat.facebook.com"]];
-    [msg addChild: message];
+    NSXMLElement *body = [NSXMLElement elementWithName:@"body"];
+    [body setStringValue: content];
     
-    [sender sendElement: msg];
+    NSXMLElement *message = [NSXMLElement elementWithName:@"message"];
+    [message addAttributeWithName:@"type" stringValue:@"chat"];
+    [message addAttributeWithName:@"to" stringValue:to];
+    [message addChild:body];
     
-    NSLog(@"%@", [[msg elementForName: @"body"] stringValue]);
+    [sender sendElement: message];
+    
+    NSLog(@"sent chat");
 }
 
 //-------------------------------------------------------------------
@@ -125,7 +129,7 @@
 - (void)xmppStream:(XMPPStream *)sender didSendPresence:(XMPPPresence *)presence {
     NSLog(@"I sent my presence");
     //[NSThread sleepForTimeInterval: 30];
-    [self sendMessage: sender];
+    [self sendMessageWith:sender message:@"QIMING IS COOL" to:@"qimingiscool@cuopencomm" ];
 }
 
 
