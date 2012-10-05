@@ -3,12 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>DEBUG</key>
-	<string>YES</string>
+	<BOOL>YES</BOOL>
 	<key>DEFAULT_HOSTNAME</key>
 	<string>cuopencomm.no-ip.org</string>
 	<key>DEFAULT_JID</key>
 	<string>ios_team</string>
 	<key>DEFAULT_PASSWORD</key>
 	<string>opencomm</string>
+	<key>DEFAULT_PORT</key>
+	<int>5222</int>
 </dict>
 </plist>

@@ -8,20 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import "XMPP.h"
+#import "OCXMPPDelegateHandler.h"
 
 @interface OCViewController : UIViewController {
     /*From iPhoneXMPP*/
     //XMPPStream *xmppStream;
-    BOOL debug;
-    NSString *DEFAULT_JID;
-    NSString *DEFAULT_HOSTNAME;
-    NSString *DEFAULT_PASSWORD;
-    int DEFAULT_PORT;
+	OCDefaultServerConstantsController *defaults;
     NSString *myPassword;
     XMPPStream *myXMPPStream;
+	id <OCXMPPDelegateHandler> *delegateHandler;
 }
 @property (strong, nonatomic) IBOutlet UITextField *loginPasswordField;
 @property (strong, nonatomic) IBOutlet UITextField *loginUsernameField;
+@property (retain, nonatomic) id <OCXMPPDelegateHandler> *delegateHandler
 - (IBAction)loginButtonPressed:(id)sender;
 
 

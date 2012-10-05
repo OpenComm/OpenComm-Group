@@ -9,6 +9,7 @@
 #import "OCViewController.h"
 #import "XMPP.h"
 #import "XMPPStream.h"
+#import "OCXMPPDelegateHandler.h"
 
 @interface OCViewController ()
 
@@ -18,103 +19,45 @@
 
 @implementation OCViewController
 
+//-------------------------------------------------------------------
+// Initial load of this page
+//-------------------------------------------------------------------
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
     /*STUBBED - INITIAL INFORMATION*/
-    //TODO put these constants in an XML file, create a controller to access the fields.
     //Site to do this: https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/PropertyLists/QuickStartPlist/QuickStartPlist.html
-    //TODO we can make a separate class handler for XMPP stuff.
-    debug = YES;
-    DEFAULT_JID = @"ios_team@cuopencomm.no-ip.org";
-    DEFAULT_PASSWORD = @"opencomm";
-    DEFAULT_HOSTNAME = @"cuopencomm.no-ip.org";
-    DEFAULT_PORT = 5222;
-    
-    
+	
+    //a separate class handler for default XMPP stuff.
+	defaults = [[OCDefaultServerConstantsController alloc] init];
+    delegateHandler = [[OCXMPPDelegateHandler alloc] init];
     myXMPPStream = [[XMPPStream alloc] init];
 }
 
+//-------------------------------------------------------------------
+// Memory warning
+//-------------------------------------------------------------------
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+//-------------------------------------------------------------------
+// Kevin please fill in?
+//-------------------------------------------------------------------
 /*
 - (void)xmppStreamDidStartNegotiation:(XMPPStream *)sender
 {
     NSLog(@"I'm starting the negotiation");
 }*/
 
-- (void)xmppStreamDidConnect:(XMPPStream *)sender
-{
-    //[NSThread sleepForTimeInterval: 10];
-    /*while (true) {
-        if (sender.isConnected) {
-            NSLog(@"I'm finally connected");
-        }
-        else {
-            NSLog(@"I'm not connected");
-        }
-    }*/
-    NSLog(@"I get in here at Did Connect");
-    /*DigestMD5 should be used to connect to Facebook instead of XFacebook, because XFacebook
-     *Requires a appID and token. MD5 only requires the password*/
-    
-    NSError *error = nil;
-    BOOL result;
-    if (DEBUG == YES) {
-        XMPPPlainAuthentication *auth = [[XMPPPlainAuthentication alloc]initWithStream: sender password: myPassword];
-        result = [sender authenticate:auth error:&error];
-        
-    }
-    else {
-        XMPPDigestMD5Authentication *auth = [[XMPPDigestMD5Authentication alloc]initWithStream: sender password: myPassword];
-        result = [sender authenticate:auth error:&error];
-    }
-    if (!result) {
-        NSLog(@"Oops, I probably forgot something: %@", error);
-    }
-    if (sender.isAuthenticated) {
-        NSLog(@"I'm authenticated in Did Connect");
-    }
-    NSLog(@"Goodbye!");
-    
-    //This is not really printed... so I hypothesize that this delegate is called
-    //Before the state is set to connected.
-    if (sender.isConnected) {
-        NSLog(@"Connected 2!");
-    }
-}
 
-- (void)xmppStreamDidAuthenticate:(XMPPStream *)sender
-{
-    NSLog(@"I get in here too");
-    if (sender.isAuthenticated) { //This usually prints
-        NSLog(@"I'm authenticated in Did Authenticate");
-    }
-    if (sender.isConnected) { //This always prints
-        NSLog(@"I'm connected in Did Authenticate");
-    }
-    /*I think it's safe to assume that, in this method, EVERYTHING is good with the state
-     *as in, authentication and connection have fully succeeded. So write stuff here to do!*/
-    
-    /*This gets me online!*/
-    [self goOnline:sender];
-    
-    //[self sendMessage: sender];
-    
-    //NSLog(@"I've sent the presence");
-    //[NSThread sleepForTimeInterval: 10];
-    //NSLog(@"I'm about to disc!");
-    
-    //[sender disconnect];
-}
-
-/* kfc35 Created Method to go online*/
+//-------------------------------------------------------------------
+// kfc35 Created Method to go online
+//-------------------------------------------------------------------
 - (void) goOnline:(XMPPStream *) sender
 {
     XMPPPresence *presc = [XMPPPresence presence];
@@ -122,13 +65,9 @@
     NSLog(@"I'm supposedly online");
 }
 
-- (void)xmppStream:(XMPPStream *)sender didSendPresence:(XMPPPresence *)presence {
-    NSLog(@"I sent my presence");
-    //[NSThread sleepForTimeInterval: 30];
-    [self sendMessage: sender];
-}
-
-/* kfc35 Created Method to send a test message*/
+//-------------------------------------------------------------------
+// kfc35 Created Method to send a test message
+//-------------------------------------------------------------------
 - (void) sendMessage:(XMPPStream *)sender
 {
     //http://stackoverflow.com/questions/4460823/send-a-message-via-xmppframework-for-ios
@@ -144,12 +83,9 @@
     NSLog(@"%@", [[msg elementForName: @"body"] stringValue]);
 }
 
-- (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(NSXMLElement *)error
-{
-    NSLog(@"I did not authenticate");
-    NSLog(@"%@", error);
-}
-
+//-------------------------------------------------------------------
+// What happens when the login button is pressed
+//-------------------------------------------------------------------
 - (IBAction)loginButtonPressed:(id)sender {
     //NSLog(@"Username: %@, Password: %@", _loginUsernameField.text,
           //_loginPasswordField.text);
@@ -169,7 +105,7 @@
         myXMPPStream.hostName = @"chat.facebook.com";
     }
     
-    [myXMPPStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
+    [myXMPPStream addDelegate:delegateHandler delegateQueue:dispatch_get_main_queue()];
     NSError *error = nil;
     
     if (![myXMPPStream isDisconnected]) {
@@ -183,11 +119,9 @@
     }
 }
 
-- (void)xmppStream:(XMPPStream *)sender didReceiveError:(id)error
-{
-	NSLog(@"Received an error");
-}
-
+//-------------------------------------------------------------------
+// TODO:Somebody please fill in?
+//-------------------------------------------------------------------
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     // when you touch away from these, then remove the keyboard
