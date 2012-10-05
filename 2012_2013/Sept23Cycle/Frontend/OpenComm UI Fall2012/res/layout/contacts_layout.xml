@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/black_light" >
+		
+        <RelativeLayout
+            android:id="@+id/contactTitleBar"
+            android:layout_width="fill_parent"
+            android:layout_height="43dp" 
+            android:background="@color/faint_white">
+            
+            <Button
+            	android:id="@+id/back_button"
+            	android:layout_width="16dp"
+            	android:layout_height="wrap_content"
+            	android:layout_alignParentLeft="true"
+            	android:layout_alignParentTop="true"
+            	android:text="Button" />
+            <TextView
+            	android:id="@+id/contacts_view_title"
+            	android:layout_width="wrap_content"
+            	android:layout_height="match_parent"
+            	android:layout_alignParentTop="true"
+            	android:layout_centerHorizontal="true"
+            	android:gravity="center_vertical"
+            	android:text="@string/contacts"
+            	android:textColor="@color/blue_light"
+            	android:textSize="24sp" />
+            <Button
+            	android:id="@+id/search_button"
+            	android:layout_width="20dp"
+            	android:layout_height="wrap_content"
+            	android:layout_marginRight="23dp"
+            	android:layout_alignParentRight="true"
+            	android:layout_alignParentTop="true"
+            	android:text="Button" />
+            
+        </RelativeLayout>
+
+
+        <ListView
+            android:id="@+id/contacts_list"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/contactTitleBar" >
+        </ListView>
+
+        
+
+        
+
+    </RelativeLayout>
