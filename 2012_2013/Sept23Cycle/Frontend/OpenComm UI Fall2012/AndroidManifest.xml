@@ -18,9 +18,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.grey_dark" >
                <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
@@ -40,6 +37,12 @@
             android:name=".SplashView"
             android:label="@string/title_activity_splash_view" >
             <intent-filter>
+            </intent-filter>
+        </activity>
+        <activity android:name=".view.ContactsView">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
     </application>

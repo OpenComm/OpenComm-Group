@@ -32,5 +32,6 @@
     <string name="invalid_first_name">Invalid First Name</string>
     <string name="invalid_last_name">Invalid Last Name</string>
     <string name="invalid_email">Invalid Email</string>
+    <string name="contacts">Contacts</string>
     
 </resources>
