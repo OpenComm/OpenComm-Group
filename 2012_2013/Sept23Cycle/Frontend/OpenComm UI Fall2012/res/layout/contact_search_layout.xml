@@ -1,0 +1,39 @@
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/black_light" >
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="41.33dp"
+            android:background="@color/white_overlay" >
+
+            <TextView
+                android:id="@+id/contacts_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="46.66dp"
+                android:gravity="center_vertical"
+                android:text="@string/contact_search_title"
+                android:textColor="@color/orange_light"
+                android:textSize="31.33sp" />
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/search_contact_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/relativeLayout1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="26dp"
+            android:ems="10"
+            android:inputType="textPersonName" 
+            />
+
+
+    </RelativeLayout>

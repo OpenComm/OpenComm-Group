@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="faint_white">#2e2e2e</color>
+    <color name="white_overlay">#902e2e2e</color>
     <color name="light_white">#F4F4F4</color>
     <color name="off_white">#F5F5F5</color>
     <color name="dark_grey">#333333</color>
@@ -9,6 +9,7 @@
     <color name="light_grey">#878787</color>
     <color name="green">#AEE278</color>
     <color name="orange">#FFAB63</color>
+    <color name="orange_light">#F9a964</color>
     <color name="blue">#94C4FF</color>
     <color name="blue_light">#9abee1</color>
     <color name="teal">#9DF6FF</color>

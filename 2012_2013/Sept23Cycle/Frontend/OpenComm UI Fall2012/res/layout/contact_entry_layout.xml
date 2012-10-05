@@ -12,7 +12,8 @@
             android:layout_alignParentTop="true"
             android:layout_marginRight="12dp"
             android:gravity="right"
-            android:src="@drawable/arrow" />
+            android:src="@drawable/contact_default_image"
+            android:contentDescription="@string/contact_default_picture_desc" />
         <TextView
             android:id="@+id/contact_name"
             android:layout_width="wrap_content"
@@ -22,7 +23,7 @@
             android:layout_marginLeft="23dp"
             android:layout_toLeftOf="@id/contact_picture"
             android:gravity="center_vertical"
-            android:text="A Contact Name"
+            android:text="@string/contact_name_sample"
             android:textSize="20sp" />
 
         
