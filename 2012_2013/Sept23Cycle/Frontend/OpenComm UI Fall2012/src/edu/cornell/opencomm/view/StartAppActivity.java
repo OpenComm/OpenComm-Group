@@ -26,9 +26,9 @@ public class StartAppActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_splash_view);
+		setContentView(R.layout.splash_view_layout);
 		FontSetter.applySanSerifFont(StartAppActivity.this,
-				findViewById(R.layout.activity_splash_view));
+				findViewById(R.layout.splash_view_layout));
 		final Handler handler = new Handler();
 		handler.postDelayed(new Runnable() {
 			public void run() {
