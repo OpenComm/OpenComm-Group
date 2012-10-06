@@ -65,7 +65,8 @@
             android:text="@string/forgot_password"
             android:textColor="@color/off_white"
             android:textSize="14.5sp"
-            android:background="@color/dark_grey"/>
+            android:background="@color/dark_grey"
+            android:onClick="retrievePassword"/>
     </LinearLayout>
     
     <LinearLayout
@@ -82,7 +83,8 @@
         	android:gravity="center_vertical"
         	android:paddingLeft="46.67dp"
         	android:paddingBottom="8dp"
-        	android:background="@color/dark_grey"/>
+        	android:background="@color/dark_grey"
+        	android:onClick="createAccount"/>
     <ImageView android:id="@+id/signupOverlay" 
 			android:layout_width="fill_parent" 
 			android:layout_height="fill_parent"
@@ -110,7 +112,8 @@
             android:scaleType="centerInside" 
             android:src="@drawable/arrow"
             android:contentDescription="@string/goArrow"
-            android:background="@color/dark_grey"/>
+            android:background="@color/dark_grey"
+            android:onClick="login"/>
         <Button android:id="@+id/loginText"
             android:layout_width="228dp"
             android:layout_height="92dp"
@@ -119,7 +122,8 @@
             android:textSize="38sp"
             android:gravity="center_vertical"
             android:paddingLeft="9.33dp"
-            android:background="@color/light_grey"/>
+            android:background="@color/light_grey"
+            android:onClick="login"/>
         <ImageView android:id="@+id/loginOverlay" 
 			android:layout_width="fill_parent" 
 			android:layout_height="92dp"

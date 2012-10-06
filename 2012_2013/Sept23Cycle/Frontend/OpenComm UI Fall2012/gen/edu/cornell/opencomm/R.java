@@ -31,6 +31,7 @@ public final class R {
         public static final int accept_plus=0x7f020000;
         public static final int arrow=0x7f020001;
         public static final int cancelx=0x7f020002;
+<<<<<<< HEAD
         public static final int contact_default_image=0x7f020003;
         public static final int contacts_left_arrow=0x7f020004;
         public static final int contacts_search_icon=0x7f020005;
@@ -63,6 +64,40 @@ public final class R {
         public static final int contacts_list=0x7f080024;
         public static final int contacts_title=0x7f08001d;
         public static final int contacts_view_title=0x7f080020;
+=======
+        public static final int go_to_conf_button=0x7f020003;
+        public static final int ic_action_search=0x7f020004;
+        public static final int icon=0x7f020005;
+        public static final int imagearrow=0x7f020006;
+        public static final int loading=0x7f020007;
+        public static final int logintextback=0x7f020008;
+        public static final int logo_oneline=0x7f020009;
+        public static final int overlay_white=0x7f02000a;
+        public static final int separator_bar=0x7f02000b;
+    }
+    public static final class id {
+        public static final int acceptConfirmOverlay=0x7f08002d;
+        public static final int actionBar=0x7f08003f;
+        public static final int back_button=0x7f080032;
+        public static final int buttonAcceptConfirm=0x7f080029;
+        public static final int buttonCancel=0x7f080045;
+        public static final int buttonCancelConfirm=0x7f08002b;
+        public static final int buttonSend=0x7f080043;
+        public static final int cancelButton=0x7f08001d;
+        public static final int cancelConfirmOverlay=0x7f08002e;
+        public static final int cancelImage=0x7f08001c;
+        public static final int confirmBar=0x7f080019;
+        public static final int confirmBarFrame=0x7f080027;
+        public static final int confirmOverlay=0x7f08002c;
+        public static final int confirmPassword=0x7f080011;
+        public static final int confirmPasswordBox=0x7f080012;
+        public static final int contactPicture=0x7f080025;
+        public static final int contactTitleBar=0x7f080031;
+        public static final int contact_name=0x7f080030;
+        public static final int contact_picture=0x7f08002f;
+        public static final int contacts_list=0x7f080035;
+        public static final int contacts_view_title=0x7f080033;
+>>>>>>> SendEmail
         public static final int editTextEmail=0x7f080001;
         public static final int editTextPassword=0x7f080003;
         public static final int emailBox=0x7f080026;
@@ -73,6 +108,7 @@ public final class R {
         public static final int firstNameBox=0x7f080033;
         public static final int firstNameText=0x7f080032;
         public static final int forgotPassword=0x7f080004;
+<<<<<<< HEAD
         public static final int fullFrame=0x7f080025;
         public static final int imageAcceptConfirm=0x7f080013;
         public static final int imageCancelConfirm=0x7f080015;
@@ -102,6 +138,36 @@ public final class R {
         public static final int separatorBar=0x7f08002e;
         public static final int signUp=0x7f080029;
         public static final int signUpText=0x7f08002a;
+=======
+        public static final int fullFrame=0x7f080036;
+        public static final int imageAcceptConfirm=0x7f080028;
+        public static final int imageCancel=0x7f080044;
+        public static final int imageCancelConfirm=0x7f08002a;
+        public static final int imageSend=0x7f080042;
+        public static final int infoConfirm=0x7f080022;
+        public static final int lastNameBox=0x7f08000e;
+        public static final int lastNameText=0x7f08000d;
+        public static final int loadingLogo=0x7f08001e;
+        public static final int loadingText=0x7f08001f;
+        public static final int loginButton=0x7f080007;
+        public static final int loginOverlay=0x7f080009;
+        public static final int loginText=0x7f080008;
+        public static final int logo=0x7f080040;
+        public static final int passwordBox=0x7f080010;
+        public static final int passwordText=0x7f08000f;
+        public static final int photoButton=0x7f080018;
+        public static final int photoText=0x7f080017;
+        public static final int resetButton=0x7f08003b;
+        public static final int resetButtonImage=0x7f08003c;
+        public static final int resetPasswordText=0x7f08003d;
+        public static final int saveButton=0x7f08001b;
+        public static final int saveImage=0x7f08001a;
+        public static final int search_button=0x7f080034;
+        public static final int sendPlus=0x7f080041;
+        public static final int separatorBar=0x7f08003e;
+        public static final int signUp=0x7f080039;
+        public static final int signUpText=0x7f08003a;
+>>>>>>> SendEmail
         public static final int signupButton=0x7f080005;
         public static final int signupOverlay=0x7f080006;
         public static final int signupTitle=0x7f080031;
@@ -129,6 +195,7 @@ public final class R {
     }
     public static final class layout {
         public static final int activity_login_view=0x7f030000;
+<<<<<<< HEAD
         public static final int confirm_layout=0x7f030001;
         public static final int contact_entry_layout=0x7f030002;
         public static final int contact_search_layout=0x7f030003;
@@ -136,6 +203,15 @@ public final class R {
         public static final int reset_password_layout=0x7f030005;
         public static final int signup_view_layout=0x7f030006;
         public static final int splash_view_layout=0x7f030007;
+=======
+        public static final int activity_signup_view=0x7f030001;
+        public static final int activity_splash_view=0x7f030002;
+        public static final int confirm_layout=0x7f030003;
+        public static final int contact_entry_layout=0x7f030004;
+        public static final int contacts_layout=0x7f030005;
+        public static final int reset_password_layout=0x7f030006;
+        public static final int sendemail_layout=0x7f030007;
+>>>>>>> SendEmail
     }
     public static final class string {
         public static final int app_name=0x7f060000;

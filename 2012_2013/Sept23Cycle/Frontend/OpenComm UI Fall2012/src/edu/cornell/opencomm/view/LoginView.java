@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 import android.app.Activity;
 import android.content.Intent;
 
@@ -84,6 +85,13 @@ public class LoginView extends Activity {
     	Log.v("Crystal", "retrievePassword");
     	Intent account = new Intent(this,ResetPasswordView.class);
     	startActivity(account);
+    }
+    
+    public void login(View v){
+    	CharSequence text = "Go to dashboard";
+    	int duration = Toast.LENGTH_SHORT;
+    	Toast send = Toast.makeText(getApplicationContext(),text,duration);
+    	send.show();
     }
 }
 
