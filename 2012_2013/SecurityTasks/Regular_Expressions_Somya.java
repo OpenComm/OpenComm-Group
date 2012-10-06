@@ -10,8 +10,7 @@ public class Regular_Expressions_Somya {
 	 * @return true if it is a valid email address, false if it is not a valid email address
 	 */
 	public boolean isValidEmail(String email){
-		return false;
-	}
+		return null;
 	
 	/**
 	 * TODO: Make sure this is a valid password.  The only rule (as of now) for
@@ -20,6 +19,6 @@ public class Regular_Expressions_Somya {
 	 * @return true if it is a valid password, false if it is not a valid password
 	 */
 	public boolean isValidPassword(String pass){
-		return false;
+		return null;
 	}
 }

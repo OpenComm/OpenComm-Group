@@ -1,5 +1,6 @@
 package edu.cornell.opencomm.controller;
 
+import android.widget.EditText;
 import edu.cornell.opencomm.view.ResetPasswordView;
 
 //Author: Spandana Govindgari sg754
@@ -21,12 +22,13 @@ public class ResetPasswordController {
 	}
 	
 	//Handle the reset password button
+	//This method should load the reset password page
 	public void resetPasswordPressed(){
 		
 	}
 	
 	//Find text from view 
-	public void findUserName(){
+	public void findEmail(EditText email){
 		
 	}
 	
