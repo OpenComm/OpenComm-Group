@@ -9,7 +9,7 @@ public class ConfirmationView extends Activity{
 	    @Override
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
-	        setContentView(R.layout.reset_password_layout);
+	        setContentView(R.layout.confirm_layout);
 	    }
 	    //TODO
 	    //1.Handle accept - add to the chat room
