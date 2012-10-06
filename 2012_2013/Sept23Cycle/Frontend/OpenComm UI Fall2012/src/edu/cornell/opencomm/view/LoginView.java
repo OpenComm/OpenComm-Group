@@ -40,11 +40,11 @@ public class LoginView extends Activity {
 		loginOverlay = (ImageView) findViewById(R.id.loginOverlay);
 		signupOverlay = (ImageView) findViewById(R.id.loginOverlay);
 		
-		initializeLoginButtonClickedEvent();
+//		initializeLoginButtonClickedEvent();
 		loginController = new LoginController(this);
     }
-
-    private void initializeLoginButtonClickedEvent() {
+    
+/*    private void initializeLoginButtonClickedEvent() {
 		ImageButton loginButton = getLoginButton();
 		if (loginButton != null) {
 			loginButton.setOnClickListener(onLoginButtonClickedListener);
@@ -52,7 +52,7 @@ public class LoginView extends Activity {
 		if (loginText != null) {
 			loginText.setOnClickListener(onLoginButtonClickedListener);
 		}
-	}
+	}*/
 	
 	public ImageView getLoginOverlay() {
 		return loginOverlay;
@@ -66,13 +66,15 @@ public class LoginView extends Activity {
 	public LayoutInflater getInflater() {
         return inflater;
     }
-	
+/*	
 	private View.OnClickListener onLoginButtonClickedListener = new View.OnClickListener() {
 
 		public void onClick(View v) {
 			loginController.handleLoginButtonClick(emailEdit, passwordEdit);
 		}
 	};
+*/	
+
 	 /**Jump to the account creation page when sign-up button is clicked*/
     public void createAccount(View v){
     	Log.v("Crystal", "create Account");
@@ -88,7 +90,7 @@ public class LoginView extends Activity {
     }
     
     public void login(View v){
-    	CharSequence text = "Go to dashboard";
+    	CharSequence text = "Must go to dashboard";
     	int duration = Toast.LENGTH_SHORT;
     	Toast send = Toast.makeText(getApplicationContext(),text,duration);
     	send.show();
