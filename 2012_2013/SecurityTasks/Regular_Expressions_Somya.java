@@ -10,7 +10,13 @@ public class Regular_Expressions_Somya {
 	 * @return true if it is a valid email address, false if it is not a valid email address
 	 */
 	public boolean isValidEmail(String email){
-		return null;
+
+		 String[] cut=email.split("@");          //splits at @ and checks for the length of the array created
+	      if (cut.length==2&&!cut[0].isEmpty())	 //isEmpty required because if the 
+	    	                                     //first char is @ then a string[] of length 2 is created with first empty 
+		return true;
+				return false;
+
 	
 	/**
 	 * TODO: Make sure this is a valid password.  The only rule (as of now) for
@@ -19,6 +25,10 @@ public class Regular_Expressions_Somya {
 	 * @return true if it is a valid password, false if it is not a valid password
 	 */
 	public boolean isValidPassword(String pass){
-		return null;
-	}
+
+		Pattern p=Pattern.compile(".{10,}$");  //any char sequence of length>=10
+		Matcher validity= p.matcher(pass);
+	boolean validityhere= validity.matches();
+	return validityhere;
 }
+
