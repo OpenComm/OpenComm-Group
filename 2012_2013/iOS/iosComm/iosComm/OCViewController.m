@@ -10,6 +10,7 @@
 #import "XMPP.h"
 #import "XMPPStream.h"
 #import "OCXMPPDelegateHandler.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface OCViewController ()
 
@@ -29,7 +30,11 @@
     
     /*STUBBED - INITIAL INFORMATION*/
     //Site to do this: https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/PropertyLists/QuickStartPlist/QuickStartPlist.html
-	
+    
+    //[_loginView.layer setCornerRadius=1.0f];
+    [_loginView.layer setCornerRadius:10.0f];
+    [_loginView.layer setBorderColor:[[UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:203.0/255.0 alpha:1.0] CGColor]];
+    //[_loginView.layer setBorderColor:[UIColor lightGrayColor].CGColor];
     //a separate class handler for default XMPP stuff.
 	defaults = [[OCDefaultServerConstantsController alloc] init];
     delegateHandler = [[OCXMPPDelegateHandler alloc] init];
@@ -69,8 +74,8 @@
     }
 
     else {
-        NSString *myJID = _loginUsernameField.text;
-        myPassword = _loginPasswordField.text;
+       NSString *myJID = _loginUsernameField.text;
+       myPassword = _loginPasswordField.text;
         
         myXMPPStream.myJID = [XMPPJID jidWithString:myJID];
         myXMPPStream.hostPort = [defaults DEFAULT_PORT];
@@ -103,4 +108,8 @@
     [_loginPasswordField resignFirstResponder];
 }
 
+- (void)viewDidUnload {
+    [self setLoginView:nil];
+    [super viewDidUnload];
+}
 @end

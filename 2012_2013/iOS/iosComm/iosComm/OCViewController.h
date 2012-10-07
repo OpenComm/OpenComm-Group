@@ -23,6 +23,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *loginUsernameField;
 //@property (retain, nonatomic) OCXMPPDelegateHandler *delegateHandler;
 - (IBAction)loginButtonPressed:(id)sender;
+@property (strong, nonatomic) IBOutlet UIView *loginView;
 
 
 

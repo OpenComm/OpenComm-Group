@@ -108,6 +108,8 @@
 		4DE6A469160FC14B005F7857 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DE6A441160FC14B005F7857 /* Foundation.framework */; };
 		4DE6A471160FC14B005F7857 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4DE6A46F160FC14B005F7857 /* InfoPlist.strings */; };
 		4DE6A474160FC14B005F7857 /* iosCommTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6A473160FC14B005F7857 /* iosCommTests.m */; };
+		BA175695162011310031B2D4 /* LoginTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA175694162011310031B2D4 /* LoginTableViewController.m */; };
+		BA777D0116214A530088F734 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA777D0016214A530088F734 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -237,6 +239,9 @@
 		4DE6A470160FC14B005F7857 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4DE6A472160FC14B005F7857 /* iosCommTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iosCommTests.h; sourceTree = "<group>"; };
 		4DE6A473160FC14B005F7857 /* iosCommTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iosCommTests.m; sourceTree = "<group>"; };
+		BA175693162011310031B2D4 /* LoginTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTableViewController.h; sourceTree = "<group>"; };
+		BA175694162011310031B2D4 /* LoginTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTableViewController.m; sourceTree = "<group>"; };
+		BA777D0016214A530088F734 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -244,6 +249,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA777D0116214A530088F734 /* QuartzCore.framework in Frameworks */,
 				0A9D8F741615094100A18E14 /* Security.framework in Frameworks */,
 				0A9D8F9216150C3400A18E14 /* CoreLocation.framework in Frameworks */,
 				4DE6A442160FC14B005F7857 /* Foundation.framework in Frameworks */,
@@ -457,6 +463,7 @@
 		4DE6A430160FC14B005F7857 = {
 			isa = PBXGroup;
 			children = (
+				BA777D0016214A530088F734 /* QuartzCore.framework */,
 				0A9D8FDE16150F7C00A18E14 /* XMPPFramework */,
 				0A9D8F9616150CD300A18E14 /* SystemConfiguration.framework */,
 				0A9D8F9316150C4200A18E14 /* libxml2.dylib */,
@@ -500,6 +507,8 @@
 				4DE6A44E160FC14B005F7857 /* OCAppDelegate.h */,
 				4DE6A44F160FC14B005F7857 /* OCAppDelegate.m */,
 				4DE6A457160FC14B005F7857 /* MainStoryboard_iPhone.storyboard */,
+				BA175693162011310031B2D4 /* LoginTableViewController.h */,
+				BA175694162011310031B2D4 /* LoginTableViewController.m */,
 				4DE6A45A160FC14B005F7857 /* MainStoryboard_iPad.storyboard */,
 				4DE6A45D160FC14B005F7857 /* OCViewController.h */,
 				4DE6A45E160FC14B005F7857 /* OCViewController.m */,
@@ -701,6 +710,7 @@
 				0A9D90AE1615126500A18E14 /* XMPPSRVResolver.m in Sources */,
 				0A92B1BA161E3DF700F59D53 /* OCDefaultServerConstantsController.m in Sources */,
 				0A92B1BE161E3E0A00F59D53 /* OCXMPPDelegateHandler.m in Sources */,
+				BA175695162011310031B2D4 /* LoginTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
