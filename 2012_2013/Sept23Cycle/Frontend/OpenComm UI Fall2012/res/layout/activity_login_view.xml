@@ -41,7 +41,7 @@
 			android:layout_width="226.67dp"
 			android:layout_height="36dp"
 			android:hint="" 
-			android:textSize="32sp"/>
+			android:textSize="16sp"/>
  		<TextView android:id="@+id/textLabelPassword"
  		    android:layout_marginTop="24.33dp"
  		    android:layout_marginLeft="46.67dp"
@@ -56,7 +56,7 @@
             android:layout_width="226.67dp"
             android:layout_height="36dp"
             android:hint=""
-            android:textSize="32sp"/>
+            android:textSize="16sp"/>
         <Button android:id="@+id/forgotPassword"
             android:layout_marginTop="4.67dp"
             android:layout_marginLeft="46.67dp"
