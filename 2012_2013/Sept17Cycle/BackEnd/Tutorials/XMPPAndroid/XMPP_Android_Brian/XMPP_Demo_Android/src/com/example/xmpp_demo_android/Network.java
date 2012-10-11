@@ -3,14 +3,21 @@ package com.example.xmpp_demo_android;
 import java.util.ArrayList;
 import java.util.Collection;
 
+<<<<<<< HEAD:2012_2013/Sept17Cycle/BackEnd/Tutorials/XMPPAndroid_Skeleton/XMPP_Demo_Android/src/com/example/xmpp_demo_android/Network.java
 import android.util.Log;
 
+=======
+import org.jivesoftware.smack.ConnectionConfiguration;
+>>>>>>> XMPP Demo:2012_2013/Sept17Cycle/BackEnd/Tutorials/XMPPAndroid/XMPP_Android_Brian/XMPP_Demo_Android/src/com/example/xmpp_demo_android/Network.java
 import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
+<<<<<<< HEAD:2012_2013/Sept17Cycle/BackEnd/Tutorials/XMPPAndroid_Skeleton/XMPP_Demo_Android/src/com/example/xmpp_demo_android/Network.java
 import org.jivesoftware.smack.packet.Message;
+=======
+>>>>>>> XMPP Demo:2012_2013/Sept17Cycle/BackEnd/Tutorials/XMPPAndroid/XMPP_Android_Brian/XMPP_Demo_Android/src/com/example/xmpp_demo_android/Network.java
 import org.jivesoftware.smack.packet.Packet;
 import org.jivesoftware.smack.provider.ProviderManager;
 import org.jivesoftware.smackx.Form;
@@ -38,6 +45,7 @@ import org.jivesoftware.smackx.provider.RosterExchangeProvider;
 public class Network {
 
 	public static final String TAG = "Network";
+<<<<<<< HEAD:2012_2013/Sept17Cycle/BackEnd/Tutorials/XMPPAndroid_Skeleton/XMPP_Demo_Android/src/com/example/xmpp_demo_android/Network.java
 	XMPPConnection connection = null;
 	ArrayList<String> buddies = new ArrayList<String>();
 	ArrayList<RosterEntry> onlineBuddies= new ArrayList<RosterEntry>();
@@ -45,6 +53,14 @@ public class Network {
 
 	// Remember: getters and setters are expensive in Android. Use package
 	// variables whenever possible. Don't understand what that means? Google
+=======
+	
+	private static XMPPConnection connection;
+	private static MultiUserChat muc;
+	
+	// Remember: getters and setters are expensive in Android. Use package 
+    // variables whenever possible. Don't understand what that means? Google 
+>>>>>>> XMPP Demo:2012_2013/Sept17Cycle/BackEnd/Tutorials/XMPPAndroid/XMPP_Android_Brian/XMPP_Demo_Android/src/com/example/xmpp_demo_android/Network.java
 	// it, then ask Kris if it isn't clear.
 
 	XMPPConnection conn;
@@ -57,6 +73,7 @@ public class Network {
 	}
 
 	public void smackLogin() {
+<<<<<<< HEAD:2012_2013/Sept17Cycle/BackEnd/Tutorials/XMPPAndroid_Skeleton/XMPP_Demo_Android/src/com/example/xmpp_demo_android/Network.java
 		connection = new XMPPConnection("jabber.org");
 		try {
 			connection.connect();
@@ -74,10 +91,27 @@ public class Network {
 			chatRoom = null;
 		} else {
 			smackLogin();
+=======
+		ConnectionConfiguration config = new ConnectionConfiguration("jabber.org", 5222);
+		config.setCompressionEnabled(true);
+		config.setSASLAuthenticationEnabled(true);
+
+		connection = new XMPPConnection(config);
+		// Connect to the server
+		// Log into the server
+		try {
+			connection.connect();
+			if (connection.isConnected()) {
+				connection.login("opencommss@jabber.org", "ssopencomm", null);
+			}
+		} catch (XMPPException e) {
+			e.printStackTrace();
+>>>>>>> XMPP Demo:2012_2013/Sept17Cycle/BackEnd/Tutorials/XMPPAndroid/XMPP_Android_Brian/XMPP_Demo_Android/src/com/example/xmpp_demo_android/Network.java
 		}
 	}
 
 	public void joinMUC() {
+<<<<<<< HEAD:2012_2013/Sept17Cycle/BackEnd/Tutorials/XMPPAndroid_Skeleton/XMPP_Demo_Android/src/com/example/xmpp_demo_android/Network.java
 		boolean isCreated = false;
 
 		if (!isCreated) {
@@ -127,17 +161,41 @@ public class Network {
 
 		}
 
+=======
+		muc = new MultiUserChat(connection, "fdafdsfda@conference.jabber.org");
+		try {
+			muc.create("user");
+			muc.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
+		} catch (XMPPException e) {
+			System.out.println(e.getMessage());
+			try {
+				muc.join("user");
+			} catch (XMPPException e1) {
+				System.out.println(e1.getMessage());
+			}
+		}
+		/* NB: register the message listener with the MUC in this method
+		Do not make a different class! Only global listeners need to go in
+		a second class. This listener only applies to this MultiUserChat, so
+		it gets registered in the same method where the MUC is created. */
+>>>>>>> XMPP Demo:2012_2013/Sept17Cycle/BackEnd/Tutorials/XMPPAndroid/XMPP_Android_Brian/XMPP_Demo_Android/src/com/example/xmpp_demo_android/Network.java
 	}
 
 	public void inviteUser() {
+<<<<<<< HEAD:2012_2013/Sept17Cycle/BackEnd/Tutorials/XMPPAndroid_Skeleton/XMPP_Demo_Android/src/com/example/xmpp_demo_android/Network.java
 		chatRoom.invite("risan@jabber.org", "enjoy as casual chat");
 		buddies.add("risan@jabber.org");
 		Log.v(TAG,
 				"you have successfully invited a user AND added them to your buddy list!");
 
+=======
+		if (muc.isJoined())
+			muc.invite("designopencomm@jabber.org", "Let's talk");
+>>>>>>> XMPP Demo:2012_2013/Sept17Cycle/BackEnd/Tutorials/XMPPAndroid/XMPP_Android_Brian/XMPP_Demo_Android/src/com/example/xmpp_demo_android/Network.java
 	}
 
 	public void sendMessage() {
+<<<<<<< HEAD:2012_2013/Sept17Cycle/BackEnd/Tutorials/XMPPAndroid_Skeleton/XMPP_Demo_Android/src/com/example/xmpp_demo_android/Network.java
 		String message = "What's Up bro!";
 		Message sendThis = chatRoom.createMessage();
 		sendThis.setBody(message);
@@ -149,9 +207,20 @@ public class Network {
 			// e.printStackTrace();
 		}
 
+=======
+		try {
+			muc.sendMessage("Hello!");
+			
+
+		} catch (XMPPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+>>>>>>> XMPP Demo:2012_2013/Sept17Cycle/BackEnd/Tutorials/XMPPAndroid/XMPP_Android_Brian/XMPP_Demo_Android/src/com/example/xmpp_demo_android/Network.java
 	}
 
 	public void printBuddyList() {
+<<<<<<< HEAD:2012_2013/Sept17Cycle/BackEnd/Tutorials/XMPPAndroid_Skeleton/XMPP_Demo_Android/src/com/example/xmpp_demo_android/Network.java
 		roster = connection.getRoster();
 		Collection <RosterEntry> allEntries= roster.getEntries();
 		
@@ -192,6 +261,40 @@ public class Network {
 			Log.v(TAG, onlineBuddies.get(i).toString());
 			
 		}		
+=======
+		ArrayList<String> offline = new ArrayList<String>();
+		ArrayList<String> online = new ArrayList<String>();
+		ArrayList<String> onlineAndInMUC = new ArrayList<String>();
+		Roster roster = connection.getRoster();
+		Collection<RosterEntry> buddies = roster.getEntries();
+		for (RosterEntry buddy : buddies)
+		{
+			try {
+				System.out.println(muc.getParticipants().contains(buddy));
+				if (muc.getParticipants().contains(buddy))
+					onlineAndInMUC.add(buddy.getUser());
+				else if (roster.getPresence(buddy.getUser()).isAvailable())
+					online.add(buddy.getUser());
+				else
+					offline.add(buddy.getUser());
+			} catch (XMPPException e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println("Online and in MUC:");
+		for (String b : onlineAndInMUC)
+			System.out.println(" - " + b);
+		System.out.println("Online:");
+		for (String b : online)
+			System.out.println(" - " + b);
+		System.out.println("Offline:");
+		for (String b : offline)
+			System.out.println(" - " + b);
+	}
+	
+	public void quit() {
+		connection.disconnect();
+>>>>>>> XMPP Demo:2012_2013/Sept17Cycle/BackEnd/Tutorials/XMPPAndroid/XMPP_Android_Brian/XMPP_Demo_Android/src/com/example/xmpp_demo_android/Network.java
 	}
 
 	

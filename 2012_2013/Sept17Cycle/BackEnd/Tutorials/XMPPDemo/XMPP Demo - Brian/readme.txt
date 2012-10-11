@@ -1,0 +1,1 @@
+I utilized try-catch blocks to ensure any possible exceptions were caught.  I also created an array list for separate category of the buddy list to filter the roster. 
