@@ -33,11 +33,7 @@ public final class R {
         public static final int app_name=0x7f040000;
         public static final int hello_world=0x7f040001;
         public static final int menu_settings=0x7f040002;
-<<<<<<< HEAD:2012_2013/Sept17Cycle/BackEnd/Tutorials/XMPPAndroid_Skeleton/XMPP_Demo_Android/gen/com/example/xmpp_demo_android/R.java
-        public static final int title_activity_main=0x7f040003;
-=======
         public static final int title_activity_android_xmppdemo=0x7f040003;
->>>>>>> XMPP Demo:2012_2013/Sept17Cycle/BackEnd/Tutorials/XMPPAndroid/XMPP_Android_Brian/XMPP_Demo_Android/gen/com/example/xmpp_demo_android/R.java
     }
     public static final class style {
         public static final int AppTheme=0x7f050000;

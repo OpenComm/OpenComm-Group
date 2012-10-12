@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-<<<<<<< HEAD:2012_2013/Sept17Cycle/BackEnd/Tutorials/XMPPAndroid_Skeleton/XMPP_Demo_Android/.classpath
-	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="gen"/>
-	<classpathentry kind="lib" path="/Users/KL/Documents/OpenCommSpace/ASMACK/asmack-issue15.jar"/>
-=======
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry kind="lib" path="asmack-jse-buddycloud-2010.12.11.jar"/>
 	<classpathentry kind="lib" path="smack.jar"/>
 	<classpathentry kind="lib" path="smackx-debug.jar"/>
 	<classpathentry kind="lib" path="smackx-jingle.jar"/>
 	<classpathentry kind="lib" path="smackx.jar"/>
->>>>>>> XMPP Demo:2012_2013/Sept17Cycle/BackEnd/Tutorials/XMPPAndroid/XMPP_Android_Brian/XMPP_Demo_Android/.classpath
+	<classpathentry kind="lib" path="asmack-issue-13.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
