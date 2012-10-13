@@ -1,8 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
-
+	android:id="@+id/main_screen" 
+	android:orientation="vertical" 
+	android:background="@color/off_white"
+	android:layout_width="fill_parent" 
+	android:layout_height="fill_parent">
+<RelativeLayout 
+        android:orientation="horizontal" 
+        android:layout_width="fill_parent"
+        android:layout_height="25.33dp" 
+        android:background="@color/dark_grey">
+        <ImageView android:id="@+id/logo"
+        	android:layout_width="110dp"
+  	      	android:layout_height="25.33dp"
+    	    android:src="@drawable/logo_oneline"
+        	android:contentDescription="@string/desc"
+       		android:scaleType="centerInside"
+        	android:paddingTop="4dp"
+        	android:paddingBottom="4dp"
+        	android:background="@color/dark_grey"/>
+        <ImageView android:src="@drawable/autospatialization" 
+      		android:contentDescription="@string/desc"
+      		android:layout_width="20dp"
+      		android:layout_height="20dp" 
+      		android:layout_alignParentRight="true"
+         	android:layout_centerVertical="true" 
+         	android:id="@+id/spatialization_button"
+          	android:layout_marginRight="14dp" 
+          	android:scaleType="fitXY" />
+</RelativeLayout>
+	<FrameLayout android:id="@+id/spaceViewFrame" 
+		android:background="@color/off_white"
+		android:layout_height="370.33dp" 
+		android:layout_width="fill_parent">
+		<ImageView android:contentDescription="@string/desc"
+			android:src="@drawable/you_small"
+			android:layout_marginBottom="0dp" 
+			android:layout_gravity="bottom|center_horizontal"
+			android:layout_width="80dp" 
+			android:layout_height="50dp"
+			android:visibility="visible" />
+		<ImageView android:id="@+id/space_view"
+		    android:contentDescription="@string/desc"
+			android:layout_height="363.33dp" 
+			android:layout_width="fill_parent" 
+			android:visibility="visible" />
+	</FrameLayout>
+	<LinearLayout android:id="@+id/bottom_bar"
+	    android:layout_marginTop="12dp"
+		android:orientation="horizontal" 
+		android:layout_width="fill_parent"
+		android:layout_height="101dp" 
+		android:background="@color/black_translucent">
+		<ImageView android:id="@+id/leftChat"
+		    android:background="@color/dark_grey"
+		    android:layout_marginTop="6dp"
+		    android:layout_marginBottom="6dp"
+		    android:layout_marginLeft="14dp"
+		    android:layout_height="88dp"
+		    android:layout_width="88dp"
+		    android:contentDescription="@string/desc"/>
+		<ImageView android:id="@+id/mainChat"
+		    android:background="@color/dark_grey"
+		    android:layout_marginTop="6dp"
+		    android:layout_marginBottom="6dp"
+		    android:layout_marginLeft="14dp"
+		    android:layout_height="88dp"
+		    android:layout_width="88dp"
+		    android:contentDescription="@string/desc"/>
+		<ImageView android:id="@+id/rightChat"
+		    android:background="@color/dark_grey"
+		    android:layout_marginTop="6dp"
+		    android:layout_marginBottom="6dp"
+		    android:layout_marginLeft="14dp"
+		    android:layout_height="88dp"
+		    android:layout_width="88dp"
+		    android:contentDescription="@string/desc"/>
+	</LinearLayout>
 </LinearLayout>
