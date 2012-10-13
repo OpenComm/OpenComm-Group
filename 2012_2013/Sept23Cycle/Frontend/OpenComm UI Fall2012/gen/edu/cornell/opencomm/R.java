@@ -150,15 +150,16 @@ public final class R {
     public static final class layout {
         public static final int activity_login_view=0x7f030000;
         public static final int conference_entry_layout=0x7f030001;
-        public static final int conference_scheduling_layout=0x7f030002;
-        public static final int confirm_layout=0x7f030003;
-        public static final int contact_entry_layout=0x7f030004;
-        public static final int contact_search_layout=0x7f030005;
-        public static final int contacts_layout=0x7f030006;
-        public static final int reset_password_layout=0x7f030007;
-        public static final int sendemail_layout=0x7f030008;
-        public static final int signup_view_layout=0x7f030009;
-        public static final int splash_view_layout=0x7f03000a;
+        public static final int conference_layout=0x7f030002;
+        public static final int conference_scheduling_layout=0x7f030003;
+        public static final int confirm_layout=0x7f030004;
+        public static final int contact_entry_layout=0x7f030005;
+        public static final int contact_search_layout=0x7f030006;
+        public static final int contacts_layout=0x7f030007;
+        public static final int reset_password_layout=0x7f030008;
+        public static final int sendemail_layout=0x7f030009;
+        public static final int signup_view_layout=0x7f03000a;
+        public static final int splash_view_layout=0x7f03000b;
     }
     public static final class string {
         public static final int add_conference_button_desc=0x7f060026;
