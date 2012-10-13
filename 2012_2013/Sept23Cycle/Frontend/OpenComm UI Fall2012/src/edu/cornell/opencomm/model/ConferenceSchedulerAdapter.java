@@ -12,91 +12,71 @@ import android.widget.TextView;
 
 public class ConferenceSchedulerAdapter extends BaseExpandableListAdapter {
 	private Context context;
-	    private ArrayList<ConferenceEntry> groups;
-	    public ConferenceSchedulerAdapter(Context context, ArrayList<ConferenceEntry> groups) {
+	    private ArrayList<Conference> conferences;
+	    
+	    public ConferenceSchedulerAdapter(Context context, ArrayList<Conference> groups) {
 	        this.context = context;
-	        this.groups = groups;
+	        this.conferences = groups;
 	    }
 	     
-	    public void addItem(ConferenceDetails item, ConferenceEntry group) {
-	     /*   if (!groups.contains(group)) {
-	            groups.add(group);
-	        }
-	        int index = groups.indexOf(group);
-
-	        ArrayList<ConferenceDetails> ch = groups.get(index).getItems();
-	        ch.add(item);
-	        groups.get(index).setItems(ch); */
+	    public void addItem(Conference conference) {
+	    	if (!conferences.contains(conference)){
+	    		conferences.add(conference);
+	    	}
 	    }
+	    
 	    public Object getChild(int groupPosition, int childPosition) {
-	     /*   // TODO Auto-generated method stub
-	        ArrayList<ConferenceDetails> chList = groups.get(groupPosition).getItems();
-	        return chList.get(childPosition); */
-	    	return null;
+	    	return conferences.get(groupPosition);
 	    }
 	 
 	    public long getChildId(int groupPosition, int childPosition) {
-	        // TODO Auto-generated method stub
-	        return childPosition;
+	    	return groupPosition;
 	    }
 	 
 	    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View view,
 	            ViewGroup parent) {
-	    /*	ConferenceDetails child = (ConferenceDetails) getChild(groupPosition, childPosition);
-	        if (view == null) {
-	            LayoutInflater infalInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-	            view = infalInflater.inflate(R.layout.expandlist_child_item, null);
-	        }
-	        TextView tv = (TextView) view.findViewById(R.id.tvChild);
-	        tv.setText(child.getName().toString());
-	        tv.setTag(child.getTag());
-	        // TODO Auto-generated method stub
-	        return view; */
-	    	return null;
+	     	if (view == null) {
+	    		LayoutInflater infalInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+	    		view = infalInflater.inflate(R.layout.conference_details_layout, null);
+	    	}
+	    	Conference conference = (Conference) getGroup(groupPosition); 
+	    	// TODO Spandana - Assign correct information from conference object to elements in view
+	    	return view;
 	    }
 	 
 	    public int getChildrenCount(int groupPosition) {
-	        // TODO Auto-generated method stub
-	    /*    ArrayList<ConferenceDetails> chList = groups.get(groupPosition).getItems();
-	        return chList.size(); */
-	    	return 0;
+	    	return 1;
 	    }
 	 
 	    public Object getGroup(int groupPosition) {
-	        // TODO Auto-generated method stub
-	        return groups.get(groupPosition);
+	        return conferences.get(groupPosition);
 	    }
 	 
 	    public int getGroupCount() {
-	        // TODO Auto-generated method stub
-	        return groups.size();
+	        return conferences.size();
 	    }
 	 
 	    public long getGroupId(int groupPosition) {
-	        // TODO Auto-generated method stub
 	        return groupPosition;
 	    }
 	 
 	    public View getGroupView(int groupPosition, boolean isLastChild, View view,
 	            ViewGroup parent) {
-	        ConferenceEntry group = (ConferenceEntry) getGroup(groupPosition);
-	        if (view == null) {
-	            LayoutInflater inf = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-	            view = inf.inflate(R.layout.conference_entry_layout, null);
-	        }
-	        TextView tv = (TextView) view.findViewById(R.id.conference_title);
-	        tv.setText(group.getConferenceTitle());
-	        // TODO Auto-generated method stub
-	        return view;
+	    	Conference conference = (Conference) getGroup(groupPosition);
+	    	if (view == null) {
+	    		LayoutInflater inf = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+	    		view = inf.inflate(R.layout.conference_entry_layout, null);
+	    	}
+	    	TextView conference_title_textview = (TextView) view.findViewById(R.id.conference_title);
+	    	conference_title_textview.setText(conference.getConferenceTitle());
+	    	return view;
 	    }
 	 
 	    public boolean hasStableIds() {
-	        // TODO Auto-generated method stub
 	        return true;
 	    }
 	 
 	    public boolean isChildSelectable(int arg0, int arg1) {
-	        // TODO Auto-generated method stub
 	        return true;
 	    }
 
