@@ -1,14 +1,16 @@
 package edu.cornell.opencomm.model;
 
+import java.util.Calendar;
+
 public class Conference {
-    private String conferenceTitle, date, startTime, endTime, reoccurrence, notes;
+    private String conferenceTitle, reoccurrence, notes;
+    private Calendar startDateAndTime, endDateAndTime;
     private User[] attendees;
     
-    public Conference(String conferenceTitle, String date, String startTime, String endTime, String reoccurrence, String notes, User[] attendees){
+    public Conference(String conferenceTitle, Calendar startDateAndTime, Calendar endDateAndTime, String reoccurrence, String notes, User[] attendees){
     	this.conferenceTitle = conferenceTitle;
-    	this.date = date;
-    	this.startTime = startTime;
-    	this.endTime = endTime;
+    	this.startDateAndTime = startDateAndTime;
+    	this.endDateAndTime = endDateAndTime;
     	this.reoccurrence = reoccurrence;
     	this.notes = notes;
     	this.attendees = attendees;
@@ -18,16 +20,12 @@ public class Conference {
     	return conferenceTitle;
     }
     
-    public String getDate(){
-    	return date;
+    public Calendar getStartDateAndTime(){
+    	return startDateAndTime;
     }
     
-    public String getStartTime(){
-    	return startTime;
-    }
-    
-    public String getEndTime(){
-    	return endTime;
+    public Calendar getEndDateAndTime(){
+    	return endDateAndTime;
     }
     
     public String getReoccurence(){

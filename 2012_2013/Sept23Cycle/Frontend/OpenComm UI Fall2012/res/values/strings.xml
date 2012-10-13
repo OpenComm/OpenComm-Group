@@ -42,4 +42,6 @@
     <string name="change_date_left_arrow_desc">Previous Date</string>
     <string name="change_date_right_arrow_desc">Next Date</string>
     <string name="conference_open_icon">Open More Conference Information</string>
+    <string name="happening_now">happening now</string>
+    <string name="upcoming">upcoming</string>
 </resources>
