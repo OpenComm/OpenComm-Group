@@ -10,13 +10,21 @@ public class Regular_Expressions_Somya {
 	 * @return true if it is a valid email address, false if it is not a valid email address
 	 */
 	public boolean isValidEmail(String email){
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> ca8b45ed0825d12b8f3a1e87a39f1492db4d142a
 		 String[] cut=email.split("@");          //splits at @ and checks for the length of the array created
 	      if (cut.length==2&&!cut[0].isEmpty())	 //isEmpty required because if the 
 	    	                                     //first char is @ then a string[] of length 2 is created with first empty 
 		return true;
 				return false;
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> ca8b45ed0825d12b8f3a1e87a39f1492db4d142a
 	
 	/**
 	 * TODO: Make sure this is a valid password.  The only rule (as of now) for
@@ -31,3 +39,4 @@ public class Regular_Expressions_Somya {
 	boolean validityhere= validity.matches();
 	return validityhere;
 }
+

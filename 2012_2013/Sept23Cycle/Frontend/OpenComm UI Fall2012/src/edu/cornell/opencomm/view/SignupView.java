@@ -2,6 +2,7 @@ package edu.cornell.opencomm.view;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -25,8 +26,8 @@ public class SignupView extends Activity{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_signup_view);
-		FontSetter.applySanSerifFont(SignupView.this, findViewById(R.layout.activity_signup_view));
+		setContentView(R.layout.signup_view_layout);
+		FontSetter.applySanSerifFont(SignupView.this, findViewById(R.layout.signup_view_layout));
 		controller = new SignupController(this,SignupView.this);
 		init();
 	}
@@ -184,5 +185,13 @@ public class SignupView extends Activity{
 	public String getTitleText(){
 		EditText textBox = (EditText) findViewById(R.id.titleBox);
 		return textBox.getText().toString();
+	}
+	@Override
+	public boolean dispatchKeyEvent(KeyEvent event) {
+		//AS: Consume the back for now, we need to use the menu key later
+		if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+			return super.dispatchKeyEvent(event);
+		}
+		return true;
 	}
 }

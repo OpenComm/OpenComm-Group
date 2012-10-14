@@ -11,6 +11,7 @@ If you're not good (only a "master"), then do a "git checkout --track origin/iOS
 Remember when you did a "git branch"? Now, you should have "master" and "iOS" for sure.  So... do it again, but there should be a "*" to the left of one of the names.
 If the * is left of "master", then issue a "git checkout iOS" this switches branches to iOS.  So you'll be working in the iOS branch. (anytime you want to switch to any branch, just use "git checkout <branch_name>", but we should stay in iOS)
 If the * is in "iOS", then horray, you're good!
+
 Now, since you're working in iOS already, let's commit something: 
 Create file in the iOS FOLDER named "<netid>.txt".
 Issue "git status" - this command tells you all that's changed from the most recent pull/fetch.  You should see something like "on branch iOS \n changes not tracked <netid>.txt"

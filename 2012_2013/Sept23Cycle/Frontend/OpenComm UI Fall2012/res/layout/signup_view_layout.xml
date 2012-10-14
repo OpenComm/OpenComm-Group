@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_translucent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/signupTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="35dp"
+        android:background="@color/dark_grey_translucent"
+        android:clickable="false"
+        android:gravity="center_vertical"
+        android:paddingBottom="0dp"
+        android:paddingLeft="44dp"
+        android:text="@string/new_account"
+        android:textColor="@color/green"
+        android:textSize="32sp" >
+    </TextView>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="353dp"
+         >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/firstNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="44dp"
+                android:padding="0dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/first_name"
+                android:textColor="@color/off_white"
+                android:textSize="24dp" />
+
+            <EditText
+                android:id="@+id/firstNameBox"
+                android:layout_width="237dp"
+                android:layout_height="27dp"
+                android:layout_marginLeft="44dp"
+                android:layout_marginRight="37dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/off_white"
+                android:inputType="textCapCharacters"
+                android:padding="0dp"
+                android:paddingLeft="15dp" >
+            </EditText>
+
+            <TextView
+                android:id="@+id/lastNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="44dp"
+                android:layout_marginRight="37dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/last_name"
+                android:textColor="@color/off_white"
+                android:textSize="22dp" >
+            </TextView>
+
+            <EditText
+                android:id="@+id/lastNameBox"
+                android:layout_width="237dp"
+                android:layout_height="27dp"
+                android:layout_marginLeft="44dp"
+                android:layout_marginRight="37dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/off_white"
+                android:inputType="textPersonName"
+                android:padding="0dp"
+                android:paddingLeft="15dp" >
+            </EditText>
+
+            <TextView
+                android:id="@+id/passwordText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="44dp"
+                android:layout_marginRight="37dp"
+                android:layout_marginTop="5dp"
+                android:padding="0dp"
+                android:text="@string/password"
+                android:textColor="@color/off_white"
+                android:textSize="22dp" />
+
+            <EditText
+                android:id="@+id/passwordBox"
+                android:layout_width="237dp"
+                android:layout_height="27dp"
+                android:layout_marginLeft="44dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/off_white"
+                android:inputType="textPassword"
+                android:padding="0dp"
+                android:paddingLeft="15dp" />
+
+            <TextView
+                android:id="@+id/confirmPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="44dp"
+                android:layout_marginRight="37dp"
+                android:layout_marginTop="5dp"
+                android:padding="0dp"
+                android:text="@string/confirm_password"
+                android:textColor="@color/off_white"
+                android:textSize="22dp" />
+
+            <EditText
+                android:id="@+id/confirmPasswordBox"
+                android:layout_width="237dp"
+                android:layout_height="27dp"
+                android:layout_marginLeft="44dp"
+                android:layout_marginRight="37dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/off_white"
+                android:inputType="textPassword"
+                android:padding="0dp"
+                android:paddingLeft="15dp" />
+
+            <TextView
+                android:id="@+id/emailText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="44dp"
+                android:layout_marginRight="37dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/email"
+                android:textColor="@color/off_white"
+                android:textSize="22dp" >
+            </TextView>
+
+            <EditText
+                android:id="@+id/emailBox"
+                android:layout_width="237dp"
+                android:layout_height="27dp"
+                android:layout_marginLeft="44dp"
+                android:layout_marginRight="37dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/off_white"
+                android:inputType="textEmailAddress"
+                android:padding="0dp"
+                android:paddingLeft="15dp" />
+
+            <TextView
+                android:id="@+id/titleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="44dp"
+                android:layout_marginRight="37dp"
+                android:layout_marginTop="5dp"
+                android:padding="0dp"
+                android:text="@string/title"
+                android:textColor="@color/off_white"
+                android:textSize="22dp" >
+            </TextView>
+
+            <EditText
+                android:id="@+id/titleBox"
+                android:layout_width="237dp"
+                android:layout_height="27dp"
+                android:layout_marginLeft="44dp"
+                android:layout_marginRight="37dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/off_white"
+                android:inputType="textCapWords"
+                android:padding="0dp"
+                android:paddingLeft="15dp" >
+            </EditText>
+
+            <TextView
+                android:id="@+id/photoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="44dp"
+                android:layout_marginRight="37dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/photo"
+                android:textColor="@color/off_white"
+                android:textSize="22dp" >
+            </TextView>
+
+            <ImageView
+                android:id="@+id/photoButton"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginLeft="44dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/todo_need_to_write_a_content_desc"
+                android:scaleType="centerInside"
+                android:src="@drawable/imagearrow" />
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+                    android:id="@+id/confirmBar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="38dp"
+                    android:orientation="horizontal" >
+
+                    <ImageButton
+                        android:id="@+id/saveImage"
+                        android:layout_width="58.67dp"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="center"
+                        android:background="@color/dark_grey_translucent"
+                        android:contentDescription="@string/todo_need_to_write_a_content_desc"
+                        android:paddingBottom="5.33dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="12dp"
+                        android:paddingTop="5.33dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/accept_plus" />
+
+                    <Button
+                        android:id="@+id/saveButton"
+                        android:layout_width="101.33dp"
+                        android:layout_height="fill_parent"
+                        android:background="@color/dark_grey_translucent"
+                        android:clickable="true"
+                        android:gravity="left|center_vertical"
+                        android:text="@string/save"
+                        android:textColor="@color/blue"
+                        android:textSize="25sp" />
+
+                    <ImageButton
+                        android:id="@+id/cancelImage"
+                        android:layout_width="57.33dp"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="center"
+                        android:background="@color/dark_grey_translucent"
+                        android:contentDescription="@string/todo_need_to_write_a_content_desc"
+                        android:paddingBottom="7.665dp"
+                        android:paddingLeft="22dp"
+                        android:paddingRight="13.33dp"
+                        android:paddingTop="7.665dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/cancelx" />
+
+                    <Button
+                        android:id="@+id/cancelButton"
+                        android:layout_width="102.67dp"
+                        android:layout_height="fill_parent"
+                        android:background="@color/dark_grey_translucent"
+                        android:clickable="true"
+                        android:gravity="left|center_vertical"
+                        android:text="@string/cancel"
+                        android:textColor="@color/orange"
+                        android:textSize="25sp" />
+                </LinearLayout>
+
+</LinearLayout>
