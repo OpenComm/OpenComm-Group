@@ -5,6 +5,7 @@ import java.util.Calendar;
 
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.DatePickerController;
+import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.model.ConferenceSchedulerAdapter;
 import edu.cornell.opencomm.model.User;
@@ -49,7 +50,7 @@ public class ConferenceSchedulerView extends Activity {
 			 RelativeLayout happening_now_separator_bar = (RelativeLayout) findViewById(R.id.conference_separator_happening_now);
 			 happening_now_separator_bar.setVisibility(View.VISIBLE);
 		 }
-		 adapter_happeningNow = new ConferenceSchedulerAdapter(ConferenceSchedulerView.this, conferences_happeningNow);
+		 adapter_happeningNow = new ConferenceSchedulerAdapter(ConferenceSchedulerView.this, conferences_happeningNow, true);
 		 expandList_happeningNow.setAdapter(adapter_happeningNow);
 		 
 		 // Create list of upcoming conferences
@@ -59,41 +60,67 @@ public class ConferenceSchedulerView extends Activity {
 			 RelativeLayout upcoming_separator_bar = (RelativeLayout) findViewById(R.id.conference_separator_upcoming);
 			 upcoming_separator_bar.setVisibility(View.VISIBLE);
 		 }
-		 adapter_upcoming = new ConferenceSchedulerAdapter(ConferenceSchedulerView.this, conferences_upcoming);
+		 adapter_upcoming = new ConferenceSchedulerAdapter(ConferenceSchedulerView.this, conferences_upcoming, false);
 		 expandList_upcoming.setAdapter(adapter_upcoming);
 	 }
 	 
 	 public ArrayList<Conference> createExampleConferences(){
+		 User user1 = new User("Risa", "Naka");
+		 User user2 = new User("Makoto", "Bentz");
+		 User user3 = new User("Jason", "Xu");
+		 User user4 = new User("Nathan", "Chun");
+		 User user5 = new User("Najla", "Elmachtoub");
 		 ArrayList<Conference> conferences = new ArrayList<Conference>();
 		 Calendar startTime = (Calendar)currentTime.clone();
 		 startTime.add(Calendar.HOUR, -2);
 		 Calendar endTime = (Calendar)currentTime.clone();
 		 endTime.add(Calendar.HOUR, 2);
+		 ArrayList<User> conference1_attendees = new ArrayList<User>();
+		 conference1_attendees.add(user1);
+		 conference1_attendees.add(user2);
+		 conference1_attendees.add(user3);
 		 Conference conference1 = new Conference( "Morning Meeting",  
 				 					  			  startTime, 
 				 					  			  endTime, 
 				 					  			  "Every Thursday", 
 				 					  			  "Remember to have your documents ready", 
-				 					  			  null ); 
+				 					  			   conference1_attendees); 
 		 startTime = (Calendar)currentTime.clone();
 		 startTime.add(Calendar.HOUR, 2);
 		 endTime = (Calendar)currentTime.clone();
 		 endTime.add(Calendar.HOUR, 4); 
+		 ArrayList<User> conference2_attendees = new ArrayList<User>();
+		 conference2_attendees.add(user1);
+		 conference2_attendees.add(user2);
+		 conference2_attendees.add(user3);
+		 conference2_attendees.add(user4);
+		 conference2_attendees.add(user5);
 		 Conference conference2 = new Conference( "Evening Meeting", 
 	  			  								  startTime, 
 	  			  								  endTime, 
 	  			  								  "Every Thursday", 
 	  			  								  "Remember to have your documents ready", 
-	  			  								  null ); 
+	  			  								  conference2_attendees ); 
+		 startTime = (Calendar)currentTime.clone();
+		 endTime = (Calendar)currentTime.clone();
+		 ArrayList<User> conference3_attendees = new ArrayList<User>();
+		 conference3_attendees.add(user1);
+		 Conference conference3 = new Conference( "Right-this-second Meeting", 
+					  startTime, 
+					  endTime, 
+					  "Only right now!", 
+					  "Remember to have your documents ready", 
+					  conference3_attendees ); 
 		 conferences.add(conference1);
 		 conferences.add(conference2);
+		 conferences.add(conference3);
 		 return conferences;
 	 }
 	 
 	 public ArrayList<Conference> getConferencesHappeningNow(ArrayList<Conference> conferences){
 		 ArrayList<Conference> conferencesHappeningNow = new ArrayList<Conference>();
 		 for (Conference conference : conferences){
-			 if (currentTime.after(conference.getStartDateAndTime()) && currentTime.before(conference.getEndDateAndTime())){
+			 if ((currentTime.equals(conference.getStartDateAndTime()) || currentTime.after(conference.getStartDateAndTime())) && (currentTime.equals(conference.getEndDateAndTime()) || currentTime.before(conference.getEndDateAndTime()))){
 				 conferencesHappeningNow.add(conference);
 			 }
 		 }

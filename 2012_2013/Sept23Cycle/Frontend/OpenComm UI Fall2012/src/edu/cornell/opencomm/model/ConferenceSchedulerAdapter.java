@@ -8,15 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ConferenceSchedulerAdapter extends BaseExpandableListAdapter {
 	private Context context;
 	    private ArrayList<Conference> conferences;
+	    private boolean conference_is_happening_now;
 	    
-	    public ConferenceSchedulerAdapter(Context context, ArrayList<Conference> groups) {
+	    public ConferenceSchedulerAdapter(Context context, ArrayList<Conference> groups, boolean conference_is_happening_now) {
 	        this.context = context;
 	        this.conferences = groups;
+	        this.conference_is_happening_now = conference_is_happening_now;
 	    }
 	     
 	    public void addItem(Conference conference) {
@@ -67,9 +70,32 @@ public class ConferenceSchedulerAdapter extends BaseExpandableListAdapter {
 	    		LayoutInflater inf = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
 	    		view = inf.inflate(R.layout.conference_entry_layout, null);
 	    	}
-	    	TextView conference_title_textview = (TextView) view.findViewById(R.id.conference_title);
-	    	conference_title_textview.setText(conference.getConferenceTitle());
+	    	
+    		customizeView(conference, view);
 	    	return view;
+	    }
+	    
+	    /** Customize the view from conference information, and add functionality to buttons */
+	    public void customizeView(Conference conference, View view){
+	    	TextView conference_title = (TextView) view.findViewById(R.id.conference_title);
+	    	conference_title.setText(conference.getConferenceTitle());
+	    	TextView conference_attendees = (TextView) view.findViewById(R.id.attendees);
+	    	conference_attendees.setText(conference.getAttendeesSummary());
+	    	if (conference_is_happening_now){
+	    		TextView day = (TextView)view.findViewById(R.id.day);
+	    		day.setVisibility(View.GONE);
+	    		TextView time = (TextView)view.findViewById(R.id.time);
+	    		time.setVisibility(View.GONE); 
+	    	}
+	    	else {
+	    		ImageView go_to_conference_button = (ImageView)view.findViewById(R.id.go_to_conference_button);
+	    		go_to_conference_button.setVisibility(View.GONE);
+	    		TextView day = (TextView)view.findViewById(R.id.day);
+	    		day.setText(conference.getNumberMonthAndDay());
+	    		TextView time = (TextView)view.findViewById(R.id.time);
+	    		time.setText(conference.getTimeHourAndMinute()); 
+	    	} 
+	    	
 	    }
 	 
 	    public boolean hasStableIds() {

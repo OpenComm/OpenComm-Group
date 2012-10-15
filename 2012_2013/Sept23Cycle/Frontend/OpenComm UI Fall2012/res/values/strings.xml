@@ -44,4 +44,5 @@
     <string name="conference_open_icon">Open More Conference Information</string>
     <string name="happening_now">happening now</string>
     <string name="upcoming">upcoming</string>
+    <string name="go_to_conference_button_desc">Go to conference</string>
 </resources>

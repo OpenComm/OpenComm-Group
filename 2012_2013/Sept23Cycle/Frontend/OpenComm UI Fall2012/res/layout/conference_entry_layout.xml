@@ -1,25 +1,94 @@
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
-        android:layout_height="42dp"
+        android:layout_height="wrap_content"
         android:background="@color/light_grey" >
+		
+        <RelativeLayout
+            android:id="@+id/conference_open_icon_holder"
+            android:layout_width="45.33dp"
+            android:layout_height="42dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true" >
+            <ImageView
+            	android:id="@+id/conference_open_icon"
+            	android:layout_width="21.33dp"
+            	android:layout_height="21.33dp"
+            	android:layout_alignParentLeft="true"
+            	android:layout_alignParentTop="true"
+            	android:layout_marginTop="6.67dp"
+            	android:layout_marginLeft="12dp"
+            	android:src="@drawable/blue_arrow_down"
+            	android:contentDescription="@string/conference_open_icon" />
+        </RelativeLayout>
+        <LinearLayout 
+            android:id="@+id/conference_information"
+            android:layout_width="fill_parent"
+            android:layout_height="42dp"
+            android:layout_toRightOf="@+id/conference_open_icon_holder" >
+            <RelativeLayout
+		    	android:id="@+id/conference_title_and_attendees_holder"
+            	android:layout_width="0dp"
+            	android:layout_height="fill_parent"
+            	android:layout_weight="1" >
+            	<TextView
+            		android:id="@+id/conference_title"
+		            android:layout_width="wrap_content"
+   			        android:layout_height="wrap_content"
+        		    android:layout_alignParentLeft="true"
+            		android:layout_alignParentBottom="true"
+            		android:layout_marginBottom="18dp"
+    	        	android:textSize="14.67sp"
+    	        	android:textColor="@color/light_white" 
+    	        	android:singleLine="true" />
+       			<TextView
+            		android:id="@+id/attendees"
+	            	android:layout_width="wrap_content"
+	    	        android:layout_height="wrap_content"
+    		        android:layout_alignParentLeft="true"
+        		    android:layout_alignParentBottom="true"
+        	    	android:layout_marginBottom="8.67dp"
+    	        	android:textSize="8sp"
+    	        	android:textColor="@color/light_white"
+    	        	android:singleLine="true" />
+    	    </RelativeLayout>
+            <RelativeLayout
+            	android:id="@+id/conference_button_and_time_holder"
+	            android:layout_width="0dp"
+    	        android:layout_height="fill_parent"
+    	        android:layout_weight="1" >
+            	<ImageView
+            		android:id="@+id/go_to_conference_button"
+	            	android:layout_width="21dp"
+		            android:layout_height="21dp"
+    		        android:layout_alignParentRight="true"
+        		    android:layout_alignParentTop="true"
+           			android:layout_marginTop="6.67dp"
+	            	android:layout_marginRight="8.67dp"
+    	        	android:src="@drawable/go_to_conference_arrow"
+        	    	android:contentDescription="@string/go_to_conference_button_desc" />
 
-        <ImageView
-            android:id="@+id/conference_open_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="6.67dp"
-            android:src="@drawable/blue_arrow_down"
-            android:contentDescription="@string/conference_open_icon" />
-
-        <TextView
-            android:id="@+id/conference_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="45.33dp"
+            	<TextView
+	                android:id="@+id/day"
+    	            android:layout_width="wrap_content"
+        	        android:layout_height="wrap_content"
+            	    android:layout_toLeftOf="@+id/time"
+            	    android:layout_alignParentBottom="true"
+            	    android:layout_marginBottom="13.33dp"
+	                android:textSize="14.67sp"
+	                android:textColor="@color/light_white" />
+    	        <TextView
+        	        android:id="@+id/time"
+            	    android:layout_width="wrap_content"
+                	android:layout_height="wrap_content"
+	                android:layout_alignParentRight="true"
+	                android:layout_alignParentBottom="true"
+	                android:layout_marginBottom="13.33dp"
+	                android:layout_marginLeft="5dp"
+	                android:layout_marginRight="8.67dp"
+        	        android:textSize="14.67sp"
+        	        android:textColor="@color/light_white" />
+        	</RelativeLayout>
             
-            android:text="ConferenceTitle"
-            android:textSize="14.67sp" />
-
-    </LinearLayout>
+        </LinearLayout>                      
+    </RelativeLayout>
