@@ -48,7 +48,7 @@ public class Conference {
     	for (User user : attendees){
     		attendees_summary << ""
     	}  */
-    	return "blah";
+    	return null;
     }
     
     /** Return date in example form of 5/12 */

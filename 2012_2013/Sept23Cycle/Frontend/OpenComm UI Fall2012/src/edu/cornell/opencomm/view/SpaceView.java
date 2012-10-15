@@ -1,5 +1,24 @@
 package edu.cornell.opencomm.view;
 
-public class SpaceView {
+import edu.cornell.opencomm.model.Space;
+import android.content.Context;
+import android.util.AttributeSet;
+import android.view.View;
+
+public class SpaceView extends View{
+	Context context;
+	Space space;
+	public SpaceView(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		// TODO Auto-generated constructor stub
+	}
+	public SpaceView(Context context, Space space) {
+		super(context);
+		this.context = context;
+		this.space = space;
+		setFocusable(true);
+		setFocusableInTouchMode(true);
+	}
+	
 
 }

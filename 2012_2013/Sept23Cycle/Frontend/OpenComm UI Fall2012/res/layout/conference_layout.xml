@@ -40,7 +40,7 @@
 			android:layout_width="80dp" 
 			android:layout_height="50dp"
 			android:visibility="visible" />
-		<ImageView android:id="@+id/space_view"
+		<edu.cornell.opencomm.view.SpaceView android:id="@+id/space_view"
 		    android:contentDescription="@string/desc"
 			android:layout_height="363.33dp" 
 			android:layout_width="fill_parent" 
@@ -52,7 +52,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="101dp" 
 		android:background="@color/black_translucent">
-		<ImageView android:id="@+id/leftChat"
+		<edu.cornell.opencomm.view.ChatView android:id="@+id/leftChat"
 		    android:background="@color/dark_grey"
 		    android:layout_marginTop="6dp"
 		    android:layout_marginBottom="6dp"
@@ -60,7 +60,7 @@
 		    android:layout_height="88dp"
 		    android:layout_width="88dp"
 		    android:contentDescription="@string/desc"/>
-		<ImageView android:id="@+id/mainChat"
+		<edu.cornell.opencomm.view.ChatView android:id="@+id/mainChat"
 		    android:background="@color/dark_grey"
 		    android:layout_marginTop="6dp"
 		    android:layout_marginBottom="6dp"
@@ -68,7 +68,7 @@
 		    android:layout_height="88dp"
 		    android:layout_width="88dp"
 		    android:contentDescription="@string/desc"/>
-		<ImageView android:id="@+id/rightChat"
+		<edu.cornell.opencomm.view.ChatView android:id="@+id/rightChat"
 		    android:background="@color/dark_grey"
 		    android:layout_marginTop="6dp"
 		    android:layout_marginBottom="6dp"

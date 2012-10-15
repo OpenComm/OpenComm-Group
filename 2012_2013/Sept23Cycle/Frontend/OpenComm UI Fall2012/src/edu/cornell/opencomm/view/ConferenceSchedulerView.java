@@ -65,52 +65,52 @@ public class ConferenceSchedulerView extends Activity {
 	 }
 	 
 	 public ArrayList<Conference> createExampleConferences(){
-		 User user1 = new User("Risa", "Naka");
+		/* User user1 = new User("Risa", "Naka");
 		 User user2 = new User("Makoto", "Bentz");
 		 User user3 = new User("Jason", "Xu");
 		 User user4 = new User("Nathan", "Chun");
-		 User user5 = new User("Najla", "Elmachtoub");
+		 User user5 = new User("Najla", "Elmachtoub"); */
 		 ArrayList<Conference> conferences = new ArrayList<Conference>();
 		 Calendar startTime = (Calendar)currentTime.clone();
 		 startTime.add(Calendar.HOUR, -2);
 		 Calendar endTime = (Calendar)currentTime.clone();
 		 endTime.add(Calendar.HOUR, 2);
-		 ArrayList<User> conference1_attendees = new ArrayList<User>();
+		/* ArrayList<User> conference1_attendees = new ArrayList<User>();
 		 conference1_attendees.add(user1);
 		 conference1_attendees.add(user2);
-		 conference1_attendees.add(user3);
+		 conference1_attendees.add(user3); */
 		 Conference conference1 = new Conference( "Morning Meeting",  
 				 					  			  startTime, 
 				 					  			  endTime, 
 				 					  			  "Every Thursday", 
 				 					  			  "Remember to have your documents ready", 
-				 					  			   conference1_attendees); 
+				 					  			   null); 
 		 startTime = (Calendar)currentTime.clone();
 		 startTime.add(Calendar.HOUR, 2);
 		 endTime = (Calendar)currentTime.clone();
 		 endTime.add(Calendar.HOUR, 4); 
-		 ArrayList<User> conference2_attendees = new ArrayList<User>();
+		/* ArrayList<User> conference2_attendees = new ArrayList<User>();
 		 conference2_attendees.add(user1);
 		 conference2_attendees.add(user2);
 		 conference2_attendees.add(user3);
 		 conference2_attendees.add(user4);
-		 conference2_attendees.add(user5);
+		 conference2_attendees.add(user5); */
 		 Conference conference2 = new Conference( "Evening Meeting", 
 	  			  								  startTime, 
 	  			  								  endTime, 
 	  			  								  "Every Thursday", 
 	  			  								  "Remember to have your documents ready", 
-	  			  								  conference2_attendees ); 
+	  			  								  null); 
 		 startTime = (Calendar)currentTime.clone();
 		 endTime = (Calendar)currentTime.clone();
-		 ArrayList<User> conference3_attendees = new ArrayList<User>();
-		 conference3_attendees.add(user1);
+		/* ArrayList<User> conference3_attendees = new ArrayList<User>();
+		 conference3_attendees.add(user1); */
 		 Conference conference3 = new Conference( "Right-this-second Meeting", 
 					  startTime, 
 					  endTime, 
 					  "Only right now!", 
 					  "Remember to have your documents ready", 
-					  conference3_attendees ); 
+					  null ); 
 		 conferences.add(conference1);
 		 conferences.add(conference2);
 		 conferences.add(conference3);
