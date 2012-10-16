@@ -20,5 +20,10 @@ public class SpaceView extends View{
 		setFocusableInTouchMode(true);
 	}
 	
+	public void setSpace(Space mainSpace) {
+		// TODO Store the parent view this space exist in
+		
+	}
+	
 
 }
