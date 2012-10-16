@@ -68,4 +68,9 @@ public class StartAppActivity extends Activity {
 	private void onConnectionError() {
 		// TODO
 	}
+	
+	@Override
+	public void onBackPressed() {
+		// back button disabled
+	}
 }
