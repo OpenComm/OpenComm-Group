@@ -83,5 +83,10 @@ public class LoginView extends Activity {
     	Toast send = Toast.makeText(getApplicationContext(),text,duration);
     	send.show();
     }
+    
+    @Override
+    public void onBackPressed() {
+    	// back button disabled
+    }
 }
 
