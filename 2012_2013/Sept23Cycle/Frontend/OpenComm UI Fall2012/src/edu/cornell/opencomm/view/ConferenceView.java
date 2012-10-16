@@ -67,7 +67,7 @@ public final class ConferenceView extends Activity {
 		// Open up the layout specified by the main XML
 		setContentView(R.layout.conference_layout);
 		
-		spcaeView = (SpaceView) findViewById(R.id.space_view);
+//		spcaeView = (SpaceView) findViewById(R.id.space_view);
 		// Check if the mainspace was already created
 		if (Space.getMainSpace() == null) {
 			// Obtain username used to log into the application
@@ -90,8 +90,8 @@ public final class ConferenceView extends Activity {
 //				// + ") " + e.getXMPPError().getMessage());
 //				e.printStackTrace();
 //			}
-			spcaeView.setSpace(Space.getMainSpace());
-			Space.getMainSpace().setScreenOn(true);
+//			spcaeView.setSpace(Space.getMainSpace());
+//			Space.getMainSpace().setScreenOn(true);
 			//TODO: register for listners
 			
 			//TODO: Set the font for the main conference view and its child space view and chat view
@@ -100,7 +100,7 @@ public final class ConferenceView extends Activity {
 		
 		initializeButtons();
 
-		spcaeView.setOnKeyListener(onKeyListener);
+//		spcaeView.setOnKeyListener(onKeyListener);
 
 
 	}
