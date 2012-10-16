@@ -17,6 +17,11 @@ import android.app.Activity;
 import android.content.Intent;
 
 public class LoginView extends Activity {
+	/**
+	 * The TAG for logging
+	 */
+	private static final String TAG = LoginView.class.getSimpleName();
+	private static final boolean D = true;
 	
 	private LoginController loginController = null;
 	
@@ -31,28 +36,18 @@ public class LoginView extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_view);
-        this.inflater = this.getLayoutInflater();
+        setContentView(R.layout.login_layout);
         emailEdit = (EditText) findViewById(R.id.editTextEmail);
 		passwordEdit = (EditText) findViewById(R.id.editTextPassword);
 		loginText = (Button) findViewById(R.id.loginText);
 		loginButton = (ImageButton) findViewById(R.id.loginButton);
 		loginOverlay = (ImageView) findViewById(R.id.loginOverlay);
-		signupOverlay = (ImageView) findViewById(R.id.loginOverlay);
+		signupOverlay = (ImageView) findViewById(R.id.signupOverlay);
+        this.inflater = this.getLayoutInflater();
 		
 //		initializeLoginButtonClickedEvent();
 		loginController = new LoginController(this);
     }
-    
-/*    private void initializeLoginButtonClickedEvent() {
-		ImageButton loginButton = getLoginButton();
-		if (loginButton != null) {
-			loginButton.setOnClickListener(onLoginButtonClickedListener);
-		}
-		if (loginText != null) {
-			loginText.setOnClickListener(onLoginButtonClickedListener);
-		}
-	}*/
 	
 	public ImageView getLoginOverlay() {
 		return loginOverlay;
@@ -66,31 +61,24 @@ public class LoginView extends Activity {
 	public LayoutInflater getInflater() {
         return inflater;
     }
-/*	
-	private View.OnClickListener onLoginButtonClickedListener = new View.OnClickListener() {
-
-		public void onClick(View v) {
-			loginController.handleLoginButtonClick(emailEdit, passwordEdit);
-		}
-	};
-*/	
 
 	 /**Jump to the account creation page when sign-up button is clicked*/
     public void createAccount(View v){
-    	Log.v("Crystal", "create Account");
+    	if (D) Log.d(TAG, "create Account");
     	this.getSignupOverlay().setVisibility(View.VISIBLE);
     	Intent account = new Intent(this,SignupView.class);
     	startActivity(account);
     }
     /**Jump to the Reset Password page when forgot-password is clicked*/
     public void retrievePassword(View v){
-    	Log.v("Crystal", "retrievePassword");
+    	Log.v(TAG, "retrievePassword");
     	Intent account = new Intent(this,ResetPasswordView.class);
     	startActivity(account);
     }
     
     public void login(View v){
     	CharSequence text = "Must go to dashboard";
+    	this.getLoginOverlay().setVisibility(View.VISIBLE);
     	int duration = Toast.LENGTH_SHORT;
     	Toast send = Toast.makeText(getApplicationContext(),text,duration);
     	send.show();
