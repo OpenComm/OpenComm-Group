@@ -2,7 +2,6 @@
 <resources>
 
     <color name="white_overlay">#902e2e2e</color>
-    <color name="light_white">#F4F4F4</color>
     <color name="off_white">#F5F5F5</color>
     <color name="dark_grey">#333333</color>
     <color name="dark_grey_translucent">#E6333333</color>

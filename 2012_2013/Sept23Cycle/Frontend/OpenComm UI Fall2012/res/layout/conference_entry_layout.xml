@@ -39,7 +39,7 @@
             		android:layout_alignParentBottom="true"
             		android:layout_marginBottom="18dp"
     	        	android:textSize="14.67sp"
-    	        	android:textColor="@color/light_white" 
+    	        	android:textColor="@color/off_white" 
     	        	android:singleLine="true" />
        			<TextView
             		android:id="@+id/attendees"
@@ -49,7 +49,7 @@
         		    android:layout_alignParentBottom="true"
         	    	android:layout_marginBottom="8.67dp"
     	        	android:textSize="8sp"
-    	        	android:textColor="@color/light_white"
+    	        	android:textColor="@color/off_white"
     	        	android:singleLine="true" />
     	    </RelativeLayout>
             <RelativeLayout
@@ -76,7 +76,7 @@
             	    android:layout_alignParentBottom="true"
             	    android:layout_marginBottom="13.33dp"
 	                android:textSize="14.67sp"
-	                android:textColor="@color/light_white" />
+	                android:textColor="@color/off_white" />
     	        <TextView
         	        android:id="@+id/time"
             	    android:layout_width="wrap_content"
@@ -87,7 +87,7 @@
 	                android:layout_marginLeft="5dp"
 	                android:layout_marginRight="8.67dp"
         	        android:textSize="14.67sp"
-        	        android:textColor="@color/light_white" />
+        	        android:textColor="@color/off_white" />
         	</RelativeLayout>
             
         </LinearLayout>                      
