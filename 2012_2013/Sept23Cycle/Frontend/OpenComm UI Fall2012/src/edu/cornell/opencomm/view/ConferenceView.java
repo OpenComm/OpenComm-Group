@@ -24,7 +24,7 @@ public final class ConferenceView extends Activity {
 	 * The SpaceView object (UI) representing the space that the user is
 	 * currently talking to
 	 */
-	public static SpaceView spcaeView;
+	public static SpaceView spaceView;
 	
 	public static ChatView chatView;
 	
@@ -67,7 +67,7 @@ public final class ConferenceView extends Activity {
 		// Open up the layout specified by the main XML
 		setContentView(R.layout.conference_layout);
 		
-//		spcaeView = (SpaceView) findViewById(R.id.space_view);
+//		spaceView = (SpaceView) findViewById(R.id.space_view);
 		// Check if the mainspace was already created
 		if (Space.getMainSpace() == null) {
 			// Obtain username used to log into the application
@@ -90,7 +90,7 @@ public final class ConferenceView extends Activity {
 //				// + ") " + e.getXMPPError().getMessage());
 //				e.printStackTrace();
 //			}
-//			spcaeView.setSpace(Space.getMainSpace());
+//			spaceView.setSpace(Space.getMainSpace());
 //			Space.getMainSpace().setScreenOn(true);
 			//TODO: register for listners
 			
@@ -100,7 +100,7 @@ public final class ConferenceView extends Activity {
 		
 		initializeButtons();
 
-//		spcaeView.setOnKeyListener(onKeyListener);
+//		spaceView.setOnKeyListener(onKeyListener);
 
 
 	}
@@ -211,7 +211,7 @@ public final class ConferenceView extends Activity {
 	public void invalidateSpaceView() {
 		runOnUiThread(new Runnable() {
 			public void run() {
-				spcaeView.invalidate();
+				spaceView.invalidate();
 			}
 		});
 	}
