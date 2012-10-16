@@ -34,11 +34,12 @@ public class SignupView extends Activity{
 
 	/**
 	 * Initialize the signup view
+	 * TODO why not override onResume?
 	 */
 	private void init() {
-		initFirstNameFocusChangeListner();
-		initLastNameFocusChangeListner();
-		initEmailFocusChangeListner();
+		initFirstNameFocusChangelistener();
+		initLastNameFocusChangelistener();
+		initEmailFocusChangelistener();
 		initPhotoButtonClickEvent();
 		initSaveButtonClickEvent();
 		initSaveImageClickEvent();
@@ -49,50 +50,50 @@ public class SignupView extends Activity{
 	/**
 	 * Initialize the FirstName box
 	 */
-	private void initFirstNameFocusChangeListner() {
-		OnFocusChangeListener listner = new View.OnFocusChangeListener() {
+	private void initFirstNameFocusChangelistener() {
+		OnFocusChangeListener listener = new View.OnFocusChangeListener() {
 			public void onFocusChange(View view, boolean hasFocus) {
 				controller.handleFirstNameFocusChange(view, hasFocus);
 			}
 		};
 		View firstNameBox = findViewById(R.id.firstNameBox);
-		firstNameBox.setOnFocusChangeListener(listner);
+		firstNameBox.setOnFocusChangeListener(listener);
 	}
 
 	/**
 	 * Initialize the Last Name box
 	 */
-	private void initLastNameFocusChangeListner() {
-		OnFocusChangeListener listner = new View.OnFocusChangeListener() {
+	private void initLastNameFocusChangelistener() {
+		OnFocusChangeListener listener = new View.OnFocusChangeListener() {
 			public void onFocusChange(View view, boolean hasFocus) {
 				controller.handleLastNameFocusChange(view, hasFocus);
 			}
 		};
 		View lastName = findViewById(R.id.lastNameBox);
-		lastName.setOnFocusChangeListener(listner);
+		lastName.setOnFocusChangeListener(listener);
 	}
 
 	/**
 	 * Initialize email box
 	 */
-	private void initEmailFocusChangeListner() {
-		OnFocusChangeListener listner = new View.OnFocusChangeListener() {
+	private void initEmailFocusChangelistener() {
+		OnFocusChangeListener listener = new View.OnFocusChangeListener() {
 			public void onFocusChange(View view, boolean hasFocus) {
-				controller.handleEmailFoucsChange(view, hasFocus);
+				controller.handleEmailFocusChange(view, hasFocus);
 			}
 		};
 		View email = findViewById(R.id.emailBox);
-		email.setOnFocusChangeListener(listner);
+		email.setOnFocusChangeListener(listener);
 	}
 
 
 
 
 	/**
-	 * initialize photo button click event listner
+	 * initialize photo button click event listener
 	 */
 	private void initPhotoButtonClickEvent() {
-		OnClickListener listner = new View.OnClickListener() {
+		OnClickListener listener = new View.OnClickListener() {
 
 			public void onClick(View v) {
 				controller.handlePhotoButtonClick();
@@ -100,14 +101,14 @@ public class SignupView extends Activity{
 			}
 		};
 		View photoButton = findViewById(R.id.photoButton);
-		photoButton.setOnClickListener(listner);
+		photoButton.setOnClickListener(listener);
 	}
 
 	/**
-	 * initialize save button click event listner
+	 * initialize save button click event listener
 	 */
 	private void initSaveButtonClickEvent() {
-		OnClickListener listner = new View.OnClickListener() {
+		OnClickListener listener = new View.OnClickListener() {
 
 			public void onClick(View v) {
 				controller.handleSave();
@@ -115,14 +116,14 @@ public class SignupView extends Activity{
 			}
 		};
 		View saveButton = findViewById(R.id.saveButton);
-		saveButton.setOnClickListener(listner);
+		saveButton.setOnClickListener(listener);
 	}
 
 	/**
-	 * initialize save image click event listner
+	 * initialize save image click event listener
 	 */
 	private void initSaveImageClickEvent() {
-		OnClickListener listner = new View.OnClickListener() {
+		OnClickListener listener = new View.OnClickListener() {
 
 			public void onClick(View v) {
 				controller.handleSave();
@@ -130,14 +131,14 @@ public class SignupView extends Activity{
 			}
 		};
 		View saveButton = findViewById(R.id.saveImage);
-		saveButton.setOnClickListener(listner);
+		saveButton.setOnClickListener(listener);
 	}
 
 	/**
-	 * initialize save button click event listner
+	 * initialize save button click event listener
 	 */
 	private void initCancelButtonClickEvent() {
-		OnClickListener listner = new View.OnClickListener() {
+		OnClickListener listener = new View.OnClickListener() {
 
 			public void onClick(View v) {
 				controller.handleCancel();
@@ -145,14 +146,14 @@ public class SignupView extends Activity{
 			}
 		};
 		View saveButton = findViewById(R.id.cancelButton);
-		saveButton.setOnClickListener(listner);
+		saveButton.setOnClickListener(listener);
 	}
 
 	/**
-	 * initialize save image click event listner
+	 * initialize save image click event listener
 	 */
 	private void initCancelImageClickEvent() {
-		OnClickListener listner = new View.OnClickListener() {
+		OnClickListener listener = new View.OnClickListener() {
 
 			public void onClick(View v) {
 				controller.handleCancel();
@@ -160,7 +161,7 @@ public class SignupView extends Activity{
 			}
 		};
 		View saveButton = findViewById(R.id.cancelImage);
-		saveButton.setOnClickListener(listner);
+		saveButton.setOnClickListener(listener);
 	}
 	public String getPasswordText(){
 		EditText passwordTextBox = (EditText) findViewById(R.id.passwordBox);
@@ -193,5 +194,12 @@ public class SignupView extends Activity{
 			return super.dispatchKeyEvent(event);
 		}
 		return true;
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		findViewById(R.id.acceptSignupOverlay).setVisibility(View.INVISIBLE);
+		findViewById(R.id.cancelSignupOverlay).setVisibility(View.INVISIBLE);
 	}
 }

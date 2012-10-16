@@ -8,6 +8,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.util.Util;
 import edu.cornell.opencomm.view.NotificationView;
@@ -74,17 +75,24 @@ public class SignupController {
 	}
 
 	public void handleSave() {
-		// TODO Auto-generated method stub
 		//TODO: add code base on implementation of create user task and user account manager
+		this.signupView.findViewById(R.id.acceptSignupOverlay).setVisibility(View.VISIBLE);
+		int duration = Toast.LENGTH_SHORT;
+    	Toast send = Toast.makeText(this.signupView.getApplicationContext(),"Accept clicked",duration);
+    	send.show();
 //		new CreateUser().execute(null);
 	}
 
 	public void handleCancel() {
 		// TODO Auto-generated method stub
+		this.signupView.findViewById(R.id.cancelSignupOverlay).setVisibility(View.VISIBLE);
+		int duration = Toast.LENGTH_SHORT;
+    	Toast send = Toast.makeText(this.signupView.getApplicationContext(),"Cancel clicked",duration);
+    	send.show();
 
 	}
 
-	public void handleEmailFoucsChange(View view, boolean hasFocus) {
+	public void handleEmailFocusChange(View view, boolean hasFocus) {
 		if (!hasFocus) {
 			EditText textBox = (EditText) view;
 			String nameText = textBox.getText().toString();
