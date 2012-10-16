@@ -54,6 +54,7 @@ public final class R {
     }
     public static final class id {
         public static final int acceptConfirmOverlay=0x7f08002e;
+        public static final int acceptSignupOverlay=0x7f080068;
         public static final int actionBarReset=0x7f080051;
         public static final int add_conference_button=0x7f080016;
         public static final int attendees=0x7f080006;
@@ -62,9 +63,11 @@ public final class R {
         public static final int buttonCancel=0x7f080058;
         public static final int buttonCancelConfirm=0x7f08002c;
         public static final int buttonSend=0x7f080056;
-        public static final int cancelButton=0x7f080068;
+        public static final int cancelButton=0x7f08006b;
         public static final int cancelConfirmOverlay=0x7f08002f;
-        public static final int cancelImage=0x7f080067;
+        public static final int cancelImage=0x7f08006a;
+        public static final int cancelSignupOverlay=0x7f08006c;
+        public static final int cancelWrapper=0x7f080069;
         public static final int change_date_left_arrow=0x7f080017;
         public static final int change_date_right_arrow=0x7f080019;
         public static final int conference_button_and_time_holder=0x7f080007;
@@ -85,6 +88,7 @@ public final class R {
         public static final int confirmOverlay=0x7f08002d;
         public static final int confirmPassword=0x7f08005f;
         public static final int confirmPasswordBox=0x7f080060;
+        public static final int confirmWrapper=0x7f080065;
         public static final int contactPicture=0x7f080025;
         public static final int contactTitleBar=0x7f080035;
         public static final int contact_name=0x7f080031;
@@ -116,8 +120,8 @@ public final class R {
         public static final int leftChat=0x7f080011;
         public static final int left_arrow_icon=0x7f080038;
         public static final int left_arrow_icon_holder=0x7f080037;
-        public static final int loadingLogo=0x7f080069;
-        public static final int loadingText=0x7f08006a;
+        public static final int loadingLogo=0x7f08006d;
+        public static final int loadingText=0x7f08006e;
         public static final int loginButton=0x7f080042;
         public static final int loginOverlay=0x7f080044;
         public static final int loginText=0x7f080043;
@@ -135,8 +139,8 @@ public final class R {
         public static final int resetPasswordOverlay=0x7f08004f;
         public static final int resetPasswordText=0x7f08004e;
         public static final int rightChat=0x7f080013;
-        public static final int saveButton=0x7f080066;
-        public static final int saveImage=0x7f080065;
+        public static final int saveButton=0x7f080067;
+        public static final int saveImage=0x7f080066;
         public static final int search_button=0x7f080039;
         public static final int search_contact_bar=0x7f080034;
         public static final int sendPlus=0x7f080054;
