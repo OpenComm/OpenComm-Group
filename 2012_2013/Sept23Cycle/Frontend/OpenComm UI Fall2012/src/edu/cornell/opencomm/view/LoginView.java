@@ -6,6 +6,7 @@ import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.controller.LoginController;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +47,8 @@ public class LoginView extends Activity {
 		signupOverlay = (ImageView) findViewById(R.id.signupOverlay);
         this.inflater = this.getLayoutInflater();
 		
+        Editable email = emailEdit.getText();
+        Editable password = passwordEdit.getText();
 //		initializeLoginButtonClickedEvent();
 		loginController = new LoginController(this);
     }
