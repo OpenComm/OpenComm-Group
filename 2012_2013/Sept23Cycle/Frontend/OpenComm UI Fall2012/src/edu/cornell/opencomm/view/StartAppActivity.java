@@ -13,6 +13,7 @@ public class StartAppActivity extends Activity {
 	 * The TAG for logging
 	 */
 	private static final String TAG = StartAppActivity.class.getSimpleName();
+	private static final boolean D = true;
 	/**
 	 * The delay for splash screen in milliseconds
 	 */
