@@ -13,7 +13,7 @@ import edu.cornell.opencomm.controller.ResetPasswordController;
 
 public class ResetPasswordView extends Activity {
 	//For debugging purposes
-	private static String TAG = "Reset Password View"; 
+	private static String TAG = ResetPasswordView.class.getSimpleName();	
 	private static final boolean D = true; 
 	private ResetPasswordController controller; 
 	private LayoutInflater inflater = null; 
@@ -29,14 +29,16 @@ public class ResetPasswordView extends Activity {
 	
 	//When sign up is pressed
 	public void signUpPressed(View v){
-		Log.v("Reset password page", "Going to sign up"); 
+		Log.v("Reset password page", "Going to sign up");
+		findViewById(R.id.signupOverlayReset).setVisibility(View.VISIBLE);
 		Intent click = new Intent(this,SignupView.class);
     	startActivity(click);
 	}
 	
 	//When reset password has been clicked - shows a toast
 	public void goToReset(View v){
-		Log.v("Reset password page", "Reset Clicked"); 
+		Log.v("Reset password page", "Reset Clicked");
+		findViewById(R.id.resetPasswordOverlay).setVisibility(View.VISIBLE);
 		//TODO
 		//1. Should contact network and send a dummy password to this user's email
 		CharSequence text = "Must send a dummy password!";
@@ -45,5 +47,11 @@ public class ResetPasswordView extends Activity {
     	send.show();
 		
 	}
-
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		findViewById(R.id.signupOverlayReset).setVisibility(View.INVISIBLE);
+		findViewById(R.id.resetPasswordOverlay).setVisibility(View.INVISIBLE);
+	}
 }
