@@ -53,7 +53,7 @@
             
             <TextView
                 android:id="@+id/date"
-                android:background="@color/light_white"
+                android:background="@color/off_white"
                 android:layout_width="50.67dp"
                 android:layout_height="fill_parent"
                 android:layout_marginTop="5.33dp"
