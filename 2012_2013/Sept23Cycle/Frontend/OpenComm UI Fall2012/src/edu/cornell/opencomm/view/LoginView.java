@@ -88,5 +88,12 @@ public class LoginView extends Activity {
     public void onBackPressed() {
     	// back button disabled
     }
+    
+    @Override
+    public void onResume() {
+    	super.onResume();
+    	this.getLoginOverlay().setVisibility(View.INVISIBLE);
+    	this.getSignupOverlay().setVisibility(View.INVISIBLE);
+    }
 }
 
