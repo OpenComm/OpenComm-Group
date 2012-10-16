@@ -2,6 +2,7 @@ package edu.cornell.opencomm.view;
 
 import edu.cornell.opencomm.R;
 
+import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.controller.LoginController;
 
 import android.os.Bundle;
@@ -77,11 +78,7 @@ public class LoginView extends Activity {
     }
     
     public void login(View v){
-    	CharSequence text = "Must go to dashboard";
-    	this.getLoginOverlay().setVisibility(View.VISIBLE);
-    	int duration = Toast.LENGTH_SHORT;
-    	Toast send = Toast.makeText(getApplicationContext(),text,duration);
-    	send.show();
+    	this.loginController.handleLoginButtonClick(emailEdit, passwordEdit);
     }
     
     @Override
