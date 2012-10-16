@@ -1,9 +1,12 @@
 package edu.cornell.opencomm.controller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.view.ConferenceSchedulerView;
+import edu.cornell.opencomm.view.ContactsView;
 import edu.cornell.opencomm.view.DashboardView;
 
 /**
@@ -31,9 +34,9 @@ public class DashboardController {
 	 */
 	public void handleContactListButtonClicked() {
 		this.dashboardView.findViewById(R.id.dashboardContactOverlay).setVisibility(View.VISIBLE);
-		int duration = Toast.LENGTH_SHORT;
-    	Toast send = Toast.makeText(this.dashboardView.getApplicationContext(),"Contact clicked",duration);
-    	send.show();
+    	// start contact view
+    	Intent i = new Intent(this.dashboardView,ContactsView.class);
+    	this.dashboardView.startActivity(i);
 	}
 
 	/**
@@ -41,9 +44,9 @@ public class DashboardController {
 	 */
 	public void handleConferenceButtonClicked() {
 		this.dashboardView.findViewById(R.id.dashboardConfOverlay).setVisibility(View.VISIBLE);
-		int duration = Toast.LENGTH_SHORT;
-    	Toast send = Toast.makeText(this.dashboardView.getApplicationContext(),"Conference clicked",duration);
-    	send.show();
+    	// start conference view
+    	Intent i = new Intent(this.dashboardView,ConferenceSchedulerView.class);
+    	this.dashboardView.startActivity(i);
 	}
 
 	/**
