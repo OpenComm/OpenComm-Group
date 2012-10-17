@@ -34,20 +34,22 @@
         android:layout_width="fill_parent"
         android:layout_height="64dp"
         android:background="@color/dark_grey">
-        <TextView 
+        <Button
             android:id="@+id/dashboardContacts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="centerInside"
+        	android:gravity="center_vertical"
+        	android:background="@color/dark_grey"
             android:text="@string/dashboard_contacts"
             android:textColor="@color/orange"
             android:textSize="38sp"
-            android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="23.33dp"
             android:clickable="true"
             android:onClick="goToContacts"
-            />
-        <ImageView
+            /> 
+         <ImageView
             android:id="@+id/dashboardContactOverlay"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -62,14 +64,16 @@
         android:layout_width="fill_parent"
         android:layout_height="64dp"
         android:background="@color/dark_grey">
-        <TextView 
+        <Button
             android:id="@+id/dashboardConfs"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="centerInside"
+        	android:gravity="center_vertical"
+        	android:background="@color/dark_grey"
             android:text="@string/dashboard_conferences"
             android:textColor="@color/green"
             android:textSize="38sp"
-            android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="23.33dp"
             android:clickable="true"
@@ -90,14 +94,16 @@
         android:layout_width="fill_parent"
         android:layout_height="64dp"
         android:background="@color/dark_grey">
-        <TextView 
+        <Button
             android:id="@+id/dashboardAccts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="centerInside"
+        	android:gravity="center_vertical"
+        	android:background="@color/dark_grey"
             android:text="@string/dashboard_accounts"
             android:textColor="@color/blue"
             android:textSize="38sp"
-            android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="23.33dp"
             android:clickable="true"
@@ -118,14 +124,16 @@
         android:layout_width="fill_parent"
         android:layout_height="64dp"
         android:background="@color/dark_grey">
-        <TextView 
+        <Button
             android:id="@+id/dashboardLogout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="centerInside"
+        	android:gravity="center_vertical"
+        	android:background="@color/dark_grey"
             android:text="@string/dashboard_logout"
             android:textColor="@color/off_white"
             android:textSize="38sp"
-            android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="23.33dp"
             android:clickable="true"
