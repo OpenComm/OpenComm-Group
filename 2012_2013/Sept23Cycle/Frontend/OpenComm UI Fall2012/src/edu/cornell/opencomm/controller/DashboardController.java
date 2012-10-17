@@ -8,6 +8,7 @@ import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.view.ConferenceSchedulerView;
 import edu.cornell.opencomm.view.ContactsView;
 import edu.cornell.opencomm.view.DashboardView;
+import edu.cornell.opencomm.view.LoginView;
 
 /**
  * 
@@ -64,8 +65,8 @@ public class DashboardController {
 	 */
 	public void handleLogoutButtonClicked() {
 		this.dashboardView.findViewById(R.id.dashboardLogoutOverlay).setVisibility(View.VISIBLE);
-		int duration = Toast.LENGTH_SHORT;
-    	Toast send = Toast.makeText(this.dashboardView.getApplicationContext(),"Logout clicked",duration);
-    	send.show();
+		// start login view
+    	Intent i = new Intent(this.dashboardView,LoginView.class);
+    	this.dashboardView.startActivity(i);
 	}
 }
