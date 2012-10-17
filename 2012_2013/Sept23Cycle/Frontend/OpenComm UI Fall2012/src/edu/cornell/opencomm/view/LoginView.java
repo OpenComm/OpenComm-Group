@@ -7,7 +7,6 @@ import edu.cornell.opencomm.controller.LoginController;
 import edu.cornell.opencomm.controller.ResetPasswordController;
 
 import android.os.Bundle;
-import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +34,8 @@ public class LoginView extends Activity {
 	private static ImageView loginOverlay;
 	private LayoutInflater inflater = null;
 	private static ImageView signupOverlay;
+	private static String email;
+	private static String password;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,8 +50,8 @@ public class LoginView extends Activity {
 		signupOverlay = (ImageView) findViewById(R.id.signupOverlay);
         this.inflater = this.getLayoutInflater();
 		
-        Editable email = emailEdit.getText();
-        Editable password = passwordEdit.getText();
+        email = emailEdit.getText().toString();
+        password = passwordEdit.getText().toString();
 //		initializeLoginButtonClickedEvent();
 		loginController = new LoginController(this);
     }
@@ -71,19 +72,16 @@ public class LoginView extends Activity {
 	 /**Jump to the account creation page when sign-up button is clicked*/
     public void createAccount(View v){
     	if (D) Log.d(TAG, "create Account");
-    	this.getSignupOverlay().setVisibility(View.VISIBLE);
-    	Intent account = new Intent(this,SignupView.class);
-    	startActivity(account);
+    	this.loginController.handleCreateAccount();
     }
     /**Jump to the Reset Password page when forgot-password is clicked*/
     public void retrievePassword(View v){
     	Log.v(TAG, "retrievePassword");
-    	Intent account = new Intent(this,ResetPasswordView.class);
-    	startActivity(account);
+    	this.loginController.handleRetrievePassword();
     }
     
     public void login(View v){
-    	this.loginController.handleLoginButtonClick(emailEdit, passwordEdit);
+    	this.loginController.handleLoginButtonClick(email, password);
     }
     
     @Override
@@ -96,6 +94,8 @@ public class LoginView extends Activity {
     	super.onResume();
     	this.getLoginOverlay().setVisibility(View.INVISIBLE);
     	this.getSignupOverlay().setVisibility(View.INVISIBLE);
+    	emailEdit.setText("");
+    	passwordEdit.setText("");
     	Intent i = this.getIntent();
     	// show tip saying that a random password has been generated and sent as an email.
     	boolean isPwdReset = i.getBooleanExtra(ResetPasswordController.PWDRESET, false);

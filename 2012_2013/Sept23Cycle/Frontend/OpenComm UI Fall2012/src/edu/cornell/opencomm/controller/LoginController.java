@@ -7,6 +7,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.LoginView;
+import edu.cornell.opencomm.view.ResetPasswordView;
+import edu.cornell.opencomm.view.SignupView;
 
 public class LoginController  {
 
@@ -32,13 +34,26 @@ public class LoginController  {
 
 
 	/**
-	 * @param usernameEdit
-	 * @param passwordEdit
+	 * @param email
+	 * @param password
 	 */
-	public void handleLoginButtonClick(EditText usernameEdit, EditText passwordEdit) {
+	public void handleLoginButtonClick(String email, String password) {
+		// TODO sign in with the given email and password
+		// if successful
     	this.loginView.getLoginOverlay().setVisibility(View.VISIBLE);
     	Intent i = new Intent(this.loginView,DashboardView.class);
     	this.loginView.startActivity(i);
+	}
+	
+	public void handleCreateAccount(){
+		this.loginView.getSignupOverlay().setVisibility(View.VISIBLE);
+    	Intent account = new Intent(this.loginView,SignupView.class);
+    	this.loginView.startActivity(account);
+	}
+	
+	public void handleRetrievePassword(){
+		Intent account = new Intent(this.loginView,ResetPasswordView.class);
+    	this.loginView.startActivity(account);
 	}
 
 
