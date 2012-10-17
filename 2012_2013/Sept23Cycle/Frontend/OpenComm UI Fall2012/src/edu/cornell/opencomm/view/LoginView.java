@@ -39,6 +39,7 @@ public class LoginView extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_layout);
+        FontSetter.applySanSerifFont(this, findViewById(R.layout.login_layout));
         emailEdit = (EditText) findViewById(R.id.editTextEmail);
 		passwordEdit = (EditText) findViewById(R.id.editTextPassword);
 		loginText = (Button) findViewById(R.id.loginText);
