@@ -1,12 +1,10 @@
 package edu.cornell.opencomm.view;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.controller.ResetPasswordController;
@@ -29,22 +27,13 @@ public class ResetPasswordView extends Activity {
 	
 	//When sign up is pressed
 	public void signUpPressed(View v){
-		Log.v("Reset password page", "Going to sign up");
-		findViewById(R.id.signupOverlayReset).setVisibility(View.VISIBLE);
-		Intent click = new Intent(this,SignupView.class);
-    	startActivity(click);
+		this.controller.signUpPressed();
 	}
 	
 	//When reset password has been clicked - shows a toast
 	public void goToReset(View v){
 		Log.v("Reset password page", "Reset Clicked");
-		findViewById(R.id.resetPasswordOverlay).setVisibility(View.VISIBLE);
-		//TODO
-		//1. Should contact network and send a dummy password to this user's email
-		CharSequence text = "Must send a dummy password!";
-    	int duration = Toast.LENGTH_SHORT;
-    	Toast send = Toast.makeText(getApplicationContext(),text,duration);
-    	send.show();
+		this.controller.resetPasswordPressed();
 		
 	}
 	
@@ -53,5 +42,10 @@ public class ResetPasswordView extends Activity {
 		super.onResume();
 		findViewById(R.id.signupOverlayReset).setVisibility(View.INVISIBLE);
 		findViewById(R.id.resetPasswordOverlay).setVisibility(View.INVISIBLE);
+	}
+	
+	@Override
+	public void onBackPressed() {
+		this.controller.onBackPressed();
 	}
 }

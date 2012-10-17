@@ -36,11 +36,7 @@ public class LoginController  {
 	 * @param passwordEdit
 	 */
 	public void handleLoginButtonClick(EditText usernameEdit, EditText passwordEdit) {
-		CharSequence text = "Must go to dashboard";
     	this.loginView.getLoginOverlay().setVisibility(View.VISIBLE);
-    	int duration = Toast.LENGTH_SHORT;
-    	Toast send = Toast.makeText(this.loginView.getApplicationContext(),text,duration);
-    	send.show();
     	Intent i = new Intent(this.loginView,DashboardView.class);
     	this.loginView.startActivity(i);
 	}

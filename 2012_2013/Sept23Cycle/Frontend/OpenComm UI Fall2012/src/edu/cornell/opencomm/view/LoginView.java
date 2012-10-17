@@ -4,6 +4,7 @@ import edu.cornell.opencomm.R;
 
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.controller.LoginController;
+import edu.cornell.opencomm.controller.ResetPasswordController;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -95,6 +96,15 @@ public class LoginView extends Activity {
     	super.onResume();
     	this.getLoginOverlay().setVisibility(View.INVISIBLE);
     	this.getSignupOverlay().setVisibility(View.INVISIBLE);
+    	Intent i = this.getIntent();
+    	// show tip saying that a random password has been generated and sent as an email.
+    	boolean isPwdReset = i.getBooleanExtra(ResetPasswordController.PWDRESET, false);
+    	if (isPwdReset) {
+    		// TODO generate tip view notifying password sent to email
+    		int duration = Toast.LENGTH_SHORT;
+        	Toast send = Toast.makeText(getApplicationContext(),getResources().getString(R.string.resetNotify),duration);
+        	send.show();
+    	}
     }
 }
 

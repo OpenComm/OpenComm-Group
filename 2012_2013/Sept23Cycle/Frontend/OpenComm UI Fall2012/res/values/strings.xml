@@ -10,6 +10,7 @@
     <string name="goArrow">Go arrow</string>
     <string name="bar">Separator bar</string>
     <string name="login">login</string>
+    <string name="resetNotify">Reset password email sent</string>
     <string name="opencomm">OpenComm</string>
     <string name="dashboard_contacts">contacts</string>
     <string name="dashboard_conferences">conferences</string>
