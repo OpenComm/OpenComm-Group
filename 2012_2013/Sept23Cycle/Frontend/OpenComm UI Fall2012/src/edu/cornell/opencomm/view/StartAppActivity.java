@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.model.ReturnState;
