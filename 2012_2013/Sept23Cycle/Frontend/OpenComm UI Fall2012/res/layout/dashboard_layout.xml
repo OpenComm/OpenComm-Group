@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dashboard_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -12,21 +13,40 @@
             android:id="@+id/dashboardOpenComm"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
+            android:layout_marginTop="8.97dp"
             android:layout_marginLeft="23.33dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/opencomm"
             android:textColor="@color/off_white"
-            android:textSize="18sp"/>
+            android:textSize="24sp"/>
         <ImageView
             android:id="@+id/dashboardNotificationIcon"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="21.33dp"
             android:src="@drawable/action_overflow"
             android:contentDescription="@string/desc"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"/>
+        <ImageView
+            android:id="@+id/dashboardListIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="21.33dp"
+            android:src="@drawable/list"
+            android:contentDescription="@string/desc"
+            android:layout_toLeftOf="@+id/dashboardNotificationIcon"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="18dp"/>
+        <ImageView
+            android:id="@+id/dashboardPlusIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="21.33dp"
+            android:src="@drawable/accept_plus"
+            android:contentDescription="@string/desc"
+            android:layout_toLeftOf="@+id/dashboardListIcon"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"/>
     </RelativeLayout>
     <RelativeLayout 
         android:id="@+id/contactWrapper"
@@ -43,7 +63,7 @@
         	android:background="@color/dark_grey"
             android:text="@string/dashboard_contacts"
             android:textColor="@color/orange"
-            android:textSize="38sp"
+            android:textSize="36sp"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="23.33dp"
             android:clickable="true"
@@ -73,7 +93,7 @@
         	android:background="@color/dark_grey"
             android:text="@string/dashboard_conferences"
             android:textColor="@color/green"
-            android:textSize="38sp"
+            android:textSize="36sp"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="23.33dp"
             android:clickable="true"
@@ -103,7 +123,7 @@
         	android:background="@color/dark_grey"
             android:text="@string/dashboard_accounts"
             android:textColor="@color/blue"
-            android:textSize="38sp"
+            android:textSize="36sp"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="23.33dp"
             android:clickable="true"
@@ -133,7 +153,7 @@
         	android:background="@color/dark_grey"
             android:text="@string/dashboard_logout"
             android:textColor="@color/off_white"
-            android:textSize="38sp"
+            android:textSize="36sp"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="23.33dp"
             android:clickable="true"
