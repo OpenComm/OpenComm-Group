@@ -13,35 +13,40 @@
             android:id="@+id/dashboardOpenComm"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginTop="8.97dp"
-            android:layout_marginLeft="23.33dp"
+            android:layout_marginBottom="14dp"
+            android:layout_marginLeft="26.67dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/opencomm"
             android:textColor="@color/off_white"
             android:textSize="24sp"/>
+
         <ImageView
             android:id="@+id/dashboardNotificationIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="21.33dp"
-            android:src="@drawable/action_overflow"
+            android:layout_width="5.33dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/desc"
+            android:src="@drawable/action_overflow" />
+
+        <ImageView
+            android:id="@+id/dashboardListIcon"
+            android:layout_width="17.33dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/list"
             android:contentDescription="@string/desc"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="16dp"/>
-        <ImageView
-            android:id="@+id/dashboardListIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="21.33dp"
-            android:src="@drawable/list"
-            android:contentDescription="@string/desc"
-            android:layout_toLeftOf="@+id/dashboardNotificationIcon"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="18dp"/>
+            android:layout_marginRight="39.33dp"/>
         <ImageView
             android:id="@+id/dashboardPlusIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="21.33dp"
+            android:layout_width="21.33dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:src="@drawable/accept_plus"
             android:contentDescription="@string/desc"
             android:layout_toLeftOf="@+id/dashboardListIcon"
@@ -68,15 +73,19 @@
             android:layout_marginLeft="23.33dp"
             android:clickable="true"
             android:onClick="goToContacts"
-            /> 
+            />
+
          <ImageView
-            android:id="@+id/dashboardContactOverlay"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:src="@drawable/overlay_white" 
-			android:contentDescription="@string/desc"
-			android:scaleType="fitXY" 
-			android:visibility="invisible"/>
+             android:id="@+id/dashboardContactOverlay"
+             android:layout_width="fill_parent"
+             android:layout_height="fill_parent"
+             android:layout_alignParentLeft="true"
+             android:layout_alignParentTop="true"
+             android:contentDescription="@string/desc"
+             android:scaleType="fitXY"
+             android:src="@drawable/overlay_white"
+             android:visibility="invisible" />
+
 	</RelativeLayout>
 	<RelativeLayout 
         android:id="@+id/conferenceWrapper"
