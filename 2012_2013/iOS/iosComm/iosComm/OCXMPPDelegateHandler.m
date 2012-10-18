@@ -129,7 +129,7 @@
 - (void)xmppStream:(XMPPStream *)sender didSendPresence:(XMPPPresence *)presence {
     NSLog(@"I sent my presence");
     //[NSThread sleepForTimeInterval: 30];
-    [self sendMessageWith:sender message:@"QIMING IS COOL" to:@"qimingiscool@cuopencomm" ];
+    [self sendMessageWith:sender message:@"QIMING IS COOL" to:@"opencommsec@cuopencomm" ];
 }
 
 
