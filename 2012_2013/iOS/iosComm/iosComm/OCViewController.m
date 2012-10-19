@@ -27,6 +27,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    NSLog(@"Im in here");
 	// Do any additional setup after loading the view, typically from a nib.
     
     /*STUBBED - INITIAL INFORMATION*/
@@ -103,7 +105,10 @@
     UDPDelegateHandler = [[OCUDPDelegateHandler alloc] init];
     [UDPSocket setDelegate:UDPDelegateHandler];
     [UDPDelegateHandler setUDPSocket:UDPSocket];
-    [UDPSocket startConnectedToHostName:@"ec2-50-16-95-237.compute-1.amazonaws.com" port: 8001];
+    /* THIS IS THE CLIENT STATEMENT*/
+    //[UDPSocket startConnectedToHostName:@"ec2-50-16-95-237.compute-1.amazonaws.com" port: 8001];
+    /* THIS IS THE SERVER STATEMENT*/
+    [UDPSocket startServerOnPort: 8001];
     
     
     /*This only returns an error if JID and hostname are not set, which is dumb
