@@ -27,8 +27,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    NSLog(@"Im in here");
+
 	// Do any additional setup after loading the view, typically from a nib.
     
     /*STUBBED - INITIAL INFORMATION*/
@@ -101,6 +100,7 @@
     }
     
     /* THIS IS SOCKET STUFF*/
+    /*
     UDPSocket = [[OCUDPSocket alloc] init];
     UDPDelegateHandler = [[OCUDPDelegateHandler alloc] init];
     [UDPSocket setDelegate:UDPDelegateHandler];
@@ -108,15 +108,15 @@
     /* THIS IS THE CLIENT STATEMENT*/
     //[UDPSocket startConnectedToHostName:@"ec2-50-16-95-237.compute-1.amazonaws.com" port: 8001];
     /* THIS IS THE SERVER STATEMENT*/
-    [UDPSocket startServerOnPort: 8001];
+    //[UDPSocket startServerOnPort: 8001];
     
     
     /*This only returns an error if JID and hostname are not set, which is dumb
      *The method is asynchronous, so it returns even though there is not a full connection*/
-    //if (![myXMPPStream connect:&error])
-    //{
-        //NSLog(@"Oops, I probably forgot something: %@", error);
-    //}
+    if (![myXMPPStream connect:&error])
+    {
+        NSLog(@"Oops, I probably forgot something: %@", error);
+    }
 }
 
 //-------------------------------------------------------------------

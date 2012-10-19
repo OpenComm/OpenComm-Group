@@ -250,7 +250,7 @@ static NSString * DisplayErrorFromError(NSError *error)
     }
     
     if ( ! self.UDPSocket.isServer ) {
-        [self sendPacket];
+        //[self sendPacket];
         
         //assert(self.sendTimer == nil);
         //self.sendTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(sendPacket) userInfo:nil repeats:YES];
