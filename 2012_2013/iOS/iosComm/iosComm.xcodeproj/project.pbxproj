@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0A057985161E1642006F4B5D /* DefaultServerConstants.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A057984161E1642006F4B5D /* DefaultServerConstants.plist */; };
+		0A42C8BC163107A40053C5F2 /* OCSocketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A42C8BB163107A40053C5F2 /* OCSocketViewController.m */; };
 		0A92B1BA161E3DF700F59D53 /* OCDefaultServerConstantsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A92B1B9161E3DF700F59D53 /* OCDefaultServerConstantsController.m */; };
 		0A92B1BE161E3E0A00F59D53 /* OCXMPPDelegateHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A92B1BD161E3E0A00F59D53 /* OCXMPPDelegateHandler.m */; };
 		0A9D8F721615093800A18E14 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A9D8F711615093800A18E14 /* CFNetwork.framework */; };
@@ -158,6 +159,8 @@
 
 /* Begin PBXFileReference section */
 		0A057984161E1642006F4B5D /* DefaultServerConstants.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DefaultServerConstants.plist; sourceTree = "<group>"; };
+		0A42C8BA163107A40053C5F2 /* OCSocketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSocketViewController.h; sourceTree = "<group>"; };
+		0A42C8BB163107A40053C5F2 /* OCSocketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSocketViewController.m; sourceTree = "<group>"; };
 		0A92B1B8161E3DF700F59D53 /* OCDefaultServerConstantsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCDefaultServerConstantsController.h; sourceTree = "<group>"; };
 		0A92B1B9161E3DF700F59D53 /* OCDefaultServerConstantsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCDefaultServerConstantsController.m; sourceTree = "<group>"; };
 		0A92B1BC161E3E0A00F59D53 /* OCXMPPDelegateHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCXMPPDelegateHandler.h; sourceTree = "<group>"; };
@@ -691,6 +694,8 @@
 				0AA17FE61630CA9D00CD704A /* OCUDPDelegateHandler.m */,
 				4D66E9641630DB0A000C589E /* OCAudioModule.h */,
 				4D66E9651630DB0A000C589E /* OCAudioModule.m */,
+				0A42C8BA163107A40053C5F2 /* OCSocketViewController.h */,
+				0A42C8BB163107A40053C5F2 /* OCSocketViewController.m */,
 			);
 			path = iosComm;
 			sourceTree = "<group>";
@@ -901,6 +906,7 @@
 				0AA17FFE1630D39F00CD704A /* NSDate+XMPPDateTimeProfiles.m in Sources */,
 				0AA180001630D39F00CD704A /* XMPPDateTimeProfiles.m in Sources */,
 				4D66E9661630DB0A000C589E /* OCAudioModule.m in Sources */,
+				0A42C8BC163107A40053C5F2 /* OCSocketViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

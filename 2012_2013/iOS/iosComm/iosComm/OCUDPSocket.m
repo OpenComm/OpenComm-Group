@@ -557,6 +557,7 @@ static void SocketReadCallback(CFSocketRef s, CFSocketCallBackType type, CFDataR
 // resolution is complete.  We find the best IP address and create a socket
 // connected to that.
 {
+    /* TODO: kfc35 part 3 - host resolution part 3*/
     NSError *           error;
     Boolean             resolved;
     NSArray *           resolvedAddresses;
@@ -591,6 +592,7 @@ static void SocketReadCallback(CFSocketRef s, CFSocketCallBackType type, CFDataR
                 || (addrPtr->sa_family == AF_INET6)
 #endif
                 ) {
+                /* TODO: kfc35 FINAL: THIS IS WHERE THE FUNCTION IS CALLED FOR AN IP ADDRESS*/
                 success = [self setupSocketConnectedToAddress:address port:self.port error:&error];
                 if (success) {
                     CFDataRef   hostAddress;
@@ -634,6 +636,7 @@ static void HostResolveCallback(CFHostRef theHost, CFHostInfoType typeInfo, cons
 // This C routine is called by CFHost when the host resolution is complete.
 // It just redirects the call to the appropriate Objective-C method.
 {
+    /*TODO kfc35 Part 2: part of resolving hostname*/
     OCUDPSocket *    obj;
     
     obj = (__bridge OCUDPSocket *) info;
@@ -659,6 +662,7 @@ static void HostResolveCallback(CFHostRef theHost, CFHostInfoType typeInfo, cons
     
     assert(self.port == 0);     // don't try and start a started object
     if (self.port == 0) {
+        /*TODO kfc35 hostName resolution starts here. Start clearing things out for just IPAddress*/
         Boolean             success;
         CFHostClientContext context = {0, (__bridge void *)(self), NULL, NULL, NULL};
         CFStreamError       streamError;

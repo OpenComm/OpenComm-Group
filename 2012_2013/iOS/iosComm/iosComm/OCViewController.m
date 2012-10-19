@@ -27,6 +27,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
 	// Do any additional setup after loading the view, typically from a nib.
     
     /*STUBBED - INITIAL INFORMATION*/
@@ -74,15 +75,51 @@
 - (IBAction)loginButtonPressed:(id)sender {
     //NSLog(@"Username: %@, Password: %@", _loginUsernameField.text,
           //_loginPasswordField.text);
-    [myAudio stopRecording];
+
+    if ([defaults DEBUG_PARAM]) {
+        myXMPPStream.myJID = [XMPPJID jidWithString:[defaults DEFAULT_JID]];
+        myXMPPStream.hostName = [defaults DEFAULT_HOSTNAME];
+        /*Don't need to set port. The default is always 5222*/
+        myXMPPStream.hostPort = [defaults DEFAULT_PORT];
+        myPassword = [defaults DEFAULT_PASSWORD];
+    }
+
+    else {
+       NSString *myJID = _loginUsernameField.text;
+       myPassword = _loginPasswordField.text;
+        
+        myXMPPStream.myJID = [XMPPJID jidWithString:myJID];
+        myXMPPStream.hostPort = [defaults DEFAULT_PORT];
+        myPassword = [defaults DEFAULT_PASSWORD];
+    }
+    
+    delegateHandler = [[OCXMPPDelegateHandler alloc] initWithPassword: myPassword];
+    
+    [myXMPPStream addDelegate:delegateHandler delegateQueue:dispatch_get_main_queue()];
+    NSError *error = nil;
+    
+    if (![myXMPPStream isDisconnected]) {
+        NSLog(@"I'm already connected");
+    }
+    
+    /* THIS IS SOCKET STUFF*/
+    /*
+    UDPSocket = [[OCUDPSocket alloc] init];
+    UDPDelegateHandler = [[OCUDPDelegateHandler alloc] init];
+    [UDPSocket setDelegate:UDPDelegateHandler];
+    [UDPDelegateHandler setUDPSocket:UDPSocket];
+    /* THIS IS THE CLIENT STATEMENT*/
+    //[UDPSocket startConnectedToHostName:@"ec2-50-16-95-237.compute-1.amazonaws.com" port: 8001];
+    /* THIS IS THE SERVER STATEMENT*/
+    //[UDPSocket startServerOnPort: 8001];
     
     
     /*This only returns an error if JID and hostname are not set, which is dumb
      *The method is asynchronous, so it returns even though there is not a full connection*/
-    //if (![myXMPPStream connect:&error])
-    //{
-        //NSLog(@"Oops, I probably forgot something: %@", error);
-    //}
+    if (![myXMPPStream connect:&error])
+    {
+        NSLog(@"Oops, I probably forgot something: %@", error);
+    }
 }
 
 //-------------------------------------------------------------------
