@@ -39,7 +39,12 @@
 	defaults = [[OCDefaultServerConstantsController alloc] init];
     delegateHandler = [[OCXMPPDelegateHandler alloc] init];
     myXMPPStream = [[XMPPStream alloc] init];
+    myAudio = [[OCAudioModule alloc] init];
+    
+    NSString * audio = @"http://ec2-50-16-95-237.compute-1.amazonaws.com/qiming_html/echo.mp3";
+    [myAudio playAudio:audio];
 }
+
 
 //-------------------------------------------------------------------
 // Memory warning
