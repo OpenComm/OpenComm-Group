@@ -10,6 +10,7 @@
 #import "XMPP.h"
 #import "XMPPStream.h"
 #import "OCXMPPDelegateHandler.h"
+#import "OCUDPDelegateHandler.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface OCViewController ()
@@ -42,7 +43,7 @@
     myAudio = [[OCAudioModule alloc] init];
     
     NSString * audio = @"http://ec2-50-16-95-237.compute-1.amazonaws.com/qiming_html/echo.mp3";
-    [myAudio playAudio:audio];
+    //[myAudio playAudio:audio];
 }
 
 
@@ -95,12 +96,21 @@
     if (![myXMPPStream isDisconnected]) {
         NSLog(@"I'm already connected");
     }
+    
+    /* THIS IS SOCKET STUFF*/
+    UDPSocket = [[OCUDPSocket alloc] init];
+    UDPDelegateHandler = [[OCUDPDelegateHandler alloc] init];
+    [UDPSocket setDelegate:UDPDelegateHandler];
+    [UDPDelegateHandler setUDPSocket:UDPSocket];
+    [UDPSocket startConnectedToHostName:@"ec2-50-16-95-237.compute-1.amazonaws.com" port: 8001];
+    
+    
     /*This only returns an error if JID and hostname are not set, which is dumb
      *The method is asynchronous, so it returns even though there is not a full connection*/
-    if (![myXMPPStream connect:&error])
-    {
-        NSLog(@"Oops, I probably forgot something: %@", error);
-    }
+    //if (![myXMPPStream connect:&error])
+    //{
+        //NSLog(@"Oops, I probably forgot something: %@", error);
+    //}
 }
 
 //-------------------------------------------------------------------
