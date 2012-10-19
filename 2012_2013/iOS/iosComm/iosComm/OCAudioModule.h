@@ -12,6 +12,9 @@
 @interface OCAudioModule : NSObject
 
 @property (strong, retain) AVAudioPlayer *player;
-- (void) playAudio:(NSString *) soundPath;
+
+- (void) playAudioFromRemoteURL:(NSString *) remotePath;
+- (void) playAudioFromNSData:(NSData *) data;
+- (NSData *) getLocalAudioAsNSData:(NSString *) localPath;
 
 @end

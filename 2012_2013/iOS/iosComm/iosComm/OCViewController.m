@@ -42,7 +42,7 @@
     myAudio = [[OCAudioModule alloc] init];
     
     NSString * audio = @"http://ec2-50-16-95-237.compute-1.amazonaws.com/qiming_html/echo.mp3";
-    [myAudio playAudio:audio];
+    [myAudio playAudioFromRemoteURL:audio];
 }
 
 

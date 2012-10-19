@@ -11,7 +11,7 @@
 @implementation OCAudioModule
 @synthesize player;
 
-- (void) playAudio:(NSString *)soundPath {
+- (void) playAudioFromRemoteURL:(NSString *)soundPath {
     
     // Retrieve the sound remotely from server
     NSURL *soundFileURL = [NSURL URLWithString:soundPath];
@@ -28,16 +28,21 @@
     }
 }
 
--(void)stopAudio
-{
-    [player stop];
-}
--(void)adjustVolume
-{
-    if (player != nil)
-    {
-        NSLog (@"Player isnt null");
+- (void) playAudioFromNSData:(NSData *) data{
+    
+    NSError *error;
+    player = [[AVAudioPlayer alloc] initWithData:data error:&error];
+    
+    if (error) {
+        NSLog(@"Error in audioPlayer: %@", [error localizedDescription]);
+    } else {
+        [player prepareToPlay];
+        [player play];
     }
+}
+
+- (NSData *) getLocalAudioAsNSData:(NSString *) path{
+    return [NSData dataWithContentsOfFile:path];
 }
 
 -(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
