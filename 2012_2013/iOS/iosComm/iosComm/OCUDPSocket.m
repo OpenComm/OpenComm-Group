@@ -59,9 +59,10 @@
  OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE POSSIBILITY OF
  SUCH DAMAGE.*/
 
-#if ! defined(UDPECHO_IPV4_ONLY)
-#define UDPECHO_IPV4_ONLY 0
-#endif
+/** NOTE kfc35 changed this**/
+//#if ! defined(UDPECHO_IPV4_ONLY)
+//#define UDPECHO_IPV4_ONLY 0
+//#endif
 
 #import "OCUDPSocket.h"
 
