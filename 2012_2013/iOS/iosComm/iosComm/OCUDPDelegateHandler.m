@@ -202,7 +202,10 @@ static NSString * DisplayErrorFromError(NSError *error)
 #pragma unused(echo)
     assert(data != nil);
     assert(addr != nil);
-    NSLog(@"received %@ from %@", DisplayStringFromData(data), DisplayAddressForAddress(addr));
+    //NSLog(@"received %@ from %@", DisplayStringFromData(data), DisplayAddressForAddress(addr));
+    
+    ourRevolution = [[OCAudioModule alloc] init];
+    [ourRevolution playAudioFromNSData:data];
 }
 
 - (void)echo:(OCUDPSocket *)echo didReceiveError:(NSError *)error

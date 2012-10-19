@@ -8,11 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "OCUDPSocket.h"
+#import "OCAudioModule.h"
 
 /** These delegate methods are defined in OCUDPSocket.h 
  ** These are called whenever things happen to a OCUDPSocket.
  **/
-@interface OCUDPDelegateHandler : NSObject <OCUDPDelegate>
+@interface OCUDPDelegateHandler : NSObject <OCUDPDelegate> {
+    OCAudioModule *ourRevolution;
+}
 
 @property (nonatomic, strong, readwrite) OCUDPSocket *UDPSocket;
 

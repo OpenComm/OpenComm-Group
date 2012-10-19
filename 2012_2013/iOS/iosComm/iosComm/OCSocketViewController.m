@@ -73,9 +73,7 @@
     
 }
 - (IBAction)sendMessageButtonPressed:(id)sender {
-    NSLog(@"FUCK YOU");
     NSData *data = [myAudioBitch getLocalAudioAsNSData:@"/Users/qf26/Desktop/echo.mp3"];
-    [myAudioBitch playAudioFromNSData:data];
-    //[UDPClientSocket sendData:data];
+    [UDPClientSocket sendData:data];
 }
 @end
