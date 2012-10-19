@@ -26,6 +26,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    myAudioBitch = [[OCAudioModule alloc] init];
+    
 	// Do any additional setup after loading the view.
     NSLog(@"I'm in the SocketViewController");
 }
@@ -70,7 +73,9 @@
     
 }
 - (IBAction)sendMessageButtonPressed:(id)sender {
-    NSData *data = [[NSString stringWithFormat: (_messageField.text)] dataUsingEncoding:NSUTF8StringEncoding];
-    [UDPClientSocket sendData:data];
+    NSLog(@"FUCK YOU");
+    NSData *data = [myAudioBitch getLocalAudioAsNSData:@"/Users/qf26/Desktop/echo.mp3"];
+    [myAudioBitch playAudioFromNSData:data];
+    //[UDPClientSocket sendData:data];
 }
 @end

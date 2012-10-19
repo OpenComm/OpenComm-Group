@@ -47,7 +47,7 @@
     //[myAudio playAudioFromRemoteURL:audio];
     //[myAudio playAudio:audio];
     
-    [myAudio startRecording];
+    //[myAudio startRecording];
 }
 
 

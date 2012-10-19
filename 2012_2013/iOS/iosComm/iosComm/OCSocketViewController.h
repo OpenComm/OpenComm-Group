@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "OCUDPDelegateHandler.h"
+#import "OCAudioModule.h"
 
 @interface OCSocketViewController : UIViewController {
     OCUDPSocket *UDPServerSocket;
     OCUDPSocket *UDPClientSocket;
     OCUDPDelegateHandler *UDPServerDelegateHandler;
     OCUDPDelegateHandler *UDPClientDelegateHandler;
+    OCAudioModule *myAudioBitch;
 }
 
 - (IBAction)startServerButtonPressed:(id)sender;
