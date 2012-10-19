@@ -49,4 +49,6 @@
     <string name="happening_now">happening now</string>
     <string name="upcoming">upcoming</string>
     <string name="go_to_conference_button_desc">Go to conference</string>
+    <string name="invite">invite</string>
+    <string name="sendhere">send here</string>
 </resources>

@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.FrameLayout.LayoutParams;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.ConferenceController;
@@ -32,6 +33,7 @@ public final class ConferenceView extends Activity implements OnTouchListener{
 	private ImageView image;
 	private FrameLayout spaceViewFrame;
 
+	private LinearLayout inviteOverlay = null;
 	/**
 	 * The SpaceView object (UI) representing the space that the user is
 	 * currently talking to
@@ -88,6 +90,7 @@ public final class ConferenceView extends Activity implements OnTouchListener{
 		params = new LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT);
 		
+		inviteOverlay = (LinearLayout) findViewById(R.id.inviteOverlay);
 //		spaceView = (SpaceView) findViewById(R.id.space_view);
 		// Check if the mainspace was already created
 		if (Space.getMainSpace() == null) {
@@ -135,6 +138,7 @@ public final class ConferenceView extends Activity implements OnTouchListener{
 		if (me.getAction() == MotionEvent.ACTION_UP) {
 			status = STOP_DRAGGING;
 			Log.i("Drag", "Stopped Dragging");
+			inviteOverlay.setVisibility(View.VISIBLE);
 		} else if (me.getAction() == MotionEvent.ACTION_MOVE) {
 			if (status == START_DRAGGING) {
 				System.out.println("Dragging");
