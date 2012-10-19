@@ -122,6 +122,7 @@
 		4D66E95E1630D6BC000C589E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D66E95D1630D6BC000C589E /* AVFoundation.framework */; };
 		4D66E9631630D7FD000C589E /* echo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4D66E9621630D7FD000C589E /* echo.mp3 */; };
 		4D66E9661630DB0A000C589E /* OCAudioModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66E9651630DB0A000C589E /* OCAudioModule.m */; };
+		4D66E97016310115000C589E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D66E96F16310114000C589E /* AudioToolbox.framework */; };
 		4DBE6E801613712200DDF8BC /* topBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DBE6E7F1613712200DDF8BC /* topBar.png */; };
 		4DBE6E851613784B00DDF8BC /* whiteSquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DBE6E841613784B00DDF8BC /* whiteSquare.png */; };
 		4DE6A440160FC14B005F7857 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DE6A43F160FC14B005F7857 /* UIKit.framework */; };
@@ -286,6 +287,7 @@
 		4D66E9621630D7FD000C589E /* echo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = echo.mp3; sourceTree = "<group>"; };
 		4D66E9641630DB0A000C589E /* OCAudioModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCAudioModule.h; sourceTree = "<group>"; };
 		4D66E9651630DB0A000C589E /* OCAudioModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCAudioModule.m; sourceTree = "<group>"; };
+		4D66E96F16310114000C589E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		4DBE6E7F1613712200DDF8BC /* topBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topBar.png; sourceTree = "<group>"; };
 		4DBE6E841613784B00DDF8BC /* whiteSquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteSquare.png; sourceTree = "<group>"; };
 		4DE6A43B160FC14B005F7857 /* iosComm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosComm.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -321,6 +323,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D66E97016310115000C589E /* AudioToolbox.framework in Frameworks */,
 				4D66E95E1630D6BC000C589E /* AVFoundation.framework in Frameworks */,
 				0AA17FB41630B84400CD704A /* CoreFoundation.framework in Frameworks */,
 				BA777D0116214A530088F734 /* QuartzCore.framework in Frameworks */,
@@ -623,6 +626,7 @@
 		4DE6A430160FC14B005F7857 = {
 			isa = PBXGroup;
 			children = (
+				4D66E96F16310114000C589E /* AudioToolbox.framework */,
 				4D66E9621630D7FD000C589E /* echo.mp3 */,
 				4D66E95D1630D6BC000C589E /* AVFoundation.framework */,
 				0AA17FB31630B84400CD704A /* CoreFoundation.framework */,

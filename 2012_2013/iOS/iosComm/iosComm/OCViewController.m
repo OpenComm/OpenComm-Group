@@ -42,9 +42,11 @@
     myXMPPStream = [[XMPPStream alloc] init];
     myAudio = [[OCAudioModule alloc] init];
     
-    NSString * audio = @"http://ec2-50-16-95-237.compute-1.amazonaws.com/qiming_html/echo.mp3";
-    [myAudio playAudioFromRemoteURL:audio];
+    //NSString * audio = @"http://ec2-50-16-95-237.compute-1.amazonaws.com/qiming_html/echo.mp3";
+    //[myAudio playAudioFromRemoteURL:audio];
     //[myAudio playAudio:audio];
+    
+    [myAudio startRecording];
 }
 
 
@@ -72,38 +74,7 @@
 - (IBAction)loginButtonPressed:(id)sender {
     //NSLog(@"Username: %@, Password: %@", _loginUsernameField.text,
           //_loginPasswordField.text);
-    if ([defaults DEBUG_PARAM]) {
-        myXMPPStream.myJID = [XMPPJID jidWithString:[defaults DEFAULT_JID]];
-        myXMPPStream.hostName = [defaults DEFAULT_HOSTNAME];
-        /*Don't need to set port. The default is always 5222*/
-        myXMPPStream.hostPort = [defaults DEFAULT_PORT];
-        myPassword = [defaults DEFAULT_PASSWORD];
-    }
-
-    else {
-       NSString *myJID = _loginUsernameField.text;
-       myPassword = _loginPasswordField.text;
-        
-        myXMPPStream.myJID = [XMPPJID jidWithString:myJID];
-        myXMPPStream.hostPort = [defaults DEFAULT_PORT];
-        myPassword = [defaults DEFAULT_PASSWORD];
-    }
-    
-    delegateHandler = [[OCXMPPDelegateHandler alloc] initWithPassword: myPassword];
-    
-    [myXMPPStream addDelegate:delegateHandler delegateQueue:dispatch_get_main_queue()];
-    NSError *error = nil;
-    
-    if (![myXMPPStream isDisconnected]) {
-        NSLog(@"I'm already connected");
-    }
-    
-    /* THIS IS SOCKET STUFF*/
-    UDPSocket = [[OCUDPSocket alloc] init];
-    UDPDelegateHandler = [[OCUDPDelegateHandler alloc] init];
-    [UDPSocket setDelegate:UDPDelegateHandler];
-    [UDPDelegateHandler setUDPSocket:UDPSocket];
-    [UDPSocket startConnectedToHostName:@"ec2-50-16-95-237.compute-1.amazonaws.com" port: 8001];
+    [myAudio stopRecording];
     
     
     /*This only returns an error if JID and hostname are not set, which is dumb
