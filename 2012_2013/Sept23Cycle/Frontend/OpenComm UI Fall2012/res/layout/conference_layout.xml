@@ -45,6 +45,11 @@
 			android:layout_height="363.33dp" 
 			android:layout_width="fill_parent" 
 			android:visibility="visible" />
+		<edu.cornell.opencomm.view.UserView android:id="@+id/test_user"
+			    android:contentDescription="@string/desc"
+			    android:layout_height="60dp"
+			    android:layout_width="60dp"
+			    android:background="@color/off_white"/>
 	</FrameLayout>
 	<LinearLayout android:id="@+id/bottom_bar"
 	    android:layout_marginTop="12dp"
