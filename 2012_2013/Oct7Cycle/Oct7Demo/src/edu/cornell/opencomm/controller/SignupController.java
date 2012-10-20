@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.util.Util;
 import edu.cornell.opencomm.view.DashboardView;
@@ -44,7 +43,7 @@ public class SignupController {
 	// 3. Handle cancel button
 	// 4. Handle the android back button, and consume everthing else
 
-	private void notify(String message) {
+	private void notifyTip(String message) {
 		NotificationView notify = new NotificationView(context);
 		notify.launch(message);
 	}
@@ -62,7 +61,7 @@ public class SignupController {
 			String nameText = textBox.getText().toString();
 			if (nameText != null && !nameText.equals("")) {
 				if (!validateName(nameText)) {
-					notify(context.getResources().getString(
+					notifyTip(context.getResources().getString(
 							R.string.invalid_last_name));
 				}
 			}
@@ -103,7 +102,7 @@ public class SignupController {
 			String nameText = textBox.getText().toString();
 			if (nameText != null && !nameText.equals("")) {
 				if (!Util.validateString(nameText, Util.EMAIL_ADDRESS_PATTERN)) {
-					notify(context.getResources().getString(
+					notifyTip(context.getResources().getString(
 							R.string.invalid_email));
 				}
 			}
@@ -117,13 +116,14 @@ public class SignupController {
 			String nameText = textBox.getText().toString();
 			if (nameText != null && !nameText.equals("")) {
 				if (!validateName(nameText)) {
-					notify(context.getResources().getString(
+					notifyTip(context.getResources().getString(
 							R.string.invalid_first_name));
 				}
 			}
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private class CreateUser extends
 			AsyncTask<ArrayList<NameValuePair>, Void, Boolean> {
 
