@@ -2,6 +2,7 @@ package edu.cornell.opencomm.view;
 
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.XMPPConnection;
+import org.jivesoftware.smack.XMPPException;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -49,11 +50,16 @@ public class StartAppActivity extends Activity {
 	 * 
 	 */
 	private void connect() {
-		// TODO : Fix it Connection code here
+		ReturnState returnState;
 		ConnectionConfiguration config = new ConnectionConfiguration(
 				Util.DEFAULT_HOST, Util.DEFAULT_PORT);
 		XMPPConnection connection = new XMPPConnection(config);
-		ReturnState returnState = ReturnState.SUCEEDED;
+		try {
+			connection.connect();
+			returnState = ReturnState.SUCEEDED;
+		} catch (XMPPException e) {
+			returnState = ReturnState.COULDNT_CONNECT;
+		}
 		if (returnState == ReturnState.SUCEEDED) {
 			launchLoginView();
 		} else {
