@@ -1,10 +1,21 @@
 package edu.cornell.opencomm.model;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 
+import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smackx.muc.MultiUserChat;
+import org.jivesoftware.smackx.muc.Occupant;
+
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.controller.MessageController;
+import edu.cornell.opencomm.controller.SpaceController;
+import edu.cornell.opencomm.util.Values;
+import edu.cornell.opencomm.view.SpaceView;
 import edu.cornell.opencomm.view.UserView;
 
 /**
@@ -14,7 +25,7 @@ import edu.cornell.opencomm.view.UserView;
  * Private spaces are controlled by their owner.
  */
 public class Space {
-	private static boolean D = false;
+	private static boolean D = Values.D;
     private static String TAG = "Space";
 
     // All the Spaces in use (roomID -> Space)
@@ -23,6 +34,8 @@ public class Space {
 
     // The users who are in this Space, <JID, User>
     private HashMap<String, User> allParticipants = new HashMap<String, User>();
+    // Occupant objects for all Users in Space
+    private HashMap<String, Occupant> allOccupants = new HashMap<String, Occupant>();
     private HashMap<String, User> allNicks = new HashMap<String, User>();
     boolean isMainSpace; // if true, this is a main space
     User owner; // the User who has the privilege to manage the Space
@@ -32,6 +45,20 @@ public class Space {
     boolean screenOn;
     LinkedList<UserView> allIcons = new LinkedList<UserView>();
     boolean entered = false; // false if you have never opened this space to the screen
+
+    // Network variables
+    private MultiUserChat muc;
+    private String roomID;
+
+    // Controllers
+    private MessageController mController;
+//    private ParticipantController pController;
+//    private InvitationController iController;
+    private SpaceController sController;
+//    private KickoutController kController;
+//    private ParticipantStatusController psController;
+
+    private int volume = 40; //Volume level can be between 0 to 100
 
     /**
      * CONSTRUCTOR: new space. Creates the SpaceController and, either creates
@@ -58,11 +85,25 @@ public class Space {
      * @throws XMPPException
      *             - thrown if the room cannot be created, or configured
      */
-    public Space(Context context, boolean isMainSpace, String roomID, boolean selfCreated){
+    public Space(Context context, boolean isMainSpace, String roomID, boolean selfCreated)
+            throws XMPPException {
         if (D) Log.d(TAG, "Space constructor called");
-    	this.context = context;
+        this.context = context;
+        // TODO: If the primary user is creating the space, join as owner
+        if (selfCreated) {
 
-    } // end Space constructor
+
+            //TODO : Configure room
+          
+
+        }
+        else {
+        	 //TODO:  otherwise join as participant
+        }
+        //TODO: if main space create controllers and associate view
+       
+
+    }
 
     /**
      *  @return - the main space associated with this instance of the application
@@ -102,6 +143,13 @@ public class Space {
     } // end getAllParticipants method
 
     /**
+     * @return - the id of this Space
+     *  */
+    public String getRoomID() {
+        return roomID;
+    } // end getRoomID method
+
+    /**
      * @return - true if this Space is a main space, false otherwise
      *  */
     public boolean isMainSpace() {
@@ -123,6 +171,29 @@ public class Space {
     public void setOwner(User owner){
         this.owner = owner;
     }
+
+    /**
+     * @return - the MultiUserChat associated with this Space
+     */
+    public MultiUserChat getMUC() {
+        return muc;
+    } // end getMUC method
+
+    /**
+     *  @return - the Space Controller associated with this Space
+     */
+    public SpaceController getSpaceController() {
+        return sController;
+    } // end getSpaceController method
+
+
+    /**
+     * @return the MessageController associated with this Space
+     */
+    public MessageController getMessageController() {
+        return mController;
+    } // end getMessageController method
+
 
     /**
      * @return if screen is on
@@ -147,6 +218,13 @@ public class Space {
         return allIcons;
     }
 
+    /**
+     *
+     * @return allOccupants
+     */
+    public HashMap<String, Occupant> getAllOccupants() {
+        return allOccupants;
+    }
 
     /**
      * @return allNicknames
@@ -169,4 +247,21 @@ public class Space {
         return context;
     }
 
+    /**
+     * @return volume
+     */
+    public int getVolume() {
+        return volume;
+    }
+
+    /**
+     * Setter method for volume
+     * @param volume
+     */
+    public void setVolume(int volume) {
+        if (D) Log.d(TAG, "volume of space " + roomID + " set to " + volume);
+        this.volume = volume;
+    }
+
 } // end Class Space
+
