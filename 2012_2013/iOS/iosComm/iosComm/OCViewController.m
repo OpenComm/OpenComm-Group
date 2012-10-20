@@ -7,8 +7,6 @@
 //
 
 #import "OCViewController.h"
-#import "XMPP.h"
-#import "XMPPStream.h"
 #import "OCXMPPDelegateHandler.h"
 #import <QuartzCore/QuartzCore.h>
 

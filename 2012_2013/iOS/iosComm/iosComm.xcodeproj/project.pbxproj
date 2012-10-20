@@ -264,6 +264,7 @@
 		0A9D90A11615126500A18E14 /* XMPPIDTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMPPIDTracker.m; path = XMPPFramework/Utilities/XMPPIDTracker.m; sourceTree = "<group>"; };
 		0A9D90A21615126500A18E14 /* XMPPSRVResolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPSRVResolver.h; path = XMPPFramework/Utilities/XMPPSRVResolver.h; sourceTree = "<group>"; };
 		0A9D90A31615126500A18E14 /* XMPPSRVResolver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMPPSRVResolver.m; path = XMPPFramework/Utilities/XMPPSRVResolver.m; sourceTree = "<group>"; };
+		0AA16E34163340F5006BF106 /* XMPPFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPFramework.h; path = XMPPFramework/XMPPFramework.h; sourceTree = "<group>"; };
 		0AA17FB31630B84400CD704A /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		0AA17FB51630B9BD00CD704A /* XMPPResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPResource.h; path = XMPPFramework/Extensions/Roster/XMPPResource.h; sourceTree = "<group>"; };
 		0AA17FB61630B9BD00CD704A /* XMPPRoster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPRoster.h; path = XMPPFramework/Extensions/Roster/XMPPRoster.h; sourceTree = "<group>"; };
@@ -405,6 +406,7 @@
 		0A9D8FDE16150F7C00A18E14 /* XMPPFramework */ = {
 			isa = PBXGroup;
 			children = (
+				0AA16E34163340F5006BF106 /* XMPPFramework.h */,
 				0AA17FDC1630B9DE00CD704A /* Extensions */,
 				0A9D8FEC1615107D00A18E14 /* Authentication */,
 				0A9D8FED1615108200A18E14 /* Categories */,
