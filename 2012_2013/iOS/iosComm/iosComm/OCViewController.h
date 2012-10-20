@@ -10,8 +10,6 @@
 #import "XMPP.h"
 #import "OCDefaultServerConstantsController.h"
 #import "OCXMPPDelegateHandler.h"
-#import "OCAudioModule.h"
-#import "OCUDPDelegateHandler.h"
 
 @interface OCViewController : UIViewController {
     /*From iPhoneXMPP*/
@@ -20,9 +18,6 @@
     NSString *myPassword;
     XMPPStream *myXMPPStream;
 	OCXMPPDelegateHandler *delegateHandler;
-    OCAudioModule *myAudio;
-    OCUDPSocket *UDPSocket;
-    OCUDPDelegateHandler *UDPDelegateHandler;
 }
 
 @property (strong, nonatomic) IBOutlet UITextField *loginPasswordField;

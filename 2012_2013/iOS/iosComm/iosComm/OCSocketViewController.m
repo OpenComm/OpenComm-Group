@@ -27,10 +27,8 @@
 {
     [super viewDidLoad];
     
-    myAudioBitch = [[OCAudioModule alloc] init];
-    
-	// Do any additional setup after loading the view.
-    NSLog(@"I'm in the SocketViewController");
+    UDPServerSocket = [[GCDAsyncUdpSocket alloc] init];
+    UDPClientSocket = [[GCDAsyncUdpSocket alloc] init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -48,12 +46,19 @@
 }
 
 - (IBAction)startServerButtonPressed:(id)sender {
-    UDPServerSocket = [[OCUDPSocket alloc] init];
-    UDPServerDelegateHandler = [[OCUDPDelegateHandler alloc] init];
-    [UDPServerSocket setDelegate:UDPServerDelegateHandler];
-    [UDPServerDelegateHandler setUDPSocket:UDPServerSocket];
     
-    [UDPServerSocket startServerOnPort: 8001];
+    NSLog(@"starting server ... ");
+    
+    UDPServerSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+    
+    NSError *error;
+    [UDPServerSocket bindToPort:8001 error:&error];
+    [UDPServerSocket beginReceiving:nil];
+    
+    if (error)
+        NSLog(@"%@",[error localizedDescription]);
+    else
+        NSLog(@"Server started");
 }
 
 - (void)viewDidUnload {
@@ -64,16 +69,57 @@
     [super viewDidUnload];
 }
 - (IBAction)startClientButtonPressed:(id)sender {
-    /*I'm assuming hostname and port are valid before pressing*/
-    UDPClientSocket = [[OCUDPSocket alloc] init];
-    UDPClientDelegateHandler = [[OCUDPDelegateHandler alloc] init];
-    [UDPClientSocket setDelegate:UDPClientDelegateHandler];
-    [UDPClientDelegateHandler setUDPSocket:UDPClientSocket];
-    [UDPClientSocket startConnectedToHostName:_hostnameField.text port: _portField.text.intValue];
+    UDPClientSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+    NSData *data = NULL;
+    
+    NSUInteger length = [data length];
+    NSUInteger chunksize = MAX_DATAGRAM_SIZE;
+    NSUInteger offset = 0;
+    
+    do {
+        
+        NSUInteger thisChunkSize = length - offset > chunksize ? chunksize : length - offset;
+        NSData *chunk = [NSData dataWithBytesNoCopy:(char *)[data bytes] + offset
+                                             length:thisChunkSize freeWhenDone:NO];
+        
+        [UDPClientSocket sendData:chunk toHost:_hostnameField.text port:(uint16_t)[_portField.text integerValue]
+                      withTimeout:-1 tag:1];
+        
+        offset += thisChunkSize;
+        
+    } while (offset < length);
+    
+    NSLog(@"Sent data");
+}
+
+- (IBAction)sendMessageButtonPressed:(id)sender {
+    //NSData *data = [myAudioBitch getLocalAudioAsNSData:@"/Users/qf26/Desktop/boss.mp3"];
+}
+
+/*** Socket Delegate Functions ***/
+- (void)udpSocket:(GCDAsyncUdpSocket *)sock didConnectToAddress:(NSData *)address{
+    NSLog(@"Connected to address %@", address);
+}
+- (void)udpSocket:(GCDAsyncUdpSocket *)sock didNotConnect:(NSError *)error{
+    NSLog(@"Did not connect. Error %@", error);
+}
+- (void)udpSocket:(GCDAsyncUdpSocket *)sock didSendDataWithTag:(long)tag{
+    NSLog(@"Sent data with tag");
+}
+
+- (void)udpSocket:(GCDAsyncUdpSocket *)sock didNotSendDataWithTag:(long)tag dueToError:(NSError *)error{
     
 }
-- (IBAction)sendMessageButtonPressed:(id)sender {
-    NSData *data = [myAudioBitch getLocalAudioAsNSData:@"/Users/qf26/Desktop/echo.mp3"];
-    [UDPClientSocket sendData:data];
+
+- (void)udpSocket:(GCDAsyncUdpSocket *)sock didReceiveData:(NSData *)data
+      fromAddress:(NSData *)address withFilterContext:(id)filterContext{
+    
+    NSLog(@"Received Data from %@", address);
+    NSLog(@"%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
 }
+
+- (void)udpSocketDidClose:(GCDAsyncUdpSocket *)sock withError:(NSError *)error{
+    NSLog(@"Closed. Error: %@", error);
+}
+
 @end

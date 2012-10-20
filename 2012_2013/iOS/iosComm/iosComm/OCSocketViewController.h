@@ -7,15 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "OCUDPDelegateHandler.h"
-#import "OCAudioModule.h"
+#import "GCDAsyncUdpSocket.h"
+#import "Novocaine.h"
+#import "AudioFileReader.h"
+#import "AudioFileWriter.h"
+#import "RingBuffer.h"
 
-@interface OCSocketViewController : UIViewController {
-    OCUDPSocket *UDPServerSocket;
-    OCUDPSocket *UDPClientSocket;
-    OCUDPDelegateHandler *UDPServerDelegateHandler;
-    OCUDPDelegateHandler *UDPClientDelegateHandler;
-    OCAudioModule *myAudioBitch;
+#define MAX_DATAGRAM_SIZE 1024
+
+@interface OCSocketViewController : UIViewController <GCDAsyncUdpSocketDelegate> {
+    GCDAsyncUdpSocket *UDPServerSocket;
+    GCDAsyncUdpSocket *UDPClientSocket;
 }
 
 - (IBAction)startServerButtonPressed:(id)sender;

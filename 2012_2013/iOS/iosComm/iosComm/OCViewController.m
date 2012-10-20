@@ -10,7 +10,6 @@
 #import "XMPP.h"
 #import "XMPPStream.h"
 #import "OCXMPPDelegateHandler.h"
-#import "OCUDPDelegateHandler.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface OCViewController ()
@@ -41,7 +40,6 @@
 	defaults = [[OCDefaultServerConstantsController alloc] init];
     delegateHandler = [[OCXMPPDelegateHandler alloc] init];
     myXMPPStream = [[XMPPStream alloc] init];
-    myAudio = [[OCAudioModule alloc] init];
     
     //NSString * audio = @"http://ec2-50-16-95-237.compute-1.amazonaws.com/qiming_html/echo.mp3";
     //[myAudio playAudioFromRemoteURL:audio];
@@ -108,6 +106,8 @@
     UDPDelegateHandler = [[OCUDPDelegateHandler alloc] init];
     [UDPSocket setDelegate:UDPDelegateHandler];
     [UDPDelegateHandler setUDPSocket:UDPSocket];
+    */
+    
     /* THIS IS THE CLIENT STATEMENT*/
     //[UDPSocket startConnectedToHostName:@"ec2-50-16-95-237.compute-1.amazonaws.com" port: 8001];
     /* THIS IS THE SERVER STATEMENT*/
