@@ -95,7 +95,7 @@ public class NetworkService {
 
 	public boolean login(String username, String password) {
 		try {
-			Log.v(TAG, "Attempting Loggin: User Name = "+username+" password = "+password);
+			Log.v(TAG, "Attempting Login: User Name = "+username+" password = "+password);
 			this.xmppConn.login(username, password, null);
 		} catch (XMPPException e) {
 			Log.v(TAG, "Unable to authenticate");
