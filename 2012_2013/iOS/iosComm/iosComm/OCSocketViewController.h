@@ -12,12 +12,17 @@
 #import "AudioFileReader.h"
 #import "AudioFileWriter.h"
 #import "RingBuffer.h"
+#import "OCAudio.h"
+#import "OCAudioPassingProtocol.h"
 
 #define MAX_DATAGRAM_SIZE 1024
 
 @interface OCSocketViewController : UIViewController <GCDAsyncUdpSocketDelegate> {
     GCDAsyncUdpSocket *UDPServerSocket;
     GCDAsyncUdpSocket *UDPClientSocket;
+    
+    RingBuffer *ringBuffer;
+    Novocaine *audioManager;
 }
 
 - (IBAction)startServerButtonPressed:(id)sender;

@@ -123,6 +123,8 @@
 		0AA17FFF1630D39F00CD704A /* NSDate+XMPPDateTimeProfiles.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA17FFB1630D39F00CD704A /* NSDate+XMPPDateTimeProfiles.m */; };
 		0AA180001630D39F00CD704A /* XMPPDateTimeProfiles.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA17FFD1630D39F00CD704A /* XMPPDateTimeProfiles.m */; };
 		0AA180011630D39F00CD704A /* XMPPDateTimeProfiles.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA17FFD1630D39F00CD704A /* XMPPDateTimeProfiles.m */; };
+		4D004DA2163338FD00706B1A /* OCAudio.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4D004DA1163338FD00706B1A /* OCAudio.mm */; };
+		4D004DA616333AFE00706B1A /* OCAudioPassingProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D004DA516333AFE00706B1A /* OCAudioPassingProtocol.m */; };
 		4D66E95E1630D6BC000C589E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D66E95D1630D6BC000C589E /* AVFoundation.framework */; };
 		4D66E9631630D7FD000C589E /* echo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4D66E9621630D7FD000C589E /* echo.mp3 */; };
 		4D66E97016310115000C589E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D66E96F16310114000C589E /* AudioToolbox.framework */; };
@@ -295,6 +297,10 @@
 		0AA17FFB1630D39F00CD704A /* NSDate+XMPPDateTimeProfiles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+XMPPDateTimeProfiles.m"; path = "XMPPFramework/Extensions/XEP-0082/NSDate+XMPPDateTimeProfiles.m"; sourceTree = "<group>"; };
 		0AA17FFC1630D39F00CD704A /* XMPPDateTimeProfiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPDateTimeProfiles.h; path = "XMPPFramework/Extensions/XEP-0082/XMPPDateTimeProfiles.h"; sourceTree = "<group>"; };
 		0AA17FFD1630D39F00CD704A /* XMPPDateTimeProfiles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMPPDateTimeProfiles.m; path = "XMPPFramework/Extensions/XEP-0082/XMPPDateTimeProfiles.m"; sourceTree = "<group>"; };
+		4D004DA0163338FD00706B1A /* OCAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCAudio.h; sourceTree = "<group>"; };
+		4D004DA1163338FD00706B1A /* OCAudio.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OCAudio.mm; sourceTree = "<group>"; };
+		4D004DA416333AFE00706B1A /* OCAudioPassingProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCAudioPassingProtocol.h; sourceTree = "<group>"; };
+		4D004DA516333AFE00706B1A /* OCAudioPassingProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCAudioPassingProtocol.m; sourceTree = "<group>"; };
 		4D66E95D1630D6BC000C589E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		4D66E9621630D7FD000C589E /* echo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = echo.mp3; sourceTree = "<group>"; };
 		4D66E96F16310114000C589E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -684,6 +690,8 @@
 		4D76F8C9163328C600DE7833 /* audio */ = {
 			isa = PBXGroup;
 			children = (
+				4D004DA0163338FD00706B1A /* OCAudio.h */,
+				4D004DA1163338FD00706B1A /* OCAudio.mm */,
 			);
 			name = audio;
 			sourceTree = "<group>";
@@ -704,6 +712,8 @@
 			children = (
 				0A92B1BC161E3E0A00F59D53 /* OCXMPPDelegateHandler.h */,
 				0A92B1BD161E3E0A00F59D53 /* OCXMPPDelegateHandler.m */,
+				4D004DA416333AFE00706B1A /* OCAudioPassingProtocol.h */,
+				4D004DA516333AFE00706B1A /* OCAudioPassingProtocol.m */,
 			);
 			name = protocol;
 			sourceTree = "<group>";
@@ -980,6 +990,8 @@
 				0A615CAA163304FE0000C840 /* Novocaine.m in Sources */,
 				0A615CAB163304FE0000C840 /* RingBuffer.mm in Sources */,
 				4D76F8DE1633304800DE7833 /* GCDAsyncUdpSocket.m in Sources */,
+				4D004DA2163338FD00706B1A /* OCAudio.mm in Sources */,
+				4D004DA616333AFE00706B1A /* OCAudioPassingProtocol.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

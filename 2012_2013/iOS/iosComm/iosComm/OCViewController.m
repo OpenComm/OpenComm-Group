@@ -41,11 +41,7 @@
     delegateHandler = [[OCXMPPDelegateHandler alloc] init];
     myXMPPStream = [[XMPPStream alloc] init];
     
-    //NSString * audio = @"http://ec2-50-16-95-237.compute-1.amazonaws.com/qiming_html/echo.mp3";
-    //[myAudio playAudioFromRemoteURL:audio];
-    //[myAudio playAudio:audio];
-    
-    //[myAudio startRecording];
+    NSLog(@"My IP Address: %@", [[[OCAudioPassingProtocol alloc] init] getIPAddress]);
 }
 
 
