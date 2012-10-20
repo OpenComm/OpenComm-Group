@@ -126,8 +126,10 @@
 		4D66E95E1630D6BC000C589E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D66E95D1630D6BC000C589E /* AVFoundation.framework */; };
 		4D66E9631630D7FD000C589E /* echo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4D66E9621630D7FD000C589E /* echo.mp3 */; };
 		4D66E97016310115000C589E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D66E96F16310114000C589E /* AudioToolbox.framework */; };
-		4D76F8CD163328E800DE7833 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D76F8CC163328E800DE7833 /* GCDAsyncSocket.m */; };
-		4D76F8D216332AB100DE7833 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D76F8D116332AB100DE7833 /* GCDAsyncUdpSocket.m */; };
+		4D76F8DA1633303400DE7833 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D76F8D91633303400DE7833 /* GCDAsyncSocket.m */; };
+		4D76F8DB1633303400DE7833 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D76F8D91633303400DE7833 /* GCDAsyncSocket.m */; };
+		4D76F8DE1633304800DE7833 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D76F8DD1633304800DE7833 /* GCDAsyncUdpSocket.m */; };
+		4D76F8DF1633304800DE7833 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D76F8DD1633304800DE7833 /* GCDAsyncUdpSocket.m */; };
 		4DE6A440160FC14B005F7857 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DE6A43F160FC14B005F7857 /* UIKit.framework */; };
 		4DE6A442160FC14B005F7857 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DE6A441160FC14B005F7857 /* Foundation.framework */; };
 		4DE6A444160FC14B005F7857 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DE6A443160FC14B005F7857 /* CoreGraphics.framework */; };
@@ -297,10 +299,10 @@
 		4D66E95D1630D6BC000C589E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		4D66E9621630D7FD000C589E /* echo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = echo.mp3; sourceTree = "<group>"; };
 		4D66E96F16310114000C589E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		4D76F8CB163328E800DE7833 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
-		4D76F8CC163328E800DE7833 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
-		4D76F8D016332AB100DE7833 /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
-		4D76F8D116332AB100DE7833 /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
+		4D76F8D81633303400DE7833 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
+		4D76F8D91633303400DE7833 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
+		4D76F8DC1633304800DE7833 /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
+		4D76F8DD1633304800DE7833 /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
 		4DE6A43B160FC14B005F7857 /* iosComm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosComm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DE6A43F160FC14B005F7857 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4DE6A441160FC14B005F7857 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -334,9 +336,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A615C171632FD9D0000C840 /* CoreAudio.framework in Frameworks */,
 				0A615C151632FD960000C840 /* Accelerate.framework in Frameworks */,
 				4D66E97016310115000C589E /* AudioToolbox.framework in Frameworks */,
-				0A615C171632FD9D0000C840 /* CoreAudio.framework in Frameworks */,
 				4D66E95E1630D6BC000C589E /* AVFoundation.framework in Frameworks */,
 				0AA17FB41630B84400CD704A /* CoreFoundation.framework in Frameworks */,
 				BA777D0116214A530088F734 /* QuartzCore.framework in Frameworks */,
@@ -672,10 +674,10 @@
 		4D76F8C8163328C100DE7833 /* network */ = {
 			isa = PBXGroup;
 			children = (
-				4D76F8CB163328E800DE7833 /* GCDAsyncSocket.h */,
-				4D76F8D016332AB100DE7833 /* GCDAsyncUdpSocket.h */,
-				4D76F8D116332AB100DE7833 /* GCDAsyncUdpSocket.m */,
-				4D76F8CC163328E800DE7833 /* GCDAsyncSocket.m */,
+				4D76F8DC1633304800DE7833 /* GCDAsyncUdpSocket.h */,
+				4D76F8DD1633304800DE7833 /* GCDAsyncUdpSocket.m */,
+				4D76F8D81633303400DE7833 /* GCDAsyncSocket.h */,
+				4D76F8D91633303400DE7833 /* GCDAsyncSocket.m */,
 			);
 			name = network;
 			sourceTree = "<group>";
@@ -978,6 +980,8 @@
 				0A615CA9163304FE0000C840 /* AudioFileWriter.m in Sources */,
 				0A615CAA163304FE0000C840 /* Novocaine.m in Sources */,
 				0A615CAB163304FE0000C840 /* RingBuffer.mm in Sources */,
+				4D76F8DA1633303400DE7833 /* GCDAsyncSocket.m in Sources */,
+				4D76F8DE1633304800DE7833 /* GCDAsyncUdpSocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1034,8 +1038,8 @@
 				0AA17FF71630D30400CD704A /* XMPPCoreDataStorage.m in Sources */,
 				0AA17FFF1630D39F00CD704A /* NSDate+XMPPDateTimeProfiles.m in Sources */,
 				0AA180011630D39F00CD704A /* XMPPDateTimeProfiles.m in Sources */,
-				4D76F8CD163328E800DE7833 /* GCDAsyncSocket.m in Sources */,
-				4D76F8D216332AB100DE7833 /* GCDAsyncUdpSocket.m in Sources */,
+				4D76F8DB1633303400DE7833 /* GCDAsyncSocket.m in Sources */,
+				4D76F8DF1633304800DE7833 /* GCDAsyncUdpSocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1110,6 +1114,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Debug;
 		};

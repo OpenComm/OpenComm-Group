@@ -22,7 +22,7 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 
 
-#include "RingBuffer.h"
+//#include "RingBuffer.h"
 
 
 RingBuffer::RingBuffer(SInt64 bufferLength, SInt64 numChannels) : 
