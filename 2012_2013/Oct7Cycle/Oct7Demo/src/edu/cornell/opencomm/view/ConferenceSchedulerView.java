@@ -1,5 +1,6 @@
 package edu.cornell.opencomm.view;
 
+import edu.cornell.opencomm.R;
 import android.app.Activity;
 /*
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast; */
+import android.os.Bundle;
 
 public class ConferenceSchedulerView extends Activity {
 //	 /** Called when the activity is first created. */
@@ -32,14 +34,14 @@ public class ConferenceSchedulerView extends Activity {
 //	private ExpandableListView expandList_happeningNow;
 //	private ExpandableListView expandList_upcoming;
 //	private Calendar currentTime;
-//	
-//	 public void onCreate(Bundle savedInstanceState) {
-//	    super.onCreate(savedInstanceState);
-//	    setContentView(R.layout.conference_scheduling_layout);
+
+	 public void onCreate(Bundle savedInstanceState) {
+	    super.onCreate(savedInstanceState);
+	    setContentView(R.layout.conference_scheduling_layout);
 //	    currentTime = Calendar.getInstance();
 //	    retrieveAndDisplayConferences();
 //	    adjustLayoutLookAndFunctionality();
-//	 }
+	 }
 //	 
 //	 public void retrieveAndDisplayConferences(){
 //		 conferences = createExampleConferences();

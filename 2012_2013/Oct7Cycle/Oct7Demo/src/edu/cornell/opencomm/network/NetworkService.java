@@ -39,6 +39,11 @@ public class NetworkService {
 	private static final boolean D = true;
 	private static final String TAG = "Network.NetworkService";
 
+	private static final String DEFAULT_HOST = "cuopencomm.no-ip.org";
+	private static final String DEFAULT_HOSTNAME = "@cuopencomm";
+	private static final int DEFAULT_PORT = 5222;
+	private static final String DEFAULT_RESOURCE = "OpenComm";
+
 	private static NetworkService _instance = null;
 
 	// XMPP connection
@@ -49,14 +54,9 @@ public class NetworkService {
 
 	public static NetworkService getInstance() {
 		if (_instance == null) {
-			_instance = new NetworkService(
-					"jabber.org", 5222);
-					/*
-					Resources.getSystem().getString(R.string.DEFAULT_HOST), 
-					Resources.getSystem().getInteger(R.integer.DEFAULT_PORT));*/
+			_instance = new NetworkService(DEFAULT_HOST, DEFAULT_PORT);
 		}
 		return _instance;
-
 	}
 
 	/**
@@ -75,9 +75,8 @@ public class NetworkService {
 		SmackConfiguration.setPacketReplyTimeout(100000);
 
 		// create connection to host:port
-		this.xmppConfig = new ConnectionConfiguration("cuopencomm.no-ip.org", 5222);
+		this.xmppConfig = new ConnectionConfiguration(host, port);
 		this.xmppConfig.setSASLAuthenticationEnabled(true);
-		//this.xmppConfig.setCompressionEnabled(true);
 		this.xmppConn = new XMPPConnection(xmppConfig);
 
 	}// end NetworkService method
@@ -87,9 +86,9 @@ public class NetworkService {
 			this.xmppConn.connect();
 		} catch (XMPPException e) {
 			Log.v(TAG, e.getMessage());
-		} 
+		}
 		this.isConnected = xmppConn.isConnected();
-		if (isConnected) {
+		if (isConnected && D) {
 			Log.v(TAG, "pinged server!");
 		}
 		return isConnected;
@@ -97,8 +96,10 @@ public class NetworkService {
 
 	public boolean login(String username, String password) {
 		try {
-			Log.v(TAG, "Attempting Loggin: User Name = "+username+" password = "+password);
-			this.xmppConn.login(username, password, null);
+			Log.v(TAG, "Attempting Loggin: User Name = " + username
+					+ " password = " + password);
+			this.xmppConn.login(username + DEFAULT_HOSTNAME, password,
+					DEFAULT_RESOURCE);
 		} catch (XMPPException e) {
 			Log.v(TAG, "Unable to authenticate");
 			Log.v(TAG, e.getMessage());
@@ -106,7 +107,7 @@ public class NetworkService {
 			Log.v(TAG, e.getMessage());
 		}
 		this.isAuthenticated = this.xmppConn.isAuthenticated();
-		if (isAuthenticated) {
+		if (isAuthenticated && D) {
 			Log.v(TAG, "logged in!");
 		}
 		return this.isAuthenticated;
@@ -116,11 +117,11 @@ public class NetworkService {
 		this.xmppConn.disconnect();
 		return true;
 	}
-	
+
 	public XMPPConnection getConnection() {
 		return this.xmppConn;
 	}
-	
+
 	/**
 	 * TODO Remove extraneous providers
 	 * 

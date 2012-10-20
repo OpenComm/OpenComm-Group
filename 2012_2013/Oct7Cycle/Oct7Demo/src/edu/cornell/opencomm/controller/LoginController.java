@@ -59,10 +59,9 @@ public class LoginController {
 		Intent account = new Intent(this.loginView, ResetPasswordView.class);
 		this.loginView.startActivity(account);
 	}
-
+	/** @return - the outcome of the background task */
 	private class LoginTask extends AsyncTask<String, Void, ReturnState> {
 		
-		// ReturnState specifies the outcome of the background task.
 		@Override
 		protected ReturnState doInBackground(String... strings) {
 			if (NetworkService.getInstance().login(strings[0], strings[1])) {
