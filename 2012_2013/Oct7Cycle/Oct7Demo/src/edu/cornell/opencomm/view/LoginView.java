@@ -34,8 +34,6 @@ public class LoginView extends Activity {
 	private static ImageView loginOverlay;
 	private LayoutInflater inflater = null;
 	private static ImageView signupOverlay;
-	private static String email;
-	private static String password;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,10 +47,6 @@ public class LoginView extends Activity {
 		loginOverlay = (ImageView) findViewById(R.id.loginOverlay);
 		signupOverlay = (ImageView) findViewById(R.id.signupOverlay);
         this.inflater = this.getLayoutInflater();
-		
-        email = emailEdit.getText().toString();
-        password = passwordEdit.getText().toString();
-//		initializeLoginButtonClickedEvent();
 		loginController = new LoginController(this);
     }
 	
@@ -81,6 +75,8 @@ public class LoginView extends Activity {
     }
     
     public void login(View v){
+    	String email = emailEdit.getText().toString();
+        String password = passwordEdit.getText().toString();
     	this.loginController.handleLoginButtonClick(email, password);
     }
     

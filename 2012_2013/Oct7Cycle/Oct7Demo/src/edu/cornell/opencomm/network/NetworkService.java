@@ -97,8 +97,8 @@ public class NetworkService {
 
 	public boolean login(String username, String password) {
 		try {
-			// FIXIT: move default host, port, and resource to XML
-			this.xmppConn.login("opencommsec@cuopencomm", "secopencomm", "OpenComm");
+			Log.v(TAG, "Attempting Loggin: User Name = "+username+" password = "+password);
+			this.xmppConn.login(username, password, null);
 		} catch (XMPPException e) {
 			Log.v(TAG, "Unable to authenticate");
 			Log.v(TAG, e.getMessage());
