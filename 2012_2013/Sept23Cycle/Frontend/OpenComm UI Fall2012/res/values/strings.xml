@@ -53,4 +53,14 @@
     <string name="go_to_conference_button_desc">Go to conference</string>
     <string name="invite">invite</string>
     <string name="sendhere">send here</string>
+    <string name="description">description</string>
+    <string name="date_and_time">date &amp; time</string>
+    <string name="recurring">recurring</string>
+    <string name="invited_by">invited_by</string>
+    <string name="attendees">attendees</string>
+    <string name="to">to</string>
+    <string name="accept">accept</string>
+    <string name="decline">decline</string>
+    <string name="enter_conference">enter conference</string>
+    
 </resources>

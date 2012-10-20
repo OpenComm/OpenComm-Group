@@ -3,7 +3,9 @@ package edu.cornell.opencomm.model;
 import java.util.ArrayList;
 
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.view.ConferenceCardView;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,7 +79,7 @@ public class ConferenceSchedulerAdapter extends BaseExpandableListAdapter {
 	    
 	    /** Customize the view from conference information, and add functionality to buttons */
 	    public void customizeView(Conference conference, View view){
-	    	TextView conference_title = (TextView) view.findViewById(R.id.conference_title);
+	    /*	TextView conference_title = (TextView) view.findViewById(R.id.conference_title);
 	    	conference_title.setText(conference.getConferenceTitle());
 	    	TextView conference_attendees = (TextView) view.findViewById(R.id.attendees);
 	    	conference_attendees.setText(conference.getAttendeesSummary());
@@ -94,7 +96,7 @@ public class ConferenceSchedulerAdapter extends BaseExpandableListAdapter {
 	    		day.setText(conference.getNumberMonthAndDay());
 	    		TextView time = (TextView)view.findViewById(R.id.time);
 	    		time.setText(conference.getTimeHourAndMinute()); 
-	    	} 
+	    	}  */
 	    	
 	    }
 	 
@@ -105,5 +107,7 @@ public class ConferenceSchedulerAdapter extends BaseExpandableListAdapter {
 	    public boolean isChildSelectable(int arg0, int arg1) {
 	        return true;
 	    }
+	    
+
 
 }
