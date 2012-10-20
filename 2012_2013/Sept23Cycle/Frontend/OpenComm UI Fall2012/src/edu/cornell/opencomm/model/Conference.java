@@ -2,6 +2,7 @@ package edu.cornell.opencomm.model;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -12,6 +13,11 @@ public class Conference implements Parcelable {
     private User inviter;
     private ArrayList<User> attendees;
     private boolean hasAcceptedInvite = false;
+    
+    // TEMPORARY VARIABLES - TODO need to discuss with backend
+    private String inviter_name;
+    private String[] attendee_names;
+    private int[] attendee_pictures;
     
     // CONSTANTS
     public final static int UPCOMING = 0;
@@ -56,6 +62,22 @@ public class Conference implements Parcelable {
 		endDateAndTime.set(Calendar.DAY_OF_MONTH, parcel.readInt());
 		endDateAndTime.set(Calendar.YEAR, parcel.readInt());
 		reoccurrence = parcel.readString();
+		inviter_name = parcel.readString();
+		attendee_names = parcel.createStringArray();
+		attendee_pictures = parcel.createIntArray();
+    }
+    
+    // TEMPORARY GETTERS
+    public String getInviterName(){
+    	return inviter_name;
+    }
+    
+    public String[] getAttendeeNames(){
+    	return attendee_names;
+    }
+    
+    public int[] getAttendeePictures(){
+    	return attendee_pictures;
     }
     
     // GETTERS
@@ -86,16 +108,6 @@ public class Conference implements Parcelable {
     
     public ArrayList<User> getAttendees(){
     	return attendees;
-    }
-    
-    /** Return all attendees in this form: 'contact 1, contact 2, and 3 more'
-     * given the length of the area */
-    public String getAttendeesSummary(){
-    /*	String attendees_summary = "";
-    	for (User user : attendees){
-    		attendees_summary << ""
-    	}  */
-    	return null;
     }
     
     // SPECIAL GETTERS
@@ -228,7 +240,20 @@ public class Conference implements Parcelable {
 		dest.writeInt(endDateAndTime.get(Calendar.DAY_OF_MONTH));
 		dest.writeInt(endDateAndTime.get(Calendar.YEAR));
 		dest.writeString(reoccurrence);
-		// inviter name
+		dest.writeString(inviter.getNickname());
+		String[] attendee_names = new String[attendees.size()];
+		for (int i=0 ; i < attendees.size(); i++){
+			attendee_names[i] = attendees.get(i).getNickname();
+		}
+		dest.writeStringArray(attendee_names);
+	/*	int[] attendee_pictures = new int[attendees.size()];
+		for (int i=0; i< attendees.size(); i++){
+			attendee_pictures[i] = attendees.get(i).getImage();
+		} */
+		//List<String> attendee_names = new List<String>();
+		//dest.writeStringList (attendee_names);
+		
+		
 		// user names
 		// user images
 		

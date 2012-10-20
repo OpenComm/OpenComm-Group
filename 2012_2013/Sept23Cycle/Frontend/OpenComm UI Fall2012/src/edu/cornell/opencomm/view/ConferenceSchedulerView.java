@@ -40,20 +40,27 @@ public class ConferenceSchedulerView extends Activity {
 	    retrieveAndDisplayConferences();
 	    
 	    // test conference card
+	    User inviter = new User("risanakashakalaka", "Risa Naka", 0);
+	    User user1 = new User("noranoranora", "Nora N-Q", 0);
+	    User user2 = new User("makotomakotko", "Makoto Bentz", 0);
+	    ArrayList<User> attendees = new ArrayList<User>();
+	    attendees.add(inviter);
+	    attendees.add(user1);
+	    attendees.add(user2);
 	    Calendar startTime = (Calendar)currentTime.clone();
 		 startTime.add(Calendar.HOUR, -1);
 		 Calendar endTime = (Calendar)currentTime.clone();
-		 endTime.add(Calendar.HOUR, -1); 
+		 endTime.add(Calendar.HOUR, 3); 
 	    Conference conference = new Conference( "X-mas with JGL",
 	    										"Man, we're gonna have suche a rockin' Christmas party. So cool. Did I mention it's at my place, Joseph Gordon-Levitt's?",
 	    										startTime,
 	    										endTime,
 	    										"Every fuckinggg' year",
-	    										null,
-	    										null
+	    										inviter,
+	    										attendees
 	    									  );
 	    conference.acceptInvite();
-	    openContactCardActivity(conference);
+	    openContactCardActivity(conference); 
 	    
 	    
 	  //  adjustLayoutLookAndFunctionality();

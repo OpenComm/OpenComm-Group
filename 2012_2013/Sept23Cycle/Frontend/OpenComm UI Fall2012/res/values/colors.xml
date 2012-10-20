@@ -7,6 +7,7 @@
     <color name="dark_grey">#333333</color>
     <color name="dark_grey_translucent">#E6333333</color>
     <color name="light_grey">#878787</color>
+    <color name="grey_conference_card_attendee_separator_bar">#212121</color>
     <color name="grey_conference_card_title_bar_text">#888888</color>
     <color name="green">#AEE278</color>
     <color name="green_light">#afd478</color>
