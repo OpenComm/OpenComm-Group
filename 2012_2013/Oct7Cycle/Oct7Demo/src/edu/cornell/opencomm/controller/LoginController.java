@@ -1,5 +1,9 @@
 package edu.cornell.opencomm.controller;
 
+import org.jivesoftware.smack.ConnectionConfiguration;
+import org.jivesoftware.smack.XMPPConnection;
+import org.jivesoftware.smack.XMPPException;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.View;
@@ -23,7 +27,7 @@ public class LoginController  {
 	 */
 	private enum ReturnState{SUCEEDED, COULDNT_CONNECT, WRONG_PASSWORD, ALREADY_CLICKED};
 
-
+	private XMPPConnection connection;
 
 	/**
 	 * @param view
@@ -59,19 +63,29 @@ public class LoginController  {
 
 	private class LoginTask extends AsyncTask<String, Void, ReturnState> {
 
-
-
-
 		@Override
 		protected void onProgressUpdate(Void... values) {
 			// TODO Ask the design team.
 			super.onProgressUpdate(values);
 		}
-		//[TODO] Establish a connection to the server and authenticate the username and password
 		//ReturnState specifies the outcome of the background task.
 		@Override
 		protected ReturnState doInBackground(String... strings) {
-			return null;
+			// [TODO] Need correct getter methods for connection, username, password...
+			
+			// need to call in button click
+			
+			if (connection.isConnected()) {
+				return ReturnState.ALREADY_CLICKED;
+			}
+			else {
+				try {
+					connection.login(strings[0], strings[1]);
+				} catch (XMPPException e) {
+					return ReturnState.WRONG_PASSWORD;
+				}
+				return ReturnState.SUCEEDED;
+			}
 		}
 
 		//[TODO] This function needs to do either
@@ -80,7 +94,15 @@ public class LoginController  {
 		// 3. login the user
 		@Override
 		protected void onPostExecute(ReturnState state) {
-
+			if (state == ReturnState.ALREADY_CLICKED || state == ReturnState.SUCEEDED)
+			{
+				DashboardView d = new DashboardView();
+				d.setVisible(true);
+			}
+			else if (state == ReturnState.WRONG_PASSWORD)
+			{
+				loginView.setVisible(false);
+			}
 		}
 	}
 

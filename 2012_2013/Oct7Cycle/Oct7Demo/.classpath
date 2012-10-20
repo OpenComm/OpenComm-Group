@@ -4,5 +4,10 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="lib" path="C:/Users/kpk47_000/Documents/GitHub/OpenComm-Group/2012_2013/Sept17Cycle/BackEnd/Tutorials/XMPPAndroid/XMPP_Android_Brian/XMPP_Demo_Android/asmack-issue-13.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://www.igniterealtime.org/builds/smack/docs/latest/javadoc/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

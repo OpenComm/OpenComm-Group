@@ -1,5 +1,8 @@
 package edu.cornell.opencomm.view;
 
+import org.jivesoftware.smack.ConnectionConfiguration;
+import org.jivesoftware.smack.XMPPConnection;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +10,7 @@ import android.os.Handler;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.model.ReturnState;
+import edu.cornell.opencomm.util.Util;
 
 public class StartAppActivity extends Activity {
 	/**
@@ -46,6 +50,9 @@ public class StartAppActivity extends Activity {
 	 */
 	private void connect() {
 		// TODO : Fix it Connection code here
+		ConnectionConfiguration config = new ConnectionConfiguration(
+				Util.DEFAULT_HOST, Util.DEFAULT_PORT);
+		XMPPConnection connection = new XMPPConnection(config);
 		ReturnState returnState = ReturnState.SUCEEDED;
 		if (returnState == ReturnState.SUCEEDED) {
 			launchLoginView();
@@ -69,7 +76,7 @@ public class StartAppActivity extends Activity {
 	private void onConnectionError() {
 		// TODO
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		// back button disabled
