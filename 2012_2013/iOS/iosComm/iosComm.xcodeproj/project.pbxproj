@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		0A057985161E1642006F4B5D /* DefaultServerConstants.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A057984161E1642006F4B5D /* DefaultServerConstants.plist */; };
 		0A42C8BC163107A40053C5F2 /* OCSocketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A42C8BB163107A40053C5F2 /* OCSocketViewController.m */; };
+		0A615C151632FD960000C840 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A615C141632FD960000C840 /* Accelerate.framework */; };
+		0A615C171632FD9D0000C840 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A615C161632FD9D0000C840 /* CoreAudio.framework */; };
+		0A615CA8163304FE0000C840 /* AudioFileReader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0A615CA1163304FE0000C840 /* AudioFileReader.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		0A615CA9163304FE0000C840 /* AudioFileWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A615CA3163304FE0000C840 /* AudioFileWriter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		0A615CAA163304FE0000C840 /* Novocaine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A615CA5163304FE0000C840 /* Novocaine.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		0A615CAB163304FE0000C840 /* RingBuffer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0A615CA7163304FE0000C840 /* RingBuffer.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0A92B1BA161E3DF700F59D53 /* OCDefaultServerConstantsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A92B1B9161E3DF700F59D53 /* OCDefaultServerConstantsController.m */; };
 		0A92B1BE161E3E0A00F59D53 /* OCXMPPDelegateHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A92B1BD161E3E0A00F59D53 /* OCXMPPDelegateHandler.m */; };
 		0A9D8F721615093800A18E14 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A9D8F711615093800A18E14 /* CFNetwork.framework */; };
@@ -161,6 +167,16 @@
 		0A057984161E1642006F4B5D /* DefaultServerConstants.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DefaultServerConstants.plist; sourceTree = "<group>"; };
 		0A42C8BA163107A40053C5F2 /* OCSocketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSocketViewController.h; sourceTree = "<group>"; };
 		0A42C8BB163107A40053C5F2 /* OCSocketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSocketViewController.m; sourceTree = "<group>"; };
+		0A615C141632FD960000C840 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		0A615C161632FD9D0000C840 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		0A615CA0163304FE0000C840 /* AudioFileReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioFileReader.h; path = Novacaine/AudioFileReader.h; sourceTree = "<group>"; };
+		0A615CA1163304FE0000C840 /* AudioFileReader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AudioFileReader.mm; path = Novacaine/AudioFileReader.mm; sourceTree = "<group>"; };
+		0A615CA2163304FE0000C840 /* AudioFileWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioFileWriter.h; path = Novacaine/AudioFileWriter.h; sourceTree = "<group>"; };
+		0A615CA3163304FE0000C840 /* AudioFileWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AudioFileWriter.m; path = Novacaine/AudioFileWriter.m; sourceTree = "<group>"; };
+		0A615CA4163304FE0000C840 /* Novocaine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Novocaine.h; path = Novacaine/Novocaine.h; sourceTree = "<group>"; };
+		0A615CA5163304FE0000C840 /* Novocaine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Novocaine.m; path = Novacaine/Novocaine.m; sourceTree = "<group>"; };
+		0A615CA6163304FE0000C840 /* RingBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RingBuffer.h; path = Novacaine/RingBuffer.h; sourceTree = "<group>"; };
+		0A615CA7163304FE0000C840 /* RingBuffer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = RingBuffer.mm; path = Novacaine/RingBuffer.mm; sourceTree = "<group>"; };
 		0A92B1B8161E3DF700F59D53 /* OCDefaultServerConstantsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCDefaultServerConstantsController.h; sourceTree = "<group>"; };
 		0A92B1B9161E3DF700F59D53 /* OCDefaultServerConstantsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCDefaultServerConstantsController.m; sourceTree = "<group>"; };
 		0A92B1BC161E3E0A00F59D53 /* OCXMPPDelegateHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCXMPPDelegateHandler.h; sourceTree = "<group>"; };
@@ -326,7 +342,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A615C151632FD960000C840 /* Accelerate.framework in Frameworks */,
 				4D66E97016310115000C589E /* AudioToolbox.framework in Frameworks */,
+				0A615C171632FD9D0000C840 /* CoreAudio.framework in Frameworks */,
 				4D66E95E1630D6BC000C589E /* AVFoundation.framework in Frameworks */,
 				0AA17FB41630B84400CD704A /* CoreFoundation.framework in Frameworks */,
 				BA777D0116214A530088F734 /* QuartzCore.framework in Frameworks */,
@@ -358,6 +376,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A3C60EF16330556001FBFBC /* Novacaine */ = {
+			isa = PBXGroup;
+			children = (
+				0A615CA0163304FE0000C840 /* AudioFileReader.h */,
+				0A615CA1163304FE0000C840 /* AudioFileReader.mm */,
+				0A615CA2163304FE0000C840 /* AudioFileWriter.h */,
+				0A615CA3163304FE0000C840 /* AudioFileWriter.m */,
+				0A615CA4163304FE0000C840 /* Novocaine.h */,
+				0A615CA5163304FE0000C840 /* Novocaine.m */,
+				0A615CA6163304FE0000C840 /* RingBuffer.h */,
+				0A615CA7163304FE0000C840 /* RingBuffer.mm */,
+			);
+			name = Novacaine;
+			sourceTree = "<group>";
+		};
+		0A3C60F11633057A001FBFBC /* BuiltInFrameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0A9D8F731615094100A18E14 /* Security.framework */,
+				0A9D8F711615093800A18E14 /* CFNetwork.framework */,
+				0A9D8F9616150CD300A18E14 /* SystemConfiguration.framework */,
+				0A9D8F8F16150C3400A18E14 /* CoreData.framework */,
+				0A9D8F9016150C3400A18E14 /* CoreLocation.framework */,
+				4D66E95D1630D6BC000C589E /* AVFoundation.framework */,
+				0AA17FB31630B84400CD704A /* CoreFoundation.framework */,
+				BA777D0016214A530088F734 /* QuartzCore.framework */,
+				0A615C161632FD9D0000C840 /* CoreAudio.framework */,
+				0A615C141632FD960000C840 /* Accelerate.framework */,
+				4D66E96F16310114000C589E /* AudioToolbox.framework */,
+			);
+			name = BuiltInFrameworks;
+			sourceTree = "<group>";
+		};
 		0A9D8FDE16150F7C00A18E14 /* XMPPFramework */ = {
 			isa = PBXGroup;
 			children = (
@@ -629,19 +680,12 @@
 		4DE6A430160FC14B005F7857 = {
 			isa = PBXGroup;
 			children = (
-				4D66E96F16310114000C589E /* AudioToolbox.framework */,
+				0A3C60F11633057A001FBFBC /* BuiltInFrameworks */,
+				0A3C60EF16330556001FBFBC /* Novacaine */,
 				4D66E9621630D7FD000C589E /* echo.mp3 */,
-				4D66E95D1630D6BC000C589E /* AVFoundation.framework */,
-				0AA17FB31630B84400CD704A /* CoreFoundation.framework */,
-				BA777D0016214A530088F734 /* QuartzCore.framework */,
 				0A9D8FDE16150F7C00A18E14 /* XMPPFramework */,
-				0A9D8F9616150CD300A18E14 /* SystemConfiguration.framework */,
 				0A9D8F9316150C4200A18E14 /* libxml2.dylib */,
-				0A9D8F8F16150C3400A18E14 /* CoreData.framework */,
-				0A9D8F9016150C3400A18E14 /* CoreLocation.framework */,
 				0A9D8F8916150A0D00A18E14 /* libresolv.dylib */,
-				0A9D8F731615094100A18E14 /* Security.framework */,
-				0A9D8F711615093800A18E14 /* CFNetwork.framework */,
 				4DE6A445160FC14B005F7857 /* iosComm */,
 				4DE6A46C160FC14B005F7857 /* iosCommTests */,
 				4DE6A43E160FC14B005F7857 /* Frameworks */,
@@ -907,6 +951,10 @@
 				0AA180001630D39F00CD704A /* XMPPDateTimeProfiles.m in Sources */,
 				4D66E9661630DB0A000C589E /* OCAudioModule.m in Sources */,
 				0A42C8BC163107A40053C5F2 /* OCSocketViewController.m in Sources */,
+				0A615CA8163304FE0000C840 /* AudioFileReader.mm in Sources */,
+				0A615CA9163304FE0000C840 /* AudioFileWriter.m in Sources */,
+				0A615CAA163304FE0000C840 /* Novocaine.m in Sources */,
+				0A615CAB163304FE0000C840 /* RingBuffer.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
