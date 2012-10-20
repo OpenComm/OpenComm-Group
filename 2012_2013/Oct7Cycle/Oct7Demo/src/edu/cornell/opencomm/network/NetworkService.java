@@ -50,7 +50,7 @@ public class NetworkService {
 	public static NetworkService getInstance() {
 		if (_instance == null) {
 			_instance = new NetworkService(
-					"cuopencomm.no-ip.org", 5222);
+					"jabber.org", 5222);
 					/*
 					Resources.getSystem().getString(R.string.DEFAULT_HOST), 
 					Resources.getSystem().getInteger(R.integer.DEFAULT_PORT));*/
@@ -75,7 +75,9 @@ public class NetworkService {
 		SmackConfiguration.setPacketReplyTimeout(100000);
 
 		// create connection to host:port
-		this.xmppConfig = new ConnectionConfiguration(host, port);
+		this.xmppConfig = new ConnectionConfiguration("cuopencomm.no-ip.org", 5222);
+		this.xmppConfig.setSASLAuthenticationEnabled(true);
+		//this.xmppConfig.setCompressionEnabled(true);
 		this.xmppConn = new XMPPConnection(xmppConfig);
 
 	}// end NetworkService method
@@ -95,8 +97,8 @@ public class NetworkService {
 
 	public boolean login(String username, String password) {
 		try {
-			// FIXIT: move default host to XML
-			this.xmppConn.login(username, password, null);
+			// FIXIT: move default host, port, and resource to XML
+			this.xmppConn.login("opencommsec@cuopencomm", "secopencomm", "OpenComm");
 		} catch (XMPPException e) {
 			Log.v(TAG, "Unable to authenticate");
 			Log.v(TAG, e.getMessage());
@@ -110,6 +112,15 @@ public class NetworkService {
 		return this.isAuthenticated;
 	}
 
+	public boolean logout() {
+		this.xmppConn.disconnect();
+		return true;
+	}
+	
+	public XMPPConnection getConnection() {
+		return this.xmppConn;
+	}
+	
 	/**
 	 * TODO Remove extraneous providers
 	 * 
