@@ -40,8 +40,6 @@ public class LoginController {
 	 * @param password
 	 */
 	public void handleLoginButtonClick(String email, String password) {
-		// TODO sign in with the given email and password
-		// if successful
 		String[] loginInfo = { email, password };
 		new LoginTask().execute(loginInfo);
 		this.loginView.getLoginOverlay().setVisibility(View.VISIBLE);

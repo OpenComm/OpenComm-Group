@@ -1,23 +1,21 @@
 package edu.cornell.opencomm.view;
 
-import org.jivesoftware.smack.ConnectionConfiguration;
-import org.jivesoftware.smack.XMPPConnection;
-import org.jivesoftware.smack.XMPPException;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.model.ReturnState;
-import edu.cornell.opencomm.util.Util;
+import edu.cornell.opencomm.network.NetworkService;
 
 public class StartAppActivity extends Activity {
 	/**
 	 * The TAG for logging
 	 */
 	private static final String TAG = StartAppActivity.class.getSimpleName();
+	@SuppressWarnings("unused")
 	private static final boolean D = true;
 	/**
 	 * The delay for splash screen in milliseconds
@@ -45,21 +43,18 @@ public class StartAppActivity extends Activity {
 	}
 
 	/**
-	 * TODO: Use Network Service to connect to the server Note: Netowrk service
+	 * TODO: Use Network Service to connect to the server Note: Network service
 	 * is a AsyncTask so there is no need to create another. Just Saying :)
 	 * 
 	 */
 	private void connect() {
 		ReturnState returnState;
-		ConnectionConfiguration config = new ConnectionConfiguration(
-				Util.DEFAULT_HOST, Util.DEFAULT_PORT);
-		XMPPConnection connection = new XMPPConnection(config);
-		try {
-			connection.connect();
-			returnState = ReturnState.SUCEEDED;
-		} catch (XMPPException e) {
-			returnState = ReturnState.COULDNT_CONNECT;
-		}
+		NetworkService xmppService = new NetworkService(getResources()
+				.getString(R.string.DEFAULT_HOST), getResources()
+				.getInteger(R.integer.DEFAULT_PORT));
+		boolean connected = xmppService.connect();
+		returnState = connected ? ReturnState.SUCEEDED
+				: ReturnState.COULDNT_CONNECT;
 		if (returnState == ReturnState.SUCEEDED) {
 			launchLoginView();
 		} else {
@@ -80,7 +75,7 @@ public class StartAppActivity extends Activity {
 	 * TODO: Ask design team for flow if connection to server fails
 	 */
 	private void onConnectionError() {
-		// TODO
+		Log.v(TAG, "Server connection error!");
 	}
 
 	@Override
