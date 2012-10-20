@@ -1,18 +1,13 @@
 package edu.cornell.opencomm.network;
 
-import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.ConnectionConfiguration;
-import org.jivesoftware.smack.ConnectionListener;
 import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
-import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.provider.PrivacyProvider;
 import org.jivesoftware.smack.provider.ProviderManager;
 import org.jivesoftware.smackx.GroupChatInvitation;
 import org.jivesoftware.smackx.PrivateDataManager;
-import org.jivesoftware.smackx.muc.InvitationListener;
-import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.packet.ChatStateExtension;
 import org.jivesoftware.smackx.packet.LastActivity;
 import org.jivesoftware.smackx.packet.OfflineMessageInfo;
@@ -34,19 +29,35 @@ import org.jivesoftware.smackx.provider.VCardProvider;
 import org.jivesoftware.smackx.provider.XHTMLExtensionProvider;
 import org.jivesoftware.smackx.search.UserSearch;
 
-import android.content.Context;
+import android.content.res.Resources;
 import android.util.Log;
-import android.view.LayoutInflater;
+import edu.cornell.opencomm.R;
 
 public class NetworkService {
 
+	@SuppressWarnings("unused")
 	private static final boolean D = true;
 	private static final String TAG = "Network.NetworkService";
 
+	private static NetworkService _instance = null;
+
 	// XMPP connection
-	private XMPPConnection xmppConn = null;
-	private ConnectionConfiguration xmppConfig = null;
+	private XMPPConnection xmppConn;
+	private ConnectionConfiguration xmppConfig;
 	private boolean isConnected;
+	private boolean isAuthenticated;
+
+	public static NetworkService getInstance() {
+		if (_instance == null) {
+			_instance = new NetworkService(
+					"cuopencomm.no-ip.org", 5222);
+					/*
+					Resources.getSystem().getString(R.string.DEFAULT_HOST), 
+					Resources.getSystem().getInteger(R.integer.DEFAULT_PORT));*/
+		}
+		return _instance;
+
+	}
 
 	/**
 	 * Constructor: a network service for the application that creates and
@@ -66,7 +77,7 @@ public class NetworkService {
 		// Create a connection to the server on a specific port
 		this.xmppConfig = new ConnectionConfiguration(host, port);
 		this.xmppConn = new XMPPConnection(xmppConfig);
-		
+
 	}// end NetworkService method
 
 	public boolean connect() {
@@ -74,11 +85,29 @@ public class NetworkService {
 			this.xmppConn.connect();
 		} catch (XMPPException e) {
 			Log.v(TAG, e.getMessage());
+		} 
+		this.isConnected = xmppConn.isConnected();
+		if (isConnected) {
+			Log.v(TAG, "pinged server!");
 		}
-		isConnected = xmppConn.isConnected();
 		return isConnected;
 	}
-	
+
+	public boolean login(String username, String password) {
+		try {
+			this.xmppConn.login(username + "@cuopencomm.no-ip.org", password, null);
+		} catch (XMPPException e) {
+			Log.v(TAG, "Unable to authenticate");
+		} catch (Exception e) {
+			Log.v(TAG, e.getMessage());
+		}
+		this.isAuthenticated = this.xmppConn.isAuthenticated();
+		if (isAuthenticated) {
+			Log.v(TAG, "logged in!");
+		}
+		return this.isAuthenticated;
+	}
+
 	/**
 	 * TODO Remove extraneous providers
 	 * 

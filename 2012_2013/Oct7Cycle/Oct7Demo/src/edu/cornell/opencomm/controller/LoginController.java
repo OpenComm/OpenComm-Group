@@ -6,6 +6,7 @@ import org.jivesoftware.smack.XMPPException;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.View;
+import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.LoginView;
 import edu.cornell.opencomm.view.ResetPasswordView;
@@ -25,8 +26,6 @@ public class LoginController {
 	private enum ReturnState {
 		SUCEEDED, COULDNT_CONNECT, WRONG_PASSWORD, ALREADY_CLICKED
 	};
-
-	private XMPPConnection connection;
 
 	/**
 	 * @param view
@@ -69,15 +68,10 @@ public class LoginController {
 		// ReturnState specifies the outcome of the background task.
 		@Override
 		protected ReturnState doInBackground(String... strings) {
-			if (connection.isConnected()) {
-				return ReturnState.ALREADY_CLICKED;
-			} else {
-				try {
-					connection.login(strings[0], strings[1]);
-				} catch (XMPPException e) {
-					return ReturnState.WRONG_PASSWORD;
-				}
+			if (NetworkService.getInstance().login(strings[0], strings[1])) {
 				return ReturnState.SUCEEDED;
+			} else {
+				return ReturnState.COULDNT_CONNECT;
 			}
 		}
 

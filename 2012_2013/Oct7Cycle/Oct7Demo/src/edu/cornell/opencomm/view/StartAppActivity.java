@@ -15,7 +15,7 @@ public class StartAppActivity extends Activity {
 	 * The TAG for logging
 	 */
 	private static final String TAG = StartAppActivity.class.getSimpleName();
-	@SuppressWarnings("unused")
+
 	private static final boolean D = true;
 	/**
 	 * The delay for splash screen in milliseconds
@@ -36,6 +36,7 @@ public class StartAppActivity extends Activity {
 		final Handler handler = new Handler();
 		handler.postDelayed(new Runnable() {
 			public void run() {
+				if (D) Log.d(TAG, "Splash timeout:Attempting Connection");
 				connect();
 			}
 		}, SPLASH_SCREEN_DELAY);
@@ -49,16 +50,15 @@ public class StartAppActivity extends Activity {
 	 */
 	private void connect() {
 		ReturnState returnState;
-		NetworkService xmppService = new NetworkService(getResources()
-				.getString(R.string.DEFAULT_HOST), getResources()
-				.getInteger(R.integer.DEFAULT_PORT));
+		NetworkService xmppService = NetworkService.getInstance();
 		boolean connected = xmppService.connect();
 		returnState = connected ? ReturnState.SUCEEDED
 				: ReturnState.COULDNT_CONNECT;
 		if (returnState == ReturnState.SUCEEDED) {
+			if (D) Log.d(TAG, "Connection Success:Launch Login View");
 			launchLoginView();
 		} else {
-			// TODO : Alternate flow yet to decided
+			if (D) Log.d(TAG, "Connection Failed:DisplayTip");
 			onConnectionError();
 		}
 	}
@@ -76,10 +76,14 @@ public class StartAppActivity extends Activity {
 	 */
 	private void onConnectionError() {
 		Log.v(TAG, "Server connection error!");
+		NotificationView notifyError = new NotificationView(StartAppActivity.this);
+		notifyError.launch("Network Connection Failed!");
+		launchLoginView();
 	}
 
 	@Override
 	public void onBackPressed() {
 		// back button disabled
 	}
+	
 }
