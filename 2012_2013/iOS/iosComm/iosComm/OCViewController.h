@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "XMPP.h"
+#import "XMPPFramework.h"
 #import "OCDefaultServerConstantsController.h"
 #import "OCXMPPDelegateHandler.h"
 #import "OCAudioPassingProtocol.h"

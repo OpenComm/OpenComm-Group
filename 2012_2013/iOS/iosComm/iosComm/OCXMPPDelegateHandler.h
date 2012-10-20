@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "XMPP.h"
+#import "XMPPFramework.h"
 
 @interface OCXMPPDelegateHandler : NSObject {
     NSString *password;
