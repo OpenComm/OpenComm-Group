@@ -53,7 +53,7 @@ public class User {
         if (user_color_table.containsKey(username)){
             user_color=user_color_table.get(username);
         }else{
-            user_color=colors[color_pointer];
+            user_color=colors[color_pointer%(colors.length)];
             color_pointer=(color_pointer>=9? 0 : ++color_pointer);
             user_color_table.put(username, user_color);
         }

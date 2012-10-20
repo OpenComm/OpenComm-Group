@@ -55,9 +55,9 @@ public class ConferenceSchedulerView extends Activity {
 		 users.add(new User("naka_shaka_laka", "Risa Naka", R.drawable.example_picture_1));
 		 users.add(new User("noratheexplora", "Nora Ng-Quinn", R.drawable.example_picture_2));
 		 users.add(new User("makomania", "Makoto Bentz", R.drawable.example_picture_3));
-	//	 users.add(new User("graeme_craka", "Graeme Bailey", R.drawable.example_picture_1));
-	//	 users.add(new User("naj_hodge", "Najla Elmachtoub", R.drawable.example_picture_2));
-	//	 users.add(new User("xu_mu_moo", "Jason Xu", R.drawable.example_picture_3));
+		 users.add(new User("graeme_craka", "Graeme Bailey", R.drawable.example_picture_1));
+		 users.add(new User("naj_hodge", "Najla Elmachtoub", R.drawable.example_picture_2));
+		 users.add(new User("xu_mu_moo", "Jason Xu", R.drawable.example_picture_3));
 		 return users;
 	 }
 	 
@@ -84,7 +84,7 @@ public class ConferenceSchedulerView extends Activity {
 			ArrayList<User> conference2_attendees = new ArrayList<User>();
 			conference2_attendees.add(users.get(1));
 			conference2_attendees.add(users.get(2));
-			//conference2_attendees.add(users.get(3));
+			conference2_attendees.add(users.get(3));
 		    Conference conference2 = new Conference( "Happening Now",
 		    										"OH HAAAAAAAAAAAAAAAAAAAAAAAAAI",
 		    										startTime,
@@ -102,6 +102,7 @@ public class ConferenceSchedulerView extends Activity {
 			endTime.add(Calendar.HOUR, 4); 
 			ArrayList<User> conference3_attendees = new ArrayList<User>();
 			conference2_attendees.add(users.get(2));
+			conference2_attendees.add(users.get(4));
 		    Conference conference3 = new Conference( "UPCOMING",
 		    										"OMG it's Year 9000",
 		    										startTime,
