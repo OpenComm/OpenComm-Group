@@ -15,7 +15,7 @@ public class DashboardView extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dashboard_layout);
-		FontSetter.applySanSerifFont(this, findViewById(R.layout.dashboard_layout));
+		FontSetter.applySanSerifFont(this, findViewById(R.id.dashboard_layout));
 		this.controller = new DashboardController(this, DashboardView.this);
 	}
 	

@@ -21,7 +21,7 @@ public class ResetPasswordView extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.reset_password_layout);
 		this.inflater = this.getLayoutInflater(); 
-		FontSetter.applySanSerifFont(ResetPasswordView.this, findViewById(R.layout.reset_password_layout)); 		
+		FontSetter.applySanSerifFont(ResetPasswordView.this, findViewById(R.id.reset_password_layout)); 		
 		controller = new ResetPasswordController(ResetPasswordView.this, this); 
 	}
 	

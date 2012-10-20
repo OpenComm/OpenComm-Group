@@ -27,7 +27,7 @@ public class SignupView extends Activity{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.signup_view_layout);
-		FontSetter.applySanSerifFont(SignupView.this, findViewById(R.layout.signup_view_layout));
+		FontSetter.applySanSerifFont(SignupView.this, findViewById(R.id.signup_view_layout));
 		controller = new SignupController(this,SignupView.this);
 		init();
 	}
