@@ -9,21 +9,37 @@ import org.jivesoftware.smack.XMPPException;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.FrameLayout.LayoutParams;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.ConferenceController;
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.model.Space;
 import edu.cornell.opencomm.model.User;
 
-public final class ConferenceView extends Activity {
+public final class ConferenceView extends Activity implements OnTouchListener{
+	
+	private final static int START_DRAGGING = 0;
+	private final static int STOP_DRAGGING = 1;
+	private int status;
+	private LayoutParams params;
+	private ImageView image;
+	private FrameLayout spaceViewFrame;
 
-
+	private LinearLayout inviteOverlay = null;
 	/**
 	 * The SpaceView object (UI) representing the space that the user is
 	 * currently talking to
 	 */
+	public static UserView userView;
+	
 	public static SpaceView spaceView;
 	
 	public static ChatView chatView;
@@ -67,6 +83,14 @@ public final class ConferenceView extends Activity {
 		// Open up the layout specified by the main XML
 		setContentView(R.layout.conference_layout);
 		
+		spaceViewFrame = (FrameLayout) findViewById(R.id.spaceViewFrame);
+		userView = (UserView) findViewById(R.id.test_user);;
+		userView.setOnTouchListener(this);
+		userView.setDrawingCacheEnabled(true);
+		params = new LayoutParams(LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT);
+		
+		inviteOverlay = (LinearLayout) findViewById(R.id.inviteOverlay);
 //		spaceView = (SpaceView) findViewById(R.id.space_view);
 		// Check if the mainspace was already created
 		if (Space.getMainSpace() == null) {
@@ -102,8 +126,29 @@ public final class ConferenceView extends Activity {
 
 //		spaceView.setOnKeyListener(onKeyListener);
 
-
 	}
+	
+	public boolean onTouch(View view, MotionEvent me) {
+		if (me.getAction() == MotionEvent.ACTION_DOWN) {
+			status = START_DRAGGING;
+			image = new ImageView(this);
+			image.setImageBitmap(userView.getDrawingCache());
+			spaceViewFrame.addView(image, params);
+		}
+		if (me.getAction() == MotionEvent.ACTION_UP) {
+			status = STOP_DRAGGING;
+			Log.i("Drag", "Stopped Dragging");
+			inviteOverlay.setVisibility(View.VISIBLE);
+		} else if (me.getAction() == MotionEvent.ACTION_MOVE) {
+			if (status == START_DRAGGING) {
+				System.out.println("Dragging");
+				image.setPadding((int) me.getRawX(), (int) me.getRawY(), 0, 0);
+				image.invalidate();
+			}
+		}
+		return false;
+	}
+	
 	private void applyFont(){
 		//TODO: Make sure font setting cascades to chatView and spaceView
 		FontSetter.applySanSerifFont(ConferenceView.this, findViewById(R.layout.conference_layout));
