@@ -5,11 +5,15 @@ import java.util.ArrayList;
 import org.apache.http.NameValuePair;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.util.Util;
+import edu.cornell.opencomm.view.DashboardView;
+import edu.cornell.opencomm.view.LoginView;
 import edu.cornell.opencomm.view.NotificationView;
 import edu.cornell.opencomm.view.SignupView;
 
@@ -74,17 +78,26 @@ public class SignupController {
 	}
 
 	public void handleSave() {
-		// TODO Auto-generated method stub
 		//TODO: add code base on implementation of create user task and user account manager
+		//TODO check validity of input
 //		new CreateUser().execute(null);
+		this.signupView.findViewById(R.id.acceptSignupOverlay).setVisibility(View.VISIBLE);
+		boolean allInputsValid = true;
+		if (allInputsValid) {
+			Intent click = new Intent(this.signupView,DashboardView.class);
+			this.signupView.startActivity(click);
+		}
 	}
 
 	public void handleCancel() {
 		// TODO Auto-generated method stub
+		this.signupView.findViewById(R.id.cancelSignupOverlay).setVisibility(View.VISIBLE);
+		Intent click = new Intent(this.signupView,LoginView.class);
+		this.signupView.startActivity(click);
 
 	}
 
-	public void handleEmailFoucsChange(View view, boolean hasFocus) {
+	public void handleEmailFocusChange(View view, boolean hasFocus) {
 		if (!hasFocus) {
 			EditText textBox = (EditText) view;
 			String nameText = textBox.getText().toString();

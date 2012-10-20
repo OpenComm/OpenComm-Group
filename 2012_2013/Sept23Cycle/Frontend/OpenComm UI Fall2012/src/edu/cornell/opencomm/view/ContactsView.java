@@ -26,7 +26,7 @@ public class ContactsView extends Activity{
 		adjustLayoutLookAndFunctionality();
 		dbHelper = new ContactsDbAdapter();
 		dbHelper.open();
-		retrieveAndDsiplayContacts();
+		retrieveAndDisplayContacts();
 	}
 	
 	/** Adjust the displayed layout and button functionality */
@@ -94,7 +94,7 @@ public class ContactsView extends Activity{
 	
 	/** Retrieve and display this user's contacts */
 	// TODO Needs to be tested and altered
-	public void retrieveAndDsiplayContacts(){
+	public void retrieveAndDisplayContacts(){
 		// Retrieve all contacts 
 		Cursor cursor = dbHelper.getAllContacts();
 		
@@ -111,5 +111,4 @@ public class ContactsView extends Activity{
 		ListView listView = (ListView) findViewById(R.id.contacts_list); 
 		listView.setAdapter(adapter);
 	}
-
 }

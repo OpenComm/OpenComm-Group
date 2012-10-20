@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/signup_view_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black_translucent"
@@ -204,8 +205,11 @@
                     android:layout_width="fill_parent"
                     android:layout_height="38dp"
                     android:orientation="horizontal" >
-
-                    <ImageButton
+					<RelativeLayout 
+					    android:id="@+id/confirmWrapper"
+					    android:layout_width="160dp"
+           				android:layout_height="wrap_content">
+					     <ImageButton
                         android:id="@+id/saveImage"
                         android:layout_width="58.67dp"
                         android:layout_height="fill_parent"
@@ -223,37 +227,62 @@
                         android:id="@+id/saveButton"
                         android:layout_width="101.33dp"
                         android:layout_height="fill_parent"
+                        android:layout_toRightOf="@id/saveImage"
                         android:background="@color/dark_grey_translucent"
                         android:clickable="true"
                         android:gravity="left|center_vertical"
                         android:text="@string/save"
                         android:textColor="@color/blue"
                         android:textSize="25sp" />
-
-                    <ImageButton
-                        android:id="@+id/cancelImage"
-                        android:layout_width="57.33dp"
+                    <ImageView
+                        android:id="@+id/acceptSignupOverlay"
+                        android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:layout_gravity="center"
-                        android:background="@color/dark_grey_translucent"
-                        android:contentDescription="@string/todo_need_to_write_a_content_desc"
-                        android:paddingBottom="7.665dp"
-                        android:paddingLeft="22dp"
-                        android:paddingRight="13.33dp"
-                        android:paddingTop="7.665dp"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/cancelx" />
-
-                    <Button
-                        android:id="@+id/cancelButton"
-                        android:layout_width="102.67dp"
+                  		android:contentDescription="@string/desc"
+			            android:scaleType="fitXY"
+			            android:src="@drawable/overlay_white"
+			            android:visibility="invisible"
+                        />
+					</RelativeLayout>
+					<RelativeLayout 
+					    android:id="@+id/cancelWrapper"
+					    android:layout_width="160dp"
+           				android:layout_height="wrap_content">
+	                    <ImageButton
+	                        android:id="@+id/cancelImage"
+	                        android:layout_width="57.33dp"
+	                        android:layout_height="fill_parent"
+	                        android:layout_gravity="center"
+	                        android:background="@color/dark_grey_translucent"
+	                        android:contentDescription="@string/todo_need_to_write_a_content_desc"
+	                        android:paddingBottom="7.665dp"
+	                        android:paddingLeft="22dp"
+	                        android:paddingRight="13.33dp"
+	                        android:paddingTop="7.665dp"
+	                        android:scaleType="centerInside"
+	                        android:src="@drawable/cancelx" />
+	
+	                    <Button
+	                        android:id="@+id/cancelButton"
+	                        android:layout_toRightOf="@id/cancelImage"
+	                        android:layout_width="102.67dp"
+	                        android:layout_height="fill_parent"
+	                        android:background="@color/dark_grey_translucent"
+	                        android:clickable="true"
+	                        android:gravity="left|center_vertical"
+	                        android:text="@string/cancel"
+	                        android:textColor="@color/orange"
+	                        android:textSize="25sp" />
+	                    <ImageView
+                        android:id="@+id/cancelSignupOverlay"
+                        android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:background="@color/dark_grey_translucent"
-                        android:clickable="true"
-                        android:gravity="left|center_vertical"
-                        android:text="@string/cancel"
-                        android:textColor="@color/orange"
-                        android:textSize="25sp" />
+                  		android:contentDescription="@string/desc"
+			            android:scaleType="fitXY"
+			            android:src="@drawable/overlay_white"
+			            android:visibility="invisible"
+                        />
+                    </RelativeLayout>
                 </LinearLayout>
 
 </LinearLayout>

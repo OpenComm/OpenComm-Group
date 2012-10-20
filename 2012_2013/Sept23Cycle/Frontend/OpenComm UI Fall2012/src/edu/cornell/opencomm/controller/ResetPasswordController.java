@@ -1,16 +1,29 @@
 package edu.cornell.opencomm.controller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Editable;
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
+import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.view.LoginView;
 import edu.cornell.opencomm.view.ResetPasswordView;
+import edu.cornell.opencomm.view.SignupView;
 
-//Author: Spandana Govindgari sg754
+/** @author Author: Spandana Govindgari sg754 */
 
 public class ResetPasswordController {
+	
+	// for debugging
+	private static final String TAG = ResetPasswordController.class.getSimpleName();
+	private static final boolean D = true;
+	
+	// for loginView
+	public static final String PWDRESET = "PasswordReset";
+	
 	private ResetPasswordView resetPasswordView;
 	private Context context; 
-	// Added logs
-	private static final String LOG_TAG = "ResetPasswordController";
 	
 	//Constructor - initialize required fields
 	public ResetPasswordController(Context context, ResetPasswordView view){
@@ -20,6 +33,10 @@ public class ResetPasswordController {
 	
 	//Handle sign up button
 	public void signUpPressed(){
+		if (D) Log.v(this.TAG, "Sign up pressed");
+		this.resetPasswordView.findViewById(R.id.signupOverlayReset).setVisibility(View.VISIBLE);
+		Intent click = new Intent(this.resetPasswordView,SignupView.class);
+		this.resetPasswordView.startActivity(click);
 		
 	}
 	
@@ -27,6 +44,20 @@ public class ResetPasswordController {
 	//This method should load the reset password page
 	public void resetPasswordPressed(){
 		//Send an email confirmation
+		this.resetPasswordView.findViewById(R.id.resetPasswordOverlay).setVisibility(View.VISIBLE);
+		//TODO
+		//1. Should contact network and send a dummy password to this user's email
+		// go back to login page
+		Intent click = new Intent(this.resetPasswordView,LoginView.class);
+		click.putExtra(ResetPasswordController.PWDRESET, true);
+		this.resetPasswordView.startActivity(click);
+	}
+	
+	// Back button on Android pressed
+	public void onBackPressed() {
+		// go back to login page
+		Intent click = new Intent(this.resetPasswordView,LoginView.class);
+		this.resetPasswordView.startActivity(click);
 	}
 	
 	//Find text from view 

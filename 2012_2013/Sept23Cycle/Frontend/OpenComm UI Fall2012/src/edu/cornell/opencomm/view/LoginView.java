@@ -2,7 +2,9 @@ package edu.cornell.opencomm.view;
 
 import edu.cornell.opencomm.R;
 
+import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.controller.LoginController;
+import edu.cornell.opencomm.controller.ResetPasswordController;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +19,11 @@ import android.app.Activity;
 import android.content.Intent;
 
 public class LoginView extends Activity {
+	/**
+	 * The TAG for logging
+	 */
+	private static final String TAG = LoginView.class.getSimpleName();
+	private static final boolean D = true;
 	
 	private LoginController loginController = null;
 	
@@ -27,32 +34,27 @@ public class LoginView extends Activity {
 	private static ImageView loginOverlay;
 	private LayoutInflater inflater = null;
 	private static ImageView signupOverlay;
+	private static String email;
+	private static String password;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_view);
-        this.inflater = this.getLayoutInflater();
+        setContentView(R.layout.login_layout);
+        FontSetter.applySanSerifFont(this, findViewById(R.id.login_layout));
         emailEdit = (EditText) findViewById(R.id.editTextEmail);
 		passwordEdit = (EditText) findViewById(R.id.editTextPassword);
 		loginText = (Button) findViewById(R.id.loginText);
 		loginButton = (ImageButton) findViewById(R.id.loginButton);
 		loginOverlay = (ImageView) findViewById(R.id.loginOverlay);
-		signupOverlay = (ImageView) findViewById(R.id.loginOverlay);
+		signupOverlay = (ImageView) findViewById(R.id.signupOverlay);
+        this.inflater = this.getLayoutInflater();
 		
+        email = emailEdit.getText().toString();
+        password = passwordEdit.getText().toString();
 //		initializeLoginButtonClickedEvent();
 		loginController = new LoginController(this);
     }
-    
-/*    private void initializeLoginButtonClickedEvent() {
-		ImageButton loginButton = getLoginButton();
-		if (loginButton != null) {
-			loginButton.setOnClickListener(onLoginButtonClickedListener);
-		}
-		if (loginText != null) {
-			loginText.setOnClickListener(onLoginButtonClickedListener);
-		}
-	}*/
 	
 	public ImageView getLoginOverlay() {
 		return loginOverlay;
@@ -66,34 +68,43 @@ public class LoginView extends Activity {
 	public LayoutInflater getInflater() {
         return inflater;
     }
-/*	
-	private View.OnClickListener onLoginButtonClickedListener = new View.OnClickListener() {
-
-		public void onClick(View v) {
-			loginController.handleLoginButtonClick(emailEdit, passwordEdit);
-		}
-	};
-*/	
 
 	 /**Jump to the account creation page when sign-up button is clicked*/
     public void createAccount(View v){
-    	Log.v("Crystal", "create Account");
-    	this.getSignupOverlay().setVisibility(View.VISIBLE);
-    	Intent account = new Intent(this,SignupView.class);
-    	startActivity(account);
+    	if (D) Log.d(TAG, "create Account");
+    	this.loginController.handleCreateAccount();
     }
     /**Jump to the Reset Password page when forgot-password is clicked*/
     public void retrievePassword(View v){
-    	Log.v("Crystal", "retrievePassword");
-    	Intent account = new Intent(this,ResetPasswordView.class);
-    	startActivity(account);
+    	Log.v(TAG, "retrievePassword");
+    	this.loginController.handleRetrievePassword();
     }
     
     public void login(View v){
-    	CharSequence text = "Must go to dashboard";
-    	int duration = Toast.LENGTH_SHORT;
-    	Toast send = Toast.makeText(getApplicationContext(),text,duration);
-    	send.show();
+    	this.loginController.handleLoginButtonClick(email, password);
+    }
+    
+    @Override
+    public void onBackPressed() {
+    	// back button disabled
+    }
+    
+    @Override
+    public void onResume() {
+    	super.onResume();
+    	this.getLoginOverlay().setVisibility(View.INVISIBLE);
+    	this.getSignupOverlay().setVisibility(View.INVISIBLE);
+    	emailEdit.setText("");
+    	passwordEdit.setText("");
+    	Intent i = this.getIntent();
+    	// show tip saying that a random password has been generated and sent as an email.
+    	boolean isPwdReset = i.getBooleanExtra(ResetPasswordController.PWDRESET, false);
+    	if (isPwdReset) {
+    		// TODO generate tip view notifying password sent to email
+    		int duration = Toast.LENGTH_SHORT;
+        	Toast send = Toast.makeText(getApplicationContext(),getResources().getString(R.string.resetNotify),duration);
+        	send.show();
+    	}
     }
 }
 

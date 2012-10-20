@@ -13,6 +13,7 @@ public class StartAppActivity extends Activity {
 	 * The TAG for logging
 	 */
 	private static final String TAG = StartAppActivity.class.getSimpleName();
+	private static final boolean D = true;
 	/**
 	 * The delay for splash screen in milliseconds
 	 */
@@ -28,7 +29,7 @@ public class StartAppActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splash_view_layout);
 		FontSetter.applySanSerifFont(StartAppActivity.this,
-				findViewById(R.layout.splash_view_layout));
+				findViewById(R.id.splash_view_layout));
 		final Handler handler = new Handler();
 		handler.postDelayed(new Runnable() {
 			public void run() {
@@ -67,5 +68,10 @@ public class StartAppActivity extends Activity {
 	 */
 	private void onConnectionError() {
 		// TODO
+	}
+	
+	@Override
+	public void onBackPressed() {
+		// back button disabled
 	}
 }
