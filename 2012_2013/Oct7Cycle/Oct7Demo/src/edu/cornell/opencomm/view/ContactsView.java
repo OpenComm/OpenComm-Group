@@ -91,7 +91,13 @@ public class ContactsView extends Activity{
 	        }
 		}); 
 	}
-	
+	/**
+	 * The back arrow should takes the user to previous screen
+	 * @param view
+	 */
+	public void onBackArrow(View  view){
+		super.onBackPressed();
+	}
 	/** Retrieve and display this user's contacts */
 	// TODO Needs to be tested and altered
 	public void retrieveAndDisplayContacts(){

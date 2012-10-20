@@ -93,7 +93,7 @@ public class NetworkService {
 
 	public boolean login(String username, String password) {
 		try {
-			Log.v(TAG, "Attempting Loggin: User Name = " + username
+			Log.v(TAG, "Attempting Login: User Name = " + username
 					+ " password = " + password);
 			this.xmppConn.login(username + DEFAULT_HOSTNAME, password,
 					DEFAULT_RESOURCE);

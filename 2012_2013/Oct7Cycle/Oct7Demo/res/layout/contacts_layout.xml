@@ -35,7 +35,8 @@
                 	android:layout_height="16dp"
                 	android:layout_gravity="center"
                 	android:src="@drawable/contacts_left_arrow"
-                	android:contentDescription="@string/contacts_back_button_desc" />
+                	android:contentDescription="@string/contacts_back_button_desc"
+                	android:onClick="onBackArrow" />
             </FrameLayout>
 
             <ImageView
