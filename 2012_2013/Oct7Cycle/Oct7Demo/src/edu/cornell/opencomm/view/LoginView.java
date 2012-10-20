@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -48,8 +49,19 @@ public class LoginView extends Activity {
 		signupOverlay = (ImageView) findViewById(R.id.signupOverlay);
         this.inflater = this.getLayoutInflater();
 		loginController = new LoginController(this);
+		initEmailFocusChangelistener();
     }
-	
+    /**
+	 * Initialize email box
+	 */
+	private void initEmailFocusChangelistener() {
+		OnFocusChangeListener listener = new View.OnFocusChangeListener() {
+			public void onFocusChange(View view, boolean hasFocus) {
+				loginController.handleEmailFocusChange(view, hasFocus);
+			}
+		};
+		emailEdit.setOnFocusChangeListener(listener);
+	}
 	public ImageView getLoginOverlay() {
 		return loginOverlay;
 	}
@@ -62,7 +74,9 @@ public class LoginView extends Activity {
 	public LayoutInflater getInflater() {
         return inflater;
     }
-
+	public void resetFocus(){
+		emailEdit.requestFocus();
+	}
 	 /**Jump to the account creation page when sign-up button is clicked*/
     public void createAccount(View v){
     	if (D) Log.d(TAG, "create Account");

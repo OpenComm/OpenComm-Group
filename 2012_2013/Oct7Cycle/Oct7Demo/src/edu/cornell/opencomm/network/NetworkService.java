@@ -29,9 +29,7 @@ import org.jivesoftware.smackx.provider.VCardProvider;
 import org.jivesoftware.smackx.provider.XHTMLExtensionProvider;
 import org.jivesoftware.smackx.search.UserSearch;
 
-import android.content.res.Resources;
 import android.util.Log;
-import edu.cornell.opencomm.R;
 
 public class NetworkService {
 
