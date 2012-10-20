@@ -25,6 +25,8 @@ public class Util {
 		return pattern.matcher(str).matches();
 	}
 
+	// [FIXIT] Move network constants into XML
+
 	// Use this switch to go betewen jabber and openfire when one or the other
 	// is down
 	static boolean isJabber = false;
