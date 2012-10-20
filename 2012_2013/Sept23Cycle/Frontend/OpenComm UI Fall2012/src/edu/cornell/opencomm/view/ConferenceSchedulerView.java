@@ -33,115 +33,88 @@ public class ConferenceSchedulerView extends Activity {
 	private ExpandableListView expandList_upcoming;
 	private Calendar currentTime;
 	
+	// TEMPORARY VARIABLES
+	ArrayList<User> users;
+	
 	 public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.conference_scheduling_layout);
 	    currentTime = Calendar.getInstance();
 	    retrieveAndDisplayConferences();
-	    
-	    // test conference card
-	    User inviter = new User("risanakashakalaka", "Risa Naka", 0);
-	    User user1 = new User("noranoranora", "Nora N-Q", 0);
-	    User user2 = new User("makotomakotko", "Makoto Bentz", 0);
-	    ArrayList<User> attendees = new ArrayList<User>();
-	    attendees.add(inviter);
-	    attendees.add(user1);
-	    attendees.add(user2);
-	    Calendar startTime = (Calendar)currentTime.clone();
-		 startTime.add(Calendar.HOUR, -1);
-		 Calendar endTime = (Calendar)currentTime.clone();
-		 endTime.add(Calendar.HOUR, 3); 
-	    Conference conference = new Conference( "X-mas with JGL",
-	    										"Man, we're gonna have suche a rockin' Christmas party. So cool. Did I mention it's at my place, Joseph Gordon-Levitt's?",
-	    										startTime,
-	    										endTime,
-	    										"Every fuckinggg' year",
-	    										inviter,
-	    										attendees
-	    									  );
-	    conference.acceptInvite();
-	    openContactCardActivity(conference); 
-	    
-	    
 	  //  adjustLayoutLookAndFunctionality();
 	 }
 	 
 	 public void retrieveAndDisplayConferences(){
-	/*	 conferences = createExampleConferences();
-		 
-		 // Create list of conferences happening now
-		 expandList_happeningNow = (ExpandableListView) findViewById(R.id.conferences_list_happening_now);
-		 ArrayList<Conference> conferences_happeningNow = getConferencesHappeningNow(conferences); 
-		 if (conferences_happeningNow.size()>0){
-			 RelativeLayout happening_now_separator_bar = (RelativeLayout) findViewById(R.id.conference_separator_happening_now);
-			 happening_now_separator_bar.setVisibility(View.VISIBLE);
-		 }
-		 adapter_happeningNow = new ConferenceSchedulerAdapter(ConferenceSchedulerView.this, conferences_happeningNow, true);
-		 expandList_happeningNow.setAdapter(adapter_happeningNow);
-		 
-		 // Create list of upcoming conferences
-		 expandList_upcoming = (ExpandableListView) findViewById(R.id.conferences_list_upcoming);
-		 ArrayList<Conference> conferences_upcoming = getUpcomingConferences(conferences); 
-		 if (conferences_upcoming.size()>0){
-			 RelativeLayout upcoming_separator_bar = (RelativeLayout) findViewById(R.id.conference_separator_upcoming);
-			 upcoming_separator_bar.setVisibility(View.VISIBLE);
-		 }
-		 adapter_upcoming = new ConferenceSchedulerAdapter(ConferenceSchedulerView.this, conferences_upcoming, false);
-		 expandList_upcoming.setAdapter(adapter_upcoming); */
+		 users = createExampleUsers();
+		 conferences = createExampleConferences();
+		// openContactCardActivity(conferences.get(2));
+	 }
+	 
+	 public ArrayList<User> createExampleUsers(){
+		 ArrayList<User> users = new ArrayList<User>();
+		 users.add(new User("naka_shaka_laka", "Risa Naka", R.drawable.example_picture_1));
+		 users.add(new User("noratheexplora", "Nora Ng-Quinn", R.drawable.example_picture_2));
+		 users.add(new User("makomania", "Makoto Bentz", R.drawable.example_picture_3));
+		 users.add(new User("graeme_craka", "Graeme Bailey", R.drawable.example_picture_1));
+		 users.add(new User("naj_hodge", "Najla Elmachtoub", R.drawable.example_picture_2));
+		 users.add(new User("xu_mu_moo", "Jason Xu", R.drawable.example_picture_3));
+		 return users;
 	 }
 	 
 	 public ArrayList<Conference> createExampleConferences(){
-		/* User user1 = new User("Risa", "Naka");
-		 User user2 = new User("Makoto", "Bentz");
-		 User user3 = new User("Jason", "Xu");
-		 User user4 = new User("Nathan", "Chun");
-		 User user5 = new User("Najla", "Elmachtoub"); */
-		/* ArrayList<Conference> conferences = new ArrayList<Conference>();
-		 Calendar startTime = (Calendar)currentTime.clone();
-		 startTime.add(Calendar.HOUR, -2);
-		 Calendar endTime = (Calendar)currentTime.clone();
-		 endTime.add(Calendar.HOUR, 2); */
-		/* ArrayList<User> conference1_attendees = new ArrayList<User>();
-		 conference1_attendees.add(user1);
-		 conference1_attendees.add(user2);
-		 conference1_attendees.add(user3); */
-		/* Conference conference1 = new Conference( "Morning Meeting",  
-				 					  			  startTime, 
-				 					  			  endTime, 
-				 					  			  "Every Thursday", 
-				 					  			  "Remember to have your documents ready", 
-				 					  			   null);  
-		 startTime = (Calendar)currentTime.clone();
-		 startTime.add(Calendar.HOUR, 2);
-		 endTime = (Calendar)currentTime.clone();
-		 endTime.add(Calendar.HOUR, 4); 
-		/* ArrayList<User> conference2_attendees = new ArrayList<User>();
-		 conference2_attendees.add(user1);
-		 conference2_attendees.add(user2);
-		 conference2_attendees.add(user3);
-		 conference2_attendees.add(user4);
-		 conference2_attendees.add(user5); */
-		/* Conference conference2 = new Conference( "Evening Meeting", 
-	  			  								  startTime, 
-	  			  								  endTime, 
-	  			  								  "Every Thursday", 
-	  			  								  "Remember to have your documents ready", 
-	  			  								  null); */
-		// startTime = (Calendar)currentTime.clone();
-		// endTime = (Calendar)currentTime.clone();
-		/* ArrayList<User> conference3_attendees = new ArrayList<User>();
-		 conference3_attendees.add(user1); */
-		/* Conference conference3 = new Conference( "Right-this-second Meeting", 
-					  startTime, 
-					  endTime, 
-					  "Only right now!", 
-					  "Remember to have your documents ready", 
-					  null ); 
-		 conferences.add(conference1);
-		 conferences.add(conference2);
-		 conferences.add(conference3);
-		 return conferences; */
-		 return null;
+		   ArrayList<Conference> conferences = new ArrayList<Conference>();
+		   // Conference - Invited
+		    Calendar startTime = (Calendar)currentTime.clone();
+			startTime.add(Calendar.HOUR, -1);
+			Calendar endTime = (Calendar)currentTime.clone();
+			endTime.add(Calendar.HOUR, 3); 
+		    conferences.add( new Conference( "Invited",
+		    								 "Man, we're gonna have suche a rockin' Christmas party. So cool. Did I mention it's at my place, Joseph Gordon-Levitt's?",
+		    								 startTime,
+		    								 endTime,
+		    								 "Every fuckinggg' year",
+		    								 users.get(0),
+		    								 users 
+		    							   ) ); 
+		    // Conference - Accepted + Happening Now
+		    startTime = (Calendar)currentTime.clone();
+			startTime.add(Calendar.HOUR, -1);
+			endTime = (Calendar)currentTime.clone();
+			endTime.add(Calendar.HOUR, 3); 
+			ArrayList<User> conference2_attendees = new ArrayList<User>();
+			conference2_attendees.add(users.get(1));
+			conference2_attendees.add(users.get(2));
+			conference2_attendees.add(users.get(3));
+		    Conference conference2 = new Conference( "Happening Now",
+		    										"OH HAAAAAAAAAAAAAAAAAAAAAAAAAI",
+		    										startTime,
+		    										endTime,
+		    										"NOWWWW",
+		    										users.get(1),
+		    										conference2_attendees 
+		    						 	 		  );
+		    conference2.acceptInvite();
+		    conferences.add(conference2);
+		    // Conference - Accepted + Upcoming
+		    startTime = (Calendar)currentTime.clone();
+			startTime.add(Calendar.HOUR, 3);
+			endTime = (Calendar)currentTime.clone();
+			endTime.add(Calendar.HOUR, 4); 
+			ArrayList<User> conference3_attendees = new ArrayList<User>();
+			conference2_attendees.add(users.get(2));
+			conference2_attendees.add(users.get(4));
+		    Conference conference3 = new Conference( "UPCOMING",
+		    										"OMG it's Year 9000",
+		    										startTime,
+		    										endTime,
+		    										"OMG IT'S OVER 9-",
+		    										users.get(2),
+		    										conference3_attendees 
+		    						 	 		  );
+		    conference3.acceptInvite();
+		    conferences.add(conference3);
+		    
+		 return conferences;
 	 }
 	 
 	 public ArrayList<Conference> getConferencesHappeningNow(ArrayList<Conference> conferences){
