@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.model.ReturnState;
@@ -18,7 +19,7 @@ public class StartAppActivity extends Activity {
 	 * The TAG for logging
 	 */
 	private static final String TAG = StartAppActivity.class.getSimpleName();
-	private static final boolean D = true;
+	private static final boolean D = false;
 	/**
 	 * The delay for splash screen in milliseconds
 	 */
@@ -38,6 +39,7 @@ public class StartAppActivity extends Activity {
 		final Handler handler = new Handler();
 		handler.postDelayed(new Runnable() {
 			public void run() {
+				if (D) Log.d(TAG, "Splash timeout:Attempting Connection");
 				connect();
 			}
 		}, SPLASH_SCREEN_DELAY);
@@ -61,9 +63,10 @@ public class StartAppActivity extends Activity {
 			returnState = ReturnState.COULDNT_CONNECT;
 		}
 		if (returnState == ReturnState.SUCEEDED) {
+			if (D) Log.d(TAG, "Connection Success:Launch Login View");
 			launchLoginView();
 		} else {
-			// TODO : Alternate flow yet to decided
+			if (D) Log.d(TAG, "Connection Failed:DisplayTip");
 			onConnectionError();
 		}
 	}
@@ -80,11 +83,14 @@ public class StartAppActivity extends Activity {
 	 * TODO: Ask design team for flow if connection to server fails
 	 */
 	private void onConnectionError() {
-		// TODO
+		NotificationView notifyError = new NotificationView(StartAppActivity.this);
+		notifyError.launch("Network Connection Failed!");
+		launchLoginView();
 	}
 
 	@Override
 	public void onBackPressed() {
 		// back button disabled
 	}
+	
 }
