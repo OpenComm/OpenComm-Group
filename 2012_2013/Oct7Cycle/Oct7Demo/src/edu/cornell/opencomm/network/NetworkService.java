@@ -33,7 +33,6 @@ import android.util.Log;
 
 public class NetworkService {
 
-	@SuppressWarnings("unused")
 	private static final boolean D = true;
 	private static final String TAG = "Network.NetworkService";
 

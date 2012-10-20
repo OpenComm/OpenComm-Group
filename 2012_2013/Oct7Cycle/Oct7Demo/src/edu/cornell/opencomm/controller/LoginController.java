@@ -46,16 +46,16 @@ public class LoginController {
 	 */
 	public void handleLoginButtonClick(String email, String password) {
 		// TODO: use to choose next screen
-		if (validateEmail(email)) {
+		//if (validateEmail(email)) {
 			this.loginView.getLoginOverlay().setVisibility(View.VISIBLE);
 			if (loginProgress == null) {
 				loginProgress = ProgressDialog.show(loginView, "Working..",
 						"Please wait..");
 				new LoginTask().execute(email, password);
 			}
-		} else {
-			loginView.resetFocus();
-		}
+		//} else {
+			//loginView.resetFocus();
+		//}
 	}
 
 	public void handleCreateAccount() {
