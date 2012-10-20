@@ -42,9 +42,9 @@ public class UserView extends Button{
 		setPaint(context);
 	}
 
-	public void onDraw(Canvas canvas){
-		canvas.drawCircle(x, y, 20, paint);
-	}
+//	public void onDraw(Canvas canvas){
+////		canvas.drawCircle(x, y, 20, paint);
+//	}
 
 	public User getPerson(){
 		return person;

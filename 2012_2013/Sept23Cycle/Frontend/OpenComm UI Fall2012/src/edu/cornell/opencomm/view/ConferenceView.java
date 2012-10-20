@@ -82,47 +82,17 @@ public final class ConferenceView extends Activity implements OnTouchListener{
 
 		// Open up the layout specified by the main XML
 		setContentView(R.layout.conference_layout);
-		
-		spaceViewFrame = (FrameLayout) findViewById(R.id.spaceViewFrame);
-		userView = (UserView) findViewById(R.id.test_user);;
-		userView.setOnTouchListener(this);
-		userView.setDrawingCacheEnabled(true);
-		params = new LayoutParams(LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT);
-		
-		inviteOverlay = (LinearLayout) findViewById(R.id.inviteOverlay);
-//		spaceView = (SpaceView) findViewById(R.id.space_view);
-		// Check if the mainspace was already created
-		if (Space.getMainSpace() == null) {
-			// Obtain username used to log into the application
-			Intent start_intent = getIntent();
-			//TODO :Get the correct string extrea from start conference view
-			// username = start_intent.getStringExtra(Network.KEY_USERNAME);
-			// Create instance of primary user
-			//TODO : ConferenceController needs to delegate this to 
-			// SpaceDelegate
-//			try {
-//				// create the mainspace
-//				SpaceController.createMainSpace(this);
-//
-//				// create an empty private space
-//				// SpaceController.addSpace(this);
-//
-//				// TODO add private space preview
-//			} catch (XMPPException e) {
-//				// Log.e(TAG, "onCreate - Error (" + e.getXMPPError().getCode()
-//				// + ") " + e.getXMPPError().getMessage());
-//				e.printStackTrace();
-//			}
-//			spaceView.setSpace(Space.getMainSpace());
-//			Space.getMainSpace().setScreenOn(true);
-			//TODO: register for listners
-			
-			//TODO: Set the font for the main conference view and its child space view and chat view
-			
-		}
-		
-		initializeButtons();
+//		
+//		spaceViewFrame = (FrameLayout) findViewById(R.id.spaceViewFrame);
+//		userView = (UserView) findViewById(R.id.test_user);;
+//		userView.setOnTouchListener(this);
+//		userView.setDrawingCacheEnabled(true);
+//		params = new LayoutParams(LayoutParams.WRAP_CONTENT,
+//				LayoutParams.WRAP_CONTENT);
+//		
+//		inviteOverlay = (LinearLayout) findViewById(R.id.inviteOverlay);
+//		
+//		initializeButtons();
 
 //		spaceView.setOnKeyListener(onKeyListener);
 

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+	<class>edu.cornell.opencomm.plugin.SchedulingPlugin</class>
+	<name>scheduling</name>
+	<description>A plugin to allow OpenComm users to schedule conferences.</description>
+	<version>0.1</version>
+	<minServerVersion>3.7.1</minServerVersion>
+	<licenseType>Apache</licenseType>
+	<databaseKey>opencommscheduling</databaseKey>
+	<databaseVersion>0.1</databaseVersion>
+</plugin>

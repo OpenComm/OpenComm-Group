@@ -1,0 +1,168 @@
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/conferenceSchedulingPage"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black" >
+
+        <RelativeLayout
+            android:id="@+id/conferenceScheduling_titleBar"
+            android:layout_width="fill_parent"
+            android:layout_height="42.67dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/dark_grey"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/conferenceScheduling_conference_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="14dp"
+                android:layout_marginLeft="24dp"
+                android:text="@string/conference_scheduling_conference_text"
+                android:textColor="@color/blue_light"
+                android:textSize="24sp" />
+
+            <ImageView
+                android:id="@+id/conferenceScheduling_blockIcon"
+                android:layout_width="5.33dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/desc"
+                android:src="@drawable/action_overflow" />
+
+            <ImageView
+                android:id="@+id/conferenceScheduling_notifications"
+                android:layout_width="17.33dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="40dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/desc"
+                android:src="@drawable/list" />
+
+            <ImageView
+                android:id="@+id/conferenceScheduling_plusicon"
+                android:layout_width="21.33dp"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/conferenceScheduling_notifications"
+                android:layout_marginRight="16dp"
+                android:layout_toLeftOf="@+id/conferenceScheduling_notifications"
+                android:adjustViewBounds="true"
+                android:clickable="true"
+                android:contentDescription="@string/desc"
+                android:src="@drawable/accept_plus" />
+
+            <ImageView
+                android:id="@+id/left_arrow_icon"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:clickable="true"
+                android:contentDescription="@string/contacts_back_button_desc"
+                android:src="@drawable/contacts_left_arrow" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/conferenceScheduling_invitedBar"
+            android:layout_width="wrap_content"
+            android:layout_height="14.67dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/conferenceScheduling_titleBar"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/conferenceScheduling_invitedText"
+                android:layout_width="wrap_content"
+                android:layout_height="14.67dp"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="10.7dp"
+                android:text="@string/invited"
+                android:textColor="@color/green"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/conferenceScheduling_invitedList"
+            android:layout_width="322dp"
+            android:layout_height="190dp"
+            android:layout_below="@id/conferenceScheduling_invitedBar" >
+
+        </ListView>
+
+        <LinearLayout
+            android:id="@+id/conferenceScheduling_happeningNow"
+            android:layout_width="wrap_content"
+            android:layout_height="14.67dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/conferenceScheduling_invitedList"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/conferenceScheduling_happeningNow_Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10.7dp"
+                android:paddingLeft="10.7dp"
+                android:text="@string/happening_now"
+                android:textColor="@color/orange"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/conferenceScheduling_happeningNowList"
+            android:layout_width="322dp"
+            android:layout_height="190dp"
+            android:layout_below="@id/conferenceScheduling_happeningNow" >
+
+        </ListView>
+
+        <LinearLayout
+            android:id="@+id/conferenceScheduling_upcoming_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/conferenceScheduling_happeningNowList"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/conferenceScheduling_upcomingText"
+                android:layout_width="wrap_content"
+                android:layout_height="14.67dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10.7dp"
+                android:paddingLeft="10.7dp"
+                android:text="@string/upcoming"
+                android:textColor="@color/blue"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/conferenceScheduling_upcomingList"
+            android:layout_width="322dp"
+            android:layout_height="190dp"
+            android:layout_below="@id/conferenceScheduling_upcoming_bar" >
+
+        </ListView>
+
+    </RelativeLayout>

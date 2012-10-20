@@ -60,6 +60,7 @@ public class StartAppActivity extends Activity {
 	 */
 	private void launchLoginView() {
 		Intent intent = new Intent(StartAppActivity.this, LoginView.class);
+		
 		startActivity(intent);
 	}
 
