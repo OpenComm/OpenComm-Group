@@ -1,10 +1,13 @@
 package edu.cornell.opencomm.controller;
 
+import java.util.concurrent.ExecutionException;
+
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.DashboardView;
@@ -13,6 +16,8 @@ import edu.cornell.opencomm.view.ResetPasswordView;
 import edu.cornell.opencomm.view.SignupView;
 
 public class LoginController {
+
+	private static final String TAG = "Controller.LoginController";
 
 	/**
 	 * The View Object
@@ -39,10 +44,19 @@ public class LoginController {
 	 * @param password
 	 */
 	public void handleLoginButtonClick(String email, String password) {
-		String[] loginInfo = { email, password };
-		new LoginTask().execute(loginInfo);
+		// TODO: use to choose next screen
+		ReturnState returnState;
+		AsyncTask<String, Void, ReturnState> task = 
+				new LoginTask().execute(email, password);
 		this.loginView.getLoginOverlay().setVisibility(View.VISIBLE);
 		Intent i = new Intent(this.loginView, DashboardView.class);
+		try {
+			returnState = (ReturnState) task.get();
+		} catch (InterruptedException e) {
+			Log.v(TAG, e.getMessage());
+		} catch (ExecutionException e) {
+			Log.v(TAG, e.getMessage());
+		}
 		this.loginView.startActivity(i);
 	}
 
@@ -85,7 +99,7 @@ public class LoginController {
 					|| state == ReturnState.SUCEEDED) {
 				DashboardView d = new DashboardView();
 				d.setVisible(true);
-			} else if (state == ReturnState.WRONG_PASSWORD) {
+			} else {
 				loginView.setVisible(false);
 			}
 		}

@@ -74,7 +74,7 @@ public class NetworkService {
 		configure(ProviderManager.getInstance());
 		SmackConfiguration.setPacketReplyTimeout(100000);
 
-		// Create a connection to the server on a specific port
+		// create connection to host:port
 		this.xmppConfig = new ConnectionConfiguration(host, port);
 		this.xmppConn = new XMPPConnection(xmppConfig);
 
@@ -95,9 +95,11 @@ public class NetworkService {
 
 	public boolean login(String username, String password) {
 		try {
-			this.xmppConn.login(username + "@cuopencomm.no-ip.org", password, null);
+			// FIXIT: move default host to XML
+			this.xmppConn.login(username, password, null);
 		} catch (XMPPException e) {
 			Log.v(TAG, "Unable to authenticate");
+			Log.v(TAG, e.getMessage());
 		} catch (Exception e) {
 			Log.v(TAG, e.getMessage());
 		}
