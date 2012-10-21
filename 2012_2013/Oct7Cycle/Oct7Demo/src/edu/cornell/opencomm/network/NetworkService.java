@@ -95,8 +95,13 @@ public class NetworkService {
 		try {
 			Log.v(TAG, "Attempting Login: User Name = " + username
 					+ " password = " + password);
-			this.xmppConn.login(username + DEFAULT_HOSTNAME, password,
-					DEFAULT_RESOURCE);
+			if (D) {
+				this.xmppConn.login("opencommsec" + DEFAULT_HOSTNAME,
+						"secopencomm", DEFAULT_RESOURCE);
+			} else {
+				this.xmppConn.login(username + DEFAULT_HOSTNAME, password,
+						DEFAULT_RESOURCE);
+			}
 		} catch (XMPPException e) {
 			Log.v(TAG, "Unable to authenticate");
 			Log.v(TAG, e.getMessage());
