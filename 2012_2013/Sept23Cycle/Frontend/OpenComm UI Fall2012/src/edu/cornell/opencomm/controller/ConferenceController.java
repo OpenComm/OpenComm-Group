@@ -3,7 +3,9 @@ package edu.cornell.opencomm.controller;
 
 import android.content.Context;
 import android.content.Intent;
-import android.view.View;
+import android.widget.ListView;
+import edu.cornell.opencomm.model.Conference;
+import edu.cornell.opencomm.view.ConferenceCardView;
 import edu.cornell.opencomm.view.ConferenceSchedulerView;
 import edu.cornell.opencomm.view.DashboardView;
 
@@ -35,9 +37,7 @@ public class ConferenceController {
 		this.conferenceSchedulerView.startActivity(intent);
 	}
 	
-	public void ConferenceClicked(View v){
-		
-	}
+
 
 }
 
