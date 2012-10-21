@@ -56,7 +56,9 @@
             android:id="@+id/contacts_list"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/contactTitleBar" >
+            android:layout_below="@id/contactTitleBar"
+            android:divider="@color/bar_separating_listview"
+    		android:dividerHeight="0.67dp" >
         </ListView>
 
     </RelativeLayout>
