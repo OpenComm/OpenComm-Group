@@ -1,4 +1,4 @@
-eclpackage edu.cornell.opencomm.view;
+package edu.cornell.opencomm.view;
 
 import java.util.ArrayList;
 import java.util.Calendar;
