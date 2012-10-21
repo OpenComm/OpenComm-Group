@@ -25,6 +25,8 @@
     <string name="title_activity_splash_view">SplashView</string>
     <string name="save">save</string>
     <string name="cancel">cancel</string>
+    <string name="conferenceTitle">conferenceTitle</string>
+    <string name="startTime">startTime</string>
     <string name="invited">invited</string>
     <string name="loading_extended">loading&#8230;</string>
     <string name="todo_need_to_write_a_content_desc">TODO - Need to write a content desc</string>
