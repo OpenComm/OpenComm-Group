@@ -4,15 +4,14 @@
     android:layout_height="wrap_content"
     android:background="@color/off_white"
     android:gravity="center_vertical" >
-
+
     <RelativeLayout
         android:id="@+id/simpleRow"
         android:layout_width="fill_parent"
         android:layout_height="40.67dp"
         android:background="@color/black_light"
-        android:clickable="true"
         android:gravity="center_vertical" >
-
+
         <Button
             android:id="@+id/conferenceTitle"
             android:layout_width="wrap_content"
@@ -23,11 +22,11 @@
             android:layout_marginTop="-2dp"
             android:background="@color/black_light"
             android:clickable="true"
-            android:onClick="conferenceClicked"
+            android:onClick="OnItemClick"
             android:text="@string/conferenceTitle"
             android:textColor="@color/off_white"
             android:textSize="20sp" />
-
+
         <Button
             android:id="@+id/startTime"
             android:layout_width="wrap_content"
@@ -36,16 +35,18 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="2.5dp"
             android:background="@color/black_light"
+            android:onClick="OnItemClick"
             android:text="@string/startTime"
             android:textColor="@color/off_white"
             android:textSize="10sp" />
-
+
         <ImageView
             android:id="@+id/conferenceEntry_overlay"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
+            android:clickable="true"
             android:contentDescription="@string/desc"
             android:scaleType="fitXY"
             android:src="@drawable/overlay_white"

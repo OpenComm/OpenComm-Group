@@ -6,12 +6,12 @@ import java.util.Calendar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.ConferenceController;
 import edu.cornell.opencomm.controller.FontSetter;
@@ -40,8 +40,9 @@ public class ConferenceSchedulerView extends Activity {
 		currentTime = Calendar.getInstance();
 		controller = new ConferenceController(ConferenceSchedulerView.this, this);
 		retrieveAndDisplayConferences();
+
 	}
-	
+
 
 	//TODO
 	//1.Ask the design team about invited section
@@ -51,30 +52,29 @@ public class ConferenceSchedulerView extends Activity {
 		conferences = createExampleConferences();
 		ArrayList<Conference> happeningNow_conferences = this.getConferencesHappeningNow(conferences);
 		ArrayList<Conference> upcoming_conferences = this.getUpcomingConferences(conferences);
+		ArrayList<Conference> invited_list = new ArrayList<Conference>();
+		for (Conference conference: conferences){
+			if(conference.getConferenceType(currentTime) == conference.INVITED){
+				invited_list.add(conference);
+			}
+		}
 		if (conferences.size() > 0){
-			ConferenceSchedulerAdapter adapter = new ConferenceSchedulerAdapter(this, R.layout.conference_entry_layout, conferences);
-
+			ConferenceSchedulerAdapter adapter = new ConferenceSchedulerAdapter(this, R.layout.conference_entry_layout, invited_list);
+			
 			//find the list view resource
 			invited = (ListView) findViewById(R.id.conferenceScheduling_invitedList);
 			invited.setAdapter(adapter);
 			findViewById(R.id.conferenceScheduling_invitedBar).setVisibility(View.VISIBLE);
 			invited.setVisibility(View.VISIBLE);
-			invited.setClickable(true);
 			invited.setOnItemClickListener(new OnItemClickListener(){
-
-				public void onItemClick(AdapterView<?> arg0, View view,
-						int position, long id) {
-					String selectedFrom = (String) (invited.getItemAtPosition(position));
-					CharSequence text = selectedFrom;
-	            	int duration = Toast.LENGTH_SHORT;
-	            	Toast toast = Toast.makeText(getApplicationContext(), text, duration);
-	            	toast.show();
-					
+				public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
+					Conference selectedFrom = (Conference) (invited.getAdapter().getItem(position));
+					Intent i = new Intent(getApplicationContext(), ConferenceCardView.class);
+					i.putExtra("com.cornell.opencomm.model.Conference", selectedFrom);
+					startActivity(i);					
 				}
-				
+
 			});
-			
-			
 		}
 		if (happeningNow_conferences.size() > 0){
 			ConferenceSchedulerAdapter adapter = new ConferenceSchedulerAdapter(this, R.layout.conference_entry_layout, happeningNow_conferences);
@@ -95,6 +95,7 @@ public class ConferenceSchedulerView extends Activity {
 			upcoming.setVisibility(View.VISIBLE);
 		}
 	}
+	
 
 
 	public ArrayList<User> createExampleUsers(){
@@ -163,6 +164,22 @@ public class ConferenceSchedulerView extends Activity {
 
 		return conferences;
 	}
+	
+	//TODO- Need to fix this
+	//Currently works when title is clicked only 
+	//Need to make it so that if the overlay is clicked gets the title and works with it
+	//Searches again among all conferences for title - highly inefficient 
+	//Need to optimize and add more fields to conference to make this easier
+	//Change the adapter so it takes in the conference object as a whole
+	public void OnItemClick(View v){
+		Button b = (Button) v;
+		String conferenceTitle = b.getText().toString();
+		for(Conference conference: conferences){
+			if (conference.getConferenceTitle() == conferenceTitle){
+				this.openContactCardActivity(conference); 
+			}
+		}
+	}
 
 	public ArrayList<Conference> getConferencesHappeningNow(ArrayList<Conference> conferences){
 		ArrayList<Conference> conferencesHappeningNow = new ArrayList<Conference>();
@@ -183,7 +200,7 @@ public class ConferenceSchedulerView extends Activity {
 		}
 		return conferencesUpcoming;  
 	}
-	
+
 
 	public void addConferencePressed(View v){
 		this.controller.addConferencePressed();

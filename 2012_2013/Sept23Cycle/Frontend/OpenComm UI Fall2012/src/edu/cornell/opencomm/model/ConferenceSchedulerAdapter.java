@@ -44,10 +44,14 @@ public class ConferenceSchedulerAdapter extends ArrayAdapter<Conference> {
 			holder= (ConferenceHolder) row.getTag();
 		}
 		Conference conference = data.get(position);
-		//if this does not work - make fields 
+		//if this does not work - make fields 		
 		holder.conferenceTitle.setText(conference.getConferenceTitle());
 		holder.startTime.setText(conference.getStartDateAndTimeDescription()); 
 		return row;
+	}
+	
+	public ArrayList<Conference> getData(){
+		return this.data;
 	}
 	
 	static class ConferenceHolder{
