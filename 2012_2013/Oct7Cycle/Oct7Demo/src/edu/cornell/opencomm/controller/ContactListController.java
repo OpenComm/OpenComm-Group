@@ -59,13 +59,14 @@ public class ContactListController {
 
 		@Override
 		protected ReturnState doInBackground(Void... arg0) {
-			User.getAllUsers().clear();
+			User.primaryUser.getContactList().clear();
 			Iterator<RosterEntry> entries = roster.getEntries().iterator();
 			while (entries.hasNext()) {
 				RosterEntry entry = entries.next();
 				// FIXIT: pass in image or change to use VCard
+				Log.v(TAG, "adding " + entry.getUser() + " to contact list");
 				User buddy = new User(entry.getUser(), entry.getName(), 0);
-				User.getAllUsers().put(entry.getUser(), buddy);
+				User.primaryUser.getContactList().add(buddy);
 
 			}
 			return ReturnState.SUCEEDED;

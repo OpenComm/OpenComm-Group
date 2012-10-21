@@ -20,6 +20,9 @@ import edu.cornell.opencomm.view.LoginView;
 public class DashboardController {
 
 	private DashboardView dashboardView;
+	
+	// TODO: maybe remove? --ask Nora
+	private ContactListController contactController;
 
 	/**
 	 * TODO: DashboardController constructor. This should load the dashboard
@@ -27,12 +30,14 @@ public class DashboardController {
 	 */
 	public DashboardController(DashboardView view, Context context) {
 		this.dashboardView = view;
+		contactController = new ContactListController();
 	}
 
 	/**
 	 * TODO: This should call a task when a user clicks the contact list button.
 	 */
 	public void handleContactListButtonClicked() {
+		contactController.updateContacts();
 		this.dashboardView.findViewById(R.id.dashboardContactOverlay).setVisibility(View.VISIBLE);
     	// start contact view
     	Intent i = new Intent(this.dashboardView,ContactsView.class);
