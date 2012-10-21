@@ -242,29 +242,13 @@ public class Conference implements Parcelable {
 		dest.writeString(reoccurrence);
 		dest.writeString(inviter.getNickname());
 		String[] attendee_names = new String[attendees.size()];
+		int[] attendee_pictures = new int[attendees.size()];
 		for (int i=0 ; i < attendees.size(); i++){
 			attendee_names[i] = attendees.get(i).getNickname();
+			attendee_pictures[i] = attendees.get(i).getImage();
 		}
 		dest.writeStringArray(attendee_names);
-	/*	int[] attendee_pictures = new int[attendees.size()];
-		for (int i=0; i< attendees.size(); i++){
-			attendee_pictures[i] = attendees.get(i).getImage();
-		} */
-		//List<String> attendee_names = new List<String>();
-		//dest.writeStringList (attendee_names);
-		
-		
-		// user names
-		// user images
-		
-	   // dest.writeStringArray(cities); 
-		
-		// The writeParcel method needs the flag
-				// as well - but thats easy.
-			/*	dest.writeParcelable(obj, flags);
-		 
-				// Same as in ObjectA
-				dest.writeLong(longVal); */
+		dest.writeIntArray(attendee_pictures);
 	}
 	
 	 public static final Parcelable.Creator CREATOR =

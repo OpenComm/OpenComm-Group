@@ -40,6 +40,7 @@ public class ConferenceSchedulerView extends Activity {
 		currentTime = Calendar.getInstance();
 		controller = new ConferenceController(ConferenceSchedulerView.this, this);
 		retrieveAndDisplayConferences();
+	//	openContactCardActivity(conferences.get(0));
 	}
 	
 

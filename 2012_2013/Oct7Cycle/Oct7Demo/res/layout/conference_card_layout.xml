@@ -186,7 +186,6 @@
 			            android:layout_alignParentLeft="true"
 			            android:layout_marginLeft="10.67dp"
             			android:layout_centerVertical="true"
-			            android:text="Joseph Gordon Levitt"
 			            android:textSize="20sp"
 			            android:textColor="@color/white" />
                 </RelativeLayout>

@@ -56,24 +56,21 @@ public class ConferenceCardView extends Activity{
 		LinearLayout conference_information_layout = (LinearLayout) findViewById(R.id.conference_information_linear_layout);
 		LayoutInflater layoutInflater = (LayoutInflater) 
 		        this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);  
-	/*	for (int i=0 ; i < attendee_names.length ; i++){
-	//		createUserEntry(conference_information_layout, layoutInflater, attendee_names[i]/*, attendee_pictures[i]*///);
-	//	}
-		
-		for (String attendee_name : attendee_names){
-			createUserEntry(conference_information_layout, layoutInflater, attendee_name/*, attendee_picture*/);
-		} 
+		for (int i=0 ; i < attendee_names.length ; i++){
+			createUserEntry(conference_information_layout, layoutInflater, attendee_names[i], attendee_pictures[i]);
+		}
 	}
 	
-	public void createUserEntry(LinearLayout conference_information_layout, LayoutInflater layoutInflater, String name/*, int picture*/){
+	public void createUserEntry(LinearLayout conference_information_layout, LayoutInflater layoutInflater, String name, int picture){
 		View attendee_entry = layoutInflater.inflate(R.layout.conference_card_attendee_entry, null);
 		RelativeLayout entry_container= (RelativeLayout) attendee_entry.findViewById(R.id.attendee_information);
 		TextView attendee_name = (TextView) entry_container.findViewById(R.id.name);
 		attendee_name.setText(name);
-	/*	ImageView attendee_picture = (ImageView) entry_container.findViewById(R.id.picture);
+		ImageView attendee_picture = (ImageView) entry_container.findViewById(R.id.picture);
 		Resources res = getResources();
 		Drawable drawable = res.getDrawable(picture);
-		attendee_picture.setImageDrawable(drawable); */
+		attendee_picture.setImageDrawable(drawable); 
+		conference_information_layout.addView(attendee_entry);
 	}
 	
 	public void adjustLayoutLookAndFunctionality(){
