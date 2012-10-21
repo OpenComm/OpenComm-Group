@@ -3,7 +3,6 @@ package edu.cornell.opencomm.controller;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import edu.cornell.opencomm.R;

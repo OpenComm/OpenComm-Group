@@ -1,8 +1,5 @@
 package edu.cornell.opencomm.controller;
-import android.os.AsyncTask;
-import android.widget.EditText;
-import edu.cornell.opencomm.view.ConfirmationView;
-import android.util.Log; 
+import edu.cornell.opencomm.view.ConfirmationView; 
 
 
 //Author:Spandana Govindgari sg754
