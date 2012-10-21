@@ -18,8 +18,11 @@ public class ContactsDbAdapter {
 	public static final String KEY_PHONE_NUMBER = "phone_number";
 	public static final String KEY_PICTURE = "picture";
 
+	@SuppressWarnings("unused")
 	private static final String TAG = "ContactsDbAdapter";
+	@SuppressWarnings("unused")
 	private static final String DATABASE_NAME = "Opencomm";
+	@SuppressWarnings("unused")
 	private static final String MYSQL_TABLE = "Contacts";
 
 	public ContactsDbAdapter() {

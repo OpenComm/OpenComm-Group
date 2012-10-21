@@ -6,8 +6,10 @@ import edu.cornell.opencomm.view.ConfirmationView;
 
 public class ConfirmationController {
 	
+	@SuppressWarnings("unused")
 	private ConfirmationView confirmView; 
 	
+	@SuppressWarnings("unused")
 	private static final String LOG_TAG= "ConfirmationController"; 
 	
 	public ConfirmationController(ConfirmationView confirmView){

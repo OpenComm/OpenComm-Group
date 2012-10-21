@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,17 +13,18 @@ import edu.cornell.opencomm.controller.ResetPasswordController;
 
 public class ResetPasswordView extends Activity {
 	//For debugging purposes
+	@SuppressWarnings("unused")
 	private static String TAG = ResetPasswordView.class.getSimpleName();	
+	@SuppressWarnings("unused")
 	private static final boolean D = true; 
 	private ResetPasswordController controller; 
-	private LayoutInflater inflater = null; 
 	private EditText emailEntered = (EditText) findViewById(R.id.emailTextBox);
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.reset_password_layout);
-		this.inflater = this.getLayoutInflater(); 
+		this.getLayoutInflater(); 
 		FontSetter.applySanSerifFont(ResetPasswordView.this, findViewById(R.id.reset_password_layout)); 		
 		controller = new ResetPasswordController(ResetPasswordView.this, this); 
 	}

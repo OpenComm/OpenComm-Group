@@ -17,6 +17,7 @@ import edu.cornell.opencomm.view.SignupView;
 
 public class LoginController {
 
+	@SuppressWarnings("unused")
 	private static final String TAG = LoginController.class.getSimpleName();;
 
 	private ProgressDialog loginProgress = null;

@@ -10,12 +10,9 @@ import edu.cornell.opencomm.view.DashboardView;
 public class ConferenceController {
 
 	private ConferenceSchedulerView conferenceSchedulerView;
-	private Context context; 
-
 	//Constructor - initialize required fields
 	public ConferenceController(Context context, ConferenceSchedulerView view){
-		this.conferenceSchedulerView = view;
-		this.context = context; 
+		this.conferenceSchedulerView = view; 
 	}
 	//TODO
 	public void addConferencePressed(){

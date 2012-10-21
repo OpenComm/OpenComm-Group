@@ -1,7 +1,6 @@
 package edu.cornell.opencomm.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Hashtable;
 
 import org.jivesoftware.smackx.packet.VCard;

@@ -3,7 +3,6 @@ package edu.cornell.opencomm.controller;
 import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
-import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.XMPPConnection;
