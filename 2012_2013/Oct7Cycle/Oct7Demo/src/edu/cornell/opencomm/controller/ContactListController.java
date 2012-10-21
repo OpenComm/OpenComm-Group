@@ -17,6 +17,8 @@ import android.util.Log;
 public class ContactListController {
 
 	private static final String TAG = "Controller.ContactListController";
+	
+	private static ContactListController _instance = null;
 
 	private Roster roster;
 	NetworkService xmppService;
@@ -30,6 +32,13 @@ public class ContactListController {
 		FAILED, SUCEEDED
 	};
 
+	public static ContactListController getInstance() {
+		if (_instance == null) {
+			_instance = new ContactListController();
+		}
+		return _instance;
+	}
+	
 	public ContactListController() {
 		this.xmppService = NetworkService.getInstance();
 		this.xmppConn = this.xmppService.getConnection();
