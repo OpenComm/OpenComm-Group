@@ -87,7 +87,8 @@ public class ContactsView extends Activity{
 	
 	/** Retrieve and display this user's contacts */
 	public void retrieveAndDisplayContacts(){
-		User[] users = getContacts();
+		ArrayList<User> all_contacts = User.primaryUser.getContactList();
+		User[] users = all_contacts.toArray(new User[all_contacts.size()]);
 		 ContactsViewAdapter adapter = new ContactsViewAdapter(this, 
 	                R.layout.contact_entry_layout, users);
 	        

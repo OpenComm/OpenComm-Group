@@ -6,11 +6,14 @@ import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.model.Conference;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -75,6 +78,27 @@ public class ConferenceCardView extends Activity{
 	
 	public void adjustLayoutLookAndFunctionality(){
 		setTypeOfConference();
+		initializeBackButton();
+	}
+	
+	public void initializeBackButton(){
+		final ImageView backButton = (ImageView) findViewById(R.id.back_button);
+		backButton.setOnTouchListener(new OnTouchListener() {
+			public boolean onTouch(View arg0, MotionEvent arg1) {
+	            switch (arg1.getAction()) {
+	            case MotionEvent.ACTION_DOWN: {
+	            	// TODO Change color of button? Ask Design team
+	                break;
+	            }
+	            case MotionEvent.ACTION_UP:{
+	            	Intent intent = new Intent(ConferenceCardView.this, ConferenceSchedulerView.class);
+	        		startActivity(intent);
+	                break;
+	            }
+	            }
+	            return true;
+	        }
+		}); 
 	}
 	
 	public void setTypeOfConference(){
