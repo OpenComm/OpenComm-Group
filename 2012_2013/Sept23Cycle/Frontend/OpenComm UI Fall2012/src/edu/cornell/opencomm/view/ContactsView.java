@@ -1,8 +1,11 @@
 package edu.cornell.opencomm.view;
 
+import java.util.Collection;
+
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.model.ContactsDbAdapter;
+import edu.cornell.opencomm.model.User;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -24,8 +27,10 @@ public class ContactsView extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.contacts_layout);
 		adjustLayoutLookAndFunctionality();
-		dbHelper = new ContactsDbAdapter();
-		dbHelper.open();
+		
+		//dbHelper = new ContactsDbAdapter();
+		//dbHelper.open();
+		
 		retrieveAndDisplayContacts();
 	}
 	
@@ -34,10 +39,6 @@ public class ContactsView extends Activity{
 		// Apply Delicious Font
 		FontSetter.applySanSerifFont(ContactsView.this,
 		findViewById(R.layout.contacts_layout));
-		
-		// Ensure the actionbar is present
-		// ActionBar actionBar = getActionBar();
-		// actionBar.show();
 		
 		// Initialize images to act as buttons
 		initializeBackButton();
@@ -93,8 +94,17 @@ public class ContactsView extends Activity{
 	}
 	
 	/** Retrieve and display this user's contacts */
-	// TODO Needs to be tested and altered
 	public void retrieveAndDisplayContacts(){
+		Object[] contacts = User.getAllUsers().values().toArray(); 
+		for (Object contact : contacts){
+			User user = (User)contact;
+			
+		}
+	}
+	
+	/** Retrieve and display this user's contacts */
+	// TODO Needs to be tested and altered
+	/*public void retrieveAndDisplayContacts(){
 		// Retrieve all contacts 
 		Cursor cursor = dbHelper.getAllContacts();
 		
@@ -110,5 +120,5 @@ public class ContactsView extends Activity{
 		// Set this adapter as your listview's adapter
 		ListView listView = (ListView) findViewById(R.id.contacts_list); 
 		listView.setAdapter(adapter);
-	}
+	} */
 }

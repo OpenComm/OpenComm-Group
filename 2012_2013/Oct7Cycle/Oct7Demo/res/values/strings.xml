@@ -37,11 +37,10 @@
     <string name="invalid_first_name">Invalid First Name</string>
     <string name="invalid_last_name">Invalid Last Name</string>
     <string name="invalid_email">Invalid Email</string>
-    <string name="contacts">Contacts</string>
+    <string name="contacts">contacts</string>
     <string name="contacts_back_button_desc">Back to Dashboard</string>
     <string name="contacts_search_button_desc">Search Contacts</string>
     <string name="contact_search_title">contacts</string>
-    <string name="contact_name_sample">A Contact Name</string>
     <string name="contact_default_picture_desc">Default Picture</string>
     <string name="add_conference_button_desc">Create Conference</string>
     <string name="conference_scheduling_conference_text">conferences</string>

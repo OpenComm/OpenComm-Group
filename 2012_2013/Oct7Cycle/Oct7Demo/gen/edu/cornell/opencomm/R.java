@@ -11,22 +11,28 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int black=0x7f04000b;
-        public static final int black_half_opacity=0x7f04000e;
-        public static final int black_light=0x7f04000d;
-        public static final int black_translucent=0x7f04000c;
-        public static final int blue=0x7f040008;
-        public static final int blue_light=0x7f040009;
-        public static final int dark_grey=0x7f040002;
-        public static final int dark_grey_translucent=0x7f040003;
-        public static final int green=0x7f040005;
-        public static final int grey_half_opacity=0x7f04000f;
-        public static final int light_grey=0x7f040004;
-        public static final int off_white=0x7f040001;
-        public static final int orange=0x7f040006;
-        public static final int orange_light=0x7f040007;
-        public static final int teal=0x7f04000a;
-        public static final int white_overlay=0x7f040000;
+        public static final int black=0x7f040010;
+        public static final int black_conference_card_background=0x7f040015;
+        public static final int black_half_opacity=0x7f040013;
+        public static final int black_light=0x7f040012;
+        public static final int black_translucent=0x7f040011;
+        public static final int blue=0x7f04000c;
+        public static final int blue_contacts_page_title=0x7f04000f;
+        public static final int blue_light=0x7f04000d;
+        public static final int dark_grey=0x7f040003;
+        public static final int dark_grey_translucent=0x7f040004;
+        public static final int green=0x7f040008;
+        public static final int green_light=0x7f040009;
+        public static final int grey_conference_card_attendee_separator_bar=0x7f040006;
+        public static final int grey_conference_card_title_bar_text=0x7f040007;
+        public static final int grey_half_opacity=0x7f040014;
+        public static final int light_grey=0x7f040005;
+        public static final int off_white=0x7f040002;
+        public static final int orange=0x7f04000a;
+        public static final int orange_light=0x7f04000b;
+        public static final int teal=0x7f04000e;
+        public static final int white=0x7f040000;
+        public static final int white_overlay=0x7f040001;
     }
     public static final class drawable {
         public static final int accept_plus=0x7f020000;
@@ -41,19 +47,23 @@ public final class R {
         public static final int contact_default_image=0x7f020009;
         public static final int contacts_left_arrow=0x7f02000a;
         public static final int contacts_search_icon=0x7f02000b;
-        public static final int go_to_conf_button=0x7f02000c;
-        public static final int go_to_conference_arrow=0x7f02000d;
-        public static final int ic_action_search=0x7f02000e;
-        public static final int icon=0x7f02000f;
-        public static final int imagearrow=0x7f020010;
-        public static final int list=0x7f020011;
-        public static final int loading=0x7f020012;
-        public static final int logintextback=0x7f020013;
-        public static final int logo_oneline=0x7f020014;
-        public static final int overlay_white=0x7f020015;
-        public static final int question=0x7f020016;
-        public static final int separator_bar=0x7f020017;
-        public static final int you_small=0x7f020018;
+        public static final int example_picture_1=0x7f02000c;
+        public static final int example_picture_2=0x7f02000d;
+        public static final int example_picture_3=0x7f02000e;
+        public static final int example_picture_4=0x7f02000f;
+        public static final int go_to_conf_button=0x7f020010;
+        public static final int go_to_conference_arrow=0x7f020011;
+        public static final int ic_action_search=0x7f020012;
+        public static final int icon=0x7f020013;
+        public static final int imagearrow=0x7f020014;
+        public static final int list=0x7f020015;
+        public static final int loading=0x7f020016;
+        public static final int logintextback=0x7f020017;
+        public static final int logo_oneline=0x7f020018;
+        public static final int overlay_white=0x7f020019;
+        public static final int question=0x7f02001a;
+        public static final int separator_bar=0x7f02001b;
+        public static final int you_small=0x7f02001c;
     }
     public static final class id {
         public static final int acceptConfirmOverlay=0x7f08003c;
@@ -237,18 +247,17 @@ public final class R {
         public static final int DEFAULT_CONFERENCE=0x7f060004;
         public static final int DEFAULT_HOST=0x7f060000;
         public static final int DEFAULT_HOSTNAME=0x7f060001;
-        public static final int add_conference_button_desc=0x7f060030;
+        public static final int add_conference_button_desc=0x7f06002f;
         public static final int app_name=0x7f060005;
         public static final int bar=0x7f06000d;
         public static final int button_signup=0x7f060008;
         public static final int cancel=0x7f06001d;
-        public static final int change_date_left_arrow_desc=0x7f060032;
-        public static final int change_date_right_arrow_desc=0x7f060033;
-        public static final int conference_open_icon=0x7f060034;
-        public static final int conference_scheduling_conference_text=0x7f060031;
+        public static final int change_date_left_arrow_desc=0x7f060031;
+        public static final int change_date_right_arrow_desc=0x7f060032;
+        public static final int conference_open_icon=0x7f060033;
+        public static final int conference_scheduling_conference_text=0x7f060030;
         public static final int confirm_password=0x7f060024;
-        public static final int contact_default_picture_desc=0x7f06002f;
-        public static final int contact_name_sample=0x7f06002e;
+        public static final int contact_default_picture_desc=0x7f06002e;
         public static final int contact_search_title=0x7f06002d;
         public static final int contacts=0x7f06002a;
         public static final int contacts_back_button_desc=0x7f06002b;
@@ -264,12 +273,12 @@ public final class R {
         public static final int first_name=0x7f060022;
         public static final int forgot_password=0x7f06000b;
         public static final int goArrow=0x7f06000c;
-        public static final int go_to_conference_button_desc=0x7f060037;
-        public static final int happening_now=0x7f060035;
+        public static final int go_to_conference_button_desc=0x7f060036;
+        public static final int happening_now=0x7f060034;
         public static final int invalid_email=0x7f060029;
         public static final int invalid_first_name=0x7f060027;
         public static final int invalid_last_name=0x7f060028;
-        public static final int invite=0x7f060038;
+        public static final int invite=0x7f060037;
         public static final int invited=0x7f06001e;
         public static final int last_name=0x7f060023;
         public static final int loading_extended=0x7f06001f;
@@ -284,12 +293,12 @@ public final class R {
         public static final int save=0x7f06001c;
         public static final int send=0x7f060018;
         public static final int send_email=0x7f060017;
-        public static final int sendhere=0x7f060039;
+        public static final int sendhere=0x7f060038;
         public static final int sign_up=0x7f060016;
         public static final int title=0x7f060025;
         public static final int title_activity_splash_view=0x7f06001b;
         public static final int todo_need_to_write_a_content_desc=0x7f060020;
-        public static final int upcoming=0x7f060036;
+        public static final int upcoming=0x7f060035;
     }
     public static final class style {
         public static final int Theme_grey_dark=0x7f070001;
