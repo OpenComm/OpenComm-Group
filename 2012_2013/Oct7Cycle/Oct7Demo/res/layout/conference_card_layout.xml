@@ -19,6 +19,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10.67dp"
+                android:contentDescription="@string/conference_card_back_button_desc"
                 android:src="@drawable/contacts_left_arrow" />
             
             <TextView
