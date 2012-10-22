@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/main_screen" 
+	android:orientation="vertical" 
+	android:background="@color/off_white"
+	android:layout_width="fill_parent" 
+	android:layout_height="fill_parent">
+<RelativeLayout 
+        android:orientation="horizontal" android:layout_width="fill_parent"
+        android:layout_height="36.67dp" android:background="@color/dark_grey">
+        <TextView android:layout_width="wrap_content" android:layout_centerVertical="true"
+                android:textColor="@color/off_white" android:gravity="center_vertical"
+                android:textSize="20sp"  android:layout_height="wrap_content"
+                android:text="Opencomm" android:paddingLeft="10.67dp" 
+                android:id="@+id/logo"/>
+ 
+
+
+        <ImageView
+            android:id="@+id/auto_spatialization"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/autospatialization" />
+
+</RelativeLayout>
+	<FrameLayout 
+		android:id="@+id/spaceViewFrame" 
+		android:background="@color/off_white"
+		android:layout_height="371.33dp" 
+		android:layout_width="fill_parent">
+		<ImageView 
+			android:layout_height="wrap_content" 
+			android:src="@drawable/you_small"
+			android:layout_marginBottom="13.33dp" 
+			android:layout_gravity="bottom|center_horizontal"
+			android:layout_width="wrap_content" 
+			android:visibility="visible" />
+
+	</FrameLayout>
+	
+	<LinearLayout 
+	    android:paddingTop="5dp"
+		android:id="@+id/bottom_bar"
+		android:orientation="horizontal" 
+		android:layout_width="fill_parent"
+		android:layout_height="100dp" 
+		android:background="@color/black"
+		android:gravity="center"
+		> </LinearLayout>
+
+</LinearLayout>
