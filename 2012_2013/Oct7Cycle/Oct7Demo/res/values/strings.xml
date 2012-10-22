@@ -25,6 +25,8 @@
     <string name="title_activity_splash_view">SplashView</string>
     <string name="save">save</string>
     <string name="cancel">cancel</string>
+    <string name="conferenceTitle">conferenceTitle</string>
+    <string name="startTime">startTime</string>
     <string name="invited">invited</string>
     <string name="loading_extended">loading&#8230;</string>
     <string name="todo_need_to_write_a_content_desc">TODO - Need to write a content desc</string>
@@ -37,7 +39,7 @@
     <string name="invalid_first_name">Invalid First Name</string>
     <string name="invalid_last_name">Invalid Last Name</string>
     <string name="invalid_email">Invalid Email</string>
-    <string name="contacts">Contacts</string>
+    <string name="contacts">contacts</string>
     <string name="contacts_back_button_desc">Back to Dashboard</string>
     <string name="contacts_search_button_desc">Search Contacts</string>
     <string name="contact_search_title">contacts</string>
@@ -45,6 +47,7 @@
     <string name="contact_default_picture_desc">Default Picture</string>
     <string name="add_conference_button_desc">Create Conference</string>
     <string name="conference_scheduling_conference_text">conferences</string>
+    <string name="conference_card_back_button_desc">Back to Conference Scheduling Page</string>
     <string name="change_date_left_arrow_desc">Previous Date</string>
     <string name="change_date_right_arrow_desc">Next Date</string>
     <string name="conference_open_icon">Open More Conference Information</string>
@@ -53,4 +56,13 @@
     <string name="go_to_conference_button_desc">Go to conference</string>
     <string name="invite">invite</string>
     <string name="sendhere">send here</string>
+    <string name="description">description</string>
+    <string name="date_and_time">date &amp; time</string>
+    <string name="recurring">recurring</string>
+    <string name="invited_by">invited_by</string>
+    <string name="attendees">attendees</string>
+    <string name="to">to</string>
+    <string name="accept">accept</string>
+    <string name="decline">decline</string>
+    <string name="enter_conference">enter conference</string>
 </resources>

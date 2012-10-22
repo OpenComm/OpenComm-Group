@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -30,12 +31,11 @@ public class LoginView extends Activity {
 	private static EditText emailEdit;
 	private static EditText passwordEdit;
 	private static ImageButton loginButton;
+	@SuppressWarnings("unused")
 	private static Button loginText;
 	private static ImageView loginOverlay;
 	private LayoutInflater inflater = null;
 	private static ImageView signupOverlay;
-	private static String email;
-	private static String password;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,13 +49,20 @@ public class LoginView extends Activity {
 		loginOverlay = (ImageView) findViewById(R.id.loginOverlay);
 		signupOverlay = (ImageView) findViewById(R.id.signupOverlay);
         this.inflater = this.getLayoutInflater();
-		
-        email = emailEdit.getText().toString();
-        password = passwordEdit.getText().toString();
-//		initializeLoginButtonClickedEvent();
 		loginController = new LoginController(this);
+		initEmailFocusChangelistener();
     }
-	
+    /**
+	 * Initialize email box
+	 */
+	private void initEmailFocusChangelistener() {
+		OnFocusChangeListener listener = new View.OnFocusChangeListener() {
+			public void onFocusChange(View view, boolean hasFocus) {
+				loginController.handleEmailFocusChange(view, hasFocus);
+			}
+		};
+		emailEdit.setOnFocusChangeListener(listener);
+	}
 	public ImageView getLoginOverlay() {
 		return loginOverlay;
 	}
@@ -68,7 +75,9 @@ public class LoginView extends Activity {
 	public LayoutInflater getInflater() {
         return inflater;
     }
-
+	public void resetFocus(){
+		emailEdit.requestFocus();
+	}
 	 /**Jump to the account creation page when sign-up button is clicked*/
     public void createAccount(View v){
     	if (D) Log.d(TAG, "create Account");
@@ -81,6 +90,8 @@ public class LoginView extends Activity {
     }
     
     public void login(View v){
+    	String email = emailEdit.getText().toString();
+        String password = passwordEdit.getText().toString();
     	this.loginController.handleLoginButtonClick(email, password);
     }
     

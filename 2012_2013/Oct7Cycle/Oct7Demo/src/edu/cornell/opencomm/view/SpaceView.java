@@ -3,6 +3,7 @@ package edu.cornell.opencomm.view;
 import java.util.ArrayList;
 
 import edu.cornell.opencomm.model.Space;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -35,7 +36,7 @@ public class SpaceView extends View{
 		
 	}
 	
-	@Override
+	@SuppressLint("DrawAllocation") @Override
 	protected void onDraw (Canvas canvas){
 		if (canvas != null && space != null && space.getAllIcons() != null) {
 			for (UserView p : space.getAllIcons()) {
@@ -48,6 +49,7 @@ public class SpaceView extends View{
 			if (ghost != null)
 				ghost.draw(canvas);
 		}
+		// [FIXIT] Compiler warning: don't allocate objects during draw methods
 		Paint paint = new Paint();
 		paint.setAntiAlias(true);
 		for (ArrayList<Point> pointList : dragPoints) {
@@ -59,6 +61,7 @@ public class SpaceView extends View{
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private void performGhostDrag(int mouseX, int mouseY) {
 		if (ghost == null) {
 			ghost = selectedIcon.getGhost();

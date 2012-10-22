@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ConferenceSchedulerView;
 import edu.cornell.opencomm.view.ContactsView;
 import edu.cornell.opencomm.view.DashboardView;
@@ -19,7 +20,6 @@ import edu.cornell.opencomm.view.LoginView;
 public class DashboardController {
 
 	private DashboardView dashboardView;
-	private Context context;
 
 	/**
 	 * TODO: DashboardController constructor. This should load the dashboard
@@ -27,13 +27,13 @@ public class DashboardController {
 	 */
 	public DashboardController(DashboardView view, Context context) {
 		this.dashboardView = view;
-		this.context = context;
 	}
 
 	/**
 	 * TODO: This should call a task when a user clicks the contact list button.
 	 */
 	public void handleContactListButtonClicked() {
+		ContactListController.getInstance().updateContacts();
 		this.dashboardView.findViewById(R.id.dashboardContactOverlay).setVisibility(View.VISIBLE);
     	// start contact view
     	Intent i = new Intent(this.dashboardView,ContactsView.class);
@@ -64,9 +64,13 @@ public class DashboardController {
 	 * TODO: This should call a task when a user clicks the Logout button.
 	 */
 	public void handleLogoutButtonClicked() {
+		if(NetworkService.getInstance().logout()){
 		this.dashboardView.findViewById(R.id.dashboardLogoutOverlay).setVisibility(View.VISIBLE);
-		// start login view
     	Intent i = new Intent(this.dashboardView,LoginView.class);
     	this.dashboardView.startActivity(i);
+		}
+		else{
+			//TODO: Stop user from log out, ask Design.. Mention the scenarios
+		}
 	}
 }

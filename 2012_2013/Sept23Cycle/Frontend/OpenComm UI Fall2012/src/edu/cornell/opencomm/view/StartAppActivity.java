@@ -59,7 +59,8 @@ public class StartAppActivity extends Activity {
 	 * Finishes the current activity and launches the Login Activity
 	 */
 	private void launchLoginView() {
-		Intent intent = new Intent(StartAppActivity.this, LoginView.class);
+		Intent intent = new Intent(StartAppActivity.this, DashboardView.class);
+		
 		startActivity(intent);
 	}
 

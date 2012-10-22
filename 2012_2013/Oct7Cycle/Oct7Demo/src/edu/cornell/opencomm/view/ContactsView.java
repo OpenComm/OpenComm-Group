@@ -1,32 +1,30 @@
 package edu.cornell.opencomm.view;
 
+import java.util.ArrayList;
+
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.FontSetter;
-import edu.cornell.opencomm.model.ContactsDbAdapter;
+import edu.cornell.opencomm.model.User;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-//import android.graphics.PorterDuff.Mode;
-import android.widget.Toast;
 
 public class ContactsView extends Activity{
-	private ContactsDbAdapter dbHelper;
+	//private ContactsDbAdapter dbHelper;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.contacts_layout);
-		adjustLayoutLookAndFunctionality();
-		dbHelper = new ContactsDbAdapter();
-		dbHelper.open();
 		retrieveAndDisplayContacts();
+		adjustLayoutLookAndFunctionality();
+		//dbHelper = new ContactsDbAdapter();
+		//dbHelper.open();
+		
 	}
 	
 	/** Adjust the displayed layout and button functionality */
@@ -35,14 +33,9 @@ public class ContactsView extends Activity{
 		FontSetter.applySanSerifFont(ContactsView.this,
 		findViewById(R.layout.contacts_layout));
 		
-		// Ensure the actionbar is present
-		// ActionBar actionBar = getActionBar();
-		// actionBar.show();
-		
 		// Initialize images to act as buttons
 		initializeBackButton();
 		initializeSearchButton();
-		
 	}
 	
 	public void initializeBackButton(){
@@ -55,16 +48,9 @@ public class ContactsView extends Activity{
 	                break;
 	            }
 	            case MotionEvent.ACTION_UP:{
-	            	// TODO Start the Dashboard Activity - Dashboard Activity has not been made yet however
-	            	//Intent intent = new Intent(ContactsView.this, DashboardView.class);
-	        		//startActivity(intent);
-	            	
-	            	// For now make a toast
-	            	Context context = getApplicationContext();
-	            	CharSequence text = "Go to Dashboard Page!";
-	            	int duration = Toast.LENGTH_SHORT;
-	            	Toast toast = Toast.makeText(context, text, duration);
-	            	toast.show();
+	            	Intent intent = new Intent(ContactsView.this, DashboardView.class);
+	        		startActivity(intent);
+	                break;
 	            }
 	            }
 	            return true;
@@ -91,24 +77,33 @@ public class ContactsView extends Activity{
 	        }
 		}); 
 	}
+	/**
+	 * The back arrow should takes the user to previous screen
+	 * @param view
+	 */
+	public void onBackArrow(View  view){
+		super.onBackPressed();
+	}
 	
 	/** Retrieve and display this user's contacts */
-	// TODO Needs to be tested and altered
 	public void retrieveAndDisplayContacts(){
-		// Retrieve all contacts 
-		Cursor cursor = dbHelper.getAllContacts();
-		
-		// The desired contact data to display
-		String[] desiredContactData = new String[] { ContactsDbAdapter.KEY_NAME, ContactsDbAdapter.KEY_PICTURE };
-		
-		// The xml defined views which the data will be bound to
-		int[] toXMLViews = new int[] {R.id.contact_name, R.id.contact_picture };
-		
-		// Create the adapter using the cursor pointing to the desired data as well as the layout information
-		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.contact_entry_layout, cursor, desiredContactData, toXMLViews);
-		
-		// Set this adapter as your listview's adapter
-		ListView listView = (ListView) findViewById(R.id.contacts_list); 
-		listView.setAdapter(adapter);
+		ArrayList<User> all_contacts = User.primaryUser.getContactList();
+		User[] users = all_contacts.toArray(new User[all_contacts.size()]);
+		 ContactsViewAdapter adapter = new ContactsViewAdapter(this, 
+	                R.layout.contact_entry_layout, users);
+	        
+	        
+		ListView contactList = (ListView)findViewById(R.id.contacts_list);
+		contactList.setAdapter(adapter);
 	}
+	
+	public User[] getContacts(){
+		ArrayList<User> users = new ArrayList<User>();
+		users.add(new User("risa", "Risa Naka", R.drawable.example_picture_1));
+		users.add(new User("nora", "Nora Ng-Quinn", R.drawable.example_picture_2));
+		users.add(new User("makoto", "Makoto Bentz", R.drawable.example_picture_3));
+		users.add(new User("graeme", "Graeme Bailey", R.drawable.example_picture_4));
+		return users.toArray(new User[users.size()]);
+	}
+
 }

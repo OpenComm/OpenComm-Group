@@ -1,7 +1,6 @@
 package edu.cornell.opencomm.model;
 
-import java.io.File;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 import org.jivesoftware.smackx.packet.VCard;
@@ -20,16 +19,17 @@ public class User {
 	String nickname; // The User's chat nickname
 	VCard vCard; // The User's vCard, used to pass image
 	int image; // icon - will be replaced by vCard
+	ArrayList<User> contactList;
+	
+	// TODO: is there a better place for this?
+	public static User primaryUser;
 
 	// Crystal
 	public int user_color = R.color.blue;
 	static int[] colors = { R.color.blue, R.color.green, R.color.orange };
 	static int color_pointer = 0;
-	private static Hashtable<String, Integer> user_color_table = new Hashtable<String, Integer>();
-
-	// Maps JID to User
-	private static HashMap<String, User> allUsers = new HashMap<String, User>();
-
+	private static Hashtable<String, Integer> user_color_table = 
+			new Hashtable<String, Integer>();
 
 	/**
 	 * CONSTRUCTOR: = a new User
@@ -56,50 +56,37 @@ public class User {
 		if (user_color_table.containsKey(username)) {
 			user_color = user_color_table.get(username);
 		} else {
-			user_color = colors[color_pointer];
+			user_color = colors[color_pointer%colors.length];
 			color_pointer = (color_pointer >= 9 ? 0 : ++color_pointer);
 			user_color_table.put(username, user_color);
 		}
-		allUsers.put(username, this);
+		this.contactList = new ArrayList<User>();
 	}
 
 	// SETTERS AND GETTERS
 
 	/** @return - the User's JID */
 	public String getUsername() {
-		return username;
+		return this.username;
 	}
 
 	/** @return - the User's chat nickname */
 	public String getNickname() {
-		return nickname;
+		return this.nickname;
 	}
 
 	/** @return - the int representation of the User's image */
 	public int getImage() {
-		return image;
+		return this.image;
 	}
 
 	/** @return - the User's vCard */
 	public VCard getVCard() {
-		return vCard;
+		return this.vCard;
 	}
 
-	/**
-	 * Change the user's nickname
-	 * 
-	 * @param new_nickname
-	 *            - the User's new nickname
-	 */
-	// TODO: ask Design if we want this/if a User can have different nicks for
-	// each Space
-	public void setNickname(String new_nickname) {
-		nickname = new_nickname;
+	/** @return - the User's contact list */
+	public ArrayList<User> getContactList() {
+		return this.contactList;
 	}
-
-	/** @return - all users with their JID as the key */
-	public static HashMap<String, User> getAllUsers() {
-		return allUsers;
-	} // end getAllUsers method
-
 }

@@ -14,11 +14,11 @@
             	android:id="@+id/contacts_view_title"
             	android:layout_width="wrap_content"
             	android:layout_height="match_parent"
-            	android:layout_alignParentTop="true"
-            	android:layout_centerHorizontal="true"
+            	android:layout_alignParentLeft="true"
+            	android:layout_marginLeft="24dp"
             	android:gravity="center_vertical"
             	android:text="@string/contacts"
-            	android:textColor="@color/blue_light"
+            	android:textColor="@color/blue_contacts_page_title"
             	android:textSize="24sp" />
 
             <FrameLayout
@@ -35,7 +35,8 @@
                 	android:layout_height="16dp"
                 	android:layout_gravity="center"
                 	android:src="@drawable/contacts_left_arrow"
-                	android:contentDescription="@string/contacts_back_button_desc" />
+                	android:contentDescription="@string/contacts_back_button_desc"
+                	android:onClick="onBackArrow" />
             </FrameLayout>
 
             <ImageView
@@ -55,7 +56,9 @@
             android:id="@+id/contacts_list"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/contactTitleBar" >
+            android:layout_below="@id/contactTitleBar"
+            android:divider="@color/bar_separating_listview"
+    		android:dividerHeight="0.67dp" >
         </ListView>
 
     </RelativeLayout>

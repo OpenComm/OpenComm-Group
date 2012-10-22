@@ -41,7 +41,8 @@
             android:layout_width="226.67dp"
             android:layout_height="36dp"
             android:hint=""
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            android:inputType="textPassword"/>
         <Button android:id="@+id/forgotPassword"
             android:layout_marginTop="4.67dp"
             android:layout_marginLeft="46.67dp"
