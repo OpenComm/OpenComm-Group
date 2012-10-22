@@ -34,7 +34,6 @@ public class ResetPasswordController {
 		this.resetPasswordView.findViewById(R.id.signupOverlayReset).setVisibility(View.VISIBLE);
 		Intent click = new Intent(this.resetPasswordView,SignupView.class);
 		this.resetPasswordView.startActivity(click);
-
 	}
 
 	//Handle the reset password button
