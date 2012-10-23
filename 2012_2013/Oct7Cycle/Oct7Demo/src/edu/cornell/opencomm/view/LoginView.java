@@ -31,6 +31,7 @@ public class LoginView extends Activity {
 	private static EditText emailEdit;
 	private static EditText passwordEdit;
 	private static ImageButton loginButton;
+	@SuppressWarnings("unused")
 	private static Button loginText;
 	private static ImageView loginOverlay;
 	private LayoutInflater inflater = null;

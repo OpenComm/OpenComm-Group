@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.ConferenceController;
 import edu.cornell.opencomm.controller.FontSetter;
@@ -54,7 +53,7 @@ public class ConferenceSchedulerView extends Activity {
 		ArrayList<Conference> upcoming_conferences = this.getUpcomingConferences(conferences);
 		ArrayList<Conference> invited_list = new ArrayList<Conference>();
 		for (Conference conference: conferences){
-			if(conference.getConferenceType(currentTime) == conference.INVITED){
+			if(conference.getConferenceType(currentTime) == Conference.INVITED){
 				invited_list.add(conference);
 			}
 		}

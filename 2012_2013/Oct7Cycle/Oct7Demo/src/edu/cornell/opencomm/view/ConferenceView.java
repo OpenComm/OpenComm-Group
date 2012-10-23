@@ -95,6 +95,7 @@ public final class ConferenceView extends Activity implements OnTouchListener{
 		// Check if the mainspace was already created
 		if (Space.getMainSpace() == null) {
 			// Obtain username used to log into the application
+			@SuppressWarnings("unused")
 			Intent start_intent = getIntent();
 			//TODO :Get the correct string extrea from start conference view
 			// username = start_intent.getStringExtra(Network.KEY_USERNAME);
@@ -149,6 +150,7 @@ public final class ConferenceView extends Activity implements OnTouchListener{
 		return false;
 	}
 	
+	@SuppressWarnings("unused")
 	private void applyFont(){
 		//TODO: Make sure font setting cascades to chatView and spaceView
 		FontSetter.applySanSerifFont(ConferenceView.this, findViewById(R.layout.conference_layout));

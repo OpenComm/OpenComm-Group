@@ -3,7 +3,6 @@ package edu.cornell.opencomm.controller;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import edu.cornell.opencomm.R;
@@ -18,6 +17,7 @@ import edu.cornell.opencomm.view.SignupView;
 
 public class LoginController {
 
+	@SuppressWarnings("unused")
 	private static final String TAG = LoginController.class.getSimpleName();;
 
 	private ProgressDialog loginProgress = null;

@@ -23,21 +23,17 @@ public class ResetPasswordController {
 	public static final String PWDRESET = "PasswordReset";
 
 	private ResetPasswordView resetPasswordView;
-	private Context context; 
-
 	//Constructor - initialize required fields
 	public ResetPasswordController(Context context, ResetPasswordView view){
-		this.resetPasswordView = view;
-		this.context = context; 
+		this.resetPasswordView = view; 
 	}
 
 	//Handle sign up button
 	public void signUpPressed(){
-		if (D) Log.v(this.TAG, "Sign up pressed");
+		if (D) Log.v(TAG, "Sign up pressed");
 		this.resetPasswordView.findViewById(R.id.signupOverlayReset).setVisibility(View.VISIBLE);
 		Intent click = new Intent(this.resetPasswordView,SignupView.class);
 		this.resetPasswordView.startActivity(click);
-
 	}
 
 	//Handle the reset password button

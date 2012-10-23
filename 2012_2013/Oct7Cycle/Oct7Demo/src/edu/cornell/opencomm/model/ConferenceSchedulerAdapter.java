@@ -13,7 +13,9 @@ import edu.cornell.opencomm.R;
 
 public class ConferenceSchedulerAdapter extends ArrayAdapter<Conference> {
 	
+	@SuppressWarnings("unused")
 	private static final String TAG = "ConferenceSchedulerView";
+	@SuppressWarnings("unused")
 	private static final boolean D = true;
 	Context context;
 	int layoutResourceId;
