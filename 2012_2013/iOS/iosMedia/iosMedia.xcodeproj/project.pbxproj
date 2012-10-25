@@ -1,0 +1,381 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4D6954941639C5C500825BD4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D6954931639C5C500825BD4 /* UIKit.framework */; };
+		4D6954961639C5C500825BD4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D6954951639C5C500825BD4 /* Foundation.framework */; };
+		4D6954981639C5C500825BD4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D6954971639C5C500825BD4 /* CoreGraphics.framework */; };
+		4D69549E1639C5C500825BD4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D69549C1639C5C500825BD4 /* InfoPlist.strings */; };
+		4D6954A01639C5C500825BD4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D69549F1639C5C500825BD4 /* main.m */; };
+		4D6954A41639C5C500825BD4 /* OPCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D6954A31639C5C500825BD4 /* OPCAppDelegate.m */; };
+		4D6954A61639C5C500825BD4 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D6954A51639C5C500825BD4 /* Default.png */; };
+		4D6954A81639C5C500825BD4 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D6954A71639C5C500825BD4 /* Default@2x.png */; };
+		4D6954AA1639C5C500825BD4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D6954A91639C5C500825BD4 /* Default-568h@2x.png */; };
+		4D6954AD1639C5C500825BD4 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D6954AB1639C5C500825BD4 /* MainStoryboard.storyboard */; };
+		4D6954B01639C5C500825BD4 /* OPCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D6954AF1639C5C500825BD4 /* OPCViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4D69548F1639C5C500825BD4 /* iosMedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosMedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D6954931639C5C500825BD4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		4D6954951639C5C500825BD4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4D6954971639C5C500825BD4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		4D69549B1639C5C500825BD4 /* iosMedia-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iosMedia-Info.plist"; sourceTree = "<group>"; };
+		4D69549D1639C5C500825BD4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4D69549F1639C5C500825BD4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4D6954A11639C5C500825BD4 /* iosMedia-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iosMedia-Prefix.pch"; sourceTree = "<group>"; };
+		4D6954A21639C5C500825BD4 /* OPCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OPCAppDelegate.h; sourceTree = "<group>"; };
+		4D6954A31639C5C500825BD4 /* OPCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OPCAppDelegate.m; sourceTree = "<group>"; };
+		4D6954A51639C5C500825BD4 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		4D6954A71639C5C500825BD4 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		4D6954A91639C5C500825BD4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		4D6954AC1639C5C500825BD4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		4D6954AE1639C5C500825BD4 /* OPCViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OPCViewController.h; sourceTree = "<group>"; };
+		4D6954AF1639C5C500825BD4 /* OPCViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OPCViewController.m; sourceTree = "<group>"; };
+		4D6954B71639C5C500825BD4 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		4D6954BF1639C5C500825BD4 /* iosMediaTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iosMediaTests-Info.plist"; sourceTree = "<group>"; };
+		4D6954C11639C5C500825BD4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4D6954C31639C5C500825BD4 /* iosMediaTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iosMediaTests.h; sourceTree = "<group>"; };
+		4D6954C41639C5C500825BD4 /* iosMediaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iosMediaTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4D69548C1639C5C500825BD4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D6954941639C5C500825BD4 /* UIKit.framework in Frameworks */,
+				4D6954961639C5C500825BD4 /* Foundation.framework in Frameworks */,
+				4D6954981639C5C500825BD4 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4D6954841639C5C500825BD4 = {
+			isa = PBXGroup;
+			children = (
+				4D6954991639C5C500825BD4 /* iosMedia */,
+				4D6954BD1639C5C500825BD4 /* iosMediaTests */,
+				4D6954921639C5C500825BD4 /* Frameworks */,
+				4D6954901639C5C500825BD4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4D6954901639C5C500825BD4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4D69548F1639C5C500825BD4 /* iosMedia.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4D6954921639C5C500825BD4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4D6954931639C5C500825BD4 /* UIKit.framework */,
+				4D6954951639C5C500825BD4 /* Foundation.framework */,
+				4D6954971639C5C500825BD4 /* CoreGraphics.framework */,
+				4D6954B71639C5C500825BD4 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4D6954991639C5C500825BD4 /* iosMedia */ = {
+			isa = PBXGroup;
+			children = (
+				4D6954A21639C5C500825BD4 /* OPCAppDelegate.h */,
+				4D6954A31639C5C500825BD4 /* OPCAppDelegate.m */,
+				4D6954AB1639C5C500825BD4 /* MainStoryboard.storyboard */,
+				4D6954AE1639C5C500825BD4 /* OPCViewController.h */,
+				4D6954AF1639C5C500825BD4 /* OPCViewController.m */,
+				4D69549A1639C5C500825BD4 /* Supporting Files */,
+			);
+			path = iosMedia;
+			sourceTree = "<group>";
+		};
+		4D69549A1639C5C500825BD4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4D69549B1639C5C500825BD4 /* iosMedia-Info.plist */,
+				4D69549C1639C5C500825BD4 /* InfoPlist.strings */,
+				4D69549F1639C5C500825BD4 /* main.m */,
+				4D6954A11639C5C500825BD4 /* iosMedia-Prefix.pch */,
+				4D6954A51639C5C500825BD4 /* Default.png */,
+				4D6954A71639C5C500825BD4 /* Default@2x.png */,
+				4D6954A91639C5C500825BD4 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4D6954BD1639C5C500825BD4 /* iosMediaTests */ = {
+			isa = PBXGroup;
+			children = (
+				4D6954C31639C5C500825BD4 /* iosMediaTests.h */,
+				4D6954C41639C5C500825BD4 /* iosMediaTests.m */,
+				4D6954BE1639C5C500825BD4 /* Supporting Files */,
+			);
+			path = iosMediaTests;
+			sourceTree = "<group>";
+		};
+		4D6954BE1639C5C500825BD4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4D6954BF1639C5C500825BD4 /* iosMediaTests-Info.plist */,
+				4D6954C01639C5C500825BD4 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4D69548E1639C5C500825BD4 /* iosMedia */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D6954C81639C5C500825BD4 /* Build configuration list for PBXNativeTarget "iosMedia" */;
+			buildPhases = (
+				4D69548B1639C5C500825BD4 /* Sources */,
+				4D69548C1639C5C500825BD4 /* Frameworks */,
+				4D69548D1639C5C500825BD4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iosMedia;
+			productName = iosMedia;
+			productReference = 4D69548F1639C5C500825BD4 /* iosMedia.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4D6954861639C5C500825BD4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = OPC;
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = OpenComm;
+			};
+			buildConfigurationList = 4D6954891639C5C500825BD4 /* Build configuration list for PBXProject "iosMedia" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4D6954841639C5C500825BD4;
+			productRefGroup = 4D6954901639C5C500825BD4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4D69548E1639C5C500825BD4 /* iosMedia */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4D69548D1639C5C500825BD4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D69549E1639C5C500825BD4 /* InfoPlist.strings in Resources */,
+				4D6954A61639C5C500825BD4 /* Default.png in Resources */,
+				4D6954A81639C5C500825BD4 /* Default@2x.png in Resources */,
+				4D6954AA1639C5C500825BD4 /* Default-568h@2x.png in Resources */,
+				4D6954AD1639C5C500825BD4 /* MainStoryboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4D69548B1639C5C500825BD4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D6954A01639C5C500825BD4 /* main.m in Sources */,
+				4D6954A41639C5C500825BD4 /* OPCAppDelegate.m in Sources */,
+				4D6954B01639C5C500825BD4 /* OPCViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		4D69549C1639C5C500825BD4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D69549D1639C5C500825BD4 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		4D6954AB1639C5C500825BD4 /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D6954AC1639C5C500825BD4 /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+		4D6954C01639C5C500825BD4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D6954C11639C5C500825BD4 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4D6954C61639C5C500825BD4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		4D6954C71639C5C500825BD4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4D6954C91639C5C500825BD4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iosMedia/iosMedia-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"PJ_AUTOCONF=1",
+					USE_GUI,
+				);
+				HEADER_SEARCH_PATHS = (
+					../pj/pjsip/include,
+					../pj/pjlib/include,
+					"../pj/pjlib-util/include",
+					../pj/pjnath/include,
+					../pj/pjmedia/include,
+				);
+				INFOPLIST_FILE = "iosMedia/iosMedia-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					../pj/third_party/lib,
+					../pj/pjlib/lib,
+					"../pj/pjlib-util/lib",
+					../pj/pjmedia/lib,
+					../pj/pjnath/lib,
+					../pj/pjsip/lib,
+					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/Frameworks/AVFoundation.framework\"",
+					"\"../pjvideo/ffmpeg-iphone/lib\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		4D6954CA1639C5C500825BD4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iosMedia/iosMedia-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"PJ_AUTOCONF=1",
+					USE_GUI,
+				);
+				HEADER_SEARCH_PATHS = (
+					../pj/pjsip/include,
+					../pj/pjlib/include,
+					"../pj/pjlib-util/include",
+					../pj/pjnath/include,
+					../pj/pjmedia/include,
+				);
+				INFOPLIST_FILE = "iosMedia/iosMedia-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					../pj/third_party/lib,
+					../pj/pjlib/lib,
+					"../pj/pjlib-util/lib",
+					../pj/pjmedia/lib,
+					../pj/pjnath/lib,
+					../pj/pjsip/lib,
+					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/Frameworks/AVFoundation.framework\"",
+					"\"../pjvideo/ffmpeg-iphone/lib\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4D6954891639C5C500825BD4 /* Build configuration list for PBXProject "iosMedia" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D6954C61639C5C500825BD4 /* Debug */,
+				4D6954C71639C5C500825BD4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4D6954C81639C5C500825BD4 /* Build configuration list for PBXNativeTarget "iosMedia" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D6954C91639C5C500825BD4 /* Debug */,
+				4D6954CA1639C5C500825BD4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4D6954861639C5C500825BD4 /* Project object */;
+}
