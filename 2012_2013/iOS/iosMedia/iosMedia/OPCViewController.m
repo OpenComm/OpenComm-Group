@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 OpenComm. All rights reserved.
 //
 
-#import <pjlib.h>
 #import "OPCViewController.h"
+#import "pjmedia.h"
 
 @interface OPCViewController ()
 
@@ -17,8 +17,12 @@
 
 - (void)viewDidLoad
 {
+    
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    pjmedia_main(0, NULL);
+    
 }
 
 - (void)didReceiveMemoryWarning
