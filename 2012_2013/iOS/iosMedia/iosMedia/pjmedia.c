@@ -43,6 +43,8 @@
 #include "util.h"
 #include "pjmedia.h"
 
+#define LOCAL_PORT 8888
+
 
 static const char *desc =
 " streamutil								\n"
@@ -83,12 +85,54 @@ static const char *desc =
 "\n"
 ;
 
-
-
-
 #define THIS_FILE	"stream.c"
 
+pj_caching_pool cp;
+pjmedia_endpt *med_endpt;
+pj_pool_t *pool;
+pjmedia_port *rec_file_port = NULL, *play_file_port = NULL;
+pjmedia_master_port *master_port = NULL;
+pjmedia_snd_port *snd_port = NULL;
+pjmedia_stream *stream = NULL;
+pjmedia_port *stream_port;
+pj_status_t status;
 
+#if defined(PJMEDIA_HAS_SRTP) && (PJMEDIA_HAS_SRTP != 0)
+/* SRTP variables */
+pj_bool_t use_srtp = PJ_FALSE;
+pj_str_t  srtp_tx_key = {NULL, 0};
+pj_str_t  srtp_rx_key = {NULL, 0};
+pj_str_t  srtp_crypto_suite = {NULL, 0};
+#endif
+
+/* Default values */
+const pjmedia_codec_info *codec_info;
+pjmedia_codec_param codec_param;
+pjmedia_dir dir = PJMEDIA_DIR_DECODING;
+pj_sockaddr_in remote_addr;
+pj_uint16_t local_port = LOCAL_PORT;
+char *codec_id = NULL;
+char *rec_file = NULL;
+char *play_file = NULL;
+
+enum {
+    OPT_CODEC	= 'c',
+    OPT_LOCAL_PORT	= 'p',
+    OPT_REMOTE	= 'r',
+    OPT_PLAY_FILE	= 'w',
+    OPT_RECORD_FILE	= 'R',
+    OPT_SEND_RECV	= 'b',
+    OPT_SEND_ONLY	= 's',
+    OPT_RECV_ONLY	= 'i',
+#if defined(PJMEDIA_HAS_SRTP) && (PJMEDIA_HAS_SRTP != 0)
+    OPT_USE_SRTP	= 'S',
+#endif
+    OPT_SRTP_TX_KEY	= 'x',
+    OPT_SRTP_RX_KEY	= 'y',
+    OPT_HELP	= 'h',
+};
+
+char* ip_arg;
 
 /* Prototype */
 static void print_stream_stat(pjmedia_stream *stream,
@@ -208,6 +252,9 @@ static pj_status_t create_stream( pj_pool_t *pool,
     return PJ_SUCCESS;
 }
 
+int pjmedia_exit(){
+    exit(1);
+}
 
 /*
  * usage()
@@ -221,78 +268,13 @@ static void usage()
  * main()
  */
 int pjmedia_main(int argc, char *argv[])
-{
-    pj_caching_pool cp;
-    pjmedia_endpt *med_endpt;
-    pj_pool_t *pool;
-    pjmedia_port *rec_file_port = NULL, *play_file_port = NULL;
-    pjmedia_master_port *master_port = NULL;
-    pjmedia_snd_port *snd_port = NULL;
-    pjmedia_stream *stream = NULL;
-    pjmedia_port *stream_port;
-    char tmp[10];
-    pj_status_t status;
+{    
+    // takes in user IP
+    if (argc < 1){
+        exit(1);
+    }
     
-#if defined(PJMEDIA_HAS_SRTP) && (PJMEDIA_HAS_SRTP != 0)
-    /* SRTP variables */
-    pj_bool_t use_srtp = PJ_FALSE;
-    char tmp_tx_key[64];
-    char tmp_rx_key[64];
-    pj_str_t  srtp_tx_key = {NULL, 0};
-    pj_str_t  srtp_rx_key = {NULL, 0};
-    pj_str_t  srtp_crypto_suite = {NULL, 0};
-    int	tmp_key_len;
-#endif
-    
-    /* Default values */
-    const pjmedia_codec_info *codec_info;
-    pjmedia_codec_param codec_param;
-    pjmedia_dir dir = PJMEDIA_DIR_DECODING;
-    pj_sockaddr_in remote_addr;
-    pj_uint16_t local_port = 4000;
-    char *codec_id = NULL;
-    char *rec_file = NULL;
-    char *play_file = NULL;
-    
-    enum {
-        OPT_CODEC	= 'c',
-        OPT_LOCAL_PORT	= 'p',
-        OPT_REMOTE	= 'r',
-        OPT_PLAY_FILE	= 'w',
-        OPT_RECORD_FILE	= 'R',
-        OPT_SEND_RECV	= 'b',
-        OPT_SEND_ONLY	= 's',
-        OPT_RECV_ONLY	= 'i',
-#if defined(PJMEDIA_HAS_SRTP) && (PJMEDIA_HAS_SRTP != 0)
-        OPT_USE_SRTP	= 'S',
-#endif
-        OPT_SRTP_TX_KEY	= 'x',
-        OPT_SRTP_RX_KEY	= 'y',
-        OPT_HELP	= 'h',
-    };
-    
-    struct pj_getopt_option long_options[] = {
-        { "codec",	    1, 0, OPT_CODEC },
-        { "local-port",	    1, 0, OPT_LOCAL_PORT },
-        { "remote",	    1, 0, OPT_REMOTE },
-        { "play-file",	    1, 0, OPT_PLAY_FILE },
-        { "record-file",    1, 0, OPT_RECORD_FILE },
-        { "send-recv",      0, 0, OPT_SEND_RECV },
-        { "send-only",      0, 0, OPT_SEND_ONLY },
-        { "recv-only",      0, 0, OPT_RECV_ONLY },
-#if defined(PJMEDIA_HAS_SRTP) && (PJMEDIA_HAS_SRTP != 0)
-        { "use-srtp",	    2, 0, OPT_USE_SRTP },
-        { "srtp-tx-key",    1, 0, OPT_SRTP_TX_KEY },
-        { "srtp-rx-key",    1, 0, OPT_SRTP_RX_KEY },
-#endif
-        { "help",	    0, 0, OPT_HELP },
-        { NULL, 0, 0, 0 },
-    };
-    
-    int c;
-    int option_index;
-    
-    
+    ip_arg = (char*)argv[0];
     pj_bzero(&remote_addr, sizeof(remote_addr));
     
     
@@ -302,96 +284,17 @@ int pjmedia_main(int argc, char *argv[])
     
     
     /* Parse arguments */
-    pj_optind = 0;
+    pj_str_t ip = pj_str(ip_arg);
+    pj_uint16_t port = LOCAL_PORT;
+    local_port = LOCAL_PORT;
     
-    //while((c=pj_getopt_long(argc,argv, "h", long_options, &option_index))!=-1) {
-    c = OPT_REMOTE;
+    status = pj_sockaddr_in_init(&remote_addr, &ip, port);
+    if (status != PJ_SUCCESS) {
+        app_perror(THIS_FILE, "Invalid remote address", status);
+        return 1;
+    }
     
-        switch (c) {
-            case OPT_CODEC:
-                codec_id = pj_optarg;
-                break;
-                
-            case OPT_LOCAL_PORT:
-                local_port = (pj_uint16_t) atoi(pj_optarg);
-                if (local_port < 1) {
-                    printf("Error: invalid local port %s\n", pj_optarg);
-                    return 1;
-                }
-                
-                break;
-                
-            case OPT_REMOTE:
-            {
-                //pj_str_t ip = pj_str(strtok(pj_optarg, ":"));
-                //pj_uint16_t port = (pj_uint16_t) atoi(strtok(NULL, ":"));
-                
-                pj_str_t ip = pj_str("10.32.114.216");
-                pj_uint16_t port = 8888;
-                
-                status = pj_sockaddr_in_init(&remote_addr, &ip, port);
-                if (status != PJ_SUCCESS) {
-                    app_perror(THIS_FILE, "Invalid remote address", status);
-                    return 1;
-                }
-                
-                dir = PJMEDIA_DIR_ENCODING_DECODING;
-                local_port = 9999;
-            }
-                break;
-                
-            case OPT_PLAY_FILE:
-                play_file = pj_optarg;
-                break;
-                
-            case OPT_RECORD_FILE:
-                rec_file = pj_optarg;
-                break;
-                
-            case OPT_SEND_RECV:
-                dir = PJMEDIA_DIR_ENCODING_DECODING;
-                break;
-                
-            case OPT_SEND_ONLY:
-                dir = PJMEDIA_DIR_ENCODING;
-                break;
-                
-            case OPT_RECV_ONLY:
-                dir = PJMEDIA_DIR_DECODING;
-                break;
-                
-#if defined(PJMEDIA_HAS_SRTP) && (PJMEDIA_HAS_SRTP != 0)
-            case OPT_USE_SRTP:
-                use_srtp = PJ_TRUE;
-                if (pj_optarg) {
-                    pj_strset(&srtp_crypto_suite, pj_optarg, strlen(pj_optarg));
-                } else {
-                    srtp_crypto_suite = pj_str("AES_CM_128_HMAC_SHA1_80");
-                }
-                break;
-                
-            case OPT_SRTP_TX_KEY:
-                tmp_key_len = hex_string_to_octet_string(tmp_tx_key, pj_optarg, strlen(pj_optarg));
-                pj_strset(&srtp_tx_key, tmp_tx_key, tmp_key_len/2);
-                break;
-                
-            case OPT_SRTP_RX_KEY:
-                tmp_key_len = hex_string_to_octet_string(tmp_rx_key, pj_optarg, strlen(pj_optarg));
-                pj_strset(&srtp_rx_key, tmp_rx_key, tmp_key_len/2);
-                break;
-#endif
-                
-            case OPT_HELP:
-                usage();
-                return 1;
-                
-            default:
-                printf("Invalid options %s\n", argv[pj_optind]);
-                return 1;
-        }
-        
-    //}
-    
+    dir = PJMEDIA_DIR_ENCODING_DECODING;
     
     /* Verify arguments. */
     if (dir & PJMEDIA_DIR_ENCODING) {
@@ -468,7 +371,7 @@ int pjmedia_main(int argc, char *argv[])
 #endif
                            &stream);
     if (status != PJ_SUCCESS)
-        goto on_exit;
+        pjmedia_exit();
     
     /* Get codec default param for info */
     status = pjmedia_codec_mgr_get_default_param(
@@ -491,20 +394,20 @@ int pjmedia_main(int argc, char *argv[])
                                                 0, -1, &play_file_port);
         if (status != PJ_SUCCESS) {
             app_perror(THIS_FILE, "Unable to use file", status);
-            goto on_exit;
+            pjmedia_exit();
         }
         
         status = pjmedia_master_port_create(pool, play_file_port, stream_port,
                                             0, &master_port);
         if (status != PJ_SUCCESS) {
             app_perror(THIS_FILE, "Unable to create master port", status);
-            goto on_exit;
+            pjmedia_exit();
         }
         
         status = pjmedia_master_port_start(master_port);
         if (status != PJ_SUCCESS) {
             app_perror(THIS_FILE, "Error starting master port", status);
-            goto on_exit;
+            pjmedia_exit();
         }
         
         printf("Playing from WAV file %s..\n", play_file);
@@ -519,20 +422,20 @@ int pjmedia_main(int argc, char *argv[])
                                                 0, 0, &rec_file_port);
         if (status != PJ_SUCCESS) {
             app_perror(THIS_FILE, "Unable to use file", status);
-            goto on_exit;
+            pjmedia_exit();
         }
         
         status = pjmedia_master_port_create(pool, stream_port, rec_file_port,
                                             0, &master_port);
         if (status != PJ_SUCCESS) {
             app_perror(THIS_FILE, "Unable to create master port", status);
-            goto on_exit;
+            pjmedia_exit();
         }
         
         status = pjmedia_master_port_start(master_port);
         if (status != PJ_SUCCESS) {
             app_perror(THIS_FILE, "Error starting master port", status);
-            goto on_exit;
+            pjmedia_exit();
         }
         
         printf("Recording to WAV file %s..\n", rec_file);
@@ -565,7 +468,7 @@ int pjmedia_main(int argc, char *argv[])
         
         if (status != PJ_SUCCESS) {
             app_perror(THIS_FILE, "Unable to create sound port", status);
-            goto on_exit;
+            pjmedia_exit();
         }
         
         /* Connect sound port to stream */
@@ -594,42 +497,21 @@ int pjmedia_main(int argc, char *argv[])
                pj_inet_ntoa(remote_addr.sin_addr),
                pj_ntohs(remote_addr.sin_port));
     
-    
-    usleep(30000000);
-    
-//    for (;;) {
-//        
-//        puts("");
-//        puts("Commands:");
-//        puts("  s     Display media statistics");
-//        puts("  q     Quit");
-//        puts("");
-//        
-//        printf("Command: "); fflush(stdout);
-//        
-//        if (fgets(tmp, sizeof(tmp), stdin) == NULL) {
-//            puts("EOF while reading stdin, will quit now..");
-//            break;
-//        }
-//        
-//        if (tmp[0] == 's')
-//            print_stream_stat(stream, &codec_param);
-//        else if (tmp[0] == 'q')
-//            break;
-//        
-//    }
-    
-    
-    
-    /* Start deinitialization: */
-on_exit:
-    
+    return 0;
+}
+
+/* 
+ * This does exactly what it sounds like it does
+ * It stops the stream and closes the devices
+ */
+int pjmedia_antimain(){
+
     /* Destroy sound device */
     if (snd_port) {
         pjmedia_snd_port_destroy( snd_port );
         PJ_ASSERT_RETURN(status == PJ_SUCCESS, 1);
     }
-    
+
     /* If there is master port, then we just need to destroy master port
      * (it will recursively destroy upstream and downstream ports, which
      * in this case are file_port and stream_port).
@@ -639,37 +521,37 @@ on_exit:
         play_file_port = NULL;
         stream = NULL;
     }
-    
+
     /* Destroy stream */
     if (stream) {
         pjmedia_transport *tp;
-        
+
         tp = pjmedia_stream_get_transport(stream);
         pjmedia_stream_destroy(stream);
-        
+
         pjmedia_transport_close(tp);
     }
-    
+
     /* Destroy file ports */
     if (play_file_port)
         pjmedia_port_destroy( play_file_port );
     if (rec_file_port)
         pjmedia_port_destroy( rec_file_port );
-    
-    
+
+
     /* Release application pool */
     pj_pool_release( pool );
-    
+
     /* Destroy media endpoint. */
     pjmedia_endpt_destroy( med_endpt );
-    
+
     /* Destroy pool factory */
     pj_caching_pool_destroy( &cp );
-    
+
     /* Shutdown PJLIB */
     pj_shutdown();
-    
-    
+
+
     return (status == PJ_SUCCESS) ? 0 : 1;
 }
 
@@ -1172,7 +1054,7 @@ static void print_stream_stat(pjmedia_stream *stream,
         
         /* RTT delay (by receiver side) */
         printf("          (msec)    min     avg     max     last    dev\n");
-        printf(" RTT delay     : %7.3f %7.3f %7.3f %7.3f %7.3f%s\n", 
+        printf(" RTT delay     : %7.3f %7.3f %7.3f %7.3f %7.3f%s\n",
                xr_stat.rtt.min / 1000.0,
                xr_stat.rtt.mean / 1000.0,
                xr_stat.rtt.max / 1000.0,

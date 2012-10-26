@@ -10,5 +10,6 @@
 #define iosMedia_pjmedia_h
 
 int pjmedia_main(int argc, char*argv[]);
+int pjmedia_antimain();
 
 #endif
