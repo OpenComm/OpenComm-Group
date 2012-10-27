@@ -1,4 +1,4 @@
-package java.com.opencomm.plugin;
+package edu.cornell.opencomm.plugin;
 
 
 import java.io.File;
