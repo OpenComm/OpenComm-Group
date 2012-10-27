@@ -87,13 +87,13 @@ public class DatabaseService {
 			int counter=0;
 			String participant=(String)pkt.get("participant"+counter);
 			while(participant != null){
-				String sqlToRT="INSERT INTO "+RF_TABLE+"() VALUE ("+roomID+","+participant+", 0)";
+				String sqlToRT="INSERT INTO "+RF_TABLE+"() VALUE ('"+roomID+"','"+participant+"', '0')";
 				stmtRT.execute(sqlToRT);
 				participant=(String)pkt.get("participant"+(++counter));
 				}
 			// insert conference
-			String sqlString="INSERT INTO "+DB_TABLE+"()VALUE ("+roomID+","+roomname+","+invitername+","+starttime+","+endtime+","
-			                  +recurrence+","+description+")";
+			String sqlString="INSERT INTO "+DB_TABLE+"()VALUE ('"+roomID+"','"+roomname+"','"+invitername+"','"+starttime+"','"+endtime+"','"
+			                  +recurrence+"','"+description+"')";
 			stmt.executeUpdate(sqlString);
 			
 			
