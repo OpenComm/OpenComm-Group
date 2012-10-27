@@ -10,6 +10,7 @@ import edu.cornell.opencomm.controller.ContactCardController;
 
 public class ContactCardView extends Activity{
 
+	private static TextView name;
 	private static ImageView icon;
 	private static TextView email;
 	private static TextView phoneNumber;
@@ -23,6 +24,7 @@ public class ContactCardView extends Activity{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.contact_card_layout);
+		name = (TextView) findViewById(R.id.contact_card_name);
 		icon = (ImageView) findViewById(R.id.contact_card_picture);
 		email = (TextView) findViewById(R.id.contact_card_email);
 		phoneNumber = (TextView) findViewById(R.id.contact_card_phone);
