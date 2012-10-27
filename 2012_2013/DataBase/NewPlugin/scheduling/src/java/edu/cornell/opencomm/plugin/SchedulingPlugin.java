@@ -1,7 +1,13 @@
 package edu.cornell.opencomm.plugin;
 
+
 import java.io.File;
+import java.io.StringReader;
+import java.util.Hashtable;
 import java.util.Map;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.jivesoftware.openfire.container.Plugin;
 import org.jivesoftware.openfire.container.PluginManager;
@@ -10,6 +16,10 @@ import org.jivesoftware.util.PropertyEventDispatcher;
 import org.jivesoftware.util.PropertyEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 import org.xmpp.component.Component;
 import org.xmpp.component.ComponentException;
 import org.xmpp.component.ComponentManager;
@@ -17,7 +27,11 @@ import org.xmpp.component.ComponentManagerFactory;
 import org.xmpp.packet.JID;
 import org.xmpp.packet.Message;
 
-import org.jivesoftware.smack.packet.Packet;
+import org.xmpp.packet.Packet;
+//import javax.xml.parsers.*;
+import org.xml.sax.InputSource;
+//import org.w3c.dom.*;
+//import java.io.*;
 
 /**
  * A plugin to allow conference scheduling with a MySQL database
@@ -97,7 +111,54 @@ public class SchedulingPlugin implements Plugin, Component,
 		// Get the name from the plugin.xml file
 		return pluginManager.getDescription(this);
 	}
+	public Hashtable<String,String> parseXML(String xml){
+		Hashtable<String, String> pktInfo=new Hashtable<String, String>();
+		 try {
+		        DocumentBuilderFactory dbf =
+		            DocumentBuilderFactory.newInstance();
+		        DocumentBuilder db = dbf.newDocumentBuilder();
+		        InputSource is = new InputSource();
+		        is.setCharacterStream(new StringReader(xml));
+		        Document doc = db.parse(is);
+		       // Element docEle = doc.getDocumentElement();
+		        NodeList roomID = doc.getElementsByTagName("roomID");
+		        NodeList roomName = doc.getElementsByTagName("roomname");
+		        NodeList invitername=doc.getElementsByTagName("invitername");
+		        NodeList description = doc.getElementsByTagName("description");
+		        NodeList starttime = doc.getElementsByTagName("starttime");
+		        NodeList endtime = doc.getElementsByTagName("endtime");
+		        NodeList recurrence = doc.getElementsByTagName("recurrence");
+		        NodeList participants=doc.getElementsByTagName("participant");
 
+		        String roomIDstr=roomID.item(0).getFirstChild().getNodeValue();
+		        String roomNamestr=roomName.item(0).getFirstChild().getNodeValue();
+		        String inviternamestr=invitername.item(0).getFirstChild().getNodeValue();
+		        String descriptionstr=description.item(0).getFirstChild().getNodeValue();
+		        String starttimestr=starttime.item(0).getFirstChild().getNodeValue();
+		        String endtimestr=endtime.item(0).getFirstChild().getNodeValue();
+		        String recurrencestr=recurrence.item(0).getFirstChild().getNodeValue();
+		        
+		        pktInfo.put("roomID", roomIDstr);
+		        pktInfo.put("roomname", roomNamestr);
+		        pktInfo.put("invitername", inviternamestr);
+		        pktInfo.put("description", descriptionstr);
+		        pktInfo.put("starttime",starttimestr );
+		        pktInfo.put("endtime", endtimestr);
+		        pktInfo.put("recurrence", recurrencestr);
+		        
+		        // iterate the participants
+		        for (int i = 0; i < participants.getLength(); i++) {
+		           Element person = (Element) participants.item(i);
+		           pktInfo.put("participant"+i, person.getFirstChild().getNodeValue());
+
+		        }
+		    }
+		    catch (Exception e) {
+		        e.printStackTrace();
+		    }
+		return pktInfo;
+		
+	}
 	@Override
 	public void processPacket(Packet arg0) {
 		Message reply = new Message();
@@ -107,17 +168,17 @@ public class SchedulingPlugin implements Plugin, Component,
 		String body = "";
 		Log.error("Received message!");
 		Log.error("Message:" + arg0.toXML());
-
-		if (arg0.getPacketID().equals("pullConference")) {
+        //parse the xml:
+		Hashtable<String, String> pktTable=this.parseXML(arg0.toXML());
+		if (arg0.getID().equals("pullConference")) {
 			Log.error("Received pull message!");
-			body = databaseService.pullConference((String)arg0.getProperty("roomID"));
+			body = databaseService.pullConference(pktTable.get("roomID"));
 			subject = "ConferenceInfo";
 		}
-		else if (arg0.getPacketID().equals("pushConference")) {
+		else if (arg0.getID().equals("pushConference")) {
 			Log.error("Received push message!");
-			body=databaseService.push(arg0);
-			/*body = databaseService.push(((Message) arg0).getBody()) ? "Success!"
-					: "Failure...";*/
+			body=databaseService.push(pktTable);
+			
 			subject = "ConferencePushResult";
 		} else {
 			Log.error("Woe betide us all!");
