@@ -46,5 +46,9 @@ public class ContactCardView extends Activity{
 	public void blockButtonClicked(View v){
 		controller.handleBlockButtonClicked();
 	}
+	@Override
+    public void onBackPressed() {
+    	// back button disabled
+    }
 
 }
