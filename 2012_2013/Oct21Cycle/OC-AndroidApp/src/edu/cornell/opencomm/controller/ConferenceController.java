@@ -70,8 +70,21 @@ public class ConferenceController {
 		this.conferenceSchedulerView.startActivity(intent);
 	}
 	
-	
-	
+	public void init(){
+		//TODO Back End
+		//1. Open a channel to listen to incoming messages / register this class with the connection
+		
+	}
+	public void handleIncomingPackets(){
+		//Handle
+		//1. Invitation response
+		//2. Priv transfer
+	}
+	public void sendPackets(){
+		//Send
+		//1.invitation
+		//2.trans_priv
+	}
 }
 
 

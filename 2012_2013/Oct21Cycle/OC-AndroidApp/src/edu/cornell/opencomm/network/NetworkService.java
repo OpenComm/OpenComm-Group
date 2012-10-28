@@ -121,6 +121,7 @@ public class NetworkService {
 	}
 
 	public XMPPConnection getConnection() {
+		
 		return this.xmppConn;
 	}
 
