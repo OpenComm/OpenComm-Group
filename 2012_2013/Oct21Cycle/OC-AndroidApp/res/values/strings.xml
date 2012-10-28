@@ -63,8 +63,11 @@
     <string name="attendees">attendees</string>
     <string name="to">to</string>
     <string name="accept">accept</string>
+    <string name="accept_desc">Accept the invite to this conference</string>
+    <string name="decline_desc">Decline the invite to this conference</string>
     <string name="decline">decline</string>
     <string name="enter_conference">enter conference</string>
+    <string name="enter_conference_desc">Enter Conference</string>
     <string name="email_sample">jimmyjoe@jimmyjoe.com</string>
     <string name="phone_number">phone number</string>
     <string name="phone_number_sample">(555) 555-5555</string>
