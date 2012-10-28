@@ -31,6 +31,7 @@ public final class R {
         public static final int grey_half_opacity=0x7f050015;
         public static final int light_grey=0x7f050006;
         public static final int off_white=0x7f050003;
+        public static final int off_white_text=0x7f050019;
         public static final int orange=0x7f05000b;
         public static final int orange_light=0x7f05000c;
         public static final int teal=0x7f05000f;

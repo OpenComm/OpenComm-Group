@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/opencomm"
-            android:textColor="@color/off_white"
+            android:textColor="@color/off_white_text"
             android:textSize="24sp"/>
 
         <ImageView
