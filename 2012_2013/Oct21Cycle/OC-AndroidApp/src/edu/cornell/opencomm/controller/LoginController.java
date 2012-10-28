@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.view.View;
 import android.widget.EditText;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.Manager.UserManager;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.util.Util;
@@ -104,7 +105,7 @@ public class LoginController {
 		@Override
 		protected ReturnState doInBackground(String... strings) {
 			if (NetworkService.getInstance().login(strings[0], strings[1])) {
-				User.primaryUser = new User(strings[0], strings[0], 0);
+				UserManager.PRIMARY_USER = new User(strings[0], strings[0], 0);
 				return ReturnState.SUCEEDED;
 			} else {
 				return ReturnState.COULDNT_CONNECT;
