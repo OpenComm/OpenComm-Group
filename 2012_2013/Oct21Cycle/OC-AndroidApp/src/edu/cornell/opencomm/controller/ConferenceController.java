@@ -15,6 +15,8 @@ public class ConferenceController {
 	private ConferenceSchedulerView conferenceSchedulerView;
 	private Context context; 
 	
+	//TODO: add a listener for invitations and invitation responses
+	
 	//Constructor - initialize required fields
 	public ConferenceController(Context context, ConferenceSchedulerView view){
 		this.conferenceSchedulerView = view;
@@ -25,7 +27,7 @@ public class ConferenceController {
 	// sChat is the indicator that it is the left side chat or the right sidechat 
 	// it may be better to use an int or constant ot indicate left/right side chat
 	public void addSideChat(User u, String sChat){
-		//TODO: send invitation to user u
+		//TODO: send invitation to user u (using sendInvitation method below)
 		//TODO: the listener will handle creation of side chat by checking if it 
 		// exists or not when it receives a response from user u
 	}
@@ -37,14 +39,14 @@ public class ConferenceController {
 		//TODO: empty the current user's view of the side chat (reset the model's side chat to empty)
 	}
 	
+	public void inviteUser(User u){
+		//TODO: send invitation to user
+	}
+	
 	//TODO: the following methods will not be implemented for the Oct21 cycle
 	
 	public void moveUser(User u){
 		//TODO: modify audio manipulation based on new location (future work)
-	}
-	
-	public void inviteUser(User u){
-		//TODO: send invitation to user
 	}
 	
 	public void kickoutUser(User u){
