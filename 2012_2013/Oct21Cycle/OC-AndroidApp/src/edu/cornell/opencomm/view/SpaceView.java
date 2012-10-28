@@ -1,4 +1,4 @@
-package edu.cornell.opencomm.view;
+/*package edu.cornell.opencomm.view;
 
 import java.util.ArrayList;
 
@@ -69,4 +69,4 @@ public class SpaceView extends View{
 	}
 	
 
-}
+}*/
