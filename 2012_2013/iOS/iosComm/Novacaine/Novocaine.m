@@ -837,12 +837,16 @@ void sessionPropertyListener(void *                  inClientData,
     
     
     // Get the hardware sampling rate. This is settable, but here we're only reading.
-    Float64 currentSamplingRate;
+    Float64 currentSamplingRate = 1600.0;
     size = sizeof(currentSamplingRate);
+    //TODO kfc35 added setting the hardware rates.
+    //Supposedly setting the rate works in iphone but not in simulator.
+    //http://stackoverflow.com/questions/4162556/ios-audio-units-setting-arbitrary-sample-rate
+    //CheckError( AudioSessionSetProperty(kAudioSessionProperty_PreferredHardwareSampleRate, size, &currentSamplingRate), "Checking hardware sampling rate");
+    //CheckError( AudioSessionSetProperty(kAudioSessionProperty_CurrentHardwareSampleRate, size, &currentSamplingRate), "Checking hardware sampling rate");
     CheckError( AudioSessionGetProperty(kAudioSessionProperty_CurrentHardwareSampleRate, &size, &currentSamplingRate), "Checking hardware sampling rate");
-    //TODO: kfc35 commented out this statement and replaced it with 1600.0
-    self.samplingRate = 1600.0;
-    //self.samplingRate = currentSamplingRate;
+    //self.samplingRate = 1600.0;
+    self.samplingRate = currentSamplingRate;
     NSLog(@"Current sampling rate: %f", self.samplingRate);
 	
 }
