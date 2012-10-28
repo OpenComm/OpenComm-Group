@@ -25,6 +25,7 @@
     <string name="title_activity_splash_view">SplashView</string>
     <string name="save">save</string>
     <string name="cancel">cancel</string>
+    <string name="add">add</string>
     <string name="conferenceTitle">conferenceTitle</string>
     <string name="startTime">startTime</string>
     <string name="invited">invited</string>
