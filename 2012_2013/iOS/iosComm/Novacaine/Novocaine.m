@@ -351,8 +351,9 @@ static Novocaine *audioManager = nil;
                "Couldn't get the hardware output stream format");
     
     // TODO: check this works on iOS!
-    inputFormat.mSampleRate = 44100.0;
-    outputFormat.mSampleRate = 44100.0;
+    // TODO: kfc35 changed kept these 44100.0 or else there is a "Could not render output" error.
+    inputFormat.mSampleRate = 44100.0; //1600.0;
+    outputFormat.mSampleRate = 44100.0; //1600.0;
     self.samplingRate = inputFormat.mSampleRate;
     self.numBytesPerSample = inputFormat.mBitsPerChannel / 8;
     
@@ -839,7 +840,9 @@ void sessionPropertyListener(void *                  inClientData,
     Float64 currentSamplingRate;
     size = sizeof(currentSamplingRate);
     CheckError( AudioSessionGetProperty(kAudioSessionProperty_CurrentHardwareSampleRate, &size, &currentSamplingRate), "Checking hardware sampling rate");
-    self.samplingRate = currentSamplingRate;
+    //TODO: kfc35 commented out this statement and replaced it with 1600.0
+    self.samplingRate = 1600.0;
+    //self.samplingRate = currentSamplingRate;
     NSLog(@"Current sampling rate: %f", self.samplingRate);
 	
 }
