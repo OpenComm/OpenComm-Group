@@ -12,10 +12,10 @@
     <string name="login">login</string>
     <string name="resetNotify">Reset password email sent</string>
     <string name="opencomm">OpenComm</string>
-    <string name="dashboard_contacts">contacts</string>
-    <string name="dashboard_conferences">conferences</string>
-    <string name="dashboard_accounts">accounts</string>
-    <string name="dashboard_logout">logout</string>
+    <string name="dashboard_confinfo">Conference Info</string>
+    <string name="dashboard_confs">Conferences</string>
+    <string name="dashboard_contacts">Contacts</string>
+    <string name="dashboard_profile">My Profile</string>
     <string name="reset_password">reset password</string>
     <string name="sign_up">sign up</string>
     <string name="send_email">send email</string>

@@ -19,20 +19,20 @@ public class DashboardView extends Activity {
 		this.controller = new DashboardController(this, DashboardView.this);
 	}
 	
-	public void goToContacts(View v) {
-		this.controller.handleContactListButtonClicked();
+	public void goToConfInfo(View v) {
+		this.controller.handleConfInfoButtonClicked();
 	}
 	
 	public void goToConferences(View v) {
-		this.controller.handleConferenceButtonClicked();
+		this.controller.handleConferencesButtonClicked();
 	}
 	
-	public void goToAccounts(View v) {
-		this.controller.handleAccountButtonClicked();
+	public void goToContacts(View v) {
+		this.controller.handleContactsButtonClicked();
 	}
 	
-	public void logOut(View v) {
-		this.controller.handleLogoutButtonClicked();
+	public void goToProfile(View v) {
+		this.controller.handleProfileButtonClicked();
 	}
 	
 	public void onBackPressed() {
@@ -42,9 +42,9 @@ public class DashboardView extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		findViewById(R.id.dashboardContactOverlay).setVisibility(View.INVISIBLE);
-		findViewById(R.id.dashboardConfOverlay).setVisibility(View.INVISIBLE);
-		findViewById(R.id.dashboardAccountOverlay).setVisibility(View.INVISIBLE);
-		findViewById(R.id.dashboardLogoutOverlay).setVisibility(View.INVISIBLE);
+		findViewById(R.id.dashboardConfInfoOverlay).setVisibility(View.INVISIBLE);
+		findViewById(R.id.dashboardConfsOverlay).setVisibility(View.INVISIBLE);
+		findViewById(R.id.dashboardContactsOverlay).setVisibility(View.INVISIBLE);
+		findViewById(R.id.dashboardProfileOverlay).setVisibility(View.INVISIBLE);
 	}
 }

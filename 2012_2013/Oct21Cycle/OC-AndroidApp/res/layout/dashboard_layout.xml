@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/dashboard_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="match_parent" >
+
     <RelativeLayout
+        android:id="@+id/dashboard_actionbar"
         android:layout_width="fill_parent"
         android:layout_height="42.67dp"
-        android:orientation="horizontal"
-        android:background="@color/dark_grey">
-        <TextView 
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/dark_grey" >
+
+        <TextView
             android:id="@+id/dashboardOpenComm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginBottom="14dp"
             android:layout_marginLeft="26.67dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="@string/opencomm"
             android:textColor="@color/off_white_text"
-            android:textSize="24sp"/>
+            android:textSize="24sp" />
 
         <ImageView
             android:id="@+id/dashboardNotificationIcon"
@@ -36,135 +39,136 @@
             android:id="@+id/dashboardListIcon"
             android:layout_width="17.33dp"
             android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:src="@drawable/list"
-            android:contentDescription="@string/desc"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="39.33dp"/>
+            android:layout_marginRight="39.33dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/desc"
+            android:src="@drawable/list" />
     </RelativeLayout>
-    <RelativeLayout 
-        android:id="@+id/contactWrapper"
-        android:layout_marginTop="56.67dp"
-        android:layout_width="fill_parent"
-        android:layout_height="64dp"
-        android:background="@color/dark_grey">
-        <Button
-            android:id="@+id/dashboardContacts"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:scaleType="centerInside"
-        	android:gravity="center_vertical"
-        	android:background="@color/dark_grey"
-            android:text="@string/dashboard_contacts"
-            android:textColor="@color/orange"
-            android:textSize="36sp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="23.33dp"
-            android:clickable="true"
-            android:onClick="goToContacts"
-            />
 
-         <ImageView
-             android:id="@+id/dashboardContactOverlay"
-             android:layout_width="fill_parent"
-             android:layout_height="fill_parent"
-             android:layout_alignParentLeft="true"
-             android:layout_alignParentTop="true"
-             android:contentDescription="@string/desc"
-             android:scaleType="fitXY"
-             android:src="@drawable/overlay_white"
-             android:visibility="invisible" />
+    <RelativeLayout
+        android:id="@+id/dashboardConfInfoWrapper"
+        android:layout_width="103dp"
+        android:layout_height="82.67dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/dashboard_actionbar"
+        android:layout_marginLeft="49.33dp"
+        android:layout_marginTop="75.33dp"
+        android:onClick="goToConfInfo" >
 
-	</RelativeLayout>
-	<RelativeLayout 
-        android:id="@+id/conferenceWrapper"
-        android:layout_marginTop="32dp"
-        android:layout_width="fill_parent"
-        android:layout_height="64dp"
-        android:background="@color/dark_grey">
-        <Button
-            android:id="@+id/dashboardConfs"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:scaleType="centerInside"
-        	android:gravity="center_vertical"
-        	android:background="@color/dark_grey"
-            android:text="@string/dashboard_conferences"
-            android:textColor="@color/green"
-            android:textSize="36sp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="23.33dp"
-            android:clickable="true"
-            android:onClick="goToConferences"
-            />
         <ImageView
-            android:id="@+id/dashboardConfOverlay"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:src="@drawable/overlay_white" 
-			android:contentDescription="@string/desc"
-			android:scaleType="fitXY" 
-			android:visibility="invisible"/>
-	</RelativeLayout>
-	<RelativeLayout 
-        android:id="@+id/acctsWrapper"
-        android:layout_marginTop="32dp"
-        android:layout_width="fill_parent"
-        android:layout_height="64dp"
-        android:background="@color/dark_grey">
-        <Button
-            android:id="@+id/dashboardAccts"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:scaleType="centerInside"
-        	android:gravity="center_vertical"
-        	android:background="@color/dark_grey"
-            android:text="@string/dashboard_accounts"
-            android:textColor="@color/blue"
-            android:textSize="36sp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="23.33dp"
-            android:clickable="true"
-            android:onClick="goToAccounts"
-            />
+            android:id="@+id/icon_confinfo"
+            android:layout_width="103dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/desc"
+            android:src="@drawable/icon_confinfo" />
+
         <ImageView
-            android:id="@+id/dashboardAccountOverlay"
+            android:id="@+id/dashboardConfInfoOverlay"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:src="@drawable/overlay_white" 
-			android:contentDescription="@string/desc"
-			android:scaleType="fitXY" 
-			android:visibility="invisible"/>
-	</RelativeLayout>
-	<RelativeLayout 
-        android:id="@+id/logoutWrapper"
-        android:layout_marginTop="32dp"
-        android:layout_width="fill_parent"
-        android:layout_height="64dp"
-        android:background="@color/dark_grey">
-        <Button
-            android:id="@+id/dashboardLogout"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:scaleType="centerInside"
-        	android:gravity="center_vertical"
-        	android:background="@color/dark_grey"
-            android:text="@string/dashboard_logout"
-            android:textColor="@color/off_white"
-            android:textSize="36sp"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="23.33dp"
-            android:clickable="true"
-            android:onClick="logOut"
-            />
+            android:layout_alignParentTop="true"
+            android:contentDescription="@string/desc"
+            android:scaleType="fitXY"
+            android:src="@drawable/overlay_white"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/dashboardConfsWrapper"
+        android:layout_width="92dp"
+        android:layout_height="82.67dp"
+        android:layout_alignTop="@id/dashboardConfInfoWrapper"
+        android:layout_below="@id/dashboard_actionbar"
+        android:layout_marginLeft="30.33dp"
+        android:layout_toRightOf="@id/dashboardConfInfoWrapper"
+        android:onClick="goToConfs" >
+
         <ImageView
-            android:id="@+id/dashboardLogoutOverlay"
+            android:id="@+id/icon_confs"
+            android:layout_width="92dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/desc"
+            android:src="@drawable/icon_confs" />
+
+        <ImageView
+            android:id="@+id/dashboardConfsOverlay"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:src="@drawable/overlay_white" 
-			android:contentDescription="@string/desc"
-			android:scaleType="fitXY" 
-			android:visibility="invisible"/>
-	</RelativeLayout>
-</LinearLayout>
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:contentDescription="@string/desc"
+            android:scaleType="fitXY"
+            android:src="@drawable/overlay_white"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/dashboardContactsWrapper"
+        android:layout_width="63.33dp"
+        android:layout_height="82.67dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/dashboardConfInfoWrapper"
+        android:layout_marginLeft="68.33dp"
+        android:layout_marginTop="74.67dp"
+        android:onClick="goToContacts" >
+
+        <ImageView
+            android:id="@+id/icon_contacts"
+            android:layout_width="63.33dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/desc"
+            android:src="@drawable/icon_contacts" />
+
+        <ImageView
+            android:id="@+id/dashboardContactsOverlay"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:contentDescription="@string/desc"
+            android:scaleType="fitXY"
+            android:src="@drawable/overlay_white"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/dashboardProfileWrapper"
+        android:layout_width="60.75dp"
+        android:layout_height="86.21dp"
+        android:layout_alignTop="@id/dashboardContactsWrapper"
+        android:layout_below="@id/dashboard_actionbar"
+        android:layout_marginLeft="66.67dp"
+        android:layout_toRightOf="@id/dashboardContactsWrapper"
+        android:onClick="goToProfile" >
+
+        <ImageView
+            android:id="@+id/icon_profile"
+            android:layout_width="60.75dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/desc"
+            android:src="@drawable/icon_profile" />
+
+        <ImageView
+            android:id="@+id/dashboardProfileOverlay"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:contentDescription="@string/desc"
+            android:scaleType="fitXY"
+            android:src="@drawable/overlay_white"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+</RelativeLayout>
