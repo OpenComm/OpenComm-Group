@@ -54,8 +54,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/dashboard_actionbar"
         android:layout_marginLeft="49.33dp"
-        android:layout_marginTop="75.33dp"
-        android:onClick="goToConfInfo" >
+        android:layout_marginTop="75.33dp" >
 
         <ImageView
             android:id="@+id/icon_confinfo"
@@ -64,7 +63,8 @@
             android:layout_alignParentTop="true"
             android:adjustViewBounds="true"
             android:contentDescription="@string/desc"
-            android:src="@drawable/icon_confinfo" />
+            android:src="@drawable/icon_confinfo"
+                    android:onClick="goToConfInfo" />
 
         <ImageView
             android:id="@+id/dashboardConfInfoOverlay"
@@ -85,8 +85,7 @@
         android:layout_alignTop="@id/dashboardConfInfoWrapper"
         android:layout_below="@id/dashboard_actionbar"
         android:layout_marginLeft="30.33dp"
-        android:layout_toRightOf="@id/dashboardConfInfoWrapper"
-        android:onClick="goToConfs" >
+        android:layout_toRightOf="@id/dashboardConfInfoWrapper" >
 
         <ImageView
             android:id="@+id/icon_confs"
@@ -95,7 +94,8 @@
             android:layout_alignParentTop="true"
             android:adjustViewBounds="true"
             android:contentDescription="@string/desc"
-            android:src="@drawable/icon_confs" />
+            android:src="@drawable/icon_confs"
+                    android:onClick="goToConfs" />
 
         <ImageView
             android:id="@+id/dashboardConfsOverlay"
@@ -116,8 +116,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/dashboardConfInfoWrapper"
         android:layout_marginLeft="68.33dp"
-        android:layout_marginTop="74.67dp"
-        android:onClick="goToContacts" >
+        android:layout_marginTop="74.67dp" >
 
         <ImageView
             android:id="@+id/icon_contacts"
@@ -126,7 +125,8 @@
             android:layout_alignParentTop="true"
             android:adjustViewBounds="true"
             android:contentDescription="@string/desc"
-            android:src="@drawable/icon_contacts" />
+            android:src="@drawable/icon_contacts"
+                    android:onClick="goToContacts" />
 
         <ImageView
             android:id="@+id/dashboardContactsOverlay"
@@ -147,8 +147,7 @@
         android:layout_alignTop="@id/dashboardContactsWrapper"
         android:layout_below="@id/dashboard_actionbar"
         android:layout_marginLeft="66.67dp"
-        android:layout_toRightOf="@id/dashboardContactsWrapper"
-        android:onClick="goToProfile" >
+        android:layout_toRightOf="@id/dashboardContactsWrapper" >
 
         <ImageView
             android:id="@+id/icon_profile"
@@ -157,7 +156,8 @@
             android:layout_alignParentTop="true"
             android:adjustViewBounds="true"
             android:contentDescription="@string/desc"
-            android:src="@drawable/icon_profile" />
+            android:src="@drawable/icon_profile"
+                    android:onClick="goToProfile" />
 
         <ImageView
             android:id="@+id/dashboardProfileOverlay"

@@ -23,7 +23,7 @@ public class DashboardView extends Activity {
 		this.controller.handleConfInfoButtonClicked();
 	}
 	
-	public void goToConferences(View v) {
+	public void goToConfs(View v) {
 		this.controller.handleConferencesButtonClicked();
 	}
 	
