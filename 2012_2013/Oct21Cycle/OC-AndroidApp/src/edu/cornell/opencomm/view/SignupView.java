@@ -40,6 +40,9 @@ public class SignupView extends Activity{
 		initFirstNameFocusChangelistener();
 		initLastNameFocusChangelistener();
 		initEmailFocusChangelistener();
+		initTitleFocusChangelistener();
+		initPasswordChangelistener();
+		initConfirmPasswordChangelistener();
 		initPhotoButtonClickEvent();
 		initSaveButtonClickEvent();
 		initSaveImageClickEvent();
@@ -84,6 +87,41 @@ public class SignupView extends Activity{
 		};
 		View email = findViewById(R.id.emailBox);
 		email.setOnFocusChangeListener(listener);
+	}
+	/**
+	 * Initialize title box
+	 */
+	private void initTitleFocusChangelistener() {
+		OnFocusChangeListener listener = new View.OnFocusChangeListener() {
+			public void onFocusChange(View view, boolean hasFocus) {
+				controller.handleTitleFocusChange(view, hasFocus);
+			}
+		};
+		View title = findViewById(R.id.titleBox);
+		title.setOnFocusChangeListener(listener);
+	}
+	/**
+	 * Initialize password box
+	 */
+	private void initPasswordChangelistener() {
+		OnFocusChangeListener listener = new View.OnFocusChangeListener() {
+			public void onFocusChange(View view, boolean hasFocus) {
+				controller.handlePasswordFocusChange(view, hasFocus);
+			}
+		};
+		View password = findViewById(R.id.passwordBox);
+		password.setOnFocusChangeListener(listener);
+	}/**
+	 * Initialize title box
+	 */
+	private void initConfirmPasswordChangelistener() {
+		OnFocusChangeListener listener = new View.OnFocusChangeListener() {
+			public void onFocusChange(View view, boolean hasFocus) {
+				controller.handleConfirmPasswordFocusChange(view, hasFocus);
+			}
+		};
+		View confrimPassword = findViewById(R.id.confirmPasswordBox);
+		confrimPassword.setOnFocusChangeListener(listener);
 	}
 
 

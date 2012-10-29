@@ -51,7 +51,7 @@ public class SignupController {
 	public boolean validateName(String nameText) {
 			
 		return  Util.validateString(nameText,
-					Util.NAME_PATTERN_FOCUS_CHANGE);
+					Util.NAME_PATTERN_SAVE);
 
 	}
 
@@ -141,5 +141,20 @@ public class SignupController {
 			// TODO Auto-generated method stub
 			super.onPostExecute(result);
 		}
+	}
+
+	public void handleTitleFocusChange(View view, boolean hasFocus) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void handlePasswordFocusChange(View view, boolean hasFocus) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void handleConfirmPasswordFocusChange(View view, boolean hasFocus) {
+		// TODO Auto-generated method stub
+		
 	}
 }
