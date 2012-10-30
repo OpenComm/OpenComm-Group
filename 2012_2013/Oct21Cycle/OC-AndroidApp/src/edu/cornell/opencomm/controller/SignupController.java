@@ -19,6 +19,12 @@ import edu.cornell.opencomm.view.SignupView;
 
 public class SignupController {
 	/**
+	 * The TAG for logging
+	 */
+	private static final String TAG = SignupController.class.getSimpleName();
+	
+	private static final boolean D = true;
+	/**
 	 * The View
 	 */
 	private SignupView signupView;

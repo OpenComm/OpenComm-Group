@@ -16,16 +16,23 @@ public final class ConferenceView extends Activity {
 	private ConferenceDataModel conferenceModel;
 	
 	
+	/**
+	 * The conference controller
+	 */
 	private ConferenceController conferenceController;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		
+		init();
+	}
+	private void init(){
 		//1. Bind to the conference model
 		//2. instantiate the conference controller
 		//3. register to listners
 	}
-	
 	/**
 	 * To be invoked when occupant(s) location is changed in the 
 	 * active chat space
