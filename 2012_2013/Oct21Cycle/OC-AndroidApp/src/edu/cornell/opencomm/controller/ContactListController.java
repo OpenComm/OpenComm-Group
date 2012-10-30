@@ -1,5 +1,6 @@
 package edu.cornell.opencomm.controller;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
@@ -7,6 +8,7 @@ import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.XMPPConnection;
 
+import edu.cornell.opencomm.Manager.UserManager;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
 
@@ -67,16 +69,21 @@ public class ContactListController {
 
 		@Override
 		protected ReturnState doInBackground(Void... arg0) {
-			User.primaryUser.getContactList().clear();
+			//Ankit :No need to clear, we can create an new list and replace the old with it
+			//by doing so, the list is still available to other threads 
+			//during the new list creation
+			//TODO: Delete this line ->User.primaryUser.getContactList().clear();
 			Iterator<RosterEntry> entries = roster.getEntries().iterator();
+			ArrayList<User> updatedList = new ArrayList<User>();
 			while (entries.hasNext()) {
 				RosterEntry entry = entries.next();
 				// FIXIT: pass in image or change to use VCard
 				Log.v(TAG, "adding " + entry.getUser() + " to contact list");
 				User buddy = new User(entry.getUser(), entry.getName(), 0);
-				User.primaryUser.getContactList().add(buddy);
+				updatedList.add(buddy);
 
 			}
+			UserManager.updateContactList(updatedList);
 			return ReturnState.SUCEEDED;
 		}
 

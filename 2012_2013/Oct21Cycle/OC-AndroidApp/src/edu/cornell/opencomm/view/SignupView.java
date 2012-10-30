@@ -40,6 +40,9 @@ public class SignupView extends Activity{
 		initFirstNameFocusChangelistener();
 		initLastNameFocusChangelistener();
 		initEmailFocusChangelistener();
+		initTitleFocusChangelistener();
+		initPasswordChangelistener();
+		initConfirmPasswordChangelistener();
 		initPhotoButtonClickEvent();
 		initSaveButtonClickEvent();
 		initSaveImageClickEvent();
@@ -84,6 +87,41 @@ public class SignupView extends Activity{
 		};
 		View email = findViewById(R.id.emailBox);
 		email.setOnFocusChangeListener(listener);
+	}
+	/**
+	 * Initialize title box
+	 */
+	private void initTitleFocusChangelistener() {
+		OnFocusChangeListener listener = new View.OnFocusChangeListener() {
+			public void onFocusChange(View view, boolean hasFocus) {
+				controller.handleTitleFocusChange(view, hasFocus);
+			}
+		};
+		View title = findViewById(R.id.titleBox);
+		title.setOnFocusChangeListener(listener);
+	}
+	/**
+	 * Initialize password box
+	 */
+	private void initPasswordChangelistener() {
+		OnFocusChangeListener listener = new View.OnFocusChangeListener() {
+			public void onFocusChange(View view, boolean hasFocus) {
+				controller.handlePasswordFocusChange(view, hasFocus);
+			}
+		};
+		View password = findViewById(R.id.passwordBox);
+		password.setOnFocusChangeListener(listener);
+	}/**
+	 * Initialize title box
+	 */
+	private void initConfirmPasswordChangelistener() {
+		OnFocusChangeListener listener = new View.OnFocusChangeListener() {
+			public void onFocusChange(View view, boolean hasFocus) {
+				controller.handleConfirmPasswordFocusChange(view, hasFocus);
+			}
+		};
+		View confrimPassword = findViewById(R.id.confirmPasswordBox);
+		confrimPassword.setOnFocusChangeListener(listener);
 	}
 
 
@@ -163,29 +201,29 @@ public class SignupView extends Activity{
 		View saveButton = findViewById(R.id.cancelImage);
 		saveButton.setOnClickListener(listener);
 	}
-	public String getPasswordText(){
+	public View getPasswordTextBox(){
 		EditText passwordTextBox = (EditText) findViewById(R.id.passwordBox);
-		return passwordTextBox.getText().toString();
+		return passwordTextBox;
 	}
-	public String getConfirmPasswordText(){
+	public View getConfirmPasswordTextBox(){
 		EditText cnfPasswordTextBox = (EditText) findViewById(R.id.confirmPasswordBox);
-		return cnfPasswordTextBox.getText().toString();
+		return cnfPasswordTextBox;
 	}
-	public String getFirstNameText(){
+	public View getFirstNameTextBox(){
 		EditText firstName = (EditText) findViewById(R.id.firstNameBox);
-		return firstName.getText().toString();
+		return firstName;
 	}
-	public String getLastNameText(){
+	public View getLastNameTextBox(){
 		EditText textBox = (EditText) findViewById(R.id.lastNameBox);
-		return textBox.getText().toString();
+		return textBox;
 	}
-	public String getEmailText(){
+	public View getEmailTextBox(){
 		EditText textBox = (EditText) findViewById(R.id.emailBox);
-		return textBox.getText().toString();
+		return textBox;
 	}
-	public String getTitleText(){
+	public View getTitleTextBox(){
 		EditText textBox = (EditText) findViewById(R.id.titleBox);
-		return textBox.getText().toString();
+		return textBox;
 	}
 	@Override
 	public boolean dispatchKeyEvent(KeyEvent event) {
@@ -201,5 +239,10 @@ public class SignupView extends Activity{
 		super.onResume();
 		findViewById(R.id.acceptSignupOverlay).setVisibility(View.INVISIBLE);
 		findViewById(R.id.cancelSignupOverlay).setVisibility(View.INVISIBLE);
+	}
+
+	public void resetFocus(View view) {
+		view.requestFocus();
+		
 	}
 }

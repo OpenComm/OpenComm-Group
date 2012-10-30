@@ -3,6 +3,7 @@ package edu.cornell.opencomm.view;
 import java.util.ArrayList;
 
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.Manager.UserManager;
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.model.User;
 import android.app.Activity;
@@ -87,7 +88,7 @@ public class ContactsView extends Activity{
 	
 	/** Retrieve and display this user's contacts */
 	public void retrieveAndDisplayContacts(){
-		ArrayList<User> all_contacts = User.primaryUser.getContactList();
+		ArrayList<User> all_contacts = UserManager.getContactList();
 		User[] users = all_contacts.toArray(new User[all_contacts.size()]);
 		 ContactsViewAdapter adapter = new ContactsViewAdapter(this, 
 	                R.layout.contact_entry_layout, users);

@@ -3,10 +3,7 @@ package edu.cornell.opencomm.controller;
 
 import android.content.Context;
 import android.content.Intent;
-import android.widget.ListView;
-import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.model.User;
-import edu.cornell.opencomm.view.ConferenceCardView;
 import edu.cornell.opencomm.view.ConferenceSchedulerView;
 import edu.cornell.opencomm.view.DashboardView;
 
