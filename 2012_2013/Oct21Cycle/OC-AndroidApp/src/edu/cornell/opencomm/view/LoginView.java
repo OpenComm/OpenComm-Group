@@ -99,7 +99,6 @@ public class LoginView extends Activity {
     public void onBackPressed() {
     	// back button disabled
     }
-    
     @Override
     public void onResume() {
     	super.onResume();

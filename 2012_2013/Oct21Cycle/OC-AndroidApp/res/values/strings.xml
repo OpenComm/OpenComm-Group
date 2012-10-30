@@ -37,9 +37,9 @@
     <string name="confirm_password">confirm password</string>
     <string name="title">title</string>
     <string name="photo">photo</string>
-    <string name="invalid_first_name">Invalid First Name</string>
-    <string name="invalid_last_name">Invalid Last Name</string>
-    <string name="invalid_email">Invalid Email</string>
+    <string name="invalid_first_name">Incorrect First Name</string>
+    <string name="invalid_last_name">Incorrect Last Name</string>
+    <string name="invalid_email">Incorrect Email</string>
     <string name="contacts">contacts</string>
     <string name="contacts_back_button_desc">Back to Dashboard</string>
     <string name="contacts_search_button_desc">Search Contacts</string>
@@ -75,4 +75,9 @@
     <string name="previous_conferences">previous conferences</string>
     <string name="conference_sample">sample conference</string>
     <string name="block">block</string>
+    <string name="invalid_password">Incorrect Password</string>
+    <string name="password_dont_match">Passwords do not match</string>
+    <string name="empty_field_error">cannot be empty</string>
+    <string name="invalid_title">Incorrect title </string>
+    <string name="notifications">notifications</string>
 </resources>

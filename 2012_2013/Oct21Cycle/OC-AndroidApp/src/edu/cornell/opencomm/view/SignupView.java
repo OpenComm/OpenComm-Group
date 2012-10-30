@@ -201,29 +201,29 @@ public class SignupView extends Activity{
 		View saveButton = findViewById(R.id.cancelImage);
 		saveButton.setOnClickListener(listener);
 	}
-	public String getPasswordText(){
+	public View getPasswordTextBox(){
 		EditText passwordTextBox = (EditText) findViewById(R.id.passwordBox);
-		return passwordTextBox.getText().toString();
+		return passwordTextBox;
 	}
-	public String getConfirmPasswordText(){
+	public View getConfirmPasswordTextBox(){
 		EditText cnfPasswordTextBox = (EditText) findViewById(R.id.confirmPasswordBox);
-		return cnfPasswordTextBox.getText().toString();
+		return cnfPasswordTextBox;
 	}
-	public String getFirstNameText(){
+	public View getFirstNameTextBox(){
 		EditText firstName = (EditText) findViewById(R.id.firstNameBox);
-		return firstName.getText().toString();
+		return firstName;
 	}
-	public String getLastNameText(){
+	public View getLastNameTextBox(){
 		EditText textBox = (EditText) findViewById(R.id.lastNameBox);
-		return textBox.getText().toString();
+		return textBox;
 	}
-	public String getEmailText(){
+	public View getEmailTextBox(){
 		EditText textBox = (EditText) findViewById(R.id.emailBox);
-		return textBox.getText().toString();
+		return textBox;
 	}
-	public String getTitleText(){
+	public View getTitleTextBox(){
 		EditText textBox = (EditText) findViewById(R.id.titleBox);
-		return textBox.getText().toString();
+		return textBox;
 	}
 	@Override
 	public boolean dispatchKeyEvent(KeyEvent event) {
@@ -239,5 +239,10 @@ public class SignupView extends Activity{
 		super.onResume();
 		findViewById(R.id.acceptSignupOverlay).setVisibility(View.INVISIBLE);
 		findViewById(R.id.cancelSignupOverlay).setVisibility(View.INVISIBLE);
+	}
+
+	public void resetFocus(View view) {
+		view.requestFocus();
+		
 	}
 }

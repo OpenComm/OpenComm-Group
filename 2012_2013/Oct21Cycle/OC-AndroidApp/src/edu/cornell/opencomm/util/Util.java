@@ -16,7 +16,7 @@ public class Util {
 	 * 
 	 */
 	public final static Pattern NAME_PATTERN_SAVE = Pattern
-			.compile("^[a-zA-Z-][a-z]+");
+			.compile("^[A-Z-][a-z]+");
 
 	/**
 	 * Password can be minimum 10 maximum 30
