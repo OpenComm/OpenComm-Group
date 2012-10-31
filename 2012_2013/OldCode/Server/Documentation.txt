@@ -60,7 +60,7 @@ you should have list of numbers after 80/tcp such as:
 
 for each of them just do:
 //
-kill -9 26621
+kill -9 601
 kill -9 26622
 //
 
