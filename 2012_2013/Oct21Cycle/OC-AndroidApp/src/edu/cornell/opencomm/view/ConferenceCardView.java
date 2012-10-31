@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ConferenceCardView extends Activity{
 	Conference conference;
@@ -78,6 +79,26 @@ public class ConferenceCardView extends Activity{
 	public void adjustLayoutLookAndFunctionality(){
 		setTypeOfConference();
 		initializeBackButton();
+		initializeActionOverflowButton();
+	}
+	
+	public void setTypeOfConference(){
+		switch(conference.getConferenceType(currentTime)){
+		case(Conference.UPCOMING):
+			
+			break;
+		case(Conference.INVITED):
+			RelativeLayout invitation_bar = (RelativeLayout) findViewById(R.id.invitation_bar);
+			invitation_bar.setVisibility(View.VISIBLE);
+			initializeAcceptButton();
+			initializeDeclineButton();
+			break;
+		case(Conference.HAPPENING_NOW):
+			RelativeLayout enter_conference_bar = (RelativeLayout) findViewById(R.id.enter_conference_bar);
+			enter_conference_bar.setVisibility(View.VISIBLE);
+			initializeEnterConferenceBar();
+			break;
+		}
 	}
 	
 	public void initializeBackButton(){
@@ -100,22 +121,94 @@ public class ConferenceCardView extends Activity{
 		}); 
 	}
 	
-	public void setTypeOfConference(){
-		switch(conference.getConferenceType(currentTime)){
-		case(Conference.UPCOMING):
-			
-			break;
-		case(Conference.INVITED):
-			RelativeLayout invitation_bar = (RelativeLayout) findViewById(R.id.invitation_bar);
-			invitation_bar.setVisibility(View.VISIBLE);
-			break;
-		case(Conference.HAPPENING_NOW):
-			RelativeLayout enter_conference_bar = (RelativeLayout) findViewById(R.id.enter_conference_bar);
-			enter_conference_bar.setVisibility(View.VISIBLE);
-			break;
-		}
+	public void initializeActionOverflowButton(){
+		final ImageView actionOverflowButton = (ImageView) findViewById(R.id.action_overflow_button);
+		actionOverflowButton.setOnTouchListener(new OnTouchListener() {
+			public boolean onTouch(View arg0, MotionEvent arg1) {
+	            switch (arg1.getAction()) {
+	            case MotionEvent.ACTION_DOWN: {
+	            	// TODO Change color of button? Ask Design team
+	                break;
+	            }
+	            case MotionEvent.ACTION_UP:{
+	            	showToast("Show Action Overflow Options");
+	            	// TODO display dropdown of action overflow options
+	                break;
+	            }
+	            }
+	            return true;
+	        }
+		}); 
 	}
 	
+	public void initializeAcceptButton(){
+		final RelativeLayout acceptButton = (RelativeLayout) findViewById(R.id.accept_button);
+		acceptButton.setOnTouchListener(new OnTouchListener() {
+			public boolean onTouch(View arg0, MotionEvent arg1) {
+	            switch (arg1.getAction()) {
+	            case MotionEvent.ACTION_DOWN: {
+	            	// TODO Change color of button? Ask Design team
+	                break;
+	            }
+	            case MotionEvent.ACTION_UP:{
+	            	showToast("Accept Invitation");
+	            	// TODO accept the invite and return to Conference Scheduling Page
+	                break;
+	            }
+	            }
+	            return true;
+	        }
+		}); 
+	}
+	
+	public void initializeDeclineButton(){
+		final RelativeLayout declineButton = (RelativeLayout) findViewById(R.id.decline_button);
+		declineButton.setOnTouchListener(new OnTouchListener() {
+			public boolean onTouch(View arg0, MotionEvent arg1) {
+	            switch (arg1.getAction()) {
+	            case MotionEvent.ACTION_DOWN: {
+	            	// TODO Change color of button? Ask Design team
+	                break;
+	            }
+	            case MotionEvent.ACTION_UP:{
+	            	showToast("Decline Invitation");
+	            	// TODO Decline the invite and return to Conference Scheduling Page
+	                break;
+	            }
+	            }
+	            return true;
+	        }
+		}); 
+	}
+	
+	public void initializeEnterConferenceBar(){
+		final RelativeLayout enterConferenceBar = (RelativeLayout) findViewById(R.id.enter_conference_bar);
+		enterConferenceBar.setOnTouchListener(new OnTouchListener() {
+			public boolean onTouch(View arg0, MotionEvent arg1) {
+	            switch (arg1.getAction()) {
+	            case MotionEvent.ACTION_DOWN: {
+	            	// TODO Change color of button? Ask Design team
+	                break;
+	            }
+	            case MotionEvent.ACTION_UP:{
+	            	showToast("Enter Conference");
+	            	// TODO Enter this conference
+	                break;
+	            }
+	            }
+	            return true;
+	        }
+		}); 
+	}
+	
+	public void showToast(String message){
+		Context context = getApplicationContext();
+		CharSequence text = message;
+		int duration = Toast.LENGTH_SHORT;
+
+		Toast toast = Toast.makeText(context, text, duration);
+		toast.show();
+	}
 
 }
 

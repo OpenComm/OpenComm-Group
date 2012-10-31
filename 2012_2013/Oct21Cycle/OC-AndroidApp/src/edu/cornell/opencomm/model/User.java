@@ -1,35 +1,47 @@
 package edu.cornell.opencomm.model;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
-
 import org.jivesoftware.smackx.packet.VCard;
 
 import android.util.Log;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.Manager.UserManager;
 
 /* An object representing a user who is taking part in the conversation */
 
 public class User {
-	// DEBUGGING
-	private static String LOG_TAG = "Model.User"; // for error checking
+	/**
+	 * 
+	 */
+	private static String LOG_TAG = "Model.User"; 
+	/**
+	 * 
+	 */
 	private static boolean D = true;
 
-	String username; // The User's JID
-	String nickname; // The User's chat nickname
-	VCard vCard; // The User's vCard, used to pass image
-	int image; // icon - will be replaced by vCard
-	ArrayList<User> contactList;
+	/**
+	 * The JID of the user
+	 */
+	String username; 
+	/**
+	 * The nickname of the user
+	 */
+	String nickname; 
+	/**
+	 * TODO Ankit: Should this contacts card??
+	 * The VCard of the user
+	 */
+	VCard vCard; 
+	/**
+	 * The image of the user
+	 */
+	int image; 
 	
-	// TODO: is there a better place for this?
-	public static User primaryUser;
-
-	// Crystal
-	public int user_color = R.color.blue;
-	static int[] colors = { R.color.blue, R.color.green, R.color.orange };
-	static int color_pointer = 0;
-	private static Hashtable<String, Integer> user_color_table = 
-			new Hashtable<String, Integer>();
+	/**
+	 * TODO Ankit: Move this out of here it is only used for conference
+	 * and store it in a map in chat space model
+	 * The color of the user contact card 
+	 */
+	public int userColor;
 
 	/**
 	 * CONSTRUCTOR: = a new User
@@ -52,18 +64,9 @@ public class User {
 		} else {
 			this.image = image;
 		}
-
-		if (user_color_table.containsKey(username)) {
-			user_color = user_color_table.get(username);
-		} else {
-			user_color = colors[color_pointer%colors.length];
-			color_pointer = (color_pointer >= 9 ? 0 : ++color_pointer);
-			user_color_table.put(username, user_color);
-		}
-		this.contactList = new ArrayList<User>();
+		this.userColor = UserManager.getUserColor(username);
 	}
 
-	// SETTERS AND GETTERS
 
 	/** @return - the User's JID */
 	public String getUsername() {
@@ -84,9 +87,22 @@ public class User {
 	public VCard getVCard() {
 		return this.vCard;
 	}
-
-	/** @return - the User's contact list */
-	public ArrayList<User> getContactList() {
-		return this.contactList;
-	}
 }
+//SEE BELOW FOR CODE REMOVED DUE TO REFACTORING
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//Please use UserManager.getContactList() and UserManager.updateContactList()
+//	/** @return - the User's contact list */
+//	public ArrayList<User> getContactList() {
+//		return this.contactList;
+//	}
+// TODO: is there a better place for this?
+//ANKIT TODO: Moved to User Manager.
+//	public static User primaryUser;
+//	// Crystal
+//	public int userColor = R.color.blue;
+//	static int[] colors = { R.color.blue, R.color.green, R.color.orange };
+//	static int color_pointer = 0;
+//	private static Hashtable<String, Integer> user_color_table = 
+
+//			new Hashtable<String, Integer>();
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

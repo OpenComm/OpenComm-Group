@@ -12,10 +12,10 @@
     <string name="login">login</string>
     <string name="resetNotify">Reset password email sent</string>
     <string name="opencomm">OpenComm</string>
-    <string name="dashboard_contacts">contacts</string>
-    <string name="dashboard_conferences">conferences</string>
-    <string name="dashboard_accounts">accounts</string>
-    <string name="dashboard_logout">logout</string>
+    <string name="dashboard_confinfo">Conference Info</string>
+    <string name="dashboard_confs">Conferences</string>
+    <string name="dashboard_contacts">Contacts</string>
+    <string name="dashboard_profile">My Profile</string>
     <string name="reset_password">reset password</string>
     <string name="sign_up">sign up</string>
     <string name="send_email">send email</string>
@@ -25,6 +25,7 @@
     <string name="title_activity_splash_view">SplashView</string>
     <string name="save">save</string>
     <string name="cancel">cancel</string>
+    <string name="add">add</string>
     <string name="conferenceTitle">conferenceTitle</string>
     <string name="startTime">startTime</string>
     <string name="invited">invited</string>
@@ -36,9 +37,9 @@
     <string name="confirm_password">confirm password</string>
     <string name="title">title</string>
     <string name="photo">photo</string>
-    <string name="invalid_first_name">Invalid First Name</string>
-    <string name="invalid_last_name">Invalid Last Name</string>
-    <string name="invalid_email">Invalid Email</string>
+    <string name="invalid_first_name">Incorrect First Name</string>
+    <string name="invalid_last_name">Incorrect Last Name</string>
+    <string name="invalid_email">Incorrect Email</string>
     <string name="contacts">contacts</string>
     <string name="contacts_back_button_desc">Back to Dashboard</string>
     <string name="contacts_search_button_desc">Search Contacts</string>
@@ -63,6 +64,20 @@
     <string name="attendees">attendees</string>
     <string name="to">to</string>
     <string name="accept">accept</string>
+    <string name="accept_desc">Accept the invite to this conference</string>
+    <string name="decline_desc">Decline the invite to this conference</string>
     <string name="decline">decline</string>
     <string name="enter_conference">enter conference</string>
+    <string name="enter_conference_desc">Enter Conference</string>
+    <string name="email_sample">jimmyjoe@jimmyjoe.com</string>
+    <string name="phone_number">phone number</string>
+    <string name="phone_number_sample">(555) 555-5555</string>
+    <string name="previous_conferences">previous conferences</string>
+    <string name="conference_sample">sample conference</string>
+    <string name="block">block</string>
+    <string name="invalid_password">Incorrect Password</string>
+    <string name="password_dont_match">Passwords do not match</string>
+    <string name="empty_field_error">cannot be empty</string>
+    <string name="invalid_title">Incorrect title </string>
+    <string name="notifications">notifications</string>
 </resources>

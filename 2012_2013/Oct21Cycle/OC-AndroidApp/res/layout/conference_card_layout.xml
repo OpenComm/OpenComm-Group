@@ -234,7 +234,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/enter_conference_text"
-                    android:src="@drawable/navigation_forward" />
+                    android:src="@drawable/navigation_forward"
+                    android:contentDescription="@string/enter_conference_desc" />
             </RelativeLayout>
             
         </RelativeLayout>
@@ -246,45 +247,64 @@
             android:layout_alignParentBottom="true"
             android:background="@color/grey_half_opacity"
             android:visibility="gone" >
-
-            <ImageView
-                android:id="@+id/accept_image"
+			
+            <RelativeLayout
+                android:id="@+id/accept_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="32dp"
-                android:src="@drawable/navigation_accept" />
-
-            <TextView
-                android:id="@+id/accept_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/accept_image"
-                android:layout_marginLeft="20dp"
-                android:text="@string/accept"
-                android:textSize="20sp"
-                android:textColor="@color/blue_light" />
-            <ImageView
-                android:id="@+id/cancel_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/cancel_text"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/navigation_cancel" />
-
-            <TextView
-                android:id="@+id/cancel_text"
+                android:layout_marginLeft="32dp">
+                
+	            <ImageView
+	                android:id="@+id/accept_image"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_alignParentLeft="true"
+	                android:layout_centerVertical="true"
+	                android:src="@drawable/navigation_accept"
+	                android:contentDescription="@string/accept_desc" />
+	
+	            <TextView
+	                android:id="@+id/accept_text"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_centerVertical="true"
+	                android:layout_toRightOf="@+id/accept_image"
+	                android:layout_marginLeft="20dp"
+	                android:text="@string/accept"
+	                android:textSize="20sp"
+	                android:textColor="@color/blue_light" />
+            
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/decline_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/accept_button"
                 android:layout_marginRight="32dp"
-                android:layout_centerVertical="true"
-                android:text="@string/decline"
-                android:textSize="20sp"
-                android:textColor="@color/orange_light" />
+                >
+	            <ImageView
+	                android:id="@+id/decline_image"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_toLeftOf="@+id/decline_text"
+	                android:layout_centerVertical="true"
+	                android:layout_marginRight="20dp"
+	                android:src="@drawable/navigation_cancel"
+	                android:contentDescription="@string/decline_desc" />
+	
+	            <TextView
+	                android:id="@+id/decline_text"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_alignParentRight="true"
+	                android:layout_centerVertical="true"
+	                android:text="@string/decline"
+	                android:textSize="20sp"
+	                android:textColor="@color/orange_light" />
+            
+            </RelativeLayout>
             
             
         </RelativeLayout>

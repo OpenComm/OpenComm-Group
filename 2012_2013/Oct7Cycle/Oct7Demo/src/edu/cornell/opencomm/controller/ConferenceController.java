@@ -31,10 +31,6 @@ public class ConferenceController {
 		Intent intent = new Intent(this.conferenceSchedulerView, DashboardView.class); 
 		this.conferenceSchedulerView.startActivity(intent);
 	}
-	
-	public void ConferenceClicked(View v){
-		
-	}
 
 }
 
