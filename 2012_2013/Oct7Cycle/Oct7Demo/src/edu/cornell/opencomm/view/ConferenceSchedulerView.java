@@ -170,6 +170,7 @@ public class ConferenceSchedulerView extends Activity {
 	//Searches again among all conferences for title - highly inefficient 
 	//Need to optimize and add more fields to conference to make this easier
 	//Change the adapter so it takes in the conference object as a whole
+	//Need to do more with this!
 	public void OnItemClick(View v){
 		Button b = (Button) v;
 		String conferenceTitle = b.getText().toString();
