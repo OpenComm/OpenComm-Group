@@ -8,6 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		0A057985161E1642006F4B5D /* DefaultServerConstants.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A057984161E1642006F4B5D /* DefaultServerConstants.plist */; };
+		0A36125D1641AF9700E99A1E /* XMPPvCardTemp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A36124E1641AF9700E99A1E /* XMPPvCardTemp.m */; };
+		0A36125E1641AF9700E99A1E /* XMPPvCardTempAdr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3612501641AF9700E99A1E /* XMPPvCardTempAdr.m */; };
+		0A36125F1641AF9700E99A1E /* XMPPvCardTempAdrTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3612521641AF9700E99A1E /* XMPPvCardTempAdrTypes.m */; };
+		0A3612601641AF9700E99A1E /* XMPPvCardTempBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3612541641AF9700E99A1E /* XMPPvCardTempBase.m */; };
+		0A3612611641AF9700E99A1E /* XMPPvCardTempEmail.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3612561641AF9700E99A1E /* XMPPvCardTempEmail.m */; };
+		0A3612621641AF9700E99A1E /* XMPPvCardTempLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3612581641AF9700E99A1E /* XMPPvCardTempLabel.m */; };
+		0A3612631641AF9700E99A1E /* XMPPvCardTempModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A36125A1641AF9700E99A1E /* XMPPvCardTempModule.m */; };
+		0A3612641641AF9700E99A1E /* XMPPvCardTempTel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A36125C1641AF9700E99A1E /* XMPPvCardTempTel.m */; };
+		0A3612701641AFB600E99A1E /* XMPPvCard.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0A3612661641AFB600E99A1E /* XMPPvCard.xcdatamodeld */; };
+		0A3612711641AFB600E99A1E /* XMPPvCardAvatarCoreDataStorageObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3612691641AFB600E99A1E /* XMPPvCardAvatarCoreDataStorageObject.m */; };
+		0A3612721641AFB600E99A1E /* XMPPvCardCoreDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A36126B1641AFB600E99A1E /* XMPPvCardCoreDataStorage.m */; };
+		0A3612731641AFB600E99A1E /* XMPPvCardCoreDataStorageObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A36126D1641AFB600E99A1E /* XMPPvCardCoreDataStorageObject.m */; };
+		0A3612741641AFB600E99A1E /* XMPPvCardTempCoreDataStorageObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A36126F1641AFB600E99A1E /* XMPPvCardTempCoreDataStorageObject.m */; };
+		0A3612781641AFF400E99A1E /* XMPPvCardAvatarModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3612771641AFF400E99A1E /* XMPPvCardAvatarModule.m */; };
 		0A42C8BC163107A40053C5F2 /* OCSocketViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0A42C8BB163107A40053C5F2 /* OCSocketViewController.mm */; };
 		0A615C151632FD960000C840 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A615C141632FD960000C840 /* Accelerate.framework */; };
 		0A615C171632FD9D0000C840 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A615C161632FD9D0000C840 /* CoreAudio.framework */; };
@@ -164,6 +178,33 @@
 
 /* Begin PBXFileReference section */
 		0A057984161E1642006F4B5D /* DefaultServerConstants.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DefaultServerConstants.plist; sourceTree = "<group>"; };
+		0A36124D1641AF9700E99A1E /* XMPPvCardTemp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPvCardTemp.h; path = "XMPPFramework/Extensions/XEP-0054/XMPPvCardTemp.h"; sourceTree = "<group>"; };
+		0A36124E1641AF9700E99A1E /* XMPPvCardTemp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMPPvCardTemp.m; path = "XMPPFramework/Extensions/XEP-0054/XMPPvCardTemp.m"; sourceTree = "<group>"; };
+		0A36124F1641AF9700E99A1E /* XMPPvCardTempAdr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPvCardTempAdr.h; path = "XMPPFramework/Extensions/XEP-0054/XMPPvCardTempAdr.h"; sourceTree = "<group>"; };
+		0A3612501641AF9700E99A1E /* XMPPvCardTempAdr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMPPvCardTempAdr.m; path = "XMPPFramework/Extensions/XEP-0054/XMPPvCardTempAdr.m"; sourceTree = "<group>"; };
+		0A3612511641AF9700E99A1E /* XMPPvCardTempAdrTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPvCardTempAdrTypes.h; path = "XMPPFramework/Extensions/XEP-0054/XMPPvCardTempAdrTypes.h"; sourceTree = "<group>"; };
+		0A3612521641AF9700E99A1E /* XMPPvCardTempAdrTypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMPPvCardTempAdrTypes.m; path = "XMPPFramework/Extensions/XEP-0054/XMPPvCardTempAdrTypes.m"; sourceTree = "<group>"; };
+		0A3612531641AF9700E99A1E /* XMPPvCardTempBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPvCardTempBase.h; path = "XMPPFramework/Extensions/XEP-0054/XMPPvCardTempBase.h"; sourceTree = "<group>"; };
+		0A3612541641AF9700E99A1E /* XMPPvCardTempBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMPPvCardTempBase.m; path = "XMPPFramework/Extensions/XEP-0054/XMPPvCardTempBase.m"; sourceTree = "<group>"; };
+		0A3612551641AF9700E99A1E /* XMPPvCardTempEmail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPvCardTempEmail.h; path = "XMPPFramework/Extensions/XEP-0054/XMPPvCardTempEmail.h"; sourceTree = "<group>"; };
+		0A3612561641AF9700E99A1E /* XMPPvCardTempEmail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMPPvCardTempEmail.m; path = "XMPPFramework/Extensions/XEP-0054/XMPPvCardTempEmail.m"; sourceTree = "<group>"; };
+		0A3612571641AF9700E99A1E /* XMPPvCardTempLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPvCardTempLabel.h; path = "XMPPFramework/Extensions/XEP-0054/XMPPvCardTempLabel.h"; sourceTree = "<group>"; };
+		0A3612581641AF9700E99A1E /* XMPPvCardTempLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMPPvCardTempLabel.m; path = "XMPPFramework/Extensions/XEP-0054/XMPPvCardTempLabel.m"; sourceTree = "<group>"; };
+		0A3612591641AF9700E99A1E /* XMPPvCardTempModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPvCardTempModule.h; path = "XMPPFramework/Extensions/XEP-0054/XMPPvCardTempModule.h"; sourceTree = "<group>"; };
+		0A36125A1641AF9700E99A1E /* XMPPvCardTempModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMPPvCardTempModule.m; path = "XMPPFramework/Extensions/XEP-0054/XMPPvCardTempModule.m"; sourceTree = "<group>"; };
+		0A36125B1641AF9700E99A1E /* XMPPvCardTempTel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPvCardTempTel.h; path = "XMPPFramework/Extensions/XEP-0054/XMPPvCardTempTel.h"; sourceTree = "<group>"; };
+		0A36125C1641AF9700E99A1E /* XMPPvCardTempTel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMPPvCardTempTel.m; path = "XMPPFramework/Extensions/XEP-0054/XMPPvCardTempTel.m"; sourceTree = "<group>"; };
+		0A3612671641AFB600E99A1E /* XMPPvCard.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = XMPPvCard.xcdatamodel; sourceTree = "<group>"; };
+		0A3612681641AFB600E99A1E /* XMPPvCardAvatarCoreDataStorageObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPvCardAvatarCoreDataStorageObject.h; path = "XMPPFramework/Extensions/XEP-0054/CoreDataStorage/XMPPvCardAvatarCoreDataStorageObject.h"; sourceTree = "<group>"; };
+		0A3612691641AFB600E99A1E /* XMPPvCardAvatarCoreDataStorageObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMPPvCardAvatarCoreDataStorageObject.m; path = "XMPPFramework/Extensions/XEP-0054/CoreDataStorage/XMPPvCardAvatarCoreDataStorageObject.m"; sourceTree = "<group>"; };
+		0A36126A1641AFB600E99A1E /* XMPPvCardCoreDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPvCardCoreDataStorage.h; path = "XMPPFramework/Extensions/XEP-0054/CoreDataStorage/XMPPvCardCoreDataStorage.h"; sourceTree = "<group>"; };
+		0A36126B1641AFB600E99A1E /* XMPPvCardCoreDataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMPPvCardCoreDataStorage.m; path = "XMPPFramework/Extensions/XEP-0054/CoreDataStorage/XMPPvCardCoreDataStorage.m"; sourceTree = "<group>"; };
+		0A36126C1641AFB600E99A1E /* XMPPvCardCoreDataStorageObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPvCardCoreDataStorageObject.h; path = "XMPPFramework/Extensions/XEP-0054/CoreDataStorage/XMPPvCardCoreDataStorageObject.h"; sourceTree = "<group>"; };
+		0A36126D1641AFB600E99A1E /* XMPPvCardCoreDataStorageObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMPPvCardCoreDataStorageObject.m; path = "XMPPFramework/Extensions/XEP-0054/CoreDataStorage/XMPPvCardCoreDataStorageObject.m"; sourceTree = "<group>"; };
+		0A36126E1641AFB600E99A1E /* XMPPvCardTempCoreDataStorageObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPvCardTempCoreDataStorageObject.h; path = "XMPPFramework/Extensions/XEP-0054/CoreDataStorage/XMPPvCardTempCoreDataStorageObject.h"; sourceTree = "<group>"; };
+		0A36126F1641AFB600E99A1E /* XMPPvCardTempCoreDataStorageObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMPPvCardTempCoreDataStorageObject.m; path = "XMPPFramework/Extensions/XEP-0054/CoreDataStorage/XMPPvCardTempCoreDataStorageObject.m"; sourceTree = "<group>"; };
+		0A3612761641AFF400E99A1E /* XMPPvCardAvatarModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPvCardAvatarModule.h; path = "XMPPFramework/Extensions/XEP-0153/XMPPvCardAvatarModule.h"; sourceTree = "<group>"; };
+		0A3612771641AFF400E99A1E /* XMPPvCardAvatarModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMPPvCardAvatarModule.m; path = "XMPPFramework/Extensions/XEP-0153/XMPPvCardAvatarModule.m"; sourceTree = "<group>"; };
 		0A42C8BA163107A40053C5F2 /* OCSocketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSocketViewController.h; sourceTree = "<group>"; };
 		0A42C8BB163107A40053C5F2 /* OCSocketViewController.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = OCSocketViewController.mm; sourceTree = "<group>"; };
 		0A615C141632FD960000C840 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -376,6 +417,55 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A36124B1641AF8500E99A1E /* XEP-0054 */ = {
+			isa = PBXGroup;
+			children = (
+				0A3612651641AF9D00E99A1E /* CoreDataStorage */,
+				0A36124D1641AF9700E99A1E /* XMPPvCardTemp.h */,
+				0A36124E1641AF9700E99A1E /* XMPPvCardTemp.m */,
+				0A36124F1641AF9700E99A1E /* XMPPvCardTempAdr.h */,
+				0A3612501641AF9700E99A1E /* XMPPvCardTempAdr.m */,
+				0A3612511641AF9700E99A1E /* XMPPvCardTempAdrTypes.h */,
+				0A3612521641AF9700E99A1E /* XMPPvCardTempAdrTypes.m */,
+				0A3612531641AF9700E99A1E /* XMPPvCardTempBase.h */,
+				0A3612541641AF9700E99A1E /* XMPPvCardTempBase.m */,
+				0A3612551641AF9700E99A1E /* XMPPvCardTempEmail.h */,
+				0A3612561641AF9700E99A1E /* XMPPvCardTempEmail.m */,
+				0A3612571641AF9700E99A1E /* XMPPvCardTempLabel.h */,
+				0A3612581641AF9700E99A1E /* XMPPvCardTempLabel.m */,
+				0A3612591641AF9700E99A1E /* XMPPvCardTempModule.h */,
+				0A36125A1641AF9700E99A1E /* XMPPvCardTempModule.m */,
+				0A36125B1641AF9700E99A1E /* XMPPvCardTempTel.h */,
+				0A36125C1641AF9700E99A1E /* XMPPvCardTempTel.m */,
+			);
+			name = "XEP-0054";
+			sourceTree = "<group>";
+		};
+		0A3612651641AF9D00E99A1E /* CoreDataStorage */ = {
+			isa = PBXGroup;
+			children = (
+				0A3612661641AFB600E99A1E /* XMPPvCard.xcdatamodeld */,
+				0A3612681641AFB600E99A1E /* XMPPvCardAvatarCoreDataStorageObject.h */,
+				0A3612691641AFB600E99A1E /* XMPPvCardAvatarCoreDataStorageObject.m */,
+				0A36126A1641AFB600E99A1E /* XMPPvCardCoreDataStorage.h */,
+				0A36126B1641AFB600E99A1E /* XMPPvCardCoreDataStorage.m */,
+				0A36126C1641AFB600E99A1E /* XMPPvCardCoreDataStorageObject.h */,
+				0A36126D1641AFB600E99A1E /* XMPPvCardCoreDataStorageObject.m */,
+				0A36126E1641AFB600E99A1E /* XMPPvCardTempCoreDataStorageObject.h */,
+				0A36126F1641AFB600E99A1E /* XMPPvCardTempCoreDataStorageObject.m */,
+			);
+			name = CoreDataStorage;
+			sourceTree = "<group>";
+		};
+		0A3612751641AFE400E99A1E /* XEP-0153 */ = {
+			isa = PBXGroup;
+			children = (
+				0A3612761641AFF400E99A1E /* XMPPvCardAvatarModule.h */,
+				0A3612771641AFF400E99A1E /* XMPPvCardAvatarModule.m */,
+			);
+			name = "XEP-0153";
+			sourceTree = "<group>";
+		};
 		0A3C60EF16330556001FBFBC /* Novacaine */ = {
 			isa = PBXGroup;
 			children = (
@@ -596,6 +686,8 @@
 		0AA17FDC1630B9DE00CD704A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				0A3612751641AFE400E99A1E /* XEP-0153 */,
+				0A36124B1641AF8500E99A1E /* XEP-0054 */,
 				0AA180021630D3A300CD704A /* XEP-0082 */,
 				0AA17FF91630D31400CD704A /* CoreDataStorage */,
 				0AA17FF21630D2EB00CD704A /* XEP-0203 */,
@@ -994,6 +1086,20 @@
 				4D76F8DE1633304800DE7833 /* GCDAsyncUdpSocket.m in Sources */,
 				4D004DA2163338FD00706B1A /* OCAudio.mm in Sources */,
 				4D004DA616333AFE00706B1A /* OCAudioPassingProtocol.m in Sources */,
+				0A36125D1641AF9700E99A1E /* XMPPvCardTemp.m in Sources */,
+				0A36125E1641AF9700E99A1E /* XMPPvCardTempAdr.m in Sources */,
+				0A36125F1641AF9700E99A1E /* XMPPvCardTempAdrTypes.m in Sources */,
+				0A3612601641AF9700E99A1E /* XMPPvCardTempBase.m in Sources */,
+				0A3612611641AF9700E99A1E /* XMPPvCardTempEmail.m in Sources */,
+				0A3612621641AF9700E99A1E /* XMPPvCardTempLabel.m in Sources */,
+				0A3612631641AF9700E99A1E /* XMPPvCardTempModule.m in Sources */,
+				0A3612641641AF9700E99A1E /* XMPPvCardTempTel.m in Sources */,
+				0A3612701641AFB600E99A1E /* XMPPvCard.xcdatamodeld in Sources */,
+				0A3612711641AFB600E99A1E /* XMPPvCardAvatarCoreDataStorageObject.m in Sources */,
+				0A3612721641AFB600E99A1E /* XMPPvCardCoreDataStorage.m in Sources */,
+				0A3612731641AFB600E99A1E /* XMPPvCardCoreDataStorageObject.m in Sources */,
+				0A3612741641AFB600E99A1E /* XMPPvCardTempCoreDataStorageObject.m in Sources */,
+				0A3612781641AFF400E99A1E /* XMPPvCardAvatarModule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1266,6 +1372,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		0A3612661641AFB600E99A1E /* XMPPvCard.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0A3612671641AFB600E99A1E /* XMPPvCard.xcdatamodel */,
+			);
+			currentVersion = 0A3612671641AFB600E99A1E /* XMPPvCard.xcdatamodel */;
+			name = XMPPvCard.xcdatamodeld;
+			path = "XMPPFramework/Extensions/XEP-0054/CoreDataStorage/XMPPvCard.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 4DE6A432160FC14B005F7857 /* Project object */;
 }
