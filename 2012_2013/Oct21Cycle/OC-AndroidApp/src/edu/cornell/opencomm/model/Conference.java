@@ -2,6 +2,8 @@ package edu.cornell.opencomm.model;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import edu.cornell.opencomm.packet.ConferencePacket;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -247,6 +249,11 @@ public class Conference implements Parcelable {
 		}
 		dest.writeStringArray(attendee_names);
 		dest.writeIntArray(attendee_pictures);
+	}
+	
+	public ConferencePacket toPacket() {
+		return new ConferencePacket(conferenceTitle, startDateAndTime,
+				endDateAndTime, reoccurrence, inviter, description, attendees);
 	}
 	
 	 @SuppressWarnings("rawtypes")

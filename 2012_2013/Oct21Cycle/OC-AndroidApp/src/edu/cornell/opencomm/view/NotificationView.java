@@ -55,7 +55,7 @@ public class NotificationView {
 	}
 
 	public class Padding {
-		public int left = 10;
+		public int left = 10;	
 		public int right = 10;
 		public int top = 10;
 		public int bottom = 10;

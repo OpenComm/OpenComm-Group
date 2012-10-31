@@ -23,4 +23,7 @@
 	<color name="black_half_opacity">#70000000</color>
 	<color name="grey_half_opacity">#d0333333</color>
 	<color name="black_conference_card_background">#111111</color>
+	<color name="darker_grey">#D8000000</color>
+	<color name="background_dashboard">#191919</color>
+	<color name="off_white_text">#f3f3f3</color>
 </resources>
