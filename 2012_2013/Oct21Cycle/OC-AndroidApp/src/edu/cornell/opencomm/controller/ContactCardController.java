@@ -30,6 +30,8 @@ public class ContactCardController {
 	
 	public ContactCardController (ContactCardView v) {
 		this.view = v;
+		// need way of attaining contact
+		contact = new User("default", "default", 0); 
 	}
 	
 	public void handleBackButtonClicked() {
@@ -45,7 +47,7 @@ public class ContactCardController {
 	}
 	
 	public void handleOverflowButtonClicked() {
-		
+		// need Hemming to help implement
 	}
 	
 	public void handleBlockButtonClicked() {
