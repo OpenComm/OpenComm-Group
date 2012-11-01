@@ -18,7 +18,11 @@
 	OCDefaultServerConstantsController *defaults;
     NSString *myPassword;
     XMPPStream *myXMPPStream;
+    XMPPRoster *myXMPPRoster;
+    XMPPRosterCoreDataStorage *myXMPPRosterStorage;
 	OCXMPPDelegateHandler *delegateHandler;
+    NSFetchedResultsController *fetchedResultsController;
+    
 }
 
 @property (strong, nonatomic) IBOutlet UITextField *loginPasswordField;
@@ -27,6 +31,7 @@
 - (IBAction)loginButtonPressed:(id)sender;
 @property (strong, nonatomic) IBOutlet UIView *loginView;
 
+- (IBAction)fetch:(id)sender;
 
 
 @end

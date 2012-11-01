@@ -39,6 +39,11 @@
     delegateHandler = [[OCXMPPDelegateHandler alloc] init];
     myXMPPStream = [[XMPPStream alloc] init];
     
+    myXMPPRosterStorage = [[XMPPRosterCoreDataStorage alloc] init];
+    myXMPPRoster = [[XMPPRoster alloc] initWithRosterStorage:myXMPPRosterStorage];
+    myXMPPRoster.autoFetchRoster = YES;
+    [myXMPPRoster activate:myXMPPStream];
+    
     NSLog(@"My IP Address: %@", [[[OCAudioPassingProtocol alloc] init] getIPAddress]);
 }
 
@@ -86,8 +91,10 @@
     }
     
     delegateHandler = [[OCXMPPDelegateHandler alloc] initWithPassword: myPassword];
+    [delegateHandler setXMPPRosterStorage:myXMPPRosterStorage roster:myXMPPRoster stream:myXMPPStream];
     
     [myXMPPStream addDelegate:delegateHandler delegateQueue:dispatch_get_main_queue()];
+    [myXMPPRoster addDelegate:delegateHandler delegateQueue:dispatch_get_main_queue()];
     NSError *error = nil;
     
     if (![myXMPPStream isDisconnected]) {
@@ -114,6 +121,45 @@
     {
         NSLog(@"Oops, I probably forgot something: %@", error);
     }
+    
+    //NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
+    //XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:path];
+    //NSLog(@"%@", [[self fetchedResultsController] sections]);
+}
+
+- (NSFetchedResultsController *)fetchedResultsController
+{
+	if (fetchedResultsController == nil)
+	{
+		NSManagedObjectContext *moc = [delegateHandler managedObjectContext_roster];
+		
+		NSEntityDescription *entity = [NSEntityDescription entityForName:@"XMPPUserCoreDataStorageObject"
+		                                          inManagedObjectContext:moc];
+		
+		NSSortDescriptor *sd1 = [[NSSortDescriptor alloc] initWithKey:@"sectionNum" ascending:YES];
+		NSSortDescriptor *sd2 = [[NSSortDescriptor alloc] initWithKey:@"displayName" ascending:YES];
+		
+		NSArray *sortDescriptors = [NSArray arrayWithObjects:sd1, sd2, nil];
+		
+		NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+		[fetchRequest setEntity:entity];
+		[fetchRequest setSortDescriptors:sortDescriptors];
+		[fetchRequest setFetchBatchSize:10];
+		
+		fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+		                                                               managedObjectContext:moc
+		                                                                 sectionNameKeyPath:@"sectionNum"
+		                                                                          cacheName:nil];
+		
+		NSError *error = nil;
+		if (![fetchedResultsController performFetch:&error])
+		{
+			NSLog(@"Error performing fetch: %@", error);
+		}
+        
+	}
+	
+	return fetchedResultsController;
 }
 
 //-------------------------------------------------------------------
@@ -129,5 +175,12 @@
 - (void)viewDidUnload {
     [self setLoginView:nil];
     [super viewDidUnload];
+}
+- (IBAction)fetch:(id)sender {
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[[self fetchedResultsController] sections] objectAtIndex:1];
+    NSLog(@"%u", sectionInfo.numberOfObjects);
+    NSIndexPath *path = [NSIndexPath indexPathForRow:1 inSection:0];
+    XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:path];
+    NSLog(@"%@", user.displayName);
 }
 @end

@@ -18,6 +18,13 @@
     return self;
 }
 
+- (void)setXMPPRosterStorage:(XMPPRosterCoreDataStorage *)storage roster:(XMPPRoster *) r stream:(XMPPStream *)s
+{
+    myXMPPRosterStorage = storage;
+    myXMPPRoster = r;
+    myXMPPStream = s;
+}
+
 //-------------------------------------------------------------------
 // kfc35 Created Method to go online
 //-------------------------------------------------------------------
@@ -70,6 +77,7 @@
     
     NSError *error = nil;
     BOOL result;
+    
     if (DEBUG == YES) {
         XMPPPlainAuthentication *auth = [[XMPPPlainAuthentication alloc]initWithStream: sender password: password];
         result = [sender authenticate:auth error:&error];
@@ -79,6 +87,12 @@
         XMPPDigestMD5Authentication *auth = [[XMPPDigestMD5Authentication alloc]initWithStream: sender password: password];
         result = [sender authenticate:auth error:&error];
     }
+    
+     /*
+    XMPPDigestMD5Authentication *auth = [[XMPPDigestMD5Authentication alloc]initWithStream: sender password: password];
+    result = [sender authenticate:auth error:&error];
+     */
+    
     if (!result) {
         NSLog(@"Oops, I probably forgot something: %@", error);
     }
@@ -129,7 +143,7 @@
 - (void)xmppStream:(XMPPStream *)sender didSendPresence:(XMPPPresence *)presence {
     NSLog(@"I sent my presence");
     //[NSThread sleepForTimeInterval: 30];
-    [self sendMessageWith:sender message:@"QIMING IS COOL" to:@"opencommsec@cuopencomm" ];
+    //[self sendMessageWith:sender message:@"QIMING IS COOL" to:@"opencommsec@cuopencomm" ];
 }
 
 
@@ -151,5 +165,50 @@
 	NSLog(@"Received an error");
 }
 
+- (BOOL)xmppStream:(XMPPStream *)sender didReceiveIQ:(XMPPIQ *)iq
+{
+	//NSLog(@"iq %@", iq);
+    
+	return NO;
+}
+
+- (NSManagedObjectContext *)managedObjectContext_roster
+{
+	return [myXMPPRosterStorage mainThreadManagedObjectContext];
+}
+
+- (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message
+{    
+	// A simple example of inbound message handling.
+    
+	if ([message isChatMessageWithBody])
+	{
+		XMPPUserCoreDataStorageObject *user = [myXMPPRosterStorage userForJID:[message from]
+		                                                         xmppStream:myXMPPStream
+		                                               managedObjectContext:[self managedObjectContext_roster]];
+		
+		NSString *body = [[message elementForName:@"body"] stringValue];
+		NSString *displayName = [user displayName];
+        
+		if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive)
+		{
+			UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:displayName
+                                                                message:body
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"Ok"
+                                                      otherButtonTitles:nil];
+			[alertView show];
+		}
+		else
+		{
+			// We are not active, so use a local notification instead
+			UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+			localNotification.alertAction = @"Ok";
+			localNotification.alertBody = [NSString stringWithFormat:@"From: %@\n\n%@",displayName,body];
+            
+			[[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+		}
+	}
+}
 
 @end
