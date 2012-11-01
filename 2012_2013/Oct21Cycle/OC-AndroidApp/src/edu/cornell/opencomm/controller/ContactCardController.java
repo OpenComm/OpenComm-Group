@@ -10,6 +10,7 @@ import org.jivesoftware.smack.packet.PrivacyItem;
 
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import edu.cornell.opencomm.Manager.UserManager;
 import edu.cornell.opencomm.model.User;
@@ -47,7 +48,9 @@ public class ContactCardController {
 	}
 	
 	public void handleOverflowButtonClicked() {
-		// need Hemming to help implement
+		int duration = Toast.LENGTH_SHORT;
+		Toast toast = Toast.makeText(view.getApplicationContext(), "Overflow Button Pressed", duration);
+		toast.show();	
 	}
 	
 	public void handleBlockButtonClicked() {
