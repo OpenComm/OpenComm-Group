@@ -8,7 +8,7 @@ import edu.cornell.opencomm.Manager.UserManager;
 
 /* An object representing a user who is taking part in the conversation */
 
-public class User {
+public class User implements Comparable<User>{
 	/**
 	 * 
 	 */
@@ -86,6 +86,12 @@ public class User {
 	/** @return - the User's vCard */
 	public VCard getVCard() {
 		return this.vCard;
+	}
+
+
+	public int compareTo(User arg0) {
+		return(getUsername().compareTo(arg0.getUsername()));
+		//returns alphabetic comparison of usernames by using string compareTo
 	}
 }
 //SEE BELOW FOR CODE REMOVED DUE TO REFACTORING
