@@ -11,14 +11,18 @@ import org.jivesoftware.smack.XMPPConnection;
 import edu.cornell.opencomm.Manager.UserManager;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
+import edu.cornell.opencomm.view.ContactsSearchView;
+import edu.cornell.opencomm.view.ContactsView;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 
 public class ContactListController {
 
 	private static final String TAG = "Controller.ContactListController";
-	
+
 	private static ContactListController _instance = null;
 
 	private Roster roster;
@@ -39,7 +43,33 @@ public class ContactListController {
 		}
 		return _instance;
 	}
-	
+
+	private ContactsSearchView view;
+
+
+	public ContactListController (ContactsSearchView v){
+		this.view = v;
+		this.xmppService = NetworkService.getInstance();
+		this.xmppConn = this.xmppService.getConnection();
+		roster = this.xmppConn.getRoster();
+	}
+
+	public void handleBackButtonClicked(){
+		Intent intent = new Intent(this.view, ContactsView.class);
+		this.view.startActivity(intent);
+	}
+
+
+	public void handleBlockButtonClicked(){
+		//TODO:
+		//This should bring a drop down menu from which a user can select to either
+		//go to contacts page or conferences page
+	}
+
+	public void contactClicked(View v){
+		//TODO: Needs to find the contact and open that contact page
+	}
+
 	public ContactListController() {
 		this.xmppService = NetworkService.getInstance();
 		this.xmppConn = this.xmppService.getConnection();
@@ -49,7 +79,7 @@ public class ContactListController {
 	public ReturnState updateContacts() {
 		roster = this.xmppConn.getRoster();
 		AsyncTask<Void, Void, ReturnState> populate = new PopulateContactsTask()
-				.execute();
+		.execute();
 		try {
 			return (ReturnState) populate.get();
 		} catch (InterruptedException e) {
@@ -61,7 +91,7 @@ public class ContactListController {
 	}
 
 	private class PopulateContactsTask extends
-			AsyncTask<Void, Void, ReturnState> {
+	AsyncTask<Void, Void, ReturnState> {
 
 		protected void onProgressUpdate(Void... values) {
 			super.onProgressUpdate(values);
