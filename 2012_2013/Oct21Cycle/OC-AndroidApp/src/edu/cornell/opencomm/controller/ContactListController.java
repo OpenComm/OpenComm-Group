@@ -1,10 +1,7 @@
 package edu.cornell.opencomm.controller;
 
 import java.util.ArrayList;
-<<<<<<< HEAD
-=======
 import java.util.Arrays;
->>>>>>> Sort + filter functions added to contactListCont.
 import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
@@ -15,7 +12,6 @@ import org.jivesoftware.smack.XMPPConnection;
 import edu.cornell.opencomm.Manager.UserManager;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
-<<<<<<< HEAD
 import edu.cornell.opencomm.view.ContactsSearchView;
 import edu.cornell.opencomm.view.ContactsView;
 
@@ -26,18 +22,8 @@ import android.view.View;
 
 public class ContactListController {
 
-	private static final String TAG = "Controller.ContactListController";
-
-=======
-
-import android.os.AsyncTask;
-import android.util.Log;
-
-public class ContactListController {
-
 	private static final String LOG_TAG = "Controller.ContactListController";
 	private static final boolean D = true;
->>>>>>> Sort + filter functions added to contactListCont.
 	private static ContactListController _instance = null;
 
 	private Roster roster;
@@ -59,7 +45,6 @@ public class ContactListController {
 		return _instance;
 	}
 
-<<<<<<< HEAD
 	private ContactsSearchView view;
 
 
@@ -86,8 +71,6 @@ public class ContactListController {
 		//TODO: Needs to find the contact and open that contact page
 	}
 
-=======
->>>>>>> Sort + filter functions added to contactListCont.
 	public ContactListController() {
 		this.xmppService = NetworkService.getInstance();
 		this.xmppConn = this.xmppService.getConnection();
@@ -97,15 +80,6 @@ public class ContactListController {
 	public ReturnState updateContacts() {
 		roster = this.xmppConn.getRoster();
 		AsyncTask<Void, Void, ReturnState> populate = new PopulateContactsTask()
-<<<<<<< HEAD
-		.execute();
-		try {
-			return (ReturnState) populate.get();
-		} catch (InterruptedException e) {
-			Log.v(TAG, e.getMessage());
-		} catch (ExecutionException e) {
-			Log.v(TAG, e.getMessage());
-=======
 				.execute();
 		try {
 			return (ReturnState) populate.get();
@@ -113,47 +87,30 @@ public class ContactListController {
 			Log.v(LOG_TAG, e.getMessage());
 		} catch (ExecutionException e) {
 			Log.v(LOG_TAG, e.getMessage());
->>>>>>> Sort + filter functions added to contactListCont.
 		}
 		return ReturnState.FAILED;
 	}
 
 	private class PopulateContactsTask extends
-<<<<<<< HEAD
-	AsyncTask<Void, Void, ReturnState> {
-=======
 			AsyncTask<Void, Void, ReturnState> {
->>>>>>> Sort + filter functions added to contactListCont.
-
 		protected void onProgressUpdate(Void... values) {
 			super.onProgressUpdate(values);
 		}
 
 		@Override
 		protected ReturnState doInBackground(Void... arg0) {
-<<<<<<< HEAD
-			//Ankit :No need to clear, we can create an new list and replace the old with it
-			//by doing so, the list is still available to other threads 
-			//during the new list creation
-			//TODO: Delete this line ->User.primaryUser.getContactList().clear();
-=======
 			// Ankit :No need to clear, we can create an new list and replace
 			// the old with it
 			// by doing so, the list is still available to other threads
 			// during the new list creation
 			// TODO: Delete this line
 			// ->User.primaryUser.getContactList().clear();
->>>>>>> Sort + filter functions added to contactListCont.
 			Iterator<RosterEntry> entries = roster.getEntries().iterator();
 			ArrayList<User> updatedList = new ArrayList<User>();
 			while (entries.hasNext()) {
 				RosterEntry entry = entries.next();
 				// FIXIT: pass in image or change to use VCard
-<<<<<<< HEAD
-				Log.v(TAG, "adding " + entry.getUser() + " to contact list");
-=======
 				Log.v(LOG_TAG, "adding " + entry.getUser() + " to contact list");
->>>>>>> Sort + filter functions added to contactListCont.
 				User buddy = new User(entry.getUser(), entry.getName(), 0);
 				updatedList.add(buddy);
 
@@ -169,8 +126,6 @@ public class ContactListController {
 
 	}
 
-<<<<<<< HEAD
-=======
 	public void sortContacts() {
 		ArrayList<User> users = UserManager.getContactList();
 		User[] model = new User[0];
@@ -261,8 +216,7 @@ public class ContactListController {
 					start = middle;
 				} else {
 					// safe to do else since == case is handled by very first
-					// check
-					// in the greater loop
+					// check in the greater loop
 					end = middle;
 				}
 				middle = (start + end) / 2;
@@ -274,5 +228,4 @@ public class ContactListController {
 		Log.v(LOG_TAG, "found no user(s) with a username that starts with the first character of the query");
 		return null;
 	}
->>>>>>> Sort + filter functions added to contactListCont.
 }
