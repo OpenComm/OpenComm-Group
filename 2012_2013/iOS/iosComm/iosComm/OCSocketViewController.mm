@@ -35,15 +35,15 @@ typedef struct message* message_t;
 {
     [super viewDidLoad];
     
-    UDPServerSocket = [[GCDAsyncUdpSocket alloc] init];
-    UDPClientSocket = [[GCDAsyncUdpSocket alloc] init];
+    //UDPServerSocket = [[GCDAsyncUdpSocket alloc] init];
+    //UDPClientSocket = [[GCDAsyncUdpSocket alloc] init];
     
-    UDPClientSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
-    UDPServerSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+    //UDPClientSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+    //UDPServerSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
     
     NSError *error;
-    [UDPServerSocket bindToPort:8001 error:&error];
-    [UDPServerSocket beginReceiving:nil];
+    //[UDPServerSocket bindToPort:8001 error:&error];
+    //[UDPServerSocket beginReceiving:nil];
     
     ringBuffer = new RingBuffer(32768, 2);
     audioManager = [Novocaine audioManager];
@@ -57,11 +57,13 @@ typedef struct message* message_t;
         float volume = 1.0;
         vDSP_vsmul(data, 1, &volume, data, 1, numFrames*numChannels);
         
-        printf ("%ld\n", numFrames);
-        printf ("%ld\n", numChannels);
+         ringBuffer->AddNewInterleavedFloatData(data, numFrames, numChannels);
         
-        NSData *udpMessage = [NSData dataWithBytes:data length:numFrames*numChannels];
-        [UDPClientSocket sendData:udpMessage toHost:@"192.168.1.38" port:8001 withTimeout:-1 tag:1];
+        //printf ("%ld\n", numFrames);
+        //printf ("%ld\n", numChannels);
+        
+        //NSData *udpMessage = [NSData dataWithBytes:data length:numFrames*numChannels];
+        //[UDPClientSocket sendData:udpMessage toHost:@"192.168.1.38" port:8001 withTimeout:-1 tag:1];
         
     }];
     

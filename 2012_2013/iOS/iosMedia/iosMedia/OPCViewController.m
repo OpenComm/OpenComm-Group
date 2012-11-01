@@ -83,6 +83,38 @@ const char* GetLocalIP() {
     NSString* ip = [[[OPCViewController alloc] init ] getIPAddress];
     _myIpAddressFieldBecauseTheOtherOneFailed.text = ip;
     
+    NSString *device = [[UIDevice currentDevice] name];
+    device = [device stringByReplacingOccurrencesOfString:@" " withString:@""];
+    device = [device stringByReplacingOccurrencesOfString:@"'" withString:@""];
+    device = [device stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+
+    
+    //NSString *uniqueId = [[UIDevice currentDevice] uniqueIdentifier];
+    
+    NSString *url = @"http://www.qimingfang.com/opencomm/view.php?user=";
+    url = [url stringByAppendingString:device];
+    url = [url stringByAppendingString:@"&ip="];
+    url = [url stringByAppendingString:ip];
+    url = [url stringByReplacingOccurrencesOfString:@"’" withString:@""];
+    url = [url stringByReplacingOccurrencesOfString:@"'" withString:@""];
+    
+    NSLog(@"%@", url);
+  
+    NSString* serverAddress = url;
+	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:serverAddress]
+                                    cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                       timeoutInterval:10];
+	
+	[request setHTTPMethod: @"GET"];
+	
+    NSError *requestError;
+	NSURLResponse *urlResponse = nil;
+	
+	
+	NSData *response1 = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
+	NSString* newStr = [[NSString alloc] initWithData:response1
+											 encoding:NSUTF8StringEncoding];
+	NSLog(@"%@", newStr);
 }
 
 - (void)didReceiveMemoryWarning
