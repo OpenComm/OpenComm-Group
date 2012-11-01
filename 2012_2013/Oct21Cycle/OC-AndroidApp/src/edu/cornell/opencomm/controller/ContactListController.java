@@ -166,7 +166,7 @@ public class ContactListController {
 		int prevMiddle = -1;
 		int middle = end / 2;
 		while (middle != prevMiddle) {
-			if (users.get(middle).getUsername().startsWith(queryStartsWith)) {
+			if (users.get(middle).getUsername().substring(0,1).equalsIgnoreCase(queryStartsWith)) {
 				// finds block of users that start with the first letter
 				// finds the index of the first user in the block with that
 				// first letter
@@ -175,7 +175,7 @@ public class ContactListController {
 				int blockFirstIndex = middle;
 				for (int i = middle; i > 0; i--) {
 					if (users.get(i - 1).getUsername()
-							.startsWith(queryStartsWith)) {
+							.substring(0,1).equalsIgnoreCase(queryStartsWith)) {
 						blockFirstIndex = i - 1;
 					} else {
 						break;
@@ -187,12 +187,12 @@ public class ContactListController {
 				// iterates through block to find users w/ names matching query
 				for (int i = blockFirstIndex; i < users.size(); i++) {
 					User userI = users.get(i);
-					if (!userI.getUsername().startsWith(queryStartsWith)) {
+					if (!userI.getUsername().substring(0,1).equalsIgnoreCase(queryStartsWith)) {
 						// do not continue to iterate once the first letter does
 						// not match
 						break;
 					}
-					if (userI.getUsername().startsWith(query)) {
+					if (userI.getUsername().substring(0,query.length()).equalsIgnoreCase(query)) {
 						filtered.add(users.get(i));
 					}
 				}
