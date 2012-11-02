@@ -15,53 +15,7 @@
 //TODO check what happens if we get two IQ session-initiates at the same time...
 //Delegates are ALWAYS INVOKED Asynchronously!!!
 
-@implementation OCJingleImpl {
-    //TODO stubbed constants. move it into a plist later!
-    NSString *STATE_ENDED;
-    NSString *STATE_PENDING;
-    NSString *STATE_ACTIVE;
-    NSString *IQ_TYPE_SET;
-    
-    NSString *SESSION_INITIATE;
-    
-    NSString *ATTRIBUTE_NAME_FROM;
-    NSString *ATTRIBUTE_NAME_XMLNS;
-    NSString *ATTRIBUTE_NAME_ACTION;
-    NSString *ATTRIBUTE_NAME_INITIATOR;
-    NSString *ATTRIBUTE_NAME_SID;
-    NSString *ATTRIBUTE_NAME_CREATOR;
-    NSString *ATTRIBUTE_NAME_NAME;
-    NSString *ATTRIBUTE_NAME_SENDERS;
-    NSString *ATTRIBUTE_NAME_MEDIA;
-    NSString *ATTRIBUTE_NAME_ID;
-    NSString *ATTRIBUTE_NAME_COMPONENT;
-    NSString *ATTRIBUTE_NAME_GENERATION;
-    NSString *ATTRIBUTE_NAME_IP;
-    NSString *ATTRIBUTE_NAME_PORT;
-    
-    NSString *ATTRIBUTE_NAME_XMLNS_JINGLE_VALUE;
-    NSString *ATTRIBUTE_NAME_NAME_VALUE_AUDIOCONTENT;
-    NSString *ATTRIBUTE_NAME_SENDERS_VALUE_BOTH;
-    NSString *ATTRIBUTE_NAME_DESCRIPTION_XMLNS_VALUE;
-    NSString *ATTRIBUTE_NAME_MEDIA_VALUE_AUDIO;
-    NSString *ATTRIBUTE_NAME_ID_VALUE_PCMU;
-    NSString *ATTRIBUTE_NAME_NAME_VALUE_PCMU;
-    NSString *ATTRIBUTE_NAME_ID_VALUE_PCMA;
-    NSString *ATTRIBUTE_NAME_NAME_VALUE_PCMA;
-    NSString *ATTRIBUTE_NAME_XMLNS_TRANSPORT_VALUE_RAWUDP;
-    NSString *ATTRIBUTE_NAME_COMPONENT_VALUE;
-    NSString *ATTRIBUTE_NAME_GENERATION_VALUE;
-    NSString *ATTRIBUTE_NAME_ID_CANDIDATE_VALUE_INITIATE; //10 digits
-    NSString *ATTRIBUTE_NAME_ID_CANDIDATE_VALUE_ACCEPT;
-    
-    
-    NSString *JINGLE_PACKET_NAME;
-    NSString *CONTENT_PACKET_NAME;
-    NSString *DESCRIPTION_PACKET_NAME;
-    NSString *PAYLOAD_TYPE_PACKET_NAME;
-    NSString *TRANSPORT_PACKET_NAME;
-    NSString *REMOTE_CANDIDATE_PACKET_NAME;
-}
+@implementation OCJingleImpl
 
 //-------------------------------------------------------------------
 // TODO: This function has been c/p-ed here. It belongs in its own class probably
@@ -106,144 +60,321 @@
 - (id)initWithJID: (XMPPJID *)JIDParam {
     self = [super init];
     if (self) {
+        jingleConstants = [[OCJingleConstantsController alloc] init];
+        state = [jingleConstants STATE_ENDED];
         myJID = JIDParam;
+        toJID = nil;
         myIPAddress = [self getIPAddress];
+        toIPAddress = nil;
+        myPort = nil;
+        toPort = nil;
         mySID = nil;
-        currentIQID = nil;
-        
-        STATE_ENDED = @"ENDED";
-        STATE_PENDING = @"PENDING";
-        STATE_ACTIVE = @"ACTIVE";
-        state = STATE_ENDED;
-        
-        IQ_TYPE_SET = @"set";
-        
-        SESSION_INITIATE = @"session-initiate";
-        
-        ATTRIBUTE_NAME_FROM = @"from";
-        ATTRIBUTE_NAME_XMLNS = @"xmlns";
-        ATTRIBUTE_NAME_ACTION = @"action";
-        ATTRIBUTE_NAME_INITIATOR = @"initiator";
-        ATTRIBUTE_NAME_SID = @"sid";
-        ATTRIBUTE_NAME_CREATOR = @"creator";
-        ATTRIBUTE_NAME_NAME = @"name";
-        ATTRIBUTE_NAME_SENDERS = @"senders";
-        ATTRIBUTE_NAME_MEDIA = @"media";
-        ATTRIBUTE_NAME_ID = @"id";
-        ATTRIBUTE_NAME_COMPONENT = @"component";
-        ATTRIBUTE_NAME_GENERATION = @"generation";
-        
-        ATTRIBUTE_NAME_XMLNS_JINGLE_VALUE = @"urn:xmpp:jingle:1";
-        ATTRIBUTE_NAME_NAME_VALUE_AUDIOCONTENT = @"audio-content";
-        ATTRIBUTE_NAME_SENDERS_VALUE_BOTH = @"both";
-        ATTRIBUTE_NAME_DESCRIPTION_XMLNS_VALUE = @"urn:xmpp:jingle:apps:rtp:1";
-        ATTRIBUTE_NAME_MEDIA_VALUE_AUDIO = @"audio";
-        ATTRIBUTE_NAME_ID_VALUE_PCMU = @"0";
-        ATTRIBUTE_NAME_NAME_VALUE_PCMU = @"PCMU";
-        ATTRIBUTE_NAME_ID_VALUE_PCMA = @"8";
-        ATTRIBUTE_NAME_NAME_VALUE_PCMA = @"PCMA";
-        ATTRIBUTE_NAME_XMLNS_TRANSPORT_VALUE_RAWUDP = @"urn:xmpp:jingle:transports:raw-udp:1";
-        ATTRIBUTE_NAME_COMPONENT_VALUE = @"1";
-        ATTRIBUTE_NAME_GENERATION_VALUE = @"0";
-        //stubbed from the java value. In reality, should be random?
-        ATTRIBUTE_NAME_ID_CANDIDATE_VALUE_INITIATE = @"0000000000";
-        ATTRIBUTE_NAME_ID_CANDIDATE_VALUE_ACCEPT = @"0000000001";
-        
-        JINGLE_PACKET_NAME = @"jingle";
-        CONTENT_PACKET_NAME = @"content";
-        DESCRIPTION_PACKET_NAME = @"description";
-        PAYLOAD_TYPE_PACKET_NAME = @"payload-type";
-        TRANSPORT_PACKET_NAME = @"transport";
-        REMOTE_CANDIDATE_PACKET_NAME = @"remote-candidate";
+        toSID = nil;
+        //currentIQID = nil;
+        pendingAck = false;
     }
     return self;
 }
 
+/********************************* HELPER FUNCTIONS TO MAKE JINGLE PACKETS *****************************/
+
 //-------------------------------------------------------------------
-// Returns a Jingle IQ base NSXML Element
+// Returns an IQ base NSXML Element suitable for Jingle
 // Used to initialize the Beginning layer of the Jingle Packet.
 // The IQ packet has attributes 'from', 'id', 'to', and 'type.
 // id is unused by android, so we do not add it here as well!*/
 //-------------------------------------------------------------------
-- (NSXMLElement *) createBaseIQPacket: (XMPPJID *)JIDTo {
-    NSXMLElement *IQPacket = (NSXMLElement *)[XMPPIQ iqWithType: IQ_TYPE_SET to: JIDTo];
-    [IQPacket addAttributeWithName: ATTRIBUTE_NAME_FROM stringValue: [myJID full]];
-    return IQPacket;
+- (NSXMLElement *) createBaseIQElement: (XMPPJID *)JIDTo JingleElement: (NSXMLElement *) jingle {
+    NSXMLElement *IQElement = (NSXMLElement *)[XMPPIQ iqWithType: [jingleConstants IQ_TYPE_SET] to: JIDTo];
+    [IQElement addAttributeWithName: [jingleConstants ATTRIBUTE_FROM] stringValue: [myJID full]];
+    [IQElement addChild: jingle];
+    return IQElement;
 }
 
 //-------------------------------------------------------------------
-// Returns a Jingle IQ start session packet for sending to the server,
+// Returns a Jingle NSXML Element, child of IQ
+// if SID is nil, a new random one is created.
+// if initiator (or responder respectively) is nil, the attributes are not added.
+// child is either content or reason
+// jingle has attributes xmlns, action, initiator, responder, and SID. */
+//-------------------------------------------------------------------
+- (NSXMLElement *) createJingleElementWithAction: (NSString *)action SID: (NSString *)SID
+Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: (NSXMLElement *) child {
+    NSXMLElement *jingleElement = [NSXMLElement elementWithName: [jingleConstants JINGLE_ELEMENT_NAME]];
+    [jingleElement addAttributeWithName: [jingleConstants ATTRIBUTE_XMLNS]
+                            stringValue: [jingleConstants ATTRIBUTE_XMLNS_JINGLE_VALUE]];
+    [jingleElement addAttributeWithName: [jingleConstants ATTRIBUTE_ACTION]
+                            stringValue: action];
+    if (SID == nil) {
+        mySID = [[NSUUID UUID] UUIDString];
+        [jingleElement addAttributeWithName: [jingleConstants ATTRIBUTE_SID]
+                                stringValue: mySID];
+    }
+    else {
+        mySID = SID;
+        [jingleElement addAttributeWithName: [jingleConstants ATTRIBUTE_SID]
+                                stringValue: mySID];
+    }
+    if (initiator != nil) {
+        [jingleElement addAttributeWithName: [jingleConstants ATTRIBUTE_INITIATOR]
+                                stringValue: initiator];
+    }
+    if (responder != nil) {
+        [jingleElement addAttributeWithName: [jingleConstants ATTRIBUTE_RESPONDER]
+                                stringValue: responder];
+    }
+    [jingleElement addChild: child];
+    return jingleElement;
+}
+
+//-------------------------------------------------------------------
+// Returns a Content NSXML Element, child of Jingle
+// Description and Transport are children of Content.
+// content has attributes creator, name, and senders -- stubbed for OpenComm based on android
+//-------------------------------------------------------------------
+- (NSXMLElement *) createContentElementWithDescription: (NSXMLElement *) description
+                                             Transport: (NSXMLElement *) transport {
+    NSXMLElement *contentElement = [NSXMLElement elementWithName: [jingleConstants CONTENT_ELEMENT_NAME]];
+    [contentElement addAttributeWithName: [jingleConstants ATTRIBUTE_CREATOR]
+                             stringValue: [jingleConstants ATTRIBUTE_INITIATOR]];
+    [contentElement addAttributeWithName: [jingleConstants ATTRIBUTE_NAME]
+                             stringValue: [jingleConstants ATTRIBUTE_NAME_VALUE_AUDIOCONTENT]];
+    [contentElement addAttributeWithName: [jingleConstants ATTRIBUTE_SENDERS]
+                             stringValue: [jingleConstants ATTRIBUTE_SENDERS_VALUE_BOTH]];
+    
+    [contentElement addChild: description];
+    [contentElement addChild: transport];
+    return contentElement;
+    
+}
+
+//-------------------------------------------------------------------
+// Returns a Reason NSXML Element, child of Jingle
+// ASSUMPTION: the reason is "success", meaning it is user terminated
+//   or "decline", meaning the remote point declined to start a session.
+// reason must be a valid element name that belongs under the Reason element
+//-------------------------------------------------------------------
+- (NSXMLElement *) createReasonElementWithReason: (NSString *) reason {
+    NSXMLElement *child = [NSXMLElement elementWithName: reason];
+    NSXMLElement *reasonElement = [NSXMLElement elementWithName: [jingleConstants REASON_ELEMENT_NAME]];
+    [reasonElement addChild: child];
+    return reasonElement;
+}
+
+//-------------------------------------------------------------------
+// Returns a Description NSXML Element, child of Content.
+// The description element will contain two children of "payload-type".
+// description has attributes xmlns and media -- stubbed for OpenComm based on android
+// payload-type has attributes id, name, clockrate, and channels (clockrate and channels unused)
+//    -- also stubbed for OpenComm based on android
+//-------------------------------------------------------------------
+- (NSXMLElement *) createDescriptionAndPayloadElements {
+    NSXMLElement *descriptionElement = [NSXMLElement elementWithName: [jingleConstants DESCRIPTION_ELEMENT_NAME]];
+    [descriptionElement addAttributeWithName: [jingleConstants ATTRIBUTE_XMLNS]
+                                 stringValue: [jingleConstants ATTRIBUTE_XMLNS_DESCRIPTION_VALUE]];
+    [descriptionElement addAttributeWithName: [jingleConstants ATTRIBUTE_MEDIA]
+                                 stringValue: [jingleConstants ATTRIBUTE_MEDIA_VALUE_AUDIO]];
+    
+    //first payload type is for PCMU
+    NSXMLElement *payloadElementOne = [NSXMLElement elementWithName: [jingleConstants PAYLOAD_TYPE_ELEMENT_NAME]];
+    [payloadElementOne addAttributeWithName: [jingleConstants ATTRIBUTE_ID]
+                                stringValue: [jingleConstants ATTRIBUTE_ID_VALUE_PCMU]];
+    [payloadElementOne addAttributeWithName: [jingleConstants ATTRIBUTE_NAME]
+                                stringValue: [jingleConstants ATTRIBUTE_NAME_VALUE_PCMU]];
+    
+    //second payload type is for PCMA
+    NSXMLElement *payloadElementTwo = [NSXMLElement elementWithName: [jingleConstants PAYLOAD_TYPE_ELEMENT_NAME]];
+    [payloadElementTwo addAttributeWithName: [jingleConstants ATTRIBUTE_ID]
+                                stringValue: [jingleConstants ATTRIBUTE_ID_VALUE_PCMA]];
+    [payloadElementTwo addAttributeWithName: [jingleConstants ATTRIBUTE_NAME]
+                                stringValue: [jingleConstants ATTRIBUTE_NAME_VALUE_PCMA]];
+    
+    [descriptionElement addChild: payloadElementOne];
+    [descriptionElement addChild: payloadElementTwo];
+    return descriptionElement;
+}
+
+//-------------------------------------------------------------------
+// Returns a Transport NSXML Element, child of Content.
+// The transport element will contain one child "remote-candidate"
+// transport has attributes xmlns, pwd, and ufrag (pwd and ufrag unused because we are using RAWUDP)
+//   -- stubbed for OpenComm based on android for RAWUDP
+// remote-candidate has attributes compontent, foundation, generation, id, ip, network, port,
+// priority, protocol, reladdr, relport, and type (foundation, network, priority, protocl, reladdr, relport,
+// type unused) -- stubbed for OpenComm based on android for RAWUDP
+//-------------------------------------------------------------------
+- (NSXMLElement *) createTransportAndRemoteCandidateElementsWithIP: (NSString *)ip Port: (NSString *)port Action: (NSString *)action {
+    NSXMLElement *transportElement = [NSXMLElement elementWithName: [jingleConstants TRANSPORT_ELEMENT_NAME]];
+    [transportElement addAttributeWithName: [jingleConstants ATTRIBUTE_XMLNS]
+                               stringValue: [jingleConstants ATTRIBUTE_XMLNS_TRANSPORT_VALUE_RAWUDP]];
+    
+    NSXMLElement *remoteCandidateElement = [NSXMLElement elementWithName: [jingleConstants REMOTE_CANDIDATE_ELEMENT_NAME]];
+    [remoteCandidateElement addAttributeWithName: [jingleConstants ATTRIBUTE_COMPONENT]
+                                     stringValue: [jingleConstants ATTRIBUTE_COMPONENT_VALUE]];
+    [remoteCandidateElement addAttributeWithName: [jingleConstants ATTRIBUTE_GENERATION]
+                                     stringValue: [jingleConstants ATTRIBUTE_GENERATION_VALUE]];
+    
+    if ([action isEqualToString: [jingleConstants SESSION_INITIATE]]) {
+        [remoteCandidateElement addAttributeWithName: [jingleConstants ATTRIBUTE_ID]
+                                         stringValue: [jingleConstants ATTRIBUTE_ID_CANDIDATE_VALUE_INITIATE]];
+    }
+    else if ([action isEqualToString: [jingleConstants SESSION_ACCEPT]]) {
+        [remoteCandidateElement addAttributeWithName: [jingleConstants ATTRIBUTE_ID]
+                                         stringValue: [jingleConstants ATTRIBUTE_ID_CANDIDATE_VALUE_ACCEPT]];
+    }
+    
+    //TODO should we make the port here?
+    [remoteCandidateElement addAttributeWithName: [jingleConstants ATTRIBUTE_IP]
+                                     stringValue: ip];
+    [remoteCandidateElement addAttributeWithName: [jingleConstants ATTRIBUTE_PORT]
+                                     stringValue: port];
+    
+    [transportElement addChild: remoteCandidateElement];
+    return transportElement;
+}
+
+/******************************* END HELPER FUNCTIONS TO MAKE JINGLE PACKETS ***************************/
+
+//-------------------------------------------------------------------
+// Returns a Jingle IQ start session packet for sending to the server to user JIDTo
 // or nil if state != ended.
+// SID can be a user provided SID or nil.
 // Also updates the state to pending.
 //-------------------------------------------------------------------
-- (NSXMLElement *) jingleSessionInitiateTo: (XMPPJID *)JIDTo recvportnum: (uint16_t)portNum {
-    if (![state isEqualToString: STATE_ENDED]) {
+- (NSXMLElement *) jingleSessionInitiateTo: (XMPPJID *)JIDTo
+                               recvportnum: (uint16_t)portNum
+                                       SID: (NSString *)sid {
+    if (![state isEqualToString: [jingleConstants STATE_ENDED]]) {
         return nil;
     }
     toJID = JIDTo;
     
-    
-    //TODO worry about id?
-    NSXMLElement *toReturn = [self createBaseIQPacket: toJID];
+    /**Create all the elements, hook them all together and return the finished packet**/
+    NSXMLElement *descriptionElement = [self createDescriptionAndPayloadElements];
+    NSXMLElement *transportElement = [self createTransportAndRemoteCandidateElementsWithIP: myIPAddress Port:[NSString stringWithFormat: @"%d", portNum] Action: [jingleConstants SESSION_INITIATE]];
+    NSXMLElement *contentElement = [self createContentElementWithDescription: descriptionElement
+                                                                   Transport:transportElement];
+    //i'm the initiator, the responder is the other person
+    NSXMLElement *jingleElement = [self createJingleElementWithAction: [jingleConstants SESSION_INITIATE] SID: sid Initiator: [myJID full] Responder: [toJID full] childElement: contentElement];
+    pendingAck = true;
+    state = [jingleConstants STATE_PENDING];
+    return [self createBaseIQElement: toJID JingleElement: jingleElement];
+}
 
-    /*The IQ Packet has a child with name jingle
-     *jingle has attributes xmlns, action, initiator, and SID. */
-    //TODO SID can be user inputted... supposedly in android.
-    NSXMLElement *jingleElement = [NSXMLElement elementWithName: JINGLE_PACKET_NAME];
-    [jingleElement addAttributeWithName: ATTRIBUTE_NAME_XMLNS stringValue: ATTRIBUTE_NAME_XMLNS_JINGLE_VALUE];
-    [jingleElement addAttributeWithName: ATTRIBUTE_NAME_ACTION stringValue: SESSION_INITIATE];
-    mySID = [[NSUUID UUID] UUIDString];
-    [jingleElement addAttributeWithName: ATTRIBUTE_NAME_SID stringValue: mySID];
-    [jingleElement addAttributeWithName: ATTRIBUTE_NAME_INITIATOR stringValue: [myJID user]];
+//-------------------------------------------------------------------
+// Returns a Jingle Ack packet for the received packet.
+// This is merely returning an IQ packet to them with type 'result'
+//-------------------------------------------------------------------
+- (NSXMLElement *) jingleAckForPacket: (XMPPIQ *)recvPacket {
+    NSXMLElement *ack = (NSXMLElement *) [XMPPIQ iqWithType: [jingleConstants IQ_TYPE_RESULT] to:[recvPacket from]];
+    [ack addAttributeWithName: [jingleConstants ATTRIBUTE_FROM] stringValue: [myJID full]];
+    return ack;
+}
+
+//-------------------------------------------------------------------
+// Process a received ack.
+// Special rules depending on which state you are in.
+//-------------------------------------------------------------------
+- (void) jingleReceiveAck {
+    //If you receive an ack after you sent a session accept, your state changes to active
+    if ([state isEqualToString: [jingleConstants STATE_PENDING]] && toIPAddress != nil) {
+        state = [jingleConstants STATE_ACTIVE];
+    }
+}
+
+/******************************** HELPER FUNCTIONS TO PROCESS JINGLE PACKETS *****************************/
+
+//-------------------------------------------------------------------
+// Assuming that the packet is a valid Jingle packet,
+// Get the remote information and save it in this object.
+// This includes toJID, IP, port, and remote SID
+//-------------------------------------------------------------------
+- (void) getRemoteInformationFromPacket: (XMPPIQ *)jingleIQPacket {
+    //SID info in the jingleElement
+    toJID = [XMPPJID jidWithString:[jingleIQPacket attributeStringValueForName: [jingleConstants ATTRIBUTE_FROM]]];
+    NSXMLElement *jingleElement = [jingleIQPacket childElement];
+    toSID = [jingleElement attributeStringValueForName: [jingleConstants ATTRIBUTE_SID]];
     
-    /*jingle has a child content
-     *content has attributes creator and name*/
-    NSXMLElement *contentElement = [NSXMLElement elementWithName: CONTENT_PACKET_NAME];
-    [contentElement addAttributeWithName: ATTRIBUTE_NAME_CREATOR stringValue: ATTRIBUTE_NAME_INITIATOR];
-    [contentElement addAttributeWithName: ATTRIBUTE_NAME_NAME stringValue: ATTRIBUTE_NAME_NAME_VALUE_AUDIOCONTENT];
-    [contentElement addAttributeWithName: ATTRIBUTE_NAME_SENDERS stringValue: ATTRIBUTE_NAME_SENDERS_VALUE_BOTH];
-    /*content has a child description
-     *description has attributes xmlns and media*/
-    NSXMLElement *descriptionElement = [NSXMLElement elementWithName: DESCRIPTION_PACKET_NAME];
-    [descriptionElement addAttributeWithName: ATTRIBUTE_NAME_XMLNS stringValue: ATTRIBUTE_NAME_DESCRIPTION_XMLNS_VALUE];
-    [descriptionElement addAttributeWithName: ATTRIBUTE_NAME_MEDIA stringValue: ATTRIBUTE_NAME_MEDIA_VALUE_AUDIO];
+    //remote IP and remote Port in the remoteCandidate element
+    NSXMLElement *remoteCandidateElement =
+    [[jingleElement elementForName: [jingleConstants TRANSPORT_ELEMENT_NAME]]
+                    elementForName: [jingleConstants REMOTE_CANDIDATE_ELEMENT_NAME]];
+    toIPAddress = [remoteCandidateElement attributeStringValueForName: [jingleConstants ATTRIBUTE_IP]];
+    toPort = [remoteCandidateElement attributeStringValueForName: [jingleConstants ATTRIBUTE_PORT]];
+
+}
+
+/****************************** END HELPER FUNCTIONS TO PROCESS JINGLE PACKETS ***************************/
+
+//-------------------------------------------------------------------
+// Returns a Jingle IQ accept session packet for sending to the server to the user who sent jingleIQPacket
+// or nil if state != ended.
+// Also updates the state to pending.
+//-------------------------------------------------------------------
+- (NSXMLElement *) jingleRespondSessionAcceptFromPacket: (XMPPIQ *)jingleIQPacket
+                                            recvportnum: (uint16_t)portNum
+                                                    SID: (NSString *)sid {
+    if (![state isEqualToString: [jingleConstants STATE_ENDED]]) {
+        return nil;
+    }
+    //TODO check that the incoming IQ Packet transport and app is supported? android forgoes this for now.
     
-    /*description has two children payload-type
-     *payload-type has attributes id, name, clockrate, and channels (clockrate and channels unused)*/
-    //first payload type is for PCMU
-    NSXMLElement *payloadElementOne = [NSXMLElement elementWithName: PAYLOAD_TYPE_PACKET_NAME];
-    [payloadElementOne addAttributeWithName: ATTRIBUTE_NAME_ID stringValue: ATTRIBUTE_NAME_ID_VALUE_PCMU];
-    [payloadElementOne addAttributeWithName: ATTRIBUTE_NAME_NAME stringValue: ATTRIBUTE_NAME_NAME_VALUE_PCMU];
+    [self getRemoteInformationFromPacket: jingleIQPacket];
     
-    //second payload type is for PCMA
-    NSXMLElement *payloadElementTwo = [NSXMLElement elementWithName: PAYLOAD_TYPE_PACKET_NAME];
-    [payloadElementTwo addAttributeWithName: ATTRIBUTE_NAME_ID stringValue: ATTRIBUTE_NAME_ID_VALUE_PCMA];
-    [payloadElementTwo addAttributeWithName: ATTRIBUTE_NAME_NAME stringValue: ATTRIBUTE_NAME_NAME_VALUE_PCMA];
-    
-    /*content has a child transport
-     *transport has attributes xmlns, pwd, and ufrag (pwd and ufrag unused because we are using RAWUDP)*/
-    NSXMLElement *transportElement = [NSXMLElement elementWithName: TRANSPORT_PACKET_NAME];
-    [transportElement addAttributeWithName: ATTRIBUTE_NAME_XMLNS stringValue: ATTRIBUTE_NAME_XMLNS_TRANSPORT_VALUE_RAWUDP];
-    
-    /*Transport has a child remote-candidate
-     *remote-candidate has attributes compontent, foundation, generation, id, ip, network, port,
-     *priority, protocol, reladdr, relport, and type (foundation, network, priority, protocl, reladdr, relport, 
-     *type unused)*/
-    NSXMLElement *remoteCandidateElement = [NSXMLElement elementWithName: REMOTE_CANDIDATE_PACKET_NAME];
-    [remoteCandidateElement addAttributeWithName: ATTRIBUTE_NAME_COMPONENT stringValue: ATTRIBUTE_NAME_COMPONENT_VALUE];
-    [remoteCandidateElement addAttributeWithName: ATTRIBUTE_NAME_GENERATION stringValue: ATTRIBUTE_NAME_GENERATION_VALUE];
-    [remoteCandidateElement addAttributeWithName: ATTRIBUTE_NAME_ID stringValue: ATTRIBUTE_NAME_ID_CANDIDATE_VALUE_INITIATE];
-    
-    //TODO should we make the port here?
-    [remoteCandidateElement addAttributeWithName: ATTRIBUTE_NAME_IP stringValue: myIPAddress];
-    [remoteCandidateElement addAttributeWithName: ATTRIBUTE_NAME_PORT stringValue: [NSString stringWithFormat: @"%d", portNum]];
-    
-    /*Connect all the elements together correctly*/
+    NSXMLElement *descriptionElement = [self createDescriptionAndPayloadElements];
+    NSXMLElement *transportElement = [self createTransportAndRemoteCandidateElementsWithIP: myIPAddress Port:[NSString stringWithFormat: @"%d", portNum] Action: [jingleConstants SESSION_ACCEPT]];
+    NSXMLElement *contentElement = [self createContentElementWithDescription: descriptionElement
+                                                                   Transport:transportElement];
+    NSXMLElement *jingleElement = [self createJingleElementWithAction: [jingleConstants SESSION_ACCEPT] SID: sid Initiator: nil Responder: [myJID full] childElement: contentElement]; //the responder is myself
     
     
+    pendingAck = true;
+    state = [jingleConstants STATE_PENDING];
+    return [self createBaseIQElement: toJID JingleElement: jingleElement];
+}
+
+//-------------------------------------------------------------------
+// Processes an Accept Session packet from the remote end.
+//-------------------------------------------------------------------
+- (void) jingleReceiveSessionAcceptFromPacket: (XMPPIQ *)jingleIQPacket {
+    [self getRemoteInformationFromPacket: jingleIQPacket];
+    state = [jingleConstants STATE_ACTIVE]; //they officially accepted, so now it's active!
+}
+
+//-------------------------------------------------------------------
+// Returns a Jingle IQ session-terminate packet for sending to the server to the other person
+// or nil if state != active.
+// Also updates the state to ended.
+//-------------------------------------------------------------------
+- (NSXMLElement *) jingleSessionTerminate {
+    if (![state isEqualToString: [jingleConstants STATE_ACTIVE]]) {
+        return nil;
+    }
     
+    //Termination with no error reason.
+    NSXMLElement *reasonElement = [self createReasonElementWithReason: [jingleConstants SUCCESS_ELEMENT_NAME]];
+    NSXMLElement *jingleElement = [self createJingleElementWithAction: [jingleConstants SESSION_TERMINATE] SID: mySID Initiator: nil Responder: nil childElement: reasonElement];
     
-    return toReturn;
+    //Reset state
+    state = [jingleConstants STATE_ENDED];
+    toJID = nil;
+    toSID = nil;
+    toIPAddress = nil;
+    toPort = nil;
+    
+    return [self createBaseIQElement: toJID JingleElement: jingleElement];
+}
+
+//-------------------------------------------------------------------
+// Actions to do upon receiving a session terminate from the remote side.
+//-------------------------------------------------------------------
+- (void) jingleReceiveSessionTerminate {
+    //Reset state
+    state = [jingleConstants STATE_ENDED];
+    toJID = nil;
+    toSID = nil;
+    toIPAddress = nil;
+    toPort = nil;
 }
 
 @end
