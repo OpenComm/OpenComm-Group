@@ -17,23 +17,37 @@
 @end
 
 @implementation OCViewController
+@synthesize loginView;
+@synthesize loginPasswordField;
+@synthesize loginUsernameField;
+
 
 //-------------------------------------------------------------------
 // Initial load of this page
 //-------------------------------------------------------------------
 - (void)viewDidLoad
 {
+    float cornerRadius = 10.0f;
     [super viewDidLoad];
-
+    
 	// Do any additional setup after loading the view, typically from a nib.
     
     /*STUBBED - INITIAL INFORMATION*/
     //Site to do this: https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/PropertyLists/QuickStartPlist/QuickStartPlist.html
     
-    //[_loginView.layer setCornerRadius=1.0f];
-    [_loginView.layer setCornerRadius:10.0f];
-    [_loginView.layer setBorderColor:[[UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:203.0/255.0 alpha:1.0] CGColor]];
-    //[_loginView.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+    
+    // Do any additional setup after loading the view, typically from a nib.
+    
+    
+    // Round login view edges
+    [loginView.layer setCornerRadius:cornerRadius];
+    [loginView.layer setBorderColor:[[UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:203.0/255.0 alpha:1.0] CGColor]];
+    [loginView.layer setBorderWidth:1.0f];
+    
+    [loginUsernameField.layer setCornerRadius:cornerRadius];
+    [loginPasswordField.layer setCornerRadius:cornerRadius];
+    
+    
     //a separate class handler for default XMPP stuff.
 	defaults = [[OCDefaultServerConstantsController alloc] init];
     delegateHandler = [[OCXMPPDelegateHandler alloc] init];
@@ -77,8 +91,8 @@
     }
 
     else {
-       NSString *myJID = _loginUsernameField.text;
-       myPassword = _loginPasswordField.text;
+       NSString *myJID = loginUsernameField.text;
+       myPassword = loginPasswordField.text;
         
         myXMPPStream.myJID = [XMPPJID jidWithString:myJID];
         myXMPPStream.hostPort = [defaults DEFAULT_PORT];
@@ -122,8 +136,8 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     // when you touch away from these, then remove the keyboard
-    [_loginUsernameField resignFirstResponder];
-    [_loginPasswordField resignFirstResponder];
+    [loginUsernameField resignFirstResponder];
+    [loginPasswordField resignFirstResponder];
 }
 
 - (void)viewDidUnload {
