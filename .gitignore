@@ -34,3 +34,5 @@ bin/
 ehthumbs.db
 Icon?
 Thumbs.db
+*.pbxuser
+*xcuserdata

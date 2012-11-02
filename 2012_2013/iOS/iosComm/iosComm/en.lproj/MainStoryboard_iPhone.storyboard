@@ -126,7 +126,7 @@
                             <constraint firstItem="bku-J4-tS7" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="147" id="rLB-NM-kS5"/>
                             <constraint firstItem="mcn-2P-JPX" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="10" id="wAt-3c-XId"/>
                             <constraint firstItem="6oP-0F-1En" firstAttribute="top" secondItem="3" secondAttribute="top" constant="49" id="xl1-Om-Zq4"/>
-                        </constraints>
+                                                    </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
