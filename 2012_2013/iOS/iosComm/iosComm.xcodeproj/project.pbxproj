@@ -23,6 +23,7 @@
 		0A3612741641AFB600E99A1E /* XMPPvCardTempCoreDataStorageObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A36126F1641AFB600E99A1E /* XMPPvCardTempCoreDataStorageObject.m */; };
 		0A3612781641AFF400E99A1E /* XMPPvCardAvatarModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3612771641AFF400E99A1E /* XMPPvCardAvatarModule.m */; };
 		0A42C8BC163107A40053C5F2 /* OCSocketViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0A42C8BB163107A40053C5F2 /* OCSocketViewController.mm */; };
+		0A5CCDAB16421B9C00843346 /* OCJingleImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5CCDAA16421B9C00843346 /* OCJingleImpl.m */; };
 		0A615C151632FD960000C840 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A615C141632FD960000C840 /* Accelerate.framework */; };
 		0A615C171632FD9D0000C840 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A615C161632FD9D0000C840 /* CoreAudio.framework */; };
 		0A615CA8163304FE0000C840 /* AudioFileReader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0A615CA1163304FE0000C840 /* AudioFileReader.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -137,6 +138,8 @@
 		0AA17FFF1630D39F00CD704A /* NSDate+XMPPDateTimeProfiles.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA17FFB1630D39F00CD704A /* NSDate+XMPPDateTimeProfiles.m */; };
 		0AA180001630D39F00CD704A /* XMPPDateTimeProfiles.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA17FFD1630D39F00CD704A /* XMPPDateTimeProfiles.m */; };
 		0AA180011630D39F00CD704A /* XMPPDateTimeProfiles.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA17FFD1630D39F00CD704A /* XMPPDateTimeProfiles.m */; };
+		0AD2A7D51643752700AA3A8D /* JingleConstants.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0AD2A7D41643752700AA3A8D /* JingleConstants.plist */; };
+		0AD2A7D916437A4B00AA3A8D /* OCJingleConstantsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2A7D816437A4B00AA3A8D /* OCJingleConstantsController.m */; };
 		4D004DA2163338FD00706B1A /* OCAudio.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4D004DA1163338FD00706B1A /* OCAudio.mm */; };
 		4D004DA616333AFE00706B1A /* OCAudioPassingProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D004DA516333AFE00706B1A /* OCAudioPassingProtocol.m */; };
 		4D66E95E1630D6BC000C589E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D66E95D1630D6BC000C589E /* AVFoundation.framework */; };
@@ -228,6 +231,8 @@
 		0A3612771641AFF400E99A1E /* XMPPvCardAvatarModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMPPvCardAvatarModule.m; path = "XMPPFramework/Extensions/XEP-0153/XMPPvCardAvatarModule.m"; sourceTree = "<group>"; };
 		0A42C8BA163107A40053C5F2 /* OCSocketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSocketViewController.h; sourceTree = "<group>"; };
 		0A42C8BB163107A40053C5F2 /* OCSocketViewController.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = OCSocketViewController.mm; sourceTree = "<group>"; };
+		0A5CCDA916421B9C00843346 /* OCJingleImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCJingleImpl.h; sourceTree = "<group>"; };
+		0A5CCDAA16421B9C00843346 /* OCJingleImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCJingleImpl.m; sourceTree = "<group>"; };
 		0A615C141632FD960000C840 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		0A615C161632FD9D0000C840 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		0A615CA0163304FE0000C840 /* AudioFileReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioFileReader.h; path = Novacaine/AudioFileReader.h; sourceTree = "<group>"; };
@@ -360,6 +365,9 @@
 		0AA17FFB1630D39F00CD704A /* NSDate+XMPPDateTimeProfiles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+XMPPDateTimeProfiles.m"; path = "XMPPFramework/Extensions/XEP-0082/NSDate+XMPPDateTimeProfiles.m"; sourceTree = "<group>"; };
 		0AA17FFC1630D39F00CD704A /* XMPPDateTimeProfiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPDateTimeProfiles.h; path = "XMPPFramework/Extensions/XEP-0082/XMPPDateTimeProfiles.h"; sourceTree = "<group>"; };
 		0AA17FFD1630D39F00CD704A /* XMPPDateTimeProfiles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMPPDateTimeProfiles.m; path = "XMPPFramework/Extensions/XEP-0082/XMPPDateTimeProfiles.m"; sourceTree = "<group>"; };
+		0AD2A7D41643752700AA3A8D /* JingleConstants.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = JingleConstants.plist; sourceTree = "<group>"; };
+		0AD2A7D716437A4B00AA3A8D /* OCJingleConstantsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCJingleConstantsController.h; sourceTree = "<group>"; };
+		0AD2A7D816437A4B00AA3A8D /* OCJingleConstantsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCJingleConstantsController.m; sourceTree = "<group>"; };
 		4D004DA0163338FD00706B1A /* OCAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCAudio.h; sourceTree = "<group>"; };
 		4D004DA1163338FD00706B1A /* OCAudio.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OCAudio.mm; sourceTree = "<group>"; };
 		4D004DA416333AFE00706B1A /* OCAudioPassingProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCAudioPassingProtocol.h; sourceTree = "<group>"; };
@@ -542,6 +550,18 @@
 				4D66E96F16310114000C589E /* AudioToolbox.framework */,
 			);
 			name = BuiltInFrameworks;
+			sourceTree = "<group>";
+		};
+		0A5CCDAD16421BFD00843346 /* jingle */ = {
+			isa = PBXGroup;
+			children = (
+				0A5CCDA916421B9C00843346 /* OCJingleImpl.h */,
+				0A5CCDAA16421B9C00843346 /* OCJingleImpl.m */,
+				0AD2A7D41643752700AA3A8D /* JingleConstants.plist */,
+				0AD2A7D716437A4B00AA3A8D /* OCJingleConstantsController.h */,
+				0AD2A7D816437A4B00AA3A8D /* OCJingleConstantsController.m */,
+			);
+			name = jingle;
 			sourceTree = "<group>";
 		};
 		0A9D8FDE16150F7C00A18E14 /* XMPPFramework */ = {
@@ -917,6 +937,7 @@
 		4DE6A445160FC14B005F7857 /* iosComm */ = {
 			isa = PBXGroup;
 			children = (
+				0A5CCDAD16421BFD00843346 /* jingle */,
 				4D76F8CF1633291300DE7833 /* constants */,
 				4D76F8CE1633290700DE7833 /* protocol */,
 				4D76F8CA163328CA00DE7833 /* ui */,
@@ -1093,6 +1114,7 @@
 				BA97A9E916439AB20008AEEA /* zoo9.jpeg in Resources */,
 				BA97A9EA16439AB20008AEEA /* zoo10.jpeg in Resources */,
 				BA97A9F01643A2900008AEEA /* ContactCell.xib in Resources */,
+				0AD2A7D51643752700AA3A8D /* JingleConstants.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1206,6 +1228,8 @@
 				BA97A9D61643991D0008AEEA /* OCConferenceTableCell.m in Sources */,
 				BA97A9EE16439B160008AEEA /* OCHappeningNowConferenceCell.m in Sources */,
 				BA97A9F31643A2A20008AEEA /* OCContactCell.m in Sources */,
+				0A5CCDAB16421B9C00843346 /* OCJingleImpl.m in Sources */,
+				0AD2A7D916437A4B00AA3A8D /* OCJingleConstantsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1378,6 +1402,7 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/XMPPFramework/Vendor/libidn\"",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1398,6 +1423,7 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/XMPPFramework/Vendor/libidn\"",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
