@@ -66,6 +66,20 @@ public class User implements Comparable<User>{
 		}
 		this.userColor = UserManager.getUserColor(username);
 	}
+	
+	/** CONSTRUCTOR: = a new User without a nickname
+	 * 
+	 * @param username
+	 * 			- the JID of the User
+	 */
+	public User(String username){
+		if (D) {
+			Log.v(LOG_TAG, "Made a person for the user " + username);
+		}
+		this.username = username;
+		this.image = R.drawable.question;
+		this.userColor = UserManager.getUserColor(username);
+	}
 
 
 	/** @return - the User's JID */

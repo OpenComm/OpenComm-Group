@@ -156,5 +156,10 @@ public class ConferenceCommunicator {
 		}*/
 
 	}
+	
+	/** Retrieve all the conferences that this user is in (and invited to) */
+	public static void pullConferencesForUser(String username){
+		
+	}
 
 }

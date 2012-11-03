@@ -48,26 +48,26 @@ public class DashboardController {
 	 * TODO: This should call a task when a user clicks the conferences button.
 	 */
 	public void handleConferencesButtonClicked() {
-		this.dashboardView.findViewById(R.id.dashboardConfsOverlay).setVisibility(View.VISIBLE);
+		/*this.dashboardView.findViewById(R.id.dashboardConfsOverlay).setVisibility(View.VISIBLE);
 		int duration = Toast.LENGTH_SHORT;
     	Toast send = Toast.makeText(this.dashboardView.getApplicationContext(),"Conference clicked",duration);
-    	send.show();
-/*    	// start conference view
+    	send.show(); */
+     	// start conference view
     	Intent i = new Intent(this.dashboardView,ConferenceSchedulerView.class);
-    	this.dashboardView.startActivity(i);*/
+    	this.dashboardView.startActivity(i);
 	}
 
 	/**
 	 * TODO: This should call a task when a user clicks the Contacts button.
 	 */
 	public void handleContactsButtonClicked() {
-		this.dashboardView.findViewById(R.id.dashboardContactsOverlay).setVisibility(View.VISIBLE);
+	/*	this.dashboardView.findViewById(R.id.dashboardContactsOverlay).setVisibility(View.VISIBLE);
 		int duration = Toast.LENGTH_SHORT;
     	Toast send = Toast.makeText(this.dashboardView.getApplicationContext(),"Contacts clicked",duration);
-    	send.show();
-/*		// start conference view
+    	send.show(); */
+		// start conference view
     	Intent i = new Intent(this.dashboardView,ContactsView.class);
-    	this.dashboardView.startActivity(i);*/
+    	this.dashboardView.startActivity(i);
 	}
 
 	/**
