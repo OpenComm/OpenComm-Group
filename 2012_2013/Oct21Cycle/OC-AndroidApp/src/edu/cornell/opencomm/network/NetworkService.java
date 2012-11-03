@@ -4,6 +4,7 @@ import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.PrivacyList;
 import org.jivesoftware.smack.provider.PrivacyProvider;
 import org.jivesoftware.smack.provider.ProviderManager;
 import org.jivesoftware.smackx.GroupChatInvitation;
@@ -46,6 +47,7 @@ public class NetworkService {
 	// XMPP connection
 	private XMPPConnection xmppConn;
 	private ConnectionConfiguration xmppConfig;
+	private PrivacyList blockList;
 	private boolean isConnected;
 	private boolean isAuthenticated;
 
@@ -123,6 +125,10 @@ public class NetworkService {
 	public XMPPConnection getConnection() {
 		
 		return this.xmppConn;
+	}
+	
+	public PrivacyList getBlockList() {
+		return this.blockList;
 	}
 
 	/**

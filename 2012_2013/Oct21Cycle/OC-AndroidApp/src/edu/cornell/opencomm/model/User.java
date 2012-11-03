@@ -8,7 +8,7 @@ import edu.cornell.opencomm.Manager.UserManager;
 
 /* An object representing a user who is taking part in the conversation */
 
-public class User {
+public class User implements Comparable<User> {
 	/**
 	 * 
 	 */
@@ -27,7 +27,7 @@ public class User {
 	 */
 	String nickname;
 	/**
-	 * TODO Ankit: Should this contacts card?? The VCard of the user
+	 * The VCard of the user
 	 */
 	VCard vCard;
 	/**
@@ -65,6 +65,26 @@ public class User {
 		this.userColor = UserManager.getUserColor(username);
 	}
 
+	public User(String firstname, String lastname, String email, byte[] photo,
+			String title) {
+
+	}
+
+	/**
+	 * CONSTRUCTOR: = a new User without a nickname
+	 * 
+	 * @param username
+	 *            - the JID of the User
+	 */
+	public User(String username) {
+		if (D) {
+			Log.v(LOG_TAG, "Made a person for the user " + username);
+		}
+		this.username = username;
+		this.image = R.drawable.question;
+		this.userColor = UserManager.getUserColor(username);
+	}
+
 	/** @return - the User's JID */
 	public String getUsername() {
 		return this.username;
@@ -83,6 +103,11 @@ public class User {
 	/** @return - the User's vCard */
 	public VCard getVCard() {
 		return this.vCard;
+	}
+
+	public int compareTo(User arg0) {
+		return (getUsername().compareTo(arg0.getUsername()));
+		// returns alphabetic comparison of usernames by using string compareTo
 	}
 }
 // SEE BELOW FOR CODE REMOVED DUE TO REFACTORING

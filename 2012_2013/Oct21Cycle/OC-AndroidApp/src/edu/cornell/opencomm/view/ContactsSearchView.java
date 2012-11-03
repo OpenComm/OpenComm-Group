@@ -4,20 +4,20 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.controller.ContactsSearchController;
+import edu.cornell.opencomm.controller.ContactListController;
 import edu.cornell.opencomm.controller.FontSetter;
 
 public class ContactsSearchView extends Activity {
 	
 	
-	private ContactsSearchController controller; 
+	private ContactListController controller; 
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.contact_search_layout);
 		FontSetter.applySanSerifFont(this, findViewById(R.layout.contact_search_layout));
 		FontSetter.applySanSerifFont(this, findViewById(R.layout.contact_entry_layout));
-		controller = new ContactsSearchController(this);
+		controller = new ContactListController(this);
 	}
 	
 	//TODO

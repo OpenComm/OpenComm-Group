@@ -33,7 +33,7 @@ public class LoginController {
 	 * 
 	 */
 	private enum ReturnState {
-		SUCEEDED, COULDNT_CONNECT, WRONG_PASSWORD, ALREADY_CLICKED
+		SUCCEEDED, COULDNT_CONNECT, WRONG_PASSWORD, ALREADY_CLICKED
 	};
 
 	/**
@@ -141,7 +141,7 @@ public class LoginController {
 		protected ReturnState doInBackground(String... strings) {
 			if (NetworkService.getInstance().login(strings[0], strings[1])) {
 				UserManager.PRIMARY_USER = new User(strings[0], strings[0], 0);
-				return ReturnState.SUCEEDED;
+				return ReturnState.SUCCEEDED;
 			} else {
 				return ReturnState.COULDNT_CONNECT;
 			}
@@ -154,7 +154,7 @@ public class LoginController {
 				loginProgress = null;
 			}
 			if (state == ReturnState.ALREADY_CLICKED
-					|| state == ReturnState.SUCEEDED) {
+					|| state == ReturnState.SUCCEEDED) {
 				Intent i = new Intent(loginView, DashboardView.class);
 				loginView.startActivity(i);
 

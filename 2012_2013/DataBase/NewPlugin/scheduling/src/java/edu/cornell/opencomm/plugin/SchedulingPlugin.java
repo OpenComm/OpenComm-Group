@@ -111,53 +111,67 @@ public class SchedulingPlugin implements Plugin, Component,
 		// Get the name from the plugin.xml file
 		return pluginManager.getDescription(this);
 	}
-	public Hashtable<String,String> parseXML(String xml){
-		Hashtable<String, String> pktInfo=new Hashtable<String, String>();
-		 try {
-		        DocumentBuilderFactory dbf =
-		            DocumentBuilderFactory.newInstance();
-		        DocumentBuilder db = dbf.newDocumentBuilder();
-		        InputSource is = new InputSource();
-		        is.setCharacterStream(new StringReader(xml));
-		        Document doc = db.parse(is);
-		       // Element docEle = doc.getDocumentElement();
-		        NodeList roomID = doc.getElementsByTagName("roomID");
-		        NodeList roomName = doc.getElementsByTagName("roomname");
-		        NodeList invitername=doc.getElementsByTagName("invitername");
-		        NodeList description = doc.getElementsByTagName("description");
-		        NodeList starttime = doc.getElementsByTagName("starttime");
-		        NodeList endtime = doc.getElementsByTagName("endtime");
-		        NodeList recurrence = doc.getElementsByTagName("recurrence");
-		        NodeList participants=doc.getElementsByTagName("participant");
+	/*parser for packet xml*/
+	public static Hashtable<String, String> parseXML(String xml) {
+		Hashtable<String, String> pktInfo = new Hashtable<String, String>();
+		try {
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			InputSource is = new InputSource();
+			is.setCharacterStream(new StringReader(xml));
+			Document doc = db.parse(is);
+			// Element docEle = doc.getDocumentElement();
+			NodeList subject = doc.getElementsByTagName("subject");
+			NodeList roomID = doc.getElementsByTagName("roomID");
+			NodeList roomName = doc.getElementsByTagName("roomname");
+			NodeList invitername = doc.getElementsByTagName("invitername");
+			NodeList description = doc.getElementsByTagName("description");
+			NodeList starttime = doc.getElementsByTagName("starttime");
+			NodeList endtime = doc.getElementsByTagName("endtime");
+			NodeList recurrence = doc.getElementsByTagName("recurrence");
+			NodeList participants = doc.getElementsByTagName("participant");
 
-		        String roomIDstr=roomID.item(0).getFirstChild().getNodeValue();
-		        String roomNamestr=roomName.item(0).getFirstChild().getNodeValue();
-		        String inviternamestr=invitername.item(0).getFirstChild().getNodeValue();
-		        String descriptionstr=description.item(0).getFirstChild().getNodeValue();
-		        String starttimestr=starttime.item(0).getFirstChild().getNodeValue();
-		        String endtimestr=endtime.item(0).getFirstChild().getNodeValue();
-		        String recurrencestr=recurrence.item(0).getFirstChild().getNodeValue();
-		        
-		        pktInfo.put("roomID", roomIDstr);
-		        pktInfo.put("roomname", roomNamestr);
-		        pktInfo.put("invitername", inviternamestr);
-		        pktInfo.put("description", descriptionstr);
-		        pktInfo.put("starttime",starttimestr );
-		        pktInfo.put("endtime", endtimestr);
-		        pktInfo.put("recurrence", recurrencestr);
-		        
-		        // iterate the participants
-		        for (int i = 0; i < participants.getLength(); i++) {
-		           Element person = (Element) participants.item(i);
-		           pktInfo.put("participant"+i, person.getFirstChild().getNodeValue());
+			String subjectstr = subject.item(0).getFirstChild().getNodeValue();
+			String roomIDstr = roomID.item(0).getFirstChild().getNodeValue();
 
-		        }
-		    }
-		    catch (Exception e) {
-		        e.printStackTrace();
-		    }
+			pktInfo.put("subject", subjectstr);
+			pktInfo.put("roomID", roomIDstr);
+
+			if (subjectstr == "pushConference") {
+
+				String roomNamestr = roomName.item(0).getFirstChild()
+						.getNodeValue();
+				String inviternamestr = invitername.item(0).getFirstChild()
+						.getNodeValue();
+				String descriptionstr = description.item(0).getFirstChild()
+						.getNodeValue();
+				String starttimestr = starttime.item(0).getFirstChild()
+						.getNodeValue();
+				String endtimestr = endtime.item(0).getFirstChild()
+						.getNodeValue();
+				String recurrencestr = recurrence.item(0).getFirstChild()
+						.getNodeValue();
+
+				pktInfo.put("roomname", roomNamestr);
+				pktInfo.put("invitername", inviternamestr);
+				pktInfo.put("description", descriptionstr);
+				pktInfo.put("starttime", starttimestr);
+				pktInfo.put("endtime", endtimestr);
+				pktInfo.put("recurrence", recurrencestr);
+				// iterate the participants
+				for (int i = 0; i < participants.getLength(); i++) {
+					Element person = (Element) participants.item(i);
+					pktInfo.put("participant" + i, person.getFirstChild()
+							.getNodeValue());
+
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return pktInfo;
-		
+
 	}
 	@Override
 	public void processPacket(Packet arg0) {
@@ -170,12 +184,12 @@ public class SchedulingPlugin implements Plugin, Component,
 		Log.error("Message:" + arg0.toXML());
         //parse the xml:
 		Hashtable<String, String> pktTable=this.parseXML(arg0.toXML());
-		if (arg0.getID().equals("pullConference")) {
+		if ((pktTable.get("subject")).equals("pullConference")) {
 			Log.error("Received pull message!");
 			body = databaseService.pullConference(pktTable.get("roomID"));
 			subject = "ConferenceInfo";
 		}
-		else if (arg0.getID().equals("pushConference")) {
+		else if ((pktTable.get("subject")).equals("pushConference")) {
 			Log.error("Received push message!");
 			body=databaseService.push(pktTable);
 			

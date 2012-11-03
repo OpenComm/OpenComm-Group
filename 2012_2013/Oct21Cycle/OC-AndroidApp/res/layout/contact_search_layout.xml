@@ -25,6 +25,24 @@
             android:onClick="blockButtonPressed"
             android:src="@drawable/action_overflow" />
 
+        <SlidingDrawer
+            android:id="@+id/drawer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:content="@+id/content"
+            android:handle="@+id/handle" >
+
+            <ImageView
+                android:id="@+id/handle"
+                android:layout_width="88dip"
+                android:layout_height="44dip" />
+
+            <GridView
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </SlidingDrawer>
+
         <ImageView
             android:id="@+id/left_arrow_icon"
             android:layout_width="16dp"
