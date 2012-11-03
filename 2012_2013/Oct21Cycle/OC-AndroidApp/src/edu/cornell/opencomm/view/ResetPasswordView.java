@@ -1,43 +1,60 @@
 package edu.cornell.opencomm.view;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.controller.ResetPasswordController;
 
+/**
+ * View for reset password screen.
+ * Functionality (handled by ResetPasswordController)
+ * <ul>
+ * <li>When the user inputs an email, checks for a valid email, and sends 
+ * an reset password email</li>
+ * <li>When the user opts to sign up instead, launches SignupView</li>
+ * </ul>
+ *
+ * Issues [TODO]
+ * - For any other issues search for string "TODO"
+ *
+ * @author Spandana Govindgari[frontend]
+ * */
 public class ResetPasswordView extends Activity {
-	//For debugging purposes
-	@SuppressWarnings("unused")
-	private static String TAG = ResetPasswordView.class.getSimpleName();	
-	@SuppressWarnings("unused")
-	private static final boolean D = true; 
+	/** 
+	 * Debugging variable: if true, all logs are logged;
+	 * set to false before packaging
+	 */
+	private static final boolean D = true;
+	
+	/**
+	 * The TAG for logging
+	 */
+	private static final String TAG = ResetPasswordView.class.getSimpleName();
 	private ResetPasswordController controller; 
-	private EditText emailEntered = (EditText) findViewById(R.id.emailTextBox);
+	private EditText emailEntered;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.reset_password_layout);
-		this.getLayoutInflater(); 
+		this.emailEntered = (EditText) findViewById(R.id.emailTextBox);
 		FontSetter.applySanSerifFont(ResetPasswordView.this, findViewById(R.id.reset_password_layout)); 		
 		controller = new ResetPasswordController(ResetPasswordView.this, this); 
 	}
 
-	//When sign up is pressed
+	/** When sign up button is pressed, launch signup page */
 	public void signUpPressed(View v){
 		this.controller.signUpPressed();
 	}
 
-	//When reset password has been clicked - shows a toast
+	/** When reset password has been clicked - shows a popup for unregistered/invalid emails */
 	public void goToReset(View v){
 		Log.v("Reset password page", "Reset Clicked");
-		this.controller.resetPasswordPressed(emailEntered);		
+		this.controller.resetPasswordPressed(emailEntered.getText().toString());		
 	}
 
 	public EditText getEmailEntered(){
@@ -54,26 +71,6 @@ public class ResetPasswordView extends Activity {
 	@Override
 	public void onBackPressed() {
 		this.controller.onBackPressed();
-	}
-	
-	public void throwToast(int i){
-		Context context = getApplicationContext();
-		if (i == -1){
-			CharSequence text = "Email not valid! Enter a valid email address";	
-			int duration = Toast.LENGTH_SHORT;
-			Toast toast = Toast.makeText(context, text, duration);
-			toast.show();
-			//make the edit text empty
-			emailEntered.setText(null);
-			
-		}
-		if (i == 0){
-			CharSequence text = "Email not found in network! Please sign up";
-			int duration = Toast.LENGTH_SHORT;
-			Toast toast = Toast.makeText(context, text, duration);
-			toast.show();
-			this.controller.signUpPressed();
-		}
 	}
 
 }

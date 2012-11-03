@@ -1,26 +1,51 @@
 package edu.cornell.opencomm.controller;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.text.Editable;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.util.Util;
 import edu.cornell.opencomm.view.LoginView;
+import edu.cornell.opencomm.view.PopupView;
 import edu.cornell.opencomm.view.ResetPasswordView;
 import edu.cornell.opencomm.view.SignupView;
 
-/** @author Author: Spandana Govindgari sg754 */
+/**
+ * Controller for reset password screen.
+ * Functionality:
+ * <ul>
+ * <li>When the user inputs an email, checks for a valid email, and sends 
+ * an reset password email</li>
+ * <li>When the user opts to sign up instead, launches SignupView</li>
+ * </ul>
+ *
+ * Issues [TODO]
+ * - For any other issues search for string "TODO"
+ *
+ * @author Spandana Govindgari[frontend], Risa Naka[frontend]
+ * */
 
 public class ResetPasswordController {
-
-	// for debugging
-	private static final String TAG = ResetPasswordController.class.getSimpleName();
+	/** 
+	 * Debugging variable: if true, all logs are logged;
+	 * set to false before packaging
+	 */
 	private static final boolean D = true;
+	
+	/**
+	 * The TAG for logging
+	 */
+	private static final String TAG = ResetPasswordController.class.getSimpleName();
 
 	// for loginView
 	public static final String PWDRESET = "PasswordReset";
+	
+	// enum for email address check
+	private enum EmailStatus {
+		EXISTING_USER, NONEXISTING_USER, INVALID_EMAIL
+	};
 
 	private ResetPasswordView resetPasswordView;
 	//Constructor - initialize required fields
@@ -38,19 +63,57 @@ public class ResetPasswordController {
 
 	//Handle the reset password button
 	//This method should load the reset password page
-	public void resetPasswordPressed(EditText emailEntered){
-		//Send an email confirmation
+	public void resetPasswordPressed(String emailEntered){
 		this.resetPasswordView.findViewById(R.id.resetPasswordOverlay).setVisibility(View.VISIBLE);
-		//TODO
-		//1. Should contact network and send a dummy password to this user's email
-		int i = findEmail((Editable) emailEntered);
-		if (i == 1){
-			// go back to login page
-			Intent click = new Intent(this.resetPasswordView,LoginView.class);
-			click.putExtra(ResetPasswordController.PWDRESET, true);
-			this.resetPasswordView.startActivity(click);
+		if (emailEntered == null || emailEntered.equals("")) {
+			PopupView popup = new PopupView(resetPasswordView);
+			popup.createPopup("Input Error", "Email cannot be empty");
+			popup.createPositiveButton("OK", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			} );
+			popup.showPopup();
+			this.resetPasswordView.findViewById(R.id.resetPasswordOverlay).setVisibility(View.INVISIBLE);
 		}
-		this.resetPasswordView.throwToast(i);
+		else {
+			//Send an email confirmation
+			//TODO contact network and send a dummy password to this user's email
+			EmailStatus eStatus = findEmail(emailEntered);
+			switch (eStatus) {
+			case EXISTING_USER: {
+				// go back to login page
+				Intent click = new Intent(this.resetPasswordView,LoginView.class);
+				click.putExtra(ResetPasswordController.PWDRESET, true);
+				this.resetPasswordView.startActivity(click);
+				break;
+			}
+			case NONEXISTING_USER: {
+				PopupView popup = new PopupView(resetPasswordView);
+				popup.createPopup("Input Error", "Unregistered email");
+				popup.createPositiveButton("OK", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				} );
+				popup.showPopup();
+				this.resetPasswordView.findViewById(R.id.resetPasswordOverlay).setVisibility(View.INVISIBLE);
+				break;}
+			case INVALID_EMAIL: {
+				PopupView popup = new PopupView(resetPasswordView);
+				popup.createPopup("Input Error", "Invalid email");
+				popup.createPositiveButton("OK", new DialogInterface.OnClickListener() {
+	
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				} );
+				popup.showPopup();
+				this.resetPasswordView.findViewById(R.id.resetPasswordOverlay).setVisibility(View.INVISIBLE);
+				break;
+			}
+		}
+		}
 	}
 
 	// Back button on Android pressed
@@ -62,28 +125,23 @@ public class ResetPasswordController {
 
 
 
-	//Find text from view 
-	public int findEmail(Editable email){
-		if (isEmailValid(email)){
-			if (isEmailInNetwork(email)){
-				return 1; 
-			}
-			else {			
-				return -1;
-			}
+	/** 
+	 * Checks if the given email is valid and is in the server
+	 * @param email
+	 * @return
+	 */
+	public EmailStatus findEmail(String email){
+		// if it's a valid email
+		if (Util.validateString(email, Util.EMAIL_ADDRESS_PATTERN)){
+			// check if this email exists in the server
+			return (isEmailInNetwork(email) ? EmailStatus.EXISTING_USER : EmailStatus.NONEXISTING_USER);
 		}
-		else return 0; 
+		return EmailStatus.INVALID_EMAIL;
 	}
 
-
-
-	//checks for the validity of the entered email
-	private boolean isEmailValid(CharSequence email) {
-		return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
-	}
 	//Checks if the email if already in the network
 
-	private boolean isEmailInNetwork(Editable email){
+	private boolean isEmailInNetwork(String email){
 		//TODO - SEND TO BACKEND to check
 		return true; 
 	}
