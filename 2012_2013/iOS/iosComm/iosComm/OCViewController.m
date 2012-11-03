@@ -96,12 +96,11 @@
     }
 
     else {
-       NSString *myJID = loginUsernameField.text;
-       myPassword = loginPasswordField.text;
+        NSString *myJID = loginUsernameField.text;
+        myPassword = loginPasswordField.text;
         
         myXMPPStream.myJID = [XMPPJID jidWithString:myJID];
         myXMPPStream.hostPort = [defaults DEFAULT_PORT];
-        myPassword = [defaults DEFAULT_PASSWORD];
     }
     
     delegateHandler = [[OCXMPPDelegateHandler alloc] initWithPassword: myPassword];

@@ -15,6 +15,8 @@
     Boolean DEBUG_IS_RECEIVER;
     int DEBUG_RECVPORTNUM_SENDER;
     int DEBUG_RECVPORTNUM_RECEIVER;
+    NSString *DEBUG_SENDER_JID;
+    NSString *DEBUG_RECEIVER_JID;
      
     NSString *STATE_ENDED;
     NSString *STATE_PENDING;
@@ -76,6 +78,9 @@
 @property (nonatomic) Boolean DEBUG_IS_RECEIVER;
 @property (nonatomic) int DEBUG_RECVPORTNUM_SENDER;
 @property (nonatomic) int DEBUG_RECVPORTNUM_RECEIVER;
+@property (copy, nonatomic) NSString *DEBUG_SENDER_JID;
+@property (copy, nonatomic) NSString *DEBUG_RECEIVER_JID;
+
 
 /*String constants for the state*/
 @property (copy, nonatomic) NSString *STATE_ENDED;

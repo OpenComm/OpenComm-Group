@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "XMPPFramework.h"
+#import "OCJingleImpl.h"
 
 @interface OCXMPPDelegateHandler : NSObject {
     NSString *password;
     XMPPRoster *myXMPPRoster;
     XMPPRosterCoreDataStorage *myXMPPRosterStorage;
     XMPPStream *myXMPPStream;
+    OCJingleImpl *jingleObj;
 }
 
 - (id)initWithPassword: (NSString *) password;

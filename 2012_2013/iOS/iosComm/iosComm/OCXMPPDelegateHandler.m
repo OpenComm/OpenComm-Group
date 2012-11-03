@@ -144,6 +144,21 @@
     NSLog(@"I sent my presence");
     //[NSThread sleepForTimeInterval: 30];
     //[self sendMessageWith:sender message:@"QIMING IS COOL" to:@"opencommsec@cuopencomm" ];
+    
+    //init jingleObj here once we go online -- we are now open for jingle connections
+    jingleObj = [[OCJingleImpl alloc] initWithJID:[myXMPPStream myJID] xmppStream: myXMPPStream];
+    
+    //Begin DEBUG testing stuffs if applicable
+    if ([[jingleObj jingleConstants] DEBUG_PARAM]) {
+        /* RECEIVER MUST BE RUN FIRST BEFORE SENDER IS RUN!*/
+        if ([[jingleObj jingleConstants] DEBUG_IS_SENDER]) {
+            //If you're the sender, send an session-initiate to the "receiver".
+            [sender sendElement:
+             [jingleObj jingleSessionInitiateTo:[XMPPJID jidWithString: [[jingleObj jingleConstants] DEBUG_RECEIVER_JID]] recvportnum: [[jingleObj jingleConstants] DEBUG_RECVPORTNUM_SENDER] SID:nil]];
+            [jingleObj printJingleObject];
+        }
+        // If you're not the receiver, you just wait.
+    }
 }
 
 
@@ -167,8 +182,14 @@
 
 - (BOOL)xmppStream:(XMPPStream *)sender didReceiveIQ:(XMPPIQ *)iq
 {
-	//NSLog(@"iq %@", iq);
-    
+	NSLog(@"iq %@", iq);
+    if ([jingleObj processPacketForJingle: iq]) {
+        [jingleObj printJingleObject];
+        return YES;
+    }
+    else {
+        //If there are other IQ packets that are not jingle, process here.
+    }
 	return NO;
 }
 

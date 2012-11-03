@@ -15,7 +15,7 @@
  * Also contains the state for the current Jingle Session
  */
 @interface OCJingleImpl : NSObject {
-    OCJingleConstantsController *jingleConstants; //contains all the string constants
+    //OCJingleConstantsController *jingleConstants;
     NSString *state; //PENDING, ACTIVE, or ENDED as defined in jingleConstants
     XMPPJID *myJID;
     XMPPJID *toJID;
@@ -32,6 +32,9 @@
     XMPPStream *xmppStream;
     
 }
+
+//contains all the string constants
+@property (strong, nonatomic) OCJingleConstantsController *jingleConstants;
 
 /**For implementation details / specs, check the .m file**/
 
@@ -76,10 +79,12 @@
  **False if the packet is not meant for Jingle processing.**/
 - (bool) processPacketForJingle: (XMPPIQ *)IQPacket;
 
+/**For debug purposes, prints the state of the jingle object in NSLog**/
+- (void) printJingleObject;
+
 //TODO Support Application and Transport functions.
 //This is just stubbed to true on the android side.
 //If I were to implement this, it would return nil if everything is supported
 //Or return the appropriate error string defined by XMPP Jingle if something is not supported.
 //- (NSString *) supportedFunctionalty: (XMPPIQ *)jingleIQPacket;
-
 @end

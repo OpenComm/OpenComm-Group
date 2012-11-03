@@ -36,8 +36,10 @@
         self.DEBUG_PARAM = (Boolean)[temp objectForKey: @"DEBUG_PARAM"];
         self.DEBUG_IS_SENDER = (Boolean)[temp objectForKey: @"DEBUG_IS_SENDER"];
         self.DEBUG_IS_RECEIVER = (Boolean)[temp objectForKey: @"DEBUG_IS_RECEIVER"];
-        self.DEBUG_RECVPORTNUM_SENDER = (Boolean)[temp objectForKey: @"DEBUG_RECVPORTNUM_SENDER"];
-        self.DEBUG_RECVPORTNUM_RECEIVER = (Boolean)[temp objectForKey: @"DEBUG_RECVPORTNUM_RECEIVER"];
+        self.DEBUG_RECVPORTNUM_SENDER = (int)[temp objectForKey: @"DEBUG_RECVPORTNUM_SENDER"];
+        self.DEBUG_RECVPORTNUM_RECEIVER = (int)[temp objectForKey: @"DEBUG_RECVPORTNUM_RECEIVER"];
+        self.DEBUG_SENDER_JID = [temp objectForKey:@"DEBUG_SENDER_JID"];
+        self.DEBUG_RECEIVER_JID = [temp objectForKey:@"DEBUG_RECEIVER_JID"];
         
         self.STATE_ENDED = [temp objectForKey:@"STATE_ENDED"];
 		self.STATE_PENDING = [temp objectForKey:@"STATE_PENDING"];
@@ -100,6 +102,8 @@
 @synthesize DEBUG_IS_RECEIVER;
 @synthesize DEBUG_RECVPORTNUM_SENDER;
 @synthesize DEBUG_RECVPORTNUM_RECEIVER;
+@synthesize DEBUG_SENDER_JID;
+@synthesize DEBUG_RECEIVER_JID;
 
 @synthesize STATE_ENDED;
 @synthesize STATE_PENDING;

@@ -22,7 +22,6 @@
     XMPPRosterCoreDataStorage *myXMPPRosterStorage;
 	OCXMPPDelegateHandler *delegateHandler;
     NSFetchedResultsController *fetchedResultsController;
-    
 }
 
 @property (strong, nonatomic) IBOutlet UITextField *loginPasswordField;

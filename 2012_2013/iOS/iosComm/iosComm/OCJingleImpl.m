@@ -17,6 +17,8 @@
 
 @implementation OCJingleImpl
 
+@synthesize jingleConstants;
+
 //-------------------------------------------------------------------
 // TODO: This function has been c/p-ed here. It belongs in its own class probably
 // From: http://stackoverflow.com/questions/6807788/how-to-get-ip-address-of-iphone-programatically
@@ -249,10 +251,11 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
         return nil;
     }
     toJID = JIDTo;
+    myPort = [NSString stringWithFormat: @"%d", portNum];
     
     /**Create all the elements, hook them all together and return the finished packet**/
     NSXMLElement *descriptionElement = [self createDescriptionAndPayloadElements];
-    NSXMLElement *transportElement = [self createTransportAndRemoteCandidateElementsWithIP: myIPAddress Port:[NSString stringWithFormat: @"%d", portNum] Action: [jingleConstants SESSION_INITIATE]];
+    NSXMLElement *transportElement = [self createTransportAndRemoteCandidateElementsWithIP: myIPAddress Port:myPort Action: [jingleConstants SESSION_INITIATE]];
     NSXMLElement *contentElement = [self createContentElementWithDescription: descriptionElement
                                                                    Transport:transportElement];
     //i'm the initiator, the responder is the other person
@@ -332,12 +335,13 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
     if (![state isEqualToString: [jingleConstants STATE_ENDED]]) {
         return nil;
     }
+    myPort = [NSString stringWithFormat: @"%d", portNum];
     //TODO check that the incoming IQ Packet transport and app is supported? android forgoes this for now.
     
     [self getRemoteInformationFromPacket: jingleIQPacket];
     
     NSXMLElement *descriptionElement = [self createDescriptionAndPayloadElements];
-    NSXMLElement *transportElement = [self createTransportAndRemoteCandidateElementsWithIP: myIPAddress Port:[NSString stringWithFormat: @"%d", portNum] Action: [jingleConstants SESSION_ACCEPT]];
+    NSXMLElement *transportElement = [self createTransportAndRemoteCandidateElementsWithIP: myIPAddress Port:myPort Action: [jingleConstants SESSION_ACCEPT]];
     NSXMLElement *contentElement = [self createContentElementWithDescription: descriptionElement
                                                                    Transport:transportElement];
     NSXMLElement *jingleElement = [self createJingleElementWithAction: [jingleConstants SESSION_ACCEPT] SID: sid Initiator: nil Responder: [myJID full] childElement: contentElement]; //the responder is myself
@@ -472,6 +476,14 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
     }
     //the packet is not a jingle packet
     else return false;
+}
+
+- (void) printJingleObject {
+    NSLog(@"********* JINGLE OBJECT PRINTOUT **********");
+    NSLog(@"Remote Endpoint IP Addr: %@, Remote Endpoint Port: %@.", toIPAddress, toPort);
+    NSLog(@"My IPAddr: %@, My Port: %@, My State: %@, Pending Ack?: %@", myIPAddress, myPort, state, (pendingAck? @"yes" : @"no"));
+    NSLog(@"*******************************************");
+    
 }
 
 @end
