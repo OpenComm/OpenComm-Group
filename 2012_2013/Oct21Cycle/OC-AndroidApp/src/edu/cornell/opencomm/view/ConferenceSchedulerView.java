@@ -13,13 +13,11 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.Manager.UserManager;
 import edu.cornell.opencomm.controller.ConferenceSchedulerController;
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.model.ConferenceSchedulerAdapter;
 import edu.cornell.opencomm.model.User;
-import edu.cornell.opencomm.packet.ConferenceCommunicator;
 
 public class ConferenceSchedulerView extends Activity {
 	/** Called when the activity is first created. */
@@ -43,6 +41,7 @@ public class ConferenceSchedulerView extends Activity {
 		controller = new ConferenceSchedulerController(ConferenceSchedulerView.this, this);
 		// FOR TEMPORARY HARDCODED CONFERENCES
 		users = createExampleUsers(); 
+//		retrieveConferences();
 		conferences = createExampleConferences();
 		retrieveAndDisplayConferences(conferences);
 		
@@ -51,26 +50,14 @@ public class ConferenceSchedulerView extends Activity {
 		new RetrieveConferencesTask().execute(null, null, null); */
 		
 	}
-	
-	 private class RetrieveConferencesTask extends AsyncTask<Void, Void, String> {
-	     protected String doInBackground(Void... arg0) {
-//	    	 ConferenceCommunicator.pullConferencesForUser(UserManager.PRIMARY_USER.getUsername());
-	    	 String data = ""; // Get the string data somehow
-	    	 conferences = parseConferenceDataToObjects(data);
-	    	 retrieveAndDisplayConferences(conferences);
-	    	 return "";
-	     }
-
-	     protected void onProgressUpdate(Integer... progress) {
-	         //setProgressPercent(progress[0]);
-	     }
-
-	     protected void onPostExecute(Long result) {
-	         //showDialog("Downloaded " + result + " bytes");
-	     }
-	 }
-	
-
+	public void retrieveConferences(){
+		
+		controller.sendPullrequest();
+	}
+	public void dataReceived(String confernceList){
+		conferences = parseConferenceDataToObjects(confernceList);
+		retrieveAndDisplayConferences(conferences);
+	}
 	//TODO
 	//1.Ask the design team about invited section
 	//2. Need a field to check if you created the conference or if someone else did and invited you

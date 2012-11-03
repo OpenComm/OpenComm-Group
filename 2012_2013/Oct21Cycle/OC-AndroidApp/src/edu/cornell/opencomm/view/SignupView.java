@@ -1,16 +1,15 @@
 package edu.cornell.opencomm.view;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
-import android.widget.EditText;
+import org.jivesoftware.smack.util.Base64.InputStream;
+
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.controller.SignupController;
 
 public class SignupView extends Activity{
+	private static final String TAG = SignupView.class.getName();
+	protected static final int ACTIVITY_SELECT_IMAGE = 1000;
+	private static final int REQ_CODE_PICK_IMAGE = 9999;
 	/**
 	/**
 	 * The controller for signup
@@ -125,7 +124,32 @@ public class SignupView extends Activity{
 
 
 
+	private static final int SELECT_PHOTO = 100;
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) { 
+	    super.onActivityResult(requestCode, resultCode, imageReturnedIntent); 
 
+	    switch(requestCode) { 
+	    case SELECT_PHOTO:
+	        if(resultCode == RESULT_OK){  
+	            Uri selectedImage = imageReturnedIntent.getData();
+	            InputStream imageStream;
+				try {
+					imageStream = getContentResolver().openInputStream(selectedImage);
+					
+					Bitmap yourSelectedImage = BitmapFactory.decodeStream(imageStream);
+					ImageView photo = (ImageView) findViewById(R.id.photoButton);
+//					yourSelectedImage.
+					photo.setImageBitmap(yourSelectedImage);
+					photo.invalidate();
+					Log.d(TAG,"Thing workded");
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	        }
+	    }
+	}
 	/**
 	 * initialize photo button click event listener
 	 */
@@ -133,8 +157,12 @@ public class SignupView extends Activity{
 		OnClickListener listener = new View.OnClickListener() {
 
 			public void onClick(View v) {
+				Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+				photoPickerIntent.setType("image/*");
+				startActivityForResult(photoPickerIntent, SELECT_PHOTO);  
+				
 				controller.handlePhotoButtonClick();
-
+				
 			}
 		};
 		View photoButton = findViewById(R.id.photoButton);
