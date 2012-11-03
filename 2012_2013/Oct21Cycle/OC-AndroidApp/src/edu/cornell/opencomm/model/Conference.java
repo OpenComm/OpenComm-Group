@@ -245,7 +245,8 @@ public class Conference implements Parcelable {
 		int[] attendee_pictures = new int[attendees.size()];
 		for (int i=0 ; i < attendees.size(); i++){
 			attendee_names[i] = attendees.get(i).getNickname();
-			attendee_pictures[i] = attendees.get(i).getImage();
+//			TODO fix to paint from bitmap
+//			attendee_pictures[i] = attendees.get(i).getImage();
 		}
 		dest.writeStringArray(attendee_names);
 		dest.writeIntArray(attendee_pictures);
