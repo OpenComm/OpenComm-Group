@@ -12,7 +12,7 @@ public class User {
 	/**
 	 * 
 	 */
-	private static String LOG_TAG = "Model.User"; 
+	private static String LOG_TAG = "Model.User";
 	/**
 	 * 
 	 */
@@ -21,25 +21,23 @@ public class User {
 	/**
 	 * The JID of the user
 	 */
-	String username; 
+	String username;
 	/**
 	 * The nickname of the user
 	 */
-	String nickname; 
+	String nickname;
 	/**
-	 * TODO Ankit: Should this contacts card??
-	 * The VCard of the user
+	 * TODO Ankit: Should this contacts card?? The VCard of the user
 	 */
-	VCard vCard; 
+	VCard vCard;
 	/**
 	 * The image of the user
 	 */
-	int image; 
-	
+	int image;
+
 	/**
-	 * TODO Ankit: Move this out of here it is only used for conference
-	 * and store it in a map in chat space model
-	 * The color of the user contact card 
+	 * TODO Ankit: Move this out of here it is only used for conference and
+	 * store it in a map in chat space model The color of the user contact card
 	 */
 	public int userColor;
 
@@ -67,7 +65,6 @@ public class User {
 		this.userColor = UserManager.getUserColor(username);
 	}
 
-
 	/** @return - the User's JID */
 	public String getUsername() {
 		return this.username;
@@ -88,21 +85,21 @@ public class User {
 		return this.vCard;
 	}
 }
-//SEE BELOW FOR CODE REMOVED DUE TO REFACTORING
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//Please use UserManager.getContactList() and UserManager.updateContactList()
-//	/** @return - the User's contact list */
-//	public ArrayList<User> getContactList() {
-//		return this.contactList;
-//	}
+// SEE BELOW FOR CODE REMOVED DUE TO REFACTORING
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Please use UserManager.getContactList() and UserManager.updateContactList()
+// /** @return - the User's contact list */
+// public ArrayList<User> getContactList() {
+// return this.contactList;
+// }
 // TODO: is there a better place for this?
-//ANKIT TODO: Moved to User Manager.
-//	public static User primaryUser;
-//	// Crystal
-//	public int userColor = R.color.blue;
-//	static int[] colors = { R.color.blue, R.color.green, R.color.orange };
-//	static int color_pointer = 0;
-//	private static Hashtable<String, Integer> user_color_table = 
+// ANKIT TODO: Moved to User Manager.
+// public static User primaryUser;
+// // Crystal
+// public int userColor = R.color.blue;
+// static int[] colors = { R.color.blue, R.color.green, R.color.orange };
+// static int color_pointer = 0;
+// private static Hashtable<String, Integer> user_color_table =
 
-//			new Hashtable<String, Integer>();
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// new Hashtable<String, Integer>();
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
