@@ -8,12 +8,8 @@ import edu.cornell.opencomm.controller.ResetPasswordController;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnFocusChangeListener;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.app.Activity;
@@ -50,7 +46,6 @@ public class LoginView extends Activity {
 	
 	private EditText emailEdit;
 	private EditText passwordEdit;
-	private ImageButton loginButton;
 	private ImageView loginOverlay;
 	private ImageView signupOverlay;
 	
@@ -61,7 +56,6 @@ public class LoginView extends Activity {
         FontSetter.applySanSerifFont(this, findViewById(R.id.login_layout));
         emailEdit = (EditText) findViewById(R.id.editTextEmail);
 		passwordEdit = (EditText) findViewById(R.id.editTextPassword);
-		loginButton = (ImageButton) findViewById(R.id.loginButton);
 		loginOverlay = (ImageView) findViewById(R.id.loginOverlay);
 		signupOverlay = (ImageView) findViewById(R.id.signupOverlay);
 		loginController = new LoginController(this);
