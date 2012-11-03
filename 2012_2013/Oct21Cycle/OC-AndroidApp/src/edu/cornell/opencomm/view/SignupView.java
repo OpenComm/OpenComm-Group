@@ -1,21 +1,7 @@
 package edu.cornell.opencomm.view;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import org.jivesoftware.smack.util.Base64.InputStream;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.controller.SignupController;
@@ -150,8 +136,10 @@ public class SignupView extends Activity{
 	            InputStream imageStream;
 				try {
 					imageStream = getContentResolver().openInputStream(selectedImage);
+					
 					Bitmap yourSelectedImage = BitmapFactory.decodeStream(imageStream);
 					ImageView photo = (ImageView) findViewById(R.id.photoButton);
+//					yourSelectedImage.
 					photo.setImageBitmap(yourSelectedImage);
 					photo.invalidate();
 					Log.d(TAG,"Thing workded");
