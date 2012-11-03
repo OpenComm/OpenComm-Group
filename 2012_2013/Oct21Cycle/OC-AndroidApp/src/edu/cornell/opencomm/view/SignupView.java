@@ -219,14 +219,16 @@ public class SignupView extends Activity{
 		OnClickListener listener = new View.OnClickListener() {
 
 			public void onClick(View v) {
-				controller.handleCancel();
+				launchPreviousActivity();
 
 			}
 		};
 		View saveButton = findViewById(R.id.cancelButton);
 		saveButton.setOnClickListener(listener);
 	}
-
+	private void launchPreviousActivity(){
+		super.onBackPressed();
+	}
 	/**
 	 * initialize save image click event listener
 	 */
@@ -234,7 +236,7 @@ public class SignupView extends Activity{
 		OnClickListener listener = new View.OnClickListener() {
 
 			public void onClick(View v) {
-				controller.handleCancel();
+				launchPreviousActivity();
 
 			}
 		};
@@ -269,7 +271,6 @@ public class SignupView extends Activity{
 	public void onBackPressed() {
 		// Consume the key like a Boss!
 	}
-	
 	@Override
 	public void onResume() {
 		super.onResume();

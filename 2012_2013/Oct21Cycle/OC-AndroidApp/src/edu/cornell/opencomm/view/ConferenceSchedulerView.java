@@ -308,3 +308,4 @@ public class ConferenceSchedulerView extends Activity {
 		startActivity(i);
 	}
 }
+//

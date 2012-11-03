@@ -124,13 +124,6 @@ public class SignupController {
 		return true;
 	}
 
-	public void handleCancel() {
-		this.signupView.findViewById(R.id.cancelSignupOverlay).setVisibility(
-				View.VISIBLE);
-		Intent click = new Intent(this.signupView, LoginView.class);
-		this.signupView.startActivity(click);
-
-	}
 
 	public void handleEmailFocusChange(View view, boolean hasFocus) {
 		if (!hasFocus) {

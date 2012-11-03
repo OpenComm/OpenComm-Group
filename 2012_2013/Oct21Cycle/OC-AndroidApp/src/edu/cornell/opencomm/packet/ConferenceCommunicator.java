@@ -46,7 +46,8 @@ public class ConferenceCommunicator implements PacketListener {
 		protected String doInBackground(String... params) {
 			XMPPConnection xmppConn = NetworkService.getInstance().getConnection();
 			ConferencePacket packet = new ConferencePacket(xmppConn.getUser(), PULL_SUBJECT);
-			packet.setFrom(xmppConn.getUser());
+//			packet.setFrom(xmppConn.getUser());
+			packet.setFrom("lion");
 			packet.setTo("scheduling.cuopencomm.no-ip.org");
 			packet.setPacketID(PULL_SUBJECT);
 			xmppConn.sendPacket(packet);
@@ -78,6 +79,7 @@ public class ConferenceCommunicator implements PacketListener {
 		Log.v(LOG_TAG, "packet xml: "+arg0.toXML());
 		if (arg0 instanceof Message) {
 			Message received = (Message) arg0;
+			Log.v(LOG_TAG, "Response received:"+received.getPacketID());
 			if (received.getPacketID().equals(PULL_CONFIRMATION_SUBJECT)) {
 				if (received.getBody() == null
 						|| received.getBody().equals("")) {

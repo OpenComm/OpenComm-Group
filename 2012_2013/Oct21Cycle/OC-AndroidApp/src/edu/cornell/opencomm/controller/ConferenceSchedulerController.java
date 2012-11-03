@@ -58,7 +58,7 @@ public class ConferenceSchedulerController implements SimpleObserver{
 	public void onUpdate(int eventid, Object event) {
 		if(eventid == 911){
 			String response = (String) event;
-			
+			conferenceSchedulerView.dataReceived(response);
 		}
 
 	}
