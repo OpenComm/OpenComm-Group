@@ -8,6 +8,9 @@ import android.widget.TextView;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.ContactCardController;
 
+
+//TODO: Ankit:Remove this and the unused attributes
+@SuppressWarnings("unused")
 public class ContactCardView extends Activity{
 
 	private static TextView name;

@@ -11,6 +11,7 @@ import edu.cornell.opencomm.view.DashboardView;
 public class ConferenceController {
 	
 	private ConferenceSchedulerView conferenceSchedulerView;
+	@SuppressWarnings("unused")
 	private Context context; 
 	
 	private ConferenceDataModel _conference; // the conference that is being controlled

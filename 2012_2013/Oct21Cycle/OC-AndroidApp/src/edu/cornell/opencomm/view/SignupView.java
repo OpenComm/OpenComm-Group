@@ -2,7 +2,6 @@ package edu.cornell.opencomm.view;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -226,12 +225,8 @@ public class SignupView extends Activity{
 		return textBox;
 	}
 	@Override
-	public boolean dispatchKeyEvent(KeyEvent event) {
-		//AS: Consume the back for now, we need to use the menu key later
-		if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-			return super.dispatchKeyEvent(event);
-		}
-		return true;
+	public void onBackPressed() {
+		// Consume the key like a Boss!
 	}
 	
 	@Override
