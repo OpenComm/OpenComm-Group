@@ -66,6 +66,7 @@ public class ResetPasswordView extends Activity {
 		super.onResume();
 		findViewById(R.id.signupOverlayReset).setVisibility(View.INVISIBLE);
 		findViewById(R.id.resetPasswordOverlay).setVisibility(View.INVISIBLE);
+		this.emailEntered.setText("");
 	}
 	
 	@Override

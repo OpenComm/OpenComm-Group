@@ -71,10 +71,10 @@ public class ResetPasswordController {
 			popup.createPositiveButton("OK", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					dialog.dismiss();
+					resetPasswordView.findViewById(R.id.resetPasswordOverlay).setVisibility(View.INVISIBLE);
 				}
 			} );
 			popup.showPopup();
-			this.resetPasswordView.findViewById(R.id.resetPasswordOverlay).setVisibility(View.INVISIBLE);
 		}
 		else {
 			//Send an email confirmation
@@ -94,10 +94,10 @@ public class ResetPasswordController {
 				popup.createPositiveButton("OK", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
+						resetPasswordView.findViewById(R.id.resetPasswordOverlay).setVisibility(View.INVISIBLE);
 					}
 				} );
 				popup.showPopup();
-				this.resetPasswordView.findViewById(R.id.resetPasswordOverlay).setVisibility(View.INVISIBLE);
 				break;}
 			case INVALID_EMAIL: {
 				PopupView popup = new PopupView(resetPasswordView);
@@ -106,10 +106,10 @@ public class ResetPasswordController {
 	
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
+						resetPasswordView.findViewById(R.id.resetPasswordOverlay).setVisibility(View.INVISIBLE);
 					}
 				} );
 				popup.showPopup();
-				this.resetPasswordView.findViewById(R.id.resetPasswordOverlay).setVisibility(View.INVISIBLE);
 				break;
 			}
 		}
