@@ -41,9 +41,9 @@ public class ConferenceSchedulerView extends Activity {
 		controller = new ConferenceSchedulerController(ConferenceSchedulerView.this, this);
 		// FOR TEMPORARY HARDCODED CONFERENCES
 		users = createExampleUsers(); 
-		retrieveConferences();
-//		conferences = createExampleConferences();
-//		retrieveAndDisplayConferences(conferences);
+//		retrieveConferences();
+		conferences = createExampleConferences();
+		retrieveAndDisplayConferences(conferences);
 		
 		/*// THE CORRECT METHOD 
 		// Execute async task
