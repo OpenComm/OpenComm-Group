@@ -21,7 +21,7 @@ public class MyAccountView extends Activity{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.contact_card_layout);
+		setContentView(R.layout.my_account_layout);
 		name = (TextView) findViewById(R.id.my_account_name);
 		icon = (ImageView) findViewById(R.id.my_account_picture);
 		email = (TextView) findViewById(R.id.my_account_email);
