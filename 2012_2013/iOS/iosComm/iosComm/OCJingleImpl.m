@@ -251,6 +251,7 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
         return nil;
     }
     toJID = JIDTo;
+    NSLog(@"toJID: %@", [toJID full]);
     myPort = [NSString stringWithFormat: @"%d", portNum];
     
     /**Create all the elements, hook them all together and return the finished packet**/

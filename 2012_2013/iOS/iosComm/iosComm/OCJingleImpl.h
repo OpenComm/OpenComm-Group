@@ -41,7 +41,7 @@
 /**Init the object with YOUR OWN JID and xmpp stream to the server**/
 - (id) initWithJID: (XMPPJID *)JIDParam xmppStream: (XMPPStream *)xmppStreamParam;
 
-/**Send a session initiate to JIDto. The port you will be listening on is at portNum**/
+/**Send a session initiate to JIDto. The port you will be listening on is at portNum. The JIDto must have a FULL JID (including resource). This can be found via presence. Only needed for session-initiate.**/
 - (NSXMLElement *) jingleSessionInitiateTo: (XMPPJID *)JIDto recvportnum: (uint16_t)portNum SID: (NSString *)sid;
 
 /**Given a packet, it spits out an ACK packet that you need to send back upon immediately receiving it**/

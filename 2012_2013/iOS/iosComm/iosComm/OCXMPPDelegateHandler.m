@@ -32,6 +32,14 @@
 {
     XMPPPresence *presc = [XMPPPresence presence];
     [sender sendElement: presc]; //available is implicit supposedly
+    
+    //kfc35 - JINGLEOBJ test - must get the fullJID of the receiver if you are the sender first.
+    if ([[jingleObj jingleConstants] DEBUG_PARAM]) {
+        if ([[jingleObj jingleConstants] DEBUG_IS_SENDER]) {
+            [sender sendElement: [XMPPPresence presenceWithType:@"subscribe" to: [XMPPJID jidWithString: [[jingleObj jingleConstants] DEBUG_RECEIVER_JID]]]];
+        }
+    }
+    
     NSLog(@"I'm supposedly online");
 }
 
@@ -141,23 +149,29 @@
 // Delegate method called once the presence is sent, implements XMPP stream delegate
 //-------------------------------------------------------------------
 - (void)xmppStream:(XMPPStream *)sender didSendPresence:(XMPPPresence *)presence {
-    NSLog(@"I sent my presence");
-    //[NSThread sleepForTimeInterval: 30];
+    //NSLog(@"I sent my presence");
     //[self sendMessageWith:sender message:@"QIMING IS COOL" to:@"opencommsec@cuopencomm" ];
     
     //init jingleObj here once we go online -- we are now open for jingle connections
-    jingleObj = [[OCJingleImpl alloc] initWithJID:[myXMPPStream myJID] xmppStream: myXMPPStream];
-    
-    //Begin DEBUG testing stuffs if applicable
+}
+
+- (void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence {
     if ([[jingleObj jingleConstants] DEBUG_PARAM]) {
-        /* RECEIVER MUST BE RUN FIRST BEFORE SENDER IS RUN!*/
-        if ([[jingleObj jingleConstants] DEBUG_IS_SENDER]) {
+        //receiver has receive a subscribe request. must return with a "subscribed" type to
+        //give the sender their full JID
+        if ([[jingleObj jingleConstants] DEBUG_IS_RECEIVER]) {
+        [sender sendElement: [XMPPPresence presenceWithType:@"subscribed" to: [XMPPJID jidWithString: [[jingleObj jingleConstants] DEBUG_RECEIVER_JID]]]];
+        }
+        else {
+            //Sender has received the full JID of the person in this presence.
+            NSLog(@"%@", [presence from]);
+            jingleObj = [[OCJingleImpl alloc] initWithJID:[presence from] xmppStream: myXMPPStream];
             //If you're the sender, send an session-initiate to the "receiver".
-            [sender sendElement:
-             [jingleObj jingleSessionInitiateTo:[XMPPJID jidWithString: [[jingleObj jingleConstants] DEBUG_RECEIVER_JID]] recvportnum: [[jingleObj jingleConstants] DEBUG_RECVPORTNUM_SENDER] SID:nil]];
+            NSXMLElement *element = [jingleObj jingleSessionInitiateTo:[XMPPJID jidWithString: [[jingleObj jingleConstants] DEBUG_RECEIVER_JID]] recvportnum: (uint16_t)[[jingleObj jingleConstants] DEBUG_RECVPORTNUM_SENDER] SID:nil];
+            [sender sendElement: element];
+            NSLog(@"DEBUG: Sent the following session-initiate msg: %@", element);
             [jingleObj printJingleObject];
         }
-        // If you're not the receiver, you just wait.
     }
 }
 
@@ -189,6 +203,7 @@
     }
     else {
         //If there are other IQ packets that are not jingle, process here.
+        NSLog(@"The previously printed packet is not a jingle IQ packet");
     }
 	return NO;
 }
