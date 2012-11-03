@@ -24,7 +24,7 @@ public class ConferencePacket extends Packet {
 	private ArrayList<User> participants;
 	private boolean packetIDSet;
 	private static int roomID;
-	private int roomIDPull;
+	private String usernamePull;
 	private String subject; // indicates whether this packet contains
 							// information or is a request for some other action
 							// from the database
@@ -47,7 +47,7 @@ public class ConferencePacket extends Packet {
 		this.inviterName = inviter.getUsername();
 		this.recurrence = recurrence;
 		this.description = description;
-		roomIDPull = -1; // set to -1 so we can check if other constructor
+		usernamePull = ""; // set to -1 so we can check if other constructor
 							// called it
 		ArrayList<String> participantNames = new ArrayList<String>();
 		for (User user : participants) {
@@ -63,9 +63,9 @@ public class ConferencePacket extends Packet {
 		addProperties();
 	}
 
-	public ConferencePacket(int roomID, String subject) {
+	public ConferencePacket(String username,String subject) {
 		this.subject = subject;
-		roomIDPull = roomID;
+		usernamePull =username;
 	}
 
 	/**
@@ -142,7 +142,7 @@ public class ConferencePacket extends Packet {
 		this.setProperty("subject", subject);
 		if (subject.equals(SENDING_INFO_INDICATOR)) {
 			// if this is sending info about a conference, send the remainder of
-			// the info. If not, send only the roomID for the pull (roomIDPull)
+			// the info. If not, send only the username for the pull (usernamePull)
 			String roomIDString = "" + roomID;
 			this.setProperty("roomID", roomIDString);
 			this.setProperty("roomname", name);
@@ -162,8 +162,8 @@ public class ConferencePacket extends Packet {
 		} else {
 			// change to elseIf once more than these two types of packets can be
 			// sent to the database (like packets asking to modify information)
-			String roomIDPullString = "" + roomIDPull;
-			this.setProperty("roomID", roomIDPullString);
+			String usernamestring = "" + usernamePull;
+			this.setProperty("invitername", usernamestring);
 		}
 	}
 
