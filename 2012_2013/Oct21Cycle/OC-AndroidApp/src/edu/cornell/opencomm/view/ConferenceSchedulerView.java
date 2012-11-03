@@ -54,7 +54,7 @@ public class ConferenceSchedulerView extends Activity {
 	
 	 private class RetrieveConferencesTask extends AsyncTask<Void, Void, String> {
 	     protected String doInBackground(Void... arg0) {
-	    	 ConferenceCommunicator.pullConferencesForUser(UserManager.PRIMARY_USER.getUsername());
+//	    	 ConferenceCommunicator.pullConferencesForUser(UserManager.PRIMARY_USER.getUsername());
 	    	 String data = ""; // Get the string data somehow
 	    	 conferences = parseConferenceDataToObjects(data);
 	    	 retrieveAndDisplayConferences(conferences);
