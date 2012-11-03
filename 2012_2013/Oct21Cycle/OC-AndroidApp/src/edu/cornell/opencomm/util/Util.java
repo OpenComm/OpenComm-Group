@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 public class Util {
 	// TODO create the values class
-	private final static boolean D = false;
+	private final static boolean D = true;
 	/**
 	 * Pattern for validating email address
 	 */
