@@ -36,8 +36,9 @@ public class ContactsViewAdapter extends ArrayAdapter<User>{
 	     }
 	     ImageView contact_picture = (ImageView) contact_entry.findViewById(R.id.contact_picture);
 	     Resources res = context.getResources();
-	     Drawable drawable = res.getDrawable(contact.getImage());
-	     contact_picture.setImageDrawable(drawable); 
+//	   		TODO: fix to use bitmap
+//	     Drawable drawable = res.getDrawable(contact.getImage());
+//	     contact_picture.setImageDrawable(drawable); 
 	     TextView contact_name = (TextView) contact_entry.findViewById(R.id.contact_name);
 	     contact_name.setText(contact.getNickname());
 	     return contact_entry;
