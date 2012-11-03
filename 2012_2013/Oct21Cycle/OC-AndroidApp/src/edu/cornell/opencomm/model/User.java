@@ -1,14 +1,20 @@
 package edu.cornell.opencomm.model;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.packet.VCard;
 
 import android.util.Log;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Manager.UserManager;
+import edu.cornell.opencomm.network.NetworkService;
 
 /* An object representing a user who is taking part in the conversation */
 
 public class User implements Comparable<User> {
+	private static final String TAG = "Model.User";
 	/**
 	 * 
 	 */
@@ -42,7 +48,7 @@ public class User implements Comparable<User> {
 	public int userColor;
 
 	/**
-	 * CONSTRUCTOR: = a new User
+	 * DEPRECIATED -- use the new constructor with all needed fields
 	 * 
 	 * @param username
 	 *            - the JID of the User
@@ -65,16 +71,45 @@ public class User implements Comparable<User> {
 		this.userColor = UserManager.getUserColor(username);
 	}
 
-	public User(String firstname, String lastname, String email, byte[] photo,
-			String title, String username, String nickname, int image) {
-		this(username, nickname, image);
-		this.vCard.setFirstName(firstname);
-		this.vCard.setLastName(lastname);
-		this.vCard.setEmailHome(email);
-		this.vCard.setAvatar(photo);
-		this.vCard.setNickName(this.nickname);
-		this.vCard.setJabberId(username);
-		
+	/**
+	 * CONSTRUCTOR := a new User
+	 * @param firstname
+	 * @param lastname
+	 * @param email
+	 * @param photo
+	 * @param title
+	 * @param username
+	 * @param nickname
+	 */
+	public User(String firstname, String lastname, String email,
+			InputStream photo, String title, String username, String nickname) {
+		this(username, nickname, 0);
+		try {
+			// try to get User's VCard
+			this.vCard.load(NetworkService.getInstance().getConnection(),
+					username);
+		} catch (XMPPException e2) {
+			// if no VCard exists, create one
+			byte[] bytes = null;
+			this.vCard = new VCard();
+			try {
+				bytes = new byte[photo.available()];
+				photo.read(bytes);
+			} catch (IOException e1) {
+				Log.v(TAG, "cannot get image");
+			}
+			this.vCard.setFirstName(firstname);
+			this.vCard.setLastName(lastname);
+			this.vCard.setEmailHome(email);
+			this.vCard.setAvatar(bytes);
+			this.vCard.setNickName(this.nickname);
+			this.vCard.setJabberId(username);
+			try {
+				this.vCard.save(NetworkService.getInstance().getConnection());
+			} catch (XMPPException e) {
+				Log.v(TAG, "error creating User");
+			}
+		}
 	}
 
 	/**

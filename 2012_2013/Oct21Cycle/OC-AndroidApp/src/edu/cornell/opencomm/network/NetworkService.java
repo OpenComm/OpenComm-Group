@@ -1,5 +1,6 @@
 package edu.cornell.opencomm.network;
 
+import org.jivesoftware.smack.AccountManager;
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.XMPPConnection;
@@ -49,6 +50,7 @@ public class NetworkService {
 	private ConnectionConfiguration xmppConfig;
 	private PrivacyList blockList;
 	private boolean isAuthenticated;
+	private AccountManager accountManager;
 
 	public static NetworkService getInstance() {
 		if (_instance == null) {
@@ -121,6 +123,13 @@ public class NetworkService {
 	
 	public PrivacyList getBlockList() {
 		return this.blockList;
+	}
+	
+	public AccountManager getAccountManager() {
+		if (this.accountManager == null) {
+			this.accountManager = new AccountManager(this.getConnection());
+		}
+		return this.accountManager;
 	}
 
 	/**
