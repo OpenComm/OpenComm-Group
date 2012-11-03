@@ -24,7 +24,6 @@ public class ContactListController {
 
 	private static final String LOG_TAG = "Controller.ContactListController";
 	private static final boolean D = true;
-	private static ContactListController _instance = null;
 
 	private Roster roster;
 	NetworkService xmppService;
