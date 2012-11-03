@@ -97,14 +97,4 @@ public class ContactsView extends Activity{
 		ListView contactList = (ListView)findViewById(R.id.contacts_list);
 		contactList.setAdapter(adapter);
 	}
-	
-	public User[] getContacts(){
-		ArrayList<User> users = new ArrayList<User>();
-		users.add(new User("risa", "Risa Naka", R.drawable.example_picture_1));
-		users.add(new User("nora", "Nora Ng-Quinn", R.drawable.example_picture_2));
-		users.add(new User("makoto", "Makoto Bentz", R.drawable.example_picture_3));
-		users.add(new User("graeme", "Graeme Bailey", R.drawable.example_picture_4));
-		return users.toArray(new User[users.size()]);
-	}
-
 }
