@@ -2,6 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>DEBUG_PARAM</key>
+	<true/>
+	<key>DEBUG_IS_SENDER</key>
+	<true/>
+	<key>DEBUG_IS_RECEIVER</key>
+	<false/>
+	<key>DEBUG_RECVPORTNUM_SENDER</key>
+	<integer>1337</integer>
+	<key>DEBUG_RECVPORTNUM_RECEIVER</key>
+	<string>5150</string>
 	<key>STATE_ENDED</key>
 	<string>ENDED</string>
 	<key>STATE_PENDING</key>

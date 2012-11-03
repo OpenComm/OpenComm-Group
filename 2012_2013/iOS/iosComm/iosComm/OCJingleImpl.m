@@ -55,9 +55,9 @@
 
 
 //-------------------------------------------------------------------
-// Creates the OCJingleImpl object. State is initially at ended. Initializes constants
+// Creates the OCJingleImpl object. State is initially at ended. Initializes constants.
 //-------------------------------------------------------------------
-- (id)initWithJID: (XMPPJID *)JIDParam {
+- (id)initWithJID: (XMPPJID *)JIDParam xmppStream:(XMPPStream *)xmppStreamParam {
     self = [super init];
     if (self) {
         jingleConstants = [[OCJingleConstantsController alloc] init];
@@ -72,6 +72,7 @@
         toSID = nil;
         //currentIQID = nil;
         pendingAck = false;
+        xmppStream = xmppStreamParam;
     }
     return self;
 }
@@ -271,17 +272,6 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
     return ack;
 }
 
-//-------------------------------------------------------------------
-// Process a received ack.
-// Special rules depending on which state you are in.
-//-------------------------------------------------------------------
-- (void) jingleReceiveAck {
-    //If you receive an ack after you sent a session accept, your state changes to active
-    if ([state isEqualToString: [jingleConstants STATE_PENDING]] && toIPAddress != nil) {
-        state = [jingleConstants STATE_ACTIVE];
-    }
-}
-
 /******************************** HELPER FUNCTIONS TO PROCESS JINGLE PACKETS *****************************/
 
 //-------------------------------------------------------------------
@@ -304,7 +294,32 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
 
 }
 
+//-------------------------------------------------------------------
+// Returns whether the person who sent this packet is the person you expect to receive it from.
+//-------------------------------------------------------------------
+- (bool) isFromCorrectPerson: (XMPPIQ *)packet {
+    return [[packet attributeStringValueForName: [jingleConstants ATTRIBUTE_FROM]] isEqualToString: [toJID full]];
+}
+
 /****************************** END HELPER FUNCTIONS TO PROCESS JINGLE PACKETS ***************************/
+
+//-------------------------------------------------------------------
+// Process a received ack.
+// Special rules depending on which state you are in.
+//-------------------------------------------------------------------
+- (bool) jingleReceiveAck: (XMPPIQ *) ackPacket {
+    /*Ensure that you were expecting an ack from this person
+     *Optional TODO: include id identification with packets as well in this check. */
+    if (pendingAck && [self isFromCorrectPerson: ackPacket]) {
+        //If you receive an ack after you sent a session accept, your state changes to active
+        if ([state isEqualToString: [jingleConstants STATE_PENDING]] && toIPAddress != nil) {
+            state = [jingleConstants STATE_ACTIVE];
+        }
+        pendingAck = false;
+        return true;
+    }
+    else return false;
+}
 
 //-------------------------------------------------------------------
 // Returns a Jingle IQ accept session packet for sending to the server to the user who sent jingleIQPacket
@@ -336,45 +351,127 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
 //-------------------------------------------------------------------
 // Processes an Accept Session packet from the remote end.
 //-------------------------------------------------------------------
-- (void) jingleReceiveSessionAcceptFromPacket: (XMPPIQ *)jingleIQPacket {
-    [self getRemoteInformationFromPacket: jingleIQPacket];
-    state = [jingleConstants STATE_ACTIVE]; //they officially accepted, so now it's active!
+- (bool) jingleReceiveSessionAcceptFromPacket: (XMPPIQ *)jingleIQPacket {
+    if ([self isFromCorrectPerson: jingleIQPacket]) {
+        [self getRemoteInformationFromPacket: jingleIQPacket];
+        state = [jingleConstants STATE_ACTIVE]; //they officially accepted, so now it's active!
+        return true;
+    }
+    else return false;
 }
 
 //-------------------------------------------------------------------
-// Returns a Jingle IQ session-terminate packet for sending to the server to the other person
-// or nil if state != active.
+// Returns a Jingle IQ session-terminate packet for sending to the server to the person in the given IQPacket
 // Also updates the state to ended.
 //-------------------------------------------------------------------
-- (NSXMLElement *) jingleSessionTerminate {
-    if (![state isEqualToString: [jingleConstants STATE_ACTIVE]]) {
-        return nil;
-    }
-    
+- (NSXMLElement *) jingleSessionTerminateWithReason: (NSString *)reason inResponseTo: (XMPPIQ *)IQPacket{    
     //Termination with no error reason.
-    NSXMLElement *reasonElement = [self createReasonElementWithReason: [jingleConstants SUCCESS_ELEMENT_NAME]];
+    NSXMLElement *reasonElement = [self createReasonElementWithReason: reason];
     NSXMLElement *jingleElement = [self createJingleElementWithAction: [jingleConstants SESSION_TERMINATE] SID: mySID Initiator: nil Responder: nil childElement: reasonElement];
     
-    //Reset state
-    state = [jingleConstants STATE_ENDED];
-    toJID = nil;
-    toSID = nil;
-    toIPAddress = nil;
-    toPort = nil;
-    
-    return [self createBaseIQElement: toJID JingleElement: jingleElement];
+    XMPPJID *respondingToJID = [XMPPJID jidWithString: [IQPacket attributeStringValueForName: [jingleConstants ATTRIBUTE_FROM]]];
+    return [self createBaseIQElement: respondingToJID JingleElement: jingleElement];
 }
 
 //-------------------------------------------------------------------
 // Actions to do upon receiving a session terminate from the remote side.
 //-------------------------------------------------------------------
-- (void) jingleReceiveSessionTerminate {
-    //Reset state
+- (bool) jingleReceiveSessionTerminateFromPacket: (XMPPIQ *)jingleIQPacket{
+    /* If you're not in the right state (active state) or if the received termination packet is NOT
+     * from the other endpoint */
+    if (!([state isEqualToString:[jingleConstants STATE_ACTIVE]] &&
+          [[jingleIQPacket attributeStringValueForName: [jingleConstants ATTRIBUTE_FROM]] isEqualToString:[toJID full]])) {
+        return false;
+    }
+    //You are free to reset state
     state = [jingleConstants STATE_ENDED];
     toJID = nil;
     toSID = nil;
     toIPAddress = nil;
     toPort = nil;
+    return true;
+}
+
+//-------------------------------------------------------------------
+// Checks whether the IQPacket's child
+//-------------------------------------------------------------------
+- (bool) isJinglePacket: (XMPPIQ *)IQPacket {
+    NSXMLElement *child = [IQPacket childElement];
+    if (child == nil) {
+        return false;
+    }
+    return [[child name] isEqualToString: [jingleConstants JINGLE_ELEMENT_NAME]];
+}
+
+//-------------------------------------------------------------------
+// Checks whether the IQPacket is of type result (ack packets are of type result)
+//-------------------------------------------------------------------
+- (bool) isAckPacket: (XMPPIQ *)IQPacket {
+    return [IQPacket isResultIQ];
+}
+
+//-------------------------------------------------------------------
+// Checks whether the JingleIQPacket is of the certified action
+// ASSUMES THE PACKET IS A JINGLE PACKET.
+//-------------------------------------------------------------------
+- (bool) isJinglePacket: (XMPPIQ *)JingleIQPacket OfAction: (NSString *)Action {
+        NSXMLElement *jingleElement = [JingleIQPacket childElement];
+        NSString *actionOfPacket = [jingleElement attributeStringValueForName: [jingleConstants ATTRIBUTE_ACTION]];
+        return [actionOfPacket isEqualToString: Action];
+}
+
+//-------------------------------------------------------------------
+// Combined with the given packet and this object's current state,
+// process the packet if possible. Returns false when this function
+// doesn't do anything in progressing the Jingle protocol (in which case,
+// this packet is probably meant to be processed for something else)
+//-------------------------------------------------------------------
+- (bool) processPacketForJingle: (XMPPIQ *)IQPacket {
+    if ([self isAckPacket: IQPacket]) {
+        //handles ack packets that may or may not be meant for jingle
+        return [self jingleReceiveAck: IQPacket];
+    }
+    else if ([self isJinglePacket: IQPacket]) {
+        //it is a jingle packet
+        //Send back an ACK first!
+        [xmppStream sendElement: [self jingleAckForPacket: IQPacket]];
+        
+        //Now create a packet based on what kind it is if applicable.
+        if ([self isJinglePacket: IQPacket OfAction: [jingleConstants SESSION_INITIATE]]) {
+            //TODO pop up an alert here, provided the state of this is at ended,
+            // to see if the user wants to continue with the session.
+            //Then have an alert handler, upon OK, return the applicable IQ. Return true.
+            
+            //TODO also have a way to input the recvportnum obviously
+            NSXMLElement *returnIQ = nil;
+            if ([jingleConstants DEBUG_PARAM]) {
+                returnIQ = [self jingleRespondSessionAcceptFromPacket:IQPacket recvportnum: [jingleConstants DEBUG_RECVPORTNUM_RECEIVER] SID:nil];
+            }
+            else {
+                //TODO set IQ with a real port num.
+            }
+            //not in correct state to respond. don't respond with accept! send them a decline.
+            if (returnIQ == nil) {
+                returnIQ = [self jingleSessionTerminateWithReason: [jingleConstants DECLINE_ELEMENT_NAME] inResponseTo: IQPacket];
+            }
+            [xmppStream sendElement: returnIQ];
+            return true;
+        }
+        else if ([self isJinglePacket: IQPacket OfAction: [jingleConstants SESSION_ACCEPT]]) {
+            //merely process the session accept - no need to respond with an IQPacket.
+            return [self jingleReceiveSessionAcceptFromPacket: IQPacket];
+        }
+        else if ([self isJinglePacket: IQPacket OfAction: [jingleConstants SESSION_TERMINATE]]) {
+            //merely process the session terminate - no need to respond with an IQPacket.
+            return [self jingleReceiveSessionTerminateFromPacket: IQPacket];
+        }
+        else { //There are other actions, but we just don't support them yet...
+            //however, it will be considered "handled" in our case for now.
+            return true;
+        }
+    }
+    //the packet is not a jingle packet
+    else return false;
 }
 
 @end

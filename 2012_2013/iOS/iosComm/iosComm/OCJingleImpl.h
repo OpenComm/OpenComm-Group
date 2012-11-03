@@ -29,12 +29,14 @@
     bool pendingAck; //true if you are waiting for an ack of a packet you sent.
     //TODO this class should include whatever socket we'll be using.
     
+    XMPPStream *xmppStream;
+    
 }
 
 /**For implementation details / specs, check the .m file**/
 
-/**Init the object with YOUR OWN JID**/
-- (id) initWithJID: (XMPPJID *)JIDParam;
+/**Init the object with YOUR OWN JID and xmpp stream to the server**/
+- (id) initWithJID: (XMPPJID *)JIDParam xmppStream: (XMPPStream *)xmppStreamParam;
 
 /**Send a session initiate to JIDto. The port you will be listening on is at portNum**/
 - (NSXMLElement *) jingleSessionInitiateTo: (XMPPJID *)JIDto recvportnum: (uint16_t)portNum SID: (NSString *)sid;
@@ -42,23 +44,42 @@
 /**Given a packet, it spits out an ACK packet that you need to send back upon immediately receiving it**/
 - (NSXMLElement *) jingleAckForPacket: (XMPPIQ *)recvPacket;
 
-/**Process a received ACK packet**/
-- (void) jingleReceiveAck;
+/**Process a received ACK packet. Returns true if expecting an ack from this person.**/
+- (bool) jingleReceiveAck: (XMPPIQ *) ackPacket;
 
 /**Send a session accept to the session initiate packet from jingleIQPacket**/
 - (NSXMLElement *) jingleRespondSessionAcceptFromPacket: (XMPPIQ *)jingleIQPacket recvportnum: (uint16_t)portNum SID: (NSString *)sid;
 
-/**Process session accept in response to your sent session initiate packet. The accept packet is jingleIQPacket**/
-- (void) jingleReceiveSessionAcceptFromPacket: (XMPPIQ *)jingleIQPacket;
+/**Process session accept in response to your sent session initiate packet. The accept packet is jingleIQPacket. Returns true if the packet is meant for you and is processed.**/
+- (bool) jingleReceiveSessionAcceptFromPacket: (XMPPIQ *)jingleIQPacket;
 
-/**Terminate the current session**/
-- (NSXMLElement *) jingleSessionTerminate;
+/**Create a session-terminate packet with the given reason to the sender of the IQPacket
+ **Possible reasons are listed in the .plist: Success or Decline are supported for now**/
+- (NSXMLElement *) jingleSessionTerminateWithReason: (NSString *)reason inResponseTo: (XMPPIQ *)IQPacket;
 
 /**Process a received session-terminate packet**/
-- (void) jingleReceiveSessionTerminate;
+- (bool) jingleReceiveSessionTerminateFromPacket: (XMPPIQ *)jingleIQPacket;
+
+/**Returns whether the given packet is a jingle packet**/
+- (bool) isJinglePacket: (XMPPIQ *)IQPacket;
+
+/**Returns whether the given packet is an ACK packet**/
+- (bool) isAckPacket: (XMPPIQ *)IQPacket;
+
+/**Returns whether the given packet is of the given action (session-initiate, session-accept, session-terminate). These actions are listed in the constants controller.
+    IT ASSUMES THE PACKET IS A JINGLE PACKET! check isJinglePacket first before calling this func**/
+- (bool) isJinglePacket: (XMPPIQ *)JingleIQPacket OfAction: (NSString *)Action;
+
+/**General function that contains the logic of changing state / calling the appropriate function
+ **Based on jingle standards. Basically contains Jingle Application Flow.
+ **It returns true if the packet is successfully handled.
+ **False if the packet is not meant for Jingle processing.**/
+- (bool) processPacketForJingle: (XMPPIQ *)IQPacket;
 
 //TODO Support Application and Transport functions.
 //This is just stubbed to true on the android side.
-//- (bool) supportedFunctionalty: (XMPPIQ *)jingleIQPacket;
+//If I were to implement this, it would return nil if everything is supported
+//Or return the appropriate error string defined by XMPP Jingle if something is not supported.
+//- (NSString *) supportedFunctionalty: (XMPPIQ *)jingleIQPacket;
 
 @end

@@ -33,6 +33,11 @@
         if (!temp) {
             NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
         }
+        self.DEBUG_PARAM = (Boolean)[temp objectForKey: @"DEBUG_PARAM"];
+        self.DEBUG_IS_SENDER = (Boolean)[temp objectForKey: @"DEBUG_IS_SENDER"];
+        self.DEBUG_IS_RECEIVER = (Boolean)[temp objectForKey: @"DEBUG_IS_RECEIVER"];
+        self.DEBUG_RECVPORTNUM_SENDER = (Boolean)[temp objectForKey: @"DEBUG_RECVPORTNUM_SENDER"];
+        self.DEBUG_RECVPORTNUM_RECEIVER = (Boolean)[temp objectForKey: @"DEBUG_RECVPORTNUM_RECEIVER"];
         
         self.STATE_ENDED = [temp objectForKey:@"STATE_ENDED"];
 		self.STATE_PENDING = [temp objectForKey:@"STATE_PENDING"];
@@ -89,6 +94,12 @@
     return self;
     
 }
+
+@synthesize DEBUG_PARAM;
+@synthesize DEBUG_IS_SENDER;
+@synthesize DEBUG_IS_RECEIVER;
+@synthesize DEBUG_RECVPORTNUM_SENDER;
+@synthesize DEBUG_RECVPORTNUM_RECEIVER;
 
 @synthesize STATE_ENDED;
 @synthesize STATE_PENDING;

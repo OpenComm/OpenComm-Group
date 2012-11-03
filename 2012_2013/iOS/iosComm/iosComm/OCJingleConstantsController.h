@@ -10,6 +10,12 @@
 
 @interface OCJingleConstantsController : NSObject {
     /*
+    Boolean DEBUG_PARAM;
+    Boolean DEBUG_IS_SENDER;
+    Boolean DEBUG_IS_RECEIVER;
+    int DEBUG_RECVPORTNUM_SENDER;
+    int DEBUG_RECVPORTNUM_RECEIVER;
+     
     NSString *STATE_ENDED;
     NSString *STATE_PENDING;
     NSString *STATE_ACTIVE;
@@ -63,6 +69,13 @@
     NSString *DECLINE_ELEMENT_NAME;
     */
 }
+
+/*Boolean constants for debugging*/
+@property (nonatomic) Boolean DEBUG_PARAM;
+@property (nonatomic) Boolean DEBUG_IS_SENDER;
+@property (nonatomic) Boolean DEBUG_IS_RECEIVER;
+@property (nonatomic) int DEBUG_RECVPORTNUM_SENDER;
+@property (nonatomic) int DEBUG_RECVPORTNUM_RECEIVER;
 
 /*String constants for the state*/
 @property (copy, nonatomic) NSString *STATE_ENDED;
