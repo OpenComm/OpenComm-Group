@@ -159,7 +159,13 @@ public class LoginController {
 		@Override
 		protected ReturnState doInBackground(String... strings) {
 			if (NetworkService.getInstance().login(strings[0], strings[1])) {
-				UserManager.PRIMARY_USER = new User(strings[0], strings[0], 0);
+				// if network service is in debug mode
+				if (NetworkService.D) {
+					UserManager.PRIMARY_USER = new User("opencommsec@cuopencomm.no-ip.org", "opencommsec@cuopencomm.no-ip.org", 0);
+				}
+				else {
+					UserManager.PRIMARY_USER = new User(strings[0], strings[0], 0);
+				}
 				return ReturnState.SUCCEEDED;
 			} else {
 				return ReturnState.COULDNT_CONNECT;

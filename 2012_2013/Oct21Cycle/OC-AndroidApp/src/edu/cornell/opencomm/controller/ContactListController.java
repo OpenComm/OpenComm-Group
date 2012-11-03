@@ -15,6 +15,7 @@ import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ContactsSearchView;
 import edu.cornell.opencomm.view.ContactsView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -37,10 +38,10 @@ public class ContactListController {
 		FAILED, SUCCEEDED
 	};
 
-	private ContactsSearchView view;
+	private Activity view;
 
 
-	public ContactListController (ContactsSearchView v){
+	public ContactListController (Activity v) {
 		this.view = v;
 		this.xmppService = NetworkService.getInstance();
 		this.xmppConn = this.xmppService.getConnection();

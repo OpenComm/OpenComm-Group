@@ -14,9 +14,7 @@ public class MyAccountController {
 	}
 	
 	public void handleBackButtonClicked() {
-		int duration = Toast.LENGTH_SHORT;
-		Toast toast = Toast.makeText(view.getApplicationContext(), "Back Button Pressed", duration);
-		toast.show();	
+		this.view.onBackPressed();	
 	}
 	
 	public void handleEditButtonClicked() {

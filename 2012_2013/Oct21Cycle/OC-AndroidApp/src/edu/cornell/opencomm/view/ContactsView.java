@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Manager.UserManager;
+import edu.cornell.opencomm.controller.ContactListController;
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.model.User;
 import android.app.Activity;
@@ -16,11 +17,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 public class ContactsView extends Activity{
-	//private ContactsDbAdapter dbHelper;
+	
+	private ContactListController controller;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.contacts_layout);
+		this.controller = new ContactListController(this);
+		this.controller.updateContacts();
 		retrieveAndDisplayContacts();
 		adjustLayoutLookAndFunctionality();
 		//dbHelper = new ContactsDbAdapter();

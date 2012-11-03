@@ -35,7 +35,7 @@ import android.util.Log;
 
 public class NetworkService {
 
-	private static final boolean D = true;
+	public static final boolean D = true;
 	private static final String TAG = "Network.NetworkService";
 
 	private static final String DEFAULT_HOST = "cuopencomm.no-ip.org";
@@ -97,6 +97,7 @@ public class NetworkService {
 			Log.v(TAG, "Attempting Login: User Name = " + username
 					+ " password = " + password);
 			if (D) {
+				Log.d(TAG, "Actually going to sign in as opencommsec :P");
 				this.getConnection().login("opencommsec" + DEFAULT_HOSTNAME,
 						"secopencomm", DEFAULT_RESOURCE);
 			} else {
