@@ -211,7 +211,7 @@ public class ConferencePacket extends Packet {
 	 */
 	public String toXML() {
 		StringBuilder buf = new StringBuilder();
-		buf.append("<ConferencePacket ");
+		buf.append("<message ");
 		if (packetIDSet) { // includes only a set Id - not a default
 			buf.append("id=\"" + getPacketID() + "\"");
 		}
@@ -240,7 +240,7 @@ public class ConferencePacket extends Packet {
 			}
 		}
 
-		buf.append("\n</ConferencePacket>");
+		buf.append("\n</message>");
 		return buf.toString();
 
 	}
