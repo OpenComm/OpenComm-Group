@@ -140,7 +140,9 @@ public class User implements Comparable<User> {
 	public String getNickname() {
 		return this.nickname;
 	}
-
+	public int getImage(){
+		return image;
+	}
 
 	/** @return - the User's vCard */
 	public VCard getVCard() {
@@ -157,7 +159,7 @@ public class User implements Comparable<User> {
 		byte[] bitmapdata = blob.toByteArray();
 		vCard.setAvatar(bitmapdata);
 	}
-	public Bitmap getImage(){
+	public Bitmap getBitMap(){
 		byte[] bitmapdata = vCard.getAvatar();
 		return BitmapFactory.decodeByteArray(bitmapdata , 0, bitmapdata .length);
 	}
