@@ -24,7 +24,8 @@ public class ConferencePacket extends Packet {
 	private ArrayList<User> participants;
 	private boolean packetIDSet;
 	private static int roomID;
-	private int roomIDPull;
+	
+	private String userNamePull;
 	private String subject; // indicates whether this packet contains
 							// information or is a request for some other action
 							// from the database
@@ -47,7 +48,7 @@ public class ConferencePacket extends Packet {
 		this.inviterName = inviter.getUsername();
 		this.recurrence = recurrence;
 		this.description = description;
-		roomIDPull = -1; // set to -1 so we can check if other constructor
+		userNamePull = ""; // set to -1 so we can check if other constructor
 							// called it
 		ArrayList<String> participantNames = new ArrayList<String>();
 		for (User user : participants) {
@@ -63,9 +64,9 @@ public class ConferencePacket extends Packet {
 		addProperties();
 	}
 
-	public ConferencePacket(int roomID, String subject) {
+	public ConferencePacket(String userName, String subject) {
 		this.subject = subject;
-		roomIDPull = roomID;
+		this.userNamePull = userName;
 	}
 
 	/**
@@ -162,8 +163,8 @@ public class ConferencePacket extends Packet {
 		} else {
 			// change to elseIf once more than these two types of packets can be
 			// sent to the database (like packets asking to modify information)
-			String roomIDPullString = "" + roomIDPull;
-			this.setProperty("roomID", roomIDPullString);
+			String usernamestring = "" + userNamePull;
+			this.setProperty("invitername", usernamestring);
 		}
 	}
 

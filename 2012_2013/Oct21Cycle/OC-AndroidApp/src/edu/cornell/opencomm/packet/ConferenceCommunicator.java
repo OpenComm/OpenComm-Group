@@ -23,7 +23,7 @@ public class ConferenceCommunicator implements PacketListener {
 	private static final String PUSH_CONFIRMATION_SUBJECT = "ConferencePushResult";
 	// subject in packets from database in response to pull request
 	private static final String PUSH_SUCCESS = "SUCCESS";
-	private static final String PUSH_FAILURE = "FAILURE";
+	private static final String PUSH_FAILURE = "FAIL";
 	private SimpleObserver listner;
 	
 	public static final String LOG_TAG = "Network.ConferenceCommunicator";
@@ -44,12 +44,14 @@ public class ConferenceCommunicator implements PacketListener {
 
 		@Override
 		protected String doInBackground(String... params) {
-//			ConferencePacket packet = new ConferencePacket(roomID, PULL_SUBJECT);
-//			packet.setFrom(xmppConn.getUser());
-//			packet.setTo("scheduling.cuopencomm.no-ip.org");
-//			packet.setPacketID(PULL_SUBJECT);
-//			xmppConn.sendPacket(packet);
-//			Log.v(LOG_TAG, "pull message sent");
+			NetworkService.getInstance().connect();
+			XMPPConnection xmppConn = NetworkService.getInstance().getConnection();
+			ConferencePacket packet = new ConferencePacket(xmppConn.getUser(), PULL_SUBJECT);
+			packet.setFrom(xmppConn.getUser());
+			packet.setTo("scheduling.cuopencomm.no-ip.org");
+			packet.setPacketID(PULL_SUBJECT);
+			xmppConn.sendPacket(packet);
+			Log.v(LOG_TAG, "pull message sent");
 			return null;
 		}
 		
@@ -86,10 +88,23 @@ public class ConferenceCommunicator implements PacketListener {
 				} else {
 					Log.v(LOG_TAG, "pull successful.  returned info: "
 							+ received.getBody());
-					listner.onUpdate(received.getBody());
+					listner.onUpdate(911,received.getBody());
 				}
 				
 			}
+			else if (received.getPacketID().equals(PUSH_CONFIRMATION_SUBJECT)) {
+				if (received.getBody() == null
+						|| received.getBody().equals("")) {
+					Log.v(LOG_TAG, "push failed");
+					listner.onError("push Failure");
+				} else {
+					Log.v(LOG_TAG, "pull successful.  returned info: "
+							+ received.getBody());
+					//TODO Crystal FIX THE CODES EXCHANGED THE SERVER AND 
+				}
+				
+			}
+			
 		}
 		
 	}
