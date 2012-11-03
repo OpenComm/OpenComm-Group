@@ -65,18 +65,38 @@ public final class AccountController {
 
 	public void changeNickname(String nickname) {
 		vCard.setNickName(nickname);
+		try {
+			vCard.save(NetworkService.getInstance().getConnection());
+		} catch (XMPPException e) {
+			Log.v(TAG, "error in updating nickname");
+		}
 	}
 
 	public void changePhoneNumber(String number) {
 		vCard.setPhoneHome("VOICE", number);
+		try {
+			vCard.save(NetworkService.getInstance().getConnection());
+		} catch (XMPPException e) {
+			Log.v(TAG, "error in updating phone number");
+		}
 	}
 
 	public void changeEmail(String email) {
 		vCard.setEmailHome(email);
+		try {
+			vCard.save(NetworkService.getInstance().getConnection());
+		} catch (XMPPException e) {
+			Log.v(TAG, "error in updating email");
+		}
 	}
 
 	public void changeImage(byte[] image) {
 		vCard.setAvatar(image);
+		try {
+			vCard.save(NetworkService.getInstance().getConnection());
+		} catch (XMPPException e) {
+			Log.v(TAG, "error in updating image");
+		}
 	}
 
 	public void changePassword(String password) {
