@@ -19,8 +19,14 @@ import javax.mail.internet.MimeMultipart;
 
 
 public class GMailerClass extends javax.mail.Authenticator { 
-  private String user; 
-  private String password; 
+  private final String user= "ocuserservice@gmail.com"; //DEVELOPER'S USERNAME: OCUSERSERVICE@GMAIL.COM
+  private final String password="ocuserservice"; //DEVELOPER'S PASSWORD
+  private final String secret= "VyR652Td";
+  
+  private String createAccount;
+  private String createAccountPassword;
+  private String userEmail;
+  private String userName;
 
   private String[] toRecipient; 
   private String fromRecipient; 
@@ -45,8 +51,8 @@ public class GMailerClass extends javax.mail.Authenticator {
     port = "465"; // default smtp port 
     sPort = "465"; // default socketfactory port 
 
-    user = ""; // username 
-    password = ""; // password 
+    //user = ""; // username 
+    //password = ""; // password 
     fromRecipient = ""; // email sent from 
     subject = ""; // email subject 
     body = ""; // email body 
@@ -60,9 +66,8 @@ public class GMailerClass extends javax.mail.Authenticator {
 
   public GMailerClass(String user, String pass) { 
     this(); 
-
-    this.user = user; 
-    password = pass; 
+   // this.user = user; 
+    //password = pass; 
   } 
 
   public boolean send() throws Exception { 
@@ -100,6 +105,38 @@ public class GMailerClass extends javax.mail.Authenticator {
       return false; 
     } 
   } 
+  
+  public void makeAccount(String userEmail, String createAccount, String createAccountPassword, String userName){
+	  this.userName=userName;
+	  this.userEmail=userEmail;
+	  this.createAccount=createAccount;
+	  this.createAccountPassword=createAccountPassword;
+	  
+	  String[] toArr = {getCreatedAccountUser()}; 
+      setTo(toArr); 
+      setFrom(getDeveloperEmail()); 
+      setSubject("This is a confirmation email"); 
+      setBody("To add your account:"+"http://cuopencomm.no-ip.org:9090/plugins/userService/userservice?type=add&secret=" +
+      		getSecret() +"&username=" + getCreatedAccountUser() + "&password=" + getCreatedAccountPassword()+ "&name="+ getUserName() +"&email=" + getUserEmail() + '\n' + '\n' +
+      		"To enable your account:" + "http://example.com:9090/plugins/userService/userservice?type=enable&secret="+ getSecret() +"&username=" + getUserName()); 
+      
+     	
+      //CODE TO SEND AN ATTACHED FILE
+      
+      try { 
+        //ATTCHEMENT FROM FILE
+
+        if(send()) { 
+          //TOAST or whatever frontend/design wants
+        } else { 
+          //TOAST 
+        } 
+      } catch(Exception e) { 
+        //TOAST
+  
+      } 
+  }
+  
 
   public void addAttachment(String filename) throws Exception { 
     BodyPart messageBodyPart = new MimeBodyPart(); 
@@ -159,6 +196,30 @@ public class GMailerClass extends javax.mail.Authenticator {
       // TODO Auto-generated method stub
       this.subject=string;
   }  
+  
+  public String getCreatedAccountUser(){
+	  return createAccount;
+  }
+  
+  public String getCreatedAccountPassword(){
+	  return createAccountPassword;
+  }
+  
+  public String getUserEmail(){
+	  return userEmail;
+  }
+  
+  public String getDeveloperEmail(){
+	  return user;
+  }
+  
+  public String getSecret(){
+	  return secret;
+  }
+  
+  public String getUserName(){
+	  return userName;
+  }
 
   // more of the getters and setters É.. 
 }

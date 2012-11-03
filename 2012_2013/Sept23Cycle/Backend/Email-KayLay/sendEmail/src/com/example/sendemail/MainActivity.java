@@ -2,10 +2,11 @@ package com.example.sendemail;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.util.Log;
+//import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+//import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -18,52 +19,41 @@ public class MainActivity extends Activity {
         Button send = (Button) findViewById(R.id.button1); 
         send.setOnClickListener(new View.OnClickListener() { 
           public void onClick(View view) { 
-            GMailerClass m = new GMailerClass("lei.kevin.n@gmail.com", "elcajon12"); 
+        	  
+        	  GMailerClass m= new GMailerClass();
+        	  //GMailerClass m = new GMailerClass("ocuserservice@gmail.com", "ocuserservice"); 
+        	   
+        	   //parameters for make account (email, open comm username, open comm password)
+        	   m.makeAccount("cuair.business@gmail.com", "cuair.business@gmail.com", "cuairbusiness", "KevinLei"); 
+        	   
+        	   
+        	   
+        	   
+//               String[] toArr = {m.getCreatedAccountUser()}; 
+//               m.setTo(toArr); 
+//               m.setFrom(m.getDeveloperEmail()); 
+//               m.setSubject("This is a confirmation email"); 
+//               m.setBody("http://cuopencomm.no-ip.org:9090/plugins/userService/userservice?type=add&secret=" +
+//               		m.getSecret() +"&username=" + m.getCreatedAccountUser() + "&password=" + m.getCreatedAccountPassword()+ "&name=franz&email=" + m.getUserEmail()); 
+//               
+//               
 
-            String[] toArr = {"knl35@cornell.com", "cuair.business@gmail.com"}; 
-            m.setTo(toArr); 
-            m.setFrom("lei.kevin.n@gmail.com"); 
-            m.setSubject("This is an email sent using my Mail JavaMail wrapper from an Android device."); 
-            m.setBody("Email body."); 
-
-            try { 
-              //m.addAttachment("/sdcard/filelocation"); 
-
-              if(m.send()) { 
-                //Toast.makeText(MailApp.this, "Email was sent successfully.", Toast.LENGTH_LONG).show(); 
-              } else { 
-                //Toast.makeText(MailApp.this, "Email was not sent.", Toast.LENGTH_LONG).show(); 
-              } 
-            } catch(Exception e) { 
-              //Toast.makeText(MailApp.this, "There was a problem sending the email.", Toast.LENGTH_LONG).show(); 
-              Log.e("MailApp", "Could not send email", e); 
-            } 
+               	
+               
+//            try { 
+//              //ATTCHEMENT FROM FILE
+//
+//              if(m.send()) { 
+//                //TOAST
+//              } else { 
+//                //TOAST 
+//              } 
+//            } catch(Exception e) { 
+//              //TOAST
+//        
+//            } 
           } 
         }); 
-        
-        /**   
-        final Button send = (Button) this.findViewById(R.id.button1);
-        send.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-
-                try {   
-                    Mail sender = new Mail("lei.kevin.n@gmail.com", "elcajon12");
-                    sender.sendMail("This is Subject",   
-                            "This is Body",   
-                            "cuair.business@gmail.com",   
-                            "knl35@yahoo.com");
-                    Log.v("MainActivity", "send successfully!");
-                    
-                } catch (Exception e) {   
-                    Log.v("MainActivity", e.getMessage(), e);   
-                } 
-
-            }
-        });
-*/
-        
         
     }
         
