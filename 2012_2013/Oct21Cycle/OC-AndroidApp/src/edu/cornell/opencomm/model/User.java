@@ -66,8 +66,15 @@ public class User implements Comparable<User> {
 	}
 
 	public User(String firstname, String lastname, String email, byte[] photo,
-			String title) {
-
+			String title, String username, String nickname, int image) {
+		this(username, nickname, image);
+		this.vCard.setFirstName(firstname);
+		this.vCard.setLastName(lastname);
+		this.vCard.setEmailHome(email);
+		this.vCard.setAvatar(photo);
+		this.vCard.setNickName(this.nickname);
+		this.vCard.setJabberId(username);
+		
 	}
 
 	/**

@@ -59,7 +59,6 @@ public class ConferenceCommunicator implements PacketListener {
 		@Override
 		protected String doInBackground(Conference... params) {
 			//TODO Ankit/Kris: Remove connect and merge the functionality in getConnection()
-			NetworkService.getInstance().connect();
 			XMPPConnection xmppConn = NetworkService.getInstance().getConnection();
 			Conference conference = params[0];
 			ConferencePacket packet = conference.toPacket();

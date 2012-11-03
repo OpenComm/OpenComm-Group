@@ -48,7 +48,6 @@ public class NetworkService {
 	private XMPPConnection xmppConn;
 	private ConnectionConfiguration xmppConfig;
 	private PrivacyList blockList;
-	private boolean isConnected;
 	private boolean isAuthenticated;
 
 	public static NetworkService getInstance() {
@@ -80,28 +79,26 @@ public class NetworkService {
 
 	}// end NetworkService method
 
-	public boolean connect() {
-		try {
-			this.xmppConn.connect();
-		} catch (XMPPException e) {
-			Log.v(TAG, e.getMessage());
+	public XMPPConnection getConnection() {
+		if (!this.xmppConn.isConnected()) {
+			try {
+				this.xmppConn.connect();
+			} catch (XMPPException e) {
+				Log.v(TAG, "Connection error!");
+			}
 		}
-		this.isConnected = xmppConn.isConnected();
-		if (isConnected && D) {
-			Log.v(TAG, "pinged server!");
-		}
-		return isConnected;
+		return this.xmppConn;
 	}
-
+	
 	public boolean login(String username, String password) {
 		try {
 			Log.v(TAG, "Attempting Login: User Name = " + username
 					+ " password = " + password);
 			if (D) {
-				this.xmppConn.login("opencommsec" + DEFAULT_HOSTNAME,
+				this.getConnection().login("opencommsec" + DEFAULT_HOSTNAME,
 						"secopencomm", DEFAULT_RESOURCE);
 			} else {
-				this.xmppConn.login(username + DEFAULT_HOSTNAME, password,
+				this.getConnection().login(username + DEFAULT_HOSTNAME, password,
 						DEFAULT_RESOURCE);
 			}
 		} catch (XMPPException e) {
@@ -120,11 +117,6 @@ public class NetworkService {
 	public boolean logout() {
 		this.xmppConn.disconnect();
 		return true;
-	}
-
-	public XMPPConnection getConnection() {
-		
-		return this.xmppConn;
 	}
 	
 	public PrivacyList getBlockList() {

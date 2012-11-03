@@ -171,7 +171,6 @@ public class SignupController {
 		// see if you can or should reuse UserManager
 		@Override
 		protected Boolean doInBackground(ArrayList<NameValuePair>... params) {
-			NetworkService.getInstance().connect();
 			AccountManager accountManager = NetworkService.getInstance()
 					.getConnection().getAccountManager();
 			try {

@@ -37,32 +37,11 @@ public class StartAppActivity extends Activity {
 		handler.postDelayed(new Runnable() {
 			public void run() {
 				if (D) Log.d(TAG, "Splash timeout:Attempting Connection");
-				connect();
+				launchLoginView();
 			}
 		}, SPLASH_SCREEN_DELAY);
 
 	}
-
-	/**
-	 * TODO: Use Network Service to connect to the server Note: Network service
-	 * is a AsyncTask so there is no need to create another. Just Saying :)
-	 * 
-	 */
-	private void connect() {
-		ReturnState returnState;
-		NetworkService xmppService = NetworkService.getInstance();
-		boolean connected = xmppService.connect();
-		returnState = connected ? ReturnState.SUCEEDED
-				: ReturnState.COULDNT_CONNECT;
-		if (returnState == ReturnState.SUCEEDED) {
-			if (D) Log.d(TAG, "Connection Success:Launch Login View");
-			launchLoginView();
-		} else {
-			if (D) Log.d(TAG, "Connection Failed:DisplayTip");
-			onConnectionError();
-		}
-	}
-
 	/**
 	 * Finishes the current activity and launches the Login Activity
 	 */
