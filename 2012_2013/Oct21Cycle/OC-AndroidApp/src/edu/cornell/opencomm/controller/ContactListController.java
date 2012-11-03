@@ -35,15 +35,8 @@ public class ContactListController {
 	 * 
 	 */
 	private enum ReturnState {
-		FAILED, SUCEEDED
+		FAILED, SUCCEEDED
 	};
-
-	public static ContactListController getInstance() {
-		if (_instance == null) {
-			_instance = new ContactListController();
-		}
-		return _instance;
-	}
 
 	private ContactsSearchView view;
 
@@ -69,12 +62,6 @@ public class ContactListController {
 
 	public void contactClicked(View v){
 		//TODO: Needs to find the contact and open that contact page
-	}
-
-	public ContactListController() {
-		this.xmppService = NetworkService.getInstance();
-		this.xmppConn = this.xmppService.getConnection();
-		roster = this.xmppConn.getRoster();
 	}
 
 	public ReturnState updateContacts() {
@@ -116,7 +103,7 @@ public class ContactListController {
 
 			}
 			UserManager.updateContactList(updatedList);
-			return ReturnState.SUCEEDED;
+			return ReturnState.SUCCEEDED;
 		}
 
 		@Override
