@@ -1,13 +1,3 @@
-/**
- * View for splash screen.
- * It launches the DashboardView after 3 seconds.
- *
- * Issues [TODO]
- * - For any other issues search for string "TODO"
- *
- * @author Kris Kooi[backend], Ankit Singh[frontend]
- * */
-
 package edu.cornell.opencomm.view;
 
 import android.app.Activity;
@@ -17,7 +7,15 @@ import android.os.Handler;
 import android.util.Log;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.FontSetter;
-
+/**
+ * View for splash screen.
+ * It launches the DashboardView after 3 seconds.
+ *
+ * Issues [TODO]
+ * - For any other issues search for string "TODO"
+ *
+ * @author Kris Kooi[backend], Ankit Singh[frontend]
+ * */
 public class StartAppActivity extends Activity {
 	/** 
 	 * Debugging variable: if true, all logs are logged;
