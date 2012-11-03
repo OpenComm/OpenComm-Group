@@ -48,14 +48,11 @@ public class LoginView extends Activity {
 	
 	private LoginController loginController = null;
 	
-	private static EditText emailEdit;
-	private static EditText passwordEdit;
-	private static ImageButton loginButton;
-	@SuppressWarnings("unused")
-	private static Button loginText;
-	private static ImageView loginOverlay;
-	private LayoutInflater inflater = null;
-	private static ImageView signupOverlay;
+	private EditText emailEdit;
+	private EditText passwordEdit;
+	private ImageButton loginButton;
+	private ImageView loginOverlay;
+	private ImageView signupOverlay;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,37 +61,19 @@ public class LoginView extends Activity {
         FontSetter.applySanSerifFont(this, findViewById(R.id.login_layout));
         emailEdit = (EditText) findViewById(R.id.editTextEmail);
 		passwordEdit = (EditText) findViewById(R.id.editTextPassword);
-		loginText = (Button) findViewById(R.id.loginText);
 		loginButton = (ImageButton) findViewById(R.id.loginButton);
 		loginOverlay = (ImageView) findViewById(R.id.loginOverlay);
 		signupOverlay = (ImageView) findViewById(R.id.signupOverlay);
-        this.inflater = this.getLayoutInflater();
 		loginController = new LoginController(this);
-		initEmailFocusChangelistener();
     }
-    /**
-	 * Initialize email box
-	 */
-	private void initEmailFocusChangelistener() {
-		OnFocusChangeListener listener = new View.OnFocusChangeListener() {
-			public void onFocusChange(View view, boolean hasFocus) {
-				loginController.handleEmailFocusChange(view, hasFocus);
-			}
-		};
-		emailEdit.setOnFocusChangeListener(listener);
-	}
+    
 	public ImageView getLoginOverlay() {
 		return loginOverlay;
 	}
 	public ImageView getSignupOverlay() {
 		return signupOverlay;
 	}
-	public ImageButton getLoginButton() {
-		return loginButton;
-	}
-	public LayoutInflater getInflater() {
-        return inflater;
-    }
+
 	public void resetFocus(){
 		emailEdit.requestFocus();
 	}
@@ -105,10 +84,14 @@ public class LoginView extends Activity {
     }
     /**Jump to the Reset Password page when forgot-password is clicked*/
     public void retrievePassword(View v){
-    	Log.v(TAG, "retrievePassword");
+    	if (D) Log.d(TAG, "retrievePassword");
     	this.loginController.handleRetrievePassword();
     }
     
+    /**
+     * Attempt to login, launches Dashboard when successful
+     * @param v
+     */
     public void login(View v){
     	String email = emailEdit.getText().toString();
         String password = passwordEdit.getText().toString();
@@ -122,15 +105,16 @@ public class LoginView extends Activity {
     @Override
     public void onResume() {
     	super.onResume();
-    	this.getLoginOverlay().setVisibility(View.INVISIBLE);
-    	this.getSignupOverlay().setVisibility(View.INVISIBLE);
-    	emailEdit.setText("");
-    	passwordEdit.setText("");
+    	// set overlays as invisible
+    	this.loginOverlay.setVisibility(View.INVISIBLE);
+    	this.signupOverlay.setVisibility(View.INVISIBLE);
+    	// reset email and password edits
+    	this.emailEdit.setText("");
+    	this.passwordEdit.setText("");
     	Intent i = this.getIntent();
     	// show tip saying that a random password has been generated and sent as an email.
     	boolean isPwdReset = i.getBooleanExtra(ResetPasswordController.PWDRESET, false);
     	if (isPwdReset) {
-    		// TODO generate tip view notifying password sent to email
     		int duration = Toast.LENGTH_SHORT;
         	Toast send = Toast.makeText(getApplicationContext(),getResources().getString(R.string.resetNotify),duration);
         	send.show();
