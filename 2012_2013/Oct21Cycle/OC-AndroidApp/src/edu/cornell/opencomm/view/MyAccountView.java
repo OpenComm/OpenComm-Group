@@ -2,10 +2,12 @@ package edu.cornell.opencomm.view;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.Manager.UserManager;
 import edu.cornell.opencomm.controller.MyAccountController;
 
 public class MyAccountView extends Activity{
@@ -28,6 +30,8 @@ public class MyAccountView extends Activity{
 		password = (TextView) findViewById(R.id.my_account_password);
 		title = (TextView) findViewById(R.id.my_account_title);
 		controller = new MyAccountController(this);
+		name.setText(UserManager.PRIMARY_USER.getNickname());
+		email.setText(UserManager.PRIMARY_USER.getUsername());
 	}
 	
 	public void backButtonClicked(View v){

@@ -11,6 +11,7 @@ import edu.cornell.opencomm.view.ConferenceSchedulerView;
 import edu.cornell.opencomm.view.ContactsView;
 import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.LoginView;
+import edu.cornell.opencomm.view.MyAccountView;
 
 /**
  * 
@@ -39,8 +40,8 @@ public class DashboardController {
 		int duration = Toast.LENGTH_SHORT;
     	Toast send = Toast.makeText(this.dashboardView.getApplicationContext(),"ConfInfo clicked",duration);
     	send.show();
-/*    	// start contact view
-    	Intent i = new Intent(this.dashboardView,ConferenceCardView.class);
+    	// start contact view
+    	/**Intent i = new Intent(this.dashboardView,ConferenceCardView.class);
     	this.dashboardView.startActivity(i);*/
 	}
 
@@ -48,10 +49,6 @@ public class DashboardController {
 	 * TODO: This should call a task when a user clicks the conferences button.
 	 */
 	public void handleConferencesButtonClicked() {
-		/*this.dashboardView.findViewById(R.id.dashboardConfsOverlay).setVisibility(View.VISIBLE);
-		int duration = Toast.LENGTH_SHORT;
-    	Toast send = Toast.makeText(this.dashboardView.getApplicationContext(),"Conference clicked",duration);
-    	send.show(); */
      	// start conference view
     	Intent i = new Intent(this.dashboardView,ConferenceSchedulerView.class);
     	this.dashboardView.startActivity(i);
@@ -61,10 +58,6 @@ public class DashboardController {
 	 * TODO: This should call a task when a user clicks the Contacts button.
 	 */
 	public void handleContactsButtonClicked() {
-	/*	this.dashboardView.findViewById(R.id.dashboardContactsOverlay).setVisibility(View.VISIBLE);
-		int duration = Toast.LENGTH_SHORT;
-    	Toast send = Toast.makeText(this.dashboardView.getApplicationContext(),"Contacts clicked",duration);
-    	send.show(); */
 		// start conference view
     	Intent i = new Intent(this.dashboardView,ContactsView.class);
     	this.dashboardView.startActivity(i);
@@ -75,8 +68,10 @@ public class DashboardController {
 	 */
 	public void handleProfileButtonClicked() {
 		this.dashboardView.findViewById(R.id.dashboardProfileOverlay).setVisibility(View.VISIBLE);
-		int duration = Toast.LENGTH_SHORT;
+		/*int duration = Toast.LENGTH_SHORT;
     	Toast send = Toast.makeText(this.dashboardView.getApplicationContext(),"Profile clicked",duration);
-    	send.show();
+    	send.show();*/
+		Intent i = new Intent(this.dashboardView,MyAccountView.class);
+    	this.dashboardView.startActivity(i);
 	}
 }
