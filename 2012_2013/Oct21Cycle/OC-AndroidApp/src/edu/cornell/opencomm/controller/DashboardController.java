@@ -58,9 +58,12 @@ public class DashboardController {
 	 * TODO: This should call a task when a user clicks the Contacts button.
 	 */
 	public void handleContactsButtonClicked() {
+		int duration = Toast.LENGTH_SHORT;
+    	Toast send = Toast.makeText(this.dashboardView.getApplicationContext(),"Contacts clicked",duration);
+    	send.show();
 		// start conference view
-    	Intent i = new Intent(this.dashboardView,ContactsView.class);
-    	this.dashboardView.startActivity(i);
+ /*   	Intent i = new Intent(this.dashboardView,ContactsView.class);
+    	this.dashboardView.startActivity(i);*/
 	}
 
 	/**
