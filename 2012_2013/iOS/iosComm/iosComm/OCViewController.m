@@ -100,10 +100,10 @@
         NSString *myJID =
             [[[[loginUsernameField.text stringByAppendingString: @"@"]
              stringByAppendingString:[defaults DEFAULT_DOMAIN]]
-             stringByAppendingString: @"@"]
+             stringByAppendingString: @"/"]
              stringByAppendingString:[defaults DEFAULT_RESOURCE]];
         myPassword = loginPasswordField.text;
-        
+        NSLog(@"%@", myJID);
         myXMPPStream.myJID = [XMPPJID jidWithString:myJID];
         myXMPPStream.hostPort = [defaults DEFAULT_PORT];
     }
