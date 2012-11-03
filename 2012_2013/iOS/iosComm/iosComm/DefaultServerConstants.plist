@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>DEBUG_PARAM</key>
-	<false/>
+	<true/>
 	<key>DEFAULT_HOSTNAME</key>
 	<string>cuopencomm.no-ip.org</string>
 	<key>DEFAULT_JID</key>

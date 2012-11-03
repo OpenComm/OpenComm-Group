@@ -314,10 +314,14 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
     /*Ensure that you were expecting an ack from this person
      *Optional TODO: include id identification with packets as well in this check. */
     if (pendingAck && [self isFromCorrectPerson: ackPacket]) {
+        /** Supposedly, this block isn't needed - once you send a session accept, your state is active
+         ** even if you do not get an ACK back, based on OpenComm Android **/
+        /**********/
         //If you receive an ack after you sent a session accept, your state changes to active
-        if ([state isEqualToString: [jingleConstants STATE_PENDING]] && toIPAddress != nil) {
-            state = [jingleConstants STATE_ACTIVE];
-        }
+        //if ([state isEqualToString: [jingleConstants STATE_PENDING]] && toIPAddress != nil) {
+            //state = [jingleConstants STATE_ACTIVE];
+        //}
+        /**********/
         pendingAck = false;
         return true;
     }
@@ -348,7 +352,7 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
     
     
     pendingAck = true;
-    state = [jingleConstants STATE_PENDING];
+    state = [jingleConstants STATE_ACTIVE];
     return [self createBaseIQElement: toJID JingleElement: jingleElement];
 }
 

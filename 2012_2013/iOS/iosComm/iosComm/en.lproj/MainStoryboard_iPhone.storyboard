@@ -104,26 +104,41 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mcn-2P-JPX">
                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xdl-Fh-Cy5">
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Debug XMPP">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="loginButtonPressed:" destination="2" eventType="touchUpInside" id="0bZ-zm-7Gf"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.1803921568627451" green="0.1803921568627451" blue="0.1803921568627451" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="mcn-2P-JPX" firstAttribute="centerX" secondItem="8LO-yY-dAX" secondAttribute="centerX" type="default" id="14v-9E-3Qk"/>
                             <constraint firstItem="oE5-tm-Zqp" firstAttribute="centerY" secondItem="8LO-yY-dAX" secondAttribute="centerY" type="default" id="4KS-sx-edh"/>
                             <constraint firstItem="Vfg-gA-Vm9" firstAttribute="top" secondItem="6oP-0F-1En" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="AXy-2g-NOe"/>
+                            <constraint firstAttribute="bottom" secondItem="Xdl-Fh-Cy5" secondAttribute="bottom" constant="114" id="Dnt-JH-p3z"/>
                             <constraint firstItem="8LO-yY-dAX" firstAttribute="baseline" secondItem="oE5-tm-Zqp" secondAttribute="baseline" type="default" id="F9n-4I-a8q"/>
+                            <constraint firstItem="bku-J4-tS7" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="147" id="KSF-cA-cqq"/>
                             <constraint firstAttribute="trailing" secondItem="oE5-tm-Zqp" secondAttribute="trailing" constant="15" id="Kcx-4k-EkE"/>
                             <constraint firstItem="kNm-Kt-ahg" firstAttribute="top" secondItem="3" secondAttribute="top" constant="181" id="OWI-Eh-rOQ"/>
                             <constraint firstItem="oE5-tm-Zqp" firstAttribute="top" secondItem="3" secondAttribute="top" constant="6" id="QuY-cx-32M"/>
                             <constraint firstItem="kNm-Kt-ahg" firstAttribute="centerX" secondItem="Vfg-gA-Vm9" secondAttribute="centerX" type="default" id="VL9-1w-VBN"/>
                             <constraint firstItem="mcn-2P-JPX" firstAttribute="leading" secondItem="6oP-0F-1En" secondAttribute="leading" type="default" id="VVR-te-fPh"/>
                             <constraint firstItem="mcn-2P-JPX" firstAttribute="top" secondItem="3" secondAttribute="top" constant="92" id="Vl6-dR-pli"/>
+                            <constraint firstItem="kNm-Kt-ahg" firstAttribute="centerX" secondItem="3" secondAttribute="centerX" type="default" id="W9y-K6-a2D"/>
                             <constraint firstItem="mcn-2P-JPX" firstAttribute="trailing" secondItem="6oP-0F-1En" secondAttribute="trailing" type="default" id="WPC-gl-YyJ"/>
                             <constraint firstItem="mcn-2P-JPX" firstAttribute="centerY" secondItem="6oP-0F-1En" secondAttribute="centerY" type="default" id="b8k-KH-HFh"/>
-                            <constraint firstItem="mcn-2P-JPX" firstAttribute="centerX" secondItem="3" secondAttribute="centerX" type="default" id="gy3-Yc-KeD"/>
-                            <constraint firstAttribute="bottom" secondItem="mcn-2P-JPX" secondAttribute="bottom" constant="367" id="h4I-2Y-2Lj"/>
+                            <constraint firstItem="Vfg-gA-Vm9" firstAttribute="top" secondItem="3" secondAttribute="top" constant="144" id="hbK-Uc-F8c"/>
                             <constraint firstItem="mcn-2P-JPX" firstAttribute="centerX" secondItem="Vfg-gA-Vm9" secondAttribute="centerX" type="default" id="iaf-lQ-kDg"/>
                             <constraint firstAttribute="bottom" secondItem="bku-J4-tS7" secondAttribute="bottom" constant="37" id="o3E-l8-HUg"/>
-                            <constraint firstItem="bku-J4-tS7" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="147" id="rLB-NM-kS5"/>
+                            <constraint firstItem="bku-J4-tS7" firstAttribute="centerX" secondItem="Xdl-Fh-Cy5" secondAttribute="centerX" type="default" id="u9H-pg-z0t"/>
                             <constraint firstItem="mcn-2P-JPX" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="10" id="wAt-3c-XId"/>
                             <constraint firstItem="6oP-0F-1En" firstAttribute="top" secondItem="3" secondAttribute="top" constant="49" id="xl1-Om-Zq4"/>
                         </constraints>
@@ -390,6 +405,36 @@
         <image name="signInButton.png" width="55" height="29"/>
         <image name="signUpButton.png" width="279" height="45"/>
     </resources>
+    <classes>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="OCConferenceViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCConferenceViewController.h"/>
+        </class>
+        <class className="OCSocketViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCSocketViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="sendMessageButtonPressed:"/>
+                <relationship kind="action" name="startClientButtonPressed:"/>
+                <relationship kind="action" name="startServerButtonPressed:"/>
+                <relationship kind="outlet" name="hostnameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="messageField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="portField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="serverReceiveMessageText" candidateClass="UITextView"/>
+            </relationships>
+        </class>
+        <class className="OCViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="fetch:"/>
+                <relationship kind="action" name="loginButtonPressed:"/>
+                <relationship kind="outlet" name="loginPasswordField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="loginUsernameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="loginView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

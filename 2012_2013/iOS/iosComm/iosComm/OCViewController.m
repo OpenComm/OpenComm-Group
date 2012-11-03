@@ -114,6 +114,8 @@
         NSLog(@"I'm already connected");
     }
     
+    NSLog(@"I get in here");
+    
     /* THIS IS SOCKET STUFF*/
     /*
     UDPSocket = [[OCUDPSocket alloc] init];
