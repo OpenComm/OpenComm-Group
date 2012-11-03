@@ -28,6 +28,8 @@ public class SignupController {
 
 	@SuppressWarnings("unused")
 	private static final boolean D = true;
+
+	private static final String ACTIVITY_SELECT_IMAGE = null;
 	/**
 	 * The View
 	 */
@@ -77,10 +79,6 @@ public class SignupController {
 	}
 
 	public void handlePhotoButtonClick() {
-		// TODO Auto-generated method stub
-		// See :
-		// http://stackoverflow.com/questions/2507898/how-to-pick-an-image-from-gallery-sd-card-for-my-app-in-android
-
 	}
 
 	public void handleSave() {

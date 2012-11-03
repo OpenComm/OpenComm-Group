@@ -44,7 +44,6 @@ public class ConferenceCommunicator implements PacketListener {
 
 		@Override
 		protected String doInBackground(String... params) {
-			NetworkService.getInstance().connect();
 			XMPPConnection xmppConn = NetworkService.getInstance().getConnection();
 			ConferencePacket packet = new ConferencePacket(xmppConn.getUser(), PULL_SUBJECT);
 			packet.setFrom(xmppConn.getUser());
