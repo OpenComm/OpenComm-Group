@@ -32,15 +32,20 @@
 {
     XMPPPresence *presc = [XMPPPresence presence];
     [sender sendElement: presc]; //available is implicit supposedly
+    NSLog(@"I'm supposedly online");
     
     //kfc35 - JINGLEOBJ test - must get the fullJID of the receiver if you are the sender first.
+    jingleObj = [[OCJingleImpl alloc] initWithJID:[myXMPPStream myJID] xmppStream: myXMPPStream];
     if ([[jingleObj jingleConstants] DEBUG_PARAM]) {
+        NSLog(@"I'm debugging in jingle obj");
         if ([[jingleObj jingleConstants] DEBUG_IS_SENDER]) {
-            [sender sendElement: [XMPPPresence presenceWithType:@"subscribe" to: [XMPPJID jidWithString: [[jingleObj jingleConstants] DEBUG_RECEIVER_JID]]]];
+            NSLog(@"I'm the sender for the jingle demo");
+            XMPPPresence *subsc = [XMPPPresence presenceWithType:@"subscribe" to: [XMPPJID jidWithString: [[jingleObj jingleConstants] DEBUG_RECEIVER_JID]]];
+            [subsc addAttributeWithName: [[jingleObj jingleConstants] ATTRIBUTE_FROM] stringValue: [[myXMPPStream myJID] full]];
+            NSLog(@"%@", subsc);
+            [sender sendElement: subsc];
         }
     }
-    
-    NSLog(@"I'm supposedly online");
 }
 
 //-------------------------------------------------------------------
@@ -156,21 +161,23 @@
 }
 
 - (void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence {
+    NSLog(@"%@", presence);
     if ([[jingleObj jingleConstants] DEBUG_PARAM]) {
         //receiver has receive a subscribe request. must return with a "subscribed" type to
         //give the sender their full JID
         if ([[jingleObj jingleConstants] DEBUG_IS_RECEIVER]) {
-        [sender sendElement: [XMPPPresence presenceWithType:@"subscribed" to: [XMPPJID jidWithString: [[jingleObj jingleConstants] DEBUG_RECEIVER_JID]]]];
+            NSXMLElement *subsc = [XMPPPresence presenceWithType:@"subscribed" to: [XMPPJID jidWithString: [[jingleObj jingleConstants] DEBUG_RECEIVER_JID]]];
+            [subsc addAttributeWithName: [[jingleObj jingleConstants] ATTRIBUTE_FROM] stringValue: [[myXMPPStream myJID] full]];
+            [sender sendElement: subsc];
         }
         else {
-            //Sender has received the full JID of the person in this presence.
+            //Sender has received the full JID of the person in this presence?
             NSLog(@"%@", [presence from]);
-            jingleObj = [[OCJingleImpl alloc] initWithJID:[presence from] xmppStream: myXMPPStream];
             //If you're the sender, send an session-initiate to the "receiver".
-            NSXMLElement *element = [jingleObj jingleSessionInitiateTo:[XMPPJID jidWithString: [[jingleObj jingleConstants] DEBUG_RECEIVER_JID]] recvportnum: (uint16_t)[[jingleObj jingleConstants] DEBUG_RECVPORTNUM_SENDER] SID:nil];
-            [sender sendElement: element];
-            NSLog(@"DEBUG: Sent the following session-initiate msg: %@", element);
-            [jingleObj printJingleObject];
+            //NSXMLElement *element = [jingleObj jingleSessionInitiateTo:[XMPPJID jidWithString: [[jingleObj jingleConstants] DEBUG_RECEIVER_JID]] recvportnum: (uint16_t)[[jingleObj jingleConstants] DEBUG_RECVPORTNUM_SENDER] SID:nil];
+            //[sender sendElement: element];
+            //NSLog(@"DEBUG: Sent the following session-initiate msg: %@", element);
+            //[jingleObj printJingleObject];
         }
     }
 }
@@ -196,7 +203,7 @@
 
 - (BOOL)xmppStream:(XMPPStream *)sender didReceiveIQ:(XMPPIQ *)iq
 {
-	NSLog(@"iq %@", iq);
+	NSLog(@"%@", iq);
     if ([jingleObj processPacketForJingle: iq]) {
         [jingleObj printJingleObject];
         return YES;

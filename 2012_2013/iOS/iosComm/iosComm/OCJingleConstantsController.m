@@ -33,9 +33,9 @@
         if (!temp) {
             NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
         }
-        self.DEBUG_PARAM = (Boolean)[temp objectForKey: @"DEBUG_PARAM"];
-        self.DEBUG_IS_SENDER = (Boolean)[temp objectForKey: @"DEBUG_IS_SENDER"];
-        self.DEBUG_IS_RECEIVER = (Boolean)[temp objectForKey: @"DEBUG_IS_RECEIVER"];
+        self.DEBUG_PARAM = [[temp objectForKey: @"DEBUG_PARAM"] boolValue];
+        self.DEBUG_IS_SENDER = [[temp objectForKey: @"DEBUG_IS_SENDER"] boolValue];
+        self.DEBUG_IS_RECEIVER = [[temp objectForKey: @"DEBUG_IS_RECEIVER"] boolValue];
         self.DEBUG_RECVPORTNUM_SENDER = (int)[temp objectForKey: @"DEBUG_RECVPORTNUM_SENDER"];
         self.DEBUG_RECVPORTNUM_RECEIVER = (int)[temp objectForKey: @"DEBUG_RECVPORTNUM_RECEIVER"];
         self.DEBUG_SENDER_JID = [temp objectForKey:@"DEBUG_SENDER_JID"];

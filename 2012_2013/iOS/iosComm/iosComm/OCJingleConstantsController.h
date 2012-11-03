@@ -10,9 +10,9 @@
 
 @interface OCJingleConstantsController : NSObject {
     /*
-    Boolean DEBUG_PARAM;
-    Boolean DEBUG_IS_SENDER;
-    Boolean DEBUG_IS_RECEIVER;
+    BOOL DEBUG_PARAM;
+    BOOL DEBUG_IS_SENDER;
+    BOOL DEBUG_IS_RECEIVER;
     int DEBUG_RECVPORTNUM_SENDER;
     int DEBUG_RECVPORTNUM_RECEIVER;
     NSString *DEBUG_SENDER_JID;
@@ -73,9 +73,9 @@
 }
 
 /*Boolean constants for debugging*/
-@property (nonatomic) Boolean DEBUG_PARAM;
-@property (nonatomic) Boolean DEBUG_IS_SENDER;
-@property (nonatomic) Boolean DEBUG_IS_RECEIVER;
+@property (nonatomic) BOOL DEBUG_PARAM;
+@property (nonatomic) BOOL DEBUG_IS_SENDER;
+@property (nonatomic) BOOL DEBUG_IS_RECEIVER;
 @property (nonatomic) int DEBUG_RECVPORTNUM_SENDER;
 @property (nonatomic) int DEBUG_RECVPORTNUM_RECEIVER;
 @property (copy, nonatomic) NSString *DEBUG_SENDER_JID;
