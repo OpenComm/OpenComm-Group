@@ -91,15 +91,15 @@
     NSError *error = nil;
     BOOL result;
     
-    if (DEBUG == YES) {
+    //if (DEBUG == YES) {
         XMPPPlainAuthentication *auth = [[XMPPPlainAuthentication alloc]initWithStream: sender password: password];
         result = [sender authenticate:auth error:&error];
         
-    }
-    else {
-        XMPPDigestMD5Authentication *auth = [[XMPPDigestMD5Authentication alloc]initWithStream: sender password: password];
-        result = [sender authenticate:auth error:&error];
-    }
+    //}
+    //else {
+        //XMPPDigestMD5Authentication *auth = [[XMPPDigestMD5Authentication alloc]initWithStream: sender password: password];
+        //result = [sender authenticate:auth error:&error];
+    //}
     
      /*
     XMPPDigestMD5Authentication *auth = [[XMPPDigestMD5Authentication alloc]initWithStream: sender password: password];

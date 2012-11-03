@@ -88,6 +88,7 @@
           //_loginPasswordField.text);
 
     if ([defaults DEBUG_PARAM]) {
+        NSLog(@"DEBUG PARAM SET");
         myXMPPStream.myJID = [XMPPJID jidWithString:[defaults DEFAULT_JID]];
         myXMPPStream.hostName = [defaults DEFAULT_HOSTNAME];
         /*Don't need to set port. The default is always 5222*/
@@ -110,11 +111,11 @@
     [myXMPPRoster addDelegate:delegateHandler delegateQueue:dispatch_get_main_queue()];
     NSError *error = nil;
     
+    NSLog(@"stream's JID: %@", myXMPPStream.myJID);
+    
     if (![myXMPPStream isDisconnected]) {
         NSLog(@"I'm already connected");
     }
-    
-    NSLog(@"I get in here");
     
     /* THIS IS SOCKET STUFF*/
     /*

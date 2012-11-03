@@ -36,8 +36,8 @@
         self.DEBUG_PARAM = [[temp objectForKey: @"DEBUG_PARAM"] boolValue];
         self.DEBUG_IS_SENDER = [[temp objectForKey: @"DEBUG_IS_SENDER"] boolValue];
         self.DEBUG_IS_RECEIVER = [[temp objectForKey: @"DEBUG_IS_RECEIVER"] boolValue];
-        self.DEBUG_RECVPORTNUM_SENDER = (int)[temp objectForKey: @"DEBUG_RECVPORTNUM_SENDER"];
-        self.DEBUG_RECVPORTNUM_RECEIVER = (int)[temp objectForKey: @"DEBUG_RECVPORTNUM_RECEIVER"];
+        self.DEBUG_RECVPORTNUM_SENDER = (int)[[temp objectForKey: @"DEBUG_RECVPORTNUM_SENDER"] intValue];
+        self.DEBUG_RECVPORTNUM_RECEIVER = (int)[[temp objectForKey: @"DEBUG_RECVPORTNUM_RECEIVER"] intValue];
         self.DEBUG_SENDER_JID = [temp objectForKey:@"DEBUG_SENDER_JID"];
         self.DEBUG_RECEIVER_JID = [temp objectForKey:@"DEBUG_RECEIVER_JID"];
         

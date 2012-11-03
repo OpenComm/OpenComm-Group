@@ -5,9 +5,9 @@
 	<key>DEBUG_PARAM</key>
 	<true/>
 	<key>DEBUG_IS_SENDER</key>
-	<true/>
-	<key>DEBUG_IS_RECEIVER</key>
 	<false/>
+	<key>DEBUG_IS_RECEIVER</key>
+	<true/>
 	<key>DEBUG_SENDER_JID</key>
 	<string>ios_team@cuopencomm.no-ip.org</string>
 	<key>DEBUG_RECEIVER_JID</key>

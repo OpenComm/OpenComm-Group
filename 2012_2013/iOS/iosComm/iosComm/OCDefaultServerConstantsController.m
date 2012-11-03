@@ -33,7 +33,7 @@
         if (!temp) {
             NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
         }
-        self.DEBUG_PARAM = (Boolean) [temp objectForKey:@"DEBUG_PARAM"];
+        self.DEBUG_PARAM = (BOOL) [[temp objectForKey:@"DEBUG_PARAM"] boolValue];
 		self.DEFAULT_JID = [temp objectForKey:@"DEFAULT_JID"];
 		self.DEFAULT_HOSTNAME = [temp objectForKey:@"DEFAULT_HOSTNAME"];
  		self.DEFAULT_PASSWORD = [temp objectForKey:@"DEFAULT_PASSWORD"];
