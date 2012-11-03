@@ -14,6 +14,11 @@ import edu.cornell.opencomm.Manager.UserManager;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
 
+/** Controller class responsible for account creation and editing the 
+ * 	primary user's account info
+ * @author Kris Kooi
+ *
+ */
 public final class AccountController {
 	private AccountManager accountManager;
 	private VCard vCard;
