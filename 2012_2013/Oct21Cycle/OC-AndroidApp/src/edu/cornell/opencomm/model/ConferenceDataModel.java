@@ -17,5 +17,9 @@ public class ConferenceDataModel {
 		chatSpaceMap = new HashMap<String, ChatSpaceModel>();
 		activeChat = mainSpaceRoomID;  /** If we change to constants this will be MAIN */
 	}
+	
+	public void switchActiveChat(String newActiveRoomID){
+		activeChat = newActiveRoomID;
+	}
 
 }
