@@ -152,21 +152,3 @@ public class User implements Comparable<User> {
 		// returns alphabetic comparison of usernames by using string compareTo
 	}
 }
-// SEE BELOW FOR CODE REMOVED DUE TO REFACTORING
-// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// Please use UserManager.getContactList() and UserManager.updateContactList()
-// /** @return - the User's contact list */
-// public ArrayList<User> getContactList() {
-// return this.contactList;
-// }
-// TODO: is there a better place for this?
-// ANKIT TODO: Moved to User Manager.
-// public static User primaryUser;
-// // Crystal
-// public int userColor = R.color.blue;
-// static int[] colors = { R.color.blue, R.color.green, R.color.orange };
-// static int color_pointer = 0;
-// private static Hashtable<String, Integer> user_color_table =
-
-// new Hashtable<String, Integer>();
-// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

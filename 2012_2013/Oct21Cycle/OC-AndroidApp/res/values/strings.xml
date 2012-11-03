@@ -80,4 +80,9 @@
     <string name="empty_field_error">cannot be empty</string>
     <string name="invalid_title">Incorrect title </string>
     <string name="notifications">notifications</string>
+    <string name="my_account">my account</string>
+    <string name="name">name</string>
+    <string name="name_sample">Joseph Levitt</string>
+    <string name="title_sample">Actor</string>
+    <string name="password_sample">********</string>
 </resources>
