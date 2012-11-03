@@ -2,6 +2,9 @@ package edu.cornell.opencomm.view;
 
 import org.jivesoftware.smack.util.Base64.InputStream;
 
+import android.app.Activity;
+import android.os.Bundle;
+
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.controller.SignupController;
