@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Manager.UserManager;
-import edu.cornell.opencomm.controller.ConferenceController;
+import edu.cornell.opencomm.controller.ConferenceSchedulerController;
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.model.ConferenceSchedulerAdapter;
@@ -26,7 +26,7 @@ public class ConferenceSchedulerView extends Activity {
 
 	private ArrayList<Conference> conferences;	
 	private Calendar currentTime;
-	private ConferenceController controller; 
+	private ConferenceSchedulerController controller; 
 	private ListView happeningNow;
 	private ListView upcoming;
 	private ListView invited;
@@ -40,7 +40,7 @@ public class ConferenceSchedulerView extends Activity {
 		setContentView(R.layout.conference_scheduling_layout);
 		FontSetter.applySanSerifFont(this, findViewById(R.layout.conference_scheduling_layout));
 		currentTime = Calendar.getInstance();
-		controller = new ConferenceController(ConferenceSchedulerView.this, this);
+		controller = new ConferenceSchedulerController(ConferenceSchedulerView.this, this);
 		// FOR TEMPORARY HARDCODED CONFERENCES
 		users = createExampleUsers(); 
 		conferences = createExampleConferences();
