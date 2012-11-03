@@ -14,15 +14,17 @@ import edu.cornell.opencomm.Manager.UserManager;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
 
-/** Controller class responsible for account creation and editing the 
- * 	primary user's account info
+/**
+ * Controller class responsible for account creation and editing the primary
+ * user's account info
+ * 
  * @author Kris Kooi
- *
+ * 
  */
 public final class AccountController {
 	private AccountManager accountManager;
 	private VCard vCard;
-	
+
 	private static final String TAG = "Controller.AccountController";
 
 	public AccountController() {
@@ -38,8 +40,8 @@ public final class AccountController {
 	}
 
 	public void createAcccount(String username, String nickname, String email,
-			String firstName, String lastName, String phoneNumber, InputStream photo, 
-			String title, String password) {
+			String firstName, String lastName, String phoneNumber,
+			InputStream photo, String title, String password) {
 		HashMap<String, String> attributes = new HashMap<String, String>();
 		Collection<String> requiredAttributes = accountManager
 				.getAccountAttributes();
@@ -53,14 +55,14 @@ public final class AccountController {
 		try {
 			accountManager.createAccount(username, password, attributes);
 			// create new User to populate VCard and store on server
-			@SuppressWarnings("unused")
-			User u = new User(firstName, lastName, email, photo,
-					title, username, nickname);
+			User u = new User(firstName, lastName, email, photo, title,
+					username, nickname);
+			this.vCard = u.getVCard();
 		} catch (XMPPException e) {
 			Log.v(TAG, "Account creation failed");
 		}
 	}
-	
+
 	public void changeNickname(String nickname) {
 		vCard.setNickName(nickname);
 	}
@@ -77,4 +79,11 @@ public final class AccountController {
 		vCard.setAvatar(image);
 	}
 
+	public void changePassword(String password) {
+		try {
+			accountManager.changePassword(password);
+		} catch (XMPPException e) {
+			Log.v(TAG, "error changing password");
+		}
+	}
 }
