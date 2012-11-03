@@ -90,14 +90,18 @@
     if ([defaults DEBUG_PARAM]) {
         NSLog(@"DEBUG PARAM SET");
         myXMPPStream.myJID = [XMPPJID jidWithString:[defaults DEFAULT_JID]];
-        myXMPPStream.hostName = [defaults DEFAULT_HOSTNAME];
+        myXMPPStream.hostName = [defaults DEFAULT_DOMAIN];
         /*Don't need to set port. The default is always 5222*/
         myXMPPStream.hostPort = [defaults DEFAULT_PORT];
         myPassword = [defaults DEFAULT_PASSWORD];
     }
 
     else {
-        NSString *myJID = loginUsernameField.text;
+        NSString *myJID =
+            [[[[loginUsernameField.text stringByAppendingString: @"@"]
+             stringByAppendingString:[defaults DEFAULT_DOMAIN]]
+             stringByAppendingString: @"@"]
+             stringByAppendingString:[defaults DEFAULT_RESOURCE]];
         myPassword = loginPasswordField.text;
         
         myXMPPStream.myJID = [XMPPJID jidWithString:myJID];

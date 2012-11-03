@@ -5,13 +5,13 @@
 	<key>DEBUG_PARAM</key>
 	<true/>
 	<key>DEBUG_IS_SENDER</key>
-	<false/>
-	<key>DEBUG_IS_RECEIVER</key>
 	<true/>
+	<key>DEBUG_IS_RECEIVER</key>
+	<false/>
 	<key>DEBUG_SENDER_JID</key>
-	<string>ios_team@cuopencomm.no-ip.org</string>
+	<string>ios_team@cuopencomm.no-ip.org/mobile</string>
 	<key>DEBUG_RECEIVER_JID</key>
-	<string>qimingiscool@cuopencomm.no-ip.org</string>
+	<string>qimingiscool@cuopencomm.no-ip.org/mobile</string>
 	<key>DEBUG_RECVPORTNUM_SENDER</key>
 	<integer>1337</integer>
 	<key>DEBUG_RECVPORTNUM_RECEIVER</key>
