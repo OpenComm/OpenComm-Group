@@ -1,11 +1,15 @@
 package edu.cornell.opencomm.model;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.packet.VCard;
 
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Manager.UserManager;
@@ -137,10 +141,6 @@ public class User implements Comparable<User> {
 		return this.nickname;
 	}
 
-	/** @return - the int representation of the User's image */
-	public int getImage() {
-		return this.image;
-	}
 
 	/** @return - the User's vCard */
 	public VCard getVCard() {
@@ -150,5 +150,15 @@ public class User implements Comparable<User> {
 	public int compareTo(User arg0) {
 		return (getUsername().compareTo(arg0.getUsername()));
 		// returns alphabetic comparison of usernames by using string compareTo
+	}
+	public void storeImage(Bitmap bitmap){
+		ByteArrayOutputStream blob = new ByteArrayOutputStream();
+		bitmap.compress(CompressFormat.PNG, 0 , blob);
+		byte[] bitmapdata = blob.toByteArray();
+		vCard.setAvatar(bitmapdata);
+	}
+	public Bitmap getImage(){
+		byte[] bitmapdata = vCard.getAvatar();
+		return BitmapFactory.decodeByteArray(bitmapdata , 0, bitmapdata .length);
 	}
 }
