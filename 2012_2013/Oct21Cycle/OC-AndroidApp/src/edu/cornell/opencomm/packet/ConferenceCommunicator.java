@@ -55,6 +55,7 @@ public class ConferenceCommunicator {
 						} else {
 							Log.v(LOG_TAG, "pull successful.  returned info: "
 									+ received.getBody());
+							
 							//return received.getBody();
 						}
 					}else if (received.getSubject().equals(PUSH_CONFIRMATION_SUBJECT)){
