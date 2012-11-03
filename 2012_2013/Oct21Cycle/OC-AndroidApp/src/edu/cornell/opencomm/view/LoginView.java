@@ -19,12 +19,32 @@ import android.widget.Toast;
 import android.app.Activity;
 import android.content.Intent;
 
+/**
+ * View for login screen.
+ * Functionality (handled by LoginController)
+ * <ul>
+ * <li>When the user has forgotten a password, it launches ResetPasswordView.</li>
+ * <li>When the user wants to sign up, it launches SignupView.</li>
+ * <li>When the user attempts to log in, checks for valid inputs, and then 
+ * attempts to log in, and if successful, launches DashboardView</li>
+ * </ul>
+ *
+ * Issues [TODO]
+ * - For any other issues search for string "TODO"
+ *
+ * @author Heming Ge[frontend], Ankit Singh[frontend]
+ * */
 public class LoginView extends Activity {
+	/** 
+	 * Debugging variable: if true, all logs are logged;
+	 * set to false before packaging
+	 */
+	private static final boolean D = true;
+	
 	/**
 	 * The TAG for logging
 	 */
 	private static final String TAG = LoginView.class.getSimpleName();
-	private static final boolean D = true;
 	
 	private LoginController loginController = null;
 	
