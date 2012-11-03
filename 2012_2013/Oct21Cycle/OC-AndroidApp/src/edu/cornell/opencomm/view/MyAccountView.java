@@ -43,9 +43,5 @@ public class MyAccountView extends Activity{
 	public void overflowButtonClicked(View v){
 		controller.handleOverflowButtonClicked();
 	}
-	@Override
-    public void onBackPressed() {
-    	// back button disabled
-    }
 
 }
