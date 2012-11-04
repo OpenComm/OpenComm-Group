@@ -21,7 +21,7 @@ import edu.cornell.opencomm.network.NetworkService;
  * @author Kris Kooi
  * 
  */
-public final class AccountController {
+public class AccountController {
 	private AccountManager accountManager;
 	private VCard vCard;
 
@@ -58,6 +58,7 @@ public final class AccountController {
 			User u = new User(firstName, lastName, email, photo, title,
 					username, nickname);
 			this.vCard = u.getVCard();
+			//TODO: store VCard on server
 		} catch (XMPPException e) {
 			Log.v(TAG, "Account creation failed");
 		}

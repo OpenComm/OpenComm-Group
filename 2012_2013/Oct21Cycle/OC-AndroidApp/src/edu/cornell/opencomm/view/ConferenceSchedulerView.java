@@ -134,7 +134,7 @@ public class ConferenceSchedulerView extends Activity {
 			Calendar startDateAndTime = toCalendar(data_fields[3]);
 			Calendar endDateAndTime = toCalendar(data_fields[4]);
 			String reoccurrence = data_fields[5];
-			User inviter = new User(data_fields[2]);
+			User inviter = new User(data_fields[2], null, 0);
 			// Parse List of Attendees data
 			ArrayList<User> attendees = toUsers(conference_attendees[1]);
 			
@@ -176,7 +176,8 @@ public class ConferenceSchedulerView extends Activity {
 		String[] attendee_usernames = conference_data.split("//");
 		ArrayList<User> users = new ArrayList<User>();
 		for (String username : attendee_usernames){
-			User user = new User(username);
+			// TODO : refactor to use new constructor
+			User user = new User(username, null, 0);
 			users.add(user);
 		}
 		return users;

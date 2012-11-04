@@ -57,6 +57,7 @@ public class LoginController {
 	 * The enum defining the opcodes for Login Task
 	 * 
 	 */
+	//TODO: Add more information about meaning of each state. Also, this is already defined in model>ReturnState.
 	private enum ReturnState {
 		SUCCEEDED, COULDNT_CONNECT, WRONG_PASSWORD, ALREADY_CLICKED
 	};
