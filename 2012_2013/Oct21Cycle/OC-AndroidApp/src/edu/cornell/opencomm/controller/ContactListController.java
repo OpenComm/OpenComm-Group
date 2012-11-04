@@ -90,8 +90,6 @@ public class ContactListController {
 			// the old with it
 			// by doing so, the list is still available to other threads
 			// during the new list creation
-			// TODO: Delete this line
-			// ->User.primaryUser.getContactList().clear();
 			Iterator<RosterEntry> entries = roster.getEntries().iterator();
 			ArrayList<User> updatedList = new ArrayList<User>();
 			while (entries.hasNext()) {
