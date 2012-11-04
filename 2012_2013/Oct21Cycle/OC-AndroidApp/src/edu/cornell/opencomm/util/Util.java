@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 public class Util {
 	// TODO create the values class
-	private final static boolean D = true;
+	private final static boolean D = false;
 	/**
 	 * Pattern for validating email address
 	 */
@@ -30,6 +30,7 @@ public class Util {
 	public static boolean validateString(String str, Pattern pattern) {
 		// TODO debug to logger ("string to be validated and the patter used)
 		if (D) return true;
+		str = str.trim();
 		return pattern.matcher(str).matches();
 	}
 }

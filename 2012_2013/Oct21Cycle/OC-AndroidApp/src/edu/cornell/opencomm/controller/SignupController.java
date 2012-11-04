@@ -16,7 +16,6 @@ import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.util.Util;
 import edu.cornell.opencomm.view.DashboardView;
-import edu.cornell.opencomm.view.LoginView;
 import edu.cornell.opencomm.view.PopupView;
 import edu.cornell.opencomm.view.SignupView;
 
@@ -28,8 +27,6 @@ public class SignupController {
 
 	@SuppressWarnings("unused")
 	private static final boolean D = true;
-
-	private static final String ACTIVITY_SELECT_IMAGE = null;
 	/**
 	 * The View
 	 */
@@ -63,24 +60,13 @@ public class SignupController {
 
 	}
 
-	public void handleLastNameFocusChange(View view, boolean hasFocus) {
-		if (!hasFocus) {
-			EditText textBox = (EditText) view;
-			String nameText = textBox.getText().toString();
-			if (nameText != null && !nameText.equals("")) {
-				if (!validateName(nameText)) {
-					showErrorPopup(
-							context.getResources().getString(
-									R.string.invalid_last_name), view);
-				}
-			}
-		}
 
+	public void handlePhotoButtonClick(View v) {
 	}
-
-	public void handlePhotoButtonClick() {
-	}
-
+	View errorView;
+	/**
+	 * TODO Ankit-> Need to clean up and modularize after demo
+	 */
 	public void handleSave() {
 		// TODO: add code base on implementation of create user task and user
 		// account manager
@@ -88,75 +74,57 @@ public class SignupController {
 		// new CreateUser().execute(null);
 		this.signupView.findViewById(R.id.acceptSignupOverlay).setVisibility(
 				View.VISIBLE);
-		boolean allInputsValid = validateAllFields();
-		if (allInputsValid) {
-			Intent click = new Intent(this.signupView, DashboardView.class);
-			this.signupView.startActivity(click);
+
+		if(validateConfirmPassword(signupView.getConfirmPasswordTextBox())){
+			boolean allInputsValid = validateName(signupView.getFirstNameTextBox())
+					&& validateName(signupView.getLastNameTextBox())
+					&&  validateEmail(signupView.getEmailTextBox())
+					&&  validateName(signupView.getTitleTextBox())
+					&& validatePassword(signupView.getPasswordTextBox());
+
+			if (allInputsValid) {
+				Intent click = new Intent(this.signupView, DashboardView.class);
+				this.signupView.startActivity(click);
+			}else
+			{
+				showErrorPopup("Missing or Invalid Input",errorView);
+
+			}
+		}
+		else{
+			showErrorPopup("Pasword Missmatch or Invalid Password",errorView);
 		}
 	}
 
-	public boolean validateAllFields() {
-		return validateEmptyField(
-				context.getResources().getString(R.string.first_name),
-				signupView.getFirstNameTextBox())
-				|| validateEmptyField(
-						context.getResources().getString(R.string.last_name),
-						signupView.getLastNameTextBox())
-				|| validateEmptyField(
-						context.getResources().getString(R.string.email),
-						signupView.getEmailTextBox())
-				|| validateEmptyField(
-						context.getResources().getString(R.string.password),
-						signupView.getPasswordTextBox());
-	}
 
-	private boolean validateEmptyField(String fieldName, View view) {
+
+	public boolean validateEmail(View view) {
 		EditText textBox = (EditText) view;
-		if (textBox.getText().toString() == null
-				|| textBox.getText().toString().isEmpty()) {
-			showErrorPopup(
-					fieldName
-							+ " "
-							+ context.getResources().getString(
-									R.string.empty_field_error), view);
-			return false;
-		}
-		return true;
-	}
-
-
-	public void handleEmailFocusChange(View view, boolean hasFocus) {
-		if (!hasFocus) {
-			EditText textBox = (EditText) view;
-			String nameText = textBox.getText().toString();
-			if (nameText != null && !nameText.equals("")) {
-				if (!Util.validateString(nameText, Util.EMAIL_ADDRESS_PATTERN)) {
-					showErrorPopup(
-							context.getResources().getString(
-									R.string.invalid_email), view);
-				}
+		String nameText = textBox.getText().toString();
+		if (nameText != null && !nameText.equals("")) {
+			if (Util.validateString(nameText, Util.EMAIL_ADDRESS_PATTERN)) {
+				return true;
 			}
 		}
-
+		errorView = view;
+		return false;
 	}
 
-	public void handleFirstNameFocusChange(View view, boolean hasFocus) {
-		if (!hasFocus) {
-			EditText textBox = (EditText) view;
-			String nameText = textBox.getText().toString();
-			if (nameText != null && !nameText.equals("")) {
-				if (!validateName(nameText)) {
-					showErrorPopup(
-							context.getResources().getString(
-									R.string.invalid_first_name), view);
-				}
+	public boolean validateName(View view){
+		EditText textBox = (EditText) view;
+		String nameText = textBox.getText().toString();
+		if (nameText != null && !nameText.equals("")) {
+			if (validateName(nameText)) {
+				return true;
 			}
 		}
+		errorView = view;
+		return false;
 	}
 
 	@SuppressWarnings("unused")
 	private class CreateUser extends
-			AsyncTask<ArrayList<NameValuePair>, Void, Boolean> {
+	AsyncTask<ArrayList<NameValuePair>, Void, Boolean> {
 
 		// TODO send the request to the server to create a new user
 		// see if you can or should reuse UserManager
@@ -174,7 +142,7 @@ public class SignupController {
 					Log.v(TAG,
 							"Account Instructions: "
 									+ accountManager.getAccountInstructions());
-					
+
 				}
 			} catch (Exception e) {
 				Log.v(TAG, "Error in account creation:"+e.getMessage());
@@ -191,56 +159,38 @@ public class SignupController {
 		}
 	}
 
-	public void handleTitleFocusChange(View view, boolean hasFocus) {
-		if (!hasFocus) {
-			EditText textBox = (EditText) view;
-			String nameText = textBox.getText().toString();
-			if (nameText != null && !nameText.equals("")) {
-				if (!validateName(nameText)) {
-					showErrorPopup(
-							context.getResources().getString(
-									R.string.invalid_title), view);
-				}
+
+	public boolean validatePassword(View view) {
+		EditText textBox = (EditText) view;
+		String nameText = textBox.getText().toString();
+		if (nameText != null && !nameText.equals("")) {
+			if (Util.validateString(nameText, Util.PASSWORD)) {
+				return true;
 			}
 		}
+		errorView = view;
+		return false;
 
 	}
 
-	public void handlePasswordFocusChange(View view, boolean hasFocus) {
-		if (!hasFocus) {
-			EditText textBox = (EditText) view;
-			String nameText = textBox.getText().toString();
-			if (nameText != null && !nameText.equals("")) {
-				if (!Util.validateString(nameText, Util.PASSWORD)) {
-					showErrorPopup(
-							context.getResources().getString(
-									R.string.invalid_password), view);
-				}
+	public boolean validateConfirmPassword(View view) {
+		EditText textBox = (EditText) view;
+		String confirmPassword = textBox.getText().toString();
+		if (confirmPassword != null && !confirmPassword.equals("")) {
+			EditText passwordBox = (EditText) signupView
+					.getPasswordTextBox();
+			String password = passwordBox.getText().toString();
+			if (confirmPassword.equals(password)) {
+				return true;
 			}
 		}
-
-	}
-
-	public void handleConfirmPasswordFocusChange(View view, boolean hasFocus) {
-		if (!hasFocus) {
-			EditText textBox = (EditText) view;
-			String confirmPassword = textBox.getText().toString();
-			if (confirmPassword != null && !confirmPassword.equals("")) {
-				EditText passwordBox = (EditText) signupView
-						.getPasswordTextBox();
-				String password = passwordBox.getText().toString();
-				if (!confirmPassword.equals(password)) {
-					showErrorPopup(
-							context.getResources().getString(
-									R.string.password_dont_match), view);
-				}
-			}
-		}
+		errorView = view;
+		return false;
 
 	}
 
 	private class PopupButtonOnlickListener implements
-			DialogInterface.OnClickListener {
+	DialogInterface.OnClickListener {
 		private View view;
 
 		public PopupButtonOnlickListener(View view) {

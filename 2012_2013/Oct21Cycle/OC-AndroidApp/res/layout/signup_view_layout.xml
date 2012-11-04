@@ -197,7 +197,8 @@
                 android:layout_marginTop="8dp"
                 android:contentDescription="@string/todo_need_to_write_a_content_desc"
                 android:scaleType="centerInside"
-                android:src="@drawable/imagearrow" />
+                android:src="@drawable/imagearrow"
+                android:onClick="addPhoto" />
         </LinearLayout>
     </ScrollView>
 
@@ -224,7 +225,8 @@
                 android:paddingRight="12dp"
                 android:paddingTop="5.33dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/accept_plus" />
+                android:src="@drawable/accept_plus" 
+                android:onClick="createAccount"/>
 
             <Button
                 android:id="@+id/saveButton"
@@ -236,7 +238,8 @@
                 android:gravity="left|center_vertical"
                 android:text="@string/save"
                 android:textColor="@color/blue"
-                android:textSize="25sp" />
+                android:textSize="25sp" 
+                 android:onClick="createAccount"/>
 
             <ImageView
                 android:id="@+id/acceptSignupOverlay"
@@ -265,7 +268,8 @@
                 android:paddingRight="13.33dp"
                 android:paddingTop="7.665dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/cancelx" />
+                android:src="@drawable/cancelx" 
+                android:onClick="launchPreviousActivity"/>
 
             <Button
                 android:id="@+id/cancelButton"
@@ -277,7 +281,8 @@
                 android:gravity="left|center_vertical"
                 android:text="@string/cancel"
                 android:textColor="@color/orange"
-                android:textSize="25sp" />
+                android:textSize="25sp" 
+                android:onClick="launchPreviousActivity"/>
 
             <ImageView
                 android:id="@+id/cancelSignupOverlay"
