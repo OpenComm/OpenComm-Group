@@ -2,6 +2,12 @@ package edu.cornell.opencomm.util;
 
 import java.util.regex.Pattern;
 
+/**Utility class 
+ * Issues [TODO]
+ * - For any other issues search for string "TODO"
+ * @author Ankit Singh
+ *
+ */
 public class Util {
 	// TODO create the values class
 	private final static boolean D = false;
