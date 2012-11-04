@@ -34,7 +34,7 @@ public class ContactListController {
 	 * The enum defining the opcodes for PopulateListTask
 	 * 
 	 */
-	private enum ReturnState {
+	public enum ReturnState {
 		FAILED, SUCCEEDED
 	};
 
