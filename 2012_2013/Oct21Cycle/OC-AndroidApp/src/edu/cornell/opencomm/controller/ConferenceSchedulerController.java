@@ -1,11 +1,8 @@
 package edu.cornell.opencomm.controller;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.content.Intent;
 import edu.cornell.opencomm.interfaces.SimpleObserver;
-import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.packet.ConferenceCommunicator;
 import edu.cornell.opencomm.view.ConferenceSchedulerView;
 import edu.cornell.opencomm.view.DashboardView;
@@ -14,6 +11,7 @@ import edu.cornell.opencomm.view.DashboardView;
  * @author 
  *
  */
+@SuppressWarnings("unused")
 public class ConferenceSchedulerController implements SimpleObserver{
 
 	private ConferenceSchedulerView conferenceSchedulerView;
