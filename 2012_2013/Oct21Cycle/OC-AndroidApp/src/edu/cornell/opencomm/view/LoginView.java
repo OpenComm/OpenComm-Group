@@ -87,8 +87,8 @@ public class LoginView extends Activity {
      * @param v
      */
     public void login(View v){
-    	String email = emailEdit.getText().toString();
-        String password = passwordEdit.getText().toString();
+    	String email = emailEdit.getText().toString().trim();
+        String password = passwordEdit.getText().toString().trim();
     	this.loginController.handleLoginButtonClick(email, password);
     }
     

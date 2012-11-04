@@ -8,10 +8,10 @@ import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.view.ConferenceSchedulerView;
 import edu.cornell.opencomm.view.DashboardView;
 
+@SuppressWarnings("unused")
 public class ConferenceController {
 	
 	private ConferenceSchedulerView conferenceSchedulerView;
-	@SuppressWarnings("unused")
 	private Context context; 
 	
 	private ConferenceDataModel _conference; // the conference that is being controlled

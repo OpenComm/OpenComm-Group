@@ -28,11 +28,13 @@ public class ResetPasswordView extends Activity {
 	 * Debugging variable: if true, all logs are logged;
 	 * set to false before packaging
 	 */
+	@SuppressWarnings("unused")
 	private static final boolean D = true;
 	
 	/**
 	 * The TAG for logging
 	 */
+	@SuppressWarnings("unused")
 	private static final String TAG = ResetPasswordView.class.getSimpleName();
 	private ResetPasswordController controller; 
 	private EditText emailEntered;
@@ -46,19 +48,20 @@ public class ResetPasswordView extends Activity {
 		controller = new ResetPasswordController(ResetPasswordView.this, this); 
 	}
 
-	/** When sign up button is pressed, launch signup page */
+	/** 
+	 * When sign up button is pressed, launch signup page 
+	 * */
 	public void signUpPressed(View v){
 		this.controller.signUpPressed();
 	}
 
-	/** When reset password has been clicked - shows a popup for unregistered/invalid emails */
+	/** 
+	 * When reset password has been clicked - shows a popup for unregistered/
+	 * invalid emails 
+	 * */
 	public void goToReset(View v){
 		Log.v("Reset password page", "Reset Clicked");
-		this.controller.resetPasswordPressed(emailEntered.getText().toString());		
-	}
-
-	public EditText getEmailEntered(){
-		return this.emailEntered;
+		this.controller.resetPasswordPressed(this.emailEntered.getText().toString());		
 	}
 
 	@Override
