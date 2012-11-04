@@ -32,6 +32,8 @@ public class DashboardController {
 	}
 
 	/**
+	 * TODO: The method seems to be related to conference card view. However, the documentation
+	 *  says it relates to the contact list.
 	 * TODO: This should call a task when a user clicks the contact list button.
 	 */
 	public void handleConfInfoButtonClicked() {
