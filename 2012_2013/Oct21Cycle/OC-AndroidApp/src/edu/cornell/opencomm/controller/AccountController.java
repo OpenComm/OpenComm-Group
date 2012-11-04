@@ -21,7 +21,7 @@ import edu.cornell.opencomm.network.NetworkService;
  * @author Kris Kooi
  * 
  */
-public final class AccountController {
+public class AccountController {
 	private AccountManager accountManager;
 	private VCard vCard;
 

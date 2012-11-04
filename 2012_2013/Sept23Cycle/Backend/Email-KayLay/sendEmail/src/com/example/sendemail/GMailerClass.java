@@ -66,8 +66,6 @@ public class GMailerClass extends javax.mail.Authenticator {
 
   public GMailerClass(String user, String pass) { 
     this(); 
-   // this.user = user; 
-    //password = pass; 
   } 
 
   public boolean send() throws Exception { 

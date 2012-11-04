@@ -83,10 +83,10 @@ public class SignupController {
 					&& validatePassword(signupView.getPasswordTextBox());
 
 			if (allInputsValid) {
+				new CreateUser().execute();
 				Intent click = new Intent(this.signupView, DashboardView.class);
 				this.signupView.startActivity(click);
-			}else
-			{
+			} else {
 				showErrorPopup("Missing or Invalid Input",errorView);
 
 			}

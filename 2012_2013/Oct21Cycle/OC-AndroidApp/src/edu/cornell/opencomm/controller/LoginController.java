@@ -160,7 +160,8 @@ public class LoginController {
 		}
 		@Override
 		protected ReturnState doInBackground(String... strings) {
-			if (NetworkService.getInstance().login(strings[0], strings[1])) {
+			String[] uname = strings[0].split("@");
+			if (NetworkService.getInstance().login(uname + "@cuopencomm.no-ip.org", strings[1])) {
 				// if network service is in debug mode
 				if (NetworkService.D) {
 					UserManager.PRIMARY_USER = new User("opencommsec@cuopencomm.no-ip.org", "opencommsec@cuopencomm.no-ip.org", 0);

@@ -6,11 +6,15 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.util.Util;
 import edu.cornell.opencomm.view.LoginView;
 import edu.cornell.opencomm.view.PopupView;
 import edu.cornell.opencomm.view.ResetPasswordView;
 import edu.cornell.opencomm.view.SignupView;
+
+import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.util.StringUtils;
 
 /**
  * Controller for reset password screen. Functionality:
@@ -92,6 +96,14 @@ public class ResetPasswordController {
 			EmailStatus eStatus = findEmail(emailEntered);
 			switch (eStatus) {
 			case EXISTING_USER: {
+				EmailController pwrdController = new EmailController();
+				pwrdController.resetPasword(emailEntered);
+				try {
+					pwrdController.send();
+				} catch (Exception e) {
+					Log.v(TAG, "Error sending password email");
+					Log.v(TAG, e.getMessage());
+				}
 				/** TODO [backend] send dummy password to this user's email */
 				// go back to login page
 				Intent click = new Intent(this.resetPasswordView,
