@@ -48,6 +48,9 @@ public class ContactsView extends Activity{
 		initializeSearchButton();
 	}
 	
+	/**
+	 * 
+	 */
 	public void initializeBackButton(){
 		final ImageView backButton = (ImageView) findViewById(R.id.left_arrow_icon);
 		backButton.setOnTouchListener(new OnTouchListener() {
@@ -68,6 +71,9 @@ public class ContactsView extends Activity{
 		}); 
 	} 
 	
+	/**
+	 * 
+	 */
 	public void initializeSearchButton(){
 		final ImageView searchButton = (ImageView) findViewById(R.id.search_button);
 		searchButton.setOnTouchListener(new OnTouchListener() {
@@ -97,8 +103,8 @@ public class ContactsView extends Activity{
 	
 	/** Retrieve and display this user's contacts */
 	public void retrieveAndDisplayContacts(){
-		ArrayList<User> all_contacts = UserManager.getContactList();
-		User[] users = all_contacts.toArray(new User[all_contacts.size()]);
+		ArrayList<User> allContacts = UserManager.getContactList();
+		User[] users = allContacts.toArray(new User[allContacts.size()]);
 		 ContactsViewAdapter adapter = new ContactsViewAdapter(this, 
 	                R.layout.contact_entry_layout, users);
 	        

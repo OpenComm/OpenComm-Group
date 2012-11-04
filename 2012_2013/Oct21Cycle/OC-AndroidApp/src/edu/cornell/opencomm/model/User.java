@@ -42,8 +42,14 @@ public class User implements Comparable<User> {
 	VCard vCard;
 	/**
 	 * The image of the user
+	 * DEPRECIATED : use BitMap
 	 */
 	int image;
+	
+	/** 
+	 * A bitmap of the User's image
+	 */
+	Bitmap userImage;
 
 	/**
 	 * TODO Ankit: Move this out of here it is only used for conference and
@@ -77,6 +83,7 @@ public class User implements Comparable<User> {
 
 	/**
 	 * CONSTRUCTOR := a new User
+	 * 
 	 * @param firstname
 	 * @param lastname
 	 * @param email
@@ -114,21 +121,7 @@ public class User implements Comparable<User> {
 				Log.v(TAG, "error creating User");
 			}
 		}
-	}
-
-	/**
-	 * CONSTRUCTOR: = a new User without a nickname
-	 * 
-	 * @param username
-	 *            - the JID of the User
-	 */
-	public User(String username) {
-		if (D) {
-			Log.v(LOG_TAG, "Made a person for the user " + username);
-		}
-		this.username = username;
-		this.image = R.drawable.question;
-		this.userColor = UserManager.getUserColor(username);
+		this.userImage = getBitMap();
 	}
 
 	/** @return - the User's JID */
@@ -140,7 +133,8 @@ public class User implements Comparable<User> {
 	public String getNickname() {
 		return this.nickname;
 	}
-	public int getImage(){
+
+	public int getImage() {
 		return image;
 	}
 
@@ -153,14 +147,16 @@ public class User implements Comparable<User> {
 		return (getUsername().compareTo(arg0.getUsername()));
 		// returns alphabetic comparison of usernames by using string compareTo
 	}
-	public void storeImage(Bitmap bitmap){
+
+	public void storeImage(Bitmap bitmap) {
 		ByteArrayOutputStream blob = new ByteArrayOutputStream();
-		bitmap.compress(CompressFormat.PNG, 0 , blob);
+		bitmap.compress(CompressFormat.PNG, 0, blob);
 		byte[] bitmapdata = blob.toByteArray();
 		vCard.setAvatar(bitmapdata);
 	}
-	public Bitmap getBitMap(){
+
+	public Bitmap getBitMap() {
 		byte[] bitmapdata = vCard.getAvatar();
-		return BitmapFactory.decodeByteArray(bitmapdata , 0, bitmapdata .length);
+		return BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
 	}
 }
