@@ -291,7 +291,8 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
     
     //remote IP and remote Port in the remoteCandidate element
     NSXMLElement *remoteCandidateElement =
-    [[jingleElement elementForName: [jingleConstants TRANSPORT_ELEMENT_NAME]]
+    [[[jingleElement elementForName: [jingleConstants CONTENT_ELEMENT_NAME]]
+                    elementForName: [jingleConstants TRANSPORT_ELEMENT_NAME]]
                     elementForName: [jingleConstants REMOTE_CANDIDATE_ELEMENT_NAME]];
     toIPAddress = [remoteCandidateElement attributeStringValueForName: [jingleConstants ATTRIBUTE_IP]];
     toPort = [remoteCandidateElement attributeStringValueForName: [jingleConstants ATTRIBUTE_PORT]];
