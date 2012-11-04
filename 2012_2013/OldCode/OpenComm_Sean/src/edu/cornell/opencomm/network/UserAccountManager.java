@@ -48,10 +48,11 @@ public class UserAccountManager {
 	public boolean createUser(String email,String password, String firstname, String lastname, 
 			String title){
 		try {
-			HashMap<String, String> attr = new HashMap<String, String>(); 
-			attr.put("firstname", firstname); 
-			attr.put("lastname", lastname); 
-			attr.put("title", title); 
+			HashMap<String, String> attr = new HashMap<String, String>();
+			attr.put("firstname", firstname);
+			attr.put("lastname", lastname);
+			attr.put("title", title);
+
 
 			accountManager.createAccount(email, password, attr);
 			if (D){
