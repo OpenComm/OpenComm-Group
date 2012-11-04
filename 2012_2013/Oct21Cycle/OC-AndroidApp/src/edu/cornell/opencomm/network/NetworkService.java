@@ -33,12 +33,10 @@ import org.jivesoftware.smackx.search.UserSearch;
 
 import android.util.Log;
 
-/**
- * Service that handles the network connection
+/** Service that handles the network connection
  * 
- * @author Ankit Singh [frontend], Risa Naka [frontend], Kris Kooi [backend],
- *         Brian O'Connor [backend]
- * 
+ * @author Ankit Singh [frontend], Risa Naka [frontend], Kris Kooi [backend], Brian O'Connor [backend]
+ *
  */
 public class NetworkService {
 
@@ -99,43 +97,31 @@ public class NetworkService {
 		}
 		return this.xmppConn;
 	}
-
+	
 	public boolean login(String email, String password) {
 		try {
 			String username = email.split("@")[0];
-			if (D)
-				Log.d(TAG, "Attempting Login: Email = " + email
-						+ " User Name = " + username + " password = "
-						+ password);
+			if (D) Log.d(TAG, "Attempting Login: Email = " + email + " User Name = " + username 
+					+ " password = " + password);
 			// attempt to login
-			if (D) {
-				this.getConnection().login("opencommsec" + DEFAULT_HOSTNAME,
-						"secopencomm", DEFAULT_RESOURCE);
-			} else {
-				this.getConnection().login(username + DEFAULT_HOSTNAME,
-						password, DEFAULT_RESOURCE);
-			}
+			this.getConnection().login(username + DEFAULT_HOSTNAME, password,
+					DEFAULT_RESOURCE);
 			// check that the email given is the right one, otherwise
-			if (!email.equals(this.getConnection().getAccountManager()
-					.getAccountAttribute("email"))) {
+			if (!email.equals(this.getConnection().getAccountManager().getAccountAttribute("email"))) {
 				// disconnect
 				this.xmppConn.disconnect();
 				// reconnect to the server
 				_instance = new NetworkService(DEFAULT_HOST, DEFAULT_PORT);
 			}
 		} catch (XMPPException e) {
-			if (D)
-				Log.d(TAG, "Unable to authenticate");
-			if (D)
-				Log.d(TAG, e.getMessage());
+			if (D) Log.d(TAG, "Unable to authenticate");
+			if (D) Log.d(TAG, e.getMessage());
 		} catch (Exception e) {
-			if (D)
-				Log.d(TAG, e.getMessage());
+			if (D) Log.d(TAG, e.getMessage());
 		}
 		this.isAuthenticated = this.xmppConn.isAuthenticated();
 		if (isAuthenticated && D) {
-			if (D)
-				Log.d(TAG, "logged in!");
+			if (D) Log.d(TAG, "logged in!");
 		}
 		return this.isAuthenticated;
 	}
@@ -144,11 +130,11 @@ public class NetworkService {
 		this.xmppConn.disconnect();
 		return true;
 	}
-
+	
 	public PrivacyList getBlockList() {
 		return this.blockList;
 	}
-
+	
 	public AccountManager getAccountManager() {
 		if (this.accountManager == null) {
 			this.accountManager = new AccountManager(this.getConnection());
