@@ -37,11 +37,13 @@ public class LoginController {
 	 * Debugging variable: if true, all logs are logged;
 	 * set to false before packaging
 	 */
+	@SuppressWarnings("unused")
 	private static final boolean D = true;
 	
 	/**
 	 * The TAG for logging
 	 */
+	@SuppressWarnings("unused")
 	private static final String TAG = LoginController.class.getSimpleName();
 
 	private ProgressDialog loginProgress;

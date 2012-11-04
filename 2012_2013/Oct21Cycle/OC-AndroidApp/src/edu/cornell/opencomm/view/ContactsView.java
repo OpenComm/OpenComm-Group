@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Manager.UserManager;
 import edu.cornell.opencomm.controller.ContactListController;
+import edu.cornell.opencomm.controller.ContactListController.ReturnState;
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.model.User;
 import android.app.Activity;
@@ -24,9 +25,11 @@ public class ContactsView extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.contacts_layout);
 		this.controller = new ContactListController(this);
-		this.controller.updateContacts();
-		retrieveAndDisplayContacts();
-		adjustLayoutLookAndFunctionality();
+		ReturnState updatecontact = this.controller.updateContacts();
+		if (updatecontact == ReturnState.SUCCEEDED) {
+			retrieveAndDisplayContacts();
+			adjustLayoutLookAndFunctionality();
+		}
 		//dbHelper = new ContactsDbAdapter();
 		//dbHelper.open();
 		
