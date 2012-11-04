@@ -3,6 +3,8 @@ package edu.cornell.opencomm.view;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+//TODO: Conference scheduler view has typo--string "invited_by" should have value "invited by" not "invited_by"
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
