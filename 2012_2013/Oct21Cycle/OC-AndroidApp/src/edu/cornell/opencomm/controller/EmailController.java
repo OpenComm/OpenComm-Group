@@ -157,6 +157,14 @@ public class EmailController extends Authenticator {
 				+ "To enable your account:"
 				+ "http://example.com:9090/plugins/userService/userservice?type=enable&secret="
 				+ getSecret() + "&username=" + getUserName());
+		
+		try {
+			this.send();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	public void resetPasword(String email) {
