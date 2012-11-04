@@ -33,6 +33,11 @@ import org.jivesoftware.smackx.search.UserSearch;
 
 import android.util.Log;
 
+/** Service that handles the network connection
+ * 
+ * @author Ankit Singh [frontend], Risa Naka [frontend], Kris Kooi [backend], Brian O'Connor [backend]
+ *
+ */
 public class NetworkService {
 
 	public static final boolean D = true;
@@ -78,6 +83,7 @@ public class NetworkService {
 		this.xmppConfig = new ConnectionConfiguration(host, port);
 		this.xmppConfig.setSASLAuthenticationEnabled(true);
 		this.xmppConn = new XMPPConnection(xmppConfig);
+		this.accountManager = this.xmppConn.getAccountManager();
 
 	}// end NetworkService method
 
@@ -92,27 +98,35 @@ public class NetworkService {
 		return this.xmppConn;
 	}
 	
-	public boolean login(String username, String password) {
+	public boolean login(String email, String password) {
 		try {
-			Log.v(TAG, "Attempting Login: User Name = " + username
-					+ " password = " + password);
 			if (D) {
-				Log.d(TAG, "Actually going to sign in as opencommsec :P");
-				this.getConnection().login("opencommsec" + DEFAULT_HOSTNAME,
-						"secopencomm", DEFAULT_RESOURCE);
+				this.getConnection().login("opencommsec" + DEFAULT_HOSTNAME, "secopencomm",
+						DEFAULT_RESOURCE);
 			} else {
+				String username = email.split("@")[0];
+				if (D) Log.d(TAG, "Attempting Login: Email = " + email + " User Name = " + username 
+						+ " password = " + password);
+				// attempt to login
 				this.getConnection().login(username + DEFAULT_HOSTNAME, password,
 						DEFAULT_RESOURCE);
+				// check that the email given is the right one, otherwise
+				if (!email.equals(this.getConnection().getAccountManager().getAccountAttribute("email"))) {
+					// disconnect
+					this.xmppConn.disconnect();
+					// reconnect to the server
+					_instance = new NetworkService(DEFAULT_HOST, DEFAULT_PORT);
+				}
 			}
 		} catch (XMPPException e) {
-			Log.v(TAG, "Unable to authenticate");
-			Log.v(TAG, e.getMessage());
+			if (D) Log.d(TAG, "Unable to authenticate");
+			if (D) Log.d(TAG, e.getMessage());
 		} catch (Exception e) {
-			Log.v(TAG, e.getMessage());
+			if (D) Log.d(TAG, e.getMessage());
 		}
 		this.isAuthenticated = this.xmppConn.isAuthenticated();
 		if (isAuthenticated && D) {
-			Log.v(TAG, "logged in!");
+			if (D) Log.d(TAG, "logged in!");
 		}
 		return this.isAuthenticated;
 	}
