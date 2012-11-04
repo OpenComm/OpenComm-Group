@@ -486,8 +486,8 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
 
 - (void) printJingleObject {
     NSLog(@"********* JINGLE OBJECT PRINTOUT **********");
-    NSLog(@"Remote Endpoint IP Addr: %@, Remote Endpoint Port: %@.", toIPAddress, toPort);
-    NSLog(@"My IPAddr: %@, My Port: %@, My State: %@, Pending Ack?: %@", myIPAddress, myPort, state, (pendingAck? @"yes" : @"no"));
+    NSLog(@"Remote Endpoint IP Addr: %@, Remote Endpoint Port: %@, Remote JID: %@, Remote SID: %@", toIPAddress, toPort, toJID, toSID);
+    NSLog(@"My IPAddr: %@, My Port: %@, My State: %@, Pending Ack?: %@, My JID: %@, My SID: %@", myIPAddress, myPort, state, (pendingAck? @"yes" : @"no"), myJID, mySID);
     NSLog(@"*******************************************");
     
 }
