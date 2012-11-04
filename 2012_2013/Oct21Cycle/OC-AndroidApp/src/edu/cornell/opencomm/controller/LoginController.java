@@ -81,6 +81,7 @@ public class LoginController {
 		boolean isEmptyPwd = (password == null || password.equals(""));
 		boolean isInvalidPwd = !Util.validateString(password, Util.PASSWORD);
 		// if there are any errors with the inputs
+		// TODO [frontend] modify error messages in accordance to design spec
 		if (isEmptyEmail || isInvalidEmail || isEmptyPwd || isInvalidPwd) {
 			StringBuilder errorText = new StringBuilder();
 			if (isEmptyEmail) {

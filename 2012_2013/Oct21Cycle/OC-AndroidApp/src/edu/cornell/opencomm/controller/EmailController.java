@@ -161,8 +161,7 @@ public class EmailController extends Authenticator {
 		try {
 			this.send();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.v(TAG, "Error sending email");
 		}
 		
 	}
