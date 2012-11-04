@@ -100,23 +100,18 @@ public class NetworkService {
 	
 	public boolean login(String email, String password) {
 		try {
-			if (D) {
-				this.getConnection().login("opencommsec" + DEFAULT_HOSTNAME, "secopencomm",
-						DEFAULT_RESOURCE);
-			} else {
-				String username = email.split("@")[0];
-				if (D) Log.d(TAG, "Attempting Login: Email = " + email + " User Name = " + username 
-						+ " password = " + password);
-				// attempt to login
-				this.getConnection().login(username + DEFAULT_HOSTNAME, password,
-						DEFAULT_RESOURCE);
-				// check that the email given is the right one, otherwise
-				if (!email.equals(this.getConnection().getAccountManager().getAccountAttribute("email"))) {
-					// disconnect
-					this.xmppConn.disconnect();
-					// reconnect to the server
-					_instance = new NetworkService(DEFAULT_HOST, DEFAULT_PORT);
-				}
+			String username = email.split("@")[0];
+			if (D) Log.d(TAG, "Attempting Login: Email = " + email + " User Name = " + username 
+					+ " password = " + password);
+			// attempt to login
+			this.getConnection().login(username + DEFAULT_HOSTNAME, password,
+					DEFAULT_RESOURCE);
+			// check that the email given is the right one, otherwise
+			if (!email.equals(this.getConnection().getAccountManager().getAccountAttribute("email"))) {
+				// disconnect
+				this.xmppConn.disconnect();
+				// reconnect to the server
+				_instance = new NetworkService(DEFAULT_HOST, DEFAULT_PORT);
 			}
 		} catch (XMPPException e) {
 			if (D) Log.d(TAG, "Unable to authenticate");

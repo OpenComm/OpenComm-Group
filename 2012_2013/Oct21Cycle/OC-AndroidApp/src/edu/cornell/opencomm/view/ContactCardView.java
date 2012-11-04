@@ -2,11 +2,14 @@ package edu.cornell.opencomm.view;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.Manager.UserManager;
 import edu.cornell.opencomm.controller.ContactCardController;
+import edu.cornell.opencomm.model.User;
 
 
 //TODO: Ankit:Remove this and the unused attributes
@@ -35,6 +38,15 @@ public class ContactCardView extends Activity{
 		conference2 = (TextView) findViewById(R.id.contact_card_conference2);
 		conference3 = (TextView) findViewById(R.id.contact_card_conference3);
 		controller = new ContactCardController(this);
+		String nameStr = this.getIntent().getStringExtra("Contact");
+		Log.d("ContactCardView", nameStr);
+		for (User u : UserManager.getContactList()) {
+			if (u.getNickname().equals(nameStr)) {
+				// TODO extract user info
+				name.setText(u.getNickname());
+				email.setText(u.getUsername());
+			}
+		}
 	}
 	
 	public void backButtonClicked(View v){

@@ -161,13 +161,8 @@ public class LoginController {
 		@Override
 		protected ReturnState doInBackground(String... strings) {
 			if (NetworkService.getInstance().login(strings[0], strings[1])) {
-				// if network service is in debug mode
-				if (NetworkService.D) {
-					UserManager.PRIMARY_USER = new User("opencommsec@cuopencomm.no-ip.org", "opencommsec@cuopencomm.no-ip.org", 0);
-				}
-				else {
-					UserManager.PRIMARY_USER = new User(strings[0], strings[0], 0);
-				}
+				String name = NetworkService.getInstance().getConnection().getAccountManager().getAccountAttribute("name");
+				UserManager.PRIMARY_USER = new User(strings[0], name, 0);
 				return ReturnState.SUCCEEDED;
 			} else {
 				return ReturnState.COULDNT_CONNECT;
@@ -184,6 +179,7 @@ public class LoginController {
 
 			} else {
 				notifyTip("Invalid Email ID or password. Please try again!");
+				loginView.getLoginOverlay().setVisibility(View.INVISIBLE);
 			}
 		}
 	}

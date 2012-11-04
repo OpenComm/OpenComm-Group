@@ -40,10 +40,14 @@ public class ContactCardController {
 	}
 
 	public void handleAddButtonClicked() {
-		Log.v(TAG, "Adding user " + contact.getUsername() + " to contacts");
+		int duration = Toast.LENGTH_SHORT;
+		Toast toast = Toast.makeText(view.getApplicationContext(),
+				"Add Button Pressed", duration);
+		toast.show();
+		/*Log.v(TAG, "Adding user " + contact.getUsername() + " to contacts");
 		ArrayList<User> contactList = UserManager.getContactList();
 		contactList.add(contact);
-		UserManager.updateContactList(contactList);
+		UserManager.updateContactList(contactList);*/
 	}
 
 	public void handleOverflowButtonClicked() {
@@ -54,7 +58,11 @@ public class ContactCardController {
 	}
 
 	public void handleBlockButtonClicked() {
-		Log.v(TAG, "Blocking user " + contact.getUsername());
+		int duration = Toast.LENGTH_SHORT;
+		Toast toast = Toast.makeText(view.getApplicationContext(),
+				"Block Button Pressed", duration);
+		toast.show();
+		/*Log.v(TAG, "Blocking user " + contact.getUsername());
 		PrivacyItem item = new PrivacyItem(PrivacyItem.Type.jid.name(), false,
 				1);
 		item.setValue(contact.getUsername());
@@ -80,6 +88,6 @@ public class ContactCardController {
 			privacyManager.updatePrivacyList(BLOCK_LIST_NAME, privacyList);
 		} catch (XMPPException e) {
 			Log.e(TAG, "Unable to attain block list");
-		}
+		}*/
 	}
 }

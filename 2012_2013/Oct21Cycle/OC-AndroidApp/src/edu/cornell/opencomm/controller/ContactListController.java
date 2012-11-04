@@ -9,9 +9,11 @@ import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.XMPPConnection;
 
+import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Manager.UserManager;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
+import edu.cornell.opencomm.view.ContactCardView;
 import edu.cornell.opencomm.view.ContactsSearchView;
 import edu.cornell.opencomm.view.ContactsView;
 
@@ -20,6 +22,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 public class ContactListController {
 
@@ -61,6 +64,10 @@ public class ContactListController {
 	}
 
 	public void contactClicked(View v){
+		Intent i = new Intent(this.view, ContactCardView.class);
+		TextView user = (TextView) v.findViewById(R.id.contact_name);
+		i.putExtra("Contact", user.getText().toString());
+		this.view.startActivity(i);
 		//TODO: Needs to find the contact and open that contact page
 	}
 

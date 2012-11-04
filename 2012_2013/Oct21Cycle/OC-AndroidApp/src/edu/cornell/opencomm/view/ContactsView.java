@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -103,5 +105,14 @@ public class ContactsView extends Activity{
 	        
 		ListView contactList = (ListView)findViewById(R.id.contacts_list);
 		contactList.setAdapter(adapter);
+		contactList.setOnItemClickListener(new OnItemClickListener(){
+
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				controller.contactClicked(arg1);
+				
+			}
+			
+		});
 	}
 }
