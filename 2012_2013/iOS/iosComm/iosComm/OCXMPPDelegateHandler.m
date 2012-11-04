@@ -32,6 +32,8 @@
 {
     XMPPPresence *presc = [XMPPPresence presence];
     [sender sendElement: presc]; //available is implicit supposedly
+    
+    jingleObj = [[OCJingleImpl alloc] initWithJID: [sender myJID] xmppStream: sender];
     NSLog(@"I'm supposedly online");
 }
 
@@ -145,10 +147,6 @@
     //[self sendMessageWith:sender message:@"QIMING IS COOL" to:@"opencommsec@cuopencomm" ];
     
     //init jingleObj here once we go online -- we are now open for jingle connections
-}
-
-- (void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence {
-    NSLog(@"%@", presence);
     if ([[jingleObj jingleConstants] DEBUG_PARAM]) {
         //If you're the sender, send an session-initiate to the "receiver".
         if ([[jingleObj jingleConstants] DEBUG_IS_SENDER]) {
@@ -158,6 +156,10 @@
             [jingleObj printJingleObject];
         }
     }
+}
+
+- (void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence {
+    NSLog(@"%@", presence);
 }
 
 

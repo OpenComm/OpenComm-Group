@@ -9,9 +9,9 @@
 	<key>DEBUG_IS_RECEIVER</key>
 	<false/>
 	<key>DEBUG_SENDER_JID</key>
-	<string>ios_team@cuopencomm.no-ip.org/mobile</string>
+	<string>ios_team@cuopencomm/mobile</string>
 	<key>DEBUG_RECEIVER_JID</key>
-	<string>qimingiscool@cuopencomm.no-ip.org/mobile</string>
+	<string>qimingiscool@cuopencomm/mobile</string>
 	<key>DEBUG_RECVPORTNUM_SENDER</key>
 	<integer>1337</integer>
 	<key>DEBUG_RECVPORTNUM_RECEIVER</key>
