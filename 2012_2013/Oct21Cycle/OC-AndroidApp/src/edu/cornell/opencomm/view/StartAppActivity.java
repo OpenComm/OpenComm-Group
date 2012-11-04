@@ -43,7 +43,7 @@ public class StartAppActivity extends Activity {
 		final Handler handler = new Handler();
 		handler.postDelayed(new Runnable() {
 			public void run() {
-				if (D) Log.d(TAG, "Splash timeout:Attempting Connection");
+				if (D) Log.d(TAG, "Splash timeouts at 3 seconds: attempting Connection");
 				launchLoginView();
 			}
 		}, SPLASH_SCREEN_DELAY);
