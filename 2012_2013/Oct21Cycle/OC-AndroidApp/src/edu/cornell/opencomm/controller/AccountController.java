@@ -58,6 +58,7 @@ public class AccountController {
 			User u = new User(firstName, lastName, email, photo, title,
 					username, nickname);
 			this.vCard = u.getVCard();
+			//TODO: store VCard on server
 		} catch (XMPPException e) {
 			Log.v(TAG, "Account creation failed");
 		}
