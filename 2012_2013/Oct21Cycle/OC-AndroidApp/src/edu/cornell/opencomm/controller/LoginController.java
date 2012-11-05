@@ -126,28 +126,6 @@ public class LoginController {
 		this.loginView.startActivity(account);
 	}
 
-	public void handleEmailFocusChange(View view, boolean hasFocus) {
-		if (!hasFocus) {
-			EditText email = (EditText) view;
-			String emailText = email.getText().toString();
-			if (emailText != null && !emailText.equals("")) {
-				if (!Util.validateString(emailText, Util.EMAIL_ADDRESS_PATTERN)) {
-					PopupView popup = new PopupView(loginView);
-					popup.createPopup("Error", "Incorrect Email");
-					popup.createPositiveButton("OK", new DialogInterface.OnClickListener() {
-
-						public void onClick(DialogInterface dialog, int which) {
-							dialog.dismiss();
-							loginView.resetFocus();
-
-						}
-					} );
-					popup.showPopup();
-				}
-			}
-		}
-	}
-
 	private void notifyTip(String message) {
 		NotificationView notify = new NotificationView(loginView);
 		notify.launch(message);

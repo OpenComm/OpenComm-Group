@@ -19,7 +19,10 @@ import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.controller.SignupController;
 
+/** TODO add class comment -- see loginView, LoginController*/
 public class SignupView extends Activity{
+	// TODO add debug variable
+	// TODO alter comment
 	private static final String TAG = SignupView.class.getName();
 	protected static final int ACTIVITY_SELECT_IMAGE = 1000;
 	private static final int REQ_CODE_PICK_IMAGE = 9999;
@@ -29,11 +32,6 @@ public class SignupView extends Activity{
 	 */
 	private SignupController controller;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.app.Activity#onCreate(android.os.Bundle)
-	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -134,3 +132,4 @@ public class SignupView extends Activity{
 		}
 	}
 }
+

@@ -25,24 +25,6 @@
             android:onClick="blockButtonPressed"
             android:src="@drawable/action_overflow" />
 
-        <SlidingDrawer
-            android:id="@+id/drawer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:content="@+id/content"
-            android:handle="@+id/handle" >
-
-            <ImageView
-                android:id="@+id/handle"
-                android:layout_width="88dip"
-                android:layout_height="44dip" />
-
-            <GridView
-                android:id="@+id/content"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </SlidingDrawer>
-
         <ImageView
             android:id="@+id/left_arrow_icon"
             android:layout_width="16dp"
@@ -63,7 +45,7 @@
             android:layout_toRightOf="@+id/left_arrow_icon"
             android:background="@color/grey_half_opacity"
             android:gravity="center_vertical"
-            android:text="@string/add"
+            android:text="@string/search"
             android:textColor="@color/blue_contacts_page_title"
             android:textSize="24sp" />
     </RelativeLayout>
@@ -78,37 +60,44 @@
         android:layout_marginLeft="46.67dp"
         android:layout_marginTop="32dp" >
 
-        <EditText
-            android:id="@+id/search_contact_bar"
+        <RelativeLayout
+            android:id="@+id/contact_search_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textColorHint="@color/black" >
+            android:layout_marginRight="46.67dp"
+            android:background="@color/white" >
 
-            <requestFocus />
-        </EditText>
+            <EditText
+                android:id="@+id/search_contact_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/contact_search_search_button"
+                android:ems="10"
+                android:hint="@string/search_hint"
+                android:inputType="textPersonName"
+                android:onClick="textEntered"
+                android:textColorHint="@color/black" />
 
-        <ImageButton
-            android:id="@+id/contact_search_search_button"
-            android:layout_width="41.33dp"
-            android:layout_height="25dp"
-            android:layout_alignBottom="@+id/search_contact_bar"
-            android:layout_alignParentTop="true"
-            android:layout_marginBottom="14dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/off_white"
-            android:contentDescription="@string/desc"
-            android:scaleType="fitCenter"
-            android:src="@drawable/contacts_search_icon" />
+            <ImageButton
+                android:id="@+id/contact_search_search_button"
+                android:layout_width="41.33dp"
+                android:layout_height="33dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/white"
+                android:contentDescription="@string/desc"
+                android:scaleType="fitCenter"
+                android:src="@drawable/contacts_search_icon" />
+        </RelativeLayout>
 
         <ListView
             android:id="@+id/contact_search_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/search_contact_bar"
+            android:layout_below="@+id/contact_search_bar"
             android:background="@color/black_light"
             android:clickable="true"
             android:descendantFocusability="blocksDescendants"

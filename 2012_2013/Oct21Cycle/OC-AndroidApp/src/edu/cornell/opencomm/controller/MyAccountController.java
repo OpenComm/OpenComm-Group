@@ -12,7 +12,7 @@ public class MyAccountController {
 	public MyAccountController (MyAccountView v) {
 		this.view = v;
 	}
-	
+	//TODO: Remove this method, let the activity/view handle this
 	public void handleBackButtonClicked() {
 		this.view.onBackPressed();	
 	}

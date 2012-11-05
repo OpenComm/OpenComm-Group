@@ -35,6 +35,7 @@ public class MyAccountView extends Activity{
 	}
 	
 	public void backButtonClicked(View v){
+		//TODO: call super.OnBackPressed()
 		controller.handleBackButtonClicked();
 	}
 	public void editButtonClicked(View v){
