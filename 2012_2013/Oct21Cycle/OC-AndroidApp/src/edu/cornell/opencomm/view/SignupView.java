@@ -132,3 +132,4 @@ public class SignupView extends Activity{
 		}
 	}
 }
+
