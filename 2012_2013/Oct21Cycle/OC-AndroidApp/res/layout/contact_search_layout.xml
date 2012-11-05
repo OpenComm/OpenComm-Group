@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="46.67dp"
             android:background="@color/white" >
-
+
             <EditText
                 android:id="@+id/search_contact_bar"
                 android:layout_width="wrap_content"
@@ -75,7 +75,6 @@
                 android:ems="10"
                 android:hint="@string/search_hint"
                 android:inputType="textPersonName"
-                android:onClick="textEntered"
                 android:textColorHint="@color/black" />
 
             <ImageButton
@@ -91,18 +90,22 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/contacts_search_icon" />
         </RelativeLayout>
-
+
         <ListView
             android:id="@+id/contact_search_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/contact_search_bar"
+            android:layout_marginTop="10dp"
             android:background="@color/black_light"
             android:clickable="true"
             android:descendantFocusability="blocksDescendants"
+            android:divider="@color/bar_separating_listview"
+            android:dividerHeight="2dp"
             android:smoothScrollbar="true"
             android:visibility="invisible" >
+
         </ListView>
     </RelativeLayout>
 
