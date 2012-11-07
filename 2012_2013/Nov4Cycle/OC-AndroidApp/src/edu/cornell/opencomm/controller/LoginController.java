@@ -78,8 +78,8 @@ public class LoginController {
 	}
 
 	/** Checks whether the given email and password are properly formatted
-	 * @param email
-	 * @param password
+	 * @param email - ex: oc1@test.org
+	 * @param password - ex: opencomm
 	 */
 	public void handleLoginButtonClick(String email, String password) {
 		this.loginView.getLoginOverlay().setVisibility(View.VISIBLE);
@@ -134,11 +134,6 @@ public class LoginController {
 		this.loginView.startActivity(account);
 	}
 
-	private void notifyTip(String message) {
-		NotificationView notify = new NotificationView(loginView);
-		notify.launch(message);
-	}
-
 	/** @return - the outcome of the background task */
 	private class LoginTask extends AsyncTask<String, Void, ReturnState> {
 		@Override
@@ -168,6 +163,7 @@ public class LoginController {
 			loginProgress.dismiss();
 			switch (state) {
 			case COULDNT_CONNECT:
+				loginView.getLoginOverlay().setVisibility(View.INVISIBLE);
 				// let user know that we could not establish connection w/ server
 				int duration = Toast.LENGTH_SHORT;
 	        	Toast send = Toast.makeText(loginView.getApplicationContext(),
@@ -175,6 +171,7 @@ public class LoginController {
 	        	send.show();
 				break;
 			case INVALID_PAIR:
+				loginView.getLoginOverlay().setVisibility(View.INVISIBLE);
 				// let user know that the pair was invalid
 				duration = Toast.LENGTH_SHORT;
 	        	send = Toast.makeText(loginView.getApplicationContext(),
