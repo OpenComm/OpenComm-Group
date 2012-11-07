@@ -17,14 +17,15 @@ public class ChatSpaceModel extends MultiUserChat{
 	 */
 	HashMap<String, User> userMap = new HashMap<String, User>();
 	HashMap<User, Point> userLocationMap = new HashMap<User, Point>();
-	public ChatSpaceModel(Connection arg0, String arg1) {
-		super(arg0, arg1);
-		
-		
-		
-		
-		// TODO Auto-generated constructor stub
+	String roomID;
+	User moderator;
+	
+	public ChatSpaceModel(Connection c, String s) {
+		super(c, s);
 	}
+	
+	
+	//TODO: don't worry about these for Nov4 cycle
 	public void updateUserLocation(User u, Point location){
 		
 	}

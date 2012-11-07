@@ -18,8 +18,12 @@ public class ConferenceDataModel {
 		activeChat = mainSpaceRoomID;  /** If we change to constants this will be MAIN */
 	}
 	
-	public void switchActiveChat(String newActiveRoomID){
+	public void setActiveChat(String newActiveRoomID){
 		activeChat = newActiveRoomID;
+	}
+	
+	public String getActiveChat(){
+		return activeChat;
 	}
 
 }

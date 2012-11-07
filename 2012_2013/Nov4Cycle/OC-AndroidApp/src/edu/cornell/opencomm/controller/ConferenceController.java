@@ -11,7 +11,6 @@ import edu.cornell.opencomm.view.DashboardView;
 @SuppressWarnings("unused")
 public class ConferenceController {
 	
-	private ConferenceSchedulerView conferenceSchedulerView;
 	private Context context; 
 	
 	private ConferenceDataModel _conference; // the conference that is being controlled
@@ -23,34 +22,42 @@ public class ConferenceController {
 		this._conference = conf;
 	}
 	
-	// u is the user that is dragged to create a new side chat
-	// sChat is the indicator that it is the left side chat or the right sidechat 
-	// it may be better to use an int or constant ot indicate left/right side chat
-	public void addSideChat(User u, String sChat){
-		//TODO: send invitation to user u (using sendInvitation method below)
-		//TODO: the listener will handle creation of side chat by checking if it 
-		// exists or not when it receives a response from user u
+	public void inviteUser(User u, String sChat){
+		//TODO: only moderators can do this.  Send invitation to user u for chat sChat
+	}
+	
+	public void addUser(User u, String sChat){
+		//TODO: update model when a user accepts an invitation
 	}
 	
 	// sChat is the indicator that it is the left side chat or the right sidechat 
 	// it may be better to use an int or constant ot indicate left/right side chat
-	public void deleteSideChat(String sChat){
-		//TODO: leave the side chat
-		//TODO: empty the current user's view of the side chat (reset the model's side chat to empty)
+	public void leaveChat(String sChat){
+		//TODO: leave the active chat/conference
+		// if the user that is leaving is the moderator, then this should call transferPrivileges
 	}
 	
-	public void inviteUser(User u){
-		//TODO: send invitation to user
+	public void endConference(String conf){
+		//TODO: only the moderator can do this and only on the main conference
 	}
 	
-	//TODO: the following methods will not be implemented for the Oct21 cycle
-	
-	public void moveUser(User u){
-		//TODO: modify audio manipulation based on new location (future work)
+	public void transferPrivileges(User u){
+		//TODO: transfer privileges to u
 	}
 	
 	public void kickoutUser(User u){
-		//TODO: remove user from conference (not in current specs)
+		//TODO: only the moderator can do this.  Remove user from conference/chat
+	}
+	
+	public void switchChat(String chat){
+		//TODO: change active chat
+	}
+	
+	
+	//TODO: the following methods will not be implemented for the Nov4 cycle
+	
+	public void moveUser(User u){
+		//TODO: modify audio manipulation based on new location (future work)
 	}
 	
 	public void init(){
