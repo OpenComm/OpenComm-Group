@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Manager.UserManager;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
@@ -52,15 +54,21 @@ public class LoginController {
 	 * The View Object
 	 */
 	private LoginView loginView;
-
+	
 	/**
-	 * The enum defining the opcodes for Login Task
-	 * 
+	 * The enum defining the opcodes for Login Task:
+	 * <ul>
+	 * <li>SUCCEEDED - app successfully connected to the server and signed in as 
+	 * the given pair (email, password), which represents a valid user</li>
+	 * <li>COULDNT_CONNECT - app could not connect to the server</li>
+	 * <li>INVALID_PAIR - app could connect to the server, but the given pair 
+	 * was invalid</li>
+	 * </ul>
 	 */
-	//TODO: Add more information about meaning of each state. Also, this is already defined in model>ReturnState.
-	private enum ReturnState {
-		SUCCEEDED, COULDNT_CONNECT, WRONG_PASSWORD, ALREADY_CLICKED
+	public enum ReturnState {
+		SUCCEEDED, COULDNT_CONNECT, INVALID_PAIR
 	};
+
 
 	/**
 	 * @param view
@@ -140,26 +148,45 @@ public class LoginController {
 		}
 		@Override
 		protected ReturnState doInBackground(String... strings) {
-			if (NetworkService.getInstance().login(strings[0], strings[1])) {
+			ReturnState loginRS = NetworkService.getInstance().login(strings[0], strings[1]);
+			switch (loginRS) {
+			// if login is successful
+			case SUCCEEDED:
 				String name = NetworkService.getInstance().getConnection().getAccountManager().getAccountAttribute("name");
+				// generate primary user
+				// TODO [backend] generate primary user
 				UserManager.PRIMARY_USER = new User(strings[0], name, 0);
-				return ReturnState.SUCCEEDED;
-			} else {
-				return ReturnState.COULDNT_CONNECT;
+				break;
+			default:
+				break;
 			}
+			return loginRS;
 		}
 
 		@Override
 		protected void onPostExecute(ReturnState state) {
 			loginProgress.dismiss();
-			if (state == ReturnState.ALREADY_CLICKED
-					|| state == ReturnState.SUCCEEDED) {
+			switch (state) {
+			case COULDNT_CONNECT:
+				// let user know that we could not establish connection w/ server
+				int duration = Toast.LENGTH_SHORT;
+	        	Toast send = Toast.makeText(loginView.getApplicationContext(),
+	        			"Could not connect to server; please try again.",duration);
+	        	send.show();
+				break;
+			case INVALID_PAIR:
+				// let user know that the pair was invalid
+				duration = Toast.LENGTH_SHORT;
+	        	send = Toast.makeText(loginView.getApplicationContext(),
+	        			"Invalid email and/or password; please try again.",duration);
+	        	send.show();
+				break;
+			case SUCCEEDED:
 				Intent i = new Intent(loginView, DashboardView.class);
 				loginView.startActivity(i);
-
-			} else {
-				notifyTip("Invalid Email ID or password. Please try again!");
-				loginView.getLoginOverlay().setVisibility(View.INVISIBLE);
+				break;
+			default:
+				break;
 			}
 		}
 	}

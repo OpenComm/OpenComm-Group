@@ -31,6 +31,8 @@ import org.jivesoftware.smackx.provider.VCardProvider;
 import org.jivesoftware.smackx.provider.XHTMLExtensionProvider;
 import org.jivesoftware.smackx.search.UserSearch;
 
+import edu.cornell.opencomm.controller.LoginController.ReturnState;
+
 import android.util.Log;
 
 /** Service that handles the network connection
@@ -92,38 +94,41 @@ public class NetworkService {
 			try {
 				this.xmppConn.connect();
 			} catch (XMPPException e) {
-				Log.v(TAG, "Connection error!");
+				if (D) Log.d(TAG, "Connection error!");
 			}
 		}
 		return this.xmppConn;
 	}
 	
-	public boolean login(String email, String password) {
+	public ReturnState login(String email, String password) {
 		try {
-			String username = email.split("@")[0];
-			if (D) Log.d(TAG, "Attempting Login: Email = " + email + " User Name = " + username 
-					+ " password = " + password);
-			// attempt to login
-			this.getConnection().login(username + DEFAULT_HOSTNAME, password,
-					DEFAULT_RESOURCE);
-			// check that the email given is the right one, otherwise
-			if (!email.equals(this.getConnection().getAccountManager().getAccountAttribute("email"))) {
-				// disconnect
-				this.xmppConn.disconnect();
-				// reconnect to the server
-				_instance = new NetworkService(DEFAULT_HOST, DEFAULT_PORT);
+			// attempt to connect
+			this.xmppConn.connect();
+			// extract JID from the email address by removing nonalphanumeric 
+			// characters from the email address
+			String jid = email.replaceAll("[^a-zA-Z0-9]", "") + DEFAULT_HOSTNAME;
+			if (D) Log.d(TAG, "Attempt login: email - " + email + ", jid - " + jid + ", password - " + password);
+			try {
+				this.xmppConn.login(jid, password);
+				// check that the email is the right one
+				if (!email.equals(this.getConnection().getAccountManager().getAccountAttribute("email"))) {
+					if (D) Log.d(TAG, "Email does not match");
+					// disconnect
+					this.xmppConn.disconnect();
+					// reconnect to the server
+					_instance = new NetworkService(DEFAULT_HOST, DEFAULT_PORT);
+					return ReturnState.INVALID_PAIR;
+				}
+				return ReturnState.SUCCEEDED;
+			} catch (XMPPException e) {
+				// if login failed
+				e.printStackTrace();
+				return ReturnState.INVALID_PAIR;
 			}
 		} catch (XMPPException e) {
-			if (D) Log.d(TAG, "Unable to authenticate");
-			if (D) Log.d(TAG, e.getMessage());
-		} catch (Exception e) {
-			if (D) Log.d(TAG, e.getMessage());
+			if (D) Log.d(TAG, "Connection to server failed");
+			return ReturnState.COULDNT_CONNECT;
 		}
-		this.isAuthenticated = this.xmppConn.isAuthenticated();
-		if (isAuthenticated && D) {
-			if (D) Log.d(TAG, "logged in!");
-		}
-		return this.isAuthenticated;
 	}
 
 	public boolean logout() {

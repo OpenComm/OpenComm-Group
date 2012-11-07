@@ -84,7 +84,7 @@ public class LoginView extends Activity {
     
     /**
      * Attempt to login, launches Dashboard when successful
-     * @param v
+     * @param v - view that triggered this method (login button in LoginView)
      */
     public void login(View v){
     	String email = emailEdit.getText().toString().trim();
@@ -106,7 +106,7 @@ public class LoginView extends Activity {
     	this.emailEdit.setText("");
     	this.passwordEdit.setText("");
     	Intent i = this.getIntent();
-    	// show tip saying that a random password has been generated and sent as an email.
+    	// show toast saying that a random password has been generated and sent as an email.
     	boolean isPwdReset = i.getBooleanExtra(ResetPasswordController.PWDRESET, false);
     	if (isPwdReset) {
     		int duration = Toast.LENGTH_SHORT;
