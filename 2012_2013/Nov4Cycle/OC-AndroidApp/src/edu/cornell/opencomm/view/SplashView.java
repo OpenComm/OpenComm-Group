@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.FontSetter;
 /**
@@ -21,11 +20,13 @@ public class SplashView extends Activity {
 	 * Debugging variable: if true, all logs are logged;
 	 * set to false before packaging
 	 */
+	@SuppressWarnings("unused")
 	private static final boolean D = true;
 	
 	/**
 	 * Logging tag
 	 */
+	@SuppressWarnings("unused")
 	private static final String TAG = SplashView.class.getSimpleName();
 
 	/**
@@ -43,7 +44,6 @@ public class SplashView extends Activity {
 		final Handler handler = new Handler();
 		handler.postDelayed(new Runnable() {
 			public void run() {
-				if (D) Log.d(TAG, "Splash timeouts at 3 seconds: attempting Connection");
 				launchLoginView();
 			}
 		}, SPLASH_SCREEN_DELAY);
