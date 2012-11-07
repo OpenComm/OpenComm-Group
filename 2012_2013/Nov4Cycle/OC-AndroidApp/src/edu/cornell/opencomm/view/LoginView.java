@@ -42,7 +42,7 @@ public class LoginView extends Activity {
 	 */
 	private static final String TAG = LoginView.class.getSimpleName();
 	
-	private LoginController loginController = null;
+	private LoginController loginController;
 	
 	private EditText emailEdit;
 	private EditText passwordEdit;
