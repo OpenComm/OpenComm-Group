@@ -556,18 +556,6 @@
         <class className="OCContactsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/OCContactsViewController.h"/>
         </class>
-        <class className="OCSocketViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCSocketViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="sendMessageButtonPressed:"/>
-                <relationship kind="action" name="startClientButtonPressed:"/>
-                <relationship kind="action" name="startServerButtonPressed:"/>
-                <relationship kind="outlet" name="hostnameField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="messageField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="portField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="serverReceiveMessageText" candidateClass="UITextView"/>
-            </relationships>
-        </class>
         <class className="OCViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/OCViewController.h"/>
             <relationships>

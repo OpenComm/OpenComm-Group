@@ -26,10 +26,6 @@
 		0A5CCDAB16421B9C00843346 /* OCJingleImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5CCDAA16421B9C00843346 /* OCJingleImpl.m */; };
 		0A615C151632FD960000C840 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A615C141632FD960000C840 /* Accelerate.framework */; };
 		0A615C171632FD9D0000C840 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A615C161632FD9D0000C840 /* CoreAudio.framework */; };
-		0A615CA8163304FE0000C840 /* AudioFileReader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0A615CA1163304FE0000C840 /* AudioFileReader.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		0A615CA9163304FE0000C840 /* AudioFileWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A615CA3163304FE0000C840 /* AudioFileWriter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		0A615CAA163304FE0000C840 /* Novocaine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A615CA5163304FE0000C840 /* Novocaine.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		0A615CAB163304FE0000C840 /* RingBuffer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0A615CA7163304FE0000C840 /* RingBuffer.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0A92B1BA161E3DF700F59D53 /* OCDefaultServerConstantsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A92B1B9161E3DF700F59D53 /* OCDefaultServerConstantsController.m */; };
 		0A92B1BE161E3E0A00F59D53 /* OCXMPPDelegateHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A92B1BD161E3E0A00F59D53 /* OCXMPPDelegateHandler.m */; };
 		0A9A33F1164576B3009B2E2F /* XMPPMessage+XEP0045.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A9A33E9164576B3009B2E2F /* XMPPMessage+XEP0045.m */; };
@@ -154,14 +150,9 @@
 		0AA180011630D39F00CD704A /* XMPPDateTimeProfiles.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA17FFD1630D39F00CD704A /* XMPPDateTimeProfiles.m */; };
 		0AD2A7D51643752700AA3A8D /* JingleConstants.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0AD2A7D41643752700AA3A8D /* JingleConstants.plist */; };
 		0AD2A7D916437A4B00AA3A8D /* OCJingleConstantsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2A7D816437A4B00AA3A8D /* OCJingleConstantsController.m */; };
-		4D004DA2163338FD00706B1A /* OCAudio.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4D004DA1163338FD00706B1A /* OCAudio.mm */; };
 		4D004DA616333AFE00706B1A /* OCAudioPassingProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D004DA516333AFE00706B1A /* OCAudioPassingProtocol.m */; };
 		4D66E95E1630D6BC000C589E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D66E95D1630D6BC000C589E /* AVFoundation.framework */; };
-		4D66E9631630D7FD000C589E /* echo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4D66E9621630D7FD000C589E /* echo.mp3 */; };
 		4D66E97016310115000C589E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D66E96F16310114000C589E /* AudioToolbox.framework */; };
-		4D76F8DB1633303400DE7833 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D76F8D91633303400DE7833 /* GCDAsyncSocket.m */; };
-		4D76F8DE1633304800DE7833 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D76F8DD1633304800DE7833 /* GCDAsyncUdpSocket.m */; };
-		4D76F8DF1633304800DE7833 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D76F8DD1633304800DE7833 /* GCDAsyncUdpSocket.m */; };
 		4DE6A440160FC14B005F7857 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DE6A43F160FC14B005F7857 /* UIKit.framework */; };
 		4DE6A442160FC14B005F7857 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DE6A441160FC14B005F7857 /* Foundation.framework */; };
 		4DE6A444160FC14B005F7857 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DE6A443160FC14B005F7857 /* CoreGraphics.framework */; };
@@ -252,14 +243,6 @@
 		0A5CCDAA16421B9C00843346 /* OCJingleImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCJingleImpl.m; sourceTree = "<group>"; };
 		0A615C141632FD960000C840 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		0A615C161632FD9D0000C840 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
-		0A615CA0163304FE0000C840 /* AudioFileReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioFileReader.h; path = Novacaine/AudioFileReader.h; sourceTree = "<group>"; };
-		0A615CA1163304FE0000C840 /* AudioFileReader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AudioFileReader.mm; path = Novacaine/AudioFileReader.mm; sourceTree = "<group>"; };
-		0A615CA2163304FE0000C840 /* AudioFileWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioFileWriter.h; path = Novacaine/AudioFileWriter.h; sourceTree = "<group>"; };
-		0A615CA3163304FE0000C840 /* AudioFileWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AudioFileWriter.m; path = Novacaine/AudioFileWriter.m; sourceTree = "<group>"; };
-		0A615CA4163304FE0000C840 /* Novocaine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Novocaine.h; path = Novacaine/Novocaine.h; sourceTree = "<group>"; };
-		0A615CA5163304FE0000C840 /* Novocaine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Novocaine.m; path = Novacaine/Novocaine.m; sourceTree = "<group>"; };
-		0A615CA6163304FE0000C840 /* RingBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RingBuffer.h; path = Novacaine/RingBuffer.h; sourceTree = "<group>"; };
-		0A615CA7163304FE0000C840 /* RingBuffer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = RingBuffer.mm; path = Novacaine/RingBuffer.mm; sourceTree = "<group>"; };
 		0A92B1B8161E3DF700F59D53 /* OCDefaultServerConstantsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCDefaultServerConstantsController.h; sourceTree = "<group>"; };
 		0A92B1B9161E3DF700F59D53 /* OCDefaultServerConstantsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCDefaultServerConstantsController.m; sourceTree = "<group>"; };
 		0A92B1BC161E3E0A00F59D53 /* OCXMPPDelegateHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCXMPPDelegateHandler.h; sourceTree = "<group>"; };
@@ -415,17 +398,10 @@
 		0AD2A7D41643752700AA3A8D /* JingleConstants.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = JingleConstants.plist; sourceTree = "<group>"; };
 		0AD2A7D716437A4B00AA3A8D /* OCJingleConstantsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCJingleConstantsController.h; sourceTree = "<group>"; };
 		0AD2A7D816437A4B00AA3A8D /* OCJingleConstantsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCJingleConstantsController.m; sourceTree = "<group>"; };
-		4D004DA0163338FD00706B1A /* OCAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCAudio.h; sourceTree = "<group>"; };
-		4D004DA1163338FD00706B1A /* OCAudio.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OCAudio.mm; sourceTree = "<group>"; };
 		4D004DA416333AFE00706B1A /* OCAudioPassingProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCAudioPassingProtocol.h; sourceTree = "<group>"; };
 		4D004DA516333AFE00706B1A /* OCAudioPassingProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCAudioPassingProtocol.m; sourceTree = "<group>"; };
 		4D66E95D1630D6BC000C589E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		4D66E9621630D7FD000C589E /* echo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = echo.mp3; sourceTree = "<group>"; };
 		4D66E96F16310114000C589E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		4D76F8D81633303400DE7833 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
-		4D76F8D91633303400DE7833 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
-		4D76F8DC1633304800DE7833 /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
-		4D76F8DD1633304800DE7833 /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
 		4DE6A43B160FC14B005F7857 /* iosComm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosComm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DE6A43F160FC14B005F7857 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4DE6A441160FC14B005F7857 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -570,21 +546,6 @@
 				0A3612771641AFF400E99A1E /* XMPPvCardAvatarModule.m */,
 			);
 			name = "XEP-0153";
-			sourceTree = "<group>";
-		};
-		0A3C60EF16330556001FBFBC /* Novacaine */ = {
-			isa = PBXGroup;
-			children = (
-				0A615CA0163304FE0000C840 /* AudioFileReader.h */,
-				0A615CA1163304FE0000C840 /* AudioFileReader.mm */,
-				0A615CA2163304FE0000C840 /* AudioFileWriter.h */,
-				0A615CA3163304FE0000C840 /* AudioFileWriter.m */,
-				0A615CA4163304FE0000C840 /* Novocaine.h */,
-				0A615CA5163304FE0000C840 /* Novocaine.m */,
-				0A615CA6163304FE0000C840 /* RingBuffer.h */,
-				0A615CA7163304FE0000C840 /* RingBuffer.mm */,
-			);
-			name = Novacaine;
 			sourceTree = "<group>";
 		};
 		0A3C60F11633057A001FBFBC /* BuiltInFrameworks */ = {
@@ -950,26 +911,6 @@
 			name = "XEP-0082";
 			sourceTree = "<group>";
 		};
-		4D76F8C8163328C100DE7833 /* network */ = {
-			isa = PBXGroup;
-			children = (
-				4D76F8DC1633304800DE7833 /* GCDAsyncUdpSocket.h */,
-				4D76F8DD1633304800DE7833 /* GCDAsyncUdpSocket.m */,
-				4D76F8D81633303400DE7833 /* GCDAsyncSocket.h */,
-				4D76F8D91633303400DE7833 /* GCDAsyncSocket.m */,
-			);
-			name = network;
-			sourceTree = "<group>";
-		};
-		4D76F8C9163328C600DE7833 /* audio */ = {
-			isa = PBXGroup;
-			children = (
-				4D004DA0163338FD00706B1A /* OCAudio.h */,
-				4D004DA1163338FD00706B1A /* OCAudio.mm */,
-			);
-			name = audio;
-			sourceTree = "<group>";
-		};
 		4D76F8CA163328CA00DE7833 /* ui */ = {
 			isa = PBXGroup;
 			children = (
@@ -1010,8 +951,6 @@
 			isa = PBXGroup;
 			children = (
 				0A3C60F11633057A001FBFBC /* BuiltInFrameworks */,
-				0A3C60EF16330556001FBFBC /* Novacaine */,
-				4D66E9621630D7FD000C589E /* echo.mp3 */,
 				0A9D8FDE16150F7C00A18E14 /* XMPPFramework */,
 				0A9D8F9316150C4200A18E14 /* libxml2.dylib */,
 				0A9D8F8916150A0D00A18E14 /* libresolv.dylib */,
@@ -1049,8 +988,6 @@
 				4D76F8CF1633291300DE7833 /* constants */,
 				4D76F8CE1633290700DE7833 /* protocol */,
 				4D76F8CA163328CA00DE7833 /* ui */,
-				4D76F8C9163328C600DE7833 /* audio */,
-				4D76F8C8163328C100DE7833 /* network */,
 				4DE6A44E160FC14B005F7857 /* OCAppDelegate.h */,
 				4DE6A44F160FC14B005F7857 /* OCAppDelegate.m */,
 				4DE6A457160FC14B005F7857 /* MainStoryboard_iPhone.storyboard */,
@@ -1232,7 +1169,6 @@
 				4DE6A459160FC14B005F7857 /* MainStoryboard_iPhone.storyboard in Resources */,
 				4DE6A45C160FC14B005F7857 /* MainStoryboard_iPad.storyboard in Resources */,
 				0A057985161E1642006F4B5D /* DefaultServerConstants.plist in Resources */,
-				4D66E9631630D7FD000C589E /* echo.mp3 in Resources */,
 				BA97A9BD16438D3A0008AEEA /* signInButton.png in Resources */,
 				BA97A9BE16438D3A0008AEEA /* signUpButton.png in Resources */,
 				BA97A9C1164393790008AEEA /* ConferenceTableCell.xib in Resources */,
@@ -1340,12 +1276,6 @@
 				0AA17FFE1630D39F00CD704A /* NSDate+XMPPDateTimeProfiles.m in Sources */,
 				0AA180001630D39F00CD704A /* XMPPDateTimeProfiles.m in Sources */,
 				0A42C8BC163107A40053C5F2 /* OCSocketViewController.mm in Sources */,
-				0A615CA8163304FE0000C840 /* AudioFileReader.mm in Sources */,
-				0A615CA9163304FE0000C840 /* AudioFileWriter.m in Sources */,
-				0A615CAA163304FE0000C840 /* Novocaine.m in Sources */,
-				0A615CAB163304FE0000C840 /* RingBuffer.mm in Sources */,
-				4D76F8DE1633304800DE7833 /* GCDAsyncUdpSocket.m in Sources */,
-				4D004DA2163338FD00706B1A /* OCAudio.mm in Sources */,
 				4D004DA616333AFE00706B1A /* OCAudioPassingProtocol.m in Sources */,
 				0A36125D1641AF9700E99A1E /* XMPPvCardTemp.m in Sources */,
 				0A36125E1641AF9700E99A1E /* XMPPvCardTempAdr.m in Sources */,
@@ -1440,8 +1370,6 @@
 				0AA17FF71630D30400CD704A /* XMPPCoreDataStorage.m in Sources */,
 				0AA17FFF1630D39F00CD704A /* NSDate+XMPPDateTimeProfiles.m in Sources */,
 				0AA180011630D39F00CD704A /* XMPPDateTimeProfiles.m in Sources */,
-				4D76F8DB1633303400DE7833 /* GCDAsyncSocket.m in Sources */,
-				4D76F8DF1633304800DE7833 /* GCDAsyncUdpSocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
