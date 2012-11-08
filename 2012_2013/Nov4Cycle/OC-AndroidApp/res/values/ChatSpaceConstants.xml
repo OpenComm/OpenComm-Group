@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="MAIN_CHAT">main</string>
+    <string name="LEFT_CHAT">left</string>
+    <string name="RIGHT_CHAT">right</string>
+    
+</resources>

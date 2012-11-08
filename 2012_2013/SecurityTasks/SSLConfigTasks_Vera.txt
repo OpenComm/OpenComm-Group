@@ -1,0 +1,21 @@
+SSL Protocol:
+   Properties:
+	(1) Authenticates
+		a. Established symmetric key with handshake via public key
+		b. Prevents replay attacks by using MACS(Message Auth. Codes) or checksums
+			i. The reason it prevents replay attacks is because the MAC is computed from the MAC secret, the sequence number, message length, message contents, and two fixed character strings. 
+		c. Ensures integrity via symmetric key encryption during communication, also via cryptographic functions
+
+
+STEPS/WHAT NEEDS TO BE CONFIGURED:
+
+(1) Configure OpenFire to use SSL certificates
+	a. Customizing SSl certificates:http://www.igniterealtime.org/builds/openfire/docs/latest/documentation/ssl-guide.html
+
+(2) Setting up SSL in XMPP Connections ( like in code NetworkService.java):
+	a. How to allow XMPP to use SSL connection with custom certificate from (1)
+		1.http://community.igniterealtime.org/thread/37678
+
+(3) Set up android to use SSL:
+	a. if using android api, there is a SSLSocket library
+

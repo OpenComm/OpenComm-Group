@@ -3,21 +3,24 @@ package edu.cornell.opencomm.controller;
 
 import android.content.Context;
 import android.content.Intent;
+import edu.cornell.opencomm.model.ConferenceDataModel;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.view.ConferenceSchedulerView;
 import edu.cornell.opencomm.view.DashboardView;
 
+@SuppressWarnings("unused")
 public class ConferenceController {
 	
 	private ConferenceSchedulerView conferenceSchedulerView;
 	private Context context; 
 	
+	private ConferenceDataModel _conference; // the conference that is being controlled
+	
 	//TODO: add a listener for invitations and invitation responses
 	
 	//Constructor - initialize required fields
-	public ConferenceController(Context context, ConferenceSchedulerView view){
-		this.conferenceSchedulerView = view;
-		this.context = context; 
+	public ConferenceController(ConferenceDataModel conf){
+		this._conference = conf;
 	}
 	
 	// u is the user that is dragged to create a new side chat
@@ -48,23 +51,6 @@ public class ConferenceController {
 	
 	public void kickoutUser(User u){
 		//TODO: remove user from conference (not in current specs)
-	}
-	
-	public void addConferencePressed(){
-		//		Intent intent = new Intent(this.conferenceView, CreateConferenceView.class);
-	}
-	
-	public void notificationsPressed(){
-		//Intent intent = new Intent(this.conferenceView, NotficiationsView.class);
-	}
-	
-	public void blockButtonPressed(){
-		//Intent intent = new Intent(this.conferenceView, DashboardView.class);
-	}
-	
-	public void backButtonPressed(){
-		Intent intent = new Intent(this.conferenceSchedulerView, DashboardView.class); 
-		this.conferenceSchedulerView.startActivity(intent);
 	}
 	
 	public void init(){

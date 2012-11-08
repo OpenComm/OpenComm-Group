@@ -1,0 +1,23 @@
+sendEmail:
+
+The implementation is pretty straightforward. Inside the Main Activity I press a button to send an email from my account- lei.kevin.n@gmail.com.
+You have to specify the email and password inside constructor of GMailerclass. Here is how implementation works:
+
+(i) Specify the constructor with your gmail's account name and password- I am using gmail's stmp server (stmp.gmail.com)
+(ii) Specify an array of String of recipient(s) to receive the email 
+(iii) specify 'from', 'subject', and 'body'.
+
+THIS IS NOT ACTUALLY HOW OUR IMPLEMENTATION IS SUPPOSED WORK- WE ARE PLANNING ON USING A PLUGIN THAT WORKS WITH OUR PHP SERVER-
+HOWEVER- WE WANT TO SEND AN EMAIL TO MAKE SURE THAT WHEN WE LOGIN- AN EMAIL IS JUST SENT :) ...(don't ask me why I am the code 
+monkey)
+
+AccountCreationBackend:
+
+	This is even easier...we create an accountManager at the onCreate and then we call on the method 
+	
+	(i) creation() -HARDCODED ACCOUNT...IF ACCOUNT CREATION IS SUCCESSFUL WE MUST CHANGE THE HARDCODED ACCOUNT BECAUSE NOW THE ACCOUNT
+	EXISTS!
+	(ii) creation( user, password)
+	
+	**FOR SOME REASON- WE ARE THROWING AN XMPPException EVERY TIME WE TRY TO CREATE AN ACCOUNT- I KNOW THIS ISN'T WRONG BECAUSE
+	IN SMACK+ECLIPSE DEV ENVIRONMENT (ALSO INCLUDED IN MY FILES) IT WORKS! ** (i dunnozzz :( )

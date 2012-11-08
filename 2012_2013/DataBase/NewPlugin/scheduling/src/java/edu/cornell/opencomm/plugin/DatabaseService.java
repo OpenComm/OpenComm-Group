@@ -34,11 +34,12 @@ public class DatabaseService {
 			Connection dbConn = DbConnectionManager.getTransactionConnection();
 			Statement stmt = dbConn.createStatement();
 			ResultSet rs = stmt.getResultSet();
-			rs = stmt.executeQuery("select * from " + DB_TABLE+ "where roomID= "+groupID);
+			if(groupID.equals("-1")){
+				rs = stmt.executeQuery("select * from " + DB_TABLE);
+			}else{
+				rs = stmt.executeQuery("select * from " + DB_TABLE+ "where roomID= "+groupID);
+			}
 			
-			Statement stmt_plist = dbConn.createStatement();
-			ResultSet rs_plist = stmt.getResultSet();
-			rs_plist = stmt_plist.executeQuery("select username from " + RF_TABLE+"where groupname= "+groupID);
 			String result = "";
 			rs.next();
 			
@@ -47,17 +48,22 @@ public class DatabaseService {
 			invitername = rs.getString("invitername");
 			description=rs.getString("description");
 			    
-			// yyyy-mm-dd hh::mm::ss
-			starttime = rs.getTimestamp("starttime").toString() + "";
-			endtime = rs.getTimestamp("endtime").toString() + "";
+			// yyyy-mm-dd hh:mm:ss
+			starttime = rs.getString("starttime");
+			endtime = rs.getString("endtime");
 			recurrence = rs.getString("recurrence");
-			result = roomname + "//" + roomID + "//" + invitername + "//" +starttime + "//" 
+			result = roomID + "//" + roomname + "//" + invitername + "//" +starttime + "//" 
 			+ endtime+"//"+recurrence+"//"+description;
 			
-			while (rs_plist.next()){
-				
-				result += "//"+rs_plist.getString("username");
-				
+			if(!groupID.equals("-1")){
+				Statement stmt_plist = dbConn.createStatement();
+				ResultSet rs_plist = stmt.getResultSet();
+				rs_plist = stmt_plist.executeQuery("select username from " + RF_TABLE+"where groupname= "+groupID);
+				while (rs_plist.next()){
+					
+					result += "//"+rs_plist.getString("username");
+					
+				}
 			}
 				result+= "\n";
 			
