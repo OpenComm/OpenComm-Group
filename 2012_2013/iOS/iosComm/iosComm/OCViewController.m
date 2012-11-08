@@ -84,9 +84,24 @@
 // What happens when the login button is pressed
 //-------------------------------------------------------------------
 - (IBAction)loginButtonPressed:(id)sender {
-    //NSLog(@"Username: %@, Password: %@", _loginUsernameField.text,
-          //_loginPasswordField.text);
-
+    NSLog(@"Username: %@, Password: %@", loginUsernameField.text, loginPasswordField.text);
+    if ([loginUsernameField.text isEqualToString: @"test"] && [loginPasswordField.text isEqualToString: @"test"]){
+         [self performSegueWithIdentifier:@"successfulLogin" sender:nil];
+    }
+    else if ([loginUsernameField.text isEqualToString: @"test2"] && [loginPasswordField.text isEqualToString: @"confidential"]){
+        [self performSegueWithIdentifier:@"secretAudio" sender:nil];
+    }
+    else {
+        UIAlertView *info = [
+                             [UIAlertView alloc]
+                             initWithTitle:@"Incorrect Username/Password"
+                             message:@"Username/Password combination not found.\nPlease try again with correct details."
+                             delegate:self
+                             cancelButtonTitle:@"Dismiss"
+                             otherButtonTitles:nil
+                             ];
+        [info show];
+    }
     if ([defaults DEBUG_PARAM]) {
         NSLog(@"DEBUG PARAM SET");
         myXMPPStream.myJID = [XMPPJID jidWithString:[defaults DEFAULT_JID]];
@@ -203,4 +218,5 @@
     XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:path];
     NSLog(@"%@", user.displayName);
 }
+
 @end

@@ -10,7 +10,7 @@
 
 @interface OCContactCell : UITableViewCell
 
-@property (nonatomic, weak) IBOutlet UILabel *ContactNameLabel;
+@property (nonatomic, weak) IBOutlet UILabel *contactNameLabel;
 
 @property (nonatomic, weak) IBOutlet UIImageView *thumbnailImageView;
 

@@ -180,6 +180,9 @@
 		4DE6A471160FC14B005F7857 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4DE6A46F160FC14B005F7857 /* InfoPlist.strings */; };
 		4DE6A474160FC14B005F7857 /* iosCommTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6A473160FC14B005F7857 /* iosCommTests.m */; };
 		BA777D0116214A530088F734 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA777D0016214A530088F734 /* QuartzCore.framework */; };
+		BA89B64016474DBB003D46ED /* OCContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA89B63F16474DBB003D46ED /* OCContactsViewController.m */; };
+		BA89B64C1647835F003D46ED /* OCDataGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = BA89B64B1647835E003D46ED /* OCDataGenerator.m */; };
+		BA95679B164B320A003496DF /* OCContactCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA95679A164B320A003496DF /* OCContactCardViewController.m */; };
 		BA97A9BD16438D3A0008AEEA /* signInButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BA97A9BB16438D3A0008AEEA /* signInButton.png */; };
 		BA97A9BE16438D3A0008AEEA /* signUpButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BA97A9BC16438D3A0008AEEA /* signUpButton.png */; };
 		BA97A9C1164393790008AEEA /* ConferenceTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA97A9C0164393790008AEEA /* ConferenceTableCell.xib */; };
@@ -447,6 +450,12 @@
 		4DE6A472160FC14B005F7857 /* iosCommTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iosCommTests.h; sourceTree = "<group>"; };
 		4DE6A473160FC14B005F7857 /* iosCommTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iosCommTests.m; sourceTree = "<group>"; };
 		BA777D0016214A530088F734 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		BA89B63E16474DBB003D46ED /* OCContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCContactsViewController.h; sourceTree = "<group>"; };
+		BA89B63F16474DBB003D46ED /* OCContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCContactsViewController.m; sourceTree = "<group>"; };
+		BA89B64A1647835E003D46ED /* OCDataGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCDataGenerator.h; sourceTree = "<group>"; };
+		BA89B64B1647835E003D46ED /* OCDataGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCDataGenerator.m; sourceTree = "<group>"; };
+		BA956799164B320A003496DF /* OCContactCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCContactCardViewController.h; sourceTree = "<group>"; };
+		BA95679A164B320A003496DF /* OCContactCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCContactCardViewController.m; sourceTree = "<group>"; };
 		BA97A9BB16438D3A0008AEEA /* signInButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signInButton.png; sourceTree = "<group>"; };
 		BA97A9BC16438D3A0008AEEA /* signUpButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signUpButton.png; sourceTree = "<group>"; };
 		BA97A9C0164393790008AEEA /* ConferenceTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConferenceTableCell.xib; sourceTree = "<group>"; };
@@ -967,18 +976,11 @@
 				4DE6A45D160FC14B005F7857 /* OCViewController.h */,
 				4DE6A45E160FC14B005F7857 /* OCViewController.m */,
 				BA97A9C4164393A90008AEEA /* Icons */,
-				BA97A9D1164398A60008AEEA /* OCConferenceViewController.h */,
-				BA97A9D2164398A60008AEEA /* OCConferenceViewController.m */,
-				BA97A9C0164393790008AEEA /* ConferenceTableCell.xib */,
-				BA97A9D41643991D0008AEEA /* OCConferenceTableCell.h */,
-				BA97A9D51643991D0008AEEA /* OCConferenceTableCell.m */,
-				BA97A9C2164393850008AEEA /* HappeningNowTableCell.xib */,
-				BA97A9EC16439B160008AEEA /* OCHappeningNowConferenceCell.h */,
-				BA97A9ED16439B160008AEEA /* OCHappeningNowConferenceCell.m */,
-				BA97A9EF1643A2900008AEEA /* ContactCell.xib */,
-				BA97A9F11643A2A20008AEEA /* OCContactCell.h */,
-				BA97A9F21643A2A20008AEEA /* OCContactCell.m */,
+				BA95679E164B3272003496DF /* Conference Screen */,
+				BA95679D164B3225003496DF /* Contacs */,
 				BA97A9EB16439AC00008AEEA /* Images */,
+				BA89B64A1647835E003D46ED /* OCDataGenerator.h */,
+				BA89B64B1647835E003D46ED /* OCDataGenerator.m */,
 			);
 			name = ui;
 			sourceTree = "<group>";
@@ -1091,6 +1093,35 @@
 				4DE6A46F160FC14B005F7857 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BA95679D164B3225003496DF /* Contacs */ = {
+			isa = PBXGroup;
+			children = (
+				BA89B63E16474DBB003D46ED /* OCContactsViewController.h */,
+				BA89B63F16474DBB003D46ED /* OCContactsViewController.m */,
+				BA956799164B320A003496DF /* OCContactCardViewController.h */,
+				BA95679A164B320A003496DF /* OCContactCardViewController.m */,
+				BA97A9EF1643A2900008AEEA /* ContactCell.xib */,
+				BA97A9F11643A2A20008AEEA /* OCContactCell.h */,
+				BA97A9F21643A2A20008AEEA /* OCContactCell.m */,
+			);
+			name = Contacs;
+			sourceTree = "<group>";
+		};
+		BA95679E164B3272003496DF /* Conference Screen */ = {
+			isa = PBXGroup;
+			children = (
+				BA97A9D1164398A60008AEEA /* OCConferenceViewController.h */,
+				BA97A9D2164398A60008AEEA /* OCConferenceViewController.m */,
+				BA97A9C0164393790008AEEA /* ConferenceTableCell.xib */,
+				BA97A9D41643991D0008AEEA /* OCConferenceTableCell.h */,
+				BA97A9D51643991D0008AEEA /* OCConferenceTableCell.m */,
+				BA97A9C2164393850008AEEA /* HappeningNowTableCell.xib */,
+				BA97A9EC16439B160008AEEA /* OCHappeningNowConferenceCell.h */,
+				BA97A9ED16439B160008AEEA /* OCHappeningNowConferenceCell.m */,
+			);
+			name = "Conference Screen";
 			sourceTree = "<group>";
 		};
 		BA97A9C4164393A90008AEEA /* Icons */ = {
@@ -1350,6 +1381,9 @@
 				0A9A3416164576EF009B2E2F /* XMPPRoomMemoryStorage.m in Sources */,
 				0A9A3417164576EF009B2E2F /* XMPPRoomMessageMemoryStorageObject.m in Sources */,
 				0A9A3418164576EF009B2E2F /* XMPPRoomOccupantMemoryStorageObject.m in Sources */,
+				BA89B64016474DBB003D46ED /* OCContactsViewController.m in Sources */,
+				BA89B64C1647835F003D46ED /* OCDataGenerator.m in Sources */,
+				BA95679B164B320A003496DF /* OCContactCardViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
