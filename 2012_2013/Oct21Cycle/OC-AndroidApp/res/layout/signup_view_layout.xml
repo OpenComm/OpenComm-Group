@@ -81,6 +81,30 @@
             </EditText>
 
             <TextView
+                android:id="@+id/emailText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="44dp"
+                android:layout_marginRight="37dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/email"
+                android:textColor="@color/off_white"
+                android:textSize="22dp" >
+            </TextView>
+
+            <EditText
+                android:id="@+id/emailBox"
+                android:layout_width="237dp"
+                android:layout_height="27dp"
+                android:layout_marginLeft="44dp"
+                android:layout_marginRight="37dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/off_white"
+                android:inputType="textEmailAddress"
+                android:padding="0dp"
+                android:paddingLeft="15dp" />
+            
+            <TextView
                 android:id="@+id/passwordText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -127,29 +151,6 @@
                 android:padding="0dp"
                 android:paddingLeft="15dp" />
 
-            <TextView
-                android:id="@+id/emailText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="44dp"
-                android:layout_marginRight="37dp"
-                android:layout_marginTop="5dp"
-                android:text="@string/email"
-                android:textColor="@color/off_white"
-                android:textSize="22dp" >
-            </TextView>
-
-            <EditText
-                android:id="@+id/emailBox"
-                android:layout_width="237dp"
-                android:layout_height="27dp"
-                android:layout_marginLeft="44dp"
-                android:layout_marginRight="37dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/off_white"
-                android:inputType="textEmailAddress"
-                android:padding="0dp"
-                android:paddingLeft="15dp" />
 
             <TextView
                 android:id="@+id/titleText"
