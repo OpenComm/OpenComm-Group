@@ -11,6 +11,7 @@
 #import "OCDefaultServerConstantsController.h"
 #import "OCXMPPDelegateHandler.h"
 #import "OCAudioPassingProtocol.h"
+#import "pjmedia.h"
 
 @interface OCViewController : UIViewController {
     /*From iPhoneXMPP*/
