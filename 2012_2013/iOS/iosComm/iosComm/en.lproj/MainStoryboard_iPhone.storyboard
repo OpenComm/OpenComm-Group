@@ -540,33 +540,6 @@
         <image name="signInButton.png" width="55" height="29"/>
         <image name="signUpButton.png" width="279" height="45"/>
     </resources>
-    <classes>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="OCConferenceViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCConferenceViewController.h"/>
-        </class>
-        <class className="OCContactCardViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCContactCardViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="contactLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="OCContactsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCContactsViewController.h"/>
-        </class>
-        <class className="OCViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="fetch:"/>
-                <relationship kind="action" name="loginButtonPressed:"/>
-                <relationship kind="outlet" name="loginPasswordField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="loginUsernameField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="loginView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
