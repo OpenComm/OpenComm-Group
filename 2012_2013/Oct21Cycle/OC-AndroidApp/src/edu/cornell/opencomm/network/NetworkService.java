@@ -1,5 +1,6 @@
 package edu.cornell.opencomm.network;
 
+import org.jivesoftware.smack.AccountManager;
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.XMPPConnection;
@@ -32,9 +33,14 @@ import org.jivesoftware.smackx.search.UserSearch;
 
 import android.util.Log;
 
+/** Service that handles the network connection
+ * 
+ * @author Ankit Singh [frontend], Risa Naka [frontend], Kris Kooi [backend], Brian O'Connor [backend]
+ *
+ */
 public class NetworkService {
 
-	private static final boolean D = true;
+	public static final boolean D = true;
 	private static final String TAG = "Network.NetworkService";
 
 	private static final String DEFAULT_HOST = "cuopencomm.no-ip.org";
@@ -48,8 +54,8 @@ public class NetworkService {
 	private XMPPConnection xmppConn;
 	private ConnectionConfiguration xmppConfig;
 	private PrivacyList blockList;
-	private boolean isConnected;
 	private boolean isAuthenticated;
+	private AccountManager accountManager;
 
 	public static NetworkService getInstance() {
 		if (_instance == null) {
@@ -77,42 +83,45 @@ public class NetworkService {
 		this.xmppConfig = new ConnectionConfiguration(host, port);
 		this.xmppConfig.setSASLAuthenticationEnabled(true);
 		this.xmppConn = new XMPPConnection(xmppConfig);
+		this.accountManager = this.xmppConn.getAccountManager();
 
 	}// end NetworkService method
 
-	public boolean connect() {
-		try {
-			this.xmppConn.connect();
-		} catch (XMPPException e) {
-			Log.v(TAG, e.getMessage());
+	public XMPPConnection getConnection() {
+		if (!this.xmppConn.isConnected()) {
+			try {
+				this.xmppConn.connect();
+			} catch (XMPPException e) {
+				Log.v(TAG, "Connection error!");
+			}
 		}
-		this.isConnected = xmppConn.isConnected();
-		if (isConnected && D) {
-			Log.v(TAG, "pinged server!");
-		}
-		return isConnected;
+		return this.xmppConn;
 	}
-
-	public boolean login(String username, String password) {
+	
+	public boolean login(String email, String password) {
 		try {
-			Log.v(TAG, "Attempting Login: User Name = " + username
+			String username = email.split("@")[0];
+			if (D) Log.d(TAG, "Attempting Login: Email = " + email + " User Name = " + username 
 					+ " password = " + password);
-			if (D) {
-				this.xmppConn.login("opencommsec" + DEFAULT_HOSTNAME,
-						"secopencomm", DEFAULT_RESOURCE);
-			} else {
-				this.xmppConn.login(username + DEFAULT_HOSTNAME, password,
-						DEFAULT_RESOURCE);
+			// attempt to login
+			this.getConnection().login(username + DEFAULT_HOSTNAME, password,
+					DEFAULT_RESOURCE);
+			// check that the email given is the right one, otherwise
+			if (!email.equals(this.getConnection().getAccountManager().getAccountAttribute("email"))) {
+				// disconnect
+				this.xmppConn.disconnect();
+				// reconnect to the server
+				_instance = new NetworkService(DEFAULT_HOST, DEFAULT_PORT);
 			}
 		} catch (XMPPException e) {
-			Log.v(TAG, "Unable to authenticate");
-			Log.v(TAG, e.getMessage());
+			if (D) Log.d(TAG, "Unable to authenticate");
+			if (D) Log.d(TAG, e.getMessage());
 		} catch (Exception e) {
-			Log.v(TAG, e.getMessage());
+			if (D) Log.d(TAG, e.getMessage());
 		}
 		this.isAuthenticated = this.xmppConn.isAuthenticated();
 		if (isAuthenticated && D) {
-			Log.v(TAG, "logged in!");
+			if (D) Log.d(TAG, "logged in!");
 		}
 		return this.isAuthenticated;
 	}
@@ -121,14 +130,16 @@ public class NetworkService {
 		this.xmppConn.disconnect();
 		return true;
 	}
-
-	public XMPPConnection getConnection() {
-		
-		return this.xmppConn;
-	}
 	
 	public PrivacyList getBlockList() {
 		return this.blockList;
+	}
+	
+	public AccountManager getAccountManager() {
+		if (this.accountManager == null) {
+			this.accountManager = new AccountManager(this.getConnection());
+		}
+		return this.accountManager;
 	}
 
 	/**

@@ -1,0 +1,16 @@
+<resources>
+
+   	<style name="Theme.offwhite" parent="android:Theme.NoTitleBar">
+		<item name="android:windowBackground">@color/off_white</item>
+		<item name="android:colorBackground">@color/off_white</item>
+	</style>
+	<style name="Theme.grey_dark" parent="android:Theme.NoTitleBar">
+		<item name="android:windowBackground">@color/dark_grey</item>
+		<item name="android:colorBackground">@color/dark_grey</item>
+	</style>
+	<style name="Theme.grey_dark_dashboard" parent="android:Theme.NoTitleBar">
+		<item name="android:windowBackground">@color/background_dashboard</item>
+		<item name="android:colorBackground">@color/background_dashboard</item>
+	</style>
+
+</resources>
