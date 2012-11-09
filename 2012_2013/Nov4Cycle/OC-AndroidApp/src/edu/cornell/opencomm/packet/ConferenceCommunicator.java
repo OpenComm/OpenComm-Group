@@ -1,6 +1,12 @@
 package edu.cornell.opencomm.packet;
 
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -19,6 +25,7 @@ import edu.cornell.opencomm.interfaces.SimpleObserver;
 import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
+import edu.cornell.opencomm.view.ConferenceSchedulerView;
 
 public class ConferenceCommunicator implements PacketListener {
 
@@ -48,8 +55,8 @@ public class ConferenceCommunicator implements PacketListener {
 		//test only: TOBEDELETED
 		//Conference conference=new Conference("Testers Meeting", "We are awesome!", new GregorianCalendar(2012,11,24, 9,10,0),new GregorianCalendar(2012,11,24, 11,10,0),"Annual",new User("oc4testorg","Bull", 0), null);
 		//this.pushConference(conference, listner);
-		
-		new PullTask().execute();
+		this.NotificationChecker();
+		//new PullTask().execute();
 	}
 	/*push a new conference to the Database*/
 	public void pushConference(Conference conference, SimpleObserver listner) {
@@ -112,7 +119,15 @@ public class ConferenceCommunicator implements PacketListener {
 		protected String doInBackground(String... params) {
 			XMPPConnection xmppConn = NetworkService.getInstance()
 					.getConnection();
-			ConferencePacket packet = new ConferencePacket("", TIP_ID);
+			/* String to split. */
+			String str = xmppConn.getUser();
+			String[] temp;
+			/* delimiter */
+			String delimiter = "@";
+			/* given string will be split by the argument delimiter provided. */
+			temp = str.split(delimiter);
+			ConferencePacket packet = new ConferencePacket(temp[0],
+					TIP_ID);
 			packet.setFrom(xmppConn.getUser());
 			// packet.setFrom("");
 			packet.setTo(DESTINATION);
@@ -122,6 +137,54 @@ public class ConferenceCommunicator implements PacketListener {
 			return null;
 		}
 
+	}
+	/*
+	 * Return the list of conference titles that are going to happen in fifteen minutes
+	 * */
+	@SuppressWarnings("static-access")
+	public ArrayList<String> getHappeningConference(String conferences){
+		//get Current Time
+		Calendar rightNow=Calendar.getInstance();
+		Calendar inFifteenMins = Calendar.getInstance();
+		inFifteenMins.roll(inFifteenMins.MINUTE, 15);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    	
+    	//Log.v(LOG_TAG, "nOW TIME: "+inFifteenMins.toString());
+		//get the list of conferences:
+		String[] conferenceList=conferences.split("$");
+		//Log.v(LOG_TAG, "conferences size: "+conferenceList.length);
+		ArrayList<String> happeningConferences=new ArrayList<String>();
+		for(String conference: conferenceList){
+			try {
+			
+			String[] conference_attendees = conference.split("%");
+			//Log.v(LOG_TAG, "conference: "+ conference_attendees[0]);
+			// Parse Conference Data
+			String[] data_fields = conference_attendees[0].split("//");
+			//Log.v(LOG_TAG, "conference data: "+ data_fields[3]);
+			String time=data_fields[3].substring(0, (data_fields[3].length())-2);
+			//Log.v(LOG_TAG, "conference time: "+ time);
+			Date startDateAndTime = sdf.parse(time);
+			
+			Calendar startTime = Calendar.getInstance();
+        	startTime.setTime(startDateAndTime);
+        	//Log.v(LOG_TAG,"conferencetime: "+startTime.toString());
+        	if(rightNow.after(startTime)&&startTime.before(inFifteenMins)){
+        		String conferenceTitle = data_fields[1];
+        		happeningConferences.add(conferenceTitle);
+        		
+        	}
+        	
+        	
+			} catch (ParseException e) {
+				Log.v(LOG_TAG, "date format not correct");
+				e.printStackTrace();
+			}
+			
+			
+		}
+		
+		return  happeningConferences;
 	}
 
 	/*
@@ -164,6 +227,9 @@ public class ConferenceCommunicator implements PacketListener {
 				} else {
 					Log.v(LOG_TAG, "pull successful.  returned info: "
 							+ received.getBody());
+					
+					Log.v(LOG_TAG, "notification response: "+received.getBody());
+					ArrayList<String> approachingConferences=getHappeningConference(received.getBody());
 					// TODO Front-end: which method to Call?
 				}
 
