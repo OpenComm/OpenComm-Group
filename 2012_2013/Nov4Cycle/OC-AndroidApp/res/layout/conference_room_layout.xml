@@ -1,12 +1,33 @@
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/screen"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent"
+        android:onClick="clickedEmptySpace" >
+        <LinearLayout 
+        	android:id="@+id/action_bar"
+        	android:layout_width="fill_parent"
+        	android:layout_height="42.67dp"
+        	android:orientation="horizontal"
+        	android:background="@color/dark_grey"
+        	android:layout_alignParentTop="true"
+        	android:visibility="invisible"></LinearLayout>
+        
         <TextView
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            />
+        
+        <LinearLayout 
+        	android:id="@+id/bottom_bar"
+        	android:layout_width="fill_parent"
+        	android:layout_height="42.67dp"
+        	android:orientation="horizontal"
+        	android:background="@color/dark_grey"
+        	android:layout_alignParentBottom="true"
+        	android:visibility="invisible"></LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
