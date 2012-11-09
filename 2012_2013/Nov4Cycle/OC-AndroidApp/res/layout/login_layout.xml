@@ -60,13 +60,13 @@
             android:id="@+id/forgotPassword"
             android:layout_width="156.67dp"
             android:layout_height="20dp"
-            android:layout_marginLeft="46.67dp"
+            android:layout_marginLeft="45.67dp"
             android:layout_marginTop="4.67dp"
             android:background="@color/dark_grey"
             android:onClick="forgotPassword"
             android:text="@string/forgot_password"
             android:textColor="@color/off_white"
-            android:textSize="14.5sp" />
+            android:textSize="16.5sp" />
     </LinearLayout>
 
     <RelativeLayout
