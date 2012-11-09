@@ -72,18 +72,19 @@ public class LoginView extends Activity {
 		emailEdit.requestFocus();
 	}
 	 /**Jump to the account creation page when sign-up button is clicked*/
-    public void createAccount(View v){
-    	if (D) Log.d(TAG, "create Account");
-    	this.loginController.handleCreateAccount();
+    public void signup(View v){
+    	if (D) Log.d(TAG, "Sign Up button clicked");
+    	this.loginController.handleSignup();
     }
     /**Jump to the Reset Password page when forgot-password is clicked*/
-    public void retrievePassword(View v){
-    	if (D) Log.d(TAG, "retrievePassword");
-    	this.loginController.handleRetrievePassword();
+    public void forgotPassword(View v){
+    	if (D) Log.d(TAG, "Forgot Password link clicked");
+    	this.loginController.handleForgotPassword();
     }
     
     /**
-     * Attempt to login, launches Dashboard when successful
+     * Attempt to login using the given email and password, launches Dashboard 
+     * when successful
      * @param v - view that triggered this method (login button in LoginView)
      */
     public void login(View v){

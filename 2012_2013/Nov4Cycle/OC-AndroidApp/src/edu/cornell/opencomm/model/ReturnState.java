@@ -11,5 +11,7 @@ package edu.cornell.opencomm.model;
  * </ul>
  */
 public enum ReturnState {
-	SUCCEEDED, COULDNT_CONNECT, WRONG_PASSWORD
+	SUCCEEDED, 
+	COULDNT_CONNECT,
+	WRONG_PASSWORD
 };
