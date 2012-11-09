@@ -55,8 +55,8 @@ public class ConferenceCommunicator implements PacketListener {
 		//test only: TOBEDELETED
 		//Conference conference=new Conference("Testers Meeting", "We are awesome!", new GregorianCalendar(2012,11,24, 9,10,0),new GregorianCalendar(2012,11,24, 11,10,0),"Annual",new User("oc4testorg","Bull", 0), null);
 		//this.pushConference(conference, listner);
-		this.NotificationChecker();
-		//new PullTask().execute();
+		//this.NotificationChecker();
+		new PullTask().execute();
 	}
 	/*push a new conference to the Database*/
 	public void pushConference(Conference conference, SimpleObserver listner) {
