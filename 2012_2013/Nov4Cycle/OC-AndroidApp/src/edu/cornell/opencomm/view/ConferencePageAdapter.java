@@ -30,7 +30,7 @@ public class ConferencePageAdapter extends PagerAdapter {
         View view = inflater.inflate(resId, null);
         ((ViewPager) collection).addView(view, 0);
         
-        // TODO if you want to customize information
+        // TODO Spandana .. if you want to customize information
         TextView title = (TextView) view.findViewById(R.id.text);
         switch (position) {
         case 0:

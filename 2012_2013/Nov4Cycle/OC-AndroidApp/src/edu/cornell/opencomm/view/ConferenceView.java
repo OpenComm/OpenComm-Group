@@ -3,17 +3,22 @@
 package edu.cornell.opencomm.view;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.ConferenceController;
 import edu.cornell.opencomm.model.ConferenceDataModel;
 //TODO: Remove this
 @SuppressWarnings("unused")
 public final class ConferenceView extends Activity {
+	private boolean areActionBarsDisplayed = false;
+	
 	
 	/**
 	 * The conference data model
@@ -63,9 +68,21 @@ public final class ConferenceView extends Activity {
 		
 	}
 	
-	public void onTap(){
-		
+	/** When user clicks an empty space on the screen
+	 * toggle between showing both the action and bottom bar
+	 * @param screen
+	 */
+	public void clickedEmptySpace(View screen){
+		int visibility = View.VISIBLE;
+		if (areActionBarsDisplayed)
+			visibility = View.INVISIBLE;
+		areActionBarsDisplayed = !areActionBarsDisplayed;
+		LinearLayout action_bar = (LinearLayout) screen.findViewById(R.id.action_bar);
+		LinearLayout bottom_bar = (LinearLayout) screen.findViewById(R.id.bottom_bar);
+		action_bar.setVisibility(visibility);
+		bottom_bar.setVisibility(visibility); 
 	}
+	
 	/** When the user swipes right
 	 * Display the left sidechat
 	 */
