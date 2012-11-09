@@ -42,7 +42,7 @@ public class ConferenceSchedulerView extends Activity {
 		controller = new ConferenceSchedulerController(ConferenceSchedulerView.this, this);
 		// FOR TEMPORARY HARDCODED CONFERENCES
 		users = createExampleUsers(); 
-//		retrieveConferences();
+		retrieveConferences(); //TODO debugging
 		conferences = createExampleConferences();
 		retrieveAndDisplayConferences(conferences);
 		

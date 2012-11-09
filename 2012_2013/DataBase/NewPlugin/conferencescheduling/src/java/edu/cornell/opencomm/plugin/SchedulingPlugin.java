@@ -191,7 +191,7 @@ public class SchedulingPlugin implements Plugin, Component,
 		if (arg0.getID().equals("pullConferences")) {
 			Log.error("Received pull message now!");
 			Hashtable<String, String> pktTable=this.parseXML(arg0.toXML(), false);
-			Log.error("Received pull message!");
+			Log.error("Received pull message: "+pktTable.get("invitername"));
 			body = databaseService.pullConferences(pktTable.get("invitername"));
 			subject = "ConferenceInfo";
 		}
@@ -199,9 +199,13 @@ public class SchedulingPlugin implements Plugin, Component,
 			Hashtable<String, String> pktTable=this.parseXML(arg0.toXML(),true);
 			Log.error("Received push message!");
 			body=databaseService.push(pktTable);
-			
 			subject = "ConferencePushResult";
-		} else {
+		}else if (arg0.getID().equals("pullAllConferences")){
+			Log.error("Received pull all message!");
+			body = databaseService.pullConferences("");
+			subject = "GetAllConferences";
+		
+		}else {
 			Log.error("Woe betide us all!");
 			body = "Invalid packet.";
 			subject = "Error";
@@ -211,7 +215,7 @@ public class SchedulingPlugin implements Plugin, Component,
 		try {
 			Log.error("send Packet");
 			componentManager.sendPacket(this, reply);
-			Log.error("send Packet end");
+			Log.error("send Packet content: "+body);
 		} catch (Exception e) {
 			Log.error(e.getMessage(), e);
 		}
