@@ -143,7 +143,7 @@
     <RelativeLayout
         android:id="@+id/dashboardProfileWrapper"
         android:layout_width="60.75dp"
-        android:layout_height="86.21dp"
+        android:layout_height="100.21dp"
         android:layout_alignTop="@id/dashboardContactsWrapper"
         android:layout_below="@id/dashboard_actionbar"
         android:layout_marginLeft="66.67dp"
@@ -151,13 +151,13 @@
 
         <ImageView
             android:id="@+id/icon_profile"
-            android:layout_width="60.75dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:adjustViewBounds="true"
+            android:layout_marginTop="0dp"
+            android:layout_width="100.75dp"
+            android:layout_height="86dp"
+            android:scaleType="fitXY"
             android:contentDescription="@string/desc"
             android:src="@drawable/icon_profile"
-                    android:onClick="goToProfile" />
+            android:onClick="goToProfile" />
 
         <ImageView
             android:id="@+id/dashboardProfileOverlay"
