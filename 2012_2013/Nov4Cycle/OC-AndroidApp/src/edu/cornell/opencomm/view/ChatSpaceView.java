@@ -72,9 +72,6 @@ public class ChatSpaceView extends View{
 		//Draws a circle 
 		Paint paint1 = new Paint();
 		Paint paint2 = new Paint();
-		Paint paint3 = new Paint();
-		Paint paint4 = new Paint();
-		Paint paint5 = new Paint();
 		final RectF rect = new RectF();
 		//Working with pixels 
 		int mRadius = 165;
@@ -199,6 +196,12 @@ public class ChatSpaceView extends View{
 		users.add(new User("naj_hodge", "Najla Elmachtoub", R.drawable.example_picture_2));
 		users.add(new User("xu_mu_moo", "Jason Xu", R.drawable.example_picture_3));
 		return users;
+	}
+
+	@Override
+	protected void onLayout(boolean changed, int l, int t, int r, int b) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
