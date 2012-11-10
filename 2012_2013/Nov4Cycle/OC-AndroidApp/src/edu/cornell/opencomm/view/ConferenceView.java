@@ -25,6 +25,8 @@ public final class ConferenceView extends Activity {
 	 */
 	private ConferenceDataModel conferenceModel;
 	
+	private ChatSpaceView csv; 
+	
 	
 	/**
 	 * The conference controller
@@ -34,9 +36,11 @@ public final class ConferenceView extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		// TODO temporary layout with real one (conference_layout) once xml errors are fixed
-		setContentView(R.layout.conference_layout_temporary);
+		setContentView(R.layout.conference_layout_temporary);		
 		init();
+		csv = (ChatSpaceView)findViewById(R.id.chatSpaceView1); 
 	}
 	private void init(){
 		//1. Bind to the conference model
