@@ -23,54 +23,63 @@
         android:id="@+id/conferenceUserImage2"
         android:layout_width="49dp"
         android:layout_height="49dp"
+        android:longClickable="true"
         android:onClick="contactPressed" />
 
     <Button
         android:id="@+id/conferenceUserImage3"
         android:layout_width="49dp"
         android:layout_height="49dp"
+        android:longClickable="true"
         android:onClick="contactPressed" />
 
     <Button
         android:id="@+id/conferenceUserImage4"
         android:layout_width="49dp"
         android:layout_height="49dp"
+        android:longClickable="true"
         android:onClick="contactPressed" />
 
     <Button
         android:id="@+id/conferenceUserImage5"
         android:layout_width="49dp"
         android:layout_height="49dp"
+        android:longClickable="true"
         android:onClick="contactPressed" />
 
     <Button
         android:id="@+id/conferenceUserImage6"
         android:layout_width="49dp"
         android:layout_height="49dp"
+        android:longClickable="true"
         android:onClick="contactPressed" />
 
     <Button
         android:id="@+id/conferenceUserImage7"
         android:layout_width="49dp"
         android:layout_height="49dp"
+        android:longClickable="true"
         android:onClick="contactPressed" />
 
     <Button
         android:id="@+id/conferenceUserImage8"
         android:layout_width="49dp"
         android:layout_height="49dp"
+        android:longClickable="true"
         android:onClick="contactPressed" />
 
     <Button
         android:id="@+id/conferenceUserImage9"
         android:layout_width="49dp"
         android:layout_height="49dp"
+        android:longClickable="true"
         android:onClick="contactPressed" />
 
     <Button
         android:id="@+id/conferenceUserImage10"
         android:layout_width="49dp"
         android:layout_height="49dp"
+        android:longClickable="true"
         android:onClick="contactPressed" />
     
     <Button

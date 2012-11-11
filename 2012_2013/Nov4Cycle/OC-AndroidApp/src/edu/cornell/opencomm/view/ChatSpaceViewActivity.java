@@ -24,10 +24,12 @@ public class ChatSpaceViewActivity extends Activity {
 	//For now when the add button is clicked 
 	public void addClicked(View v){ 		
 		csvgroup = new ChatSpaceViewGroup(this, 1); 
+		csvgroup.invalidate(); 
 	}
 
 	public void removeClicked(View v){
 		csvgroup= new ChatSpaceViewGroup(this, -1); 
+		csvgroup.invalidate(); 
 	}
 
 	public void contactPressed(View v){
@@ -37,5 +39,7 @@ public class ChatSpaceViewActivity extends Activity {
 	public void whenViewPressed(View v){
 
 	}
+	
+	
 
 }
