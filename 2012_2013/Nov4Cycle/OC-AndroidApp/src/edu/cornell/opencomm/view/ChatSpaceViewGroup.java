@@ -95,16 +95,18 @@ public class ChatSpaceViewGroup extends ViewGroup{
 		points[7] = new Point(i-(153/2)-(153/4), j+(153/4));
 		return points; 
 	}
-	private ArrayList<Point> getPoints(int users,int radius){
-		int angleIncrement = 360/users;
-		ArrayList<Point> pointList = new ArrayList<Point>();
-		for(int i=0;i<users;i++){
-			Point p = new Point();
-			p.x = (int) (radius * Math.cos((angleIncrement * i) * (Math.PI / 180)));
-			p.y = (int) (radius * Math.sin((angleIncrement * i) * (Math.PI / 180)));
-			pointList.add(p);
-		}
-		return pointList;
+	private ArrayList<Point> getPoints(int users,int radius,Point center){
+		    double slice = 2 * Math.PI / users;
+		    ArrayList<Point> pointList  = new ArrayList<Point>();
+		    for (int i = 0; i < users; i++)
+		    {
+		        double angle = slice * i;
+		        int newX = (int)(center.x + radius * Math.cos(angle));
+		        int newY = (int)(center.y + radius * Math.sin(angle));
+		        Point p = new Point(newX, newY);
+		        pointList.add(p);
+		    }
+		    return pointList;
 	}
 
 
