@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.Manager.UserManager;
 import edu.cornell.opencomm.model.User;
 
 public class ChatSpaceViewGroup extends ViewGroup{
@@ -81,18 +82,20 @@ public class ChatSpaceViewGroup extends ViewGroup{
 
 	private Point[] createPlaceHolders(int users){
 		//TODO - Currently maxing the number of conference users to 8 - tops! 
-		Point [] points = new Point[8]; 
+		Point [] points = new Point[users]; 
 		int mRadius = 165; 
 		int i = getWidth()/2-(153/4); 
-		int j = getHeight()/2-mRadius-(207/4); 
-		points[0] = new Point(i, j); 
-		points[1] = new Point(i+(153/2)+(153/4), j+(153/4)); 
-		points[2] = new Point(i+(153), j+(153)); 
-		points[3] = new Point(i+(153)-(153/4), j+153+(153/2)+(153/4)); 
-		points[4] = new Point(i, j+153+153+(153/4)); 
-		points[5] = new Point(i-(153)+(153/4), j+153+(153/2)+(153/4)); 
-		points[6]= new Point(i-153, j+153); 
-		points[7] = new Point(i-(153/2)-(153/4), j+(153/4));
+		int j = getHeight()/2-(207/4); 
+
+
+		int numberOfPoints = users; 
+		float angleIncrement = 360/numberOfPoints; 
+		for(int n = 0; n< numberOfPoints; n++){
+			Point p = new Point(); 
+			p.x = (int)(mRadius* Math.cos((angleIncrement*n)*(Math.PI/180) + (Math.PI/2)))+i ;
+			p.y = (int) (mRadius* Math.sin((angleIncrement*n)*(Math.PI/180) + (Math.PI/2)))+j;
+			points[n] = p; 
+		}
 		return points; 
 	}
 	private ArrayList<Point> getPoints(int users,int radius,Point center){
@@ -127,16 +130,19 @@ public class ChatSpaceViewGroup extends ViewGroup{
 	private void updateCircle(int p){
 		ArrayList<User> conferenceUsers = this.getConferenceUsers(p); 
 		//TODO- check to see if the user is the main user- then set the background to black
-		Point[] placeholder = this.createPlaceHolders(conferenceUsers.size()); 
+		Point[] placeholder = this.createPlaceHolders(conferenceUsers.size());
+		//Draw the primary user first 
+		Button child = (Button) this.getChildAt(1); 
+		LayoutParams lp = (LayoutParams)child.getLayoutParams(); 
+		child.layout(placeholder[0].x, placeholder[0].y, placeholder[0].x+76, placeholder[0].y+76);
+
 		for (int i = 0; i < conferenceUsers.size(); i++){
 			Button child1 = (Button) this.getChildAt(i+1); 
 			LayoutParams lp1 = (LayoutParams)child1.getLayoutParams(); 
 			child1.layout(placeholder[i].x, placeholder[i].y, placeholder[i].x+76, placeholder[i].y+76);
-			if (i == 4){
-				child1.setBackgroundColor(Color.BLACK); 
+			if (!conferenceUsers.get(i).equals(UserManager.PRIMARY_USER)){
+				child1.setBackgroundResource(conferenceUsers.get(i).getImage());
 			}
-			else {child1.setBackgroundResource(conferenceUsers.get(i).getImage()); }
-
 		}
 	}
 	@Override
