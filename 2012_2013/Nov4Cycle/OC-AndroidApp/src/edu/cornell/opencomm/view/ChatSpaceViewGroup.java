@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -98,21 +98,6 @@ public class ChatSpaceViewGroup extends ViewGroup{
 		}
 		return points; 
 	}
-	private ArrayList<Point> getPoints(int users,int radius,Point center){
-		    double slice = 2 * Math.PI / users;
-		    ArrayList<Point> pointList  = new ArrayList<Point>();
-		    for (int i = 0; i < users; i++)
-		    {
-		        double angle = slice * i;
-		        int newX = (int)(center.x + radius * Math.cos(angle));
-		        int newY = (int)(center.y + radius * Math.sin(angle));
-		        Point p = new Point(newX, newY);
-		        pointList.add(p);
-		    }
-		    return pointList;
-	}
-
-
 
 	private ArrayList<User> getConferenceUsers(int p){
 		ArrayList<User> users = this.createExampleUsers(); 
@@ -127,6 +112,9 @@ public class ChatSpaceViewGroup extends ViewGroup{
 		else return users; 
 	}
 
+	private int mXPosition; 
+	
+	private int mYPosition; 
 	private void updateCircle(int p){
 		ArrayList<User> conferenceUsers = this.getConferenceUsers(p); 
 		//TODO- check to see if the user is the main user- then set the background to black
@@ -137,14 +125,60 @@ public class ChatSpaceViewGroup extends ViewGroup{
 		child.layout(placeholder[0].x, placeholder[0].y, placeholder[0].x+76, placeholder[0].y+76);
 
 		for (int i = 0; i < conferenceUsers.size(); i++){
-			Button child1 = (Button) this.getChildAt(i+1); 
+			Button child1 = (Button) this.getChildAt(i+1); 	 
 			LayoutParams lp1 = (LayoutParams)child1.getLayoutParams(); 
 			child1.layout(placeholder[i].x, placeholder[i].y, placeholder[i].x+76, placeholder[i].y+76);
 			if (!conferenceUsers.get(i).equals(UserManager.PRIMARY_USER)){
 				child1.setBackgroundResource(conferenceUsers.get(i).getImage());
 			}
+			child1.setOnTouchListener(new OnTouchListener(){
+
+				public boolean onTouch(View v, MotionEvent event) {
+					switch (event.getAction()){
+					case MotionEvent.ACTION_DOWN: 
+						final int x = (int) event.getX(); 
+						final int y = (int) event.getY(); 
+						
+						//Remember where we started
+						mXPosition = x; 
+						mYPosition = y; 
+						if (D) {Log.v("Crystal", "Are you going here?"+ x); }
+						return true; 
+					case MotionEvent.ACTION_MOVE:
+						final int x_new = (int)event.getX(); 
+						final int y_new = (int) event.getY();
+						if (D) {Log.v("Move", "Are you going here?"+ x_new); }	
+						
+						//distance moved 
+						
+						final int dx = x_new - mXPosition; 
+						final int dy = y_new - mYPosition;
+						
+						//Redraw this view based on the new coordinates
+						//TODO- Need to change the layout parameters of the child object
+						//Everything else works fine
+						invalidate(); 
+						
+						
+						if (x_new <= 0){
+							//TODO- push to the left side chat view
+						}
+						if(x_new >= getWidth()- 76){
+							//TODO -push to the right side chat 
+						}
+						return true; 
+					case MotionEvent.ACTION_UP:
+						//TODO - push it to the original placeholder 
+						
+						return true; 
+					}
+					return false; 
+				}
+			}); 
 		}
+
 	}
+
 	@Override
 	protected void onLayout(boolean arg0, int arg1, int arg2, int arg3, int arg4) {	
 
@@ -177,6 +211,7 @@ public class ChatSpaceViewGroup extends ViewGroup{
 			super(arg0, arg1);
 			// TODO Auto-generated constructor stub
 		}
+
 
 	}
 
