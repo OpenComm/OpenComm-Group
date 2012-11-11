@@ -1,0 +1,91 @@
+<edu.cornell.opencomm.view.ChatSpaceViewGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/chatSpaceViewGroup"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white" >
+
+    <edu.cornell.opencomm.view.ChatSpaceView
+        android:id="@+id/chatSpaceView1"
+        android:layout_width="320dp"
+        android:layout_height="510dp"
+        android:background="@color/white"
+        android:clickable="true"
+        android:onClick="whenViewPressed" />
+
+    <Button
+        android:id="@+id/conferenceUserImage1"
+        android:layout_width="49dp"
+        android:layout_height="49dp"
+        android:onClick="contactPressed" />
+
+    <Button
+        android:id="@+id/conferenceUserImage2"
+        android:layout_width="49dp"
+        android:layout_height="49dp"
+        android:onClick="contactPressed" />
+
+    <Button
+        android:id="@+id/conferenceUserImage3"
+        android:layout_width="49dp"
+        android:layout_height="49dp"
+        android:onClick="contactPressed" />
+
+    <Button
+        android:id="@+id/conferenceUserImage4"
+        android:layout_width="49dp"
+        android:layout_height="49dp"
+        android:onClick="contactPressed" />
+
+    <Button
+        android:id="@+id/conferenceUserImage5"
+        android:layout_width="49dp"
+        android:layout_height="49dp"
+        android:onClick="contactPressed" />
+
+    <Button
+        android:id="@+id/conferenceUserImage6"
+        android:layout_width="49dp"
+        android:layout_height="49dp"
+        android:onClick="contactPressed" />
+
+    <Button
+        android:id="@+id/conferenceUserImage7"
+        android:layout_width="49dp"
+        android:layout_height="49dp"
+        android:onClick="contactPressed" />
+
+    <Button
+        android:id="@+id/conferenceUserImage8"
+        android:layout_width="49dp"
+        android:layout_height="49dp"
+        android:onClick="contactPressed" />
+
+    <Button
+        android:id="@+id/conferenceUserImage9"
+        android:layout_width="49dp"
+        android:layout_height="49dp"
+        android:onClick="contactPressed" />
+
+    <Button
+        android:id="@+id/conferenceUserImage10"
+        android:layout_width="49dp"
+        android:layout_height="49dp"
+        android:onClick="contactPressed" />
+    
+    <Button
+        android:id="@+id/conferenceAdd"
+        android:layout_width="49dp"
+        android:layout_height="49dp"
+        android:onClick="addClicked"
+        android:text="@string/add" />
+    
+     <Button
+         android:id="@+id/conferenceRemove"
+         android:layout_width="49dp"
+         android:layout_height="49dp"
+         android:gravity="center_vertical"
+         android:onClick="removeClicked"
+         android:text="@string/remove" />
+
+</edu.cornell.opencomm.view.ChatSpaceViewGroup>

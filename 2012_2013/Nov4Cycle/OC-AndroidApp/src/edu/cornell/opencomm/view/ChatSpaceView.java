@@ -36,7 +36,6 @@ public class ChatSpaceView extends View{
 
 	@Override 
 	protected void onMeasure(int widthSpec, int heightSpec){
-
 		int measuredWidth = MeasureSpec.getSize(widthSpec); 
 		int measuredHeight = MeasureSpec.getSize(heightSpec); 
 		this.setMeasuredDimension(measuredWidth, measuredHeight); 
@@ -53,7 +52,7 @@ public class ChatSpaceView extends View{
 		createCircle(canvas); 
 
 		//add users to the circle
-		this.updateCircle(canvas); 
+//		this.updateCircle(canvas); 
 
 	}
 	//Main View Methods:
@@ -95,68 +94,10 @@ public class ChatSpaceView extends View{
 		canvas.drawArc(rect, 300, 60, false, paint2);
 	}
 
-	private Point[] createPlaceHolders(int users){
-		//TODO - Currently maxing the number of conference users to 8 - tops! 
-		Point [] points = new Point[8]; 
-		int mRadius = 165; 
-		int i = getWidth()/2-(153/4); 
-		int j = getHeight()/2-mRadius-(207/4); 
-		points[0] = new Point(i, j); 
-		points[1] = new Point(i+(153/2)+(153/4), j+(153/4)); 
-		points[2] = new Point(i+(153), j+(153)); 
-		points[3] = new Point(i+(153)-(153/4), j+153+(153/2)+(153/4)); 
-		points[4] = new Point(i, j+153+153+(153/4)); 
-		points[5] = new Point(i-(153)+(153/4), j+153+(153/2)+(153/4)); 
-		points[6]= new Point(i-153, j+153); 
-		points[7] = new Point(i-(153/2)-(153/4), j-(153/4));
-		return points; 
-	}
 
-	//Call this method whenever you want to refresh the circle. Adds placeholders at appropriate places and redraws the locations
-	//Get the users from the conference happening now
-	//Inflate the circle with the users who have entered the conference
-	public void updateCircle(Canvas canvas){
-		ArrayList<User> conferenceUsers = createExampleUsers(); 
-		Point [] placeholders = this.createPlaceHolders(conferenceUsers.size()); 
-		//TODO- Need a method to determine if the user is a main user or not 
-		//If he is then should be displayed in a black box at the end of the circle
-		int i = 0; 
-		for (User user: conferenceUsers){
-			//Place all conference participants except the main user- replace by the method that checks to see if he is the main user or not
-			if (i!= 4){
-				Paint paint = new Paint(); 
-				int bmg = user.getImage(); 
-				Bitmap bitmap = BitmapFactory.decodeResource(getResources(), bmg);
-				bitmap= Bitmap.createScaledBitmap(bitmap, 76, 76, true); 
-				canvas.drawBitmap(bitmap, (float) placeholders[i].x, (float)placeholders[i].y, paint); 
-			}
-			else{
-				Paint paint = new Paint(); 
-				canvas.drawRect((float) placeholders[i].x, (float) placeholders[i].y, (float) placeholders[i].x+76, (float) placeholders[i].y+76, paint); 
-//				int bmg = user.getImage(); 
-//				Bitmap bitmap = BitmapFactory.decodeResource(getResources(), bmg);
-//				bitmap= Bitmap.createScaledBitmap(bitmap, 76, 76, true); 
-//				canvas.drawBitmap(bitmap, (float) placeholders[i].x, (float)placeholders[i].y, paint); 
-			}
-			i = i+1;
-		}
-	}
 	//This method is also a part of the action bar/context methods
 	//Do this when the person is dragged outside the circle's radius - especially when the picture reaches the ends of the screen
 	public void addPersonToSideChat(){
-
-	}
-
-	//Context/Action Bar Methods:
-	//When add is pressed- need to pop up the invite page
-	//For now: Just resize the circle and place the person
-	//Moderator and User 
-	public void addPressed(){
-
-	}
-
-	//Moderator only
-	public void removePerson(){
 
 	}
 
@@ -186,20 +127,8 @@ public class ChatSpaceView extends View{
 
 	}
 
-	//TODO- Backend Implementation- Till then dummy users 
-	public ArrayList<User> createExampleUsers(){
-		ArrayList<User> users = new ArrayList<User>();
-		users.add(new User("naka_shaka_laka", "Risa Naka", R.drawable.example_picture_1));
-		users.add(new User("noratheexplora", "Nora Ng-Quinn", R.drawable.example_picture_2));
-		users.add(new User("makomania", "Makoto Bentz", R.drawable.example_picture_3));
-		users.add(new User("graeme_craka", "Graeme Bailey", R.drawable.example_picture_1));
-		users.add(new User("naj_hodge", "Najla Elmachtoub", R.drawable.example_picture_2));
-		users.add(new User("xu_mu_moo", "Jason Xu", R.drawable.example_picture_3));
-		return users;
-	}
-
 	@Override
-	protected void onLayout(boolean changed, int l, int t, int r, int b) {
+	protected void onLayout(boolean arg0, int arg1, int arg2, int arg3, int arg4) {
 		// TODO Auto-generated method stub
 		
 	}

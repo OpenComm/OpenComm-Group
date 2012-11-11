@@ -20,6 +20,7 @@
     <string name="dashboard_profile">My Profile</string>
     <string name="reset_password">reset password</string>
     <string name="sign_up">sign up</string>
+    <string name="remove">remove</string>
     <string name="send_email">send email</string>
     <string name="send">send</string>
     <string name="desc">Generic description for image</string>
@@ -87,4 +88,7 @@
     <string name="name_sample">Joseph Levitt</string>
     <string name="title_sample">Actor</string>
     <string name="password_sample">********</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_main">MainActivity</string>
+
 </resources>

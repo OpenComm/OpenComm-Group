@@ -16,6 +16,7 @@ import edu.cornell.opencomm.controller.ConferenceController;
 import edu.cornell.opencomm.model.ConferenceDataModel;
 //TODO: Remove this
 @SuppressWarnings("unused")
+//TODO - Integrate this with Chat Space View/View Group
 public final class ConferenceView extends Activity {
 	private boolean areActionBarsDisplayed = false;
 	

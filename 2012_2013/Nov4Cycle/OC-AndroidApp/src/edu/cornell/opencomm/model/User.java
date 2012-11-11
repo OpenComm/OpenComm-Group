@@ -42,7 +42,7 @@ public class User implements Comparable<User> {
 	VCard vCard;
 	/**
 	 * The image of the user
-	 * DEPRECIATED : use BitMap
+	 * use BitMap
 	 */
 	int image;
 	
@@ -58,7 +58,7 @@ public class User implements Comparable<User> {
 	public int userColor;
 
 	/**
-	 * DEPRECIATED -- use the new constructor with all needed fields
+	 * use the new constructor with all needed fields
 	 * 
 	 * @param username
 	 *            - the JID of the User
@@ -135,7 +135,7 @@ public class User implements Comparable<User> {
 	}
 
 	public int getImage() {
-		return image;
+		return this.image;
 	}
 
 	/** @return - the User's vCard */
