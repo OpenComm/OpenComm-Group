@@ -17,9 +17,9 @@ import edu.cornell.opencomm.model.User;
 public class ChatSpaceViewGroup extends ViewGroup{
 
 	private Activity view; 
-	
+
 	private static final boolean D = true; 
-	
+
 	//TODO- remove this
 	public int p= 0; 
 	public int add = 1; 
@@ -29,9 +29,9 @@ public class ChatSpaceViewGroup extends ViewGroup{
 	public ChatSpaceViewGroup(Context context, int p) {
 		super(context);
 		this.p= p; 
-		
+
 	}
-	
+
 	//TODO-remove this
 	public int getP(){
 		return this.p; 
@@ -95,7 +95,17 @@ public class ChatSpaceViewGroup extends ViewGroup{
 		points[7] = new Point(i-(153/2)-(153/4), j+(153/4));
 		return points; 
 	}
-
+	private ArrayList<Point> getPoints(int users,int radius){
+		int angleIncrement = 360/users;
+		ArrayList<Point> pointList = new ArrayList<Point>();
+		for(int i=0;i<users;i++){
+			Point p = new Point();
+			p.x = (int) (radius * Math.cos((angleIncrement * i) * (Math.PI / 180)));
+			p.y = (int) (radius * Math.sin((angleIncrement * i) * (Math.PI / 180)));
+			pointList.add(p);
+		}
+		return pointList;
+	}
 
 
 
@@ -171,7 +181,7 @@ public class ChatSpaceViewGroup extends ViewGroup{
 	public void whenViewPressed(View v){
 
 	}
-	
+
 	//TODO- Backend Implementation- Till then dummy users 
 	public ArrayList<User> createExampleUsers(){
 		ArrayList<User> users = new ArrayList<User>();
