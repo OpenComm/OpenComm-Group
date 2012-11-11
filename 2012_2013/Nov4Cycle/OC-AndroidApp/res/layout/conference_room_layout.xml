@@ -4,14 +4,6 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:onClick="clickedEmptySpace" >
-        <LinearLayout 
-        	android:id="@+id/action_bar"
-        	android:layout_width="fill_parent"
-        	android:layout_height="42.67dp"
-        	android:orientation="horizontal"
-        	android:background="@color/dark_grey"
-        	android:layout_alignParentTop="true"
-        	android:visibility="invisible"></LinearLayout>
         
         <TextView
             android:id="@+id/text"
@@ -20,14 +12,85 @@
             android:textColor="@color/black"
             android:textAppearance="?android:attr/textAppearanceLarge"
             />
-        
-        <LinearLayout 
-        	android:id="@+id/bottom_bar"
-        	android:layout_width="fill_parent"
-        	android:layout_height="42.67dp"
-        	android:orientation="horizontal"
-        	android:background="@color/dark_grey"
-        	android:layout_alignParentBottom="true"
-        	android:visibility="invisible"></LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/action_bar"
+            android:layout_width="fill_parent"
+            android:layout_height="42.67dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/dark_grey"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <ImageButton
+                android:id="@+id/conference_action_bar_back_button"
+                android:layout_width="10.67dp"
+                android:layout_height="14dp"
+                android:layout_marginLeft="10.67dp"
+                android:layout_marginTop="14.67dp"
+                android:background="@color/dark_grey"
+                android:contentDescription="@string/desc"
+                android:onClick="backButtonClicked"
+                android:scaleType="centerInside"
+                android:src="@drawable/contacts_left_arrow"
+                android:tint="@color/white" />
+
+            <TextView
+                android:id="@+id/conference_name"
+                android:layout_width="226dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6.33dp"
+                android:layout_marginTop="8.33dp"
+                android:text="@string/conference"
+                android:textColor="@color/blue"
+                android:textSize="20dp" />
+
+            <ImageButton
+                android:id="@+id/conference_overflow"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:layout_marginLeft="3.67dp"
+                android:layout_marginTop="3dp"
+                android:background="@color/dark_grey"
+                android:contentDescription="@string/desc"
+                android:onClick="overflowButtonClicked"
+                android:scaleType="centerInside"
+                android:src="@drawable/navigation_action_overflow" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/bottom_bar"
+            android:layout_width="fill_parent"
+            android:layout_height="42.67dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/dark_grey"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <ImageView
+                android:id="@+id/conference_leave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="140dp"
+                android:layout_marginTop="2dp"
+                android:contentDescription="@string/desc"
+                android:src="@drawable/viewgroup_context_door_cancel" />
+
+            <TextView
+                android:id="@+id/conference_leave_context_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal"
+                android:text="@string/leave"
+                android:textColor="@color/white"
+                android:textSize="10sp" />
+        </RelativeLayout>
 
     </RelativeLayout>

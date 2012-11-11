@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -157,6 +159,7 @@ public class ChatSpaceViewGroup extends ViewGroup{
 						//Redraw this view based on the new coordinates
 						//TODO- Need to change the layout parameters of the child object
 						//Everything else works fine
+						
 						invalidate(); 
 						
 						
