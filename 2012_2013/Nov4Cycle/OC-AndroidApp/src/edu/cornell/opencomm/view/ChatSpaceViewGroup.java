@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Paint;
+import android.content.res.Resources;
 import android.graphics.Point;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -118,6 +117,7 @@ public class ChatSpaceViewGroup extends ViewGroup{
 	
 	private int mYPosition; 
 	private void updateCircle(int p){
+		
 		ArrayList<User> conferenceUsers = this.getConferenceUsers(p); 
 		//TODO- check to see if the user is the main user- then set the background to black
 		Point[] placeholder = this.createPlaceHolders(conferenceUsers.size());

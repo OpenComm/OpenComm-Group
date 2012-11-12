@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
 import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.view.ChatSpaceViewActivity;
+import edu.cornell.opencomm.view.ConferenceSchedulerView;
 import edu.cornell.opencomm.view.ContactsView;
 import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.MyAccountView;
@@ -49,7 +49,7 @@ public class DashboardController {
 	 */
 	public void handleConferencesButtonClicked() {
      	// start conference view
-    	Intent i = new Intent(this.dashboardView,ChatSpaceViewActivity.class);
+    	Intent i = new Intent(this.dashboardView,ConferenceSchedulerView.class);
     	this.dashboardView.startActivity(i);
 	}
 

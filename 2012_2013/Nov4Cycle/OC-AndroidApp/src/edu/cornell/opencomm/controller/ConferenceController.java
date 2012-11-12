@@ -11,31 +11,33 @@ import android.util.Log;
 import edu.cornell.opencomm.model.ChatSpaceModel;
 import edu.cornell.opencomm.model.ConferenceDataModel;
 import edu.cornell.opencomm.model.User;
-import edu.cornell.opencomm.view.ConferenceSchedulerView;
-import edu.cornell.opencomm.view.DashboardView;
+import edu.cornell.opencomm.view.ConferenceCardView;
+import edu.cornell.opencomm.view.ConferenceView;
 
 @SuppressWarnings("unused")
 public class ConferenceController {
-	
+
+	private ConferenceView view; 
+
 	private Context context; 
-	
+
 	private ConferenceDataModel _conference; // the conference that is being controlled
-	
+
 	//TODO: add a listener for invitations and invitation responses
-	
+
 	//Constructor - initialize required fields
 	public ConferenceController(ConferenceDataModel conf){
 		this._conference = conf;
 	}
-	
+
 	public void inviteUser(User u, String sChat){
 		//TODO: only moderators can do this.  Send invitation to user u for chat sChat
 	}
-	
+
 	public void addUser(User u, String sChat){
 		//TODO: update model when a user accepts an invitation
 	}
-	
+
 	// sChat is the indicator that it is the left side chat or the right sidechat 
 	// it may be better to use an int or constant ot indicate left/right side chat
 	public void leaveChat(String sChat, User currentUser) throws XMPPException{
@@ -82,7 +84,7 @@ public class ConferenceController {
 			}
 		}
 	}
-	
+
 	public void endConference(String conf, User u){
 		ChatSpaceModel chat = this._conference.getIDMap().get(conf);
 		if(chat.getModerator().equals(u)){
@@ -96,7 +98,7 @@ public class ConferenceController {
 			}
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param u1  new moderator
@@ -108,7 +110,7 @@ public class ConferenceController {
 		room.grantModerator(u1.getNickname());
 		room.revokeModerator(u2.getNickname());
 	}
-	
+
 	public void kickoutUser(String chat, User userToBeKicked, User currUser){
 		if(this._conference.getIDMap().get(chat).getModerator().equals(currUser)){
 			this._conference.getIDMap().get(chat).getAllNicknames().remove(userToBeKicked.getNickname());
@@ -120,7 +122,7 @@ public class ConferenceController {
 			}
 		}
 	}
-	
+
 	public ChatSpaceModel switchChat(String chat){
 		ChatSpaceModel newChat = this._conference.getIDMap().get(chat);
 		this._conference.setActiveChat(chat);
@@ -132,18 +134,18 @@ public class ConferenceController {
 		}
 		return newChat;
 	}
-	
-	
+
+
 	//TODO: the following methods will not be implemented for the Nov4 cycle
-	
+
 	public void moveUser(User u){
 		//TODO: modify audio manipulation based on new location (future work)
 	}
-	
+
 	public void init(){
 		//TODO Back End
 		//1. Open a channel to listen to incoming messages / register this class with the connection
-		
+
 	}
 	public void handleIncomingPackets(){
 		//Handle
@@ -155,6 +157,49 @@ public class ConferenceController {
 		//1.invitation
 		//2.trans_priv
 	}
+
+	//TODO- need to store the current conference as a conference object 
+	public void handleBackButtonClicked(){
+		Intent click = new Intent(this.view, ConferenceCardView.class);
+		//click.putExtra("com.cornell.opencomm.model.Conference", conference);
+		this.view.startActivity(click); 
+	}
+
+	public void handleOverflow(){
+
+	}
+
+	public void pingClicked(){
+
+	}
+	
+	public void addPersonClicked(){
+		//TODO- Should go to add contact to conference page
+	}
+	
+	public void muteClicked(){
+		
+	}
+	
+	public void leaveConference(){
+		
+	}
+	
+	public void removeUser(){
+		
+	}
+	
+	public void setNewModerator() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void showProfile() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 }
 
 
