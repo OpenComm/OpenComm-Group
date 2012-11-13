@@ -42,9 +42,5 @@ public class DashboardView extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		findViewById(R.id.dashboardConfInfoOverlay).setVisibility(View.INVISIBLE);
-		findViewById(R.id.dashboardConfsOverlay).setVisibility(View.INVISIBLE);
-		findViewById(R.id.dashboardContactsOverlay).setVisibility(View.INVISIBLE);
-		findViewById(R.id.dashboardProfileOverlay).setVisibility(View.INVISIBLE);
 	}
 }
