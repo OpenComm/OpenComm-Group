@@ -102,6 +102,7 @@
         android:layout_width="fill_parent"
         android:layout_height="8dp"
         android:layout_marginTop="22.67dp"
+        android:scaleType="fitXY"
         android:contentDescription="@string/bar"
         android:src="@drawable/separator_bar" />
 
@@ -123,7 +124,7 @@
 
         <Button
             android:id="@+id/loginText"
-            android:layout_width="228dp"
+            android:layout_width="fill_parent"
             android:layout_height="92dp"
             android:layout_toRightOf="@id/loginButton"
             android:background="@color/light_grey"
