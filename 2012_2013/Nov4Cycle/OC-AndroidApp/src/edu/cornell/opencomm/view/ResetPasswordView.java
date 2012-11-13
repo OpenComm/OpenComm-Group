@@ -46,7 +46,7 @@ public class ResetPasswordView extends Activity {
 		setContentView(R.layout.reset_password_layout);
 		this.emailEntered = (EditText) findViewById(R.id.emailTextBox);
 		this.resetPwdOverlay = (ImageView) findViewById(R.id.resetPasswordOverlay);
-		this.signupOverlay = (ImageView) findViewById(R.id.signupOverlay);
+		this.signupOverlay = (ImageView) findViewById(R.id.resetPwd_SignupOverlay);
 		FontSetter.applySanSerifFont(ResetPasswordView.this, findViewById(R.id.reset_password_layout)); 		
 		controller = new ResetPasswordController(ResetPasswordView.this, this); 
 	}
@@ -54,7 +54,7 @@ public class ResetPasswordView extends Activity {
 	/** 
 	 * When sign up button is pressed, launch signup page 
 	 * */
-	public void signUpPressed(View v){
+	public void signup(View v){
 		this.controller.signUpPressed();
 	}
 	
@@ -84,8 +84,8 @@ public class ResetPasswordView extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		findViewById(R.id.signupOverlayReset).setVisibility(View.INVISIBLE);
-		findViewById(R.id.resetPasswordOverlay).setVisibility(View.INVISIBLE);
+		this.signupOverlay.setVisibility(View.INVISIBLE);
+		this.resetPwdOverlay.setVisibility(View.INVISIBLE);
 		this.emailEntered.setText("");
 	}
 	

@@ -56,7 +56,7 @@
             android:padding="7.5dp"
             android:hint=""
             android:inputType="textPassword"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/forgotPassword"

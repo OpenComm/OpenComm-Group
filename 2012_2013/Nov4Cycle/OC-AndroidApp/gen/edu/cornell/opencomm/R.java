@@ -306,6 +306,7 @@ public final class R {
         public static final int recurring=0x7f09001f;
         public static final int recurring_title=0x7f09001e;
         public static final int resetPasswordOverlay=0x7f0900dc;
+        public static final int resetPwd_SignupOverlay=0x7f0900d9;
         public static final int resetPwd_resetPwdIcon=0x7f0900db;
         public static final int resetPwd_separatorBar=0x7f0900da;
         public static final int reset_password_layout=0x7f0900d3;
@@ -326,7 +327,6 @@ public final class R {
         public static final int signupButton=0x7f0900be;
         public static final int signupButtonReset=0x7f0900d8;
         public static final int signupOverlay=0x7f0900bf;
-        public static final int signupOverlayReset=0x7f0900d9;
         public static final int signupTitle=0x7f0900de;
         public static final int signup_view_layout=0x7f0900e5;
         public static final int simpleRow=0x7f09002e;
