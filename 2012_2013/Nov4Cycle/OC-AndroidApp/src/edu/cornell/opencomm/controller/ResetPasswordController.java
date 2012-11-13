@@ -1,20 +1,19 @@
 package edu.cornell.opencomm.controller;
 
+import java.util.concurrent.ExecutionException;
+
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.util.Util;
 import edu.cornell.opencomm.view.LoginView;
-import edu.cornell.opencomm.view.PopupView;
 import edu.cornell.opencomm.view.ResetPasswordView;
 import edu.cornell.opencomm.view.SignupView;
-
-import org.jivesoftware.smack.XMPPException;
-import org.jivesoftware.smack.util.StringUtils;
 
 /**
  * Controller for reset password screen. Functionality:
@@ -26,7 +25,6 @@ import org.jivesoftware.smack.util.StringUtils;
  * 
  * Issues [TODO]:
  * <ul>
- * <li>Move email validation (registered email?) to an AsyncTask</li>
  * <li>Send reset password email to the given email</li>
  * <li>For any other issues search for string "TODO"</li>
  * </ul>
@@ -51,9 +49,11 @@ public class ResetPasswordController {
 	public static final String PWDRESET = "PasswordReset";
 
 	// enum for email address check
-	private enum EmailStatus {
-		EXISTING_USER, NONEXISTING_USER, INVALID_EMAIL
+	private enum ReturnState {
+		EXISTING_USER, NONEXISTING_USER
 	};
+
+	private ProgressDialog findEmailProgress;
 
 	private ResetPasswordView resetPasswordView;
 
@@ -65,88 +65,66 @@ public class ResetPasswordController {
 	// Handle sign up button
 	public void signUpPressed() {
 		if (D)
-			Log.v(TAG, "Sign up pressed");
-		this.resetPasswordView.findViewById(R.id.signupOverlayReset)
-				.setVisibility(View.VISIBLE);
+			Log.d(TAG, "Sign up pressed");
+		this.resetPasswordView.getSignupOverlay().setVisibility(View.VISIBLE);
 		Intent click = new Intent(this.resetPasswordView, SignupView.class);
 		this.resetPasswordView.startActivity(click);
 	}
 
 	// Handle the reset password button
 	// This method should load the reset password page
-	public void resetPasswordPressed(String emailEntered) {
-		this.resetPasswordView.findViewById(R.id.resetPasswordOverlay)
-				.setVisibility(View.VISIBLE);
+	public void resetPasswordPressed(String email) {
+		this.resetPasswordView.getResetPwdOverlay().setVisibility(View.VISIBLE);
+		// check that the inputs are not empty and in valid formats
+		boolean isEmptyEmail = (email == null || email.equals(""));
+		boolean isInvalidEmail = !Util.validateString(email,
+				Util.EMAIL_ADDRESS_PATTERN);
 		// if the email input is null/empty
-		if (emailEntered == null || emailEntered.equals("")) {
-			PopupView popup = new PopupView(resetPasswordView);
-			popup.createPopup("Input Error", "Email cannot be empty");
-			popup.createPositiveButton("OK",
-					new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int which) {
-							dialog.dismiss();
-							resetPasswordView.findViewById(
-									R.id.resetPasswordOverlay).setVisibility(
-									View.INVISIBLE);
-						}
-					});
-			popup.showPopup();
-		} else {
-			// check if the email input is valid
-			EmailStatus eStatus = findEmail(emailEntered);
-			switch (eStatus) {
-			case EXISTING_USER: {
-				EmailController pwrdController = new EmailController();
-				pwrdController.resetPasword(emailEntered);
-				try {
-					pwrdController.send();
-				} catch (Exception e) {
-					Log.v(TAG, "Error sending password email");
-					Log.v(TAG, e.getMessage());
+		// if there are any errors with the inputs
+				if (isEmptyEmail || isInvalidEmail) {
+					StringBuilder errorText = new StringBuilder();
+					errorText.append("Error:\n");
+					if (isEmptyEmail) {
+						errorText.append("\tEmail is required\n");
+					}
+					else if (isInvalidEmail) {
+						errorText.append("\tInvalid email\n");
+					}
+					errorText.append("Please try again.");
+					// show a toast describing the error
+					Toast.makeText(this.resetPasswordView.getApplicationContext(), 
+							errorText.toString(), Toast.LENGTH_SHORT).show();
+					this.resetPasswordView.getResetPwdOverlay().setVisibility(View.INVISIBLE);
 				}
-				/** TODO [backend] send dummy password to this user's email */
-				// go back to login page
-				Intent click = new Intent(this.resetPasswordView,
-						LoginView.class);
-				click.putExtra(ResetPasswordController.PWDRESET, true);
-				this.resetPasswordView.startActivity(click);
-				break;
-			}
-			case NONEXISTING_USER: {
-				PopupView popup = new PopupView(resetPasswordView);
-				popup.createPopup("Input Error", "Unregistered email");
-				popup.createPositiveButton("OK",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int which) {
-								dialog.dismiss();
-								resetPasswordView.findViewById(
-										R.id.resetPasswordOverlay)
-										.setVisibility(View.INVISIBLE);
-							}
-						});
-				popup.showPopup();
-				break;
-			}
-			case INVALID_EMAIL: {
-				PopupView popup = new PopupView(resetPasswordView);
-				popup.createPopup("Input Error", "Invalid email");
-				popup.createPositiveButton("OK",
-						new DialogInterface.OnClickListener() {
-
-							public void onClick(DialogInterface dialog,
-									int which) {
-								dialog.dismiss();
-								resetPasswordView.findViewById(
-										R.id.resetPasswordOverlay)
-										.setVisibility(View.INVISIBLE);
-							}
-						});
-				popup.showPopup();
-				break;
-			}
-			}
-		}
+				else {
+					// attempt to find email in the network
+					try {
+						ReturnState rs = new FindEmailTask().execute(email).get();
+						switch (rs) {
+						case NONEXISTING_USER:
+							resetPasswordView.getResetPwdOverlay().setVisibility(View.INVISIBLE);
+							// let user know that we could not establish connection w/ server
+				        	Toast.makeText(resetPasswordView.getApplicationContext(),
+				        			"Could not connect to server. Please try again.", Toast.LENGTH_SHORT).show();
+							break;
+						case EXISTING_USER:
+							// launch Login page
+							Intent click = new Intent(this.resetPasswordView,
+									LoginView.class);
+							click.putExtra(ResetPasswordController.PWDRESET, true);
+							this.resetPasswordView.startActivity(click);
+							break;
+						}
+					} catch (InterruptedException e) {
+						resetPasswordView.getResetPwdOverlay().setVisibility(View.INVISIBLE);
+			        	Toast.makeText(resetPasswordView.getApplicationContext(),
+			        			"Could not complete email search. Please try again.", Toast.LENGTH_SHORT).show();
+					} catch (ExecutionException e) {
+						resetPasswordView.getResetPwdOverlay().setVisibility(View.INVISIBLE);
+			        	Toast.makeText(resetPasswordView.getApplicationContext(),
+			        			"Could not complete email search. Please try again.", Toast.LENGTH_SHORT).show();
+					}
+				}
 	}
 
 	// Back button on Android pressed
@@ -156,26 +134,31 @@ public class ResetPasswordController {
 		this.resetPasswordView.startActivity(click);
 	}
 
-	/**
-	 * Checks if the given email is valid and is in the server
-	 * 
-	 * @param email
-	 * @return
-	 */
-	public EmailStatus findEmail(String email) {
-		// if it's a valid email
-		if (Util.validateString(email, Util.EMAIL_ADDRESS_PATTERN)) {
-			// check if this email exists in the server
-			return (isEmailInNetwork(email) ? EmailStatus.EXISTING_USER
-					: EmailStatus.NONEXISTING_USER);
+	private class FindEmailTask extends AsyncTask<String, Void, ReturnState> {
+		@Override
+		protected void onPreExecute() {
+			findEmailProgress = new ProgressDialog(resetPasswordView);
+			findEmailProgress.setIcon(resetPasswordView.getResources()
+					.getDrawable(R.drawable.icon));
+			findEmailProgress.setTitle("Searching for User");
+			findEmailProgress.setMessage("Please wait...");
+			findEmailProgress.show();
 		}
-		return EmailStatus.INVALID_EMAIL;
-	}
 
-	// Checks if the email if already in the network
+		@Override
+		protected ReturnState doInBackground(String... params) {
+			String email = params[0];
+			// TODO [backend] look for user using the given email in the network
+			// TODO [backend] if use rnot in network, return ReturnState.NONEXISTING_USER
+			return ReturnState.EXISTING_USER;
+		}
 
-	private boolean isEmailInNetwork(String email) {
-		// TODO[backend] check if the email is registered
-		return true;
+		@Override
+		protected void onPostExecute(ReturnState state) {
+			findEmailProgress.dismiss();
+			if (state == ReturnState.EXISTING_USER) {
+				// TODO [backend] send new dummy password to user
+			}
+		}
 	}
 }
