@@ -28,12 +28,22 @@ public class ChatSpaceModel extends MultiUserChat{
 		super(c, s);
 	}
 	
+	public String getRoomID(){
+		return roomID;
+	}
+	
 	public User getModerator(){
 		return moderator;
 	}
 	
 	public void setModerator(User u){
 		moderator = u;
+	}
+	
+	public void updateForNewUser(User u){
+		allParticipants.put(u.getUsername(), u);
+		allNicks.put(u.getNickname(), u);
+		userLocationMap.put(u, getUserLocation(u));
 	}
 	
 	/**
@@ -55,7 +65,9 @@ public class ChatSpaceModel extends MultiUserChat{
 		
 	}
 	
-	public void getUserLocation(User u){
-		
+	//TODO - used in updateForNewUser() method above to temporarily
+	//indicate method of finding the location to map with the new user in userLocationMap
+	public Point getUserLocation(User u){
+		return null;
 	}
 } 

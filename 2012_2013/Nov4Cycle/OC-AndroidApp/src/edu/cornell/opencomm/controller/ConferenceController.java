@@ -2,12 +2,14 @@
 package edu.cornell.opencomm.controller;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import org.jivesoftware.smack.XMPPException;
 
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import edu.cornell.opencomm.Manager.UserManager;
 import edu.cornell.opencomm.model.ChatSpaceModel;
 import edu.cornell.opencomm.model.ConferenceDataModel;
 import edu.cornell.opencomm.model.User;
@@ -23,6 +25,9 @@ public class ConferenceController {
 
 	private ConferenceDataModel _conference; // the conference that is being controlled
 
+	private static final String TAG = "ConferenceController";
+    private static final boolean D = true;
+    
 	//TODO: add a listener for invitations and invitation responses
 
 	//Constructor - initialize required fields
@@ -31,11 +36,57 @@ public class ConferenceController {
 	}
 
 	public void inviteUser(User u, String sChat){
-		//TODO: only moderators can do this.  Send invitation to user u for chat sChat
+		User primaryUser = UserManager.PRIMARY_USER;
+		ChatSpaceModel chatRoom = findChat(sChat);
+		//check if user is moderator in the chat sChat
+		User moderator = chatRoom.getModerator();
+		if(!primaryUser.equals(moderator)){
+			if(D) Log.v(TAG, "User " + primaryUser.getUsername() + " is not the moderator of chat " + sChat + ".  Invitation not sent");
+			return;
+		}
+		if(D) Log.v(TAG, "Confirmed that the user " + primaryUser.getUsername() + "is the moderator");
+		//assumes that if user is a moderator, then user is also an occupant in the MUC
+		chatRoom.invite(u.getUsername(), null);	
+		//TODO - Consider implementing sending a message (like in the old code) to Moderator 
+		//requesting an invitation if the current user is not a moderator
 	}
 
 	public void addUser(User u, String sChat){
-		//TODO: update model when a user accepts an invitation
+		ChatSpaceModel chatRoom = findChat(sChat);
+		HashMap<String,User> participants = chatRoom.getAllParticipants();
+		boolean userHasJoined = participants.containsValue(u);
+		if(!userHasJoined){
+			return;
+			//TODO - may be better if we connect to frontend to handle
+			//when user presses accept for the chat, and then call this method
+			//since there is no listener for user invite acception
+		}
+		else{
+			_conference.getIDMap().get(chatRoom.getRoomID()).updateForNewUser(u);
+		}
+	}
+	
+	private ChatSpaceModel findChat(String sChat){
+		//find roomID of the chat (may be replaced with _conference.getActiveChat();
+		//if we can be confident that the active chat is the same as sChat
+		//Delete this functionality if String sChat represents roomID, not roomName
+		HashMap<String, String> chatSpaceLocationMap = _conference.getLocationMap();
+		String roomID = null;
+		for(Entry<String, String> entry : chatSpaceLocationMap.entrySet()){
+			if(sChat.equals(entry.getValue())){
+				roomID = entry.getKey();
+				break;
+			}
+		}
+		if(roomID == null){
+			if(D) Log.v(TAG, "Could not find any room with the name " + sChat);
+			if(D) Log.v(TAG, "Perhaps " + sChat + " is the roomID, not roomName? (check inviteUser implementation");
+			return null;
+		}
+		//roomId =  _conference.getActiveChat();
+		HashMap<String, ChatSpaceModel> chatSpaceIDMap = _conference.getIDMap();
+		ChatSpaceModel chatRoom = chatSpaceIDMap.get(roomID);
+		return chatRoom; 
 	}
 
 	// sChat is the indicator that it is the left side chat or the right sidechat 
