@@ -35,7 +35,6 @@ public class DashboardController {
 	 */
 	public void handleConfInfoButtonClicked() {
 		//ContactListController.getInstance().updateContacts();
-		this.dashboardView.findViewById(R.id.dashboardConfInfoOverlay).setVisibility(View.VISIBLE);
 		int duration = Toast.LENGTH_SHORT;
     	Toast send = Toast.makeText(this.dashboardView.getApplicationContext(),"ConfInfo clicked",duration);
     	send.show();
@@ -69,7 +68,6 @@ public class DashboardController {
 	 * TODO: This should call a task when a user clicks the Profile button.
 	 */
 	public void handleProfileButtonClicked() {
-		this.dashboardView.findViewById(R.id.dashboardProfileOverlay).setVisibility(View.VISIBLE);
 		/*int duration = Toast.LENGTH_SHORT;
     	Toast send = Toast.makeText(this.dashboardView.getApplicationContext(),"Profile clicked",duration);
     	send.show();*/
