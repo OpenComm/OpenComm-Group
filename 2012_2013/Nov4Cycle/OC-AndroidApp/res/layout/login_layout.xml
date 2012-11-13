@@ -34,7 +34,7 @@
             android:padding="7.5dp"
             android:background="@drawable/selector_bg_edittext"
             android:hint=""
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textLabelPassword"
