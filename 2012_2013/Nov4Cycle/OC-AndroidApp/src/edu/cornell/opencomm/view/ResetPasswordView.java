@@ -59,7 +59,7 @@ public class ResetPasswordView extends Activity {
 	 * When reset password has been clicked - shows a popup for unregistered/
 	 * invalid emails 
 	 * */
-	public void goToReset(View v){
+	public void resetPassword(View v){
 		Log.v("Reset password page", "Reset Clicked");
 		this.controller.resetPasswordPressed(this.emailEntered.getText().toString());		
 	}
