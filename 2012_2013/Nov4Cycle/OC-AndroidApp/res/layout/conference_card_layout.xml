@@ -5,12 +5,13 @@
         android:background="@color/black_conference_card_background" >
 
         <RelativeLayout
-            android:id="@+id/title_bar"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:background="@color/dark_grey_translucent" >
+        	android:id="@+id/title_bar"
+        	android:layout_width="fill_parent"
+        	android:layout_height="42.67dp"
+        	android:layout_alignParentLeft="true"
+        	android:layout_alignParentTop="true"
+        	android:background="@color/dark_grey"
+        	android:orientation="horizontal" >
 			
             <ImageView
                 android:id="@+id/back_button"
@@ -32,15 +33,17 @@
                 android:textSize="24sp"
                 android:textColor="@color/blue_light" />
 
+
             <ImageView
-                android:id="@+id/action_overflow_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="24dp"
-                android:src="@drawable/navigation_action_overflow"
-                android:contentDescription="change_date_right_arrow_desc" />
+            	android:id="@+id/action_overflow_button"
+            	android:layout_width="5.33dp"
+            	android:layout_height="wrap_content"
+            	android:layout_alignParentRight="true"
+            	android:layout_centerVertical="true"
+            	android:layout_marginRight="26dp"
+            	android:adjustViewBounds="true"
+            	android:contentDescription="@string/desc"
+            	android:src="@drawable/action_overflow" />
 
             
             
