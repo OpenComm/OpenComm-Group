@@ -1,10 +1,11 @@
-
 package edu.cornell.opencomm.controller;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.packet.Packet;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,132 +20,166 @@ import edu.cornell.opencomm.view.ConferenceView;
 @SuppressWarnings("unused")
 public class ConferenceController {
 
-	private ConferenceView view; 
+	private ConferenceView view;
 
-	private Context context; 
+	private Context context;
 
-	private ConferenceDataModel _conference; // the conference that is being controlled
+	private ConferenceDataModel _conference; // the conference that is being
+												// controlled
 
 	private static final String TAG = "ConferenceController";
-    private static final boolean D = true;
-    
-	//TODO: add a listener for invitations and invitation responses
+	private static final boolean D = true;
 
-	//Constructor - initialize required fields
-	public ConferenceController(ConferenceDataModel conf){
+	private HashMap<User, String> invitedUsersToConference;
+
+	// users who have been invited who have not been added to the model
+	// information
+
+	// TODO: add a listener for invitations and invitation responses
+
+	// Constructor - initialize required fields
+	public ConferenceController(ConferenceDataModel conf) {
 		this._conference = conf;
+		invitedUsersToConference = new HashMap<User, String>();
 	}
 
-	public void inviteUser(User u, String sChat){
+	public void inviteUser(User u, String sChat) {
 		User primaryUser = UserManager.PRIMARY_USER;
 		ChatSpaceModel chatRoom = findChat(sChat);
-		//check if user is moderator in the chat sChat
+		// check if user is moderator in the chat sChat
 		User moderator = chatRoom.getModerator();
-		if(!primaryUser.equals(moderator)){
-			if(D) Log.v(TAG, "User " + primaryUser.getUsername() + " is not the moderator of chat " + sChat + ".  Invitation not sent");
+		if (!primaryUser.equals(moderator)) {
+			if (D)
+				Log.v(TAG, "User " + primaryUser.getUsername()
+						+ " is not the moderator of chat " + sChat
+						+ ".  Invitation not sent");
 			return;
 		}
-		if(D) Log.v(TAG, "Confirmed that the user " + primaryUser.getUsername() + "is the moderator");
-		//assumes that if user is a moderator, then user is also an occupant in the MUC
-		chatRoom.invite(u.getUsername(), null);	
-		//TODO - Consider implementing sending a message (like in the old code) to Moderator 
-		//requesting an invitation if the current user is not a moderator
+		if (D)
+			Log.v(TAG, "Confirmed that the user " + primaryUser.getUsername()
+					+ "is the moderator");
+		// assumes that if user is a moderator, then user is also an occupant in
+		// the MUC
+		chatRoom.addParticipantListener(new PacketListener() {
+			public void processPacket(Packet packet) {
+				boolean userFound = false;
+				for (Entry<User, String> entry : invitedUsersToConference
+						.entrySet()) {
+					if (entry.getKey().getUsername().equals(packet.getFrom())) {
+						// if user has been invited to a chat, call the addUser
+						// method to update model information
+						// and remove the user from the invitedUsersToConference
+						// method.
+						if (D)
+							Log.v(TAG, "User " + entry.getKey()
+									+ " has accepted an invitation");
+						addUser(entry.getKey(), entry.getValue());
+						if (D)
+							Log.v(TAG,
+									"Updated model information to reflect User "
+											+ entry.getKey()
+											+ " joining the MUC");
+						invitedUsersToConference.remove(entry.getKey());
+						break;
+					}
+				}
+			}
+		});
+		chatRoom.invite(u.getUsername(), null);
+		invitedUsersToConference.put(u, sChat);
+
+		// TODO - Consider implementing sending a message (like in the old code)
+		// to Moderator
+		// requesting an invitation if the current user is not a moderator
 	}
 
-	public void addUser(User u, String sChat){
+	public void addUser(User u, String sChat) {
 		ChatSpaceModel chatRoom = findChat(sChat);
-		HashMap<String,User> participants = chatRoom.getAllParticipants();
-		boolean userHasJoined = participants.containsValue(u);
-		if(!userHasJoined){
-			return;
-			//TODO - may be better if we connect to frontend to handle
-			//when user presses accept for the chat, and then call this method
-			//since there is no listener for user invite acception
-		}
-		else{
-			_conference.getIDMap().get(chatRoom.getRoomID()).updateForNewUser(u);
-		}
+		_conference.getIDMap().get(chatRoom.getRoomID()).updateForNewUser(u);
 	}
-	
-	private ChatSpaceModel findChat(String sChat){
-		//find roomID of the chat (may be replaced with _conference.getActiveChat();
-		//if we can be confident that the active chat is the same as sChat
-		//Delete this functionality if String sChat represents roomID, not roomName
-		HashMap<String, String> chatSpaceLocationMap = _conference.getLocationMap();
-		String roomID = null;
-		for(Entry<String, String> entry : chatSpaceLocationMap.entrySet()){
-			if(sChat.equals(entry.getValue())){
-				roomID = entry.getKey();
-				break;
-			}
-		}
-		if(roomID == null){
-			if(D) Log.v(TAG, "Could not find any room with the name " + sChat);
-			if(D) Log.v(TAG, "Perhaps " + sChat + " is the roomID, not roomName? (check inviteUser implementation");
-			return null;
-		}
-		//roomId =  _conference.getActiveChat();
+
+	private ChatSpaceModel findChat(String sChat) {
+		// find roomID of the chat (may be replaced with
+		// _conference.getActiveChat();
+		// if we can be confident that the active chat is the same as sChat
+		String roomID = sChat;
+
+		// roomId = _conference.getActiveChat();
 		HashMap<String, ChatSpaceModel> chatSpaceIDMap = _conference.getIDMap();
 		ChatSpaceModel chatRoom = chatSpaceIDMap.get(roomID);
-		return chatRoom; 
+		return chatRoom;
 	}
 
-	// sChat is the indicator that it is the left side chat or the right sidechat 
-	// it may be better to use an int or constant ot indicate left/right side chat
-	public void leaveChat(String sChat, User currentUser) throws XMPPException{
+	// sChat is the indicator that it is the left side chat or the right
+	// sidechat
+	// it may be better to use an int or constant ot indicate left/right side
+	// chat
+	public void leaveChat(String sChat, User currentUser) throws XMPPException {
 
 		HashMap<String, ChatSpaceModel> conferencemap = _conference.getIDMap();
-		ChatSpaceModel spacechat= conferencemap.get(sChat);
-		User moderator=spacechat.getModerator();
+		ChatSpaceModel spacechat = conferencemap.get(sChat);
+		User moderator = spacechat.getModerator();
 
-		if (moderator.getUsername().equals(currentUser.getUsername())){    //if moderator
-			User newmoderator=null;                                 //ask for new moderator if current moderator is leaving
-			User new_sidemoderator=null;                            //find the new_sidemoderator for this side chat
-			if (_conference.getIsmain()){                           //if in mainchat
-				String[] keys= (String[]) conferencemap.keySet().toArray();
-				for (int i=0;i<=2; i++){
-					if (keys[i]!=sChat){	                            //if not mainchat i.e. sidechats, transfer privileges and then leave
-						ChatSpaceModel spacechat1= conferencemap.get(keys[i]);
-						transferPrivileges( currentUser, newmoderator, spacechat1);
+		if (moderator.getUsername().equals(currentUser.getUsername())) { // if
+																			// moderator
+			User newmoderator = null; // ask for new moderator if current
+										// moderator is leaving
+			User new_sidemoderator = null; // find the new_sidemoderator for
+											// this side chat
+			if (_conference.getIsmain()) { // if in mainchat
+				String[] keys = (String[]) conferencemap.keySet().toArray();
+				for (int i = 0; i <= 2; i++) {
+					if (keys[i] != sChat) { // if not mainchat i.e. sidechats,
+											// transfer privileges and then
+											// leave
+						ChatSpaceModel spacechat1 = conferencemap.get(keys[i]);
+						transferPrivileges(currentUser, newmoderator,
+								spacechat1);
 						spacechat1.leave();
-						_conference.setIsmain(true);                        //not sure if this is needed, please check
+						_conference.setIsmain(true); // not sure if this is
+														// needed, please check
 					}
-					transferPrivileges( newmoderator, currentUser,  spacechat);  //finally leave the mainchat
+					transferPrivileges(newmoderator, currentUser, spacechat); // finally
+																				// leave
+																				// the
+																				// mainchat
 					spacechat.leave();
 				}
-			}
-			else{                                                          //if this is a side chat than only for that
-				transferPrivileges(newmoderator, currentUser,  spacechat);
-				spacechat.leave();	
+			} else { // if this is a side chat than only for that
+				transferPrivileges(newmoderator, currentUser, spacechat);
+				spacechat.leave();
 			}
 		}
 
-		else{                                            //if only a user
-			if ((_conference.getIsmain())){            //if main then leave side chat also
-				String[] keys= (String[]) conferencemap.keySet().toArray();
-				for (int i=0;i<=2; i++){
-					if (keys[i]!=sChat){	                            //if not mainchat i.e. sidechats leave
-						ChatSpaceModel spacechat1= conferencemap.get(keys[i]);
+		else { // if only a user
+			if ((_conference.getIsmain())) { // if main then leave side chat
+												// also
+				String[] keys = (String[]) conferencemap.keySet().toArray();
+				for (int i = 0; i <= 2; i++) {
+					if (keys[i] != sChat) { // if not mainchat i.e. sidechats
+											// leave
+						ChatSpaceModel spacechat1 = conferencemap.get(keys[i]);
 						spacechat1.leave();
-					}	
-					spacechat.leave();                                  //leave main
+					}
+					spacechat.leave(); // leave main
 				}
-			}
-			else {
-				spacechat.leave();                                    //leave the side chat
+			} else {
+				spacechat.leave(); // leave the side chat
 			}
 		}
 	}
 
-	public void endConference(String conf, User u){
+	public void endConference(String conf, User u) {
 		ChatSpaceModel chat = this._conference.getIDMap().get(conf);
-		if(chat.getModerator().equals(u)){
-			HashMap<String, ChatSpaceModel> allChats = this._conference.getIDMap();
-			for(String s : allChats.keySet()){
+		if (chat.getModerator().equals(u)) {
+			HashMap<String, ChatSpaceModel> allChats = this._conference
+					.getIDMap();
+			for (String s : allChats.keySet()) {
 				try {
 					allChats.get(s).destroy(null, null);
 				} catch (XMPPException e) {
-					Log.e("ConferenceController", "XMPPError when destroying a MUC");
+					Log.e("ConferenceController",
+							"XMPPError when destroying a MUC");
 				}
 			}
 		}
@@ -152,106 +187,111 @@ public class ConferenceController {
 
 	/**
 	 * 
-	 * @param u1  new moderator
-	 * @param u2 current moderator leaving the chat
-	 * @param room ChatSpaceModel in which the privilege has to be transferred 
-	 * @throws XMPPException 
+	 * @param u1
+	 *            new moderator
+	 * @param u2
+	 *            current moderator leaving the chat
+	 * @param room
+	 *            ChatSpaceModel in which the privilege has to be transferred
+	 * @throws XMPPException
 	 */
-	public void transferPrivileges(User u1, User u2,  ChatSpaceModel room) throws XMPPException{
+	public void transferPrivileges(User u1, User u2, ChatSpaceModel room)
+			throws XMPPException {
 		room.grantModerator(u1.getNickname());
 		room.revokeModerator(u2.getNickname());
 	}
 
-	public void kickoutUser(String chat, User userToBeKicked, User currUser){
-		if(this._conference.getIDMap().get(chat).getModerator().equals(currUser)){
-			this._conference.getIDMap().get(chat).getAllNicknames().remove(userToBeKicked.getNickname());
-			this._conference.getIDMap().get(chat).getAllParticipants().remove(userToBeKicked.getUsername());
+	public void kickoutUser(String chat, User userToBeKicked, User currUser) {
+		if (this._conference.getIDMap().get(chat).getModerator()
+				.equals(currUser)) {
+			this._conference.getIDMap().get(chat).getAllNicknames()
+					.remove(userToBeKicked.getNickname());
+			this._conference.getIDMap().get(chat).getAllParticipants()
+					.remove(userToBeKicked.getUsername());
 			try {
-				this._conference.getIDMap().get(chat).kickParticipant(userToBeKicked.getNickname(), null);
+				this._conference.getIDMap().get(chat)
+						.kickParticipant(userToBeKicked.getNickname(), null);
 			} catch (XMPPException e) {
 				e.printStackTrace();
 			}
 		}
 	}
 
-	public ChatSpaceModel switchChat(String chat){
+	public ChatSpaceModel switchChat(String chat) {
 		ChatSpaceModel newChat = this._conference.getIDMap().get(chat);
 		this._conference.setActiveChat(chat);
-		if(this._conference.getLocationMap().get(chat).equals("MAIN")){
+		if (this._conference.getLocationMap().get(chat).equals("MAIN")) {
 			this._conference.setIsmain(true);
-		}
-		else{
+		} else {
 			this._conference.setIsmain(false);
 		}
 		return newChat;
 	}
 
+	// TODO: the following methods will not be implemented for the Nov4 cycle
 
-	//TODO: the following methods will not be implemented for the Nov4 cycle
-
-	public void moveUser(User u){
-		//TODO: modify audio manipulation based on new location (future work)
+	public void moveUser(User u) {
+		// TODO: modify audio manipulation based on new location (future work)
 	}
 
-	public void init(){
-		//TODO Back End
-		//1. Open a channel to listen to incoming messages / register this class with the connection
+	public void init() {
+		// TODO Back End
+		// 1. Open a channel to listen to incoming messages / register this
+		// class with the connection
 
 	}
-	public void handleIncomingPackets(){
-		//Handle
-		//1. Invitation response
-		//2. Priv transfer
-	}
-	public void sendPackets(){
-		//Send
-		//1.invitation
-		//2.trans_priv
+
+	public void handleIncomingPackets() {
+		// Handle
+		// 1. Invitation response
+		// 2. Priv transfer
 	}
 
-	//TODO- need to store the current conference as a conference object 
-	public void handleBackButtonClicked(){
+	public void sendPackets() {
+		// Send
+		// 1.invitation
+		// 2.trans_priv
+	}
+
+	// TODO- need to store the current conference as a conference object
+	public void handleBackButtonClicked() {
 		Intent click = new Intent(this.view, ConferenceCardView.class);
-		//click.putExtra("com.cornell.opencomm.model.Conference", conference);
-		this.view.startActivity(click); 
+		// click.putExtra("com.cornell.opencomm.model.Conference", conference);
+		this.view.startActivity(click);
 	}
 
-	public void handleOverflow(){
+	public void handleOverflow() {
 
 	}
 
-	public void pingClicked(){
+	public void pingClicked() {
 
 	}
-	
-	public void addPersonClicked(){
-		//TODO- Should go to add contact to conference page
+
+	public void addPersonClicked() {
+		// TODO- Should go to add contact to conference page
 	}
-	
-	public void muteClicked(){
-		
+
+	public void muteClicked() {
+
 	}
-	
-	public void leaveConference(){
-		
+
+	public void leaveConference() {
+
 	}
-	
-	public void removeUser(){
-		
+
+	public void removeUser() {
+
 	}
-	
+
 	public void setNewModerator() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void showProfile() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
-	
+
 }
-
-
-
