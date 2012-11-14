@@ -1,11 +1,9 @@
 package edu.cornell.opencomm.controller;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Manager.UserManager;
@@ -14,8 +12,6 @@ import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.util.Util;
 import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.LoginView;
-import edu.cornell.opencomm.view.NotificationView;
-import edu.cornell.opencomm.view.PopupView;
 import edu.cornell.opencomm.view.ResetPasswordView;
 import edu.cornell.opencomm.view.SignupView;
 
@@ -89,33 +85,26 @@ public class LoginController {
 		boolean isEmptyPwd = (password == null || password.equals(""));
 		boolean isInvalidPwd = !Util.validateString(password, Util.PASSWORD);
 		// if there are any errors with the inputs
-		// TODO [frontend] modify error messages in accordance to design spec
 		if (isEmptyEmail || isInvalidEmail || isEmptyPwd || isInvalidPwd) {
 			StringBuilder errorText = new StringBuilder();
+			errorText.append("Error:\n");
 			if (isEmptyEmail) {
-				errorText.append("Email cannot be empty\n");
+				errorText.append("\tEmail is required\n");
 			}
 			else if (isInvalidEmail) {
-				errorText.append("Invalid email\n");
+				errorText.append("\tInvalid email\n");
 			}
 			if (isEmptyPwd) {
-				errorText.append("Password cannot be empty\n");
+				errorText.append("\tPassword is required\n");
 			}
 			else if(isInvalidPwd) {
-				errorText.append("Invalid password");
+				errorText.append("\tInvalid password\n\n");
 			}
-			// generate popup if there is an error
-			PopupView popup = new PopupView(this.loginView);
-			popup.createPopup("Error", errorText.toString());
-			popup.createPositiveButton("OK", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-					dialog.dismiss();
-					loginView.getLoginOverlay().setVisibility(View.INVISIBLE);
-					loginView.resetFocus();
-
-				}
-			} );
-			popup.showPopup();
+			errorText.append("Please try again.");
+			// show a toast describing the error
+			Toast.makeText(this.loginView.getApplicationContext(), 
+					errorText.toString(), Toast.LENGTH_SHORT).show();
+			this.loginView.getLoginOverlay().setVisibility(View.INVISIBLE);
 		}
 		else {
 			// attempt to log in
@@ -123,13 +112,21 @@ public class LoginController {
 		}
 	}
 
-	public void handleCreateAccount() {
+	/** When the "Sign up" button is clicked, provide user feedback and launch 
+	 * the Sign up page */
+	public void handleSignup() {
+		// user feedback: white overlay
 		this.loginView.getSignupOverlay().setVisibility(View.VISIBLE);
+		// start sign up view
 		Intent account = new Intent(this.loginView, SignupView.class);
 		this.loginView.startActivity(account);
 	}
 
-	public void handleRetrievePassword() {
+	/** When the "Forgot password" link is clicked, launch the Reset Password
+	 * page
+	 */
+	public void handleForgotPassword() {
+		// launch reset password page
 		Intent account = new Intent(this.loginView, ResetPasswordView.class);
 		this.loginView.startActivity(account);
 	}
@@ -138,8 +135,11 @@ public class LoginController {
 	private class LoginTask extends AsyncTask<String, Void, ReturnState> {
 		@Override
 		protected void onPreExecute() {
-			loginProgress = ProgressDialog.show(loginView, "Attempting Login",
-					"Please wait...");
+			loginProgress = new ProgressDialog(loginView);
+			loginProgress.setIcon(loginView.getResources().getDrawable(R.drawable.icon));
+			loginProgress.setTitle("Attempting Login");
+			loginProgress.setMessage("Please wait...");
+			loginProgress.show();
 		}
 		@Override
 		protected ReturnState doInBackground(String... strings) {
@@ -165,20 +165,17 @@ public class LoginController {
 			case COULDNT_CONNECT:
 				loginView.getLoginOverlay().setVisibility(View.INVISIBLE);
 				// let user know that we could not establish connection w/ server
-				int duration = Toast.LENGTH_SHORT;
-	        	Toast send = Toast.makeText(loginView.getApplicationContext(),
-	        			"Could not connect to server; please try again.",duration);
-	        	send.show();
+	        	Toast.makeText(loginView.getApplicationContext(),
+	        			"Could not connect to server. Please try again.", Toast.LENGTH_SHORT).show();
 				break;
 			case INVALID_PAIR:
 				loginView.getLoginOverlay().setVisibility(View.INVISIBLE);
 				// let user know that the pair was invalid
-				duration = Toast.LENGTH_SHORT;
-	        	send = Toast.makeText(loginView.getApplicationContext(),
-	        			"Invalid email and/or password; please try again.",duration);
-	        	send.show();
+				Toast.makeText(loginView.getApplicationContext(),
+	        			"Incorrect email and/or password. Please try again.", Toast.LENGTH_SHORT).show();
 				break;
 			case SUCCEEDED:
+				// launch dashboard
 				Intent i = new Intent(loginView, DashboardView.class);
 				loginView.startActivity(i);
 				break;

@@ -42,7 +42,7 @@ public class ConferenceSchedulerView extends Activity {
 		controller = new ConferenceSchedulerController(ConferenceSchedulerView.this, this);
 		// FOR TEMPORARY HARDCODED CONFERENCES
 		users = createExampleUsers(); 
-//		retrieveConferences();
+		retrieveConferences(); //TODO debugging
 		conferences = createExampleConferences();
 		retrieveAndDisplayConferences(conferences);
 		
@@ -153,11 +153,13 @@ public class ConferenceSchedulerView extends Activity {
 	}
 	
 	/** Parse a string in this format yyyy-mm-dd hh:mm:ss into a Calendar object */
-	public Calendar toCalendar(String dateAndTime){
+	public  Calendar toCalendar(String dateAndTime){
 		Calendar calendar = Calendar.getInstance();
+		dateAndTime=dateAndTime.substring(0, (dateAndTime.length())-2);
 		String[] date_time = dateAndTime.split(" ");
 		String[] date = date_time[0].split("-");
 		String[] time = date_time[1].split(":");
+		
 		calendar.set( Integer.parseInt(date[0]), 
 					  Integer.parseInt(date[1]), 
 					  Integer.parseInt(date[2]), 

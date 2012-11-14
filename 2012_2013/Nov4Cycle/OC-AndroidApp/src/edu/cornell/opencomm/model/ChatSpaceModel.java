@@ -9,14 +9,18 @@ import android.graphics.Point;
 
 public class ChatSpaceModel extends MultiUserChat{
 	
-	//TODO:Is it a good idea to extend MUC?
 	//Ask Risa and Kris
 	//How does MUC get list of occupants
 	/**
 	 * 
 	 */
-	HashMap<String, User> userMap = new HashMap<String, User>();
 	HashMap<User, Point> userLocationMap = new HashMap<User, Point>();
+	
+	// The users who are in this Space, <JID, User>
+    private HashMap<String, User> allParticipants = new HashMap<String, User>();
+    
+    private HashMap<String, User> allNicks = new HashMap<String, User>();
+	
 	String roomID;
 	User moderator;
 	
@@ -24,14 +28,46 @@ public class ChatSpaceModel extends MultiUserChat{
 		super(c, s);
 	}
 	
+	public String getRoomID(){
+		return roomID;
+	}
+	
+	public User getModerator(){
+		return moderator;
+	}
+	
+	public void setModerator(User u){
+		moderator = u;
+	}
+	
+	public void updateForNewUser(User u){
+		allParticipants.put(u.getUsername(), u);
+		allNicks.put(u.getNickname(), u);
+		userLocationMap.put(u, getUserLocation(u));
+	}
+	
+	/**
+     * @return allNicknames
+     */
+    public HashMap<String, User> getAllNicknames() {
+        return allNicks;
+    }
+	
+	/**
+     * @return - all participants in Space, maps JID to User
+     *  */
+    public HashMap<String, User> getAllParticipants() {
+        return allParticipants;
+    }
 	
 	//TODO: don't worry about these for Nov4 cycle
 	public void updateUserLocation(User u, Point location){
 		
 	}
-	public void getUserLocation(User u){
-		
-	}
 	
-
+	//TODO - used in updateForNewUser() method above to temporarily
+	//indicate method of finding the location to map with the new user in userLocationMap
+	public Point getUserLocation(User u){
+		return null;
+	}
 } 

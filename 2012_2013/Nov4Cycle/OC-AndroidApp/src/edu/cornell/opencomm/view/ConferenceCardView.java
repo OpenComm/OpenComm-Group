@@ -182,6 +182,7 @@ public class ConferenceCardView extends Activity{
 	}
 	
 	public void initializeEnterConferenceBar(){
+		final Activity activity = this;
 		final RelativeLayout enterConferenceBar = (RelativeLayout) findViewById(R.id.enter_conference_bar);
 		enterConferenceBar.setOnTouchListener(new OnTouchListener() {
 			public boolean onTouch(View arg0, MotionEvent arg1) {
@@ -192,7 +193,9 @@ public class ConferenceCardView extends Activity{
 	            }
 	            case MotionEvent.ACTION_UP:{
 	            	showToast("Enter Conference");
-	            	// TODO Enter this conference
+	            	Intent i = new Intent(activity, ConferenceView.class);
+	        		// TODO Input conference information, notify backend
+	        		startActivity(i);
 	                break;
 	            }
 	            }
