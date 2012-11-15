@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/black" />
-
+
     <RelativeLayout
         android:id="@+id/action_bar"
         android:layout_width="fill_parent"
@@ -31,7 +31,7 @@
             android:contentDescription="@string/desc"
             android:onClick="backButtonClicked"
             android:scaleType="centerInside"
-            android:src="@drawable/contacts_left_arrow"
+            android:src="@drawable/action_arrow"
             android:tint="@color/white" />
 
         <ImageButton
@@ -45,7 +45,7 @@
             android:contentDescription="@string/desc"
             android:onClick="overflowButtonClicked"
             android:scaleType="centerInside"
-            android:src="@drawable/navigation_action_overflow" />
+            android:src="@drawable/action_overflow" />
 
         <TextView
             android:id="@+id/conference_name"
@@ -82,7 +82,7 @@
             android:onClick="addPersonClicked"
             android:scaleType="centerInside"
             android:src="@drawable/person_add_conference" />
-
+
         <Button
             android:id="@+id/mute"
             style="?android:attr/buttonStyleSmall"
@@ -96,9 +96,8 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/unmute"
             android:onClick="muteClicked" />
-
     </RelativeLayout>
-
+
     <RelativeLayout
         android:id="@+id/bottom_bar"
         android:layout_width="fill_parent"
@@ -108,7 +107,7 @@
         android:background="@color/dark_grey"
         android:orientation="horizontal"
         android:visibility="gone" >
-
+
         <ImageView
             android:id="@+id/conference_leave"
             android:layout_width="wrap_content"
@@ -132,7 +131,7 @@
             android:textColor="@color/white"
             android:textSize="10sp" />
     </RelativeLayout>
-
+
     <RelativeLayout
         android:id="@+id/bottom_bar_reg_user"
         android:layout_width="fill_parent"
@@ -142,7 +141,7 @@
         android:background="@color/dark_grey"
         android:orientation="horizontal"
         android:visibility="gone" >
-
+
         <ImageView
             android:id="@+id/context_reg_user_profil"
             android:layout_width="wrap_content"
@@ -166,7 +165,7 @@
             android:text="@string/profile"
             android:textColor="@color/white"
             android:textSize="10sp" />
-
+
         <ImageView
             android:id="@+id/context_reg_user_add"
             android:layout_width="wrap_content"
@@ -192,7 +191,7 @@
             android:textColor="@color/white"
             android:textSize="10sp" />
     </RelativeLayout>
-
+
     <RelativeLayout
         android:id="@+id/bottom_bar_moderator"
         android:layout_width="fill_parent"
@@ -202,7 +201,7 @@
         android:background="@color/dark_grey"
         android:orientation="horizontal"
         android:visibility="gone" >
-
+
         <ImageView
             android:id="@+id/bottom_bar_mod_leave"
             android:layout_width="wrap_content"
@@ -214,7 +213,7 @@
             android:contentDescription="@string/desc"
             android:onClick="onModeratorLeft"
             android:src="@drawable/viewgroup_context_door_cancel" />
-
+
         <ImageView
             android:id="@+id/bottom_bar_mod_end"
             android:layout_width="wrap_content"
@@ -252,7 +251,7 @@
             android:textColor="@color/white"
             android:textSize="10sp" />
     </RelativeLayout>
-
+
     <RelativeLayout
         android:id="@+id/bottom_bar_mod_context"
         android:layout_width="fill_parent"
@@ -262,7 +261,7 @@
         android:background="@color/dark_grey"
         android:orientation="horizontal"
         android:visibility="gone" >
-
+
         <ImageView
             android:id="@+id/bottom_bar_mod_context_profile"
             android:layout_width="wrap_content"
@@ -298,7 +297,7 @@
             android:text="@string/profile"
             android:textColor="@color/white"
             android:textSize="10sp" />
-
+
         <ImageView
             android:id="@+id/bottom_mod_context_remove"
             android:layout_width="wrap_content"
@@ -311,7 +310,7 @@
             android:contentDescription="@string/desc"
             android:onClick="onRemoveClicked"
             android:src="@drawable/remove" />
-
+
         <ImageView
             android:id="@+id/bottom_bar_mod_context_moderator"
             android:layout_width="wrap_content"
@@ -324,7 +323,7 @@
             android:contentDescription="@string/desc"
             android:onClick="onModeratorClicked"
             android:src="@drawable/moderator" />
-
+
         <ImageView
             android:id="@+id/bottom_bar_mod_context_add"
             android:layout_width="wrap_content"
