@@ -74,7 +74,7 @@ public class User implements Comparable<User> {
 		this.username = username;
 		this.nickname = nickname;
 		if (image == 0) {
-			this.image = R.drawable.question;
+			this.image = R.drawable.contact_default_image;
 		} else {
 			this.image = image;
 		}
