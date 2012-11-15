@@ -58,8 +58,8 @@ public class ContactsSearchView extends Activity {
 		this.controller.handleBackButtonClicked();
 	}
 
-	public void blockButtonPressed(View v){
-		this.controller.handleBlockButtonClicked();
+	public void overflow(View v){
+		this.controller.handleOverflowButtonClicked();
 	}
 
 	//TODO/ISSUES -

@@ -9,14 +9,10 @@ import edu.cornell.opencomm.controller.ContactListController.ReturnState;
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.model.User;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 public class ContactsView extends Activity{
@@ -41,17 +37,25 @@ public class ContactsView extends Activity{
 	public void adjustLayoutLookAndFunctionality(){
 		// Apply Delicious Font
 		FontSetter.applySanSerifFont(ContactsView.this,
-		findViewById(R.layout.contacts_layout));
-		
-		// Initialize images to act as buttons
-		initializeBackButton();
-		initializeSearchButton();
+		findViewById(R.id.contacts_layout));
+	}
+	
+	public void overflow(View v) {
+		this.controller.handleOverflowButtonClicked();
+	}
+	
+	public void searchContact(View v) {
+		this.controller.handleSearchButtonClicked();
+	}
+	
+	public void addContact(View v) {
+		this.controller.handleAddContactButtonClicked();
 	}
 	
 	/**
 	 * 
 	 */
-	public void initializeBackButton(){
+/*	public void initializeBackButton(){
 		final ImageView backButton = (ImageView) findViewById(R.id.left_arrow_icon);
 		backButton.setOnTouchListener(new OnTouchListener() {
 			public boolean onTouch(View arg0, MotionEvent arg1) {
@@ -69,12 +73,12 @@ public class ContactsView extends Activity{
 	            return true;
 	        }
 		}); 
-	} 
+	} */
 	
 	/**
 	 * 
 	 */
-	public void initializeSearchButton(){
+/*	public void initializeSearchButton(){
 		final ImageView searchButton = (ImageView) findViewById(R.id.search_button);
 		searchButton.setOnTouchListener(new OnTouchListener() {
 			public boolean onTouch(View arg0, MotionEvent arg1) {
@@ -92,12 +96,12 @@ public class ContactsView extends Activity{
 	            return true;
 	        }
 		}); 
-	}
+	}*/
 	/**
 	 * The back arrow should takes the user to previous screen
 	 * @param view
 	 */
-	public void onBackArrow(View  view){
+	public void onBackArrow(View view){
 		super.onBackPressed();
 	}
 	
