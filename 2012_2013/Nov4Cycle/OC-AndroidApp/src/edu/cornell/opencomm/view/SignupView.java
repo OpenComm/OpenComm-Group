@@ -80,32 +80,38 @@ public class SignupView extends Activity{
 	}
 
 	public void createAccount(View v){
-		controller.handleSave();
+		controller.handleSave(
+				((EditText) this.findViewById(R.id.firstNameBox)).getText().toString().trim(),
+				((EditText) this.findViewById(R.id.lastNameBox)).getText().toString().trim(),
+				((EditText) this.findViewById(R.id.emailBox)).getText().toString().trim(),
+				((EditText) this.findViewById(R.id.titleBox)).getText().toString().trim(),
+				((EditText) this.findViewById(R.id.passwordBox)).getText().toString().trim(),
+				((EditText) this.findViewById(R.id.confirmPasswordBox)).getText().toString().trim());
 	}
 	public void launchPreviousActivity(View v){
 		super.onBackPressed();
 	}
-	public View getPasswordTextBox(){
+	public EditText getPasswordTextBox(){
 		EditText passwordTextBox = (EditText) findViewById(R.id.passwordBox);
 		return passwordTextBox;
 	}
-	public View getConfirmPasswordTextBox(){
+	public EditText getConfirmPasswordTextBox(){
 		EditText cnfPasswordTextBox = (EditText) findViewById(R.id.confirmPasswordBox);
 		return cnfPasswordTextBox;
 	}
-	public View getFirstNameTextBox(){
+	public EditText getFirstNameTextBox(){
 		EditText firstName = (EditText) findViewById(R.id.firstNameBox);
 		return firstName;
 	}
-	public View getLastNameTextBox(){
+	public EditText getLastNameTextBox(){
 		EditText textBox = (EditText) findViewById(R.id.lastNameBox);
 		return textBox;
 	}
-	public View getEmailTextBox(){
+	public EditText getEmailTextBox(){
 		EditText textBox = (EditText) findViewById(R.id.emailBox);
 		return textBox;
 	}
-	public View getTitleTextBox(){
+	public EditText getTitleTextBox(){
 		EditText textBox = (EditText) findViewById(R.id.titleBox);
 		return textBox;
 	}

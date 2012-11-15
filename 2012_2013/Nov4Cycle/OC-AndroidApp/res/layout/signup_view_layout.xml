@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/signup_view_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_translucent"
-    android:orientation="vertical" >
+    android:background="@color/black_translucent" >
 
     <TextView
         android:id="@+id/signupTitle"
@@ -23,7 +22,9 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="353dp" >
+        android:layout_height="353dp"
+        android:layout_below="@id/signupTitle"
+        android:isScrollContainer="false" >
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -52,8 +53,8 @@
                 android:hint=""
                 android:inputType="textCapSentences"
                 android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:paddingLeft="7.5dp" >
+                android:paddingLeft="7.5dp"
+                android:paddingTop="5dp" >
             </EditText>
 
             <TextView
@@ -78,8 +79,8 @@
                 android:background="@drawable/selector_bg_edittext"
                 android:inputType="textCapSentences"
                 android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:paddingLeft="7.5dp" >
+                android:paddingLeft="7.5dp"
+                android:paddingTop="5dp" >
             </EditText>
 
             <TextView
@@ -103,8 +104,8 @@
                 android:background="@drawable/selector_bg_edittext"
                 android:inputType="textPassword"
                 android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:paddingLeft="7.5dp" />
+                android:paddingLeft="7.5dp"
+                android:paddingTop="5dp" />
 
             <TextView
                 android:id="@+id/confirmPassword"
@@ -128,8 +129,8 @@
                 android:background="@drawable/selector_bg_edittext"
                 android:inputType="textPassword"
                 android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:paddingLeft="7.5dp" />
+                android:paddingLeft="7.5dp"
+                android:paddingTop="5dp" />
 
             <TextView
                 android:id="@+id/emailText"
@@ -153,8 +154,8 @@
                 android:background="@drawable/selector_bg_edittext"
                 android:inputType="textEmailAddress"
                 android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:paddingLeft="7.5dp" />
+                android:paddingLeft="7.5dp"
+                android:paddingTop="5dp" />
 
             <TextView
                 android:id="@+id/titleText"
@@ -179,8 +180,8 @@
                 android:background="@drawable/selector_bg_edittext"
                 android:inputType="textCapSentences"
                 android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:paddingLeft="7.5dp" >
+                android:paddingLeft="7.5dp"
+                android:paddingTop="5dp" >
             </EditText>
 
             <TextView
@@ -212,6 +213,8 @@
         android:id="@+id/confirmBar"
         android:layout_width="fill_parent"
         android:layout_height="38dp"
+        android:layout_marginBottom="26.67dp"
+        android:layout_alignParentBottom="true"
         android:orientation="horizontal" >
 
         <RelativeLayout
@@ -301,4 +304,4 @@
         </RelativeLayout>
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
