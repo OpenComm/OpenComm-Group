@@ -23,7 +23,7 @@ public class ConferencePacket extends Packet {
 	private ArrayList<String> participantNames;
 	private ArrayList<User> participants;
 	private boolean packetIDSet;
-	private static int roomID;
+	private static int roomID=4;
 	
 	private String userNamePull;
 	private String subject; // indicates whether this packet contains
@@ -50,12 +50,15 @@ public class ConferencePacket extends Packet {
 		this.description = description;
 		userNamePull = ""; // set to -1 so we can check if other constructor
 							// called it
-		ArrayList<String> participantNames = new ArrayList<String>();
-		for (User user : participants) {
-			participantNames.add(user.getUsername());
+		//deal with null corner case
+		if(participants !=null){
+			ArrayList<String> participantNames = new ArrayList<String>();
+			for (User user : participants) {
+				participantNames.add(user.getUsername());
+			}
+			this.participants = participants;
+			this.participantNames = participantNames;
 		}
-		this.participants = participants;
-		this.participantNames = participantNames;
 		// database asks for the names of all users participating in the
 		// conference.
 		this.subject = SENDING_INFO_INDICATOR; // indicates that this is a
@@ -67,6 +70,7 @@ public class ConferencePacket extends Packet {
 	public ConferencePacket(String userName, String subject) {
 		this.subject = subject;
 		this.userNamePull = userName;
+		addProperties();
 	}
 
 	/**
@@ -147,18 +151,20 @@ public class ConferencePacket extends Packet {
 			String roomIDString = "" + roomID;
 			this.setProperty("roomID", roomIDString);
 			this.setProperty("roomname", name);
-			this.setProperty("invitername", inviter);
+			this.setProperty("invitername", inviterName);
 			this.setProperty("starttime", formatDate(startDate));
 			this.setProperty("endtime", formatDate(endDate));
 			this.setProperty("recurrence", recurrence);
 			this.setProperty("description", description);
-			for (int i = 0; i < participantNames.size(); i++) {
-				// Adding +1 to i in field1 so first participant is
-				// "Participant1"
-				String field1 = "participant" + (i + 1);
-				String field2 = participantNames.get(i);
-				this.setProperty(field1, field2);
-				// System.out.println(field2+"\n");
+			if(participantNames != null){
+				for (int i = 0; i < participantNames.size(); i++) {
+					// Adding +1 to i in field1 so first participant is
+					// "Participant1"
+					String field1 = "participant" + (i + 1);
+					String field2 = participantNames.get(i);
+					this.setProperty(field1, field2);
+					// System.out.println(field2+"\n");
+				}
 			}
 		} else {
 			// change to elseIf once more than these two types of packets can be

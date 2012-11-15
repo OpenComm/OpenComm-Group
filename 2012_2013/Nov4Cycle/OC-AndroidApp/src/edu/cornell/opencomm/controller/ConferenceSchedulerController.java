@@ -2,6 +2,7 @@ package edu.cornell.opencomm.controller;
 
 import android.content.Context;
 import android.content.Intent;
+import android.widget.Toast;
 import edu.cornell.opencomm.interfaces.SimpleObserver;
 import edu.cornell.opencomm.packet.ConferenceCommunicator;
 import edu.cornell.opencomm.view.ConferenceSchedulerView;
@@ -11,7 +12,6 @@ import edu.cornell.opencomm.view.DashboardView;
  * @author 
  *
  */
-@SuppressWarnings("unused")
 public class ConferenceSchedulerController implements SimpleObserver{
 
 	private ConferenceSchedulerView conferenceSchedulerView;
@@ -24,15 +24,18 @@ public class ConferenceSchedulerController implements SimpleObserver{
 	}
 
 	public void addConferencePressed(){
-		//		Intent intent = new Intent(this.conferenceView, CreateConferenceView.class);
+		//TODO [frontend] launch add conference page
+		Toast.makeText(this.context, "Action Bar: Add Conference clicked", Toast.LENGTH_SHORT).show();
 	}
 
 	public void notificationsPressed(){
-		//Intent intent = new Intent(this.conferenceView, NotficiationsView.class);
+		//TODO [frontend] launch notifications overlay
+		Toast.makeText(this.context, "Action Bar: Notifications clicked", Toast.LENGTH_SHORT).show();
 	}
 
-	public void blockButtonPressed(){
-		//Intent intent = new Intent(this.conferenceView, DashboardView.class);
+	public void overflowPressed(){
+		//TODO [frontend] launch overflow overlay
+		Toast.makeText(this.context, "Action Bar: Overflow clicked", Toast.LENGTH_SHORT).show();
 	}
 
 	/**

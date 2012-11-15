@@ -14,7 +14,7 @@
         android:orientation="horizontal" >
 
         <ImageView
-            android:id="@+id/contactSearch_backButton"
+            android:id="@+id/contactSearch_overflow"
             android:layout_width="5.33dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -22,7 +22,7 @@
             android:layout_marginRight="20dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/desc"
-            android:onClick="blockButtonPressed"
+            android:onClick="overflow"
             android:src="@drawable/action_overflow" />
 
         <ImageView
@@ -35,7 +35,7 @@
             android:clickable="true"
             android:contentDescription="@string/contacts_back_button_desc"
             android:onClick="backButtonPressed"
-            android:src="@drawable/contacts_left_arrow" />
+            android:src="@drawable/action_arrow" />
 
         <Button
             android:id="@+id/contactSearch_add_text"
@@ -88,7 +88,7 @@
                 android:background="@color/white"
                 android:contentDescription="@string/desc"
                 android:scaleType="fitCenter"
-                android:src="@drawable/contacts_search_icon" />
+                android:src="@drawable/action_search" />
         </RelativeLayout>
 
         <ListView
