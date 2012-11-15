@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Manager.UserManager;
+import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.controller.MyAccountController;
 
 public class MyAccountView extends Activity{
@@ -24,6 +25,7 @@ public class MyAccountView extends Activity{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.my_account_layout);
+		FontSetter.applySanSerifFont(this, findViewById(R.id.my_account_layout));
 		name = (TextView) findViewById(R.id.my_account_name);
 		icon = (ImageView) findViewById(R.id.my_account_picture);
 		email = (TextView) findViewById(R.id.my_account_email);
@@ -35,7 +37,6 @@ public class MyAccountView extends Activity{
 	}
 	
 	public void backButtonClicked(View v){
-		//TODO: call super.OnBackPressed()
 		controller.handleBackButtonClicked();
 	}
 	public void editButtonClicked(View v){
