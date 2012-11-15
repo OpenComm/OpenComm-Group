@@ -40,12 +40,6 @@ public class SignupView extends Activity{
 		controller = new SignupController(this,SignupView.this);
 	}
 
-	/**
-	 * Initialize the signup view
-	 * TODO why not override onResume?
-	 */
-
-
 
 	private static final int SELECT_PHOTO = 100;
 	@Override
