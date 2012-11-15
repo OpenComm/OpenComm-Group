@@ -13,6 +13,8 @@
 #import "OCAudioPassingProtocol.h"
 #import "pjmedia.h"
 
+@class OCXMPPDelegateHandler;
+
 @interface OCViewController : UIViewController {
     /*From iPhoneXMPP*/
     //XMPPStream *xmppStream;

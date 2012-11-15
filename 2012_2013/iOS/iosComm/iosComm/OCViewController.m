@@ -85,23 +85,7 @@
 //-------------------------------------------------------------------
 - (IBAction)loginButtonPressed:(id)sender {
     NSLog(@"Username: %@, Password: %@", loginUsernameField.text, loginPasswordField.text);
-    if ([loginUsernameField.text isEqualToString: @"test"] && [loginPasswordField.text isEqualToString: @"test"]){
-         [self performSegueWithIdentifier:@"successfulLogin" sender:nil];
-    }
-    else if ([loginUsernameField.text isEqualToString: @"test2"] && [loginPasswordField.text isEqualToString: @"confidential"]){
-        [self performSegueWithIdentifier:@"secretAudio" sender:nil];
-    }
-    else {
-        UIAlertView *info = [
-                             [UIAlertView alloc]
-                             initWithTitle:@"Incorrect Username/Password"
-                             message:@"Username/Password combination not found.\nPlease try again with correct details."
-                             delegate:self
-                             cancelButtonTitle:@"Dismiss"
-                             otherButtonTitles:nil
-                             ];
-        [info show];
-    }
+
     if ([defaults DEBUG_PARAM]) {
         NSLog(@"DEBUG PARAM SET");
         myXMPPStream.myJID = [XMPPJID jidWithString:[defaults DEFAULT_JID]];
@@ -123,7 +107,7 @@
         myXMPPStream.hostPort = [defaults DEFAULT_PORT];
     }
     
-    delegateHandler = [[OCXMPPDelegateHandler alloc] initWithPassword: myPassword];
+    delegateHandler = [[OCXMPPDelegateHandler alloc] initWithPassword: myPassword andView:self];
     [delegateHandler setXMPPRosterStorage:myXMPPRosterStorage roster:myXMPPRoster stream:myXMPPStream];
     
     [myXMPPStream addDelegate:delegateHandler delegateQueue:dispatch_get_main_queue()];

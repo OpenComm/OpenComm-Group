@@ -10,11 +10,13 @@
 
 @implementation OCXMPPDelegateHandler
 
-- (id)initWithPassword: (NSString *) passwordParam {
+- (id)initWithPassword: (NSString *) passwordParam andView:(OCViewController *)controller{
     self = [super init];
     if (self) {
         password = passwordParam;
     }
+    
+    viewController = controller;
     return self;
 }
 
@@ -128,6 +130,7 @@
     
     /*This gets me online!*/
     [self goOnline:sender];
+    [viewController performSegueWithIdentifier:@"successfulLogin" sender:nil];
     
     //[self sendMessage: sender];
     
@@ -137,7 +140,6 @@
     
     //[sender disconnect];
 }
-
 
 //-------------------------------------------------------------------
 // Delegate method called once the presence is sent, implements XMPP stream delegate
@@ -170,6 +172,19 @@
 {
     NSLog(@"I did not authenticate");
     NSLog(@"%@", error);
+    
+    // Display error message
+    UIAlertView *info = [
+                         [UIAlertView alloc]
+                         initWithTitle:@"Incorrect Username/Password"
+                         message:@"Username/Password combination not found.\nPlease try again with correct details."
+                         delegate:self
+                         cancelButtonTitle:@"Dismiss"
+                         otherButtonTitles:nil
+                         ];
+    [info show];
+    [sender disconnect];
+    
 }
 
 

@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "XMPPFramework.h"
 #import "OCJingleImpl.h"
+#import "OCViewController.h"
+
+@class OCViewController;
 
 @interface OCXMPPDelegateHandler : NSObject {
     NSString *password;
@@ -16,9 +19,10 @@
     XMPPRosterCoreDataStorage *myXMPPRosterStorage;
     XMPPStream *myXMPPStream;
     OCJingleImpl *jingleObj;
+    OCViewController *viewController;
 }
 
-- (id)initWithPassword: (NSString *) password;
+- (id)initWithPassword: (NSString *) password andView:(OCViewController *)controller;
 - (void)setXMPPRosterStorage:(XMPPRosterCoreDataStorage *)storage roster:(XMPPRoster *)r stream:(XMPPStream *)s;
 - (void)xmppStreamDidConnect:(XMPPStream *) sender;
 - (void)xmppStreamDidAuthenticate:(XMPPStream *) sender;
@@ -29,5 +33,5 @@
 - (BOOL)xmppStream:(XMPPStream *)sender didReceiveIQ:(XMPPIQ *)iq;
 - (NSManagedObjectContext *)managedObjectContext_roster;
 - (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message;
- 
+
 @end
