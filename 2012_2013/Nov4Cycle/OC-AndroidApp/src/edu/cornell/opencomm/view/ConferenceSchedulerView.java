@@ -37,7 +37,7 @@ public class ConferenceSchedulerView extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.conference_scheduling_layout);
-		FontSetter.applySanSerifFont(this, findViewById(R.layout.conference_scheduling_layout));
+		FontSetter.applySanSerifFont(this, findViewById(R.id.conference_scheduling_layout));
 		currentTime = Calendar.getInstance();
 		controller = new ConferenceSchedulerController(ConferenceSchedulerView.this, this);
 		// FOR TEMPORARY HARDCODED CONFERENCES
@@ -297,12 +297,12 @@ public class ConferenceSchedulerView extends Activity {
 		this.controller.backButtonPressed();
 	}
 
-	public void notificationsPressed(View v){
+	public void notifications(View v){
 		this.controller.notificationsPressed();
 	}
 
-	public void blockButtonPressed(View v){
-		this.controller.blockButtonPressed();
+	public void overflow(View v){
+		this.controller.overflowPressed();
 	}
 
 
