@@ -46,7 +46,7 @@
             android:layout_marginTop="3dp"
             android:layout_marginBottom="3dp"
             android:layout_marginLeft="3.67dp"
-            android:src="@drawable/navigation_action_overflow"
+            android:src="@drawable/action_overflow"
             android:contentDescription="@string/desc"
             android:scaleType="centerInside"
             android:background="@color/dark_grey"
