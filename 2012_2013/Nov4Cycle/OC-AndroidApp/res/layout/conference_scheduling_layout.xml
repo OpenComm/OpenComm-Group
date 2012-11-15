@@ -35,7 +35,7 @@
             android:adjustViewBounds="true"
             android:contentDescription="@string/desc"
             android:onClick="notificationsPressed"
-            android:src="@drawable/list" />
+            android:src="@drawable/action_notification" />
 
         <ImageView
             android:id="@+id/conferenceScheduling_plusicon"
