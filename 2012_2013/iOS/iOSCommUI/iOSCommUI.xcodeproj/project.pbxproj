@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D7E7BB81654480B009E13F1 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D7E7BB71654480B009E13F1 /* arrow.png */; };
+		6DFC76BC1655BAAB00029A0D /* signUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFC76BB1655BAAB00029A0D /* signUpViewController.m */; };
+		6DFC76C01655BAD000029A0D /* forgotpasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFC76BF1655BAD000029A0D /* forgotpasswordViewController.m */; };
 		BABF53291639F349006FE280 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BABF53281639F349006FE280 /* UIKit.framework */; };
 		BABF532B1639F349006FE280 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BABF532A1639F349006FE280 /* Foundation.framework */; };
 		BABF532D1639F349006FE280 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BABF532C1639F349006FE280 /* CoreGraphics.framework */; };
@@ -42,6 +45,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6D7E7BB71654480B009E13F1 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrow.png; path = ../../../Design/iOS/ForgotPassword/arrow.png; sourceTree = "<group>"; };
+		6DFC76BA1655BAAB00029A0D /* signUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = signUpViewController.h; sourceTree = "<group>"; };
+		6DFC76BB1655BAAB00029A0D /* signUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = signUpViewController.m; sourceTree = "<group>"; };
+		6DFC76BE1655BAD000029A0D /* forgotpasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = forgotpasswordViewController.h; sourceTree = "<group>"; };
+		6DFC76BF1655BAD000029A0D /* forgotpasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = forgotpasswordViewController.m; sourceTree = "<group>"; };
 		BABF53241639F349006FE280 /* iOSCommUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSCommUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BABF53281639F349006FE280 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		BABF532A1639F349006FE280 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -136,6 +144,7 @@
 				BAC025D7163B465D0050DD80 /* account icon.png */,
 				BAC025B9163B125C0050DD80 /* zoo1.jpeg */,
 				BAC025BA163B125C0050DD80 /* zoo2.jpeg */,
+				6D7E7BB71654480B009E13F1 /* arrow.png */,
 				BAC025BB163B125C0050DD80 /* zoo3.jpeg */,
 				BAC025BC163B125C0050DD80 /* zoo4.jpeg */,
 				BAC025BD163B125C0050DD80 /* zoo5.jpeg */,
@@ -147,6 +156,10 @@
 				BABF53371639F349006FE280 /* OCUIAppDelegate.h */,
 				BABF53381639F349006FE280 /* OCUIAppDelegate.m */,
 				BABF53401639F349006FE280 /* MainStoryboard.storyboard */,
+				6DFC76BA1655BAAB00029A0D /* signUpViewController.h */,
+				6DFC76BE1655BAD000029A0D /* forgotpasswordViewController.h */,
+				6DFC76BF1655BAD000029A0D /* forgotpasswordViewController.m */,
+				6DFC76BB1655BAAB00029A0D /* signUpViewController.m */,
 				BABF53431639F349006FE280 /* OCUIViewController.h */,
 				BABF53441639F349006FE280 /* OCUIViewController.m */,
 				BABF532F1639F349006FE280 /* Supporting Files */,
@@ -251,6 +264,7 @@
 				BAC025DC163B47C50050DD80 /* rsz_contact_icon.png in Resources */,
 				BAC025DF163B48340050DD80 /* rsz_account_icon.png in Resources */,
 				BAC025E0163B48340050DD80 /* rsz_conferences_icon.png in Resources */,
+				6D7E7BB81654480B009E13F1 /* arrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,6 +281,8 @@
 				BAC025B1163A73570050DD80 /* OCUIConferenceViewController.m in Sources */,
 				BAC025CF163B19110050DD80 /* OCUIConferenceTableCell.m in Sources */,
 				BAC025D2163B413B0050DD80 /* HappeningNowConferenceCell.m in Sources */,
+				6DFC76BC1655BAAB00029A0D /* signUpViewController.m in Sources */,
+				6DFC76C01655BAD000029A0D /* forgotpasswordViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
