@@ -13,7 +13,7 @@
 
 @class OCViewController;
 
-@interface OCXMPPDelegateHandler : NSObject {
+@interface OCXMPPDelegateHandler : NSObject <UIAlertViewDelegate> {
     NSString *password;
     XMPPRoster *myXMPPRoster;
     XMPPRosterCoreDataStorage *myXMPPRosterStorage;

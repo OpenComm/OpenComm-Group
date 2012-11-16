@@ -193,13 +193,29 @@
                          message:@"Username/Password combination not found.\nPlease try again with correct details."
                          delegate:self
                          cancelButtonTitle:@"Dismiss"
-                         otherButtonTitles:nil
+                         otherButtonTitles:@"Temp1", @"Temp2", nil
                          ];
     [info show];
     [sender disconnect];
     
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
+    if([title isEqualToString:@"Dismiss"])
+    {
+        NSLog(@"Button 1 was selected.");
+    }
+    else if([title isEqualToString:@"Temp1"])
+    {
+        NSLog(@"Button 2 was selected.");
+    }
+    else if([title isEqualToString:@"Temp2"])
+    {
+        NSLog(@"Button 3 was selected.");
+    }
+}
 
 //-------------------------------------------------------------------
 // Delegate method called once an error is received, implements XMPP stream delegate
