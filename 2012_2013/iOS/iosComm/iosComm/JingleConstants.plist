@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>DEBUG_PARAM</key>
-	<true/>
+	<false/>
 	<key>DEBUG_IS_SENDER</key>
-	<true/>
+	<false/>
 	<key>DEBUG_IS_RECEIVER</key>
 	<false/>
 	<key>DEBUG_SENDER_JID</key>

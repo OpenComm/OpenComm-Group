@@ -9,6 +9,8 @@
 #import "OCContactsViewController.h"
 #import "OCContactCell.h"
 #import "OCContactCardViewController.h"
+#import "OCXMPPDelegateHandler.h"
+#import "OCViewController.h"
 
 @interface OCContactsViewController ()
 
@@ -20,7 +22,12 @@
     NSMutableDictionary* sections;
     NSInteger currentSection; // The current section of the index the user is at, not to change if no contact exists with touched letter.
     NSArray* searchResults;
+    //OCXMPPDelegateHandler *delegateHandler; //to set the appropriate jingle session
 }
+
+//defined externally in OCViewController
+OCXMPPDelegateHandler *delegateHandler;
+
 //@synthesize tableView;
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -37,7 +44,7 @@
 {
     [super viewDidLoad];
     //contactsArray = [NSArray arrayWithObjects:@"Sofia", @"Giulia", @"Andrea", @"Francesco", @"Alessandro", @"Giorgia", @"Matteo", @"Lorenzo", @"Martina", @"Sara", nil];
-    contactsArray = [NSArray arrayWithObjects: @"Alabama", @"Alaska", @"American Samoa", @"Arizona", @"Arkansas", @"California", @"Colorado", @"Connecticut", @"Delaware", @"District of Columbia", @"Florida", @"Georgia", @"Guam", @"Hawaii", @"Idaho", @"Illinois", @"Indiana", @"Iowa", @"Kansas", @"Kentucky", @"Louisiana", @"Maine", @"Maryland", @"Massachusetts", @"Michigan", @"Minnesota", @"Mississippi", @"Missouri", @"Montana", @"Nebraska", @"Nevada", @"New Hampshire", @"New Jersey", @"New Mexico", @"New York", @"North Carolina", @"North Dakota", @"Northern Marianas Islands", @"Ohio", @"Oklahoma", @"Oregon", @"Pennsylvania", @"Puerto Rico", @"Rhode Island", @"South Carolina", @"South Dakota", @"Tennessee", @"Texas", @"Utah", @"Vermont", @"Virginia", @"Virgin Islands", @"Washington", @"West Virginia", @"Wisconsin", @"Wyoming", nil];
+    contactsArray = [NSArray arrayWithObjects: @"Sam's Iphone", @"Alabama", @"Alaska", @"American Samoa", @"Arizona", @"Arkansas", @"California", @"Colorado", @"Connecticut", @"Delaware", @"District of Columbia", @"Florida", @"Georgia", @"Guam", @"Hawaii", @"Idaho", @"Illinois", @"Indiana", @"Iowa", @"Kansas", @"Kentucky", @"Louisiana", @"Maine", @"Maryland", @"Massachusetts", @"Michigan", @"Minnesota", @"Mississippi", @"Missouri", @"Montana", @"Nebraska", @"Nevada", @"New Hampshire", @"New Jersey", @"New Mexico", @"New York", @"North Carolina", @"North Dakota", @"Northern Marianas Islands", @"Ohio", @"Oklahoma", @"Oregon", @"Pennsylvania", @"Puerto Rico", @"Rhode Island", @"South Carolina", @"South Dakota", @"Tennessee", @"Texas", @"Utah", @"Vermont", @"Virginia", @"Virgin Islands", @"Washington", @"West Virginia", @"Wisconsin", @"Wyoming", nil];
     sections = [[NSMutableDictionary alloc] init];
     
     //[self initializeIndexArray];
@@ -281,6 +288,25 @@ shouldReloadTableForSearchString:(NSString *)searchString
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
     [self performSegueWithIdentifier:@"showContactCard" sender:[self.tableView cellForRowAtIndexPath:indexPath]];
+    
+    /** ~*- Integration Code -*~ **/
+    /*Fetch cell*/
+    //OCContactCell *cell = (OCContactCell *)[self.tableView cellForRowAtIndexPath: indexPath];
+    
+    //TODO OCContactCell should contain the first person's JID... fetch it. Hardcoded as contactNameLabel
+    //NSString *JIDString = [cell contactNameLabel].text;
+    //XMPPJID *JID = [XMPPJID jidWithUser: JIDString domain: [[delegateHandler getDefaults] DEFAULT_DOMAIN] resource:[[delegateHandler getDefaults] DEFAULT_RESOURCE]];
+    XMPPJID *JID = [XMPPJID jidWithUser: @"qimingiscool" domain: [[delegateHandler getDefaults] DEFAULT_DOMAIN] resource:[[delegateHandler getDefaults] DEFAULT_RESOURCE]];
+    
+    //alloc and init a new OCJingleImpl object (destroy the old one if it is not nil)
+    OCJingleImpl *jingleObj = [[OCJingleImpl alloc] initWithJID: [[delegateHandler getXMPPStream] myJID] xmppStream: [delegateHandler getXMPPStream]];
+
+    //set the OCXMPPDelegateHandler object's OCJingleImpl to this new object.
+    [delegateHandler setJingleImpl: jingleObj];
+
+    //Send a session initiate message.
+    [[delegateHandler getXMPPStream] sendElement: [jingleObj jingleSessionInitiateTo: JID recvportnum: 8888 SID: nil]];
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

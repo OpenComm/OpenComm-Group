@@ -5,9 +5,9 @@
 	<key>DEBUG_PARAM</key>
 	<false/>
 	<key>DEFAULT_DOMAIN</key>
-	<string>cuopencomm.no-ip.org</string>
+	<string>cuopencomm</string>
 	<key>DEFAULT_RESOURCE</key>
-	<string>mobile</string>
+	<string>smack</string>
 	<key>DEFAULT_JID</key>
 	<string>ios_team@cuopencomm.no-ip.org/mobile</string>
 	<key>DEFAULT_PASSWORD</key>

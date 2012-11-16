@@ -10,6 +10,7 @@
 //TODO these includes are for GetIPAddress
 #include <ifaddrs.h>
 #include <arpa/inet.h>
+#import "pjmedia.h"
 
 //TODO ACK IQ messages that return with the ID of the given request packet? id's are unused by android though.
 //TODO check what happens if we get two IQ session-initiates at the same time...
@@ -364,7 +365,10 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
 - (bool) jingleReceiveSessionAcceptFromPacket: (XMPPIQ *)jingleIQPacket {
     if ([self isFromCorrectPerson: jingleIQPacket]) {
         [self getRemoteInformationFromPacket: jingleIQPacket];
-        state = [jingleConstants STATE_ACTIVE]; //they officially accepted, so now it's active!
+        const char* ipChar = [toIPAddress UTF8String];
+        const char* ip[1];
+        ip[0] = ipChar;
+        pjmedia_main(1, (char **)ip);
         return true;
     }
     else return false;
@@ -458,13 +462,17 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
                 returnIQ = [self jingleRespondSessionAcceptFromPacket:IQPacket recvportnum: [jingleConstants DEBUG_RECVPORTNUM_RECEIVER] SID:nil];
             }
             else {
-                //TODO set IQ with a real port num.
+                returnIQ = [self jingleRespondSessionAcceptFromPacket:IQPacket recvportnum: 8888 SID:nil];
             }
             //not in correct state to respond. don't respond with accept! send them a decline.
             if (returnIQ == nil) {
                 returnIQ = [self jingleSessionTerminateWithReason: [jingleConstants DECLINE_ELEMENT_NAME] inResponseTo: IQPacket];
             }
             [xmppStream sendElement: returnIQ];
+            const char* ipChar = [toIPAddress UTF8String];
+            const char* ip[1];
+            ip[0] = ipChar;
+            pjmedia_main(1, (char **)ip);
             return true;
         }
         else if ([self isJinglePacket: IQPacket OfAction: [jingleConstants SESSION_ACCEPT]]) {

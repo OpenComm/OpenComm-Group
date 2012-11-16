@@ -20,10 +20,14 @@
     XMPPStream *myXMPPStream;
     OCJingleImpl *jingleObj;
     OCViewController *viewController;
+    OCDefaultServerConstantsController *defaults;
 }
 
-- (id)initWithPassword: (NSString *) password andView:(OCViewController *)controller;
+- (id)initWithPassword: (NSString *) password andView:(OCViewController *)controller andDefaults:(OCDefaultServerConstantsController *) def;
+- (XMPPStream *) getXMPPStream;
+- (OCDefaultServerConstantsController *) getDefaults;
 - (void)setXMPPRosterStorage:(XMPPRosterCoreDataStorage *)storage roster:(XMPPRoster *)r stream:(XMPPStream *)s;
+- (void)setJingleImpl:(OCJingleImpl *)jingleObjParam;
 - (void)xmppStreamDidConnect:(XMPPStream *) sender;
 - (void)xmppStreamDidAuthenticate:(XMPPStream *) sender;
 - (void)xmppStream:(XMPPStream *)sender didSendPresence:(XMPPPresence *)presence;

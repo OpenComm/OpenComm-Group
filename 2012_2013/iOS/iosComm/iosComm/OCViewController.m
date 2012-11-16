@@ -21,6 +21,9 @@
 @synthesize loginPasswordField;
 @synthesize loginUsernameField;
 
+//extern variable.
+OCXMPPDelegateHandler *delegateHandler;
+
 
 //-------------------------------------------------------------------
 // Initial load of this page
@@ -97,8 +100,7 @@
 
     else {
         NSString *myJID =
-            [[[[loginUsernameField.text stringByAppendingString: @"@"]
-             stringByAppendingString:[defaults DEFAULT_DOMAIN]]
+            [[loginUsernameField.text 
              stringByAppendingString: @"/"]
              stringByAppendingString:[defaults DEFAULT_RESOURCE]];
         myPassword = loginPasswordField.text;
@@ -107,7 +109,7 @@
         myXMPPStream.hostPort = [defaults DEFAULT_PORT];
     }
     
-    delegateHandler = [[OCXMPPDelegateHandler alloc] initWithPassword: myPassword andView:self];
+    delegateHandler = [[OCXMPPDelegateHandler alloc] initWithPassword: myPassword andView:self andDefaults:defaults];
     [delegateHandler setXMPPRosterStorage:myXMPPRosterStorage roster:myXMPPRoster stream:myXMPPStream];
     
     [myXMPPStream addDelegate:delegateHandler delegateQueue:dispatch_get_main_queue()];

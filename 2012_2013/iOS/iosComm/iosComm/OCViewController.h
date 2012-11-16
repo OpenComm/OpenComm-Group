@@ -23,7 +23,7 @@
     XMPPStream *myXMPPStream;
     XMPPRoster *myXMPPRoster;
     XMPPRosterCoreDataStorage *myXMPPRosterStorage;
-	OCXMPPDelegateHandler *delegateHandler;
+	
     NSFetchedResultsController *fetchedResultsController;
 }
 
@@ -32,6 +32,9 @@
 //@property (retain, nonatomic) OCXMPPDelegateHandler *delegateHandler;
 - (IBAction)loginButtonPressed:(id)sender;
 @property (strong, nonatomic) IBOutlet UIView *loginView;
+
+//Extern delegate handler for everyone to get.
+extern OCXMPPDelegateHandler *delegateHandler;
 
 - (IBAction)fetch:(id)sender;
 

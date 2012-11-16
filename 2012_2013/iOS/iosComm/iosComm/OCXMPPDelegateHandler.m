@@ -10,14 +10,27 @@
 
 @implementation OCXMPPDelegateHandler
 
-- (id)initWithPassword: (NSString *) passwordParam andView:(OCViewController *)controller{
+- (id)initWithPassword: (NSString *) passwordParam andView:(OCViewController *)controller  andDefaults:(OCDefaultServerConstantsController *) def{
     self = [super init];
     if (self) {
         password = passwordParam;
+        viewController = controller;
+        defaults = def;
     }
     
-    viewController = controller;
     return self;
+}
+
+- (XMPPStream *) getXMPPStream {
+    return myXMPPStream;
+}
+
+- (void)setJingleImpl:(OCJingleImpl *)jingleObjParam {
+    jingleObj = jingleObjParam;
+}
+
+- (OCDefaultServerConstantsController *) getDefaults {
+    return defaults;
 }
 
 - (void)setXMPPRosterStorage:(XMPPRosterCoreDataStorage *)storage roster:(XMPPRoster *) r stream:(XMPPStream *)s
