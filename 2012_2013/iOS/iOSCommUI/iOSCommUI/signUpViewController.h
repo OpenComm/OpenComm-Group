@@ -10,12 +10,19 @@
 
 @interface signUpViewController : UIViewController
 
+
 @property (strong, nonatomic) IBOutlet UIView *signupView;
+@property (strong,nonatomic) IBOutlet UIView *lowerView;
 
 @property (strong, nonatomic) IBOutlet UITextField *firstnameField;
 @property (strong, nonatomic) IBOutlet UITextField *secondnameField;
+@property (strong, nonatomic) IBOutlet UITextField *emailaddressField;
+
 @property (strong, nonatomic) IBOutlet UITextField *jobtitleField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordField;
 @property (strong, nonatomic) IBOutlet UITextField *confirmpasswordField;
+
+- (IBAction)textfieldReturned:(id)sender;
+- (IBAction) submitPressed: (id)sender;
 
 @end

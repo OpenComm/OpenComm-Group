@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface forgotpasswordViewController : UIViewController
+@property (strong, nonatomic) IBOutlet UITextField *enteremailField;
+- (IBAction)resetButton:(id)sender;
+
+@property (strong, nonatomic) IBOutlet UIButton *backButton;
+@property (strong, nonatomic) IBOutlet UIView *firstView;
 
 @end
