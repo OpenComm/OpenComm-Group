@@ -155,6 +155,9 @@ public class ChatSpaceViewGroup extends ViewGroup{
 						
 						final int dx = x_new - mXPosition; 
 						final int dy = y_new - mYPosition;
+						LayoutParams p = v.getLayoutParams(); 
+						
+						//((Button)v).setLayoutParams(new LayoutParams(v.getMeasuredWidth(), v.getMeasuredHeight(), x_new+76, y_new+76)); 
 						
 						//Redraw this view based on the new coordinates
 						//TODO- Need to change the layout parameters of the child object
@@ -204,7 +207,7 @@ public class ChatSpaceViewGroup extends ViewGroup{
 		child3.layout(220, 14, 345, 124);
 
 	}
-	public static class LayoutParams extends ViewGroup.LayoutParams{
+/*	public static class LayoutParams extends ViewGroup.LayoutParams{
 
 		public LayoutParams(int width, int height){
 			super(width, height); 
@@ -214,9 +217,14 @@ public class ChatSpaceViewGroup extends ViewGroup{
 			super(arg0, arg1);
 			// TODO Auto-generated constructor stub
 		}
+		
+		public LayoutParams(int width, int height, int x, int y){
+			super(width, height, x, y); 
+			
+		}
 
 
-	}
+	} */
 
 	//TODO
 	//Whenever a contact is pressed inside the circle in a conference

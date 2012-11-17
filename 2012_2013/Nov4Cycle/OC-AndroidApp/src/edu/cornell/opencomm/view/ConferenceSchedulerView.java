@@ -39,7 +39,7 @@ public class ConferenceSchedulerView extends Activity {
 		setContentView(R.layout.conference_scheduling_layout);
 		FontSetter.applySanSerifFont(this, findViewById(R.layout.conference_scheduling_layout));
 		currentTime = Calendar.getInstance();
-		controller = new ConferenceSchedulerController(ConferenceSchedulerView.this, this);
+		//controller = new ConferenceSchedulerController(ConferenceSchedulerView.this, this);
 		// FOR TEMPORARY HARDCODED CONFERENCES
 		users = createExampleUsers(); 
 		retrieveConferences(); //TODO debugging
