@@ -25,7 +25,7 @@
             android:textSize="24sp" />
 
         <ImageView
-            android:id="@+id/dashboardNotificationIcon"
+            android:id="@+id/dashboardOverflowIcon"
             android:layout_width="5.33dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -33,10 +33,11 @@
             android:layout_marginRight="16dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/desc"
-            android:src="@drawable/action_overflow" />
+            android:src="@drawable/action_overflow"
+            android:onClick="overflow" />
 
         <ImageView
-            android:id="@+id/dashboardListIcon"
+            android:id="@+id/dashboardNotificationIcon"
             android:layout_width="17.33dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -44,7 +45,8 @@
             android:layout_marginRight="39.33dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/desc"
-            android:src="@drawable/list" />
+            android:src="@drawable/action_notification"
+            android:onClick="notification" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -65,17 +67,6 @@
             android:contentDescription="@string/desc"
             android:src="@drawable/icon_confinfo"
                     android:onClick="goToConfInfo" />
-
-        <ImageView
-            android:id="@+id/dashboardConfInfoOverlay"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:contentDescription="@string/desc"
-            android:scaleType="fitXY"
-            android:src="@drawable/overlay_white"
-            android:visibility="invisible" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -96,17 +87,6 @@
             android:contentDescription="@string/desc"
             android:src="@drawable/icon_confs"
                     android:onClick="goToConfs" />
-
-        <ImageView
-            android:id="@+id/dashboardConfsOverlay"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:contentDescription="@string/desc"
-            android:scaleType="fitXY"
-            android:src="@drawable/overlay_white"
-            android:visibility="invisible" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -127,23 +107,12 @@
             android:contentDescription="@string/desc"
             android:src="@drawable/icon_contacts"
                     android:onClick="goToContacts" />
-
-        <ImageView
-            android:id="@+id/dashboardContactsOverlay"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:contentDescription="@string/desc"
-            android:scaleType="fitXY"
-            android:src="@drawable/overlay_white"
-            android:visibility="invisible" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/dashboardProfileWrapper"
         android:layout_width="60.75dp"
-        android:layout_height="86.21dp"
+        android:layout_height="100.21dp"
         android:layout_alignTop="@id/dashboardContactsWrapper"
         android:layout_below="@id/dashboard_actionbar"
         android:layout_marginLeft="66.67dp"
@@ -151,24 +120,13 @@
 
         <ImageView
             android:id="@+id/icon_profile"
-            android:layout_width="60.75dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:adjustViewBounds="true"
+            android:layout_marginTop="0dp"
+            android:layout_width="100.75dp"
+            android:layout_height="86dp"
+            android:scaleType="fitXY"
             android:contentDescription="@string/desc"
             android:src="@drawable/icon_profile"
-                    android:onClick="goToProfile" />
-
-        <ImageView
-            android:id="@+id/dashboardProfileOverlay"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:contentDescription="@string/desc"
-            android:scaleType="fitXY"
-            android:src="@drawable/overlay_white"
-            android:visibility="invisible" />
+            android:onClick="goToProfile" />
     </RelativeLayout>
 
 </RelativeLayout>

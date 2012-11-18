@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/signup_view_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_translucent"
-    android:orientation="vertical" >
+    android:background="@color/black_translucent" >
 
     <TextView
         android:id="@+id/signupTitle"
@@ -23,7 +22,9 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="353dp" >
+        android:layout_height="353dp"
+        android:layout_below="@id/signupTitle"
+        android:isScrollContainer="false" >
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -42,17 +43,18 @@
                 android:textSize="24dp" />
 
             <EditText
-            android:id="@+id/firstNameBox"
+                android:id="@+id/firstNameBox"
                 android:layout_width="237dp"
                 android:layout_height="27dp"
                 android:layout_marginLeft="44dp"
                 android:layout_marginRight="37dp"
                 android:layout_marginTop="8dp"
-                android:background="@color/off_white"
+                android:background="@drawable/selector_bg_edittext"
                 android:hint=""
                 android:inputType="textCapSentences"
-                android:padding="0dp"
-                android:paddingLeft="15dp" > 
+                android:paddingBottom="5dp"
+                android:paddingLeft="7.5dp"
+                android:paddingTop="5dp" >
             </EditText>
 
             <TextView
@@ -74,10 +76,11 @@
                 android:layout_marginLeft="44dp"
                 android:layout_marginRight="37dp"
                 android:layout_marginTop="8dp"
-                android:background="@color/off_white"
+                android:background="@drawable/selector_bg_edittext"
                 android:inputType="textCapSentences"
-                android:padding="0dp"
-                android:paddingLeft="15dp" >
+                android:paddingBottom="5dp"
+                android:paddingLeft="7.5dp"
+                android:paddingTop="5dp" >
             </EditText>
 
             <TextView
@@ -98,10 +101,11 @@
                 android:layout_height="27dp"
                 android:layout_marginLeft="44dp"
                 android:layout_marginTop="8dp"
-                android:background="@color/off_white"
+                android:background="@drawable/selector_bg_edittext"
                 android:inputType="textPassword"
-                android:padding="0dp"
-                android:paddingLeft="15dp" />
+                android:paddingBottom="5dp"
+                android:paddingLeft="7.5dp"
+                android:paddingTop="5dp" />
 
             <TextView
                 android:id="@+id/confirmPassword"
@@ -122,10 +126,11 @@
                 android:layout_marginLeft="44dp"
                 android:layout_marginRight="37dp"
                 android:layout_marginTop="8dp"
-                android:background="@color/off_white"
+                android:background="@drawable/selector_bg_edittext"
                 android:inputType="textPassword"
-                android:padding="0dp"
-                android:paddingLeft="15dp" />
+                android:paddingBottom="5dp"
+                android:paddingLeft="7.5dp"
+                android:paddingTop="5dp" />
 
             <TextView
                 android:id="@+id/emailText"
@@ -146,10 +151,11 @@
                 android:layout_marginLeft="44dp"
                 android:layout_marginRight="37dp"
                 android:layout_marginTop="8dp"
-                android:background="@color/off_white"
+                android:background="@drawable/selector_bg_edittext"
                 android:inputType="textEmailAddress"
-                android:padding="0dp"
-                android:paddingLeft="15dp" />
+                android:paddingBottom="5dp"
+                android:paddingLeft="7.5dp"
+                android:paddingTop="5dp" />
 
             <TextView
                 android:id="@+id/titleText"
@@ -171,10 +177,11 @@
                 android:layout_marginLeft="44dp"
                 android:layout_marginRight="37dp"
                 android:layout_marginTop="8dp"
-                android:background="@color/off_white"
+                android:background="@drawable/selector_bg_edittext"
                 android:inputType="textCapSentences"
-                android:padding="0dp"
-                android:paddingLeft="15dp" >
+                android:paddingBottom="5dp"
+                android:paddingLeft="7.5dp"
+                android:paddingTop="5dp" >
             </EditText>
 
             <TextView
@@ -196,9 +203,9 @@
                 android:layout_marginLeft="44dp"
                 android:layout_marginTop="8dp"
                 android:contentDescription="@string/todo_need_to_write_a_content_desc"
+                android:onClick="addPhoto"
                 android:scaleType="centerInside"
-                android:src="@drawable/imagearrow"
-                android:onClick="addPhoto" />
+                android:src="@drawable/imagearrow" />
         </LinearLayout>
     </ScrollView>
 
@@ -206,6 +213,8 @@
         android:id="@+id/confirmBar"
         android:layout_width="fill_parent"
         android:layout_height="38dp"
+        android:layout_marginBottom="26.67dp"
+        android:layout_alignParentBottom="true"
         android:orientation="horizontal" >
 
         <RelativeLayout
@@ -220,13 +229,13 @@
                 android:layout_gravity="center"
                 android:background="@color/dark_grey_translucent"
                 android:contentDescription="@string/todo_need_to_write_a_content_desc"
+                android:onClick="createAccount"
                 android:paddingBottom="5.33dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="12dp"
                 android:paddingTop="5.33dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/accept_plus" 
-                android:onClick="createAccount"/>
+                android:src="@drawable/accept_plus" />
 
             <Button
                 android:id="@+id/saveButton"
@@ -236,10 +245,10 @@
                 android:background="@color/dark_grey_translucent"
                 android:clickable="true"
                 android:gravity="left|center_vertical"
+                android:onClick="createAccount"
                 android:text="@string/save"
                 android:textColor="@color/blue"
-                android:textSize="25sp" 
-                 android:onClick="createAccount"/>
+                android:textSize="25sp" />
 
             <ImageView
                 android:id="@+id/acceptSignupOverlay"
@@ -263,13 +272,13 @@
                 android:layout_gravity="center"
                 android:background="@color/dark_grey_translucent"
                 android:contentDescription="@string/todo_need_to_write_a_content_desc"
+                android:onClick="launchPreviousActivity"
                 android:paddingBottom="7.665dp"
                 android:paddingLeft="22dp"
                 android:paddingRight="13.33dp"
                 android:paddingTop="7.665dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/cancelx" 
-                android:onClick="launchPreviousActivity"/>
+                android:src="@drawable/cancelx" />
 
             <Button
                 android:id="@+id/cancelButton"
@@ -279,10 +288,10 @@
                 android:background="@color/dark_grey_translucent"
                 android:clickable="true"
                 android:gravity="left|center_vertical"
+                android:onClick="launchPreviousActivity"
                 android:text="@string/cancel"
                 android:textColor="@color/orange"
-                android:textSize="25sp" 
-                android:onClick="launchPreviousActivity"/>
+                android:textSize="25sp" />
 
             <ImageView
                 android:id="@+id/cancelSignupOverlay"
@@ -295,4 +304,4 @@
         </RelativeLayout>
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
