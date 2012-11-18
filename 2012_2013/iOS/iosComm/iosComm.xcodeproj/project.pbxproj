@@ -23,6 +23,8 @@
 		0A3612741641AFB600E99A1E /* XMPPvCardTempCoreDataStorageObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A36126F1641AFB600E99A1E /* XMPPvCardTempCoreDataStorageObject.m */; };
 		0A3612781641AFF400E99A1E /* XMPPvCardAvatarModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3612771641AFF400E99A1E /* XMPPvCardAvatarModule.m */; };
 		0A42C8BC163107A40053C5F2 /* OCSocketViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0A42C8BB163107A40053C5F2 /* OCSocketViewController.mm */; };
+		0A458D8E1659A20C001D516F /* OCForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A458D8B1659A20C001D516F /* OCForgotPasswordViewController.m */; };
+		0A458D8F1659A20C001D516F /* OCSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A458D8D1659A20C001D516F /* OCSignUpViewController.m */; };
 		0A5CCDAB16421B9C00843346 /* OCJingleImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5CCDAA16421B9C00843346 /* OCJingleImpl.m */; };
 		0A615C151632FD960000C840 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A615C141632FD960000C840 /* Accelerate.framework */; };
 		0A615C171632FD9D0000C840 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A615C161632FD9D0000C840 /* CoreAudio.framework */; };
@@ -198,6 +200,10 @@
 		0A3612771641AFF400E99A1E /* XMPPvCardAvatarModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMPPvCardAvatarModule.m; path = "XMPPFramework/Extensions/XEP-0153/XMPPvCardAvatarModule.m"; sourceTree = "<group>"; };
 		0A42C8BA163107A40053C5F2 /* OCSocketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSocketViewController.h; sourceTree = "<group>"; };
 		0A42C8BB163107A40053C5F2 /* OCSocketViewController.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = OCSocketViewController.mm; sourceTree = "<group>"; };
+		0A458D8A1659A20C001D516F /* OCForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCForgotPasswordViewController.h; sourceTree = "<group>"; };
+		0A458D8B1659A20C001D516F /* OCForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCForgotPasswordViewController.m; sourceTree = "<group>"; };
+		0A458D8C1659A20C001D516F /* OCSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSignUpViewController.h; sourceTree = "<group>"; };
+		0A458D8D1659A20C001D516F /* OCSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSignUpViewController.m; sourceTree = "<group>"; };
 		0A5CCDA916421B9C00843346 /* OCJingleImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCJingleImpl.h; sourceTree = "<group>"; };
 		0A5CCDAA16421B9C00843346 /* OCJingleImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCJingleImpl.m; sourceTree = "<group>"; };
 		0A615C141632FD960000C840 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -1010,6 +1016,10 @@
 		4DE6A445160FC14B005F7857 /* iosComm */ = {
 			isa = PBXGroup;
 			children = (
+				0A458D8A1659A20C001D516F /* OCForgotPasswordViewController.h */,
+				0A458D8B1659A20C001D516F /* OCForgotPasswordViewController.m */,
+				0A458D8C1659A20C001D516F /* OCSignUpViewController.h */,
+				0A458D8D1659A20C001D516F /* OCSignUpViewController.m */,
 				0A5CCDAD16421BFD00843346 /* jingle */,
 				4D76F8CF1633291300DE7833 /* constants */,
 				4D76F8CE1633290700DE7833 /* protocol */,
@@ -1297,6 +1307,8 @@
 				BA89B64C1647835F003D46ED /* OCDataGenerator.m in Sources */,
 				BA95679B164B320A003496DF /* OCContactCardViewController.m in Sources */,
 				4D5BA13F164C756E00FBFBF4 /* pjmedia.c in Sources */,
+				0A458D8E1659A20C001D516F /* OCForgotPasswordViewController.m in Sources */,
+				0A458D8F1659A20C001D516F /* OCSignUpViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

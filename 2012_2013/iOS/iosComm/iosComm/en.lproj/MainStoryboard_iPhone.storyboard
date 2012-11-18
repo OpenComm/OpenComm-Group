@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2843" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="UBs-JJ-ZED">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="UBs-JJ-ZED">
     <dependencies>
         <deployment version="1280" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1929"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -30,12 +30,6 @@
                                 <color key="textColor" red="0.97647058819999999" green="0.66274509800000003" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="forgot your password?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Vfg-gA-Vm9">
-                                <rect key="frame" x="67" y="144" width="186" height="21"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
-                                <color key="textColor" red="0.60392156860000001" green="0.75294117650000003" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kNm-Kt-ahg">
                                 <rect key="frame" x="22" y="181" width="276" height="43"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
@@ -46,6 +40,9 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="TFw-Ty-t0b" kind="modal" id="HE5-OI-fzc"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="oE5-tm-Zqp">
                                 <rect key="frame" x="253" y="6" width="52" height="27"/>
@@ -59,6 +56,20 @@
                                 </state>
                                 <connections>
                                     <action selector="loginButtonPressed:" destination="2" eventType="touchUpInside" id="ljH-W4-am3"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0US-bz-GAt">
+                                <rect key="frame" x="63" y="137" width="195" height="44"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                <state key="normal" title="forgot your password?">
+                                    <color key="titleColor" red="0.60392156860000001" green="0.75294117650000003" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="5py-BU-AhF" kind="modal" id="eUS-j5-RGF"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" id="6oP-0F-1En">
@@ -464,11 +475,275 @@
             </objects>
             <point key="canvasLocation" x="454" y="44"/>
         </scene>
+        <!--Sign Up View Controller-->
+        <scene sceneID="dAn-on-a6T">
+            <objects>
+                <viewController id="TFw-Ty-t0b" customClass="OCSignUpViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Unf-pK-ccb">
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="zez-LS-VOH">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Sign Up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ldb-IT-H0J">
+                                        <rect key="frame" x="97" y="20" width="126" height="26"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                        <color key="textColor" red="0.97647058819999999" green="0.66274509800000003" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" id="OGA-3k-tF6">
+                                        <rect key="frame" x="16" y="347" width="288" height="81"/>
+                                        <subviews>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Select a photo for your" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XEy-kc-qgp">
+                                                <rect key="frame" x="85" y="8" width="191" height="21"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                                <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="profile and conferences" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MVQ-da-kxk">
+                                                <rect key="frame" x="85" y="31" width="198" height="21"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                                <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="r6C-8K-d2V">
+                                                <rect key="frame" x="8" y="7" width="65" height="68"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <state key="normal">
+                                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <state key="highlighted">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="setimageButton:" destination="TFw-Ty-t0b" eventType="touchUpInside" id="41a-fh-TYe"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1qN-sZ-UgH">
+                                        <rect key="frame" x="231" y="10" width="73" height="42"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="submit">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="submitPressed:" destination="TFw-Ty-t0b" eventType="touchUpInside" id="TVF-vz-KMr"/>
+                                            <segue destination="2" kind="modal" id="26K-G3-ZtE"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" id="qU1-mR-HTS">
+                                        <rect key="frame" x="16" y="69" width="288" height="258"/>
+                                        <subviews>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="  Second Name" minimumFontSize="17" id="jpc-y0-9Cg">
+                                                <rect key="frame" x="7" y="43" width="274" height="43"/>
+                                                <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="textfieldReturned:" destination="TFw-Ty-t0b" eventType="editingDidEndOnExit" id="jzf-Ni-Ty9"/>
+                                                </connections>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="  Email address" minimumFontSize="17" id="FUM-Oy-vDl">
+                                                <rect key="frame" x="7" y="87" width="274" height="43"/>
+                                                <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="textfieldReturned:" destination="TFw-Ty-t0b" eventType="editingDidEndOnExit" id="EA4-rZ-xWm"/>
+                                                </connections>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="  Job title" minimumFontSize="17" id="RF2-Iy-CSm">
+                                                <rect key="frame" x="7" y="128" width="274" height="43"/>
+                                                <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="textfieldReturned:" destination="TFw-Ty-t0b" eventType="editingDidEndOnExit" id="ufV-n4-Oct"/>
+                                                </connections>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="  Password" minimumFontSize="17" id="JAj-Rs-grR">
+                                                <rect key="frame" x="7" y="171" width="274" height="43"/>
+                                                <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                <connections>
+                                                    <action selector="textfieldReturned:" destination="TFw-Ty-t0b" eventType="editingDidEndOnExit" id="Zcg-1J-f9b"/>
+                                                </connections>
+                                            </textField>
+                                            <view contentMode="scaleToFill" id="upl-Ma-ANw">
+                                                <rect key="frame" x="0.0" y="214" width="288" height="2"/>
+                                                <color key="backgroundColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" id="5Ju-hZ-JWw">
+                                                <rect key="frame" x="0.0" y="171" width="288" height="2"/>
+                                                <color key="backgroundColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            </view>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="  Confirm Password" minimumFontSize="17" id="REk-K8-OQx">
+                                                <rect key="frame" x="7" y="215" width="289" height="43"/>
+                                                <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                <connections>
+                                                    <action selector="textfieldReturned:" destination="TFw-Ty-t0b" eventType="editingDidEndOnExit" id="VlY-8e-N0S"/>
+                                                </connections>
+                                            </textField>
+                                            <view contentMode="scaleToFill" id="xjv-um-jpA">
+                                                <rect key="frame" x="0.0" y="43" width="288" height="2"/>
+                                                <color key="backgroundColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" id="6fD-ve-hfe">
+                                                <rect key="frame" x="0.0" y="128" width="288" height="2"/>
+                                                <color key="backgroundColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" id="sad-OT-eHF">
+                                                <rect key="frame" x="0.0" y="86" width="288" height="2"/>
+                                                <color key="backgroundColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" id="a8p-ZG-eHT">
+                                                <rect key="frame" x="0.0" y="128" width="288" height="2"/>
+                                                <color key="backgroundColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            </view>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="  First Name" minimumFontSize="17" id="4Yt-YQ-bVn">
+                                                <rect key="frame" x="7" y="7" width="274" height="33"/>
+                                                <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="textfieldReturned:" destination="TFw-Ty-t0b" eventType="editingDidEndOnExit" id="xZS-4e-MM2"/>
+                                                </connections>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="SJS-LI-f0g">
+                                        <rect key="frame" x="10" y="11" width="44" height="44"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="rsz_1arrow.jpg">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="backButtonPressed:" destination="TFw-Ty-t0b" eventType="touchUpInside" id="J2k-oi-nQt"/>
+                                            <segue destination="2" kind="modal" id="DJo-C0-6TI"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="sqy-I7-2ZF"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="confirmpasswordField" destination="REk-K8-OQx" id="2p6-p3-8AT"/>
+                        <outlet property="emailaddressField" destination="FUM-Oy-vDl" id="rGu-Lx-NHA"/>
+                        <outlet property="firstnameField" destination="4Yt-YQ-bVn" id="BCp-Ws-MF7"/>
+                        <outlet property="jobtitleField" destination="RF2-Iy-CSm" id="bP9-8R-LP0"/>
+                        <outlet property="lowerView" destination="OGA-3k-tF6" id="DFx-CK-bZs"/>
+                        <outlet property="passwordField" destination="JAj-Rs-grR" id="FEb-k4-HGA"/>
+                        <outlet property="secondnameField" destination="jpc-y0-9Cg" id="s0y-24-xQZ"/>
+                        <outlet property="setimageButton" destination="r6C-8K-d2V" id="Ah9-He-A4b"/>
+                        <outlet property="signupView" destination="qU1-mR-HTS" id="Ega-A1-hY2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="r8f-nI-71d" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="997" y="-620"/>
+        </scene>
+        <!--Forgot Password View Controller-->
+        <scene sceneID="mI7-Wd-X2l">
+            <objects>
+                <viewController id="5py-BU-AhF" customClass="OCForgotPasswordViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JDV-in-Wye">
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="puB-P1-TWN">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="OpenComm" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="awU-UP-2na">
+                                        <rect key="frame" x="93" y="20" width="134" height="21"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                        <color key="textColor" red="0.97647058819999999" green="0.66274509800000003" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" id="7Kq-bT-42V">
+                                        <rect key="frame" x="11" y="62" width="300" height="43"/>
+                                        <subviews>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" allowsEditingTextAttributes="YES" placeholder="email address" minimumFontSize="17" id="bHu-1C-AEO">
+                                                <rect key="frame" x="9" y="7" width="300" height="30"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="textfieldReturned:" destination="5py-BU-AhF" eventType="editingDidEndOnExit" id="14h-cU-P02"/>
+                                                </connections>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="64d-o0-Pc1">
+                                        <rect key="frame" x="241" y="10" width="59" height="44"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="12"/>
+                                        <state key="normal" title="Reset">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="resetButton:" destination="5py-BU-AhF" eventType="touchUpInside" id="Gqw-aa-pmZ"/>
+                                            <segue destination="2" kind="modal" id="xa1-TT-b8Z"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="WrE-vX-Ekv">
+                                        <rect key="frame" x="10" y="7" width="45" height="50"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="rsz_1arrow.jpg">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="backButtonPressed:" destination="5py-BU-AhF" eventType="touchUpInside" id="A1b-ua-Los"/>
+                                            <segue destination="2" kind="modal" id="MqQ-VI-dIO"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.1764705882" green="0.1764705882" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="WNd-nd-Xwg"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="enteremailField" destination="bHu-1C-AEO" id="QEs-Rw-7tI"/>
+                        <outlet property="firstView" destination="7Kq-bT-42V" id="b59-7l-O55"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qo8-hI-0FP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="439" y="-629"/>
+        </scene>
     </scenes>
     <resources>
         <image name="account_icon.png" width="30" height="30"/>
         <image name="conferences_icon.png" width="30" height="30"/>
         <image name="contact_icon.png" width="30" height="30"/>
+        <image name="rsz_1arrow.jpg" width="16" height="16"/>
         <image name="signInButton.png" width="55" height="29"/>
         <image name="signUpButton.png" width="279" height="45"/>
     </resources>
@@ -484,6 +759,34 @@
         </class>
         <class className="OCContactsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/OCContactsViewController.h"/>
+        </class>
+        <class className="OCForgotPasswordViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCForgotPasswordViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="backButtonPressed:"/>
+                <relationship kind="action" name="resetButton:"/>
+                <relationship kind="action" name="textfieldReturned:"/>
+                <relationship kind="outlet" name="enteremailField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="firstView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="OCSignUpViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCSignUpViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="backButtonPressed:"/>
+                <relationship kind="action" name="setimageButton:"/>
+                <relationship kind="action" name="submitPressed:"/>
+                <relationship kind="action" name="textfieldReturned:"/>
+                <relationship kind="outlet" name="confirmpasswordField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="emailaddressField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="firstnameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="jobtitleField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="lowerView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="passwordField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="secondnameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="setimageButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="signupView" candidateClass="UIView"/>
+            </relationships>
         </class>
         <class className="OCViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/OCViewController.h"/>
@@ -501,4 +804,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="xa1-TT-b8Z"/>
+    </inferredMetricsTieBreakers>
 </document>
