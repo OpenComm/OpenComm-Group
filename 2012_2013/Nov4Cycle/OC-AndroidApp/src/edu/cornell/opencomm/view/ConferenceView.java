@@ -3,12 +3,15 @@
 package edu.cornell.opencomm.view;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.ConferenceController;
 import edu.cornell.opencomm.model.ConferenceDataModel;
@@ -24,7 +27,8 @@ public final class ConferenceView extends Activity {
 	 * The conference data model
 	 */
 	private ConferenceDataModel conferenceModel;
-
+	
+	private Vibrator vibe; 
 
 	/**
 	 * The conference controller
@@ -34,10 +38,11 @@ public final class ConferenceView extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		Context context = this.getApplicationContext(); 
 		// TODO temporary layout with real one (conference_layout) once xml errors are fixed
 		setContentView(R.layout.conference_layout_temporary);	
-		conferenceController = new ConferenceController(this.conferenceModel); 
+		conferenceController = new ConferenceController(this, ConferenceView.this); 
+		vibe = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE) ;
 		init();
 
 	}
@@ -78,15 +83,26 @@ public final class ConferenceView extends Activity {
 	 * @param screen
 	 */
 	public void clickedEmptySpace(View screen){
+		String view = screen.getContentDescription().toString();  
 		int visibility = View.VISIBLE;
 		if (areActionBarsDisplayed)
 			visibility = View.INVISIBLE;
 		areActionBarsDisplayed = !areActionBarsDisplayed;
-		LinearLayout action_bar = (LinearLayout) screen.findViewById(R.id.action_bar);
-		//TODO- Check to see if the user is the moderator or not - display respective bottom bars for moderator/user
-		LinearLayout bottom_bar = (LinearLayout) screen.findViewById(R.id.bottom_bar_reg_user);
-		action_bar.setVisibility(visibility);
-		bottom_bar.setVisibility(visibility); 
+		if (view.equals("mainChat")){
+			RelativeLayout action_bar = (RelativeLayout) screen.findViewById(R.id.action_bar);
+			//TODO- Check to see if the user is the moderator or not - display respective bottom bars for moderator/user
+			RelativeLayout bottom_bar = (RelativeLayout) screen.findViewById(R.id.bottom_bar_reg_user);
+			action_bar.setVisibility(visibility);
+			bottom_bar.setVisibility(visibility);
+		}
+		else{
+			RelativeLayout action_bar = (RelativeLayout) screen.findViewById(R.id.actionbar_sidechat);
+			//TODO- Check to see if the user is the moderator or not - display respective bottom bars for moderator/user
+			RelativeLayout bottom_bar = (RelativeLayout) screen.findViewById(R.id.bottom_bar_reg_user);
+			action_bar.setVisibility(visibility);
+			bottom_bar.setVisibility(visibility);
+		}
+		 
 	}
 
 	/** When the user swipes right
@@ -113,7 +129,7 @@ public final class ConferenceView extends Activity {
 
 	//Should make the other person's phone vibrate
 	public void pingClicked(View v){
-		this.conferenceController.pingClicked(); 
+		vibe.vibrate(2000); //making it vibrate for 2000 ms 
 	}
 
 	private boolean p = true; 
@@ -129,7 +145,7 @@ public final class ConferenceView extends Activity {
 			p= true; 
 		}
 		this.conferenceController.muteClicked();
-		
+
 	}
 
 	public void overflowButtonClicked(View v){
@@ -146,34 +162,37 @@ public final class ConferenceView extends Activity {
 	public void onLeaveClicked(View v){
 		this.conferenceController.leaveConference(); 
 	}
-	
-	
+
+
 	//Open the profile of this user
 	public void onProfileClicked(View v){
 		this.conferenceController.showProfile(); 
 	}
-	
+
 	//To add a person to the side chat 
 	//Need more specs on this
+	//TODO - Ask ankit if this is the right method to go to
 	public void onContextAddClicked(View v){
-		this.conferenceController.addUser(new User("dummy", "dum dum", R.drawable.example_picture_2), "Add to side chat"); 
+		this.conferenceController.handleOnContextAddClicked(); 
+		//this.conferenceController.addUser(new User("dummy", "dum dum", R.drawable.example_picture_2), "Add to side chat"); 
 	}
-	
+
 	//Moderator Context Bar
 	public void onEndClicked(View v){
-		this.conferenceController.endConference("Not sure what to pass in", new User("hello", "Dog", R.drawable.example_picture_1)); 
+		this.conferenceController.handleEndClicked(); 
+		//this.conferenceController.endConference("Not sure what to pass in", new User("hello", "Dog", R.drawable.example_picture_1)); 
 	}
-	
+
 	//When the moderator presses leave conference
 	public void onModeratorLeft(View v){
 		this.conferenceController.setNewModerator(); 
 	}
-	
+
 	//TODO - Not sure what this is supposed to do. Ask Design team
 	public void onModeratorClicked(View v){
 		this.conferenceController.setNewModerator(); 
 	}
-	
+
 	//When a user is removed from the conference
 	public void onRemoveClicked(View v){
 		this.conferenceController.removeUser(); 
