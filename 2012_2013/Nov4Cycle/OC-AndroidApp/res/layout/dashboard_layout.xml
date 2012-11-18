@@ -25,7 +25,7 @@
             android:textSize="24sp" />
 
         <ImageView
-            android:id="@+id/dashboardNotificationIcon"
+            android:id="@+id/dashboardOverflowIcon"
             android:layout_width="5.33dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -33,10 +33,11 @@
             android:layout_marginRight="16dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/desc"
-            android:src="@drawable/action_overflow" />
+            android:src="@drawable/action_overflow"
+            android:onClick="overflow" />
 
         <ImageView
-            android:id="@+id/dashboardListIcon"
+            android:id="@+id/dashboardNotificationIcon"
             android:layout_width="17.33dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -44,7 +45,8 @@
             android:layout_marginRight="39.33dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/desc"
-            android:src="@drawable/list" />
+            android:src="@drawable/action_notification"
+            android:onClick="notification" />
     </RelativeLayout>
 
     <RelativeLayout

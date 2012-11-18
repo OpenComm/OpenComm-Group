@@ -16,11 +16,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Manager.UserManager;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ContactCardView;
+import edu.cornell.opencomm.view.ContactsSearchView;
 import edu.cornell.opencomm.view.ContactsView;
 
 public class ContactListController {
@@ -53,13 +55,6 @@ public class ContactListController {
 	public void handleBackButtonClicked(){
 		Intent intent = new Intent(this.view, ContactsView.class);
 		this.view.startActivity(intent);
-	}
-
-
-	public void handleBlockButtonClicked(){
-		//TODO:
-		//This should bring a drop down menu from which a user can select to either
-		//go to contacts page or conferences page
 	}
 
 	public void contactClicked(View v){
@@ -233,5 +228,20 @@ public class ContactListController {
 			//TODO- actually has to wait for the user and not throw a toast
 			return null; 
 		}
+	}
+
+	public void handleOverflowButtonClicked() {
+		Toast.makeText(this.view.getApplicationContext(), "Action Bar: overflow clicked", Toast.LENGTH_SHORT).show();
+		
+	}
+
+	public void handleSearchButtonClicked() {
+		Intent intent = new Intent(this.view, ContactsSearchView.class);
+		this.view.startActivity(intent);
+	}
+
+	public void handleAddContactButtonClicked() {
+		Toast.makeText(this.view.getApplicationContext(), "Action Bar: add button clicked", Toast.LENGTH_SHORT).show();
+		
 	}
 }

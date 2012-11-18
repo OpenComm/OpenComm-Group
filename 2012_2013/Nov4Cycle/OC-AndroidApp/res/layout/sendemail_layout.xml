@@ -32,7 +32,7 @@
         android:layout_marginLeft="44dp"
         android:layout_width="230dp"
         android:layout_height="27dp"
-        android:background="@drawable/logintextback"
+        android:background="@drawable/selector_bg_edittext"
         android:paddingLeft="15dp"
         android:hint=""/>
     

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.Manager.UserManager;
 import edu.cornell.opencomm.controller.ContactCardController;
+import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.model.User;
 
 
@@ -30,6 +31,7 @@ public class ContactCardView extends Activity{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.contact_card_layout);
+		FontSetter.applySanSerifFont(this.getApplicationContext(), findViewById(R.id.contact_card_layout));
 		name = (TextView) findViewById(R.id.contact_card_name);
 		icon = (ImageView) findViewById(R.id.contact_card_picture);
 		email = (TextView) findViewById(R.id.contact_card_email);
