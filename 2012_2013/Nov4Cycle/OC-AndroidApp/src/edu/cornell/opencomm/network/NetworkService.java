@@ -37,8 +37,9 @@ import android.util.Log;
 
 /** Service that handles the network connection
  * 
- * @author Ankit Singh [frontend], Risa Naka [frontend], Kris Kooi [backend], Brian O'Connor [backend]
- *
+ * @author Ankit Singh [frontend], Risa Naka [frontend], 
+ * Kris Kooi [backend], Brian O'Connor [backend]
+ * 
  */
 public class NetworkService {
 
@@ -56,7 +57,6 @@ public class NetworkService {
 	private XMPPConnection xmppConn;
 	private ConnectionConfiguration xmppConfig;
 	private PrivacyList blockList;
-	private boolean isAuthenticated;
 	private AccountManager accountManager;
 
 	public static NetworkService getInstance() {
@@ -109,7 +109,7 @@ public class NetworkService {
 			String jid = email.replaceAll("[^a-zA-Z0-9]", "") + DEFAULT_HOSTNAME;
 			if (D) Log.d(TAG, "Attempt login: email - " + email + ", jid - " + jid + ", password - " + password);
 			try {
-				this.xmppConn.login(jid, password);
+				this.xmppConn.login(jid, password, DEFAULT_RESOURCE);
 				// check that the email is the right one
 				if (!email.equals(this.getConnection().getAccountManager().getAccountAttribute("email"))) {
 					if (D) Log.d(TAG, "Email does not match");

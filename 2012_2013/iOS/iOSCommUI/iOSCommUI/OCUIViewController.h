@@ -17,5 +17,6 @@
 - (IBAction)signUpButton:(id)sender;
 - (IBAction)signInButton:(id)sender;
 
+- (IBAction)forgotpasswordButton:(id)sender;
 
 @end

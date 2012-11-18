@@ -33,8 +33,21 @@ public class DatabaseService {
 			Connection dbConn = DbConnectionManager.getTransactionConnection();
 			Statement stmt = dbConn.createStatement();
 			ResultSet rs = stmt.getResultSet();
-			rs=stmt.executeQuery("select groupname from "+RF_TABLE+" where username= "+ username);
 			String result="";
+			//if username="", pull all conferences;
+			if(username ==""){
+				rs=stmt.executeQuery("select distinct groupname from "+RF_TABLE);
+				while (rs.next()){
+						String gid=rs.getString("groupname");
+						result += pullConference(gid);
+				
+				}
+				Log.error("result in db: "+ result);
+				return result;
+			}
+			//else: pull conferences for the specified username
+			rs=stmt.executeQuery("select groupname from "+RF_TABLE+" where username= '"+ username+"'");
+			
 			while (rs.next()){
 						String gid=rs.getString("groupname");
 						result += pullConference(gid);
@@ -97,8 +110,10 @@ public class DatabaseService {
 	
 /*push the conference to the database*/
 	public String push(Hashtable<String, String> pkt) {
+		Connection dbConn=null;
 		try {
-			Connection dbConn = DbConnectionManager.getTransactionConnection();
+			dbConn = DbConnectionManager.getTransactionConnection();
+			dbConn.setAutoCommit(false);
 			Statement stmt = dbConn.createStatement();
 			Statement stmtRT=dbConn.createStatement();
 			
@@ -122,17 +137,33 @@ public class DatabaseService {
 				}
 			// insert the inviter
 			participant=(String) pkt.get("invitername");
+			
 			stmtRT.execute("INSERT INTO "+RF_TABLE+"() VALUE ('"+roomID+"','"+participant+"', '1')");
+			Log.error("inserting conference");
 			// insert conference
 			String sqlString="INSERT INTO "+DB_TABLE+"()VALUE ('"+roomID+"','"+roomname+"','"+invitername+"','"+starttime+"','"+endtime+"','"
 			                  +recurrence+"','"+description+"')";
+			Log.error("push sql: "+sqlString);
 			stmt.executeUpdate(sqlString);
 			
+			dbConn.commit();
+
+			//close all connections
+			stmt.close();
+			stmtRT.close();
+			dbConn.close();
 			
 			
 			return "SUCCESS";
 		} catch (SQLException e) {
 			Log.error("Problem with database push.", e);
+			 
+			 try {
+				dbConn.rollback();
+			} catch (SQLException error) {
+				e.printStackTrace();
+			}
+     
 		}
 		return "FAIL";
 	}

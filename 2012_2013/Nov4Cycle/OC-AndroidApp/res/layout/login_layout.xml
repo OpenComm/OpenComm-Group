@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/login_layout"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:layout_height="fill_parent">
 
     <LinearLayout
+        android:id="@+id/login_LoginInputWrapper"
         android:layout_width="fill_parent"
         android:layout_height="263.33dp"
         android:layout_marginTop="41.33dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
         android:background="@color/dark_grey"
         android:orientation="vertical" >
 
@@ -32,7 +34,7 @@
             android:padding="7.5dp"
             android:background="@drawable/selector_bg_edittext"
             android:hint=""
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textLabelPassword"
@@ -54,24 +56,26 @@
             android:padding="7.5dp"
             android:hint=""
             android:inputType="textPassword"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/forgotPassword"
             android:layout_width="156.67dp"
             android:layout_height="20dp"
-            android:layout_marginLeft="46.67dp"
+            android:layout_marginLeft="45.67dp"
             android:layout_marginTop="4.67dp"
             android:background="@color/dark_grey"
-            android:onClick="retrievePassword"
+            android:onClick="forgotPassword"
             android:text="@string/forgot_password"
             android:textColor="@color/off_white"
-            android:textSize="14.5sp" />
+            android:textSize="16.5sp" />
     </LinearLayout>
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="58dp"
+        android:layout_below="@id/login_LoginInputWrapper"
+        android:layout_alignParentLeft="true"
         android:layout_marginTop="22.67dp" >
 
         <Button
@@ -80,7 +84,7 @@
             android:layout_height="fill_parent"
             android:background="@color/dark_grey"
             android:gravity="center_vertical"
-            android:onClick="createAccount"
+            android:onClick="signup"
             android:paddingBottom="8dp"
             android:paddingLeft="46.67dp"
             android:scaleType="centerInside"
@@ -98,23 +102,28 @@
             android:visibility="invisible" />
     </RelativeLayout>
 
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="8dp"
-        android:layout_marginTop="22.67dp"
-        android:contentDescription="@string/bar"
-        android:src="@drawable/separator_bar" />
-
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="92dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
         android:background="@color/dark_grey"
         android:orientation="horizontal" >
+        
+        <ImageView
+        android:id="@+id/login_separator"
+        android:layout_width="fill_parent"
+        android:layout_height="8dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitXY"
+        android:contentDescription="@string/bar"
+        android:src="@drawable/separator_bar" />
 
         <ImageButton
             android:id="@+id/loginButton"
             android:layout_width="92dp"
             android:layout_height="92dp"
+            android:layout_below="@id/login_separator"
             android:background="@color/dark_grey"
             android:contentDescription="@string/goArrow"
             android:onClick="login"
@@ -123,9 +132,10 @@
 
         <Button
             android:id="@+id/loginText"
-            android:layout_width="228dp"
+            android:layout_width="fill_parent"
             android:layout_height="92dp"
             android:layout_toRightOf="@id/loginButton"
+            android:layout_below="@id/login_separator"
             android:background="@color/light_grey"
             android:gravity="center_vertical"
             android:onClick="login"
@@ -138,10 +148,11 @@
             android:id="@+id/loginOverlay"
             android:layout_width="fill_parent"
             android:layout_height="92dp"
+            android:layout_below="@id/login_separator"
             android:contentDescription="@string/desc"
             android:scaleType="fitXY"
             android:src="@drawable/overlay_white"
             android:visibility="invisible" />
     </RelativeLayout>
 
-</LinearLayout>
+</RelativeLayout>

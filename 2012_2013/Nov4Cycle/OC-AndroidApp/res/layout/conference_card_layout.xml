@@ -5,12 +5,13 @@
         android:background="@color/black_conference_card_background" >
 
         <RelativeLayout
-            android:id="@+id/title_bar"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:background="@color/dark_grey_translucent" >
+        	android:id="@+id/title_bar"
+        	android:layout_width="fill_parent"
+        	android:layout_height="42.67dp"
+        	android:layout_alignParentLeft="true"
+        	android:layout_alignParentTop="true"
+        	android:background="@color/dark_grey"
+        	android:orientation="horizontal" >
 			
             <ImageView
                 android:id="@+id/back_button"
@@ -20,7 +21,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10.67dp"
                 android:contentDescription="@string/conference_card_back_button_desc"
-                android:src="@drawable/contacts_left_arrow" />
+                android:src="@drawable/action_arrow" />
             
             <TextView
                 android:id="@+id/conference_title"
@@ -32,15 +33,17 @@
                 android:textSize="24sp"
                 android:textColor="@color/blue_light" />
 
+
             <ImageView
-                android:id="@+id/action_overflow_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="24dp"
-                android:src="@drawable/navigation_action_overflow"
-                android:contentDescription="change_date_right_arrow_desc" />
+            	android:id="@+id/action_overflow_button"
+            	android:layout_width="5.33dp"
+            	android:layout_height="wrap_content"
+            	android:layout_alignParentRight="true"
+            	android:layout_centerVertical="true"
+            	android:layout_marginRight="26dp"
+            	android:adjustViewBounds="true"
+            	android:contentDescription="@string/desc"
+            	android:src="@drawable/action_overflow" />
 
             
             
@@ -253,7 +256,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_marginLeft="32dp">
+                android:layout_marginLeft="26dp">
                 
 	            <ImageView
 	                android:id="@+id/accept_image"
@@ -270,9 +273,9 @@
 	                android:layout_height="wrap_content"
 	                android:layout_centerVertical="true"
 	                android:layout_toRightOf="@+id/accept_image"
-	                android:layout_marginLeft="20dp"
+	                android:layout_marginLeft="0dp"
 	                android:text="@string/accept"
-	                android:textSize="20sp"
+	                android:textSize="18sp"
 	                android:textColor="@color/blue_light" />
             
             </RelativeLayout>
@@ -282,15 +285,14 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_toRightOf="@+id/accept_button"
-                android:layout_marginRight="32dp"
-                >
+                android:layout_marginRight="30dp">
 	            <ImageView
 	                android:id="@+id/decline_image"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
 	                android:layout_toLeftOf="@+id/decline_text"
 	                android:layout_centerVertical="true"
-	                android:layout_marginRight="20dp"
+	                android:layout_marginRight="18dp"
 	                android:src="@drawable/navigation_cancel"
 	                android:contentDescription="@string/decline_desc" />
 	
@@ -300,8 +302,9 @@
 	                android:layout_height="wrap_content"
 	                android:layout_alignParentRight="true"
 	                android:layout_centerVertical="true"
+	                android:layout_marginLeft="-14dp"
 	                android:text="@string/decline"
-	                android:textSize="20sp"
+	                android:textSize="18sp"
 	                android:textColor="@color/orange_light" />
             
             </RelativeLayout>

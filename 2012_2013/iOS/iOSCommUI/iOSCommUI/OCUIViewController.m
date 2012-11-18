@@ -40,9 +40,16 @@
 }
 
 - (IBAction)signUpButton:(id)sender {
+    //UIViewController *signupView=[[UIViewController alloc]init ];
+    
+    
+    
 }
 
 - (IBAction)signInButton:(id)sender {
+}
+
+- (IBAction)forgotpasswordButton:(id)sender {
 }
 
 
