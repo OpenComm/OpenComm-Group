@@ -2,6 +2,8 @@ package edu.cornell.opencomm.view;
 
 import edu.cornell.opencomm.R;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -27,7 +29,7 @@ public class ConferencePageAdapter extends PagerAdapter {
         // TODO Spandana ... Decide which layout to use (can use multiple if you want)
         resId = R.layout.conference_room_layout;
         
-        View view = inflater.inflate(resId, null);
+        View view = inflater.inflate(resId, null);       
         ((ViewPager) collection).addView(view, 0);
         
         // TODO Spandana .. if you want to customize information
@@ -35,12 +37,18 @@ public class ConferencePageAdapter extends PagerAdapter {
         switch (position) {
         case 0:
         	title.setText("Left Sidechat");
+        	view.setBackgroundResource(R.drawable.portrait_left_background); 
+        	view.setContentDescription("leftSideChat"); 
         	break;
         case 1:
         	title.setText("Main Chat");
+        	 view.setBackgroundResource(R.drawable.portrait_main_background); 
+        	 view.setContentDescription("mainChat"); 
         	break;
         case 2:
         	title.setText("Right Sidechat");
+        	view.setBackgroundResource(R.drawable.portrait_left_background); 
+        	view.setContentDescription("rightSideChat"); 
         	break;
         }
         conferenceView.switchChatSpaceModel(); // TODO Ankit ... should this method be called here?

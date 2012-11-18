@@ -9,7 +9,9 @@ import org.jivesoftware.smack.packet.Packet;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Vibrator;
 import android.util.Log;
+import android.widget.Toast;
 import edu.cornell.opencomm.Manager.UserManager;
 import edu.cornell.opencomm.model.ChatSpaceModel;
 import edu.cornell.opencomm.model.ConferenceDataModel;
@@ -36,6 +38,11 @@ public class ConferenceController {
 	// information
 
 	// TODO: add a listener for invitations and invitation responses
+	
+	public ConferenceController(Context context, ConferenceView view){
+		this.context = context; 
+		this.view = view; 
+	}
 
 	// Constructor - initialize required fields
 	public ConferenceController(ConferenceDataModel conf) {
@@ -255,43 +262,50 @@ public class ConferenceController {
 
 	// TODO- need to store the current conference as a conference object
 	public void handleBackButtonClicked() {
-		Intent click = new Intent(this.view, ConferenceCardView.class);
-		// click.putExtra("com.cornell.opencomm.model.Conference", conference);
-		this.view.startActivity(click);
+		Toast.makeText(this.context, "must go to conference card", Toast.LENGTH_SHORT).show(); 
+//		Intent click = new Intent(this.view, ConferenceCardView.class);
+//		// click.putExtra("com.cornell.opencomm.model.Conference", conference);
+//		this.view.startActivity(click);
 	}
 
 	public void handleOverflow() {
-
+		Toast.makeText(this.context, "Overflow Clicked", Toast.LENGTH_SHORT).show(); 
 	}
-
-	public void pingClicked() {
-
-	}
-
+	
 	public void addPersonClicked() {
+		Toast.makeText(this.context, "Add Contact Clicked", Toast.LENGTH_SHORT).show();
 		// TODO- Should go to add contact to conference page
 	}
 
 	public void muteClicked() {
-
+		Toast.makeText(this.context, "Mute Clicked", Toast.LENGTH_SHORT).show();
 	}
 
 	public void leaveConference() {
-
+		Toast.makeText(this.context, "Leave Conference Clicked", Toast.LENGTH_SHORT).show();
 	}
 
 	public void removeUser() {
-
+		Toast.makeText(this.context, "Remove User", Toast.LENGTH_SHORT).show();
 	}
 
 	public void setNewModerator() {
-		// TODO Auto-generated method stub
+		Toast.makeText(this.context, "Set New Moderator", Toast.LENGTH_SHORT).show();
 
 	}
-
+	
 	public void showProfile() {
-		// TODO Auto-generated method stub
-
+		Toast.makeText(this.context, "Show Profile", Toast.LENGTH_SHORT).show();
 	}
+
+	public void handleEndClicked() {
+		Toast.makeText(this.context, "End conference", Toast.LENGTH_SHORT).show();		
+	}
+
+	public void handleOnContextAddClicked() {
+		Toast.makeText(this.context, "Add Contact clicked", Toast.LENGTH_SHORT).show();		
+	}
+	
+	
 
 }
