@@ -11,8 +11,10 @@
 @interface forgotpasswordViewController : UIViewController
 @property (strong, nonatomic) IBOutlet UITextField *enteremailField;
 - (IBAction)resetButton:(id)sender;
+- (IBAction)backButtonPressed:(id)sender;
 
-@property (strong, nonatomic) IBOutlet UIButton *backButton;
+
 @property (strong, nonatomic) IBOutlet UIView *firstView;
+- (IBAction)textfieldReturned:(id)sender;
 
 @end

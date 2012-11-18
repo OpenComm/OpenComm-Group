@@ -23,6 +23,7 @@
 @synthesize emailaddressField;
 @synthesize confirmpasswordField;
 @synthesize lowerView;
+@synthesize  setimageButton;
 
 
 - (void)viewDidLoad
@@ -31,6 +32,8 @@
     
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    UIImage *backImage = [UIImage imageNamed:@"opencommimage.tiff"];
+    [setimageButton setBackgroundImage:backImage forState:UIControlStateNormal];
     [signupView.layer setCornerRadius:cornerRadius];
     [signupView.layer setBorderColor:[[UIColor colorWithRed:204.0/255.0 green:204.0/255.0 blue:203.0/255.0 alpha:1.0] CGColor]];
     [signupView.layer setBorderWidth:1.0f];
@@ -55,6 +58,24 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    
+    //lowerView.alpha = 0;
+    
+    [picker dismissViewControllerAnimated:YES completion:^{
+        
+        
+        UIImage *theImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+        [setimageButton setBackgroundImage:theImage forState:UIControlStateNormal];
+        
+        [lowerView addSubview:setimageButton];
+        
+       
+    }];
+}
+     
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     // when you touch away from these, then remove the keyboard
@@ -65,11 +86,22 @@
     [passwordField resignFirstResponder];
     [confirmpasswordField resignFirstResponder];
 }
+- (IBAction)setimageButton:(id)sender {
+    UIImagePickerController *pickerController=[[UIImagePickerController alloc]init];
+    pickerController.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
+    pickerController.delegate=self;
+    [self presentViewController:pickerController animated:YES completion:nil];
+    
+}
+
 - (IBAction)textfieldReturned:(id)sender{
     [sender resignFirstResponder];
 }
 - (IBAction)submitPressed:(id)sender{
    //Store the field values or check, process the data given by the user.
+}
+
+- (IBAction)backButtonPressed:(id)sender {
 }
 
 

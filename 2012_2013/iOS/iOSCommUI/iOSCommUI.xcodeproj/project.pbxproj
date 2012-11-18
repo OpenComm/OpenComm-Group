@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D33417F165716F8007E3495 /* opencommimage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 6D33417E165716F8007E3495 /* opencommimage.tiff */; };
 		6D7E7BB81654480B009E13F1 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D7E7BB71654480B009E13F1 /* arrow.png */; };
+		6DEE39421658A209008FEF22 /* image2993.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DEE39411658A209008FEF22 /* image2993.png */; };
+		6DEE39451658A509008FEF22 /* rsz_1arrow.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6DEE39441658A509008FEF22 /* rsz_1arrow.jpg */; };
 		6DFC76BC1655BAAB00029A0D /* signUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFC76BB1655BAAB00029A0D /* signUpViewController.m */; };
 		6DFC76C01655BAD000029A0D /* forgotpasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFC76BF1655BAD000029A0D /* forgotpasswordViewController.m */; };
 		BABF53291639F349006FE280 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BABF53281639F349006FE280 /* UIKit.framework */; };
@@ -45,7 +48,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6D33417E165716F8007E3495 /* opencommimage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = opencommimage.tiff; path = ../../../../../Desktop/opencommimage.tiff; sourceTree = "<group>"; };
 		6D7E7BB71654480B009E13F1 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrow.png; path = ../../../Design/iOS/ForgotPassword/arrow.png; sourceTree = "<group>"; };
+		6DEE39411658A209008FEF22 /* image2993.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = image2993.png; path = ../../../../../Downloads/image2993.png; sourceTree = "<group>"; };
+		6DEE39441658A509008FEF22 /* rsz_1arrow.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = rsz_1arrow.jpg; path = ../../../../../Desktop/rsz_1arrow.jpg; sourceTree = "<group>"; };
 		6DFC76BA1655BAAB00029A0D /* signUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = signUpViewController.h; sourceTree = "<group>"; };
 		6DFC76BB1655BAAB00029A0D /* signUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = signUpViewController.m; sourceTree = "<group>"; };
 		6DFC76BE1655BAD000029A0D /* forgotpasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = forgotpasswordViewController.h; sourceTree = "<group>"; };
@@ -147,6 +153,9 @@
 				6D7E7BB71654480B009E13F1 /* arrow.png */,
 				BAC025BB163B125C0050DD80 /* zoo3.jpeg */,
 				BAC025BC163B125C0050DD80 /* zoo4.jpeg */,
+				6DEE39441658A509008FEF22 /* rsz_1arrow.jpg */,
+				6DEE39411658A209008FEF22 /* image2993.png */,
+				6D33417E165716F8007E3495 /* opencommimage.tiff */,
 				BAC025BD163B125C0050DD80 /* zoo5.jpeg */,
 				BAC025BE163B125C0050DD80 /* zoo6.jpeg */,
 				BAC025BF163B125C0050DD80 /* zoo7.jpeg */,
@@ -265,6 +274,9 @@
 				BAC025DF163B48340050DD80 /* rsz_account_icon.png in Resources */,
 				BAC025E0163B48340050DD80 /* rsz_conferences_icon.png in Resources */,
 				6D7E7BB81654480B009E13F1 /* arrow.png in Resources */,
+				6D33417F165716F8007E3495 /* opencommimage.tiff in Resources */,
+				6DEE39421658A209008FEF22 /* image2993.png in Resources */,
+				6DEE39451658A509008FEF22 /* rsz_1arrow.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

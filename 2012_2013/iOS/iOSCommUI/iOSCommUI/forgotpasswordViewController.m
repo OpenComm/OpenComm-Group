@@ -7,21 +7,19 @@
 //
 
 #import "forgotpasswordViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface forgotpasswordViewController ()
 
 @end
 
 @implementation forgotpasswordViewController
+@synthesize firstView;
+@synthesize enteremailField;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+
+
+
 
 - (void)viewDidLoad
 {
@@ -38,7 +36,22 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    // when you touch away from these, then remove the keyboard
+    [enteremailField resignFirstResponder];
+    
+    
+}
+- (IBAction)textfieldReturned:(id)sender{
+    [sender resignFirstResponder];
+}
+
 
 - (IBAction)resetButton:(id)sender {
 }
+
+- (IBAction)backButtonPressed:(id)sender {
+}
+
 @end

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface signUpViewController : UIViewController
+@interface signUpViewController : UIViewController <UIImagePickerControllerDelegate>
 
 
 @property (strong, nonatomic) IBOutlet UIView *signupView;
@@ -21,8 +21,11 @@
 @property (strong, nonatomic) IBOutlet UITextField *jobtitleField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordField;
 @property (strong, nonatomic) IBOutlet UITextField *confirmpasswordField;
+@property (strong, nonatomic) IBOutlet UIButton *setimageButton;
+- (IBAction)setimageButton:(id)sender;
 
 - (IBAction)textfieldReturned:(id)sender;
 - (IBAction) submitPressed: (id)sender;
+- (IBAction)backButtonPressed:(id)sender;
 
 @end
