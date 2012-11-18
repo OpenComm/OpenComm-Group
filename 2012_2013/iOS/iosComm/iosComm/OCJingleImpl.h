@@ -14,7 +14,9 @@
  * This class is an object that handles Jingle IQ Packets and creates them.
  * Also contains the state for the current Jingle Session
  */
-@interface OCJingleImpl : NSObject {
+
+//Alert - Incoming Call
+@interface OCJingleImpl : NSObject<UIAlertViewDelegate> {
     //OCJingleConstantsController *jingleConstants;
     NSString *state; //PENDING, ACTIVE, or ENDED as defined in jingleConstants
     XMPPJID *myJID;
@@ -53,7 +55,7 @@
 - (bool) jingleReceiveAck: (XMPPIQ *) ackPacket;
 
 /**Send a session accept to the session initiate packet from jingleIQPacket**/
-- (NSXMLElement *) jingleRespondSessionAcceptFromPacket: (XMPPIQ *)jingleIQPacket recvportnum: (uint16_t)portNum SID: (NSString *)sid;
+- (NSXMLElement *) jingleRespondSessionAcceptWithRecvportnum: (uint16_t)portNum SID: (NSString *)sid;
 
 /**Process session accept in response to your sent session initiate packet. The accept packet is jingleIQPacket. Returns true if the packet is meant for you and is processed.**/
 - (bool) jingleReceiveSessionAcceptFromPacket: (XMPPIQ *)jingleIQPacket;

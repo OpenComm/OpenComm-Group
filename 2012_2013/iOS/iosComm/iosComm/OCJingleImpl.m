@@ -336,16 +336,8 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
 // or nil if state != ended.
 // Also updates the state to pending.
 //-------------------------------------------------------------------
-- (NSXMLElement *) jingleRespondSessionAcceptFromPacket: (XMPPIQ *)jingleIQPacket
-                                            recvportnum: (uint16_t)portNum
-                                                    SID: (NSString *)sid {
-    if (![state isEqualToString: [jingleConstants STATE_ENDED]]) {
-        return nil;
-    }
+- (NSXMLElement *) jingleRespondSessionAcceptWithRecvportnum: (uint16_t)portNum SID: (NSString *)sid {
     myPort = [NSString stringWithFormat: @"%d", portNum];
-    //TODO check that the incoming IQ Packet transport and app is supported? android forgoes this for now.
-    
-    [self getRemoteInformationFromPacket: jingleIQPacket];
     
     NSXMLElement *descriptionElement = [self createDescriptionAndPayloadElements];
     NSXMLElement *transportElement = [self createTransportAndRemoteCandidateElementsWithIP: myIPAddress Port:myPort Action: [jingleConstants SESSION_ACCEPT]];
@@ -377,13 +369,20 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
 //-------------------------------------------------------------------
 // Returns a Jingle IQ session-terminate packet for sending to the server to the person in the given IQPacket
 // Also updates the state to ended.
+// If the packet is nil, it is aimed to the toJID person.
 //-------------------------------------------------------------------
 - (NSXMLElement *) jingleSessionTerminateWithReason: (NSString *)reason inResponseTo: (XMPPIQ *)IQPacket{    
     //Termination with no error reason.
     NSXMLElement *reasonElement = [self createReasonElementWithReason: reason];
     NSXMLElement *jingleElement = [self createJingleElementWithAction: [jingleConstants SESSION_TERMINATE] SID: mySID Initiator: nil Responder: nil childElement: reasonElement];
-    
-    XMPPJID *respondingToJID = [XMPPJID jidWithString: [IQPacket attributeStringValueForName: [jingleConstants ATTRIBUTE_FROM]]];
+    XMPPJID *respondingToJID;
+    if (IQPacket != nil) {
+    respondingToJID = [XMPPJID jidWithString: [IQPacket attributeStringValueForName: [jingleConstants ATTRIBUTE_FROM]]];
+    }
+    else
+    {
+        respondingToJID = toJID;
+    }
     return [self createBaseIQElement: respondingToJID JingleElement: jingleElement];
 }
 
@@ -434,6 +433,43 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
         return [actionOfPacket isEqualToString: Action];
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
+    if([title isEqualToString:@"Accept"])
+    {
+        NSXMLElement *returnIQ = nil;
+        if ([jingleConstants DEBUG_PARAM]) {
+            returnIQ = [self jingleRespondSessionAcceptWithRecvportnum: [jingleConstants DEBUG_RECVPORTNUM_RECEIVER] SID:nil];
+        }
+        else {
+            returnIQ = [self jingleRespondSessionAcceptWithRecvportnum: 8888 SID:nil];
+        }
+        //not in correct state to respond. don't respond with accept! send them a decline.
+        if (returnIQ == nil) {
+            returnIQ = [self jingleSessionTerminateWithReason: [jingleConstants DECLINE_ELEMENT_NAME] inResponseTo: nil];
+            state = [jingleConstants STATE_ENDED];
+            toJID = nil;
+            toSID = nil;
+            toIPAddress = nil;
+            toPort = nil;
+            [xmppStream sendElement: returnIQ];
+        }
+        else {
+            [xmppStream sendElement: returnIQ];
+            //set up media port
+            const char* ipChar = [toIPAddress UTF8String];
+            const char* ip[1];
+            ip[0] = ipChar;
+            pjmedia_main(1, (char **)ip);
+        }
+    }
+    else //reject the call
+    {
+    
+    }
+}
+
 //-------------------------------------------------------------------
 // Combined with the given packet and this object's current state,
 // process the packet if possible. Returns false when this function
@@ -451,40 +487,40 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
         [xmppStream sendElement: [self jingleAckForPacket: IQPacket]];
         
         //Now create a packet based on what kind it is if applicable.
-        if ([self isJinglePacket: IQPacket OfAction: [jingleConstants SESSION_INITIATE]]) {
-            //TODO pop up an alert here, provided the state of this is at ended,
+        if ([self isJinglePacket: IQPacket OfAction: [jingleConstants SESSION_INITIATE]] && [state isEqualToString: [jingleConstants STATE_ENDED]]) {
+            //pop up an alert here, provided the state of this is at ended,
             // to see if the user wants to continue with the session.
             //Then have an alert handler, upon OK, return the applicable IQ. Return true.
             
-            //TODO also have a way to input the recvportnum obviously
-            NSXMLElement *returnIQ = nil;
-            if ([jingleConstants DEBUG_PARAM]) {
-                returnIQ = [self jingleRespondSessionAcceptFromPacket:IQPacket recvportnum: [jingleConstants DEBUG_RECVPORTNUM_RECEIVER] SID:nil];
-            }
-            else {
-                returnIQ = [self jingleRespondSessionAcceptFromPacket:IQPacket recvportnum: 8888 SID:nil];
-            }
-            //not in correct state to respond. don't respond with accept! send them a decline.
-            if (returnIQ == nil) {
-                returnIQ = [self jingleSessionTerminateWithReason: [jingleConstants DECLINE_ELEMENT_NAME] inResponseTo: IQPacket];
-            }
-            [xmppStream sendElement: returnIQ];
-            const char* ipChar = [toIPAddress UTF8String];
-            const char* ip[1];
-            ip[0] = ipChar;
-            pjmedia_main(1, (char **)ip);
+            //TODO check that the incoming IQ Packet transport and app is supported? android forgoes this for now.
+            [self getRemoteInformationFromPacket: IQPacket];
+            
+            UIAlertView *info = [
+                                 [UIAlertView alloc]
+                                 initWithTitle:@"Incoming Call from "
+                                 message:@"Accept or Reject the call?"
+                                 delegate:self
+                                 cancelButtonTitle:@"Reject"
+                                 otherButtonTitles:@"Accept", nil
+                                 ];
+            [info show];
+            state = [jingleConstants STATE_PENDING];
+            
             return true;
         }
-        else if ([self isJinglePacket: IQPacket OfAction: [jingleConstants SESSION_ACCEPT]]) {
+        else if ([self isJinglePacket: IQPacket OfAction: [jingleConstants SESSION_ACCEPT]] && [state isEqualToString: [jingleConstants STATE_PENDING]]) {
             //merely process the session accept - no need to respond with an IQPacket.
             return [self jingleReceiveSessionAcceptFromPacket: IQPacket];
         }
-        else if ([self isJinglePacket: IQPacket OfAction: [jingleConstants SESSION_TERMINATE]]) {
+        else if ([self isJinglePacket: IQPacket OfAction: [jingleConstants SESSION_TERMINATE]] && [state isEqualToString: [jingleConstants STATE_ACTIVE]]) {
             //merely process the session terminate - no need to respond with an IQPacket.
             return [self jingleReceiveSessionTerminateFromPacket: IQPacket];
         }
         else { //There are other actions, but we just don't support them yet...
             //however, it will be considered "handled" in our case for now.
+            //we will send back a reject packet for now.
+            NSXMLElement *returnIQ = [self jingleSessionTerminateWithReason: [jingleConstants DECLINE_ELEMENT_NAME] inResponseTo: IQPacket];
+            [xmppStream sendElement: returnIQ];
             return true;
         }
     }
