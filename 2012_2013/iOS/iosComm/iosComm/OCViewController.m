@@ -52,14 +52,16 @@ OCXMPPDelegateHandler *delegateHandler;
     
     
     //a separate class handler for default XMPP stuff.
-	defaults = [[OCDefaultServerConstantsController alloc] init];
-    delegateHandler = [[OCXMPPDelegateHandler alloc] init];
-    myXMPPStream = [[XMPPStream alloc] init];
+    if (defaults != nil) {
+        defaults = [[OCDefaultServerConstantsController alloc] init];
+        delegateHandler = [[OCXMPPDelegateHandler alloc] init];
+        myXMPPStream = [[XMPPStream alloc] init];
     
-    myXMPPRosterStorage = [[XMPPRosterCoreDataStorage alloc] init];
-    myXMPPRoster = [[XMPPRoster alloc] initWithRosterStorage:myXMPPRosterStorage];
-    myXMPPRoster.autoFetchRoster = YES;
-    [myXMPPRoster activate:myXMPPStream];
+        myXMPPRosterStorage = [[XMPPRosterCoreDataStorage alloc] init];
+        myXMPPRoster = [[XMPPRoster alloc] initWithRosterStorage:myXMPPRosterStorage];
+        myXMPPRoster.autoFetchRoster = YES;
+        [myXMPPRoster activate:myXMPPStream];
+    }
     
     NSLog(@"My IP Address: %@", [[[OCAudioPassingProtocol alloc] init] getIPAddress]);
 }
