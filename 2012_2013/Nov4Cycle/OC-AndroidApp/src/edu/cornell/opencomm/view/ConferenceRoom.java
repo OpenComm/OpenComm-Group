@@ -6,24 +6,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.model.ChatSpaceModel;
 
 public class ConferenceRoom extends Fragment {
 	View roomLayout;
 	public int layoutId = R.layout.confernec_main_room;
 	private static String TAG = ConferenceRoom.class.getName();
-	/** (non-Javadoc)
-	 * @see android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
-	 */
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onCreate(savedInstanceState);
-	}
+	private ChatSpaceModel roomModel;
 	
 	@Override
 	public void onResume() {
+		Log.d(TAG, "On resume called");
 		// TODO Auto-generated method stub
 		super.onResume();
 	}
