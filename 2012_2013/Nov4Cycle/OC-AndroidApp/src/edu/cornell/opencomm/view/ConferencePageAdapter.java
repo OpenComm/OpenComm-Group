@@ -9,6 +9,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import edu.cornell.opencomm.R;
 
@@ -32,7 +33,10 @@ public class ConferencePageAdapter extends PagerAdapter {
         resId = R.layout.conference_room_layout;
         
         View view = inflater.inflate(resId, null);  
-        ((ViewPager) collection).addView(view, 0);
+        ((ViewPager) collection).addView(view, 1);
+        
+        // UserView
+       // View userView = inflater.inflate(R.layout.userview_layout, (ViewGroup)view);
         
         // TODO Spandana .. if you want to customize information
         TextView title = (TextView) view.findViewById(R.id.text);
@@ -58,6 +62,7 @@ public class ConferencePageAdapter extends PagerAdapter {
         }
         
         conferenceView.switchChatSpaceModel(); 
+        view.invalidate();
         return view; 
     } 
     

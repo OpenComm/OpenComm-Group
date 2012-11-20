@@ -2,12 +2,18 @@
 
 package edu.cornell.opencomm.view;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -23,11 +29,13 @@ import edu.cornell.opencomm.model.User;
 public final class ConferenceView extends Activity {
 	private boolean areActionBarsDisplayed = false;
 	private static int roomCount = 3;
-	private ConferenceRoomView[] conferenceRooms ;
+	private ConferenceRoomView[] conferenceRooms;
+	//private ArrayList<UserView> attendees;
 	private static int mainRoomlayout = R.layout.conference_room_layout;
 	private static int sideRoomLayout = R.layout.conference_room_layout; // change layout TODO
 	private static int mainRoomIndex=1, leftRoomIndex=0, rightRoomIndex=2;
 	private Conference conference;
+	private Context context;
 	
 	/**
 	 * The conference data model
@@ -44,15 +52,16 @@ public final class ConferenceView extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Context context = this.getApplicationContext(); 
+		context = this.getApplicationContext(); 
 		conference = (Conference)getIntent().getSerializableExtra("conference");
 		// TODO temporary layout with real one (conference_layout) once xml errors are fixed
 		setContentView(R.layout.conference_layout_temporary);	
+		
 		conferenceController = new ConferenceController(this, ConferenceView.this); 
 		vibe = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE) ;
 		init(); 
-
 	}
+	
 	private void init(){
 		//1. Bind to the conference model
 		//2. instantiate the conference controller
@@ -63,18 +72,32 @@ public final class ConferenceView extends Activity {
 		ConferencePageAdapter adapter = new ConferencePageAdapter(this);
 		ViewPager myPager = (ViewPager) findViewById(R.id.threepanelpager);
 		createRooms();
+		createIconsForAttendees(conferenceRooms[mainRoomIndex]);
 		for(int i=0;i<conferenceRooms.length;i++){
 			myPager.addView(conferenceRooms[i], i);
 		}
 		myPager.setAdapter(adapter);
 		myPager.setCurrentItem(1);
 	}
+	
 	private void createRooms(){
 		conferenceRooms = new ConferenceRoomView[roomCount];
 		conferenceRooms[leftRoomIndex] = new ConferenceRoomView(this, sideRoomLayout);
 		conferenceRooms[mainRoomIndex] = new ConferenceRoomView(this, mainRoomlayout);
 		conferenceRooms[rightRoomIndex] = new ConferenceRoomView(this, sideRoomLayout);
 	}
+	
+	private void createIconsForAttendees(ConferenceRoomView room){
+		ConferenceRoomView mainChat = conferenceRooms[mainRoomIndex];
+		for(User user : conference.getAttendees()){
+			int image = user.getImage();
+			Bitmap bitmap = BitmapFactory.decodeResource(getResources(), user.getImage());
+			Bitmap scaled_bitmap = Bitmap.createScaledBitmap(bitmap, 49, 49, false);
+			UserView userView = new UserView(this.getApplicationContext(), this, user, scaled_bitmap);
+			mainChat.addUserView(userView);
+		}
+	}
+	
 	private static final boolean D = true; 
 
 	/**

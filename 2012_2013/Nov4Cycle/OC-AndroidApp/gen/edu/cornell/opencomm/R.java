@@ -257,6 +257,7 @@ public final class R {
         public static final int icon_contacts=0x7f0900a8;
         public static final int icon_profile=0x7f0900aa;
         public static final int imageAcceptConfirm=0x7f090072;
+        public static final int imageButton1=0x7f0900f2;
         public static final int imageCancel=0x7f0900d8;
         public static final int imageCancelConfirm=0x7f090074;
         public static final int imageSend=0x7f0900d6;
@@ -276,7 +277,7 @@ public final class R {
         public static final int login_layout=0x7f0900ab;
         public static final int login_separator=0x7f0900b4;
         public static final int main_screen=0x7f090032;
-        public static final int menu_settings=0x7f0900f2;
+        public static final int menu_settings=0x7f0900f3;
         public static final int mute=0x7f09003c;
         public static final int mute_sidechat=0x7f090057;
         public static final int my_account_back_button=0x7f0900b9;
@@ -379,6 +380,7 @@ public final class R {
         public static final int sendemail_layout=0x7f030015;
         public static final int signup_view_layout=0x7f030016;
         public static final int splash_view_layout=0x7f030017;
+        public static final int userview_layout=0x7f030018;
     }
     public static final class menu {
         public static final int activity_main=0x7f080000;
