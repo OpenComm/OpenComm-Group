@@ -2,12 +2,8 @@
 
 package edu.cornell.opencomm.view;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -16,10 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.ConferenceController;
-import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.model.ConferenceDataModel;
 import edu.cornell.opencomm.model.User;
 //TODO: Remove this
@@ -27,10 +21,12 @@ import edu.cornell.opencomm.model.User;
 //TODO - Integrate this with Chat Space View/View Group
 public final class ConferenceView extends Activity {
 	private boolean areActionBarsDisplayed = false;
-	Conference conference;
-	ArrayList<UserView> userIcons = new ArrayList<UserView>();
-	ConferencePageAdapter adapter;
-
+	private static int roomCount = 3;
+	private ConferenceRoomView[] conferenceRooms ;
+	private static int mainRoomlayout = R.layout.conference_room_layout;
+	private static int sideRoomLayout = R.layout.conference_room_layout; // change layout TODO
+	private static int mainRoomIndex=1, leftRoomIndex=0, rightRoomIndex=2;
+	
 	/**
 	 * The conference data model
 	 */
@@ -61,14 +57,22 @@ public final class ConferenceView extends Activity {
 		//3. register to listners
 
 		//3.1 Nora : Register the onSwipe listeners
-		//ConferencePageAdapter adapter = new ConferencePageAdapter(this);
-		adapter = new ConferencePageAdapter(this);
+		
+		ConferencePageAdapter adapter = new ConferencePageAdapter(this);
 		ViewPager myPager = (ViewPager) findViewById(R.id.threepanelpager);
+		createRooms();
+		for(int i=0;i<conferenceRooms.length;i++){
+			myPager.addView(conferenceRooms[i], i);
+		}
 		myPager.setAdapter(adapter);
 		myPager.setCurrentItem(1);
 	}
-	
-
+	private void createRooms(){
+		conferenceRooms = new ConferenceRoomView[roomCount];
+		conferenceRooms[leftRoomIndex] = new ConferenceRoomView(this, sideRoomLayout);
+		conferenceRooms[mainRoomIndex] = new ConferenceRoomView(this, mainRoomlayout);
+		conferenceRooms[rightRoomIndex] = new ConferenceRoomView(this, sideRoomLayout);
+	}
 	private static final boolean D = true; 
 
 	/**

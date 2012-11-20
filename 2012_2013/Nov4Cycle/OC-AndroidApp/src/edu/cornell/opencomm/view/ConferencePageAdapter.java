@@ -1,6 +1,9 @@
 package edu.cornell.opencomm.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -11,15 +14,14 @@ import edu.cornell.opencomm.R;
 
 public class ConferencePageAdapter extends PagerAdapter {
 	ConferenceView conferenceView;
-	
+
 	public ConferencePageAdapter(ConferenceView conferenceView){
 		this.conferenceView = conferenceView;
 	}
-	
-    public int getCount() {
-        return 3;
-    }
-    
+
+	public int getCount() {
+		return 3;
+	}
     
     public Object instantiateItem(View collection, int position) {
         LayoutInflater inflater = (LayoutInflater) collection.getContext()
