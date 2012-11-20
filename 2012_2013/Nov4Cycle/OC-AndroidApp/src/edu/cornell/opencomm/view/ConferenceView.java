@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.ConferenceController;
+import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.model.ConferenceDataModel;
 import edu.cornell.opencomm.model.User;
 //TODO: Remove this
@@ -26,6 +27,7 @@ public final class ConferenceView extends Activity {
 	private static int mainRoomlayout = R.layout.conference_room_layout;
 	private static int sideRoomLayout = R.layout.conference_room_layout; // change layout TODO
 	private static int mainRoomIndex=1, leftRoomIndex=0, rightRoomIndex=2;
+	private Conference conference;
 	
 	/**
 	 * The conference data model
