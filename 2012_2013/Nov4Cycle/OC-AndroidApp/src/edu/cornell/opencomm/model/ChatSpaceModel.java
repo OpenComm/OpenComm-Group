@@ -17,7 +17,7 @@ public class ChatSpaceModel extends MultiUserChat{
 	HashMap<User, Point> userLocationMap = new HashMap<User, Point>();
 	
 	// The users who are in this Space, <JID, User>
-    private HashMap<String, User> allParticipants = new HashMap<String, User>();
+    private HashMap<String, ConferenceUser> allParticipants = new HashMap<String, ConferenceUser>();
     
     private HashMap<String, User> allNicks = new HashMap<String, User>();
 	
@@ -41,7 +41,7 @@ public class ChatSpaceModel extends MultiUserChat{
 	}
 	
 	public void updateForNewUser(User u){
-		allParticipants.put(u.getUsername(), u);
+		allParticipants.put(u.getUsername(), (ConferenceUser) u);
 		allNicks.put(u.getNickname(), u);
 		userLocationMap.put(u, getUserLocation(u));
 	}
@@ -56,7 +56,7 @@ public class ChatSpaceModel extends MultiUserChat{
 	/**
      * @return - all participants in Space, maps JID to User
      *  */
-    public HashMap<String, User> getAllParticipants() {
+    public HashMap<String, ConferenceUser> getAllParticipants() {
         return allParticipants;
     }
 	

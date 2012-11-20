@@ -12,17 +12,14 @@ import edu.cornell.opencomm.model.ChatSpaceModel;
 public class ConferenceRoom extends Fragment {
 	View roomLayout;
 	public int layoutId = R.layout.confernec_main_room;
-	private static String TAG = ConferenceRoom.class.getName();
+	public  String roomName;
+	private String TAG = ConferenceRoom.class.getName()+roomName;
 	private ChatSpaceModel roomModel;
+	boolean DEBUG = true;
 	
-	@Override
-	public void onResume() {
-		Log.d(TAG, "On resume called");
-		// TODO Auto-generated method stub
-		super.onResume();
-	}
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		Log.d(TAG, "onCreateView()");
 		if (container == null) {
 			//ANKIT: i dont know what this means yet
             // We have different layouts, and in one of them this
@@ -34,12 +31,10 @@ public class ConferenceRoom extends Fragment {
             // the view hierarchy; it would just never be used.
             return null;
         }
-		if(savedInstanceState != null){
-		 layoutId = savedInstanceState.getInt("LAYOUT");
-		}
-		else{
-			Log.d(TAG, "Bundle is null :(");
-		}
-		return inflater.inflate(layoutId, container, false);
+		this.roomLayout = inflater.inflate(layoutId, container, false);
+		return this.roomLayout;
+	}
+	public void createUsers(){
+		
 	}
 }

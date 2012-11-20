@@ -27,12 +27,16 @@ import edu.cornell.opencomm.model.ConferenceDataModel;
 @SuppressWarnings("unused")
 //TODO - Integrate this with Chat Space View/View Group
 public final class ConferenceView extends FragmentActivity implements ViewPager.OnPageChangeListener {
+	
 	private boolean areActionBarsDisplayed = false;
+	
+	private static final boolean D = true; 
 	private static int roomCount = 3;
 	private static int mainRoomlayout = R.layout.confernec_main_room;
 	private static int sideLeftRoomLayout = R.layout.conference_leftside_room; // change layout TODO
 	private static int sideRightRoomLayout = R.layout.conference_rightside_room; // change layout TODO
 	private static int mainRoomIndex=1, leftRoomIndex=0, rightRoomIndex=2;
+	
 	private Conference conference;
 	
 	private static String TAG = ConferenceView.class.getName();
@@ -48,6 +52,7 @@ public final class ConferenceView extends FragmentActivity implements ViewPager.
 	 */
 	private ConferenceController conferenceController;
 
+	private ConferencePageAdapter mPagerAdapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -60,26 +65,28 @@ public final class ConferenceView extends FragmentActivity implements ViewPager.
 		init(); 
 
 	}
-	ConferencePageAdapter mPagerAdapter;
+	
+	/**
+	 * Initialize the conference view
+	 */
 	private void init(){
-
 			List<Fragment> fragments = new Vector<Fragment>();
-			fragments.add(leftRoomIndex,instantiateRoom(sideLeftRoomLayout));
-			fragments.add(mainRoomIndex,instantiateRoom(mainRoomlayout));
-			fragments.add(rightRoomIndex,instantiateRoom(sideRightRoomLayout));
+			fragments.add(leftRoomIndex,instantiateRoom(sideLeftRoomLayout,"left"));
+			fragments.add(mainRoomIndex,instantiateRoom(mainRoomlayout,"main"));
+			fragments.add(rightRoomIndex,instantiateRoom(sideRightRoomLayout,"right"));
 			this.mPagerAdapter  = new ConferencePageAdapter(super.getSupportFragmentManager(), fragments);
-			//
 			ViewPager pager = (ViewPager)super.findViewById(R.id.threepanelpager);
 			pager.setAdapter(this.mPagerAdapter);
 			pager.setOnPageChangeListener(this);
 			pager.setCurrentItem(1);
 	}
-	private Fragment instantiateRoom(int id){
+	
+	private Fragment instantiateRoom(int id,String name){
 		ConferenceRoom room = (ConferenceRoom) Fragment.instantiate(this, ConferenceRoom.class.getName());
 		room.layoutId = id;
+		room.roomName = name;
 		return room;
 	}
-	private static final boolean D = true; 
 
 	/**
 	 * To be invoked when occupant(s) location is changed in the 
