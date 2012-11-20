@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 
-public class UserView extends ImageButton{
+public class ConferenceUserView extends ImageButton{
 	Context context;
 	User person;
 	int position_x=0, position_y=0; // Top-left corner position
@@ -20,7 +20,7 @@ public class UserView extends ImageButton{
 	ConferenceView conferenceView;
 	
 	
-	public UserView(Context context, ConferenceView conferenceView, User user, Bitmap image) {
+	public ConferenceUserView(Context context, ConferenceView conferenceView, User user, Bitmap image) {
 		super(context);
 		this.context = context;
 		this.user = user;
@@ -29,7 +29,7 @@ public class UserView extends ImageButton{
 		initTouchListener((View)this);
 	}
 	
-	public UserView(Context context, ConferenceView conferenceView, User user, Bitmap image, int position_x, int position_y) {
+	public ConferenceUserView(Context context, ConferenceView conferenceView, User user, Bitmap image, int position_x, int position_y) {
 		super(context);
 		this.context = context;
 		this.position_x = position_x;
@@ -40,7 +40,7 @@ public class UserView extends ImageButton{
 		initTouchListener((View)this);
 	}
 	
-	public UserView(Context context, AttributeSet attr){
+	public ConferenceUserView(Context context, AttributeSet attr){
 		super(context);
 	}
 	

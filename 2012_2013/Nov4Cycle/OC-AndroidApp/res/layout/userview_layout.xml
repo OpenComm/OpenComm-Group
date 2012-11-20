@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <edu.cornell.opencomm.view.UserView
+    <edu.cornell.opencomm.view.ConferenceUserView
         android:id="@+id/imageButton1"
         android:layout_width="49dp"
         android:layout_height="49dp"
