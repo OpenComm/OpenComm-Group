@@ -13,7 +13,7 @@ import android.os.Vibrator;
 import android.util.Log;
 import android.widget.Toast;
 import edu.cornell.opencomm.Manager.UserManager;
-import edu.cornell.opencomm.model.ChatSpaceModel;
+import edu.cornell.opencomm.model.ConferenceRoom;
 import edu.cornell.opencomm.model.ConferenceDataModel;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.view.ConferenceCardView;
@@ -52,7 +52,7 @@ public class ConferenceController {
 
 	public void inviteUser(User u, String sChat) {
 		User primaryUser = UserManager.PRIMARY_USER;
-		ChatSpaceModel chatRoom = findChat(sChat);
+		ConferenceRoom chatRoom = findChat(sChat);
 		// check if user is moderator in the chat sChat
 		User moderator = chatRoom.getModerator();
 		if (!primaryUser.equals(moderator)) {
@@ -101,19 +101,19 @@ public class ConferenceController {
 	}
 
 	public void addUser(User u, String sChat) {
-		ChatSpaceModel chatRoom = findChat(sChat);
+		ConferenceRoom chatRoom = findChat(sChat);
 		_conference.getIDMap().get(chatRoom.getRoomID()).updateForNewUser(u);
 	}
 
-	private ChatSpaceModel findChat(String sChat) {
+	private ConferenceRoom findChat(String sChat) {
 		// find roomID of the chat (may be replaced with
 		// _conference.getActiveChat();
 		// if we can be confident that the active chat is the same as sChat
 		String roomID = sChat;
 
 		// roomId = _conference.getActiveChat();
-		HashMap<String, ChatSpaceModel> chatSpaceIDMap = _conference.getIDMap();
-		ChatSpaceModel chatRoom = chatSpaceIDMap.get(roomID);
+		HashMap<String, ConferenceRoom> chatSpaceIDMap = _conference.getIDMap();
+		ConferenceRoom chatRoom = chatSpaceIDMap.get(roomID);
 		return chatRoom;
 	}
 
@@ -123,8 +123,8 @@ public class ConferenceController {
 	// chat
 	public void leaveChat(String sChat, User currentUser) throws XMPPException {
 
-		HashMap<String, ChatSpaceModel> conferencemap = _conference.getIDMap();
-		ChatSpaceModel spacechat = conferencemap.get(sChat);
+		HashMap<String, ConferenceRoom> conferencemap = _conference.getIDMap();
+		ConferenceRoom spacechat = conferencemap.get(sChat);
 		User moderator = spacechat.getModerator();
 
 		if (moderator.getUsername().equals(currentUser.getUsername())) { // if
@@ -139,7 +139,7 @@ public class ConferenceController {
 					if (keys[i] != sChat) { // if not mainchat i.e. sidechats,
 											// transfer privileges and then
 											// leave
-						ChatSpaceModel spacechat1 = conferencemap.get(keys[i]);
+						ConferenceRoom spacechat1 = conferencemap.get(keys[i]);
 						transferPrivileges(currentUser, newmoderator,
 								spacechat1);
 						spacechat1.leave();
@@ -165,7 +165,7 @@ public class ConferenceController {
 				for (int i = 0; i <= 2; i++) {
 					if (keys[i] != sChat) { // if not mainchat i.e. sidechats
 											// leave
-						ChatSpaceModel spacechat1 = conferencemap.get(keys[i]);
+						ConferenceRoom spacechat1 = conferencemap.get(keys[i]);
 						spacechat1.leave();
 					}
 					spacechat.leave(); // leave main
@@ -177,9 +177,9 @@ public class ConferenceController {
 	}
 
 	public void endConference(String conf, User u) {
-		ChatSpaceModel chat = this._conference.getIDMap().get(conf);
+		ConferenceRoom chat = this._conference.getIDMap().get(conf);
 		if (chat.getModerator().equals(u)) {
-			HashMap<String, ChatSpaceModel> allChats = this._conference
+			HashMap<String, ConferenceRoom> allChats = this._conference
 					.getIDMap();
 			for (String s : allChats.keySet()) {
 				try {
@@ -202,7 +202,7 @@ public class ConferenceController {
 	 *            ChatSpaceModel in which the privilege has to be transferred
 	 * @throws XMPPException
 	 */
-	public void transferPrivileges(User u1, User u2, ChatSpaceModel room)
+	public void transferPrivileges(User u1, User u2, ConferenceRoom room)
 			throws XMPPException {
 		room.grantModerator(u1.getNickname());
 		room.revokeModerator(u2.getNickname());
@@ -224,8 +224,8 @@ public class ConferenceController {
 		}
 	}
 
-	public ChatSpaceModel switchChat(String chat) {
-		ChatSpaceModel newChat = this._conference.getIDMap().get(chat);
+	public ConferenceRoom switchChat(String chat) {
+		ConferenceRoom newChat = this._conference.getIDMap().get(chat);
 		this._conference.setActiveChat(chat);
 		if (this._conference.getLocationMap().get(chat).equals("MAIN")) {
 			this._conference.setIsmain(true);

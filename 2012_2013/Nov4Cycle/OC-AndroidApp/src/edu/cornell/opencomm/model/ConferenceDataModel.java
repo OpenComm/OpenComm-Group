@@ -9,7 +9,7 @@ public class ConferenceDataModel {
 	 * KEY: ChatSpace Room ID
 	 * VALUE: The model associated with the chat
 	 */
-	HashMap<String, ChatSpaceModel> chatSpaceIDMap;
+	HashMap<String, ConferenceRoom> chatSpaceIDMap;
 	
 	/**
 	 * The map to hold chat space models in relation
@@ -24,7 +24,7 @@ public class ConferenceDataModel {
 	
 	boolean isMain;	//if the space is main chat set this to true
 	public ConferenceDataModel(String mainSpaceRoomID){
-		chatSpaceIDMap = new HashMap<String, ChatSpaceModel>();
+		chatSpaceIDMap = new HashMap<String, ConferenceRoom>();
 		chatSpaceLocationMap = new HashMap<String, String>();
 		activeChat = mainSpaceRoomID;
 		isMain=true;
@@ -47,7 +47,7 @@ public class ConferenceDataModel {
     	isMain=s;
     }
 
-    public HashMap<String, ChatSpaceModel> getIDMap(){
+    public HashMap<String, ConferenceRoom> getIDMap(){
     	return chatSpaceIDMap;
     }
     

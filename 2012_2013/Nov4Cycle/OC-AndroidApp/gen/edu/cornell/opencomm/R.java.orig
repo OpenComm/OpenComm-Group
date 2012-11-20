@@ -365,6 +365,26 @@ public final class R {
         public static final int conference_details_layout=0x7f030004;
         public static final int conference_entry_layout=0x7f030005;
         public static final int conference_layout_temporary=0x7f030006;
+<<<<<<< HEAD
+        public static final int conference_room_layout=0x7f030007;
+        public static final int conference_scheduling_layout=0x7f030008;
+        public static final int confirm_layout=0x7f030009;
+        public static final int contact_card_layout=0x7f03000a;
+        public static final int contact_entry_layout=0x7f03000b;
+        public static final int contact_search_entry_layout=0x7f03000c;
+        public static final int contact_search_layout=0x7f03000d;
+        public static final int contacts_layout=0x7f03000e;
+        public static final int dashboard_layout=0x7f03000f;
+        public static final int login_layout=0x7f030010;
+        public static final int my_account_layout=0x7f030011;
+        public static final int notifications_layout=0x7f030012;
+        public static final int reset_password_layout=0x7f030013;
+        public static final int sample_room=0x7f030014;
+        public static final int sendemail_layout=0x7f030015;
+        public static final int signup_view_layout=0x7f030016;
+        public static final int splash_view_layout=0x7f030017;
+        public static final int userview_layout=0x7f030018;
+=======
         public static final int conference_leftside_room=0x7f030007;
         public static final int conference_rightside_room=0x7f030008;
         public static final int conference_room_layout=0x7f030009;
@@ -385,7 +405,7 @@ public final class R {
         public static final int sendemail_layout=0x7f030018;
         public static final int signup_view_layout=0x7f030019;
         public static final int splash_view_layout=0x7f03001a;
-        public static final int userview_layout=0x7f03001b;
+>>>>>>> 9dbf1ff85b0aa86bc3ad8a56e28d04c44e54fecb
     }
     public static final class menu {
         public static final int activity_main=0x7f080000;

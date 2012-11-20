@@ -7,7 +7,7 @@ import org.jivesoftware.smackx.muc.MultiUserChat;
 
 import android.graphics.Point;
 
-public class ChatSpaceModel extends MultiUserChat{
+public class ConferenceRoom extends MultiUserChat{
 	
 	//Ask Risa and Kris
 	//How does MUC get list of occupants
@@ -24,7 +24,7 @@ public class ChatSpaceModel extends MultiUserChat{
 	String roomID;
 	User moderator;
 	
-	public ChatSpaceModel(Connection c, String s) {
+	public ConferenceRoom(Connection c, String s) {
 		super(c, s);
 	}
 	
