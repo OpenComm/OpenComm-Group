@@ -102,7 +102,7 @@ public class ConferenceController {
 
 	public void addUser(User u, String sChat) {
 		ConferenceRoom chatRoom = findChat(sChat);
-		_conference.getIDMap().get(chatRoom.getRoomID()).updateForNewUser(u);
+		_conference.getIDMap().get(chatRoom.getRoomID()).addUser(u);
 	}
 
 	private ConferenceRoom findChat(String sChat) {

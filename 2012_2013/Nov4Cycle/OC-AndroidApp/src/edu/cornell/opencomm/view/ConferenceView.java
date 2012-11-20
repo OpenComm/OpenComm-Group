@@ -74,7 +74,6 @@ public final class ConferenceView extends FragmentActivity implements ViewPager.
 	 * Initialize the conference view
 	 */
 	private void init(){
-<<<<<<< HEAD
 		List<Fragment> fragments = createRooms(sideLeftRoomLayout, mainRoomlayout, sideRightRoomLayout);
 		
 		this.mPagerAdapter  = new ConferencePageAdapter(super.getSupportFragmentManager(), fragments);
@@ -96,41 +95,11 @@ public final class ConferenceView extends FragmentActivity implements ViewPager.
 	
 	private Fragment instantiateRoom(int id){
 		ConferenceRoomFragment room = (ConferenceRoomFragment) Fragment.instantiate(this, ConferenceRoomFragment.class.getName());
-=======
-			List<Fragment> fragments = new Vector<Fragment>();
-			fragments.add(leftRoomIndex,instantiateRoom(sideLeftRoomLayout,"left"));
-			fragments.add(mainRoomIndex,instantiateRoom(mainRoomlayout,"main"));
-			fragments.add(rightRoomIndex,instantiateRoom(sideRightRoomLayout,"right"));
-			this.mPagerAdapter  = new ConferencePageAdapter(super.getSupportFragmentManager(), fragments);
-			ViewPager pager = (ViewPager)super.findViewById(R.id.threepanelpager);
-			pager.setAdapter(this.mPagerAdapter);
-			pager.setOnPageChangeListener(this);
-			pager.setCurrentItem(1);
-	}
-	
-	private Fragment instantiateRoom(int id,String name){
-		ConferenceRoom room = (ConferenceRoom) Fragment.instantiate(this, ConferenceRoom.class.getName());
->>>>>>> 5a24e31fef53964a44f1e4755b9e06ccba49ab8e
 		room.layoutId = id;
-		room.roomName = name;
+		//room.room = new ConferenceRoom();
 		return room;
 	}
-<<<<<<< HEAD
-	
-/*	private void createIconsForAttendees(ConferenceRoomView room){
-		ConferenceRoomView mainChat = conferenceRooms[mainRoomIndex];
-		for(User user : conference.getAttendees()){
-			int image = user.getImage();
-			Bitmap bitmap = BitmapFactory.decodeResource(getResources(), user.getImage());
-			Bitmap scaled_bitmap = Bitmap.createScaledBitmap(bitmap, 49, 49, false);
-			UserView userView = new UserView(this.getApplicationContext(), this, user, scaled_bitmap);
-			mainChat.addUserView(userView);
-		}
-	} */
-	
-	private static final boolean D = true; 
-=======
->>>>>>> 5a24e31fef53964a44f1e4755b9e06ccba49ab8e
+
 
 	/**
 	 * To be invoked when occupant(s) location is changed in the 

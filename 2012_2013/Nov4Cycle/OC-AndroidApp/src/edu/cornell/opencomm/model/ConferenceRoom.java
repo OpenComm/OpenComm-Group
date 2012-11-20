@@ -17,7 +17,7 @@ public class ConferenceRoom extends MultiUserChat{
 	HashMap<User, Point> userLocationMap = new HashMap<User, Point>();
 	
 	// The users who are in this Space, <JID, User>
-    private HashMap<String, ConferenceUser> allParticipants = new HashMap<String, ConferenceUser>();
+    private HashMap<String, User> allParticipants = new HashMap<String, User>();
     
     private HashMap<String, User> allNicks = new HashMap<String, User>();
 	
@@ -40,10 +40,10 @@ public class ConferenceRoom extends MultiUserChat{
 		moderator = u;
 	}
 	
-	public void updateForNewUser(User u){
-		allParticipants.put(u.getUsername(), (ConferenceUser) u);
-		allNicks.put(u.getNickname(), u);
-		userLocationMap.put(u, getUserLocation(u));
+	public void addUser(User user){
+		allParticipants.put(user.getUsername(), user);
+		allNicks.put(user.getNickname(), user);
+		userLocationMap.put(user, getUserLocation(user));
 	}
 	
 	/**
@@ -56,7 +56,7 @@ public class ConferenceRoom extends MultiUserChat{
 	/**
      * @return - all participants in Space, maps JID to User
      *  */
-    public HashMap<String, ConferenceUser> getAllParticipants() {
+    public HashMap<String, User> getAllParticipants() {
         return allParticipants;
     }
 	

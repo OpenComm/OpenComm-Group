@@ -7,15 +7,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.model.ChatSpaceModel;
+import edu.cornell.opencomm.model.ConferenceRoom;
 
 public class ConferenceRoomFragment extends Fragment {
 	View roomLayout;
 	public int layoutId = R.layout.confernec_main_room;
 	public  String roomName;
 	private String TAG = ConferenceRoom.class.getName()+roomName;
-	private ChatSpaceModel roomModel;
+	public ConferenceRoom room;
 	boolean DEBUG = true;
+	
+//	public ConferenceRoomFragment(ConferenceRoom room){
+//		this.room = room;
+//	}
+//	
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -37,4 +42,10 @@ public class ConferenceRoomFragment extends Fragment {
 	public void createUsers(){
 		
 	}
+	
+	public ConferenceRoom getRoom(){
+		return room;
+	}
+	
+	
 }

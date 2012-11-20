@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 public class ConferenceRoomView extends View {
 	private int layout;
 	private Context context;
-	private ArrayList<ConferenceUserView> attendees;
+	private ArrayList<UserView> attendees;
 
 	static boolean isCreated;
 	public ConferenceRoomView(Context context, int layout) {
@@ -23,7 +23,7 @@ public class ConferenceRoomView extends View {
 		// TODO Auto-generated constructor stub
 		this.context = context;
 		this.layout = layout;
-		this.attendees = new ArrayList<ConferenceUserView>();
+		this.attendees = new ArrayList<UserView>();
 	}
 	
 	public void create(){
@@ -40,14 +40,14 @@ public class ConferenceRoomView extends View {
 		}
 	}
 	
-	public void addUserView(ConferenceUserView userView){
+	public void addUserView(UserView userView){
 		attendees.add(userView);
 		invalidate();
 		positionUsers(attendees);
 	}
 	
 	
-	public void positionUsers(ArrayList<ConferenceUserView> attendees){
+	public void positionUsers(ArrayList<UserView> attendees){
 		final int mRadius = 165; 
 		final int adjustRadiusX = 153/4; 
 		final int adjustRadiusY = 207/4; 
@@ -57,17 +57,17 @@ public class ConferenceRoomView extends View {
 		int numberOfPoints = attendees.size(); 
 		float angleIncrement = 360/numberOfPoints; 
 		for(int n = 0; n< numberOfPoints; n++){
-			ConferenceUserView userView = attendees.get(n);
+			UserView userView = attendees.get(n);
 			int x = (int)(mRadius* Math.cos((angleIncrement*n)*(Math.PI/180) + (Math.PI/2)))+i ;
 			int y = (int) (mRadius* Math.sin((angleIncrement*n)*(Math.PI/180) + (Math.PI/2)))+j;
-			userView.setPosition(x, y);
+			//userView.setPosition(x, y);
 		}
 	}
 	
 	
 	protected void onDraw(Canvas canvas) {
 		Log.d("ConferenceRoomView", "It's drawing!");
-		for(ConferenceUserView userView : attendees){
+		for(UserView userView : attendees){
 			userView.draw(canvas);
 		}
 	}
