@@ -22,7 +22,16 @@ public class ConferencePageAdapter extends PagerAdapter {
 	public int getCount() {
 		return 3;
 	}
+	
 	public Object instantiateItem(View collection, int position) {
+		
+		ViewPager viewPager = (ViewPager)collection;
+		ConferenceRoomView room = (ConferenceRoomView) viewPager.getChildAt(position);
+		room.create();
+		return room;
+	}
+	
+/*	public Object instantiateItem(View collection, int position) {
 		LayoutInflater inflater = (LayoutInflater) collection.getContext()
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		int resId = 0;
@@ -32,11 +41,13 @@ public class ConferencePageAdapter extends PagerAdapter {
 
 		View view = inflater.inflate(resId, null);       
 		((ViewPager) collection).addView(view, 0);
-
+		
 		// TODO Spandana .. if you want to customize information
 		TextView title = (TextView) view.findViewById(R.id.text);
 		switch (position) {
 		case 0:
+			View v =( (ViewPager) collection).getChildAt(position);
+			v.in
 			title.setText("Left Sidechat");
 			Bitmap bitmap = BitmapFactory.decodeResource(conferenceView.getResources(), R.drawable.portrait_left_background); 
 			bitmap = Bitmap.createScaledBitmap(bitmap, 320, 510, true); 
@@ -60,7 +71,7 @@ public class ConferencePageAdapter extends PagerAdapter {
 		}
 		conferenceView.switchChatSpaceModel(); // TODO Ankit ... should this method be called here?
 		return view;
-	}
+	} */
 	@Override
 	public void destroyItem(View arg0, int arg1, Object arg2) {
 		((ViewPager) arg0).removeView((View) arg2);

@@ -21,8 +21,12 @@ import edu.cornell.opencomm.model.User;
 //TODO - Integrate this with Chat Space View/View Group
 public final class ConferenceView extends Activity {
 	private boolean areActionBarsDisplayed = false;
-
-
+	private static int roomCount = 3;
+	private ConferenceRoomView[] conferenceRooms ;
+	private static int mainRoomlayout = R.layout.conference_room_layout;
+	private static int sideRoomLayout = R.layout.conference_room_layout; // change layout TODO
+	private static int mainRoomIndex=1, leftRoomIndex=0, rightRoomIndex=2;
+	
 	/**
 	 * The conference data model
 	 */
@@ -52,12 +56,22 @@ public final class ConferenceView extends Activity {
 		//3. register to listners
 
 		//3.1 Nora : Register the onSwipe listeners
+		
 		ConferencePageAdapter adapter = new ConferencePageAdapter(this);
 		ViewPager myPager = (ViewPager) findViewById(R.id.threepanelpager);
+		createRooms();
+		for(int i=0;i<conferenceRooms.length;i++){
+			myPager.addView(conferenceRooms[i], i);
+		}
 		myPager.setAdapter(adapter);
 		myPager.setCurrentItem(1);
 	}
-
+	private void createRooms(){
+		conferenceRooms = new ConferenceRoomView[roomCount];
+		conferenceRooms[leftRoomIndex] = new ConferenceRoomView(this, sideRoomLayout);
+		conferenceRooms[mainRoomIndex] = new ConferenceRoomView(this, mainRoomlayout);
+		conferenceRooms[rightRoomIndex] = new ConferenceRoomView(this, sideRoomLayout);
+	}
 	private static final boolean D = true; 
 
 	/**
