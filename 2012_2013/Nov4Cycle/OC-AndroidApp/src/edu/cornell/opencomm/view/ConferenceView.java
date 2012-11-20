@@ -149,24 +149,6 @@ public final class ConferenceView extends FragmentActivity implements ViewPager.
 		 
 	}
 
-	/** When the user swipes right
-	 * Display the left sidechat
-	 */
-	public void onLeftToRightSwipe(View v) {
-		/* TODO Ankit I don't think I need this... I can just call
-		 * switchChatSpaceModel from ConferencePageAdapter... unless you 
-		 * want to split it up somehow.
-		 */
-	}
-	/** When the user swipes left 
-	 * Display the right sidechat
-	 */
-	public void onRightToLeftSwipe(View v) {
-		// TODO Ankit... same comment as onLeftToRightSwipe
-	}
-
-	//Action bar methods 
-	//TODO- Should pop up the add contact to conference page 
 	public void addPersonClicked(View v){
 		this.conferenceController.addPersonClicked(); 
 	}

@@ -18,11 +18,7 @@
             android:name=".view.SplashView"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.grey_dark" >
-                 <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+               
         </activity>
         <activity
             android:name=".view.LoginView"
@@ -73,6 +69,11 @@
             android:theme="@style/Theme.grey_dark_dashboard" >
         </activity>
         <activity android:name=".view.ConferenceView" >
+              <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".view.ChatSpaceViewActivity"
