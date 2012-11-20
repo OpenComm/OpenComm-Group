@@ -2,33 +2,40 @@
 
 package edu.cornell.opencomm.view;
 
-import android.app.Activity;
+import java.util.List;
+import java.util.Vector;
+
 import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewParent;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.ConferenceController;
 import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.model.ConferenceDataModel;
-import edu.cornell.opencomm.model.User;
 //TODO: Remove this
 @SuppressWarnings("unused")
 //TODO - Integrate this with Chat Space View/View Group
-public final class ConferenceView extends Activity {
+public final class ConferenceView extends FragmentActivity implements ViewPager.OnPageChangeListener {
 	private boolean areActionBarsDisplayed = false;
 	private static int roomCount = 3;
-	private ConferenceRoomView[] conferenceRooms ;
-	private static int mainRoomlayout = R.layout.conference_room_layout;
-	private static int sideRoomLayout = R.layout.conference_room_layout; // change layout TODO
+	private static int mainRoomlayout = R.layout.confernec_main_room;
+	private static int sideLeftRoomLayout = R.layout.conference_leftside_room; // change layout TODO
+	private static int sideRightRoomLayout = R.layout.conference_rightside_room; // change layout TODO
 	private static int mainRoomIndex=1, leftRoomIndex=0, rightRoomIndex=2;
 	private Conference conference;
 	
+	private static String TAG = ConferenceView.class.getName();
 	/**
 	 * The conference data model
 	 */
@@ -53,27 +60,24 @@ public final class ConferenceView extends Activity {
 		init(); 
 
 	}
+	ConferencePageAdapter mPagerAdapter;
 	private void init(){
-		//1. Bind to the conference model
-		//2. instantiate the conference controller
-		//3. register to listners
 
-		//3.1 Nora : Register the onSwipe listeners
-		
-		ConferencePageAdapter adapter = new ConferencePageAdapter(this);
-		ViewPager myPager = (ViewPager) findViewById(R.id.threepanelpager);
-		createRooms();
-		for(int i=0;i<conferenceRooms.length;i++){
-			myPager.addView(conferenceRooms[i], i);
-		}
-		myPager.setAdapter(adapter);
-		myPager.setCurrentItem(1);
+			List<Fragment> fragments = new Vector<Fragment>();
+			fragments.add(instantiateRoom(sideLeftRoomLayout));
+			fragments.add(instantiateRoom(mainRoomlayout));
+			fragments.add(instantiateRoom(sideRightRoomLayout));
+			this.mPagerAdapter  = new ConferencePageAdapter(super.getSupportFragmentManager(), fragments);
+			//
+			ViewPager pager = (ViewPager)super.findViewById(R.id.threepanelpager);
+			pager.setAdapter(this.mPagerAdapter);
+			pager.setOnPageChangeListener(this);
+			pager.setCurrentItem(1);
 	}
-	private void createRooms(){
-		conferenceRooms = new ConferenceRoomView[roomCount];
-		conferenceRooms[leftRoomIndex] = new ConferenceRoomView(this, sideRoomLayout);
-		conferenceRooms[mainRoomIndex] = new ConferenceRoomView(this, mainRoomlayout);
-		conferenceRooms[rightRoomIndex] = new ConferenceRoomView(this, sideRoomLayout);
+	private Fragment instantiateRoom(int id){
+		ConferenceRoom room = (ConferenceRoom) Fragment.instantiate(this, ConferenceRoom.class.getName());
+		room.layoutId = id;
+		return room;
 	}
 	private static final boolean D = true; 
 
@@ -213,6 +217,21 @@ public final class ConferenceView extends Activity {
 	//When a user is removed from the conference
 	public void onRemoveClicked(View v){
 		this.conferenceController.removeUser(); 
+	}
+
+	public void onPageScrollStateChanged(int arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void onPageSelected(int roomNumber) {
+		// TODO Auto-generated method stub
+		Log.d(TAG,"Room Number selected :"+roomNumber);
+	}
+	public void onPageScrolled(int arg0, float arg1, int arg2) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
