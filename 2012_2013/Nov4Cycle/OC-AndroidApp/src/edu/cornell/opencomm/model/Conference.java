@@ -1,5 +1,6 @@
 package edu.cornell.opencomm.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -7,7 +8,7 @@ import edu.cornell.opencomm.packet.ConferencePacket;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Conference implements Parcelable {
+public class Conference implements Serializable{
     private String conferenceTitle, reoccurrence, description;
     private Calendar startDateAndTime, endDateAndTime;
     private User inviter;

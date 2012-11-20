@@ -2,8 +2,12 @@
 
 package edu.cornell.opencomm.view;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -12,8 +16,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.ConferenceController;
+import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.model.ConferenceDataModel;
 import edu.cornell.opencomm.model.User;
 //TODO: Remove this
@@ -21,7 +27,9 @@ import edu.cornell.opencomm.model.User;
 //TODO - Integrate this with Chat Space View/View Group
 public final class ConferenceView extends Activity {
 	private boolean areActionBarsDisplayed = false;
-
+	Conference conference;
+	ArrayList<UserView> userIcons = new ArrayList<UserView>();
+	ConferencePageAdapter adapter;
 
 	/**
 	 * The conference data model
@@ -39,11 +47,12 @@ public final class ConferenceView extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Context context = this.getApplicationContext(); 
+		conference = (Conference)getIntent().getSerializableExtra("conference");
 		// TODO temporary layout with real one (conference_layout) once xml errors are fixed
 		setContentView(R.layout.conference_layout_temporary);	
 		conferenceController = new ConferenceController(this, ConferenceView.this); 
 		vibe = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE) ;
-		init();
+		init(); 
 
 	}
 	private void init(){
@@ -52,11 +61,13 @@ public final class ConferenceView extends Activity {
 		//3. register to listners
 
 		//3.1 Nora : Register the onSwipe listeners
-		ConferencePageAdapter adapter = new ConferencePageAdapter(this);
+		//ConferencePageAdapter adapter = new ConferencePageAdapter(this);
+		adapter = new ConferencePageAdapter(this);
 		ViewPager myPager = (ViewPager) findViewById(R.id.threepanelpager);
 		myPager.setAdapter(adapter);
 		myPager.setCurrentItem(1);
 	}
+	
 
 	private static final boolean D = true; 
 

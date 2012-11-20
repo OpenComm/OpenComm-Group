@@ -3,6 +3,7 @@ package edu.cornell.opencomm.model;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.packet.VCard;
@@ -17,7 +18,7 @@ import edu.cornell.opencomm.network.NetworkService;
 
 /* An object representing a user who is taking part in the conversation */
 
-public class User implements Comparable<User> {
+public class User implements Comparable<User>, Serializable {
 	private static final String TAG = "Model.User";
 	/**
 	 * 
