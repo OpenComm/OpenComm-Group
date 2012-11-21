@@ -1,5 +1,8 @@
 package edu.cornell.opencomm.view;
 
+import java.util.ArrayList;
+
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -16,6 +19,7 @@ public class ConferenceRoomFragment extends Fragment {
 	private String TAG = ConferenceRoom.class.getName()+roomName;
 	public ConferenceRoom room;
 	boolean DEBUG = true;
+	public ArrayList<UserView> userViews;
 	
 //	public ConferenceRoomFragment(ConferenceRoom room){
 //		this.room = room;
@@ -25,6 +29,7 @@ public class ConferenceRoomFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		Log.d(TAG, "onCreateView()");
+		userViews = new ArrayList<UserView>();
 		if (container == null) {
 			//ANKIT: i dont know what this means yet
             // We have different layouts, and in one of them this
@@ -45,6 +50,36 @@ public class ConferenceRoomFragment extends Fragment {
 	
 	public ConferenceRoom getRoom(){
 		return room;
+	}
+	
+	/**
+	 * Add a userView to this roomFragment
+	 */
+	public void addUserView(UserView userView){
+		userViews.add(userView);
+		
+	}
+	
+	/**
+	 * Assign the positions of each userView
+	 * @param users
+	 * @return
+	 */
+	private Point[] createPlaceHolders(ArrayList<UserView> attendees){
+		Point [] points = new Point[users]; 
+		final int mRadius = 165; 
+		int i = getWidth()/2-adjustRadiusX; 
+		int j = getHeight()/2-adjustRadiusY; 
+
+		int numberOfPoints = users; 
+		float angleIncrement = 360/numberOfPoints; 
+		for(int n = 0; n< numberOfPoints; n++){
+			Point p = new Point(); 
+			p.x = (int)(mRadius* Math.cos((angleIncrement*n)*(Math.PI/180) + (Math.PI/2)))+i ;
+			p.y = (int) (mRadius* Math.sin((angleIncrement*n)*(Math.PI/180) + (Math.PI/2)))+j;
+			points[n] = p; 
+		}
+		return points; 
 	}
 	
 	

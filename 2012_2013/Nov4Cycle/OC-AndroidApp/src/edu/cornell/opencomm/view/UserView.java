@@ -4,6 +4,7 @@ import edu.cornell.opencomm.model.User;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Point;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -16,6 +17,7 @@ public class UserView extends ImageButton{
 	Bitmap image;
 	User user;
 	ConferenceRoomFragment roomView;
+	Point position;
 	
 	
 	public UserView(Context context, ConferenceRoomFragment roomView, User user, Bitmap image) {
@@ -29,6 +31,7 @@ public class UserView extends ImageButton{
 	
 	public UserView(Context context, AttributeSet attr){
 		super(context);
+		initTouchListener((View)this);
 	}
 	
 	
@@ -45,6 +48,7 @@ public class UserView extends ImageButton{
 		        	
 		        	break;
 		        case MotionEvent.ACTION_MOVE:
+		        	
 		        	break;
 		        }
 		        return true;
@@ -61,5 +65,9 @@ public class UserView extends ImageButton{
 		//canvas.drawBitmap(image, position_x, position_y, null);
 		//Bitmap bm_2 = Bitmap.createScaledBitmap(bm, 49, 49, false);
 		//canvas.drawBitmap(image, position_x, position_y, null);
+	}
+	
+	public void setPosition(Point position){
+		this.position = position;
 	}
 }

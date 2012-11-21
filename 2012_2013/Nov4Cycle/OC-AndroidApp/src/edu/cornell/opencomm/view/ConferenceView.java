@@ -2,6 +2,7 @@
 
 package edu.cornell.opencomm.view;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -32,39 +33,35 @@ import edu.cornell.opencomm.model.User;
 public final class ConferenceView extends FragmentActivity implements ViewPager.OnPageChangeListener {
 	
 	private boolean areActionBarsDisplayed = false;
-	
 	private static final boolean D = true; 
 	private static int roomCount = 3;
-	private ConferenceRoomView[] conferenceRooms;
+	private ConferenceRoomFragment[] conferenceRoomFragments;
 	private static int mainRoomlayout = R.layout.confernec_main_room;
 	private static int sideLeftRoomLayout = R.layout.conference_leftside_room; // change layout TODO
 	private static int sideRightRoomLayout = R.layout.conference_rightside_room; // change layout TODO
 	private static int mainRoomIndex=1, leftRoomIndex=0, rightRoomIndex=2;
-	
 	private Conference conference;
 	private Context context;
-	
 	private static String TAG = ConferenceView.class.getName();
 	/**
 	 * The conference data model
 	 */
 	private ConferenceDataModel conferenceModel;
-	
-	private Vibrator vibe; 
-
+	private Vibrator vibe;
 	/**
 	 * The conference controller
 	 */
 	private ConferenceController conferenceController;
-
 	private ConferencePageAdapter mPagerAdapter;
-	@Override
+	private ArrayList<User> attendees;
+	
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context = this.getApplicationContext(); 
 		conference = (Conference)getIntent().getSerializableExtra("conference");
-		// TODO temporary layout with real one (conference_layout) once xml errors are fixed
-		setContentView(R.layout.conference_layout_temporary);	
+		attendees = conference.getAttendees(); // TODO will take out later
+		setContentView(R.layout.conference_layout_temporary); // TODO temporary layout with real one (conference_layout) once xml errors are fixed
 		conferenceController = new ConferenceController(this, ConferenceView.this); 
 		vibe = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE) ;
 		init(); 
@@ -82,7 +79,7 @@ public final class ConferenceView extends FragmentActivity implements ViewPager.
 		pager.setAdapter(this.mPagerAdapter);
 		pager.setOnPageChangeListener(this);
 		pager.setCurrentItem(1);
-			
+		addUsersToRoom(mainRoomIndex, conference.getAttendees());
 	}
 	
 	public List<Fragment> createRooms(int leftLayout, int mainLayout, int rightLayout){
@@ -96,10 +93,23 @@ public final class ConferenceView extends FragmentActivity implements ViewPager.
 	private Fragment instantiateRoom(int id){
 		ConferenceRoomFragment room = (ConferenceRoomFragment) Fragment.instantiate(this, ConferenceRoomFragment.class.getName());
 		room.layoutId = id;
-		//room.room = new ConferenceRoom();
+		//TODO instantiate conferenceRoom for each ConferenceRoomFragment
 		return room;
 	}
-
+	
+	/**
+	 * Add and create user icons to the fragment
+	 * @param roomPosition
+	 */
+	public void addUsersToRoom(int roomPosition, ArrayList<User> users){
+		ConferenceRoomFragment room = (ConferenceRoomFragment) mPagerAdapter.getItem(roomPosition);
+		for (User user : users){
+			Bitmap image = BitmapFactory.decodeResource(getResources(), user.getImage());
+			Bitmap rescaled_image = Bitmap.createScaledBitmap(image, 49, 49, true);
+			UserView uv = new UserView((Context) this, room, user, rescaled_image); 
+			room.addUserView(uv);
+		}
+	}
 
 	/**
 	 * To be invoked when occupant(s) location is changed in the 
