@@ -34,7 +34,20 @@ public class ConferenceDataModel {
 		activeChat = newActiveRoomID;
 	    isMain=true;
 	}
-	
+	/**Toggle between mute and unmute for the conference
+	 * @return the current state for mute
+	 */
+	public boolean toggleMute(){
+		isMute = !isMute;
+		return isMute;
+	}
+	public boolean isMute(){
+		return this.isMute;
+	}
+	/**
+	 * The state variable to store mute/unmute
+	 */
+	private boolean isMute = false;
 	public String getActiveChat(){
 		return activeChat;
 	}

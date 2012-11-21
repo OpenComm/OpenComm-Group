@@ -211,10 +211,11 @@ public class ConferenceController {
 	public void kickoutUser(String chat, User userToBeKicked, User currUser) {
 		if (this._conference.getIDMap().get(chat).getModerator()
 				.equals(currUser)) {
-			this._conference.getIDMap().get(chat).getAllNicknames()
-					.remove(userToBeKicked.getNickname());
-			this._conference.getIDMap().get(chat).getAllParticipants()
-					.remove(userToBeKicked.getUsername());
+			//AnKit
+//			this._conference.getIDMap().get(chat).getAllNicknames()
+//					.remove(userToBeKicked.getNickname());
+//			this._conference.getIDMap().get(chat).getAllParticipants()
+//					.remove(userToBeKicked.getUsername());
 			try {
 				this._conference.getIDMap().get(chat)
 						.kickParticipant(userToBeKicked.getNickname(), null);

@@ -35,7 +35,6 @@ public final class ConferenceView extends FragmentActivity implements ViewPager.
 	private boolean areActionBarsDisplayed = false;
 	private static final boolean D = true; 
 	private static int roomCount = 3;
-	private ConferenceRoomFragment[] conferenceRoomFragments;
 	private static int mainRoomlayout = R.layout.confernec_main_room;
 	private static int sideLeftRoomLayout = R.layout.conference_leftside_room; // change layout TODO
 	private static int sideRightRoomLayout = R.layout.conference_rightside_room; // change layout TODO
@@ -111,17 +110,8 @@ public final class ConferenceView extends FragmentActivity implements ViewPager.
 		}
 	}
 
-	/**
-	 * To be invoked when occupant(s) location is changed in the 
-	 * active chat space
-	 */
-	void refreshChatSpaceView(){
+	
 
-	}
-
-	private boolean isOnEmptySpace(Point p){
-		return false;
-	}
 	/**
 	 * To be invoked when chat space is switched 
 	 */
@@ -165,18 +155,11 @@ public final class ConferenceView extends FragmentActivity implements ViewPager.
 		vibe.vibrate(2000); //making it vibrate for 2000 ms 
 	}
 
-	private boolean p = true; 
-	//Should display a red bar and when its clicked again should unmute 
 	public void muteClicked(View v){
 		Button mute = (Button)v; 
-		if (p){
-			mute.setBackgroundResource(R.drawable.mute);
-			p = false; 
-		}
-		else {
-			mute.setBackgroundResource(R.drawable.unmute); 
-			p= true; 
-		}
+		
+		int resId = conferenceModel.toggleMute()?R.drawable.mute :R.drawable.unmute;
+		mute.setBackgroundResource(resId); 
 		this.conferenceController.muteClicked();
 
 	}
