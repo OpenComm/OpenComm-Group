@@ -19,7 +19,7 @@ public class ConferenceRoomFragment extends Fragment {
 	private String TAG = ConferenceRoom.class.getName()+roomName;
 	public ConferenceRoom room;
 	boolean DEBUG = true;
-	public ArrayList<UserView> userViews;
+	public ArrayList<UserView> userViews = new ArrayList<UserView>();
 	
 //	public ConferenceRoomFragment(ConferenceRoom room){
 //		this.room = room;
@@ -29,7 +29,6 @@ public class ConferenceRoomFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		Log.d(TAG, "onCreateView()");
-		userViews = new ArrayList<UserView>();
 		if (container == null) {
 			//ANKIT: i dont know what this means yet
             // We have different layouts, and in one of them this
@@ -65,7 +64,7 @@ public class ConferenceRoomFragment extends Fragment {
 	 * @param users
 	 * @return
 	 */
-	private Point[] createPlaceHolders(ArrayList<UserView> attendees){
+/*	private Point[] createPlaceHolders(ArrayList<UserView> attendees){
 		Point [] points = new Point[users]; 
 		final int mRadius = 165; 
 		int i = getWidth()/2-adjustRadiusX; 
@@ -80,7 +79,7 @@ public class ConferenceRoomFragment extends Fragment {
 			points[n] = p; 
 		}
 		return points; 
-	}
+	} */
 	
 	
 }
