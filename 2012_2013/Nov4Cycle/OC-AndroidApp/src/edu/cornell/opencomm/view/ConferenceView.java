@@ -35,7 +35,6 @@ public final class ConferenceView extends FragmentActivity implements ViewPager.
 	
 	private static final boolean D = true; 
 	private static int roomCount = 3;
-	private ConferenceRoomView[] conferenceRooms;
 	private static int mainRoomlayout = R.layout.confernec_main_room;
 	private static int sideLeftRoomLayout = R.layout.conference_leftside_room; // change layout TODO
 	private static int sideRightRoomLayout = R.layout.conference_rightside_room; // change layout TODO
