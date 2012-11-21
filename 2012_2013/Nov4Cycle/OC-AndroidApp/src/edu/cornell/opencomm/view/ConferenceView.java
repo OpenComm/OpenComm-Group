@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Vector;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
@@ -14,13 +15,10 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewParent;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.ConferenceController;
@@ -33,34 +31,38 @@ import edu.cornell.opencomm.model.User;
 public final class ConferenceView extends FragmentActivity implements ViewPager.OnPageChangeListener {
 	
 	private boolean areActionBarsDisplayed = false;
+	
 	private static final boolean D = true; 
 	private static int roomCount = 3;
 	private static int mainRoomlayout = R.layout.confernec_main_room;
 	private static int sideLeftRoomLayout = R.layout.conference_leftside_room; // change layout TODO
 	private static int sideRightRoomLayout = R.layout.conference_rightside_room; // change layout TODO
 	private static int mainRoomIndex=1, leftRoomIndex=0, rightRoomIndex=2;
+	
 	private Conference conference;
 	private Context context;
+	
 	private static String TAG = ConferenceView.class.getName();
 	/**
 	 * The conference data model
 	 */
 	private ConferenceDataModel conferenceModel;
-	private Vibrator vibe;
+	
+	private Vibrator vibe; 
+
 	/**
 	 * The conference controller
 	 */
 	private ConferenceController conferenceController;
+
 	private ConferencePageAdapter mPagerAdapter;
-	private ArrayList<User> attendees;
-	
-	
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context = this.getApplicationContext(); 
 		conference = (Conference)getIntent().getSerializableExtra("conference");
-		attendees = conference.getAttendees(); // TODO will take out later
-		setContentView(R.layout.conference_layout_temporary); // TODO temporary layout with real one (conference_layout) once xml errors are fixed
+		// TODO temporary layout with real one (conference_layout) once xml errors are fixed
+		setContentView(R.layout.conference_layout_temporary);	
 		conferenceController = new ConferenceController(this, ConferenceView.this); 
 		vibe = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE) ;
 		init(); 
@@ -109,6 +111,7 @@ public final class ConferenceView extends FragmentActivity implements ViewPager.
 			room.addUserView(uv);
 		}
 	}
+
 
 	
 
@@ -170,7 +173,13 @@ public final class ConferenceView extends FragmentActivity implements ViewPager.
 
 
 	public void backButtonClicked(View v){
-		this.conferenceController.handleBackButtonClicked(); 
+//		this.conferenceController.handleBackButtonClicked(); 
+		Intent i = new Intent(this, ConferenceCardView.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("conference", conference);
+        i.putExtras(bundle);
+		startActivity(i);
+		
 	}
 
 	//Context Bar methods
