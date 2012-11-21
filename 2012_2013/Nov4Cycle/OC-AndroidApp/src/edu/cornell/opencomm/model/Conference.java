@@ -15,6 +15,8 @@ public class Conference implements Serializable{
     private ArrayList<User> attendees;
     private boolean hasAcceptedInvite = false;
     
+    ConferenceRoom[] conferenceRooms;
+    
     // TEMPORARY VARIABLES - TODO need to discuss with backend
     private String inviter_name;
     private String[] attendee_names;
@@ -82,6 +84,10 @@ public class Conference implements Serializable{
     }
     
     // GETTERS
+    
+    public ConferenceRoom[] getConferenceRooms(){
+    	return conferenceRooms;
+    }
     
     public String getConferenceTitle(){
     	return conferenceTitle;
@@ -215,6 +221,14 @@ public class Conference implements Serializable{
     }
     
     // SETTERS
+    public void setConferenceRooms(ConferenceRoom[] conferenceRooms){
+    	this.conferenceRooms = conferenceRooms;
+    }
+    
+    public void setConferenceRoom(ConferenceRoom room, int position){
+    	this.conferenceRooms[position] = room;
+    }
+    
     public void acceptInvite(){
     	hasAcceptedInvite = true;
     }

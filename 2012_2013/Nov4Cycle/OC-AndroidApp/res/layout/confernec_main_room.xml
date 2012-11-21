@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_container"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/green"
@@ -94,7 +95,7 @@
             android:background="@drawable/unmute"
             android:onClick="muteClicked" />
     </RelativeLayout>
-
+
     <RelativeLayout
         android:id="@+id/bottom_bar"
         android:layout_width="fill_parent"
@@ -128,7 +129,7 @@
             android:textColor="@color/white"
             android:textSize="10sp" />
     </RelativeLayout>
-
+
     <RelativeLayout
         android:id="@+id/bottom_bar_reg_user"
         android:layout_width="fill_parent"
@@ -188,7 +189,7 @@
             android:textColor="@color/white"
             android:textSize="10sp" />
     </RelativeLayout>
-
+
     <RelativeLayout
         android:id="@+id/bottom_bar_moderator"
         android:layout_width="fill_parent"
@@ -248,5 +249,15 @@
             android:textColor="@color/white"
             android:textSize="10sp" />
     </RelativeLayout>
+
+    <edu.cornell.opencomm.view.UserView
+        android:id="@+id/userView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_bar"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="74dp"
+        android:layout_marginLeft="126dp"
+        android:src="@drawable/example_picture_1" />
 
 </RelativeLayout>

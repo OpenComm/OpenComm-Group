@@ -7,6 +7,7 @@ import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 
 import android.graphics.Point;
+import android.util.Log;
 import edu.cornell.opencomm.network.NetworkService;
 
 public class ConferenceRoom extends MultiUserChat{
@@ -18,7 +19,7 @@ public class ConferenceRoom extends MultiUserChat{
 	 * 
 	 */
 	
-	private ArrayList<ConferenceUser> userList = new ArrayList<ConferenceUser>();
+	private ArrayList<ConferenceUser> confUserList = new ArrayList<ConferenceUser>();
 	
 	private String roomID;
 	private User moderator;
@@ -41,9 +42,10 @@ public class ConferenceRoom extends MultiUserChat{
 	public String getRoomID(){
 		return roomID;
 	}
-	public void setList(ArrayList<User> list){
-		for(User u : list){
-			this.userList.add((ConferenceUser) u);
+	public void setList(ArrayList<User> users){
+		for(User user : users){
+			ConferenceUser cu = new ConferenceUser(user);
+			this.confUserList.add(cu);
 		}
 	}
 	public User getModerator(){
@@ -54,18 +56,23 @@ public class ConferenceRoom extends MultiUserChat{
 		moderator = u;
 	}
 	
-	public void addUser(User user){
-		//Ankit
-	}
+//	public void addConferenceUser(ConferenceUser confUser){
+//		confUserList.add(confUser);
+//	}
 	public ArrayList<ConferenceUser> getCUserList(){
-		return userList;
+		return confUserList;
 	}
-	public  void updateLocations(Point center,int radius){
-		int noOfusers = userList.size();
+	public  ArrayList<ConferenceUser> updateLocations(Point center,int radius){
+		int noOfusers = confUserList.size();
 		ArrayList<Point> pointList = getPoints(noOfusers, radius, center);
 		for(int i=0;i<pointList.size();i++){
-			userList.get(i).LOCATION = pointList.get(i);
+			
+			//confUserList.get(i).LOCATION = pointList.get(i);
+			confUserList.get(i).setLocation(pointList.get(i));
+			Log.d("ConfUser-xy - point", "x = " + pointList.get(i).x + ", y = " + pointList.get(i).y);
+			Log.d("ConfUser-xy", "x = " + confUserList.get(i).getX() + ", y = " + confUserList.get(i).getY());
 		}
+		return confUserList;
 	}
 	private ArrayList<Point> getPoints(int users,double radius,Point center){
 		double slice = 2 * Math.PI / users;

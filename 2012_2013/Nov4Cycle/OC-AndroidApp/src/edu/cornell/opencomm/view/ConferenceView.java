@@ -24,6 +24,8 @@ import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.ConferenceController;
 import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.model.ConferenceDataModel;
+import edu.cornell.opencomm.model.ConferenceRoom;
+import edu.cornell.opencomm.model.ConferenceUser;
 import edu.cornell.opencomm.model.User;
 //TODO: Remove this
 @SuppressWarnings("unused")
@@ -61,59 +63,92 @@ public final class ConferenceView extends FragmentActivity implements ViewPager.
 		super.onCreate(savedInstanceState);
 		context = this.getApplicationContext(); 
 		conference = (Conference)getIntent().getSerializableExtra("conference");
+		
+		Log.d("GetAttendee- Name", conference.getAttendees().get(0).getNickname());
+		
+		
 		// TODO temporary layout with real one (conference_layout) once xml errors are fixed
 		setContentView(R.layout.conference_layout_temporary);	
 		conferenceController = new ConferenceController(this, ConferenceView.this); 
 		vibe = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE) ;
-		init(); 
+		init(conference.getAttendees()); 
 	}
 	
 	/**
 	 * Initialize the conference view
 	 */
-	private void init(){
-		List<Fragment> fragments = createRooms(sideLeftRoomLayout, mainRoomlayout, sideRightRoomLayout);
-		
-		this.mPagerAdapter  = new ConferencePageAdapter(super.getSupportFragmentManager(), fragments);
+	private void init(ArrayList<User> attendees){
+		List<Fragment> fragments = createRooms(sideLeftRoomLayout, mainRoomlayout, sideRightRoomLayout, attendees);
+		initPager(fragments);
+//		addUsersToRoom(mainRoomIndex, conference.getAttendees());
+//		updateRoomUserLocations(mainRoomIndex);
+	}
 	
+	/** 
+	 * Initialize the pager to swip between views
+	 * @param fragments
+	 */
+	public void initPager(List<Fragment> fragments){
+		this.mPagerAdapter  = new ConferencePageAdapter(super.getSupportFragmentManager(), fragments);
 		ViewPager pager = (ViewPager)super.findViewById(R.id.threepanelpager);
 		pager.setAdapter(this.mPagerAdapter);
 		pager.setOnPageChangeListener(this);
 		pager.setCurrentItem(1);
-		addUsersToRoom(mainRoomIndex, conference.getAttendees());
 	}
 	
-	public List<Fragment> createRooms(int leftLayout, int mainLayout, int rightLayout){
+	public List<Fragment> createRooms(int leftLayout, int mainLayout, int rightLayout, ArrayList<User> attendees){
 		List<Fragment> fragments = new Vector<Fragment>();
-		fragments.add(instantiateRoom(leftLayout));
-		fragments.add(instantiateRoom(mainLayout));
-		fragments.add(instantiateRoom(rightLayout));
+		fragments.add(instantiateRoom(leftLayout, leftRoomIndex, null));
+		fragments.add(instantiateRoom(mainLayout, mainRoomIndex, attendees));
+		fragments.add(instantiateRoom(rightLayout, rightRoomIndex, attendees));
 		return fragments;
 	}
 	
-	private Fragment instantiateRoom(int id){
-		ConferenceRoomFragment room = (ConferenceRoomFragment) Fragment.instantiate(this, ConferenceRoomFragment.class.getName());
-		room.layoutId = id;
-		//TODO instantiate conferenceRoom for each ConferenceRoomFragment
-		return room;
+	private Fragment instantiateRoom(int layout_id, int position, ArrayList<User> attendees){
+		ConferenceRoomFragment roomFrag = (ConferenceRoomFragment) Fragment.instantiate(this, ConferenceRoomFragment.class.getName());
+		roomFrag.setContext(context);
+		roomFrag.layoutId = layout_id;
+		// Set Conference Room
+		ConferenceRoom confRoom = new ConferenceRoom(conference.getConferenceTitle());
+		confRoom.setList(conference.getAttendees());
+//		conference.setConferenceRoom(confRoom, position);
+		roomFrag.setConferenceRoom(confRoom);
+		//roomFrag.createTheCirleOfTrust();
+		return roomFrag;
 	}
 	
-	/**
-	 * Add and create user icons to the fragment
-	 * @param roomPosition
-	 */
-	public void addUsersToRoom(int roomPosition, ArrayList<User> users){
-		ConferenceRoomFragment room = (ConferenceRoomFragment) mPagerAdapter.getItem(roomPosition);
-		for (User user : users){
-			Bitmap image = BitmapFactory.decodeResource(getResources(), user.getImage());
-			Bitmap rescaled_image = Bitmap.createScaledBitmap(image, 49, 49, true);
-			UserView uv = new UserView((Context) this, room, user, rescaled_image); 
-			room.addUserView(uv);
-		}
-	}
-
-
-	
+//	/**
+//	 * Add and create user icons to the fragment
+//	 * @param roomPosition
+//	 */
+//	public void addUsersToRoom(int roomPosition, ArrayList<User> users){
+//		ConferenceRoomFragment roomFrag = (ConferenceRoomFragment) mPagerAdapter.getItem(roomPosition);
+//		ArrayList<ConferenceUser> confUsers = new ArrayList<ConferenceUser>();
+//		for (User user : users){
+//			ConferenceUser confUser = new ConferenceUser(user);
+//			confUsers.add(confUser);
+//			UserView uv = new UserView((Context) this, roomFrag, confUser, imageIdToBitmap(user.getImage(), 76, 76)); 
+//			roomFrag.addUserView(uv);
+//		}
+//		roomFrag.getConferenceRoom().setList(confUsers);
+//	}
+//	
+//	public void updateRoomUserLocations(int roomPosition){
+//		
+//		//ConferenceRoomFragment roomFrag = (ConferenceRoomFragment) mPagerAdapter.getItem(roomPosition);
+//		
+//		View view = ((Fragment)roomFrag).findViewById(R.id.screen);
+//		View roomFragView = (Fragment) roomFrag;
+//		Point center = new Point(((View)this).getWidth(), this.getHeight());
+//		int radius;
+//		roomFrag.getConferenceRoom().updateLocations(center, radius);
+//	}
+//	
+//	public Bitmap imageIdToBitmap(int imageID, int width, int height){
+//		Bitmap image = BitmapFactory.decodeResource(getResources(), imageID);
+//		Bitmap rescaled_image = Bitmap.createScaledBitmap(image, width, height, true);
+//		return rescaled_image;
+//	}
 
 	/**
 	 * To be invoked when chat space is switched 
