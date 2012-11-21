@@ -1,32 +1,31 @@
 package edu.cornell.opencomm.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 
-import edu.cornell.opencomm.network.NetworkService;
-
 import android.graphics.Point;
+import edu.cornell.opencomm.network.NetworkService;
 
 public class ConferenceRoom extends MultiUserChat{
 	
+	private Point center ;
 	
+	private double radius; 
 	/**
 	 * 
 	 */
-	HashMap<User, Point> userLocationMap = new HashMap<User, Point>();
 	
-	// The users who are in this Space, <JID, User>
-    private HashMap<String, User> allParticipants = new HashMap<String, User>();
-    
-    private HashMap<String, User> allNicks = new HashMap<String, User>();
+	private ArrayList<ConferenceUser> userList = new ArrayList<ConferenceUser>();
 	
-	String roomID;
-	User moderator;
+	private String roomID;
+	private User moderator;
 	
 	public ConferenceRoom(String roomName){
 		this(NetworkService.getInstance().getConnection(),roomName);
+		
 	}
 	private static String formatRoomName(String roomName){
 		//Kris: format the string as per the server expectation
@@ -34,12 +33,19 @@ public class ConferenceRoom extends MultiUserChat{
 	}
 	public ConferenceRoom(Connection c, String s) {
 		super(c, formatRoomName(s));
+		retriveOccupants();
 	}
-	
+	private void retriveOccupants(){
+		//Kris/BE: get the list of occupants from the super/muc and populate the participant maps
+	}
 	public String getRoomID(){
 		return roomID;
 	}
-	
+	public void setList(ArrayList<User> list){
+		for(User u : list){
+			this.userList.add((ConferenceUser) u);
+		}
+	}
 	public User getModerator(){
 		return moderator;
 	}
@@ -49,33 +55,29 @@ public class ConferenceRoom extends MultiUserChat{
 	}
 	
 	public void addUser(User user){
-		allParticipants.put(user.getUsername(), user);
-		allNicks.put(user.getNickname(), user);
-		userLocationMap.put(user, getUserLocation(user));
+		//Ankit
 	}
-	
-	/**
-     * @return allNicknames
-     */
-    public HashMap<String, User> getAllNicknames() {
-        return allNicks;
-    }
-	
-	/**
-     * @return - all participants in Space, maps JID to User
-     *  */
-    public HashMap<String, User> getAllParticipants() {
-        return allParticipants;
-    }
-	
-	//TODO: don't worry about these for Nov4 cycle
-	public void updateUserLocation(User u, Point location){
-		
+	public ArrayList<ConferenceUser> getCUserList(){
+		return userList;
 	}
-	
-	//TODO - used in updateForNewUser() method above to temporarily
-	//indicate method of finding the location to map with the new user in userLocationMap
-	public Point getUserLocation(User u){
-		return null;
+	public  void updateLocations(Point center,int radius){
+		int noOfusers = userList.size();
+		ArrayList<Point> pointList = getPoints(noOfusers, radius, center);
+		for(int i=0;i<pointList.size();i++){
+			userList.get(i).LOCATION = pointList.get(i);
+		}
+	}
+	private ArrayList<Point> getPoints(int users,double radius,Point center){
+		double slice = 2 * Math.PI / users;
+		ArrayList<Point> pointList  = new ArrayList<Point>();
+		for (int i = 0; i < users; i++)
+		{
+			double angle = slice * i;
+			int newX = (int)(center.x + radius * Math.cos(angle));
+			int newY = (int)(center.y + radius * Math.sin(angle));
+			Point p = new Point(newX, newY);
+			pointList.add(p);
+		}
+		return pointList;
 	}
 } 
