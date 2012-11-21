@@ -261,14 +261,6 @@ public class ConferenceController {
 		// 2.trans_priv
 	}
 
-	// TODO- need to store the current conference as a conference object
-	public void handleBackButtonClicked() {
-		Toast.makeText(this.context, "must go to conference card", Toast.LENGTH_SHORT).show(); 
-//		Intent click = new Intent(this.view, ConferenceCardView.class);
-//		// click.putExtra("com.cornell.opencomm.model.Conference", conference);
-//		this.view.startActivity(click);
-	}
-
 	public void handleOverflow() {
 		Toast.makeText(this.context, "Overflow Clicked", Toast.LENGTH_SHORT).show(); 
 	}

@@ -173,7 +173,6 @@ public final class ConferenceView extends FragmentActivity implements ViewPager.
 
 
 	public void backButtonClicked(View v){
-//		this.conferenceController.handleBackButtonClicked(); 
 		Intent i = new Intent(this, ConferenceCardView.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("conference", conference);
