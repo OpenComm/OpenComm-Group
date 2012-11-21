@@ -5,12 +5,13 @@ import java.util.HashMap;
 import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 
+import edu.cornell.opencomm.network.NetworkService;
+
 import android.graphics.Point;
 
 public class ConferenceRoom extends MultiUserChat{
 	
-	//Ask Risa and Kris
-	//How does MUC get list of occupants
+	
 	/**
 	 * 
 	 */
@@ -24,8 +25,15 @@ public class ConferenceRoom extends MultiUserChat{
 	String roomID;
 	User moderator;
 	
+	public ConferenceRoom(String roomName){
+		this(NetworkService.getInstance().getConnection(),roomName);
+	}
+	private static String formatRoomName(String roomName){
+		//Kris: format the string as per the server expectation
+		return roomName;
+	}
 	public ConferenceRoom(Connection c, String s) {
-		super(c, s);
+		super(c, formatRoomName(s));
 	}
 	
 	public String getRoomID(){
