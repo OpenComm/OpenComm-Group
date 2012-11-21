@@ -6,26 +6,21 @@ import java.util.List;
 import java.util.Vector;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewParent;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.ConferenceController;
 import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.model.ConferenceDataModel;
-import edu.cornell.opencomm.model.User;
 //TODO: Remove this
 @SuppressWarnings("unused")
 //TODO - Integrate this with Chat Space View/View Group
@@ -160,7 +155,13 @@ public final class ConferenceView extends FragmentActivity implements ViewPager.
 
 
 	public void backButtonClicked(View v){
-		this.conferenceController.handleBackButtonClicked(); 
+//		this.conferenceController.handleBackButtonClicked(); 
+		Intent i = new Intent(this, ConferenceCardView.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("conference", conference);
+        i.putExtras(bundle);
+		startActivity(i);
+		
 	}
 
 	//Context Bar methods
