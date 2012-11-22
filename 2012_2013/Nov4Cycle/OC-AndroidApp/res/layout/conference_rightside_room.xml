@@ -11,7 +11,7 @@
         android:layout_height="42.67dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:background="@color/dark_grey"
+        android:background="@color/grey_dark"
         android:orientation="horizontal"
         android:visibility="invisible" >
 
@@ -21,7 +21,7 @@
             android:layout_height="14dp"
             android:layout_marginLeft="10.67dp"
             android:layout_marginTop="14.67dp"
-            android:background="@color/dark_grey"
+            android:background="@color/grey_dark"
             android:contentDescription="@string/desc"
             android:onClick="backButtonClicked"
             android:scaleType="centerInside"
@@ -37,7 +37,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginRight="12dp"
             android:layout_marginTop="8dp"
-            android:background="@color/dark_grey"
+            android:background="@color/grey_dark"
             android:contentDescription="@string/desc"
             android:onClick="overflowButtonClicked"
             android:scaleType="centerInside"
@@ -50,7 +50,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="200dp"
             android:layout_marginRight="12dp"
-            android:background="@color/dark_grey"
+            android:background="@color/grey_dark"
             android:contentDescription="@string/desc"
             android:onClick="addPersonClicked"
             android:scaleType="centerInside"
@@ -87,7 +87,7 @@
         android:layout_height="42.67dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:background="@color/dark_grey"
+        android:background="@color/grey_dark"
         android:orientation="horizontal"
         android:visibility="invisible" >
 
@@ -121,7 +121,7 @@
         android:layout_height="42.67dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:background="@color/dark_grey"
+        android:background="@color/grey_dark"
         android:orientation="horizontal"
         android:visibility="invisible" >
 
@@ -181,7 +181,7 @@
         android:layout_height="42.67dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:background="@color/dark_grey"
+        android:background="@color/grey_dark"
         android:orientation="horizontal"
         android:visibility="invisible" >
 
@@ -241,7 +241,7 @@
         android:layout_height="42.67dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:background="@color/dark_grey"
+        android:background="@color/grey_dark"
         android:orientation="horizontal"
         android:visibility="invisible" >
 

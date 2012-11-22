@@ -10,7 +10,7 @@
         android:layout_height="42.67dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:background="@color/dark_grey"
+        android:background="@color/grey_dark"
         android:orientation="horizontal" >
 
         <ImageView
@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="46.67dp"
             android:background="@color/white" >
-
+
             <EditText
                 android:id="@+id/search_contact_bar"
                 android:layout_width="wrap_content"
@@ -90,7 +90,7 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/action_search" />
         </RelativeLayout>
-
+
         <ListView
             android:id="@+id/contact_search_list"
             android:layout_width="wrap_content"
@@ -105,7 +105,6 @@
             android:dividerHeight="2dp"
             android:smoothScrollbar="true"
             android:visibility="invisible" >
-
         </ListView>
     </RelativeLayout>
 

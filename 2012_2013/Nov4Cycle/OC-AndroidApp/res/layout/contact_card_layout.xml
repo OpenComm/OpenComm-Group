@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="42.67dp"
-        android:background="@color/dark_grey" >
+        android:background="@color/grey_dark" >
 
         <ImageView
             android:id="@+id/contact_card_back_button"

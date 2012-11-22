@@ -8,7 +8,7 @@
         android:layout_width="fill_parent"
         android:layout_height="42.67dp"
         android:orientation="horizontal"
-        android:background="@color/dark_grey">
+        android:background="@color/grey_dark">
         <ImageButton android:id="@+id/notifications_back_button"
             android:layout_width="10.67dp"
             android:layout_height="14dp"
@@ -18,7 +18,7 @@
             android:contentDescription="@string/desc"
             android:tint="@color/white"
             android:scaleType="centerInside"
-            android:background="@color/dark_grey"
+            android:background="@color/grey_dark"
             android:onClick="backButtonClicked"/>
         <TextView
             android:layout_width="226dp"
@@ -37,7 +37,7 @@
             android:src="@drawable/action_overflow"
             android:contentDescription="@string/desc"
             android:scaleType="centerInside"
-            android:background="@color/dark_grey"
+            android:background="@color/grey_dark"
             android:onClick="overflowButtonClicked"/>
     </LinearLayout>
     <LinearLayout

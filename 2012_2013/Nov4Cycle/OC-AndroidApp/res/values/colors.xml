@@ -4,7 +4,7 @@
 	<color name="white">#FFFFFF</color>
     <color name="white_overlay">#902e2e2e</color>
     <color name="off_white">#F5F5F5</color>
-    <color name="dark_grey">#333333</color>
+    <color name="grey_dark">#333333</color>
     <color name="dark_grey_translucent">#E6333333</color>
     <color name="light_grey">#878787</color>
      <color name="grey_conference_card_attendee_separator_bar">#212121</color>
