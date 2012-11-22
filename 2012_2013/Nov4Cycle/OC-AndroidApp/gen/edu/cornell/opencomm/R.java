@@ -21,13 +21,13 @@ public final class R {
         public static final int blue=0x7f05000d;
         public static final int blue_contacts_page_title=0x7f050010;
         public static final int blue_light=0x7f05000e;
-        public static final int dark_grey=0x7f050004;
         public static final int dark_grey_translucent=0x7f050005;
         public static final int darker_grey=0x7f050017;
         public static final int green=0x7f050009;
         public static final int green_light=0x7f05000a;
         public static final int grey_conference_card_attendee_separator_bar=0x7f050007;
         public static final int grey_conference_card_title_bar_text=0x7f050008;
+        public static final int grey_dark=0x7f050004;
         public static final int grey_half_opacity=0x7f050015;
         public static final int light_grey=0x7f050006;
         public static final int off_white=0x7f050003;
