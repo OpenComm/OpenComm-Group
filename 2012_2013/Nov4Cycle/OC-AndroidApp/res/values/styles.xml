@@ -5,8 +5,8 @@
 		<item name="android:colorBackground">@color/off_white</item>
 	</style>
 	<style name="Theme.grey_dark" parent="android:Theme.NoTitleBar">
-		<item name="android:windowBackground">@color/dark_grey</item>
-		<item name="android:colorBackground">@color/dark_grey</item>
+		<item name="android:windowBackground">@color/grey_dark</item>
+		<item name="android:colorBackground">@color/grey_dark</item>
 	</style>
 	<style name="Theme.grey_dark_dashboard" parent="android:Theme.NoTitleBar">
 		<item name="android:windowBackground">@color/background_dashboard</item>

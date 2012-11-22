@@ -19,17 +19,19 @@
             android:id="@+id/textLabelEmail"
             android:layout_width="226.67dp"
             android:layout_height="52.33dp"
-            android:layout_marginLeft="46.67dp"
+            android:layout_marginLeft="45.67dp"
             android:layout_marginTop="18dp"
             android:text="@string/email"
+            android:includeFontPadding="false"
             android:textColor="@color/orange"
             android:textSize="38sp" />
 
         <EditText
             android:id="@+id/editTextEmail"
-            android:layout_width="226.67dp"
+            android:layout_width="fill_parent"
             android:layout_height="36dp"
-            android:layout_marginLeft="46.67dp"
+            android:layout_marginLeft="46.66dp"
+            android:layout_marginRight="41.33dp"
             android:layout_marginTop="6dp"
             android:padding="7.5dp"
             android:background="@drawable/selector_bg_edittext"
