@@ -32,7 +32,7 @@ public class SplashView extends Activity {
 	/**
 	 * The delay for splash screen in milliseconds
 	 */
-	private static final int SPLASH_SCREEN_DELAY = 3000;
+	private static final int SPLASH_SCREEN_DELAY = 10000;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

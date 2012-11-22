@@ -1,30 +1,35 @@
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/splash_view_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <ImageView
-        android:id="@+id/loadingLogo"
-        android:layout_width="269dp"
-        android:layout_height="194dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginLeft="30dp"
-        android:scaleType="fitXY"
-        android:contentDescription="@string/todo_need_to_write_a_content_desc"
-        android:src="@drawable/loading" />
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="62dp"
+        android:layout_centerInParent="true" >
 
- 	<TextView
- 	    android:id="@+id/loadingText"
- 	    android:layout_width="wrap_content"
- 	    android:layout_height="wrap_content"
- 	    android:layout_below="@+id/loadingLogo"
- 	    android:layout_centerHorizontal="true"
- 	    android:layout_marginTop="18dp"
- 	    android:padding="0dp"
- 	    android:text="@string/loading_extended"
- 	    android:textColor="@color/off_white"
- 	    android:textSize="26dp" />
+        <ImageView
+            android:id="@+id/splash_logo"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:paddingRight="9.33dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/desc"
+            android:scaleType="centerInside"
+            android:src="@drawable/logo_loading" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/splash_logo"
+            android:layout_marginTop="22dp"
+            android:layout_marginLeft="-6.67dp"
+            android:includeFontPadding="false"
+            android:text="@string/loading_extended"
+            android:layout_centerHorizontal="true"
+            android:textSize="26.67dp" />
+    </RelativeLayout>
 
 </RelativeLayout>
