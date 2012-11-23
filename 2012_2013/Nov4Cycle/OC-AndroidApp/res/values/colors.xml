@@ -20,7 +20,7 @@
     <color name="teal">#9DF6FF</color>
     <color name="blue_contacts_page_title">#9ac1e6</color>
     <color name="black">#000000</color>
-    <color name="black_translucent">#e6000000</color>
+    <color name="black_opacity_ninety">#e6000000</color>
 	<color name="black_light">#1d1d20</color>
 	<color name="black_half_opacity">#70000000</color>
 	<color name="grey_half_opacity">#d0333333</color>
