@@ -6,14 +6,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.util.Util;
 import edu.cornell.opencomm.view.LoginView;
 import edu.cornell.opencomm.view.ResetPasswordView;
-import edu.cornell.opencomm.view.SignupView;
 
 /**
  * Controller for reset password screen. Functionality:
@@ -37,15 +35,17 @@ public class ResetPasswordController {
 	 * Debugging variable: if true, all logs are logged; set to false before
 	 * packaging
 	 */
+	@SuppressWarnings("unused")
 	private static final boolean D = true;
 
 	/**
 	 * The TAG for logging
 	 */
+	@SuppressWarnings("unused")
 	private static final String TAG = ResetPasswordController.class
 			.getSimpleName();
 
-	// for loginView
+	// tag for the InputExtra to send to LoginView to indicate whether the password has been reset
 	public static final String PWDRESET = "PasswordReset";
 
 	// enum for email address check
@@ -60,15 +60,6 @@ public class ResetPasswordController {
 	// Constructor - initialize required fields
 	public ResetPasswordController(Context context, ResetPasswordView view) {
 		this.resetPasswordView = view;
-	}
-
-	// Handle sign up button
-	public void signUpPressed() {
-		if (D)
-			Log.d(TAG, "Sign up pressed");
-		this.resetPasswordView.getSignupOverlay().setVisibility(View.VISIBLE);
-		Intent click = new Intent(this.resetPasswordView, SignupView.class);
-		this.resetPasswordView.startActivity(click);
 	}
 
 	// Handle the reset password button

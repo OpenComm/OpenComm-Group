@@ -22,7 +22,7 @@ import edu.cornell.opencomm.controller.ResetPasswordController;
  * Issues [TODO]
  * - For any other issues search for string "TODO"
  *
- * @author Spandana Govindgari[frontend]
+ * @author Spandana Govindgari[frontend], Risa Naka [frontend]
  * */
 public class ResetPasswordView extends Activity {
 	/** 
@@ -37,44 +37,28 @@ public class ResetPasswordView extends Activity {
 	private static final String TAG = ResetPasswordView.class.getSimpleName();
 	private ResetPasswordController controller; 
 	private EditText emailEntered;
-	private ImageView signupOverlay;
 	private ImageView resetPwdOverlay;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.reset_password_layout);
-		this.emailEntered = (EditText) findViewById(R.id.emailTextBox);
-		this.resetPwdOverlay = (ImageView) findViewById(R.id.resetPasswordOverlay);
-		this.signupOverlay = (ImageView) findViewById(R.id.resetPwd_SignupOverlay);
+		this.emailEntered = (EditText) findViewById(R.id.resetpwd_emailInput);
+		this.resetPwdOverlay = (ImageView) findViewById(R.id.resetpwd_resetPwdOverlay);
 		FontSetter.applySanSerifFont(ResetPasswordView.this, findViewById(R.id.reset_password_layout)); 		
 		controller = new ResetPasswordController(ResetPasswordView.this, this); 
 	}
-
-	/** 
-	 * When sign up button is pressed, launch signup page 
-	 * */
-	public void signup(View v){
-		this.controller.signUpPressed();
-	}
 	
 	/**
-	 * = this view's signup overlay
-	 */
-	public ImageView getSignupOverlay() {
-		return this.signupOverlay;
-	}
-	
-	/**
-	 * = this view's signup overlay
+	 * = this view's reset password overlay
 	 */
 	public ImageView getResetPwdOverlay() {
 		return this.resetPwdOverlay;
 	}
 
 	/** 
-	 * When reset password has been clicked - shows a popup for unregistered/
-	 * invalid emails 
+	 * When reset password has been clicked - shows a toast for unregistered/
+	 * invalid emails; otherwise sends dummy password to user
 	 * */
 	public void resetPassword(View v){
 		if (D) Log.d(TAG, "Reset Clicked");
@@ -84,7 +68,6 @@ public class ResetPasswordView extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		this.signupOverlay.setVisibility(View.INVISIBLE);
 		this.resetPwdOverlay.setVisibility(View.INVISIBLE);
 		this.emailEntered.setText("");
 	}
