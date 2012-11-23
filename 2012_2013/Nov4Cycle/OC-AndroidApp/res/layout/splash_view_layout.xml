@@ -30,7 +30,8 @@
             android:includeFontPadding="false"
             android:text="@string/loading_extended"
             android:layout_centerHorizontal="true"
-            android:textSize="26.67dp" />
+            android:textSize="26.67dp"
+            android:textColor="@color/white_off" />
     </RelativeLayout>
 
 </RelativeLayout>

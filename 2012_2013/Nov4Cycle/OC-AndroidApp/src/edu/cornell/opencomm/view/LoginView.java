@@ -54,10 +54,10 @@ public class LoginView extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_layout);
         FontSetter.applySanSerifFont(this, findViewById(R.id.login_layout));
-        emailEdit = (EditText) findViewById(R.id.editTextEmail);
-		passwordEdit = (EditText) findViewById(R.id.editTextPassword);
-		loginOverlay = (ImageView) findViewById(R.id.loginOverlay);
-		signupOverlay = (ImageView) findViewById(R.id.signupOverlay);
+        emailEdit = (EditText) findViewById(R.id.login_emailInput);
+		passwordEdit = (EditText) findViewById(R.id.login_pwdInput);
+		loginOverlay = (ImageView) findViewById(R.id.login_loginOverlay);
+		signupOverlay = (ImageView) findViewById(R.id.login_signupOverlay);
 		loginController = new LoginController(this);
     }
     

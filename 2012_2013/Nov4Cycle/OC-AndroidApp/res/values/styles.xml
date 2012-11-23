@@ -1,8 +1,8 @@
 <resources>
 
    	<style name="Theme.offwhite" parent="android:Theme.NoTitleBar">
-		<item name="android:windowBackground">@color/off_white</item>
-		<item name="android:colorBackground">@color/off_white</item>
+		<item name="android:windowBackground">@color/white_off</item>
+		<item name="android:colorBackground">@color/white_off</item>
 	</style>
 	<style name="Theme.grey_dark" parent="android:Theme.NoTitleBar">
 		<item name="android:windowBackground">@color/grey_dark</item>
