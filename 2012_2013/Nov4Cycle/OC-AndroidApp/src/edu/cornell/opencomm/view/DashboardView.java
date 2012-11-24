@@ -45,7 +45,7 @@ public class DashboardView extends Activity {
 	private DashboardController controller;
 
 	/** Overflow variables */
-	private String[] options = { "logout" };
+	private String[] options;
 	private ListView overflowList;
 
 	@Override
@@ -54,6 +54,7 @@ public class DashboardView extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dashboard_layout);
 		FontSetter.applySanSerifFont(this, findViewById(R.id.dashboard_layout));
+		this.options = this.getResources().getStringArray(R.array.overflow_dashboard);
 		this.controller = new DashboardController(this, DashboardView.this);
 		this.initializeOverflow();
 	}
@@ -61,6 +62,7 @@ public class DashboardView extends Activity {
 	/** Initializes the content of overflow. When an item is clicked, user feedback is generated 
 	 * and an appropriate action is launched */
 	private void initializeOverflow() {
+		
 		OverflowAdapter oAdapter = new OverflowAdapter(this,
 				R.layout.overflow_item_layout, this.options);
 		overflowList = (ListView) this

@@ -97,5 +97,8 @@
     <string name="password_sample">********</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_main">MainActivity</string>
+    <string-array name="overflow_dashboard">
+        <item >logout</item>
+    </string-array>
 
 </resources>
