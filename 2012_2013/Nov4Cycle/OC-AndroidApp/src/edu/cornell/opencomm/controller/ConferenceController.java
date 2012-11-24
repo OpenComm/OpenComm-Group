@@ -49,6 +49,15 @@ public class ConferenceController {
 		this._conference = conf;
 		invitedUsersToConference = new HashMap<User, String>();
 	}
+	
+	public void init(boolean isMod) {
+		if(isMod){
+			this._conference.initialize(true);
+		}
+		else{
+			this._conference.initialize(false);
+		}
+	}
 
 	public void inviteUser(User u, String sChat) {
 		User primaryUser = UserManager.PRIMARY_USER;
@@ -140,20 +149,23 @@ public class ConferenceController {
 											// transfer privileges and then
 											// leave
 						ConferenceRoom spacechat1 = conferencemap.get(keys[i]);
+						String name = spacechat1.getRoomID();
 						transferPrivileges(currentUser, newmoderator,
-								spacechat1);
+								name);
 						spacechat1.leave();
 						_conference.setIsmain(true); // not sure if this is
 														// needed, please check
 					}
-					transferPrivileges(newmoderator, currentUser, spacechat); // finally
+					String name = spacechat.getRoomID();
+					transferPrivileges(newmoderator, currentUser, name); // finally
 																				// leave
 																				// the
 																				// mainchat
 					spacechat.leave();
 				}
 			} else { // if this is a side chat than only for that
-				transferPrivileges(newmoderator, currentUser, spacechat);
+				String name = spacechat.getRoomID();
+				transferPrivileges(newmoderator, currentUser, name);
 				spacechat.leave();
 			}
 		}
@@ -195,17 +207,17 @@ public class ConferenceController {
 	/**
 	 * 
 	 * @param u1
-	 *            new moderator
-	 * @param u2
 	 *            current moderator leaving the chat
+	 * @param u2
+	 *            new moderator
 	 * @param room
 	 *            ChatSpaceModel in which the privilege has to be transferred
 	 * @throws XMPPException
 	 */
-	public void transferPrivileges(User u1, User u2, ConferenceRoom room)
+	public void transferPrivileges(User u1, User u2, String chat)
 			throws XMPPException {
-		room.grantModerator(u1.getNickname());
-		room.revokeModerator(u2.getNickname());
+		ConferenceRoom room = this._conference.getIDMap().get(chat);
+		room.updateMod(u1, u2);
 	}
 
 	public void kickoutUser(String chat, User userToBeKicked, User currUser) {
