@@ -12,7 +12,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="41.33dp"
-        android:background="@color/grey_dark"
+        android:background="@color/grey_twenty"
         android:paddingLeft="46.66dp" >
 
         <View
@@ -84,7 +84,7 @@
         android:layout_height="55.66dp"
         android:layout_below="@id/login_inputWrapper"
         android:layout_marginTop="22.66dp"
-        android:background="@color/grey_dark"
+        android:background="@color/grey_twenty"
         android:onClick="signup" >
 
         <ImageView
@@ -121,7 +121,7 @@
             android:layout_width="92dp"
             android:layout_height="fill_parent"
             android:adjustViewBounds="true"
-            android:background="@color/grey_dark"
+            android:background="@color/grey_twenty"
             android:contentDescription="@string/desc"
             android:scaleType="centerInside"
             android:src="@drawable/navigation_goto" />
