@@ -48,13 +48,17 @@
             android:onClick="notification"
             android:src="@drawable/action_notification" />
     </RelativeLayout>
-
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/dashboard_actionbar">
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/dashboard_actionbar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="75.33dp" >
+        android:layout_centerInParent="true"
+        android:layout_marginTop="75.33dp"
+        android:layout_marginBottom="150dp" >
 
         <TableRow
             android:layout_width="fill_parent"
@@ -146,5 +150,7 @@
             </RelativeLayout>
         </TableRow>
     </TableLayout>
+    </RelativeLayout>
+    
 
 </RelativeLayout>
