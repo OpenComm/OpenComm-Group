@@ -5,6 +5,7 @@
 	<color name="white_off">#F5F5F5</color>
     <color name="white_overlay">#902e2e2e</color>
     <color name="off_white">#F5F5F5</color>
+    <color name="white_off_text">#F3F3F3</color>
     <color name="grey_twenty">#333333</color>
     <color name="grey_dark_opacity_ninety">#E6333333</color>
     <color name="grey_light">#878787</color>
