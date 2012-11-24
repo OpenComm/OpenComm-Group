@@ -133,6 +133,8 @@ public class NetworkService {
 
 	public boolean logout() {
 		this.xmppConn.disconnect();
+		// reconnect to the server
+		_instance = new NetworkService(DEFAULT_HOST, DEFAULT_PORT);
 		return true;
 	}
 	
