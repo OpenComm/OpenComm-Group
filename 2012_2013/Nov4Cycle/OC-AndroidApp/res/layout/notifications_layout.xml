@@ -58,7 +58,7 @@
         android:paddingRight="10.66dp"
         android:listSelector="@drawable/selector_bg_list"
         android:divider="@color/grey_twentyone"
-        android:dividerHeight="0.33dp" />
+        android:dividerHeight="0.66dp" />
 
     <ListView
         android:id="@+id/notifications_overflowList"
@@ -70,8 +70,8 @@
         android:background="@color/black"
         android:listSelector="@drawable/selector_bg_list"
         android:divider="@color/black"
-        android:dividerHeight="0.33dp"
-        android:padding="0.33dp"
+        android:dividerHeight="0.66dp"
+        android:padding="0.66dp"
         android:visibility="invisible" />
 
 </RelativeLayout>

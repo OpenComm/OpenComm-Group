@@ -153,11 +153,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@id/dashboard_actionbar"
-        android:padding="0.33dp"
+        android:padding="0.66dp"
         android:layout_marginRight="10.66dp"
         android:background="@color/black"
         android:divider="@color/black"
-        android:dividerHeight="0.33dp"
+        android:dividerHeight="0.66dp"
         android:visibility="invisible" />
 
 </RelativeLayout>
