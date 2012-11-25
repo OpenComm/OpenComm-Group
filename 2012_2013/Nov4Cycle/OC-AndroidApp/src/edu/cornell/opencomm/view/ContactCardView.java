@@ -25,6 +25,8 @@ public class ContactCardView extends Activity{
 	private static TextView conference2;
 	private static TextView conference3;
 	
+	public final static String contactCardKey = "ContactCardKey";
+	
 	private ContactCardController controller;
 	
 	@Override
@@ -40,10 +42,10 @@ public class ContactCardView extends Activity{
 		conference2 = (TextView) findViewById(R.id.contact_card_conference2);
 		conference3 = (TextView) findViewById(R.id.contact_card_conference3);
 		controller = new ContactCardController(this);
-		String nameStr = this.getIntent().getStringExtra("Contact");
+		String nameStr = this.getIntent().getStringExtra(ContactCardView.contactCardKey);
 		Log.d("ContactCardView", nameStr);
 		for (User u : UserManager.getContactList()) {
-			if (u.getNickname().equals(nameStr)) {
+			if (u.getUsername().equals(nameStr)) {
 				// TODO extract user info
 				name.setText(u.getNickname());
 				email.setText(u.getUsername());

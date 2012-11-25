@@ -17,7 +17,7 @@ import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
 
 import edu.cornell.opencomm.view.ContactCardView;
-import edu.cornell.opencomm.view.ContactsView;
+import edu.cornell.opencomm.view.ContactListView;
 
 public class ContactCardController {
 
@@ -35,7 +35,7 @@ public class ContactCardController {
 	}
 
 	public void handleBackButtonClicked() {
-		Intent intent = new Intent(this.view, ContactsView.class);
+		Intent intent = new Intent(this.view, ContactListView.class);
 		this.view.startActivity(intent);
 	}
 

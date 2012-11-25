@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.view.ContactsView;
+import edu.cornell.opencomm.view.ContactListView;
 import edu.cornell.opencomm.view.MyAccountView;
 import edu.cornell.opencomm.view.NotificationsView;
 
@@ -82,7 +82,7 @@ public class NotificationsController {
 		// if the user selects contact
 		else if (option.equals("contacts")) {
 			// launch contacts page
-			Intent i = new Intent(this.notificationsView, ContactsView.class);
+			Intent i = new Intent(this.notificationsView, ContactListView.class);
 			this.notificationsView.startActivity(i);
 		}
 	}

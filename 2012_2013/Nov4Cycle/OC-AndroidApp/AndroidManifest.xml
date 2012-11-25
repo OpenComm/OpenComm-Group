@@ -49,17 +49,22 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".view.ContactsView"
+            android:name=".view.ContactListView"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_nineteen" >
+            android:theme="@style/Theme.grey_eleven" >
         </activity>
         <activity
             android:name=".view.ContactCardView"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_nineteen" >
+            android:theme="@style/Theme.grey_eleven" >
         </activity>
         <activity
-            android:name=".view.ContactsSearchView"
+            android:name=".view.ContactAddView"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.grey_eleven" >
+        </activity>
+        <activity
+            android:name=".view.ContactSearchView"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.grey_nineteen" >
         </activity>

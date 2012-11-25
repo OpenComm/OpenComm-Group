@@ -14,15 +14,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- * ArrayAdapter for Notifications List:<br>
- * Given a list of notifications, it populates the list in the order given.
+ * ArrayAdapter for Contact List:<br>
+ * Given an array of contacts(User), it populates the list in the order given.
  * Each list item contains an ImageView and a TextView.
  * 
- * Issues [TODO] - For any other issues search for string "TODO"
+ * Issues [TODO] 
+ * - [frontend] change image to the person's profile photo
+ * - For any other issues search for string "TODO"
  * 
  * @author Risa Naka [frontend]
  * */
-public class NotificationsAdapter extends ArrayAdapter<Notification> {
+public class ContactListAdapter extends ArrayAdapter<User> {
 	/**
 	 * Debugging variable: if true, all logs are logged; set to false before
 	 * packaging
@@ -34,19 +36,23 @@ public class NotificationsAdapter extends ArrayAdapter<Notification> {
 	 * The TAG for logging
 	 */
 	@SuppressWarnings("unused")
-	private static final String TAG = NotificationsAdapter.class.getSimpleName();
+	private static final String TAG = ContactListAdapter.class.getSimpleName();
 	
-	private ArrayList<Notification> notifications;
+	private ArrayList<User> contacts;
 	private Context context;
 	private LayoutInflater inflater;
 
-	public NotificationsAdapter(Context context, 
-			int textViewResourceId, ArrayList<Notification> notes) {
-		super(context, R.layout.notifications_item_layout, notes);
+	public ContactListAdapter(Context context, 
+			int textViewResourceId, ArrayList<User> contacts) {
+		super(context, R.layout.contactlist_item_layout, contacts);
 		this.context = context;
-		this.notifications = notes;
+		this.contacts = contacts;
 		this.inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	}
+	
+	public User getItem(int position) {
+		return this.contacts.get(position);
 	}
 
 	/** 
@@ -55,17 +61,13 @@ public class NotificationsAdapter extends ArrayAdapter<Notification> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View vi = convertView;
 		if (convertView == null)
-			vi = inflater.inflate(R.layout.notifications_item_layout, null);
-		TextView note = (TextView) vi.findViewById(R.id.notifications_itemtext);
-		ImageView bullet = (ImageView) vi.findViewById(R.id.notifications_bullet);
-		Notification notification = this.notifications.get(position);
-		note.setText(notification.getMessage());
-		// set bullet visible depending on whether the note has been read
-		if (notification.isRead()) bullet.setVisibility(View.INVISIBLE);
-		else {
-			bullet.setVisibility(View.VISIBLE);
-		}
-		FontSetter.applySanSerifFont(this.context, note);
+			vi = inflater.inflate(R.layout.contactlist_item_layout, null);
+		TextView name = (TextView) vi.findViewById(R.id.contactlist_itemtext);
+		ImageView image = (ImageView) vi.findViewById(R.id.contactlist_itemimage);
+		User contact = this.contacts.get(position);
+		name.setText(contact.getNickname());
+		// TODO [frontend] change image to the person's profile photo
+		FontSetter.applySanSerifFont(this.context, name);
 		return vi;
 	}
 }

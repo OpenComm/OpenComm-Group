@@ -8,7 +8,7 @@ import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ConferenceSchedulerView;
-import edu.cornell.opencomm.view.ContactsView;
+import edu.cornell.opencomm.view.ContactListView;
 import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.LoginView;
 import edu.cornell.opencomm.view.MyAccountView;
@@ -82,7 +82,7 @@ public class DashboardController {
 	 * Launches Contact List
 	 */
 	public void handleContactsButtonClicked() {
-    	Intent i = new Intent(this.dashboardView,ContactsView.class);
+    	Intent i = new Intent(this.dashboardView,ContactListView.class);
     	this.dashboardView.startActivity(i);
 	}
 

@@ -8,7 +8,7 @@ import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ConferenceSchedulerView;
-import edu.cornell.opencomm.view.ContactsView;
+import edu.cornell.opencomm.view.ContactListView;
 import edu.cornell.opencomm.view.LoginView;
 import edu.cornell.opencomm.view.MyAccountView;
 
@@ -66,7 +66,7 @@ public class MyAccountController {
 		// if the user selects contact
 		else if (option.equals("contacts")) {
 			// launch contacts page
-			Intent i = new Intent(this.myAccountView, ContactsView.class);
+			Intent i = new Intent(this.myAccountView, ContactListView.class);
 			this.myAccountView.startActivity(i);
 		}		
 	}
