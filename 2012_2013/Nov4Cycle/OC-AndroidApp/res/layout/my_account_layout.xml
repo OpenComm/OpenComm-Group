@@ -1,135 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/my_account_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    
-    <LinearLayout 
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/my_account_actionbar"
         android:layout_width="fill_parent"
-        android:layout_height="42.67dp"
-        android:orientation="horizontal"
-        android:background="@color/grey_dark">
-        <ImageButton android:id="@+id/my_account_back_button"
-            android:layout_width="10.67dp"
-            android:layout_height="14dp"
-            android:layout_marginTop="14.67dp"
-            android:layout_marginLeft="10.67dp"
-            android:src="@drawable/action_arrow"
-            android:contentDescription="@string/desc"
-            android:tint="@color/white"
-            android:scaleType="centerInside"
-            android:background="@color/grey_dark"
-            android:onClick="backButtonClicked"/>
-        <TextView android:id="@+id/my_account_name_title"
-            android:layout_width="226dp"
+        android:layout_height="42.66dp"
+        android:background="@color/grey_twenty" >
+
+        <ImageView
+            android:id="@+id/my_account_backIcon"
+            android:layout_width="8.5dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8.33dp"
-            android:layout_marginLeft="6.33dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10.66dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/desc"
+            android:onClick="back"
+            android:src="@drawable/action_back" />
+
+        <TextView
+            android:id="@+id/my_account_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="14dp"
+            android:layout_marginLeft="24dp"
             android:text="@string/my_account"
-            android:textColor="@color/blue"
-            android:textSize="20dp"/>
-        <ImageButton android:id="@+id/my_account_edit"
+            android:textColor="@color/blue_title"
+            android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/my_account_overflowIcon"
+            android:layout_width="5.33dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="24dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/desc"
+            android:onClick="overflow"
+            android:src="@drawable/action_overflow" />
+
+        <ImageView
+            android:id="@+id/my_account_editIcon"
             android:layout_width="21.33dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10.67dp"
-            android:padding="0dp"
-            android:scaleType="fitXY"
-            android:adjustViewBounds = "true"
-            android:src="@drawable/action_edit"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:layout_toLeftOf="@id/my_account_overflowIcon"
+            android:adjustViewBounds="true"
             android:contentDescription="@string/desc"
-            android:background="@color/grey_dark"
-            android:onClick="editButtonClicked"/>
-        <ImageButton android:id="@+id/my_account_overflow"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp"
-            android:layout_marginLeft="3.67dp"
-            android:src="@drawable/action_overflow"
-            android:contentDescription="@string/desc"
-            android:scaleType="centerInside"
-            android:background="@color/grey_dark"
-            android:onClick="overflowButtonClicked"/>
-    </LinearLayout>
+            android:onClick="edit"
+            android:src="@drawable/action_edit" />
+    </RelativeLayout>
     
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:background="@color/black">
-        <ImageView android:id="@+id/my_account_picture"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:layout_marginLeft="80dp"
-            android:layout_marginTop="34dp"
-            android:src="@drawable/contact_default_image"
-            android:contentDescription="@string/desc"
-            android:scaleType="centerInside"
-            android:background="@color/black"/>
-        <TextView android:id="@+id/my_account_name_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="44dp"
-            android:layout_marginTop="10.67dp"
-            android:text="@string/name"
-            android:textSize="18dp"
-            android:textColor="@color/light_grey"/>
-        <TextView android:id="@+id/my_account_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="44dp"
-            android:layout_marginTop="1.5dp"
-            android:text="@string/name_sample"
-            android:textSize="18dp"
-            android:textColor="@color/white"/>
-        <TextView android:id="@+id/my_account_title_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="44dp"
-            android:layout_marginTop="1.5dp"
-            android:text="@string/title"
-            android:textSize="18dp"
-            android:textColor="@color/light_grey"/>
-        <TextView android:id="@+id/my_account_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="44dp"
-            android:layout_marginTop="1.5dp"
-            android:text="@string/title_sample"
-            android:textSize="18dp"
-            android:textColor="@color/white"/>
-        <TextView android:id="@+id/my_account_email_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="44dp"
-            android:layout_marginTop="1.5dp"
-            android:text="@string/email"
-            android:textSize="18dp"
-            android:textColor="@color/light_grey"/>
-        <TextView android:id="@+id/my_account_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="44dp"
-            android:layout_marginTop="1.5dp"
-            android:text="@string/email_sample"
-            android:textSize="18dp"
-            android:textColor="@color/white"/>
-        <TextView android:id="@+id/my_account_password_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="44dp"
-            android:layout_marginTop="1.5dp"
-            android:text="@string/password"
-            android:textSize="18dp"
-            android:textColor="@color/light_grey"/>
-        <TextView android:id="@+id/my_account_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="44dp"
-            android:layout_marginTop="1.5dp"
-            android:text="@string/password_sample"
-            android:textSize="18dp"
-            android:textColor="@color/white"/>
+        android:layout_below="@id/my_account_actionbar"
+        android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/my_account_photo"
+        android:layout_width="161.33dp"
+        android:layout_height="161.33dp"
+        android:layout_marginTop="32dp"
+        android:layout_gravity="center_horizontal"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/desc"
+        android:scaleType="fitXY"
+        android:src="@drawable/contact_default_image" />
+
+    <TextView
+        android:id="@+id/my_account_name_label"
+        android:layout_width="232dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8.41dp"
+        android:text="@string/name"
+        android:textColor="@color/grey_fiftythree"
+        android:textSize="18.66sp" />
+
+    <TextView
+        android:id="@+id/my_account_name_content"
+        android:layout_width="232dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1.5dp"
+        android:text="@string/name_sample"
+        android:textColor="@color/white_ninetysix"
+        android:textSize="18.66sp" />
+
+    <TextView
+        android:id="@+id/my_account_title_label"
+        android:layout_width="232dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3.5dp"
+        android:text="@string/title"
+        android:textColor="@color/grey_fiftythree"
+        android:textSize="18.66sp" />
+
+    <TextView
+        android:id="@+id/my_account_title_content"
+       android:layout_width="232dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1.5dp"
+        android:text="@string/title_sample"
+        android:textColor="@color/white_ninetysix"
+        android:textSize="18.66sp" />
+
+    <TextView
+        android:id="@+id/my_account_email_label"
+       android:layout_width="232dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3.5dp"
+        android:text="@string/email"
+        android:textColor="@color/grey_fiftythree"
+        android:textSize="18.66sp" />
+
+    <TextView
+        android:id="@+id/my_account_email_content"
+        android:layout_width="232dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1.5dp"
+        android:text="@string/email_sample"
+        android:textColor="@color/white_ninetysix"
+        android:textSize="18.66sp" />
+
+    <TextView
+        android:id="@+id/my_account_password_label"
+      android:layout_width="232dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3.5dp"
+        android:text="@string/password"
+        android:textColor="@color/grey_fiftythree"
+        android:textSize="18.66sp" />
+
+    <TextView
+        android:id="@+id/my_account_password_content"
+        android:layout_width="232dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1.5dp"
+        android:text="@string/password_sample"
+        android:textColor="@color/white_ninetysix"
+        android:textSize="18.66sp" />
     </LinearLayout>
-</LinearLayout>
+    <ListView
+        android:id="@+id/my_account_overflowList"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/my_account_actionbar"
+        android:layout_marginRight="10.66dp"
+        android:background="@color/black"
+        android:listSelector="@drawable/selector_bg_list"
+        android:divider="@color/black"
+        android:dividerHeight="0.33dp"
+        android:padding="0.33dp"
+        android:visibility="invisible" />
+
+</RelativeLayout>

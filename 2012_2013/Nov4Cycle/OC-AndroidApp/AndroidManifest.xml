@@ -38,7 +38,7 @@
         <activity
             android:name=".view.NotificationsView"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_dark" >
+            android:theme="@style/Theme.grey_seven" >
         </activity>
         <activity
             android:name=".view.ResetPasswordView"
@@ -76,13 +76,12 @@
         <activity
             android:name=".view.MyAccountView"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_dark" >
+            android:theme="@style/Theme.grey_seven" >
         </activity>
         <activity android:name=".view.ConferenceView" >
         </activity>
         <activity
-            android:name=".view.ChatSpaceViewActivity"
-            android:label="@string/title_activity_main" >
+            android:name=".view.ChatSpaceViewActivity" >
         </activity>
     </application>
 

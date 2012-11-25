@@ -2,13 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/notifications_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/grey_seven" >
+    android:layout_height="match_parent" >
 
     <RelativeLayout
         android:id="@+id/notifications_actionbar"
         android:layout_width="fill_parent"
-        android:layout_height="42.67dp"
+        android:layout_height="42.66dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:background="@color/grey_twenty" >

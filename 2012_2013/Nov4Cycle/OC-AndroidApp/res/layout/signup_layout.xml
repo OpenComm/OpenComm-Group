@@ -126,7 +126,7 @@
                 android:includeFontPadding="false"
                 android:paddingLeft="43dp"
                 android:text="@string/first_name"
-                android:textColor="@color/white_off"
+                android:textColor="@color/white_smoke"
                 android:textSize="33sp" />
 
             <EditText
@@ -150,7 +150,7 @@
                 android:includeFontPadding="false"
                 android:paddingLeft="43dp"
                 android:text="@string/last_name"
-                android:textColor="@color/white_off"
+                android:textColor="@color/white_smoke"
                 android:textSize="33sp" />
 
             <EditText
@@ -174,7 +174,7 @@
                 android:includeFontPadding="false"
                 android:paddingLeft="43dp"
                 android:text="@string/email"
-                android:textColor="@color/white_off"
+                android:textColor="@color/white_smoke"
                 android:textSize="33sp" />
 
             <EditText
@@ -197,7 +197,7 @@
                 android:includeFontPadding="false"
                 android:paddingLeft="43dp"
                 android:text="@string/title"
-                android:textColor="@color/white_off"
+                android:textColor="@color/white_smoke"
                 android:textSize="33sp" />
 
             <EditText
@@ -221,7 +221,7 @@
                 android:includeFontPadding="false"
                 android:paddingLeft="43dp"
                 android:text="@string/photo"
-                android:textColor="@color/white_off"
+                android:textColor="@color/white_smoke"
                 android:textSize="33sp" />
 
             <ImageView
@@ -247,7 +247,7 @@
                 android:includeFontPadding="false"
                 android:paddingLeft="43dp"
                 android:text="@string/password"
-                android:textColor="@color/white_off"
+                android:textColor="@color/white_smoke"
                 android:textSize="33sp" />
 
             <EditText
@@ -271,7 +271,7 @@
                 android:includeFontPadding="false"
                 android:paddingLeft="43dp"
                 android:text="@string/confirm_password"
-                android:textColor="@color/white_off"
+                android:textColor="@color/white_smoke"
                 android:textSize="33sp" />
 
             <EditText

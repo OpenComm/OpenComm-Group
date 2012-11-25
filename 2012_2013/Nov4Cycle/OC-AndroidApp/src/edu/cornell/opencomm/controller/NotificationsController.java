@@ -66,7 +66,8 @@ public class NotificationsController {
 	/**
 	 * Overflow option clicked:
 	 * <ul>
-	 * <li>log out: logs out, returns to the login page
+	 * <li>account: launches my account page</li>
+	 * <li>contacts: launches contacts page</li>
 	 * </ul>
 	 * */
 	public void handleOptionClick(View view) {
