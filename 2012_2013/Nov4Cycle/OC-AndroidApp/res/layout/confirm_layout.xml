@@ -14,7 +14,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="68dp"
-        android:background="@color/grey_dark"
+        android:background="@color/grey_thirtythree"
         android:clickable="false"
         android:cursorVisible="false"
         android:gravity="center_vertical"
@@ -87,7 +87,7 @@
         android:id="@+id/confirmBarFrame"
         android:layout_width="fill_parent"
         android:layout_height="37.33dp"
-        android:background="@color/grey_dark" >
+        android:background="@color/grey_thirtythree" >
 
         <LinearLayout
             android:id="@+id/confirmBar"
@@ -160,7 +160,7 @@
                 android:id="@+id/acceptConfirmOverlay"
                 android:layout_width="160dp"
                 android:layout_height="fill_parent"
-                android:background="@color/light_grey"
+                android:background="@color/grey_eightyseven"
                 android:scaleType="fitXY"
                 android:src="@drawable/overlay_white"
                 android:visibility="invisible"
@@ -170,9 +170,9 @@
                 android:id="@+id/cancelConfirmOverlay"
                 android:layout_width="160dp"
                 android:layout_height="fill_parent"
-                android:background="@color/light_grey"
+                android:background="@color/grey_eightyseven"
                 android:scaleType="fitXY"
-                android:src="@color/off_white"
+                android:src="@color/white_smoke"
                 android:visibility="invisible"
                 tools:ignore="ContentDescription" />
         </LinearLayout>

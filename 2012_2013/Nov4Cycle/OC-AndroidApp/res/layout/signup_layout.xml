@@ -232,7 +232,6 @@
                 android:layout_below="@id/signup_photoLabel"
                 android:layout_marginLeft="44dp"
                 android:adjustViewBounds="true"
-                android:background="@color/grey_dark"
                 android:contentDescription="@string/desc"
                 android:onClick="choosePhoto"
                 android:scaleType="centerInside"

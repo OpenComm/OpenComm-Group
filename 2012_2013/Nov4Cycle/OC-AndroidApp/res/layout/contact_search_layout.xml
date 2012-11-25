@@ -10,7 +10,7 @@
         android:layout_height="42.67dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:background="@color/grey_dark"
+        android:background="@color/grey_thirtythree"
         android:orientation="horizontal" >
 
         <ImageView
@@ -46,7 +46,7 @@
             android:background="@color/grey_half_opacity"
             android:gravity="center_vertical"
             android:text="@string/search"
-            android:textColor="@color/blue_contacts_page_title"
+            android:textColor="@color/blue_title"
             android:textSize="24sp" />
     </RelativeLayout>
 
@@ -101,7 +101,7 @@
             android:background="@color/black_light"
             android:clickable="true"
             android:descendantFocusability="blocksDescendants"
-            android:divider="@color/bar_separating_listview"
+            android:divider="@color/grey_twentyone"
             android:dividerHeight="2dp"
             android:smoothScrollbar="true"
             android:visibility="invisible" >

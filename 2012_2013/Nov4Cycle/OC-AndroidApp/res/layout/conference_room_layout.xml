@@ -18,7 +18,7 @@
         android:layout_height="42.67dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:background="@color/grey_dark"
+        android:background="@color/grey_thirtythree"
         android:orientation="horizontal"
         android:visibility="invisible" >
 
@@ -28,7 +28,7 @@
             android:layout_height="14dp"
             android:layout_marginLeft="10.67dp"
             android:layout_marginTop="14.67dp"
-            android:background="@color/grey_dark"
+            android:background="@color/grey_thirtythree"
             android:contentDescription="@string/desc"
             android:onClick="backButtonClicked"
             android:scaleType="centerInside"
@@ -44,7 +44,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginRight="12dp"
             android:layout_marginTop="8dp"
-            android:background="@color/grey_dark"
+            android:background="@color/grey_thirtythree"
             android:contentDescription="@string/desc"
             android:onClick="overflowButtonClicked"
             android:scaleType="centerInside"
@@ -67,7 +67,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="90dp"
-            android:background="@color/grey_dark"
+            android:background="@color/grey_thirtythree"
             android:contentDescription="@string/desc"
             android:onClick="pingClicked"
             android:scaleType="centerInside"
@@ -80,7 +80,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginRight="12dp"
             android:layout_toLeftOf="@+id/clock_conference"
-            android:background="@color/grey_dark"
+            android:background="@color/grey_thirtythree"
             android:contentDescription="@string/desc"
             android:onClick="addPersonClicked"
             android:scaleType="centerInside"
@@ -107,7 +107,7 @@
         android:layout_height="42.67dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:background="@color/grey_dark"
+        android:background="@color/grey_thirtythree"
         android:orientation="horizontal"
         android:visibility="invisible" >
 
@@ -141,7 +141,7 @@
         android:layout_height="42.67dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:background="@color/grey_dark"
+        android:background="@color/grey_thirtythree"
         android:orientation="horizontal"
         android:visibility="invisible" >
 
@@ -201,7 +201,7 @@
         android:layout_height="42.67dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:background="@color/grey_dark"
+        android:background="@color/grey_thirtythree"
         android:orientation="horizontal"
         android:visibility="invisible" >
 
@@ -261,7 +261,7 @@
         android:layout_height="42.67dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:background="@color/grey_dark"
+        android:background="@color/grey_thirtythree"
         android:orientation="horizontal"
         android:visibility="invisible" >
 
@@ -371,7 +371,7 @@
         android:layout_height="42.67dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:background="@color/grey_dark"
+        android:background="@color/grey_thirtythree"
         android:orientation="horizontal"
         android:visibility="invisible" >
 
@@ -381,7 +381,7 @@
             android:layout_height="14dp"
             android:layout_marginLeft="10.67dp"
             android:layout_marginTop="14.67dp"
-            android:background="@color/grey_dark"
+            android:background="@color/grey_thirtythree"
             android:contentDescription="@string/desc"
             android:onClick="backButtonClicked"
             android:scaleType="centerInside"
@@ -397,7 +397,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginRight="12dp"
             android:layout_marginTop="8dp"
-            android:background="@color/grey_dark"
+            android:background="@color/grey_thirtythree"
             android:contentDescription="@string/desc"
             android:onClick="overflowButtonClicked"
             android:scaleType="centerInside"
@@ -410,7 +410,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="200dp"
             android:layout_marginRight="12dp"
-            android:background="@color/grey_dark"
+            android:background="@color/grey_thirtythree"
             android:contentDescription="@string/desc"
             android:onClick="addPersonClicked"
             android:scaleType="centerInside"

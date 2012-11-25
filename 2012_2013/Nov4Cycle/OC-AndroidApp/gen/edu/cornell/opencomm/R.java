@@ -16,41 +16,32 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int bar_separating_listview=0x7f050000;
-        public static final int black=0x7f05001a;
-        public static final int black_conference_card_background=0x7f05001f;
-        public static final int black_half_opacity=0x7f05001d;
-        public static final int black_light=0x7f05001c;
-        public static final int black_opacity_ninety=0x7f05001b;
-        public static final int blue=0x7f050015;
-        public static final int blue_contacts_page_title=0x7f050019;
-        public static final int blue_light=0x7f050017;
-        public static final int blue_title=0x7f050016;
-        public static final int dark_grey_translucent=0x7f05000d;
-        public static final int darker_grey=0x7f050020;
-        public static final int green=0x7f050011;
-        public static final int green_light=0x7f050012;
-        public static final int grey_conference_card_attendee_separator_bar=0x7f05000f;
-        public static final int grey_conference_card_title_bar_text=0x7f050010;
-        public static final int grey_dark=0x7f050021;
-        public static final int grey_dark_opacity_ninety=0x7f05000b;
-        public static final int grey_fiftythree=0x7f050007;
-        public static final int grey_half_opacity=0x7f05001e;
-        public static final int grey_light=0x7f05000c;
-        public static final int grey_seven=0x7f050008;
-        public static final int grey_thirteen=0x7f050009;
-        public static final int grey_twenty=0x7f05000a;
-        public static final int light_grey=0x7f05000e;
-        public static final int off_white=0x7f050004;
-        public static final int off_white_text=0x7f050022;
-        public static final int orange=0x7f050013;
-        public static final int orange_light=0x7f050014;
-        public static final int teal=0x7f050018;
-        public static final int white=0x7f050001;
-        public static final int white_ninetyfive=0x7f050005;
-        public static final int white_ninetysix=0x7f050006;
-        public static final int white_overlay=0x7f050003;
-        public static final int white_smoke=0x7f050002;
+        public static final int black=0x7f050013;
+        public static final int black_half_opacity=0x7f050016;
+        public static final int black_light=0x7f050015;
+        public static final int black_opacity_ninety=0x7f050014;
+        public static final int blue=0x7f05000f;
+        public static final int blue_light=0x7f050011;
+        public static final int blue_title=0x7f050010;
+        public static final int dark_grey_translucent=0x7f050009;
+        public static final int darker_grey=0x7f050018;
+        public static final int green=0x7f05000b;
+        public static final int green_light=0x7f05000c;
+        public static final int grey_conference_card_title_bar_text=0x7f05000a;
+        public static final int grey_dark_opacity_ninety=0x7f050008;
+        public static final int grey_eightyseven=0x7f050004;
+        public static final int grey_eleven=0x7f050005;
+        public static final int grey_half_opacity=0x7f050017;
+        public static final int grey_nineteen=0x7f050019;
+        public static final int grey_thirtythree=0x7f050007;
+        public static final int grey_twentyone=0x7f050006;
+        public static final int orange=0x7f05000d;
+        public static final int orange_light=0x7f05000e;
+        public static final int teal=0x7f050012;
+        public static final int white=0x7f050000;
+        public static final int white_ffour=0x7f050003;
+        public static final int white_fthree=0x7f050002;
+        public static final int white_smoke=0x7f050001;
     }
     public static final class drawable {
         public static final int accept_plus=0x7f020000;
@@ -527,9 +518,9 @@ public final class R {
         public static final int upcoming=0x7f040047;
     }
     public static final class style {
-        public static final int Theme_grey_dark=0x7f080002;
-        public static final int Theme_grey_seven=0x7f080003;
-        public static final int Theme_grey_twenty=0x7f080001;
-        public static final int Theme_offwhite=0x7f080000;
+        public static final int Theme_grey_eleven=0x7f080003;
+        public static final int Theme_grey_nineteen=0x7f080002;
+        public static final int Theme_grey_thirtythree=0x7f080001;
+        public static final int Theme_white_smoke=0x7f080000;
     }
 }

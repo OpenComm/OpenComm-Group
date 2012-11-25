@@ -10,7 +10,7 @@
         android:layout_height="42.67dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:background="@color/grey_dark"
+        android:background="@color/grey_thirtythree"
         android:orientation="horizontal" >
 
         <ImageView

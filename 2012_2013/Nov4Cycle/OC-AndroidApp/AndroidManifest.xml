@@ -14,12 +14,12 @@
     <application
         android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:theme="@style/Theme.offwhite" >
+        android:theme="@style/Theme.white_smoke" >
         <activity
             android:name=".view.SplashView"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_twenty" >
+            android:theme="@style/Theme.grey_thirtythree" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,12 +33,12 @@
         <activity
             android:name=".view.DashboardView"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_dark" >
+            android:theme="@style/Theme.grey_nineteen" >
         </activity>
         <activity
             android:name=".view.NotificationsView"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_seven" >
+            android:theme="@style/Theme.grey_eleven" >
         </activity>
         <activity
             android:name=".view.ResetPasswordView"
@@ -51,32 +51,32 @@
         <activity
             android:name=".view.ContactsView"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_dark" >
+            android:theme="@style/Theme.grey_nineteen" >
         </activity>
         <activity
             android:name=".view.ContactCardView"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_dark" >
+            android:theme="@style/Theme.grey_nineteen" >
         </activity>
         <activity
             android:name=".view.ContactsSearchView"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_dark" >
+            android:theme="@style/Theme.grey_nineteen" >
         </activity>
         <activity
             android:name=".view.ConferenceSchedulerView"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_dark" >
+            android:theme="@style/Theme.grey_nineteen" >
         </activity>
         <activity
             android:name=".view.ConferenceCardView"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_dark" >
+            android:theme="@style/Theme.grey_nineteen" >
         </activity>
         <activity
             android:name=".view.MyAccountView"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_seven" >
+            android:theme="@style/Theme.grey_eleven" >
         </activity>
         <activity android:name=".view.ConferenceView" >
         </activity>

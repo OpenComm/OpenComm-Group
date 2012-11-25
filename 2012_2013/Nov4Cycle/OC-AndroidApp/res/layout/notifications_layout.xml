@@ -10,7 +10,7 @@
         android:layout_height="42.66dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:background="@color/grey_twenty" >
+        android:background="@color/grey_thirtythree" >
 
         <ImageView
             android:id="@+id/notifications_backIcon"
@@ -57,7 +57,7 @@
         android:paddingLeft="10.66dp"
         android:paddingRight="10.66dp"
         android:listSelector="@drawable/selector_bg_list"
-        android:divider="@color/grey_thirteen"
+        android:divider="@color/grey_twentyone"
         android:dividerHeight="0.33dp" />
 
     <ListView
