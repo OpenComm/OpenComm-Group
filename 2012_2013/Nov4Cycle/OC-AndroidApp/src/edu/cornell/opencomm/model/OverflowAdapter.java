@@ -4,19 +4,16 @@ import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.FontSetter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
  * ArrayAdapter for Overflow List:<br>
  * Given a list of options, it populates the overflow list in the order given.
- * Each list item contains an ImageView and a TextView. The class also has the
- * ability to reset all of the overlays associated with the list items.
+ * Each list item contains an ImageView and a TextView.
  * 
  * Issues [TODO] - For any other issues search for string "TODO"
  * 
@@ -62,12 +59,7 @@ public class OverflowAdapter extends ArrayAdapter<String> {
 			vi = inflater.inflate(R.layout.overflow_item_layout, null);
 		TextView option = (TextView) vi.findViewById(R.id.overflow_itemtext);
 		option.setText(this.options[position]);
-		((ImageView) vi.findViewById(R.id.overflow_overlay)).setVisibility(View.INVISIBLE);
 		FontSetter.applySanSerifFont(this.context, vi);
 		return vi;
-	}
-
-	/** Resets all white overlays to invisible */
-	public void resetOverlays() {
 	}
 }

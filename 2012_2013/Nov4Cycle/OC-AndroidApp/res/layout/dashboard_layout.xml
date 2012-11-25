@@ -21,7 +21,7 @@
             android:layout_marginBottom="14dp"
             android:layout_marginLeft="26.67dp"
             android:text="@string/opencomm"
-            android:textColor="@color/white_off_text"
+            android:textColor="@color/white_off_title"
             android:textSize="24sp" />
 
         <ImageView

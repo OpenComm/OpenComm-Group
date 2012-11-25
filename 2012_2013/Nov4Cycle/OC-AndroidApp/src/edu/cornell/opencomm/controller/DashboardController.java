@@ -6,13 +6,13 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.model.OverflowAdapter;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ConferenceSchedulerView;
 import edu.cornell.opencomm.view.ContactsView;
 import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.LoginView;
 import edu.cornell.opencomm.view.MyAccountView;
+import edu.cornell.opencomm.view.NotificationsView;
 
 /**
  * Controller for Dashboard (DashboardView)
@@ -82,7 +82,6 @@ public class DashboardController {
 	 * Launches Contact List
 	 */
 	public void handleContactsButtonClicked() {
-		// start conference view
     	Intent i = new Intent(this.dashboardView,ContactsView.class);
     	this.dashboardView.startActivity(i);
 	}
@@ -96,11 +95,8 @@ public class DashboardController {
 	}
 
 	public void handleNotificationClicked() {
-		int duration = Toast.LENGTH_SHORT;
-    	Toast send = Toast.makeText(this.dashboardView.getApplicationContext(),"Action Bar: Notification clicked",duration);
-    	send.show();
-    	// TODO launch notification overlay
-		
+		Intent i = new Intent(this.dashboardView, NotificationsView.class);
+    	this.dashboardView.startActivity(i);	
 	}
 
 	/** 
@@ -111,7 +107,6 @@ public class DashboardController {
     		this.dashboardView.getOverflowList().setVisibility(View.VISIBLE);
     	}
     	else {
-    		((OverflowAdapter) this.dashboardView.getOverflowList().getAdapter()).notifyDataSetChanged();
     		this.dashboardView.getOverflowList().setVisibility(View.INVISIBLE);
     	}		
 	}
@@ -123,7 +118,6 @@ public class DashboardController {
 	 * </ul>
 	 * */
 	public void handleOptionClick(View view) {
-		view.findViewById(R.id.overflow_overlay).setVisibility(View.VISIBLE);
 		String option = ((TextView) view.findViewById(R.id.overflow_itemtext)).getText().toString().trim();
 		// if the user selects log out
 		if (option.equals("logout")) {

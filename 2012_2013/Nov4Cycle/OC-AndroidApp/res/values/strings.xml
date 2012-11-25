@@ -100,5 +100,9 @@
     <string-array name="overflow_dashboard">
         <item >logout</item>
     </string-array>
+    <string-array name="overflow_notifications">
+        <item >account</item>
+        <item >contacts</item>
+    </string-array>
 
 </resources>

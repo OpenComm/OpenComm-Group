@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.cornell.opencomm"
-    android:versionCode="1" 
+    android:versionCode="1"
     android:versionName="1.0" >
 
     <uses-sdk
@@ -9,10 +9,11 @@
 
     <uses-permission android:name="android.permission.INTERNET" >
     </uses-permission>
-	<uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:icon="@drawable/icon"
-        android:label="@string/app_name" 
+        android:label="@string/app_name"
         android:theme="@style/Theme.offwhite" >
         <activity
             android:name=".view.SplashView"
@@ -23,7 +24,7 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>   
+            </intent-filter>
         </activity>
         <activity
             android:name=".view.LoginView"
@@ -31,6 +32,11 @@
         </activity>
         <activity
             android:name=".view.DashboardView"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.grey_dark" >
+        </activity>
+        <activity
+            android:name=".view.NotificationsView"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.grey_dark" >
         </activity>
@@ -73,12 +79,10 @@
             android:theme="@style/Theme.grey_dark" >
         </activity>
         <activity android:name=".view.ConferenceView" >
-              
         </activity>
         <activity
             android:name=".view.ChatSpaceViewActivity"
             android:label="@string/title_activity_main" >
-       
         </activity>
     </application>
 

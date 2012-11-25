@@ -5,7 +5,9 @@
 	<color name="white_off">#F5F5F5</color>
     <color name="white_overlay">#902e2e2e</color>
     <color name="off_white">#F5F5F5</color>
-    <color name="white_off_text">#F3F3F3</color>
+    <color name="white_off_title">#F3F3F3</color>
+    <color name="grey_seven">#111111</color>
+    <color name="grey_thirteen">#212121</color>
     <color name="grey_twenty">#333333</color>
     <color name="grey_dark_opacity_ninety">#E6333333</color>
     <color name="grey_light">#878787</color>
@@ -18,6 +20,7 @@
     <color name="orange">#FFAB63</color>
     <color name="orange_light">#F9a964</color>
     <color name="blue">#94C4FF</color>
+    <color name="blue_title">#9ac1e6</color>
     <color name="blue_light">#9abee1</color>
     <color name="teal">#9DF6FF</color>
     <color name="blue_contacts_page_title">#9ac1e6</color>
