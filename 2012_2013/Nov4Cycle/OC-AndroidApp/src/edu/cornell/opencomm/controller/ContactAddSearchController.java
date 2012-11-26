@@ -7,6 +7,7 @@ import android.widget.TextView;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.view.ConferenceSchedulerView;
+import edu.cornell.opencomm.view.ContactAddView;
 import edu.cornell.opencomm.view.ContactCardView;
 import edu.cornell.opencomm.view.ContactSearchView;
 import edu.cornell.opencomm.view.MyAccountView;
@@ -27,7 +28,7 @@ import edu.cornell.opencomm.view.MyAccountView;
  * 
  * @author Risa Naka [frontend]
  * */
-public class ContactSearchController {
+public class ContactAddSearchController {
 	/**
 	 * Debugging variable: if true, all logs are logged; set to false before
 	 * packaging
@@ -39,28 +40,44 @@ public class ContactSearchController {
 	 * The TAG for logging
 	 */
 	@SuppressWarnings("unused")
-	private static final String TAG = ContactSearchController.class.getSimpleName();
+	private static final String TAG = ContactAddSearchController.class.getSimpleName();
 	
 	private ContactSearchView contactSearchView;
+	private ContactAddView contactAddView;
 
-	public ContactSearchController(ContactSearchView contactSearchView) {
+	public ContactAddSearchController(ContactSearchView contactSearchView) {
 		this.contactSearchView = contactSearchView;
+	}
+
+	public ContactAddSearchController(ContactAddView contactAddView) {
+		this.contactAddView = contactAddView;
 	}
 
 	/** Back button clicked: launches overriden back press which takes it back to ContactListView */
 	public void handleBackButtonClicked() {
-		this.contactSearchView.onBackPressed();
+		if (this.contactSearchView != null) this.contactSearchView.onBackPressed();
+		else if (this.contactAddView != null) this.contactAddView.onBackPressed();
 	}
 
 	/**
 	 * Shows/hides Overflow
 	 */
 	public void handleOverflowButtonClicked() {
-		if (this.contactSearchView.getOverflowList().getVisibility() == View.INVISIBLE) {
-			this.contactSearchView.getOverflowList().setVisibility(View.VISIBLE);
-		} else {
-			this.contactSearchView.getOverflowList()
-					.setVisibility(View.INVISIBLE);
+		if (this.contactSearchView != null) {
+			if (this.contactSearchView.getOverflowList().getVisibility() == View.INVISIBLE) {
+				this.contactSearchView.getOverflowList().setVisibility(View.VISIBLE);
+			} else {
+				this.contactSearchView.getOverflowList()
+						.setVisibility(View.INVISIBLE);
+			}
+		}
+		else if (this.contactAddView != null) {
+			if (this.contactAddView.getOverflowList().getVisibility() == View.INVISIBLE) {
+				this.contactAddView.getOverflowList().setVisibility(View.VISIBLE);
+			} else {
+				this.contactAddView.getOverflowList()
+						.setVisibility(View.INVISIBLE);
+			}
 		}
 	}
 
@@ -75,17 +92,18 @@ public class ContactSearchController {
 		String option = ((TextView) view.findViewById(R.id.overflow_itemtext))
 				.getText().toString().trim();
 		// if the user selects conferences
+		Activity activity = (this.contactSearchView == null ? this.contactAddView : this.contactSearchView);
 		if (option.equals("conferences")) {
 			// launch conferences page
-			Intent i = new Intent(this.contactSearchView,
+			Intent i = new Intent(activity,
 					ConferenceSchedulerView.class);
-			this.contactSearchView.startActivity(i);
+			activity.startActivity(i);
 		}
 		// if the user selects account
 		else if (option.equals("account")) {
 			// launch my profile page
-			Intent i = new Intent(this.contactSearchView, MyAccountView.class);
-			this.contactSearchView.startActivity(i);
+			Intent i = new Intent(activity, MyAccountView.class);
+			activity.startActivity(i);
 		}
 	}
 	

@@ -9,7 +9,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.controller.ContactSearchController;
+import edu.cornell.opencomm.controller.ContactAddSearchController;
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.model.OverflowAdapter;
 
@@ -43,7 +43,7 @@ public class ContactSearchView extends Activity {
 	@SuppressWarnings("unused")
 	private static final String TAG = ContactSearchView.class.getSimpleName();
 
-	private ContactSearchController controller;  
+	private ContactAddSearchController controller;  
 
 	/** Overflow variables: list and options */
 	private ListView overflowList;
@@ -54,7 +54,7 @@ public class ContactSearchView extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.contact_search_layout);
 		FontSetter.applySanSerifFont(this, findViewById(R.layout.contact_search_layout));
-		this.controller = new ContactSearchController(this);
+		this.controller = new ContactAddSearchController(this);
 		this.initializeOverflow();
 	}
 	
