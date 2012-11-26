@@ -38,7 +38,7 @@ public class ContactAddView extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.contact_search_layout);
-		this.query = (EditText)findViewById(R.id.search_contact_bar); 
+		this.query = (EditText)findViewById(R.id.contact_search_search_input); 
 		this.results = (ListView)findViewById(R.id.contact_search_list); 
 		FontSetter.applySanSerifFont(this, findViewById(R.layout.contact_search_layout));
 		FontSetter.applySanSerifFont(this, findViewById(R.layout.contact_search_entry_layout));

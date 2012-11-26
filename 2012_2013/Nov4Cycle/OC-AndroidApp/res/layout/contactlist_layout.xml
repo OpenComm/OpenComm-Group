@@ -55,7 +55,7 @@
             android:layout_toLeftOf="@id/contacts_overflowIcon"
             android:adjustViewBounds="true"
             android:contentDescription="@string/desc"
-            android:onClick="edit"
+            android:onClick="search"
             android:src="@drawable/action_search" />
         
         <ImageView

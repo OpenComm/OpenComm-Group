@@ -1,66 +1,103 @@
 package edu.cornell.opencomm.view;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
+
 import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.controller.ContactListController;
+import edu.cornell.opencomm.controller.ContactSearchController;
 import edu.cornell.opencomm.controller.FontSetter;
-import edu.cornell.opencomm.model.ContactSearchAdapter;
-import edu.cornell.opencomm.model.User;
+import edu.cornell.opencomm.model.OverflowAdapter;
 
+/**
+ * View for contact search page. Functionality (handled by ContactSearchController).<br>
+ * When corresponding buttons are clicked in the action bar, different app features are launched:
+ * <ul>
+ * <li>Back: returns to contact list view</li>
+ * <li>Overflow: go to conferences or account page</li>
+ * </ul>
+ * When a contact name is clicked, the contact card for the user is launched
+ * 
+ * Issues [TODO] 
+ * - [frontend] Implement functionality for action bar and conf
+ * - [backend] Generate full info of contacts
+ * info
+ * 
+ * @author Risa Naka [frontend]
+ * */
 public class ContactSearchView extends Activity {
-
-
-	private ContactListController controller; 
-	private ListView results; 
-	/*
-	 * (non-Javadoc)
-	 * @see android.app.Activity#onCreate(android.os.Bundle)
-	 * For debugging purposes
-	 *
+	/**
+	 * Debugging variable: if true, all logs are logged; set to false before
+	 * packaging
 	 */
-	private final boolean D = true; 
-	private final String TAG= ContactSearchView.class.getSimpleName(); 
+	@SuppressWarnings("unused")
+	private static final boolean D = true;
 
-	private EditText query; 
+	/**
+	 * The TAG for logging
+	 */
+	@SuppressWarnings("unused")
+	private static final String TAG = ContactSearchView.class.getSimpleName();
+
+	private ContactSearchController controller;  
+
+	/** Overflow variables: list and options */
+	private ListView overflowList;
+	private String[] options;
+	
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.contact_search_layout);
-		this.query = (EditText)findViewById(R.id.search_contact_bar); 
-		this.results = (ListView)findViewById(R.id.contact_search_list); 
 		FontSetter.applySanSerifFont(this, findViewById(R.layout.contact_search_layout));
-		//FontSetter.applySanSerifFont(this, findViewById(R.layout.contact_entry_layout));
-		//controller = new ContactListController(this);
-		//textEntered();
+		this.controller = new ContactSearchController(this);
+		this.initializeOverflow();
+	}
+	
+	/** Initializes the content of overflow. When an item is clicked, user feedback is generated 
+	 * and an appropriate action is launched */
+	private void initializeOverflow() {
+		this.options = this.getResources().getStringArray(R.array.overflow_contacts);
+		OverflowAdapter oAdapter = new OverflowAdapter(this, R.layout.overflow_item_layout, this.options);
+		overflowList = (ListView) this.findViewById(R.id.contact_search_overflowList);
+		overflowList.setAdapter(oAdapter);
+		// Click event for single list row
+		overflowList.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				controller.handleOptionClick(view);
+			}
+		});
+	}
+
+	/** = this dashboard's overflow list */
+	public ListView getOverflowList() {
+		return this.overflowList;
+	}
+	
+	/** Overflow button clicked: flips visibility of overflow list */
+	public void overflow(View v) {
+		this.controller.handleOverflowButtonClicked();
+	}
+	
+	/** Back button clicked: goes back to ContactListView */
+	public void back(View v) {
+		this.controller.handleBackButtonClicked();
+	}
+	
+	@Override
+	/** Overrides back pressed: go back to ContactListView*/
+	public void onBackPressed() {
+		Intent i = new Intent(this, ContactListView.class);
+		this.startActivity(i);
 	}
 /*
 	//TODO
 	//1.Method for getting the current text and searching database - cursor adapter
-
-	//when a contact is clicked
-	public void goToContact(View v){
-		this.controller.contactSearchContactClicked(v);
-	}
-
-	public void backButtonPressed(View v){
-		this.controller.handleBackButtonClicked();
-	}
-
-	public void overflow(View v){
-		this.controller.handleOverflowButtonClicked();
-	}
 
 	//TODO/ISSUES -
 	//1. The cursor goes back to start 
