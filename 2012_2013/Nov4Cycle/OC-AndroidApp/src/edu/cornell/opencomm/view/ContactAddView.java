@@ -54,7 +54,7 @@ public class ContactAddView extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.contact_search_layout);
-		FontSetter.applySanSerifFont(this, findViewById(R.layout.contact_search_layout));
+		FontSetter.applySanSerifFont(this, findViewById(R.id.contact_search_layout));
 		((TextView) findViewById(R.id.contact_search_title)).setText("add");
 		this.controller = new ContactAddSearchController(this);
 		this.initializeOverflow();
