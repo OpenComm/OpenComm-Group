@@ -3,7 +3,7 @@
     android:id="@+id/main_container"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/green"
+    android:background="@drawable/portrait_main_background"
     android:contentDescription="@string/mainChat"
     android:onClick="clickedEmptySpace" >
 

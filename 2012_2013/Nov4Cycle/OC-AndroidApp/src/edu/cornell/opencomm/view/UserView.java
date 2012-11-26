@@ -69,7 +69,7 @@ public class UserView extends ImageButton{
 	@Override
 	public void onDraw(Canvas canvas){
 		super.onDraw(canvas); 
-		Log.i("Canvas size- height and width", "" + canvas.getHeight() + " " + canvas.getWidth()); 
+	/*	Log.i("Canvas size- height and width", "" + canvas.getHeight() + " " + canvas.getWidth()); 
 		Log.d("UserView", "I'm drawing too!" + this);
 		Drawable background = new BitmapDrawable(this.image); 
 		this.setBackgroundDrawable(background); 
@@ -80,7 +80,7 @@ public class UserView extends ImageButton{
 		Bitmap rescaled_image = Bitmap.createScaledBitmap(image, 76, 76, true);
 		//Log.i("is confuser null?" , Boolean.toString(conferenceUser == null)); 
 		
-		//canvas.drawBitmap(rescaled_image, this.conferenceUser.getX(), 0, p); 
+		//canvas.drawBitmap(rescaled_image, this.conferenceUser.getX(), 0, p);  */
 
 	}
 	
