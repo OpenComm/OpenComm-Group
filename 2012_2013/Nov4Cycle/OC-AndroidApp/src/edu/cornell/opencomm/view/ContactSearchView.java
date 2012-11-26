@@ -19,7 +19,7 @@ import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.model.ContactSearchAdapter;
 import edu.cornell.opencomm.model.User;
 
-public class ContactsSearchView extends Activity {
+public class ContactSearchView extends Activity {
 
 
 	private ContactListController controller; 
@@ -31,7 +31,7 @@ public class ContactsSearchView extends Activity {
 	 *
 	 */
 	private final boolean D = true; 
-	private final String TAG= ContactsSearchView.class.getSimpleName(); 
+	private final String TAG= ContactSearchView.class.getSimpleName(); 
 
 	private EditText query; 
 
@@ -41,11 +41,11 @@ public class ContactsSearchView extends Activity {
 		this.query = (EditText)findViewById(R.id.search_contact_bar); 
 		this.results = (ListView)findViewById(R.id.contact_search_list); 
 		FontSetter.applySanSerifFont(this, findViewById(R.layout.contact_search_layout));
-		FontSetter.applySanSerifFont(this, findViewById(R.layout.contact_entry_layout));
-		controller = new ContactListController(this);
-		textEntered();
+		//FontSetter.applySanSerifFont(this, findViewById(R.layout.contact_entry_layout));
+		//controller = new ContactListController(this);
+		//textEntered();
 	}
-
+/*
 	//TODO
 	//1.Method for getting the current text and searching database - cursor adapter
 
@@ -126,7 +126,7 @@ public class ContactsSearchView extends Activity {
 				send.show();
 			}
 		}
-	}
+	}*/
 
 }
 

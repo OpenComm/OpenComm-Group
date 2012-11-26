@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.cornell.opencomm"
-    android:versionCode="1" 
+    android:versionCode="1"
     android:versionName="1.0" >
 
     <uses-sdk
@@ -9,21 +9,22 @@
 
     <uses-permission android:name="android.permission.INTERNET" >
     </uses-permission>
-	<uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:icon="@drawable/icon"
-        android:label="@string/app_name" 
-        android:theme="@style/Theme.offwhite" >
+        android:label="@string/app_name"
+        android:theme="@style/Theme.white_smoke" >
         <activity
             android:name=".view.SplashView"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_twenty" >
+            android:theme="@style/Theme.grey_thirtythree" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>   
+            </intent-filter>
         </activity>
         <activity
             android:name=".view.LoginView"
@@ -32,7 +33,12 @@
         <activity
             android:name=".view.DashboardView"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_dark" >
+            android:theme="@style/Theme.grey_nineteen" >
+        </activity>
+        <activity
+            android:name=".view.NotificationsView"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.grey_eleven" >
         </activity>
         <activity
             android:name=".view.ResetPasswordView"
@@ -43,42 +49,44 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".view.ContactsView"
+            android:name=".view.ContactListView"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_dark" >
+            android:theme="@style/Theme.grey_eleven" >
         </activity>
         <activity
             android:name=".view.ContactCardView"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_dark" >
+            android:theme="@style/Theme.grey_eleven" >
         </activity>
         <activity
-            android:name=".view.ContactsSearchView"
+            android:name=".view.ContactAddView"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_dark" >
+            android:theme="@style/Theme.grey_eleven" >
+        </activity>
+        <activity
+            android:name=".view.ContactSearchView"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.grey_nineteen" >
         </activity>
         <activity
             android:name=".view.ConferenceSchedulerView"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_dark" >
+            android:theme="@style/Theme.grey_nineteen" >
         </activity>
         <activity
             android:name=".view.ConferenceCardView"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_dark" >
+            android:theme="@style/Theme.grey_nineteen" >
         </activity>
         <activity
             android:name=".view.MyAccountView"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_dark" >
+            android:theme="@style/Theme.grey_eleven" >
         </activity>
         <activity android:name=".view.ConferenceView" >
-              
         </activity>
         <activity
-            android:name=".view.ChatSpaceViewActivity"
-            android:label="@string/title_activity_main" >
-       
+            android:name=".view.ChatSpaceViewActivity" >
         </activity>
     </application>
 

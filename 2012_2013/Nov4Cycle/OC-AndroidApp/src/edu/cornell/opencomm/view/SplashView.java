@@ -37,9 +37,8 @@ public class SplashView extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.splash_view_layout);
-		FontSetter.applySanSerifFont(SplashView.this,
-				findViewById(R.id.splash_view_layout));
+		setContentView(R.layout.splash_layout);
+		FontSetter.applySanSerifFont(SplashView.this,findViewById(R.id.splash_layout));
 		// delay launch of LoginView
 		final Handler handler = new Handler();
 		handler.postDelayed(new Runnable() {

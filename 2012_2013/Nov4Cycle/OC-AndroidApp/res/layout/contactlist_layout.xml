@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/notifications_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/contacts_layout">
 
     <RelativeLayout
-        android:id="@+id/notifications_actionbar"
+        android:id="@+id/contacts_actionbar"
         android:layout_width="fill_parent"
         android:layout_height="42.66dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:background="@color/grey_thirtythree" >
 
         <ImageView
-            android:id="@+id/notifications_backIcon"
+            android:id="@+id/contacts_backIcon"
             android:layout_width="8.5dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -25,19 +23,19 @@
             android:src="@drawable/action_back" />
 
         <TextView
-            android:id="@+id/notifications_title"
+            android:id="@+id/contacts_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginBottom="14dp"
             android:layout_marginLeft="24dp"
-            android:text="@string/notifications"
+            android:text="@string/contacts"
             android:textColor="@color/blue_title"
             android:textSize="24sp" />
 
         <ImageView
-            android:id="@+id/notifications_overflowIcon"
+            android:id="@+id/contacts_overflowIcon"
             android:layout_width="5.33dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -47,25 +45,47 @@
             android:contentDescription="@string/desc"
             android:onClick="overflow"
             android:src="@drawable/action_overflow" />
+
+        <ImageView
+            android:id="@+id/contacts_searchIcon"
+            android:layout_width="26.66dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:layout_toLeftOf="@id/contacts_overflowIcon"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/desc"
+            android:onClick="edit"
+            android:src="@drawable/action_search" />
+        
+        <ImageView
+            android:id="@+id/contacts_addIcon"
+            android:layout_width="26.66dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:layout_toLeftOf="@id/contacts_searchIcon"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/desc"
+            android:onClick="add"
+            android:src="@drawable/action_add" />
     </RelativeLayout>
 
     <ListView
-        android:id="@+id/notifications_notificationList"
+        android:id="@+id/contacts_contactlist"
         android:layout_width="fill_parent"
+        android:paddingLeft="13.33dp"
+        android:paddingRight="13.33dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/notifications_actionbar"
-        android:paddingLeft="10.66dp"
-        android:paddingRight="10.66dp"
-        android:listSelector="@drawable/selector_bg_list"
+        android:layout_below="@id/contacts_actionbar"
         android:divider="@color/grey_twentyone"
         android:dividerHeight="0.66dp" />
-
     <ListView
-        android:id="@+id/notifications_overflowList"
+        android:id="@+id/contacts_overflowList"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/notifications_actionbar"
+        android:layout_below="@id/contacts_actionbar"
         android:layout_marginRight="10.66dp"
         android:background="@color/black"
         android:listSelector="@drawable/selector_bg_list"

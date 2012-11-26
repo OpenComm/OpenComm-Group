@@ -13,7 +13,7 @@
         android:background="@color/grey_dark_opacity_ninety"
         android:gravity="center_vertical"
         android:includeFontPadding="false"
-        android:paddingLeft="41.66dp"
+        android:paddingLeft="41.25dp"
         android:text="@string/my_account"
         android:textColor="@color/green"
         android:textSize="45sp" />
@@ -126,7 +126,7 @@
                 android:includeFontPadding="false"
                 android:paddingLeft="43dp"
                 android:text="@string/first_name"
-                android:textColor="@color/white_off"
+                android:textColor="@color/white_smoke"
                 android:textSize="33sp" />
 
             <EditText
@@ -148,9 +148,9 @@
                 android:layout_below="@id/signup_firstNameInput"
                 android:gravity="bottom"
                 android:includeFontPadding="false"
-                android:paddingLeft="43dp"
+                android:paddingLeft="41dp"
                 android:text="@string/last_name"
-                android:textColor="@color/white_off"
+                android:textColor="@color/white_smoke"
                 android:textSize="33sp" />
 
             <EditText
@@ -172,9 +172,9 @@
                 android:layout_below="@id/signup_lastNameInput"
                 android:gravity="bottom"
                 android:includeFontPadding="false"
-                android:paddingLeft="43dp"
+                android:paddingLeft="42.5dp"
                 android:text="@string/email"
-                android:textColor="@color/white_off"
+                android:textColor="@color/white_smoke"
                 android:textSize="33sp" />
 
             <EditText
@@ -197,7 +197,7 @@
                 android:includeFontPadding="false"
                 android:paddingLeft="43dp"
                 android:text="@string/title"
-                android:textColor="@color/white_off"
+                android:textColor="@color/white_smoke"
                 android:textSize="33sp" />
 
             <EditText
@@ -219,9 +219,9 @@
                 android:layout_below="@id/signup_titleInput"
                 android:gravity="bottom"
                 android:includeFontPadding="false"
-                android:paddingLeft="43dp"
+                android:paddingLeft="42dp"
                 android:text="@string/photo"
-                android:textColor="@color/white_off"
+                android:textColor="@color/white_smoke"
                 android:textSize="33sp" />
 
             <ImageView
@@ -232,7 +232,6 @@
                 android:layout_below="@id/signup_photoLabel"
                 android:layout_marginLeft="44dp"
                 android:adjustViewBounds="true"
-                android:background="@color/grey_dark"
                 android:contentDescription="@string/desc"
                 android:onClick="choosePhoto"
                 android:scaleType="centerInside"
@@ -245,9 +244,9 @@
                 android:layout_below="@id/signup_photoInput"
                 android:gravity="bottom"
                 android:includeFontPadding="false"
-                android:paddingLeft="43dp"
+                android:paddingLeft="42dp"
                 android:text="@string/password"
-                android:textColor="@color/white_off"
+                android:textColor="@color/white_smoke"
                 android:textSize="33sp" />
 
             <EditText
@@ -269,9 +268,9 @@
                 android:layout_below="@id/signup_pwdInput"
                 android:gravity="bottom"
                 android:includeFontPadding="false"
-                android:paddingLeft="43dp"
+                android:paddingLeft="42.5dp"
                 android:text="@string/confirm_password"
-                android:textColor="@color/white_off"
+                android:textColor="@color/white_smoke"
                 android:textSize="33sp" />
 
             <EditText

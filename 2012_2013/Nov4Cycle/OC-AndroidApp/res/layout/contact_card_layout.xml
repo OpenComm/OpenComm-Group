@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="42.67dp"
-        android:background="@color/grey_dark" >
+        android:background="@color/grey_thirtythree" >
 
         <ImageView
             android:id="@+id/contact_card_back_button"
@@ -31,7 +31,7 @@
             android:layout_marginLeft="24dp"
             android:gravity="center_vertical"
             android:text="@string/contact_name_sample"
-            android:textColor="@color/blue_contacts_page_title"
+            android:textColor="@color/blue_title"
             android:textSize="24sp" />
 
         <ImageView
@@ -80,7 +80,7 @@
             android:layout_marginTop="10.67dp"
             android:text="@string/email"
             android:textSize="18dp"
-            android:textColor="@color/light_grey"/>
+            android:textColor="@color/grey_eightyseven"/>
         <TextView android:id="@+id/contact_card_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
             android:layout_marginTop="1.5dp"
             android:text="@string/phone_number"
             android:textSize="18dp"
-            android:textColor="@color/light_grey"/>
+            android:textColor="@color/grey_eightyseven"/>
         <TextView android:id="@+id/contact_card_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -112,7 +112,7 @@
             android:layout_marginTop="1.5dp"
             android:text="@string/previous_conferences"
             android:textSize="18dp"
-            android:textColor="@color/light_grey"/>
+            android:textColor="@color/grey_eightyseven"/>
         <TextView android:id="@+id/contact_card_conference1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -145,6 +145,6 @@
         android:text="@string/block"
         android:textSize="18dp"
         android:textColor="@color/orange"
-        android:background="@color/bar_separating_listview"
+        android:background="@color/grey_twentyone"
         android:onClick="blockButtonClicked"/>
 </LinearLayout>

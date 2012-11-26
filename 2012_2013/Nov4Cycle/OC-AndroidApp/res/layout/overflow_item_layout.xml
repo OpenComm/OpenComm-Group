@@ -2,22 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/grey_twenty" >
+    android:background="@color/grey_thirtythree" >
 
     <TextView
         android:id="@+id/overflow_itemtext"
         android:layout_width="140dp"
         android:layout_height="50dp"
         android:gravity="center_vertical"
-        android:paddingLeft="10.66dp"
+        android:paddingLeft="9.66dp"
+        android:textColor="@color/white"
         android:textSize="18.66sp" />
-    
-    <ImageView
-        android:id="@+id/overflow_overlay"
-        android:layout_width="140dp"
-        android:layout_height="50dp"
-        android:src="@drawable/overlay_white"
-        android:scaleType="fitXY"
-        android:contentDescription="@string/desc"
-        android:visibility="invisible" />
 </RelativeLayout>

@@ -7,10 +7,10 @@
     <RelativeLayout
         android:id="@+id/dashboard_actionbar"
         android:layout_width="fill_parent"
-        android:layout_height="42.67dp"
+        android:layout_height="42.66dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:background="@color/grey_twenty" >
+        android:background="@color/grey_thirtythree" >
 
         <TextView
             android:id="@+id/dashboardOpenComm"
@@ -21,7 +21,7 @@
             android:layout_marginBottom="14dp"
             android:layout_marginLeft="26.67dp"
             android:text="@string/opencomm"
-            android:textColor="@color/white_off_text"
+            android:textColor="@color/white_fthree"
             android:textSize="24sp" />
 
         <ImageView
@@ -153,11 +153,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@id/dashboard_actionbar"
-        android:padding="0.33dp"
+        android:padding="0.66dp"
         android:layout_marginRight="10.66dp"
         android:background="@color/black"
         android:divider="@color/black"
-        android:dividerHeight="0.33dp"
+        android:dividerHeight="0.66dp"
         android:visibility="invisible" />
 
 </RelativeLayout>

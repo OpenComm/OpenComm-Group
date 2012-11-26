@@ -95,10 +95,20 @@
     <string name="name_sample">Joseph Levitt</string>
     <string name="title_sample">Actor</string>
     <string name="password_sample">********</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_main">MainActivity</string>
     <string-array name="overflow_dashboard">
-        <item >logout</item>
+        <item>logout</item>
+    </string-array>
+    <string-array name="overflow_notifications">
+        <item >account</item>
+        <item >contacts</item>
+    </string-array>
+    <string-array name="overflow_contacts">
+        <item >conferences</item>
+        <item >account</item>
+    </string-array>
+    <string-array name="overflow_myaccount">
+        <item >conferences</item>
+        <item >contacts</item>
     </string-array>
 
 </resources>
