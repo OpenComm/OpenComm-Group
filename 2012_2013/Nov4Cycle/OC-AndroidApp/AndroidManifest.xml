@@ -86,7 +86,7 @@
         <activity android:name=".view.ConferenceView" >
         </activity>
         <activity
-            android:name=".view.ChatSpaceViewActivity" >
+            android:name="edu.cornell.opencomm.view.ChatSpaceViewActivity" >
         </activity>
     </application>
 
