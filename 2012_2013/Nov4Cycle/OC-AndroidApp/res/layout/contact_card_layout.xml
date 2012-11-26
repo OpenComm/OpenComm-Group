@@ -48,7 +48,7 @@
         
         <ImageView
             android:id="@+id/contact_card_addIcon"
-            android:layout_width="26.66dp"
+            android:layout_width="21.33dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
@@ -81,7 +81,7 @@
             android:layout_width="218.66dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8.41dp"
+            android:layout_marginTop="15.07dp"
             android:text="@string/email"
             android:textColor="@color/grey_eightyseven"
             android:textSize="18.66sp" />

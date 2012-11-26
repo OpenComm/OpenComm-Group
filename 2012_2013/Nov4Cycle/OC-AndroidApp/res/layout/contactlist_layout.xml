@@ -48,7 +48,7 @@
 
         <ImageView
             android:id="@+id/contacts_searchIcon"
-            android:layout_width="26.66dp"
+            android:layout_width="21.33dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
@@ -60,7 +60,7 @@
         
         <ImageView
             android:id="@+id/contacts_addIcon"
-            android:layout_width="26.66dp"
+            android:layout_width="21.33dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
