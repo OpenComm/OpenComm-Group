@@ -65,14 +65,11 @@ public class ContactListController {
 	 * Shows/hides Overflow
 	 */
 	public void handleOverflowButtonClicked() {
-		switch (this.contactListView.getOverflowList().getVisibility()) {
-		case (View.INVISIBLE): {
+		if (this.contactListView.getOverflowList().getVisibility() == View.INVISIBLE) {
 			this.contactListView.getOverflowList().setVisibility(View.VISIBLE);
-		}
-		default: {
+		} else {
 			this.contactListView.getOverflowList()
 					.setVisibility(View.INVISIBLE);
-		}
 		}
 	}
 
@@ -149,8 +146,8 @@ public class ContactListController {
 	private class UpdateContactsTask extends AsyncTask<Void, Void, Boolean> {
 		@Override
 		protected Boolean doInBackground(Void... arg0) {
-			Iterator<RosterEntry> entries = 
-					NetworkService.getInstance().getConnection().getRoster().getEntries().iterator();
+			Iterator<RosterEntry> entries = NetworkService.getInstance()
+					.getConnection().getRoster().getEntries().iterator();
 			ArrayList<User> updatedList = new ArrayList<User>();
 			while (entries.hasNext()) {
 				RosterEntry entry = entries.next();

@@ -36,6 +36,18 @@ import android.widget.ListView;
  * @author Risa Naka [frontend]
  * */
 public class ContactListView extends Activity{
+	/**
+	 * Debugging variable: if true, all logs are logged; set to false before
+	 * packaging
+	 */
+	@SuppressWarnings("unused")
+	private static final boolean D = true;
+
+	/**
+	 * The TAG for logging
+	 */
+	@SuppressWarnings("unused")
+	private static final String TAG = ContactListView.class.getSimpleName();
 	
 	private ContactListController controller;
 	private ContactListAdapter clAdapter;

@@ -1,65 +1,60 @@
 package edu.cornell.opencomm.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.jivesoftware.smack.PrivacyListManager;
-import org.jivesoftware.smack.XMPPConnection;
-import org.jivesoftware.smack.XMPPException;
-import org.jivesoftware.smack.packet.PrivacyItem;
-
 import android.content.Intent;
-import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import edu.cornell.opencomm.Manager.UserManager;
-import edu.cornell.opencomm.model.User;
-import edu.cornell.opencomm.network.NetworkService;
+import edu.cornell.opencomm.R;
 
+import edu.cornell.opencomm.view.ConferenceSchedulerView;
 import edu.cornell.opencomm.view.ContactCardView;
-import edu.cornell.opencomm.view.ContactListView;
+import edu.cornell.opencomm.view.MyAccountView;
 
 public class ContactCardController {
+	/**
+	 * Debugging variable: if true, all logs are logged; set to false before
+	 * packaging
+	 */
+	@SuppressWarnings("unused")
+	private static final boolean D = true;
 
-	private static final String TAG = "Controller.ContactCardController";
+	/**
+	 * The TAG for logging
+	 */
+	@SuppressWarnings("unused")
+	private static final String TAG = ContactCardController.class.getSimpleName();
 	private static final String BLOCK_LIST_NAME = "Blocked Users";
 
-	private User contact;
-
-	private ContactCardView view;
+	private ContactCardView contactCardView;
 
 	public ContactCardController(ContactCardView v) {
-		this.view = v;
-		// need way of attaining contact
-		contact = new User("default", "default", 0);
+		this.contactCardView = v;
 	}
 
+	/** Back button clicked: launch contactlistview */
 	public void handleBackButtonClicked() {
-		Intent intent = new Intent(this.view, ContactListView.class);
-		this.view.startActivity(intent);
+		this.contactCardView.onBackPressed();
 	}
 
-	public void handleAddButtonClicked() {
-		int duration = Toast.LENGTH_SHORT;
-		Toast toast = Toast.makeText(view.getApplicationContext(),
-				"Add Button Pressed", duration);
-		toast.show();
-		/*Log.v(TAG, "Adding user " + contact.getUsername() + " to contacts");
-		ArrayList<User> contactList = UserManager.getContactList();
-		contactList.add(contact);
-		UserManager.updateContactList(contactList);*/
-	}
-
-	public void handleOverflowButtonClicked() {
-		int duration = Toast.LENGTH_SHORT;
-		Toast toast = Toast.makeText(view.getApplicationContext(),
-				"Overflow Button Pressed", duration);
-		toast.show();
+	/** Add button clicked: if the user is not yet a friend, make it a friend and update add icon; 
+	 * otherwise, display toast indicating that it's already a friend */
+	public void handleAddButtonClicked(boolean isFriend) {
+		if (!isFriend) {
+			// TODO [backend] add as a friend and update contactlist
+			// update add icon to check if successful
+			ImageView addIcon = (ImageView) this.contactCardView.findViewById(R.id.contact_card_addIcon);
+			addIcon.setImageDrawable(this.contactCardView.getResources().getDrawable(R.drawable.action_check));
+		}
+		else {
+			Toast.makeText(this.contactCardView, "Contact already added", Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	public void handleBlockButtonClicked() {
 		int duration = Toast.LENGTH_SHORT;
-		Toast toast = Toast.makeText(view.getApplicationContext(),
+		Toast toast = Toast.makeText(contactCardView.getApplicationContext(),
 				"Block Button Pressed", duration);
 		toast.show();
 		/*Log.v(TAG, "Blocking user " + contact.getUsername());
@@ -89,5 +84,42 @@ public class ContactCardController {
 		} catch (XMPPException e) {
 			Log.e(TAG, "Unable to attain block list");
 		}*/
+	}
+
+		/**
+	 * Shows/hides Overflow
+	 */
+	public void handleOverflowButtonClicked() {
+		if (this.contactCardView.getOverflowList().getVisibility() == View.INVISIBLE) {
+			this.contactCardView.getOverflowList().setVisibility(View.VISIBLE);
+		} else {
+			this.contactCardView.getOverflowList()
+					.setVisibility(View.INVISIBLE);
+		}
+	}
+
+	/**
+	 * Overflow option clicked:
+	 * <ul>
+	 * <li>conferences: launches conferences page</li>
+	 * <li>account: launches profile page</li>
+	 * </ul>
+	 * */
+	public void handleOptionClick(View view) {
+		String option = ((TextView) view.findViewById(R.id.overflow_itemtext))
+				.getText().toString().trim();
+		// if the user selects conferences
+		if (option.equals("conferences")) {
+			// launch conferences page
+			Intent i = new Intent(this.contactCardView,
+					ConferenceSchedulerView.class);
+			this.contactCardView.startActivity(i);
+		}
+		// if the user selects account
+		else if (option.equals("account")) {
+			// launch my profile page
+			Intent i = new Intent(this.contactCardView, MyAccountView.class);
+			this.contactCardView.startActivity(i);
+		}
 	}
 }

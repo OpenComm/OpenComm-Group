@@ -81,7 +81,7 @@
     <string name="enter_conference_desc">Enter Conference</string>
     <string name="email_sample">jimmyjoe@jimmyjoe.com</string>
     <string name="phone_number">phone number</string>
-    <string name="phone_number_sample">(555) 555-5555</string>
+    <string name="phone_number_sample">(555) 555–5555</string>
     <string name="previous_conferences">previous conferences</string>
     <string name="conference_sample">sample conference</string>
     <string name="block">block</string>
