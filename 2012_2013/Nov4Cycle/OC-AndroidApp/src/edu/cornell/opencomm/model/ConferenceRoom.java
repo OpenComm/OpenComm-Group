@@ -1,7 +1,6 @@
 package edu.cornell.opencomm.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 
 import org.jivesoftware.smack.Connection;
@@ -12,7 +11,7 @@ import org.jivesoftware.smackx.muc.MultiUserChat;
 
 import android.graphics.Point;
 import android.util.Log;
-import edu.cornell.opencomm.Manager.UserManager;
+import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.network.NetworkService;
 
 public class ConferenceRoom extends MultiUserChat{
@@ -21,20 +20,20 @@ public class ConferenceRoom extends MultiUserChat{
 	
 	private Point center ;
 	
-	private double radius; 
+	
 	/**
 	 * 
 	 */
 	
 	private ArrayList<ConferenceUser> confUserList = new ArrayList<ConferenceUser>();
 	
-	private String roomID;
 	private static String rName;
+	private String roomId;
 	private User moderator;
 	
-	public ConferenceRoom(String roomName){
-		this(NetworkService.getInstance().getConnection(),roomName);
-		
+	public ConferenceRoom(String roomId){
+		this(NetworkService.getInstance().getConnection(),roomId);
+		this.roomId = roomId;
 	}
 	private static String formatRoomName(String roomName){
 		//Kris: format the string as per the server expectation
@@ -45,14 +44,14 @@ public class ConferenceRoom extends MultiUserChat{
 	
 	public ConferenceRoom(Connection c, String s, User u) {
 		super(c, formatRoomName(s));
-		roomID = s;
+		roomId = s;
 		moderator = u;
 		retriveOccupants();
 	}
 	
 	public ConferenceRoom(Connection c, String s){
 		super(c, formatRoomName(s));
-		roomID = s;
+		roomId = s;
 		retriveOccupants();
 	}
 	
@@ -101,7 +100,7 @@ public class ConferenceRoom extends MultiUserChat{
 		//Kris/BE: get the list of occupants from the super/muc and populate the participant maps
 	}
 	public String getRoomID(){
-		return roomID;
+		return roomId;
 	}
 	
 	public void setList(ArrayList<User> users){
@@ -148,14 +147,24 @@ public class ConferenceRoom extends MultiUserChat{
 		return confUserList;
 	}
 	private ArrayList<Point> getPoints(int users,double radius,Point center){
+		Log.d("ConferenceRoom", "Radius :"+radius);
+		Log.d("ConferenceRoom", "Center :"+center.toString());
+		Log.d("ConferenceRoom", "Users :"+users);
+		double startAngle = Math.toRadians(90);
+		double endAngle = Math.toRadians(360);
 		double slice = 2 * Math.PI / users;
+		center.x = center.x-38;
+		center.y = center.y-38;
+		
 		ArrayList<Point> pointList  = new ArrayList<Point>();
 		for (int i = 0; i < users; i++)
-		{
-			double angle = slice * i;
+		{	
+			double angle = (startAngle+slice * i)% endAngle;
 			int newX = (int)(center.x + radius * Math.cos(angle));
 			int newY = (int)(center.y + radius * Math.sin(angle));
 			Point p = new Point(newX, newY);
+			Log.d("ConferenceRoom", "Angle :"+angle);
+			Log.d("ConferenceRoom", "Point :"+p);
 			pointList.add(p);
 		}
 		return pointList;

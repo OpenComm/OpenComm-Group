@@ -1,4 +1,4 @@
-package edu.cornell.opencomm.Manager;
+package edu.cornell.opencomm.manager;
 
 import java.util.ArrayList;
 import java.util.Hashtable;

@@ -12,7 +12,7 @@ import android.content.Intent;
 import android.os.Vibrator;
 import android.util.Log;
 import android.widget.Toast;
-import edu.cornell.opencomm.Manager.UserManager;
+import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.ConferenceRoom;
 import edu.cornell.opencomm.model.ConferenceDataModel;
 import edu.cornell.opencomm.model.User;
@@ -26,7 +26,7 @@ public class ConferenceController {
 
 	private Context context;
 
-	private ConferenceDataModel _conference; // the conference that is being
+	private ConferenceDataModel conferenceModel; // the conference that is being
 												// controlled
 
 	private static final String TAG = "ConferenceController";
@@ -39,24 +39,26 @@ public class ConferenceController {
 
 	// TODO: add a listener for invitations and invitation responses
 	
-	public ConferenceController(Context context, ConferenceView view){
-		this.context = context; 
+	public ConferenceController(ConferenceView view,ConferenceDataModel model){
+		//TODO: do we really need this 
+		this.context = view; 
 		this.view = view; 
+		this.conferenceModel = model;
 	}
 
 	// Constructor - initialize required fields
 	public ConferenceController(ConferenceDataModel conf) {
-		this._conference = conf;
+		this.conferenceModel = conf;
 		invitedUsersToConference = new HashMap<User, String>();
 	}
 	
 	public void init(boolean isMod) {
-		if(isMod){
-			this._conference.initialize(true);
-		}
-		else{
-			this._conference.initialize(false);
-		}
+//		if(isMod){
+//			this._conference.initialize(true);
+//		}
+//		else{
+//			this._conference.initialize(false);
+//		}
 	}
 
 	public void inviteUser(User u, String sChat) {
@@ -121,7 +123,7 @@ public class ConferenceController {
 		String roomID = sChat;
 
 		// roomId = _conference.getActiveChat();
-		HashMap<String, ConferenceRoom> chatSpaceIDMap = _conference.getIDMap();
+		HashMap<String, ConferenceRoom> chatSpaceIDMap = conferenceModel.getIDMap();
 		ConferenceRoom chatRoom = chatSpaceIDMap.get(roomID);
 		return chatRoom;
 	}
@@ -132,7 +134,7 @@ public class ConferenceController {
 	// chat
 	public void leaveChat(String sChat, User currentUser) throws XMPPException {
 
-		HashMap<String, ConferenceRoom> conferencemap = _conference.getIDMap();
+		HashMap<String, ConferenceRoom> conferencemap = conferenceModel.getIDMap();
 		ConferenceRoom spacechat = conferencemap.get(sChat);
 		User moderator = spacechat.getModerator();
 
@@ -142,7 +144,7 @@ public class ConferenceController {
 										// moderator is leaving
 			User new_sidemoderator = null; // find the new_sidemoderator for
 											// this side chat
-			if (_conference.getIsmain()) { // if in mainchat
+			if (conferenceModel.getIsmain()) { // if in mainchat
 				String[] keys = (String[]) conferencemap.keySet().toArray();
 				for (int i = 0; i <= 2; i++) {
 					if (keys[i] != sChat) { // if not mainchat i.e. sidechats,
@@ -153,7 +155,7 @@ public class ConferenceController {
 						transferPrivileges(currentUser, newmoderator,
 								name);
 						spacechat1.leave();
-						_conference.setIsmain(true); // not sure if this is
+						conferenceModel.setIsmain(true); // not sure if this is
 														// needed, please check
 					}
 					String name = spacechat.getRoomID();
@@ -171,7 +173,7 @@ public class ConferenceController {
 		}
 
 		else { // if only a user
-			if ((_conference.getIsmain())) { // if main then leave side chat
+			if ((conferenceModel.getIsmain())) { // if main then leave side chat
 												// also
 				String[] keys = (String[]) conferencemap.keySet().toArray();
 				for (int i = 0; i <= 2; i++) {
@@ -189,9 +191,9 @@ public class ConferenceController {
 	}
 
 	public void endConference(String conf, User u) {
-		ConferenceRoom chat = this._conference.getIDMap().get(conf);
+		ConferenceRoom chat = this.conferenceModel.getIDMap().get(conf);
 		if (chat.getModerator().equals(u)) {
-			HashMap<String, ConferenceRoom> allChats = this._conference
+			HashMap<String, ConferenceRoom> allChats = this.conferenceModel
 					.getIDMap();
 			for (String s : allChats.keySet()) {
 				try {
@@ -216,12 +218,12 @@ public class ConferenceController {
 	 */
 	public void transferPrivileges(User u1, User u2, String chat)
 			throws XMPPException {
-		ConferenceRoom room = this._conference.getIDMap().get(chat);
+		ConferenceRoom room = this.conferenceModel.getIDMap().get(chat);
 		room.updateMod(u1, u2);
 	}
 
 	public void kickoutUser(String chat, User userToBeKicked, User currUser) {
-		if (this._conference.getIDMap().get(chat).getModerator()
+		if (this.conferenceModel.getIDMap().get(chat).getModerator()
 				.equals(currUser)) {
 			//AnKit
 //			this._conference.getIDMap().get(chat).getAllNicknames()
@@ -229,7 +231,7 @@ public class ConferenceController {
 //			this._conference.getIDMap().get(chat).getAllParticipants()
 //					.remove(userToBeKicked.getUsername());
 			try {
-				this._conference.getIDMap().get(chat)
+				this.conferenceModel.getIDMap().get(chat)
 						.kickParticipant(userToBeKicked.getNickname(), null);
 			} catch (XMPPException e) {
 				e.printStackTrace();
@@ -237,16 +239,7 @@ public class ConferenceController {
 		}
 	}
 
-	public ConferenceRoom switchChat(String chat) {
-		ConferenceRoom newChat = this._conference.getIDMap().get(chat);
-		this._conference.setActiveChat(chat);
-		if (this._conference.getLocationMap().get(chat).equals("MAIN")) {
-			this._conference.setIsmain(true);
-		} else {
-			this._conference.setIsmain(false);
-		}
-		return newChat;
-	}
+
 
 	// TODO: the following methods will not be implemented for the Nov4 cycle
 

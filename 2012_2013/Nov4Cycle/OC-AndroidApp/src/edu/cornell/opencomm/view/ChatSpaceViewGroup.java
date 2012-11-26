@@ -16,7 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.Manager.UserManager;
+import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.User;
 
 public class ChatSpaceViewGroup extends ViewGroup implements OnTouchListener{
@@ -258,9 +258,10 @@ public class ChatSpaceViewGroup extends ViewGroup implements OnTouchListener{
 		if (me.getAction() == MotionEvent.ACTION_DOWN) {
 			image = new ImageView (this.getContext()); 
 			image.setImageBitmap(view.getDrawingCache()); 
-			RelativeLayout layout = (RelativeLayout) findViewById(R.layout.activity_main); 
-			layout.addView(image); 
+//			RelativeLayout layout = (RelativeLayout) findViewById(R.layout.activity_main); 
+//			layout.addView(image); 
 		}
+		
 		if (me.getAction() == MotionEvent.ACTION_UP) {
 
 			Log.i("Drag", "Stopped Dragging");

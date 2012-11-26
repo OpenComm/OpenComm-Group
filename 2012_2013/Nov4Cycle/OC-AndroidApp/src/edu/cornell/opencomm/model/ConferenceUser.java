@@ -1,6 +1,7 @@
 package edu.cornell.opencomm.model;
 
 import android.graphics.Point;
+import android.location.Location;
 
 
 public class ConferenceUser {
@@ -25,16 +26,16 @@ public class ConferenceUser {
 	}
 	
 	public int getX(){
-		return 10;
+		return LOCATION.x;
 	}
 	public int getY(){
 		return LOCATION.y;
 	}
-	
+	//TODO: delete this , location is public field
 	public Point getLocation(){
 		return LOCATION;
 	}
-	
+	//TODO: delete this, location is public field
 	public void setLocation(Point location){
 		LOCATION = location;
 	}

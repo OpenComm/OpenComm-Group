@@ -2,13 +2,6 @@ package edu.cornell.opencomm.view;
 
 import java.util.ArrayList;
 
-import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.Manager.UserManager;
-import edu.cornell.opencomm.controller.ContactListController;
-import edu.cornell.opencomm.controller.FontSetter;
-import edu.cornell.opencomm.model.ContactListAdapter;
-import edu.cornell.opencomm.model.OverflowAdapter;
-import edu.cornell.opencomm.model.User;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +9,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.controller.ContactListController;
+import edu.cornell.opencomm.controller.FontSetter;
+import edu.cornell.opencomm.manager.UserManager;
+import edu.cornell.opencomm.model.ContactListAdapter;
+import edu.cornell.opencomm.model.OverflowAdapter;
+import edu.cornell.opencomm.model.User;
 
 /**
  * View for contact list page. Functionality (handled by ContactListController).<br>
@@ -63,6 +63,7 @@ public class ContactListView extends Activity{
 		this.initializeOverflow();
 		this.initializeContactList();
 		FontSetter.applySanSerifFont(ContactListView.this, findViewById(R.id.contacts_layout));
+		
 		
 	}
 	

@@ -250,14 +250,5 @@
             android:textSize="10sp" />
     </RelativeLayout>
 
-    <edu.cornell.opencomm.view.UserView
-        android:id="@+id/userView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/bottom_bar"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="74dp"
-        android:layout_marginLeft="126dp"
-        android:src="@drawable/example_picture_1" />
 
 </RelativeLayout>

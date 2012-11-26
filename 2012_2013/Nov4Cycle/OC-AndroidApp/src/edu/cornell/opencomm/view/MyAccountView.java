@@ -10,10 +10,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.Manager.UserManager;
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.controller.MyAccountController;
 import edu.cornell.opencomm.model.OverflowAdapter;
+import edu.cornell.opencomm.manager.UserManager;
 
 /**
  * View for profile page. Functionality (handled by MyAccountController).<br>

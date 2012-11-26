@@ -3,78 +3,83 @@ package edu.cornell.opencomm.view;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.RelativeLayout;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.model.ConferenceRoom;
 import edu.cornell.opencomm.model.ConferenceUser;
 
 public class ConferenceRoomFragment extends Fragment {
-	View roomLayout;
-	RelativeLayout rl;
-	public int layoutId = R.layout.confernec_main_room;
-	public  String roomName;
-	private String TAG = ConferenceRoom.class.getName()+roomName;
+	private View roomLayout;
+	public int layoutId = R.layout.conference_main_room;
+	private String TAG = ConferenceRoom.class.getName();
 	public ConferenceRoom conferenceRoom;
 	boolean DEBUG = true;
 	public ArrayList<UserView> userViews = new ArrayList<UserView>();
 	public Context context ;
 	public static final int radius = 165;
-//	public ConferenceRoomFragment(ConferenceRoom room){
-//		this.room = room;
-//	}
-//	
+
+	public ConferenceRoomFragment(Context context,int layoutId,ConferenceRoom room){
+		this.layoutId = layoutId;
+		this.context = context;
+		this.conferenceRoom = room;
+		Log.d(TAG,"layoutId :"+layoutId);
+		Log.d(TAG, "Conference Room :"+conferenceRoom);
+	}
+	
+	
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		Log.d(TAG, "onCreateView()");
 		if (container == null) {
-			//ANKIT: i dont know what this means yet
-            // We have different layouts, and in one of them this
-            // fragment's containing frame doesn't exist.  The fragment
-            // may still be created from its saved state, but there is
-            // no reason to try to create its view hierarchy because it
-            // won't be displayed.  Note this is not needed -- we could
-            // just run the code below, where we would create and return
-            // the view hierarchy; it would just never be used.
             return null;
         }
 		this.roomLayout = inflater.inflate(layoutId, container, false);
-		rl= (RelativeLayout) roomLayout; 		
-		Log.i("Hellooo", Boolean.toString(rl==null)); 
 		//ViewPager vp = (ViewPager) roomLayout;
 		//int i = vp.getCurrentItem();
 		
 		/*View v = getView();
 		Log.d("Me - View", Boolean.toString(v==null));
 		rl = (RelativeLayout) getView().findViewById(R.id.action_bar); */
-		createTheCirleOfTrust();
+		
+		ViewTreeObserver observer = roomLayout.getViewTreeObserver();
+		observer.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
+			
+			public void onGlobalLayout() {
+				Log.d(TAG, "Before Room Height :"+roomLayout.getHeight());
+				Log.d(TAG, "Before Room Width :"+roomLayout.getWidth());
+				createUsers();
+			}
+		});
 		return this.roomLayout;
 	}
-	public void createUsers(){
+	private boolean isCreated = false;
 		
+	public void createUsers(){
+		Log.d(TAG, "createUsers : isCreated ="+isCreated);
+		if(!isCreated){
+			createTheCirleOfTrust();
+			isCreated = true;
+		}
 	}
-	
+	@Override
+	public void onDestroyView() {
+		isCreated = false;
+		super.onDestroyView();
+	}
 	public void setContext(Context context){
 		this.context = context;
 	}
 	
-	public ConferenceRoom getConferenceRoom(){
-		return conferenceRoom;
-	}
-	
-	public void setConferenceRoom(ConferenceRoom conferenceRoom){
-		this.conferenceRoom = conferenceRoom;
-	}
 	
 	/**
 	 * Add a userView to this roomFragment
@@ -84,38 +89,32 @@ public class ConferenceRoomFragment extends Fragment {
 	}
 	
 	
-	
 	/** 
 	 * Position the users
 	 */
 	public void createTheCirleOfTrust(){
-		Point center = new Point(roomLayout.getWidth()/2, roomLayout.getHeight()/2);
-		ArrayList<ConferenceUser> userList = conferenceRoom.updateLocations(center, radius);
-		for (ConferenceUser confUser : userList){
-			UserView uv = new UserView(context, this, confUser, imageIdToBitmap(confUser.getUser().getImage(), 76, 76)); 
-			addUserView(uv);
-			Log.i("Conference User- points", "" + confUser.getLocation()); 
-			Log.i("Me - rl", "" + Boolean.toString(rl==null));
-			Log.i("Me - uv", "" + Boolean.toString(uv==null));
-			Log.i("Me - roomlayout", Boolean.toString(roomLayout==null));
-			
-		/*	ViewPager vp = (ViewPager) roomLayout;
-			View view = vp.getChildAt(1);
-			RelativeLayout rr = (RelativeLayout) view.findViewById(R.id.main_container);
-			rr.addView(uv);  */
-			rl.addView(uv);
-			//rl.invalidate(); 
-			
+		Log.d(TAG, "Drawing the circle of trust :Conference Room :"+conferenceRoom);
+		Log.d(TAG, "Room Height :"+roomLayout.getHeight());
+		Log.d(TAG, "Room Width :"+roomLayout.getWidth());
+		if (conferenceRoom != null) {
+			Point center = new Point(roomLayout.getWidth() / 2,
+					roomLayout.getHeight() / 2);
+			ArrayList<ConferenceUser> userList = conferenceRoom
+					.updateLocations(center, radius);
+			int i =10;
+			for (ConferenceUser confUser : userList) {
+				UserView uv = new UserView(context, confUser);
+				RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(76, 76);
+				params.leftMargin = confUser.getX();
+				params.topMargin = confUser.getY();
+				((ViewGroup) roomLayout).addView(uv, params);
+				
+			}
+//			ImageView iv = new ImageView(context);
+//			iv.setBackgroundColor(Color.YELLOW);
 		}
-		//draw();
 		
 	}
-		
-		public Bitmap imageIdToBitmap(int imageID, int width, int height){
-			Bitmap image = BitmapFactory.decodeResource(getResources(), imageID);
-			Bitmap rescaled_image = Bitmap.createScaledBitmap(image, width, height, true);
-			return rescaled_image;
-		}
 		
 		
 

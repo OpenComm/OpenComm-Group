@@ -2,11 +2,11 @@ package edu.cornell.opencomm.util;
 
 import java.util.regex.Pattern;
 
-/**Utility class 
- * Issues [TODO]
- * - For any other issues search for string "TODO"
+/**
+ * Utility class Issues [TODO] - For any other issues search for string "TODO"
+ * 
  * @author Ankit Singh
- *
+ * 
  */
 public class Util {
 	// TODO create the values class
@@ -27,7 +27,7 @@ public class Util {
 	 * Password can be minimum 10 maximum 30
 	 */
 	public final static Pattern PASSWORD = Pattern.compile(".{10,30}$");
-	
+
 	/**
 	 * @param str
 	 * @param pattern
@@ -35,8 +35,15 @@ public class Util {
 	 */
 	public static boolean validateString(String str, Pattern pattern) {
 		// TODO debug to logger ("string to be validated and the patter used)
-		if (D) return true;
+		if (D)
+			return true;
 		str = str.trim();
 		return pattern.matcher(str).matches();
+	}
+
+	public static String generateUniqueRoomId(String conferenceTitle,
+			String ConferenceTime,String owner) {
+		return new StringBuffer(conferenceTitle).append(":")
+				.append(ConferenceTime).append(":").append(owner).toString();
 	}
 }

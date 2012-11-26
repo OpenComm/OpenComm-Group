@@ -5,14 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.Manager.UserManager;
 import edu.cornell.opencomm.controller.ContactCardController;
 import edu.cornell.opencomm.controller.FontSetter;
+import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.OverflowAdapter;
 import edu.cornell.opencomm.model.User;
 

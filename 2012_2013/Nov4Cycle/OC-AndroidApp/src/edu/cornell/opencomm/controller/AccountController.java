@@ -13,7 +13,7 @@ import org.jivesoftware.smackx.packet.VCard;
 
 import android.util.Log;
 
-import edu.cornell.opencomm.Manager.UserManager;
+import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
 
