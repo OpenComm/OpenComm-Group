@@ -23,7 +23,9 @@
 @synthesize emailaddressField;
 @synthesize confirmpasswordField;
 @synthesize lowerView;
-@synthesize  setimageButton;
+@synthesize setimageButton;
+
+extern OCXMPPDelegateHandler *delegateHandler;
 
 
 - (void)viewDidLoad
@@ -97,7 +99,54 @@
     [sender resignFirstResponder];
 }
 - (IBAction)submitPressed:(id)sender{
-   //Store the field values or check, process the data given by the user.
+    /*Error checking form inputs*/
+    NSString *errorMessage = nil;
+    if ([firstnameField.text length] <= 0) {
+        errorMessage = @"First Name Required";
+    }
+    else if ([secondnameField.text length] <= 0) {
+        errorMessage = @"Last Name Required";
+    }
+    else if ([emailaddressField.text length] <= 0) {
+        errorMessage = @"Email Address Required";
+    }
+    else if ([emailaddressField.text rangeOfString: @"@"].location == NSNotFound) {
+        errorMessage = @"Invalid Email Address";
+    }
+    else if ([jobtitleField.text length] <= 0) {
+        errorMessage = @"Job Title Required";
+    }
+    else if ([passwordField.text length] <= 0) {
+        errorMessage = @"Password Required";
+    }
+    else if (![passwordField.text isEqualToString: confirmpasswordField.text]) {
+        errorMessage = @"Mismatching Passwords";
+        passwordField.text = @"";
+        confirmpasswordField.text = @"";
+    }
+    
+    if (errorMessage != nil) {
+        UIAlertView *errorAlert = [
+                             [UIAlertView alloc]
+                             initWithTitle:@"Registration Form Error"
+                             message: errorMessage
+                             delegate:nil
+                             cancelButtonTitle: @"OK"
+                             otherButtonTitles: nil
+                             ];
+        [errorAlert show];
+        return ;
+    }
+    
+    /*Register the user with the connected XMPP Stream*/
+    [delegateHandler getXMPPStream].myJID = [XMPPJID jidWithString: emailaddressField.text];
+    NSError *error;
+    if (![[delegateHandler getXMPPStream] registerWithPassword: passwordField.text error: &error]) {
+        NSLog(@"Oops, I probably forgot something: %@", error);
+    }
+    
+    //Segue change should be moved to DelegateHandler?
+    [self performSegueWithIdentifier: @"submitButton" sender: nil];
 }
 
 - (IBAction)backButtonPressed:(id)sender {

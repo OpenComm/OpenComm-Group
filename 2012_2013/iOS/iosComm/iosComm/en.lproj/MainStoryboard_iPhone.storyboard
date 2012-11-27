@@ -535,7 +535,6 @@
                                         </state>
                                         <connections>
                                             <action selector="submitPressed:" destination="TFw-Ty-t0b" eventType="touchUpInside" id="TVF-vz-KMr"/>
-                                            <segue destination="2" kind="modal" id="26K-G3-ZtE"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" id="qU1-mR-HTS">
@@ -656,11 +655,12 @@
                         <outlet property="secondnameField" destination="jpc-y0-9Cg" id="s0y-24-xQZ"/>
                         <outlet property="setimageButton" destination="r6C-8K-d2V" id="Ah9-He-A4b"/>
                         <outlet property="signupView" destination="qU1-mR-HTS" id="Ega-A1-hY2"/>
+                        <segue destination="2" kind="modal" identifier="submitButton" id="jJh-0M-PeK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r8f-nI-71d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="997" y="-620"/>
+            <point key="canvasLocation" x="988" y="-543"/>
         </scene>
         <!--Forgot Password View Controller-->
         <scene sceneID="mI7-Wd-X2l">
@@ -747,12 +747,64 @@
         <image name="signInButton.png" width="55" height="29"/>
         <image name="signUpButton.png" width="279" height="45"/>
     </resources>
+    <classes>
+        <class className="OCConferenceViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCConferenceViewController.h"/>
+        </class>
+        <class className="OCContactCardViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCContactCardViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="contactLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="OCContactsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCContactsViewController.h"/>
+        </class>
+        <class className="OCForgotPasswordViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCForgotPasswordViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="backButtonPressed:"/>
+                <relationship kind="action" name="resetButton:"/>
+                <relationship kind="action" name="textfieldReturned:"/>
+                <relationship kind="outlet" name="enteremailField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="firstView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="OCSignUpViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCSignUpViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="backButtonPressed:"/>
+                <relationship kind="action" name="setimageButton:"/>
+                <relationship kind="action" name="submitPressed:"/>
+                <relationship kind="action" name="textfieldReturned:"/>
+                <relationship kind="outlet" name="confirmpasswordField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="emailaddressField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="firstnameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="jobtitleField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="lowerView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="passwordField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="secondnameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="setimageButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="signupView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="OCViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="fetch:"/>
+                <relationship kind="action" name="loginButtonPressed:"/>
+                <relationship kind="outlet" name="loginPasswordField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="loginUsernameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="loginView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="xa1-TT-b8Z"/>
+        <segue reference="DJo-C0-6TI"/>
     </inferredMetricsTieBreakers>
 </document>

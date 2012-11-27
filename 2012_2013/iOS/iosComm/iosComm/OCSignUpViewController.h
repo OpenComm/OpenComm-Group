@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OCViewController.h"
 
 @interface OCSignUpViewController : UIViewController <UIImagePickerControllerDelegate>
 

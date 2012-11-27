@@ -195,7 +195,7 @@
                          otherButtonTitles:@"Temp1", @"Temp2", nil
                          ];
     [info show];
-    [sender disconnect];
+    //[sender disconnect];
     
 }
 
@@ -275,6 +275,14 @@
 			[[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
 		}
 	}
+}
+
+- (void)xmppStreamDidRegister:(XMPPStream *)sender {
+    NSLog(@"I did register!");
+}
+
+- (void)xmppStream:(XMPPStream *)sender didNotRegister:(NSXMLElement *)error {
+    NSLog(@"I did not register: %@", error);
 }
 
 @end
