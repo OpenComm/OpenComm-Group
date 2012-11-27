@@ -228,6 +228,9 @@ public class ConferenceRoomFragment extends Fragment {
 						cuoverlap.setLocation(oldLocation);
 					}
 				}
+				
+				((UserView)v).setImageBitmap(b);
+				v.invalidate();
 				Log.i("Drag", "Stopped Dragging");
 			} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
 				Log.d("UserTouchListner", "ACTION_MOVE");
@@ -238,6 +241,7 @@ public class ConferenceRoomFragment extends Fragment {
 					dittoUser =  new 	ImageView(context);
 					dittoUser.setImageBitmap(b);
 					dittoUser.setPadding(absoluteX,absoluteY, 0, 0);
+					((UserView)v).setImageBitmap(null);
 					((ViewGroup)roomLayout).addView(dittoUser, params);
 					
 				}
@@ -251,7 +255,8 @@ public class ConferenceRoomFragment extends Fragment {
 				if(dittoUser != null ){
 					status = STOP_DRAGGING;
 					((ViewGroup)roomLayout).removeView(dittoUser);
-					
+					((UserView)v).setImageBitmap(b);
+					v.invalidate();
 				}
 			}
 			return false;
