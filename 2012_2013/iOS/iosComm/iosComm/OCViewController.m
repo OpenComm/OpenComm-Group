@@ -23,6 +23,7 @@
 
 //extern variable.
 OCXMPPDelegateHandler *delegateHandler;
+//OCDefaultServerConstantsController *defaults;
 
 
 //-------------------------------------------------------------------
@@ -51,16 +52,34 @@ OCXMPPDelegateHandler *delegateHandler;
     [loginPasswordField.layer setCornerRadius:cornerRadius];
     
     
-    //a separate class handler for default XMPP stuff.
-    if (defaults != nil) {
+    /*Initialize everything for this application ONLY ONCE*/
+    if (delegateHandler == nil) {
         defaults = [[OCDefaultServerConstantsController alloc] init];
-        delegateHandler = [[OCXMPPDelegateHandler alloc] init];
+        delegateHandler = [[OCXMPPDelegateHandler alloc] initWithView:self andDefaults:defaults];
         myXMPPStream = [[XMPPStream alloc] init];
-    
+        
         myXMPPRosterStorage = [[XMPPRosterCoreDataStorage alloc] init];
         myXMPPRoster = [[XMPPRoster alloc] initWithRosterStorage:myXMPPRosterStorage];
         myXMPPRoster.autoFetchRoster = YES;
         [myXMPPRoster activate:myXMPPStream];
+        
+        /*Connect to the XMPP Stream to make sure the server is connectable to*/
+        //the JID must be set to something to connect, even if we will not be using it later.
+        //Don't worry -- we're not authenticating with this ID! we're just connecting the stream to the server.
+        myXMPPStream.myJID = [XMPPJID jidWithString:[defaults DEFAULT_JID]];
+        myXMPPStream.hostName = [defaults DEFAULT_HOSTNAME];
+        /*Don't need to set port. The default is always 5222*/
+        myXMPPStream.hostPort = [defaults DEFAULT_PORT];
+        /*Stream and Roster messages are pushed to the main workload queue*/
+        [myXMPPStream addDelegate:delegateHandler delegateQueue:dispatch_get_main_queue()];
+        [myXMPPRoster addDelegate:delegateHandler delegateQueue:dispatch_get_main_queue()];
+        [delegateHandler setXMPPRosterStorage:myXMPPRosterStorage roster:myXMPPRoster stream:myXMPPStream];
+        NSError *error = nil;
+        
+        if (![myXMPPStream connect:&error])
+        {
+            NSLog(@"Oops, I probably forgot something: %@", error);
+        }
     }
     
     NSLog(@"My IP Address: %@", [[[OCAudioPassingProtocol alloc] init] getIPAddress]);
@@ -90,13 +109,13 @@ OCXMPPDelegateHandler *delegateHandler;
 //-------------------------------------------------------------------
 - (IBAction)loginButtonPressed:(id)sender {
     NSLog(@"Username: %@, Password: %@", loginUsernameField.text, loginPasswordField.text);
-
+    //myXMPPStream = [delegateHandler getXMPPStream];
     if ([defaults DEBUG_PARAM]) {
         NSLog(@"DEBUG PARAM SET");
         myXMPPStream.myJID = [XMPPJID jidWithString:[defaults DEFAULT_JID]];
-        myXMPPStream.hostName = [defaults DEFAULT_DOMAIN];
+        //myXMPPStream.hostName = [defaults DEFAULT_DOMAIN];
         /*Don't need to set port. The default is always 5222*/
-        myXMPPStream.hostPort = [defaults DEFAULT_PORT];
+        //myXMPPStream.hostPort = [defaults DEFAULT_PORT];
         myPassword = [defaults DEFAULT_PASSWORD];
     }
 
@@ -108,20 +127,25 @@ OCXMPPDelegateHandler *delegateHandler;
         myPassword = loginPasswordField.text;
         NSLog(@"%@", myJID);
         myXMPPStream.myJID = [XMPPJID jidWithString:myJID];
-        myXMPPStream.hostPort = [defaults DEFAULT_PORT];
+        //myXMPPStream.hostPort = [defaults DEFAULT_PORT];
     }
     
-    delegateHandler = [[OCXMPPDelegateHandler alloc] initWithPassword: myPassword andView:self andDefaults:defaults];
-    [delegateHandler setXMPPRosterStorage:myXMPPRosterStorage roster:myXMPPRoster stream:myXMPPStream];
+    //delegateHandler = [[OCXMPPDelegateHandler alloc] initWithView:self andDefaults:defaults];
+    //[delegateHandler setXMPPRosterStorage:myXMPPRosterStorage roster:myXMPPRoster stream:myXMPPStream];
     
-    [myXMPPStream addDelegate:delegateHandler delegateQueue:dispatch_get_main_queue()];
-    [myXMPPRoster addDelegate:delegateHandler delegateQueue:dispatch_get_main_queue()];
+    //[myXMPPStream addDelegate:delegateHandler delegateQueue:dispatch_get_main_queue()];
+    //[myXMPPRoster addDelegate:delegateHandler delegateQueue:dispatch_get_main_queue()];
     NSError *error = nil;
     
-    NSLog(@"stream's JID: %@", myXMPPStream.myJID);
+    //NSLog(@"stream's JID: %@", myXMPPStream.myJID);
     
-    if (![myXMPPStream isDisconnected]) {
-        NSLog(@"I'm already connected");
+    //if (![myXMPPStream isDisconnected]) {
+        //NSLog(@"I'm already connected");
+    //}
+    
+    XMPPPlainAuthentication *auth = [[XMPPPlainAuthentication alloc]initWithStream: myXMPPStream password: myPassword];
+    if (![myXMPPStream authenticate:auth error:&error]) {
+        NSLog(@"Oops, I probably forgot something: %@", error);
     }
     
     /* THIS IS SOCKET STUFF*/
@@ -140,14 +164,15 @@ OCXMPPDelegateHandler *delegateHandler;
     
     /*This only returns an error if JID and hostname are not set, which is dumb
      *The method is asynchronous, so it returns even though there is not a full connection*/
-    if (![myXMPPStream connect:&error])
-    {
-        NSLog(@"Oops, I probably forgot something: %@", error);
-    }
+    //if (![myXMPPStream connect:&error])
+    //{
+        //NSLog(@"Oops, I probably forgot something: %@", error);
+    //}
     
     //NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
     //XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:path];
     //NSLog(@"%@", [[self fetchedResultsController] sections]);
+    NSLog(@"I get here");
 }
 
 - (NSFetchedResultsController *)fetchedResultsController

@@ -14,7 +14,6 @@
 @class OCViewController;
 
 @interface OCXMPPDelegateHandler : NSObject <UIAlertViewDelegate> {
-    NSString *password;
     XMPPRoster *myXMPPRoster;
     XMPPRosterCoreDataStorage *myXMPPRosterStorage;
     XMPPStream *myXMPPStream;
@@ -23,7 +22,7 @@
     OCDefaultServerConstantsController *defaults;
 }
 
-- (id)initWithPassword: (NSString *) password andView:(OCViewController *)controller andDefaults:(OCDefaultServerConstantsController *) def;
+- (id)initWithView:(OCViewController *)controller andDefaults:(OCDefaultServerConstantsController *) def;
 - (XMPPStream *) getXMPPStream;
 - (OCDefaultServerConstantsController *) getDefaults;
 - (void)setXMPPRosterStorage:(XMPPRosterCoreDataStorage *)storage roster:(XMPPRoster *)r stream:(XMPPStream *)s;

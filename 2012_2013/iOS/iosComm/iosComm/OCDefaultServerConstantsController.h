@@ -10,6 +10,7 @@
 
 @interface OCDefaultServerConstantsController : NSObject {
 	BOOL DEBUG_PARAM;
+    NSString *DEFAULT_HOSTNAME;
 	NSString *DEFAULT_DOMAIN;
     NSString *DEFAULT_RESOURCE;
 	NSString *DEFAULT_JID;
@@ -18,6 +19,7 @@
 }
 
 @property (nonatomic) BOOL DEBUG_PARAM;
+@property (copy, nonatomic) NSString *DEFAULT_HOSTNAME;
 @property (copy, nonatomic) NSString *DEFAULT_DOMAIN;
 @property (copy, nonatomic) NSString *DEFAULT_RESOURCE;
 @property (copy, nonatomic) NSString *DEFAULT_JID;

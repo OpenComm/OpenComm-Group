@@ -10,10 +10,9 @@
 
 @implementation OCXMPPDelegateHandler
 
-- (id)initWithPassword: (NSString *) passwordParam andView:(OCViewController *)controller  andDefaults:(OCDefaultServerConstantsController *) def{
+- (id)initWithView:(OCViewController *)controller  andDefaults:(OCDefaultServerConstantsController *) def{
     self = [super init];
     if (self) {
-        password = passwordParam;
         viewController = controller;
         defaults = def;
     }
@@ -92,12 +91,12 @@
     /*DigestMD5 should be used to connect to Facebook instead of XFacebook, because XFacebook
      *Requires a appID and token. MD5 only requires the password*/
     
-    NSError *error = nil;
-    BOOL result;
+    //NSError *error = nil;
+    //BOOL result;
     
     //if (DEBUG == YES) {
-        XMPPPlainAuthentication *auth = [[XMPPPlainAuthentication alloc]initWithStream: sender password: password];
-        result = [sender authenticate:auth error:&error];
+        //XMPPPlainAuthentication *auth = [[XMPPPlainAuthentication alloc]initWithStream: sender password: password];
+        //result = [sender authenticate:auth error:&error];
         
     //}
     //else {
@@ -110,13 +109,13 @@
     result = [sender authenticate:auth error:&error];
      */
     
-    if (!result) {
-        NSLog(@"Oops, I probably forgot something: %@", error);
-    }
-    if (sender.isAuthenticated) {
-        NSLog(@"I'm authenticated in Did Connect");
-    }
-    NSLog(@"Goodbye!");
+    //if (!result) {
+        //NSLog(@"Oops, I probably forgot something: %@", error);
+    //}
+    //if (sender.isAuthenticated) {
+        //NSLog(@"I'm authenticated in Did Connect");
+    //}
+    //NSLog(@"Goodbye!");
     
     //This is not really printed... so I hypothesize that this delegate is called
     //Before the state is set to connected.

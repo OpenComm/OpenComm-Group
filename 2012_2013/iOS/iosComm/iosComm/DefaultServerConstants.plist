@@ -4,6 +4,8 @@
 <dict>
 	<key>DEBUG_PARAM</key>
 	<false/>
+	<key>DEFAULT_HOSTNAME</key>
+	<string>cuopencomm.no-ip.org</string>
 	<key>DEFAULT_DOMAIN</key>
 	<string>cuopencomm</string>
 	<key>DEFAULT_RESOURCE</key>

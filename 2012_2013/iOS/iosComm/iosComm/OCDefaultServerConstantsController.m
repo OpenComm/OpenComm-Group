@@ -34,6 +34,7 @@
             NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
         }
         self.DEBUG_PARAM = (BOOL) [[temp objectForKey:@"DEBUG_PARAM"] boolValue];
+        self.DEFAULT_JID = [temp objectForKey:@"DEFAULT_HOSTNAME"];
 		self.DEFAULT_JID = [temp objectForKey:@"DEFAULT_JID"];
 		self.DEFAULT_DOMAIN = [temp objectForKey:@"DEFAULT_DOMAIN"];
         self.DEFAULT_RESOURCE = [temp objectForKey:@"DEFAULT_RESOURCE"];
@@ -45,6 +46,7 @@
 }
 
 @synthesize DEBUG_PARAM;
+@synthesize DEFAULT_HOSTNAME;
 @synthesize DEFAULT_DOMAIN;
 @synthesize DEFAULT_RESOURCE;
 @synthesize DEFAULT_JID;
