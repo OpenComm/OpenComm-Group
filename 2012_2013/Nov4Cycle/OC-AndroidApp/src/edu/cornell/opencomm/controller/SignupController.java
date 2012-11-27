@@ -102,7 +102,10 @@ public class SignupController {
 	}
 	
 	/** Photo input button clicked
-	 * TODO [frontend/Ankit] empty method */
+	 * TODO [frontend/Ankit] empty method 
+	 * TODO[Backend/Kris] BE should send the user vcard from the user object to server
+	 * */
+	
 	public void handlePhotoButtonClick(View v) {
 		// TODO Auto-generated method stub
 		

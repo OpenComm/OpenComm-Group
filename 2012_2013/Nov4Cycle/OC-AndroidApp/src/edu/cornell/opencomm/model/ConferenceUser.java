@@ -1,21 +1,18 @@
 package edu.cornell.opencomm.model;
 
+import java.util.ArrayList;
+
 import android.graphics.Point;
-import android.location.Location;
+import edu.cornell.opencomm.interfaces.OCUpdateListener;
 
 
 public class ConferenceUser {
 	/**
 	 * 
 	 */
-	public Point LOCATION;
+	private Point LOCATION;
 	public User user;
-	
-	/*public ConferenceUser(String username, String nickname, int image) {
-		super(username, nickname, image);
-		// TODO Auto-generated constructor stub
-		
-	}*/
+	ArrayList<OCUpdateListener> locationUpdateListners = new ArrayList<OCUpdateListener>();
 	
 	public ConferenceUser(User user){
 		this.user = user;
@@ -24,7 +21,9 @@ public class ConferenceUser {
 	public User getUser(){
 		return user;
 	}
-	
+	public void addLocationUpdateListner(OCUpdateListener listner){
+		locationUpdateListners.add(listner);
+	}
 	public int getX(){
 		return LOCATION.x;
 	}
@@ -38,6 +37,10 @@ public class ConferenceUser {
 	//TODO: delete this, location is public field
 	public void setLocation(Point location){
 		LOCATION = location;
+		
+		for(OCUpdateListener lis : locationUpdateListners){
+			lis.onUpdate(100, new String("location changed"));
+		}
 	}
 	
 }

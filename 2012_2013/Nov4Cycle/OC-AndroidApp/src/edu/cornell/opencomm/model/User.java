@@ -8,6 +8,7 @@ import java.io.Serializable;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.packet.VCard;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
@@ -53,8 +54,6 @@ public class User implements Comparable<User>, Serializable {
 	Bitmap userImage;
 
 	/**
-	 * TODO Ankit: Move this out of here it is only used for conference and
-	 * store it in a map in chat space model The color of the user contact card
 	 */
 	public int userColor;
 
@@ -143,7 +142,7 @@ public class User implements Comparable<User>, Serializable {
 	public VCard getVCard() {
 		return this.vCard;
 	}
-
+	
 	public int compareTo(User arg0) {
 		return (getUsername().compareTo(arg0.getUsername()));
 		// returns alphabetic comparison of usernames by using string compareTo

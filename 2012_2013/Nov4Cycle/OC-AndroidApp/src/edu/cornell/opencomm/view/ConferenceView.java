@@ -217,6 +217,7 @@ public final class ConferenceView extends FragmentActivity implements
 	public void onPageSelected(int roomNumber) {
 		Log.d(TAG, "Room Number selected :" + roomNumber);
 		ConferenceRoomFragment fragment = (ConferenceRoomFragment) mPagerAdapter.getItem(roomNumber);
+		
 //		fragment.createUsers();
 	}
 
