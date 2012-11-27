@@ -3,6 +3,7 @@ package edu.cornell.opencomm.view;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Point;
 import android.util.Log;
@@ -11,10 +12,10 @@ import android.widget.RelativeLayout;
 import edu.cornell.opencomm.interfaces.OCUpdateListener;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.ConferenceUser;
-
-/** The graphical icon representing a user (User object) that will show up
- * on the user interface screen */
-
+/**
+ * @author  Spandana Govindgari [frontend], Ankit Singh[frontend],Nora NQ[frontend]
+ *
+ */
 public class UserView extends ImageButton implements OCUpdateListener{
 
 	private static String LOG_TAG = UserView.class.getName(); // for error checking
@@ -31,8 +32,9 @@ public class UserView extends ImageButton implements OCUpdateListener{
 		this.person = conferenceUser;
 		person.addLocationUpdateListner(this);
 		setImage(conferenceUser.getUser().getImage());
-		if(!conferenceUser.getUser().equals(UserManager.PRIMARY_USER)){
-
+		if(conferenceUser.getUser().compareTo(UserManager.PRIMARY_USER) == 0){
+			setBackgroundColor(Color.BLACK);
+		}else{
 			setImageBitmap(image);
 		}
 

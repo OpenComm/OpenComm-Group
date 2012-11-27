@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -25,10 +24,16 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.Toast;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.ConferenceRoom;
 import edu.cornell.opencomm.model.ConferenceUser;
 
+/**	
+ * @author  Spandana Govindgari [frontend], Ankit Singh[frontend],Nora NQ[frontend]
+ *
+ */
 public class ConferenceRoomFragment extends Fragment {
+	//TODO : This class to be cleaned up once integrated with BE
 	private View roomLayout;
 	public int layoutId = R.layout.conference_main_room;
 	private String TAG = ConferenceRoom.class.getName();
@@ -110,8 +115,7 @@ public class ConferenceRoomFragment extends Fragment {
 				
 				UserView uv = new UserView(context, confUser);
 				//Ankit: Make a primary equal to check
-				if(userList.indexOf(confUser) ==0){
-					uv.setBackgroundColor(Color.BLACK);
+				if(confUser.getUser().compareTo(UserManager.PRIMARY_USER) == 0){
 					uv.setOnClickListener(new OnClickListener() {
 						//Ankit: Bad coding
 						boolean set = false;
@@ -131,6 +135,7 @@ public class ConferenceRoomFragment extends Fragment {
 				}else{
 				ConferenceRoomFragment.UserTouchListner listener = new ConferenceRoomFragment.UserTouchListner();
 				uv.setOnTouchListener(listener);
+				uv.setOnLongClickListener(listener);
 				}
 				RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
 						76, 76);
@@ -145,7 +150,9 @@ public class ConferenceRoomFragment extends Fragment {
 	public ConferenceUser isOverLapping(int x, int y){
 		ArrayList<ConferenceUser> list = conferenceRoom.getCUserList();
 		for(ConferenceUser cu : list){
-			if(isOverlapping(new Point(x, y), cu.getLocation())){
+			System.out.println("ConferenceRoomFragment.isOverLapping()"+(cu.getUser().compareTo(UserManager.PRIMARY_USER) == 0));
+			if(!(cu.getUser().compareTo(UserManager.PRIMARY_USER) == 0)&& isOverlapping(new Point(x, y), cu.getLocation())){
+				
 				return cu;
 			}
 		}
@@ -168,11 +175,17 @@ public class ConferenceRoomFragment extends Fragment {
 		 */
 		private final int STOP_DRAGGING = 1;
 		
+		/**
+		 * 
+		 */
 		private final int DRAGGING = 2;
 		/**
 		 * 
 		 */
 		private int status =STOP_DRAGGING	;
+		/**
+		 * 
+		 */
 		ImageView dittoUser = null ;
 
 		/*

@@ -20,7 +20,7 @@ import edu.cornell.opencomm.model.ConferenceDataModel;
 
 /**
  * 
- * @author Ankit Singh:as2536
+ * @author  Spandana Govindgari [frontend], Ankit Singh[frontend],Nora NQ[frontend]
  * 
  */
 public final class ConferenceView extends FragmentActivity implements
