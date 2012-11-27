@@ -10,6 +10,7 @@
 
 @interface OCForgotPasswordViewController : UIViewController
 @property (strong, nonatomic) IBOutlet UITextField *enteremailField;
+@property (strong, nonatomic) NSMutableData *receivedData;
 - (IBAction)resetButton:(id)sender;
 - (IBAction)backButtonPressed:(id)sender;
 

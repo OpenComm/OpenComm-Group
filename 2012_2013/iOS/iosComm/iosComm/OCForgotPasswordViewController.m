@@ -49,9 +49,46 @@
 
 
 - (IBAction)resetButton:(id)sender {
-}
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]
+                                    initWithURL:[NSURL
+                                                 URLWithString:@"http://199.167.198.149/userchange.php"]];
+    [request setHTTPMethod:@"POST"];
+    NSString *email = [enteremailField text];
+    [request setValue:email forHTTPHeaderField:@"userEmail"];
+    [request setValue:@"forgot" forHTTPHeaderField:@"action"];
+    
+    NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:request delegate:self];
+    if (theConnection) {
+        // Create the NSMutableData to hold the received data.
+        // receivedData is an instance variable declared elsewhere.
+        _receivedData = [NSMutableData data];
+    } else {
+        // Inform the user that the connection failed.
+    }}
+
 
 - (IBAction)backButtonPressed:(id)sender {
 }
 
+
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
+    // This method is called when the server has determined that it
+    // has enough information to create the NSURLResponse.
+    
+    // It can be called multiple times, for example in the case of a
+    // redirect, so each time we reset the data.
+    
+    // receivedData is an instance variable declared elsewhere.
+    [_receivedData setLength:0];
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    // Append the new data to receivedData.
+    // receivedData is an instance variable declared elsewhere.
+    [_receivedData appendData:data];
+    NSLog(@"receivedData is %@", _receivedData);
+}
 @end
