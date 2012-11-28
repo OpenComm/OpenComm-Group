@@ -36,7 +36,4 @@
 //Extern delegate handler for everyone to get.
 extern OCXMPPDelegateHandler *delegateHandler;
 
-- (IBAction)fetch:(id)sender;
-
-
 @end

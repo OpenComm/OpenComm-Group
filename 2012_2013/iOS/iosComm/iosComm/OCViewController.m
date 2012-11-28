@@ -58,10 +58,24 @@ OCXMPPDelegateHandler *delegateHandler;
         delegateHandler = [[OCXMPPDelegateHandler alloc] initWithView:self andDefaults:defaults];
         myXMPPStream = [[XMPPStream alloc] init];
         
+        // ss2249 Storage setup
+        // Setup roster
+        //
+        // The XMPPRoster handles the xmpp protocol stuff related to the roster.
+        // The storage for the roster is abstracted.
+        // So you can use any storage mechanism you want.
+        // You can store it all in memory, or use core data and store it on disk, or use core data with an in-memory store,
+        // or setup your own using raw SQLite, or create your own storage mechanism.
+        // You can do it however you like! It's your application.
+        // But you do need to provide the roster with some storage facility.
+        
         myXMPPRosterStorage = [[XMPPRosterCoreDataStorage alloc] init];
+        
         myXMPPRoster = [[XMPPRoster alloc] initWithRosterStorage:myXMPPRosterStorage];
+        
         myXMPPRoster.autoFetchRoster = YES;
         [myXMPPRoster activate:myXMPPStream];
+        [myXMPPRoster addDelegate:delegateHandler delegateQueue:dispatch_get_main_queue()];
         
         /*Connect to the XMPP Stream to make sure the server is connectable to*/
         //the JID must be set to something to connect, even if we will not be using it later.
@@ -72,7 +86,6 @@ OCXMPPDelegateHandler *delegateHandler;
         myXMPPStream.hostPort = [defaults DEFAULT_PORT];
         /*Stream and Roster messages are pushed to the main workload queue*/
         [myXMPPStream addDelegate:delegateHandler delegateQueue:dispatch_get_main_queue()];
-        [myXMPPRoster addDelegate:delegateHandler delegateQueue:dispatch_get_main_queue()];
         [delegateHandler setXMPPRosterStorage:myXMPPRosterStorage roster:myXMPPRoster stream:myXMPPStream];
         NSError *error = nil;
         
@@ -175,40 +188,6 @@ OCXMPPDelegateHandler *delegateHandler;
     NSLog(@"I get here");
 }
 
-- (NSFetchedResultsController *)fetchedResultsController
-{
-	if (fetchedResultsController == nil)
-	{
-		NSManagedObjectContext *moc = [delegateHandler managedObjectContext_roster];
-		
-		NSEntityDescription *entity = [NSEntityDescription entityForName:@"XMPPUserCoreDataStorageObject"
-		                                          inManagedObjectContext:moc];
-		
-		NSSortDescriptor *sd1 = [[NSSortDescriptor alloc] initWithKey:@"sectionNum" ascending:YES];
-		NSSortDescriptor *sd2 = [[NSSortDescriptor alloc] initWithKey:@"displayName" ascending:YES];
-		
-		NSArray *sortDescriptors = [NSArray arrayWithObjects:sd1, sd2, nil];
-		
-		NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-		[fetchRequest setEntity:entity];
-		[fetchRequest setSortDescriptors:sortDescriptors];
-		[fetchRequest setFetchBatchSize:10];
-		
-		fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-		                                                               managedObjectContext:moc
-		                                                                 sectionNameKeyPath:@"sectionNum"
-		                                                                          cacheName:nil];
-		
-		NSError *error = nil;
-		if (![fetchedResultsController performFetch:&error])
-		{
-			NSLog(@"Error performing fetch: %@", error);
-		}
-        
-	}
-	
-	return fetchedResultsController;
-}
 
 //-------------------------------------------------------------------
 // TODO:Somebody please fill in?
@@ -223,13 +202,6 @@ OCXMPPDelegateHandler *delegateHandler;
 - (void)viewDidUnload {
     [self setLoginView:nil];
     [super viewDidUnload];
-}
-- (IBAction)fetch:(id)sender {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[[self fetchedResultsController] sections] objectAtIndex:1];
-    NSLog(@"%u", sectionInfo.numberOfObjects);
-    NSIndexPath *path = [NSIndexPath indexPathForRow:1 inSection:0];
-    XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:path];
-    NSLog(@"%@", user.displayName);
 }
 
 @end

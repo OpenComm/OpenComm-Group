@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
 
-@interface OCContactsViewController : UITableViewController
+@interface OCContactsViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+{
+	NSFetchedResultsController *fetchedResultsController;
+}
 
 //@property (nonatomic, strong) IBOutlet UITableView *tableView;
 

@@ -13,7 +13,7 @@
 
 @class OCViewController;
 
-@interface OCXMPPDelegateHandler : NSObject <UIAlertViewDelegate> {
+@interface OCXMPPDelegateHandler : NSObject <UIAlertViewDelegate, XMPPRosterDelegate> {
     XMPPRoster *myXMPPRoster;
     XMPPRosterCoreDataStorage *myXMPPRosterStorage;
     XMPPStream *myXMPPStream;
@@ -22,8 +22,13 @@
     OCDefaultServerConstantsController *defaults;
 }
 
+// ss2249 for roster
+@property (nonatomic, strong, readonly) XMPPStream *myXMPPStream;
+@property (nonatomic, strong, readonly) XMPPRoster *myXMPPRoster;
+@property (nonatomic, strong, readonly) XMPPRosterCoreDataStorage *myXMPPRosterStorage;
+- (NSManagedObjectContext *)managedObjectContext_roster;
+
 - (id)initWithView:(OCViewController *)controller andDefaults:(OCDefaultServerConstantsController *) def;
-- (XMPPStream *) getXMPPStream;
 - (OCDefaultServerConstantsController *) getDefaults;
 - (void)setXMPPRosterStorage:(XMPPRosterCoreDataStorage *)storage roster:(XMPPRoster *)r stream:(XMPPStream *)s;
 - (void)setJingleImpl:(OCJingleImpl *)jingleObjParam;
@@ -34,7 +39,6 @@
 - (void)xmppStream:(XMPPStream *)sender didReceiveError:(id) error;
 
 - (BOOL)xmppStream:(XMPPStream *)sender didReceiveIQ:(XMPPIQ *)iq;
-- (NSManagedObjectContext *)managedObjectContext_roster;
 - (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message;
 
 @end

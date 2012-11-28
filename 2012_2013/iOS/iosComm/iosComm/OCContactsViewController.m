@@ -12,9 +12,6 @@
 #import "OCXMPPDelegateHandler.h"
 #import "OCViewController.h"
 
-@interface OCContactsViewController ()
-
-@end
 
 @implementation OCContactsViewController{
     NSArray* contactsArray;
@@ -26,7 +23,7 @@
 }
 
 //defined externally in OCViewController
-OCXMPPDelegateHandler *delegateHandler;
+//OCXMPPDelegateHandler *delegateHandler;
 
 //@synthesize tableView;
 - (id)initWithStyle:(UITableViewStyle)style
@@ -112,6 +109,65 @@ shouldReloadTableForSearchString:(NSString *)searchString
     
     return YES;
 }
+
+/* ss2249 TODO SAUHARD for you
+ - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+ {
+ return [[[self fetchedResultsController] sections] count];
+ }
+ 
+ - (NSString *)tableView:(UITableView *)sender titleForHeaderInSection:(NSInteger)sectionIndex
+ {
+ NSArray *sections = [[self fetchedResultsController] sections];
+ 
+ if (sectionIndex < [sections count])
+ {
+ id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:sectionIndex];
+ 
+ int section = [sectionInfo.name intValue];
+ switch (section)
+ {
+ case 0  : return @"Available";
+ case 1  : return @"Away";
+ default : return @"Offline";
+ }
+ }
+ 
+ return @"";
+ }
+ 
+ - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
+ {
+ NSArray *sections = [[self fetchedResultsController] sections];
+ 
+ if (sectionIndex < [sections count])
+ {
+ id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:sectionIndex];
+ return sectionInfo.numberOfObjects;
+ }
+ 
+ return 0;
+ }
+ 
+ - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ static NSString *CellIdentifier = @"Cell";
+ 
+ UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+ if (cell == nil)
+ {
+ cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+ reuseIdentifier:CellIdentifier];
+ }
+ 
+ XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+ 
+ cell.textLabel.text = user.displayName;
+ [self configurePhotoForCell:cell user:user];
+ 
+ return cell;
+ }
+ */
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -299,13 +355,13 @@ shouldReloadTableForSearchString:(NSString *)searchString
     XMPPJID *JID = [XMPPJID jidWithUser: @"qimingiscool" domain: [[delegateHandler getDefaults] DEFAULT_DOMAIN] resource:[[delegateHandler getDefaults] DEFAULT_RESOURCE]];
     
     //alloc and init a new OCJingleImpl object (destroy the old one if it is not nil)
-    OCJingleImpl *jingleObj = [[OCJingleImpl alloc] initWithJID: [[delegateHandler getXMPPStream] myJID] xmppStream: [delegateHandler getXMPPStream]];
+    OCJingleImpl *jingleObj = [[OCJingleImpl alloc] initWithJID: [[delegateHandler myXMPPStream] myJID] xmppStream: [delegateHandler myXMPPStream]];
 
     //set the OCXMPPDelegateHandler object's OCJingleImpl to this new object.
     [delegateHandler setJingleImpl: jingleObj];
 
     //Send a session initiate message.
-    [[delegateHandler getXMPPStream] sendElement: [jingleObj jingleSessionInitiateTo: JID recvportnum: 8888 SID: nil]];
+    [[delegateHandler myXMPPStream] sendElement: [jingleObj jingleSessionInitiateTo: JID recvportnum: 8888 SID: nil]];
     
 }
 
@@ -332,6 +388,54 @@ shouldReloadTableForSearchString:(NSString *)searchString
         // Hide bottom tab bar in the detail view
         destViewController.hidesBottomBarWhenPushed = YES;
     }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark NSFetchedResultsController
+// ss2249 for Roster
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (NSFetchedResultsController *)fetchedResultsController
+{
+	if (fetchedResultsController == nil)
+	{
+		NSManagedObjectContext *moc = [delegateHandler managedObjectContext_roster];
+		
+		NSEntityDescription *entity = [NSEntityDescription entityForName:@"XMPPUserCoreDataStorageObject"
+		                                          inManagedObjectContext:moc];
+		
+		NSSortDescriptor *sd1 = [[NSSortDescriptor alloc] initWithKey:@"sectionNum" ascending:YES];
+		NSSortDescriptor *sd2 = [[NSSortDescriptor alloc] initWithKey:@"displayName" ascending:YES];
+		
+		NSArray *sortDescriptors = [NSArray arrayWithObjects:sd1, sd2, nil];
+		
+		NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+		[fetchRequest setEntity:entity];
+		[fetchRequest setSortDescriptors:sortDescriptors];
+		[fetchRequest setFetchBatchSize:10];
+		
+		fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+		                                                               managedObjectContext:moc
+		                                                                 sectionNameKeyPath:@"sectionNum"
+		                                                                          cacheName:nil];
+		[fetchedResultsController setDelegate:self];
+		
+		
+		NSError *error = nil;
+		if (![fetchedResultsController performFetch:&error])
+		{
+			NSLog(@"Error performing fetch: %@", error);
+		}
+        
+	}
+	
+	return fetchedResultsController;
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+	[[self tableView] reloadData];
 }
 
 @end

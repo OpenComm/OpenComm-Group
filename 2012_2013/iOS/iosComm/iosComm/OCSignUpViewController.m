@@ -139,9 +139,9 @@ extern OCXMPPDelegateHandler *delegateHandler;
     }
     
     /*Register the user with the connected XMPP Stream*/
-    [delegateHandler getXMPPStream].myJID = [XMPPJID jidWithString: emailaddressField.text];
+    [delegateHandler myXMPPStream].myJID = [XMPPJID jidWithString: emailaddressField.text];
     NSError *error;
-    if (![[delegateHandler getXMPPStream] registerWithPassword: passwordField.text error: &error]) {
+    if (![[delegateHandler myXMPPStream] registerWithPassword: passwordField.text error: &error]) {
         NSLog(@"Oops, I probably forgot something: %@", error);
     }
     

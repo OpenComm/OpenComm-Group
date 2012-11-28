@@ -8,7 +8,15 @@
 
 #import "OCXMPPDelegateHandler.h"
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 @implementation OCXMPPDelegateHandler
+
+@synthesize myXMPPStream;
+@synthesize myXMPPRoster;
+@synthesize myXMPPRosterStorage;
 
 - (id)initWithView:(OCViewController *)controller  andDefaults:(OCDefaultServerConstantsController *) def{
     self = [super init];
@@ -18,10 +26,6 @@
     }
     
     return self;
-}
-
-- (XMPPStream *) getXMPPStream {
-    return myXMPPStream;
 }
 
 - (void)setJingleImpl:(OCJingleImpl *)jingleObjParam {
