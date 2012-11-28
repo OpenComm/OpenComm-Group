@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0A057985161E1642006F4B5D /* DefaultServerConstants.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A057984161E1642006F4B5D /* DefaultServerConstants.plist */; };
+		0A2ABA491665C696009E3B94 /* opencommimage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 0A2ABA471665C696009E3B94 /* opencommimage.tiff */; };
+		0A2ABA4A1665C696009E3B94 /* rsz_1arrow.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0A2ABA481665C696009E3B94 /* rsz_1arrow.jpg */; };
 		0A36125D1641AF9700E99A1E /* XMPPvCardTemp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A36124E1641AF9700E99A1E /* XMPPvCardTemp.m */; };
 		0A36125E1641AF9700E99A1E /* XMPPvCardTempAdr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3612501641AF9700E99A1E /* XMPPvCardTempAdr.m */; };
 		0A36125F1641AF9700E99A1E /* XMPPvCardTempAdrTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3612521641AF9700E99A1E /* XMPPvCardTempAdrTypes.m */; };
@@ -171,6 +173,8 @@
 
 /* Begin PBXFileReference section */
 		0A057984161E1642006F4B5D /* DefaultServerConstants.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DefaultServerConstants.plist; sourceTree = "<group>"; };
+		0A2ABA471665C696009E3B94 /* opencommimage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = opencommimage.tiff; sourceTree = "<group>"; };
+		0A2ABA481665C696009E3B94 /* rsz_1arrow.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = rsz_1arrow.jpg; sourceTree = "<group>"; };
 		0A36124D1641AF9700E99A1E /* XMPPvCardTemp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPvCardTemp.h; path = "XMPPFramework/Extensions/XEP-0054/XMPPvCardTemp.h"; sourceTree = "<group>"; };
 		0A36124E1641AF9700E99A1E /* XMPPvCardTemp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMPPvCardTemp.m; path = "XMPPFramework/Extensions/XEP-0054/XMPPvCardTemp.m"; sourceTree = "<group>"; };
 		0A36124F1641AF9700E99A1E /* XMPPvCardTempAdr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPvCardTempAdr.h; path = "XMPPFramework/Extensions/XEP-0054/XMPPvCardTempAdr.h"; sourceTree = "<group>"; };
@@ -1038,6 +1042,8 @@
 		4DE6A446160FC14B005F7857 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0A2ABA471665C696009E3B94 /* opencommimage.tiff */,
+				0A2ABA481665C696009E3B94 /* rsz_1arrow.jpg */,
 				4DE6A447160FC14B005F7857 /* iosComm-Info.plist */,
 				4DE6A448160FC14B005F7857 /* InfoPlist.strings */,
 				4DE6A44B160FC14B005F7857 /* main.m */,
@@ -1204,6 +1210,8 @@
 				BA97A9EA16439AB20008AEEA /* zoo10.jpeg in Resources */,
 				BA97A9F01643A2900008AEEA /* ContactCell.xib in Resources */,
 				0AD2A7D51643752700AA3A8D /* JingleConstants.plist in Resources */,
+				0A2ABA491665C696009E3B94 /* opencommimage.tiff in Resources */,
+				0A2ABA4A1665C696009E3B94 /* rsz_1arrow.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

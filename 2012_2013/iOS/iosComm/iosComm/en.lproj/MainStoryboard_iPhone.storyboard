@@ -743,62 +743,10 @@
         <image name="account_icon.png" width="30" height="30"/>
         <image name="conferences_icon.png" width="30" height="30"/>
         <image name="contact_icon.png" width="30" height="30"/>
-        <image name="rsz_1arrow.jpg" width="16" height="16"/>
+        <image name="rsz_1arrow.jpg" width="20" height="18"/>
         <image name="signInButton.png" width="55" height="29"/>
         <image name="signUpButton.png" width="279" height="45"/>
     </resources>
-    <classes>
-        <class className="OCConferenceViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCConferenceViewController.h"/>
-        </class>
-        <class className="OCContactCardViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCContactCardViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="contactLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="OCContactsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCContactsViewController.h"/>
-        </class>
-        <class className="OCForgotPasswordViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCForgotPasswordViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="backButtonPressed:"/>
-                <relationship kind="action" name="resetButton:"/>
-                <relationship kind="action" name="textfieldReturned:"/>
-                <relationship kind="outlet" name="enteremailField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="firstView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="OCSignUpViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCSignUpViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="backButtonPressed:"/>
-                <relationship kind="action" name="setimageButton:"/>
-                <relationship kind="action" name="submitPressed:"/>
-                <relationship kind="action" name="textfieldReturned:"/>
-                <relationship kind="outlet" name="confirmpasswordField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="emailaddressField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="firstnameField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="jobtitleField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="lowerView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="passwordField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="secondnameField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="setimageButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="signupView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="OCViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="fetch:"/>
-                <relationship kind="action" name="loginButtonPressed:"/>
-                <relationship kind="outlet" name="loginPasswordField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="loginUsernameField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="loginView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
