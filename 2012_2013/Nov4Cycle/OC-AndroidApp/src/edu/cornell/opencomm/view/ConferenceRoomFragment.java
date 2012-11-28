@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -42,6 +43,8 @@ public class ConferenceRoomFragment extends Fragment {
 	public ArrayList<UserView> userViews = new ArrayList<UserView>();
 	public Context context;
 	public static final int radius = 165;
+	private ImageView left_gradient; 
+	private ImageView right_gradient; 
 
 	public ConferenceRoomFragment(Context context, int layoutId,
 			ConferenceRoom room) {
@@ -59,7 +62,8 @@ public class ConferenceRoomFragment extends Fragment {
 			return null;
 		}
 		this.roomLayout = inflater.inflate(layoutId, container, false);
-		
+		left_gradient = (ImageView) ((ViewGroup)roomLayout).findViewById(R.id.leftsidechatgradient);
+		right_gradient = (ImageView) ((ViewGroup)roomLayout).findViewById(R.id.rightsidechatgradient); 
 
 		ViewTreeObserver observer = roomLayout.getViewTreeObserver();
 		observer.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
@@ -216,6 +220,12 @@ public class ConferenceRoomFragment extends Fragment {
 				if(isOnEdge(new Point(absoluteX, absoluteY))!= -1){
 					String s =(isOnEdge(new Point(absoluteX, absoluteY))==0)?"Left Room":"Right Room";
 					//TODO : Need to show gradient
+					if (s.equals("Left Room")){						
+						left_gradient.setVisibility(View.VISIBLE); 
+					}
+					else if(s.equals("Right Room")){
+						right_gradient.setVisibility(View.VISIBLE); 
+					}
 					//Send invitation using conf room/muc
 					Toast.makeText(context, "Send Invitation:"+s, Toast.LENGTH_SHORT).show();
 				}
@@ -241,7 +251,7 @@ public class ConferenceRoomFragment extends Fragment {
 					dittoUser =  new 	ImageView(context);
 					dittoUser.setImageBitmap(b);
 					dittoUser.setPadding(absoluteX,absoluteY, 0, 0);
-					((UserView)v).setImageBitmap(null);
+					((UserView)v).setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.greybox)); 
 					((ViewGroup)roomLayout).addView(dittoUser, params);
 					
 				}
