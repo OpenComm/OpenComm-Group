@@ -13,7 +13,7 @@
 #import "OCViewController.h"
 
 
-@implementation OCContactsViewController{
+@implementation OCContactsViewController /* Sweet Commented out{
     NSMutableArray* contactsArray;
     NSMutableArray* imageArray;
     NSArray* indexArray; // To create horizontal index on the right
@@ -22,7 +22,7 @@
     NSArray* searchResults;
     NSMutableArray* contactsList;
     //OCXMPPDelegateHandler *delegateHandler; //to set the appropriate jingle session
-}
+} */
 
 //defined externally in OCViewController
 //OCXMPPDelegateHandler *delegateHandler;
@@ -37,8 +37,61 @@
     return self;
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#pragma mark View lifecycle
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+
+- (void)viewWillAppear:(BOOL)animated
+
+{
+    
+    [super viewWillAppear:animated];
+    
+    
+    
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 400, 44)];
+    
+    titleLabel.backgroundColor = [UIColor clearColor];
+    
+    titleLabel.textColor = [UIColor whiteColor];
+    
+    titleLabel.font = [UIFont boldSystemFontOfSize:20.0];
+    
+    titleLabel.numberOfLines = 1;
+    
+    titleLabel.adjustsFontSizeToFitWidth = YES;
+    
+    titleLabel.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    
+    titleLabel.textAlignment = UITextAlignmentCenter;
+    
+    
+        titleLabel.text = @"MUAHAHAHA";
+    
+    
+    [titleLabel sizeToFit];
+    
+    
+    
+    self.navigationItem.titleView = titleLabel;
+    
+}
+
+
+
+- (void)viewWillDisappear:(BOOL)animated
+
+{
+    
+    [super viewWillDisappear:animated];
+    
+}
+
+/*
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -139,8 +192,9 @@ shouldReloadTableForSearchString:(NSString *)searchString
     
     return YES;
 }
+ */
 
-/* ss2249 TODO SAUHARD for you
+// ss2249 TODO SAUHARD for you
  - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
  {
  return [[[self fetchedResultsController] sections] count];
@@ -193,11 +247,12 @@ shouldReloadTableForSearchString:(NSString *)searchString
  XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:indexPath];
  
  cell.textLabel.text = user.displayName;
- [self configurePhotoForCell:cell user:user];
  
  return cell;
  }
- */
+ // Sweet finish Sauhard todo
+
+/* Sweet COmmented Out
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -320,7 +375,7 @@ shouldReloadTableForSearchString:(NSString *)searchString
     
     // NSLog(@"Sections3: %@", sections);
 }
-
+*/
 
 
 /*
@@ -362,10 +417,12 @@ shouldReloadTableForSearchString:(NSString *)searchString
 }
 */
 
+/* SWEET Commented out
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+ */
     // Navigation logic may go here. Create and push another view controller.
     /*
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
@@ -373,7 +430,7 @@ shouldReloadTableForSearchString:(NSString *)searchString
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
-    [self performSegueWithIdentifier:@"showContactCard" sender:[self.tableView cellForRowAtIndexPath:indexPath]];
+    // Sweet Commented out [self performSegueWithIdentifier:@"showContactCard" sender:[self.tableView cellForRowAtIndexPath:indexPath]];
     
     /** ~*- Integration Code -*~ **/
     /*Fetch cell*/
@@ -382,7 +439,8 @@ shouldReloadTableForSearchString:(NSString *)searchString
     //TODO OCContactCell should contain the first person's JID... fetch it. Hardcoded as contactNameLabel
     //NSString *JIDString = [cell contactNameLabel].text;
     //XMPPJID *JID = [XMPPJID jidWithUser: JIDString domain: [[delegateHandler getDefaults] DEFAULT_DOMAIN] resource:[[delegateHandler getDefaults] DEFAULT_RESOURCE]];
-    XMPPJID *JID = [XMPPJID jidWithUser: @"qimingiscool" domain: [[delegateHandler getDefaults] DEFAULT_DOMAIN] resource:[[delegateHandler getDefaults] DEFAULT_RESOURCE]];
+    /* Sweet COmmented out
+     XMPPJID *JID = [XMPPJID jidWithUser: @"qimingiscool" domain: [[delegateHandler getDefaults] DEFAULT_DOMAIN] resource:[[delegateHandler getDefaults] DEFAULT_RESOURCE]];
     
     //alloc and init a new OCJingleImpl object (destroy the old one if it is not nil)
     OCJingleImpl *jingleObj = [[OCJingleImpl alloc] initWithJID: [[delegateHandler myXMPPStream] myJID] xmppStream: [delegateHandler myXMPPStream]];
@@ -419,6 +477,7 @@ shouldReloadTableForSearchString:(NSString *)searchString
         destViewController.hidesBottomBarWhenPushed = YES;
     }
 }
+*/
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
