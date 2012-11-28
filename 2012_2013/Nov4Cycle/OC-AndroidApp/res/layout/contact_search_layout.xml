@@ -67,7 +67,7 @@
             android:contentDescription="@string/desc"
             android:src="@drawable/contact_search" />
         
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/contact_search_search_input"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"

@@ -1,7 +1,11 @@
 package edu.cornell.opencomm.controller;
 
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.view.View;
 import android.widget.TextView;
 import edu.cornell.opencomm.R;
@@ -114,5 +118,30 @@ public class ContactAddSearchController {
 		this.contactSearchView.startActivity(i);
 
 	}
+	
+	/** Obtain all of the possible contacts (email addresses and names) from the OpenComm users and 
+	 * phone contacts with email addresses */
+	private class GetContactSuggestionTask extends AsyncTask<Void, Void, ArrayList<User>> {
 
+		@Override
+		protected ArrayList<User> doInBackground(Void... params) {
+			ArrayList<User> allContacts = new ArrayList<User>();			
+			// TODO [backend] add all emails and names from OpenComm users to the arraylist
+			// TODO [backend] add all emails and names from the phonebook with emails
+			return allContacts;
+		}
+	}
+	
+	/** Get all possible contacts (email addresses and names) from the OpenComm users and 
+	 * phone contacts with email addresses */
+	public ArrayList<User> getSuggestions() {
+		try {
+			return new GetContactSuggestionTask().execute().get();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
+		return new ArrayList<User>();
+	}
 }

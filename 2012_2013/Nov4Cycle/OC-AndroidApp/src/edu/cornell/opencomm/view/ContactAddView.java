@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -13,6 +15,7 @@ import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.ContactAddSearchController;
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.model.OverflowAdapter;
+import edu.cornell.opencomm.model.User;
 
 /**
  * View for contact add page. Functionality (handled by ContactAddController).<br>
@@ -50,6 +53,9 @@ public class ContactAddView extends Activity {
 	private ListView overflowList;
 	private String[] options;
 	
+	/** Search variables */
+	private AutoCompleteTextView searchInput;
+	
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -72,6 +78,21 @@ public class ContactAddView extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				controller.handleOptionClick(view);
+			}
+		});
+	}
+	
+	/** Initializes the content of contact suggestions. When an item is clicked, user feedback is generated 
+	 * and an appropriate action is launched */
+	private void initializeSuggestions() {
+		ArrayAdapter<User> adapter = new ArrayAdapter<User>(this.getApplicationContext(), android.R.layout.simple_dropdown_item_1line, this.controller.getSuggestions());
+		searchInput = (AutoCompleteTextView) this.findViewById(R.id.contact_search_search_input);
+		searchInput.setAdapter(adapter);
+		// Click event for single list row
+		overflowList.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				controller.handleContactClick((User) searchInput.getAdapter().getItem(position));
 			}
 		});
 	}
