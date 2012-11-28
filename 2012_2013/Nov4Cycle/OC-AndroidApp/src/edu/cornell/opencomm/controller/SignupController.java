@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.apache.http.NameValuePair;
 import org.jivesoftware.smack.AccountManager;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -17,6 +16,20 @@ import edu.cornell.opencomm.util.Util;
 import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.SignupView;
 
+/**
+ * Controller for Sign up page (SignupView) Functionality:
+ * <ul>
+ * <li>When the user has provided valid registration inputs, creates account to
+ * database, and email with new dummy password sent.</li>
+ * <li>When the user provides invalid inputs, returns toasts with errors.</li>
+ * <li>When the user opts out by cancel button or back button, returns to
+ * previous activity.</li>
+ * </ul>
+ * 
+ * Issues [TODO] - For any other issues search for string "TODO"
+ * 
+ * @author Ankit Singh [frontend], Risa Naka [frontend]
+ * */
 public class SignupController {
 	/**
 	 * The TAG for logging
@@ -27,38 +40,28 @@ public class SignupController {
 	 * The View
 	 */
 	private SignupView signupView;
-	/**
-	 * The context
-	 */
-
-	private Context context;
 
 	/**
 	 * The constructor
 	 * 
 	 * @param view
 	 */
-	public SignupController(SignupView view, Context context) {
+	public SignupController(SignupView view) {
 		this.signupView = view;
-		this.context = context;
-	}
-	
-	public boolean validateName(String nameText) {
-
-		return Util.validateString(nameText, Util.NAME_PATTERN_SAVE);
-
 	}
 
-
-	public void handlePhotoButtonClick(View v) {
-	}
-	View errorView;
-	/**
-	 * TODO Ankit-> Need to clean up and modularize after demo
+	/** Save button has been clicked: checks validity of inputs and sends error toasts if invalid 
+	 * or generates user in server if valid
+	 * @param fName
+	 * @param lName
+	 * @param email
+	 * @param title
+	 * @param pwd
+	 * @param confirmPwd
 	 */
-	public void handleSave(String fName, String lName, String email, String title, String pwd, String confirmPwd) {
-		this.signupView.findViewById(R.id.acceptSignupOverlay).setVisibility(
-				View.VISIBLE);
+	public void handleSave(String fName, String lName, String email,
+			String title, String pwd, String confirmPwd) {
+		this.signupView.findViewById(R.id.signup_acceptOverlay).setVisibility(View.VISIBLE);
 		// check validity of input
 		boolean emptyFName = (fName == null || fName.length() == 0);
 		boolean invalidFName = !Util.validateString(fName, Util.NAME_PATTERN_SAVE);
@@ -68,87 +71,51 @@ public class SignupController {
 		boolean invalidEmail = !Util.validateString(email, Util.EMAIL_ADDRESS_PATTERN);
 		boolean emptyPwd = (pwd == null || pwd.length() == 0);
 		boolean invalidPwd = !Util.validateString(pwd, Util.PASSWORD);
-		boolean emptyCPwd= (confirmPwd == null || confirmPwd.length() == 0);
+		boolean emptyCPwd = (confirmPwd == null || confirmPwd.length() == 0);
 		boolean mismatchPwd = !(pwd.equals(confirmPwd));
-		if (emptyFName || invalidFName ||emptyLName || invalidLName 
-				|| emptyEmail || invalidEmail || 
-				emptyPwd || invalidPwd || emptyCPwd || mismatchPwd) {
+		if (emptyFName || invalidFName || emptyLName || invalidLName
+				|| emptyEmail || invalidEmail || emptyPwd || invalidPwd
+				|| emptyCPwd || mismatchPwd) {
 			StringBuilder errorText = new StringBuilder();
 			errorText.append("Error:\n");
-			if (emptyFName) {
-				errorText.append("\tFirst name is required\n");
-			}
-			else if (invalidFName) {
-				errorText.append("\tInvalid first name\n");
-			}
-			if (emptyLName) {
-				errorText.append("\tLast name is required\n");
-			}
-			else if (invalidLName) {
-				errorText.append("\tInvalid last name\n");
-			}
-			if (emptyEmail) {
-				errorText.append("\tEmail is required\n");
-			}
-			else if (invalidEmail) {
-				errorText.append("\tInvalid email\n");
-			}
-			if (emptyPwd) {
-				errorText.append("\tPassword is required\n");
-			}
-			else if (invalidPwd) {
-				errorText.append("\tInvalid password (req: 10 - 30 chars)\n");
-			}
-			if (emptyCPwd) {
-				errorText.append("\tPassword confirmation is required\n");
-			}
-			else if (mismatchPwd) {
-				errorText.append("\tPassword confirmation does not match\n");
-			}
+			if (emptyFName) errorText.append("\tFirst name is required\n");
+			else if (invalidFName) errorText.append("\tInvalid first name\n");
+			if (emptyLName) errorText.append("\tLast name is required\n");
+			else if (invalidLName) errorText.append("\tInvalid last name\n");
+			if (emptyEmail) errorText.append("\tEmail is required\n");
+			else if (invalidEmail) errorText.append("\tInvalid email\n");
+			if (emptyPwd) errorText.append("\tPassword is required\n");
+			else if (invalidPwd) errorText.append("\tInvalid password (req: 10 - 30 chars)\n");
+			if (emptyCPwd) errorText.append("\tPassword confirmation is required\n");
+			else if (mismatchPwd) errorText.append("\tPassword confirmation does not match\n");
 			errorText.append("Please try again.");
 			// show a toast describing the error
-			Toast.makeText(this.signupView.getApplicationContext(), 
+			Toast.makeText(this.signupView.getApplicationContext(),
 					errorText.toString(), Toast.LENGTH_SHORT).show();
-			this.signupView.findViewById(R.id.acceptSignupOverlay).setVisibility(
-					View.INVISIBLE);
-		}
-		else {
+			this.signupView.findViewById(R.id.signup_acceptOverlay).setVisibility(View.INVISIBLE);
+		} else {
 			// TODO [backend] create a new user
 			new CreateUser().execute();
 			Intent click = new Intent(this.signupView, DashboardView.class);
 			this.signupView.startActivity(click);
 		}
 	}
-
-
-
-/*	public boolean validateEmail(View view) {
-		EditText textBox = (EditText) view;
-		String nameText = textBox.getText().toString();
-		if (nameText != null && !nameText.equals("")) {
-			if (Util.validateString(nameText, Util.EMAIL_ADDRESS_PATTERN)) {
-				return true;
-			}
-		}
-		errorView = view;
-		return false;
+	
+	/** Photo input button clicked
+	 * TODO [frontend/Ankit] empty method 
+	 * TODO[Backend/Kris] BE should send the user vcard from the user object to server
+	 * */
+	
+	public void handlePhotoButtonClick(View v) {
+		// TODO Auto-generated method stub
+		
 	}
 
-	public boolean validateName(View view){
-		EditText textBox = (EditText) view;
-		String nameText = textBox.getText().toString();
-		if (nameText != null && !nameText.equals("")) {
-			if (validateName(nameText)) {
-				return true;
-			}
-		}
-		errorView = view;
-		return false;
-	}*/
-
-	@SuppressWarnings("unused")
+	/** Creates user based on given inputs
+	 * TODO [backend] what error results are outputted for each case (creation fail, already 
+	 * registered emails, etc) */
 	private class CreateUser extends
-	AsyncTask<ArrayList<NameValuePair>, Void, Boolean> {
+			AsyncTask<ArrayList<NameValuePair>, Void, Boolean> {
 
 		// TODO send the request to the server to create a new user
 		// see if you can or should reuse UserManager
@@ -160,17 +127,21 @@ public class SignupController {
 				if (accountManager.supportsAccountCreation()) {
 					// TODO [backend] use input from user
 					accountManager.createAccount("Test007", "Skyfall");
-					if (D) Log.d(TAG, "Successful account creation");
-				}
-				else {
-					if (D) Log.d(TAG, "Account Creation is not supported");
-					if (D) Log.d(TAG,
-							"Account Instructions: "
-									+ accountManager.getAccountInstructions());
+					if (D)
+						Log.d(TAG, "Successful account creation");
+				} else {
+					if (D)
+						Log.d(TAG, "Account Creation is not supported");
+					if (D)
+						Log.d(TAG,
+								"Account Instructions: "
+										+ accountManager
+												.getAccountInstructions());
 
 				}
 			} catch (Exception e) {
-				if (D) Log.d(TAG, "Error in account creation:"+e.getMessage());
+				if (D)
+					Log.d(TAG, "Error in account creation:" + e.getMessage());
 				e.printStackTrace();
 			}
 			return null;

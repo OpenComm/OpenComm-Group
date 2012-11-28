@@ -10,17 +10,29 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.Manager.UserManager;
+import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.User;
 
-public class ChatSpaceViewGroup extends ViewGroup{
+public class ChatSpaceViewGroup extends ViewGroup implements OnTouchListener{
 
 	private Activity view; 
 
+	/*For debugging purposes*/
+	private static final String TAG = ChatSpaceViewGroup.class.getSimpleName(); 
+
 	private static final boolean D = true; 
+
+	private final int adjustRadiusX = 153/4; 
+
+	private final int adjustRadiusY = 207/4; 
+
+	private final int imageSize = 76; 
 
 	//TODO- remove this
 	public int p= 0; 
@@ -82,12 +94,10 @@ public class ChatSpaceViewGroup extends ViewGroup{
 	}
 
 	private Point[] createPlaceHolders(int users){
-		//TODO - Currently maxing the number of conference users to 8 - tops! 
 		Point [] points = new Point[users]; 
-		int mRadius = 165; 
-		int i = getWidth()/2-(153/4); 
-		int j = getHeight()/2-(207/4); 
-
+		final int mRadius = 165; 
+		int i = getWidth()/2-adjustRadiusX; 
+		int j = getHeight()/2-adjustRadiusY; 
 
 		int numberOfPoints = users; 
 		float angleIncrement = 360/numberOfPoints; 
@@ -98,6 +108,18 @@ public class ChatSpaceViewGroup extends ViewGroup{
 			points[n] = p; 
 		}
 		return points; 
+	}
+	
+	//TODO- Backend Implementation- Till then dummy users 
+	public ArrayList<User> createExampleUsers(){
+		ArrayList<User> users = new ArrayList<User>();
+		users.add(new User("naka_shaka_laka", "Risa Naka", R.drawable.example_picture_1));
+		users.add(new User("noratheexplora", "Nora Ng-Quinn", R.drawable.example_picture_2));
+		users.add(new User("makomania", "Makoto Bentz", R.drawable.example_picture_3));
+		users.add(new User("graeme_craka", "Graeme Bailey", R.drawable.example_picture_1));
+		users.add(new User("naj_hodge", "Najla Elmachtoub", R.drawable.example_picture_2));
+		users.add(new User("xu_mu_moo", "Jason Xu", R.drawable.example_picture_3));
+		return users;
 	}
 
 	private ArrayList<User> getConferenceUsers(int p){
@@ -114,10 +136,10 @@ public class ChatSpaceViewGroup extends ViewGroup{
 	}
 
 	private int mXPosition; 
-	
+
 	private int mYPosition; 
 	private void updateCircle(int p){
-		
+		Resources res = this.getResources(); 
 		ArrayList<User> conferenceUsers = this.getConferenceUsers(p); 
 		//TODO- check to see if the user is the main user- then set the background to black
 		Point[] placeholder = this.createPlaceHolders(conferenceUsers.size());
@@ -133,53 +155,54 @@ public class ChatSpaceViewGroup extends ViewGroup{
 			if (!conferenceUsers.get(i).equals(UserManager.PRIMARY_USER)){
 				child1.setBackgroundResource(conferenceUsers.get(i).getImage());
 			}
-			child1.setOnTouchListener(new OnTouchListener(){
-
-				public boolean onTouch(View v, MotionEvent event) {
-					switch (event.getAction()){
-					case MotionEvent.ACTION_DOWN: 
-						final int x = (int) event.getX(); 
-						final int y = (int) event.getY(); 
-						
-						//Remember where we started
-						mXPosition = x; 
-						mYPosition = y; 
-						if (D) {Log.v("Crystal", "Are you going here?"+ x); }
-						return true; 
-					case MotionEvent.ACTION_MOVE:
-						final int x_new = (int)event.getX(); 
-						final int y_new = (int) event.getY();
-						if (D) {Log.v("Move", "Are you going here?"+ x_new); }	
-						
-						//distance moved 
-						
-						final int dx = x_new - mXPosition; 
-						final int dy = y_new - mYPosition;
-						
-						//Redraw this view based on the new coordinates
-						//TODO- Need to change the layout parameters of the child object
-						//Everything else works fine
-						
-						invalidate(); 
-						
-						
-						if (x_new <= 0){
-							//TODO- push to the left side chat view
-						}
-						if(x_new >= getWidth()- 76){
-							//TODO -push to the right side chat 
-						}
-						return true; 
-					case MotionEvent.ACTION_UP:
-						//TODO - push it to the original placeholder 
-						
-						return true; 
-					}
-					return false; 
-				}
-			}); 
+			child1.setOnTouchListener(ChatSpaceViewGroup.this); 
+			//			child1.setOnTouchListener(new OnTouchListener(){
+			//
+			//				public boolean onTouch(View v, MotionEvent event) {
+			//					switch (event.getAction()){
+			//					case MotionEvent.ACTION_DOWN: 
+			//						final int x = (int) event.getX(); 
+			//						final int y = (int) event.getY(); 
+			//						
+			//						//Remember where we started
+			//						mXPosition = x; 
+			//						mYPosition = y; 
+			//						if (D) {Log.v("Crystal", "Are you going here?"+ x); }
+			//						return true; 
+			//					case MotionEvent.ACTION_MOVE:
+			//						final int x_new = (int)event.getX(); 
+			//						final int y_new = (int) event.getY();
+			//						if (D) {Log.v("Move", "Are you going here?"+ x_new); }	
+			//						
+			//						//distance moved 
+			//						
+			//						final int dx = x_new - mXPosition; 
+			//						final int dy = y_new - mYPosition;
+			//						
+			//						//Redraw this view based on the new coordinates
+			//						//TODO- Need to change the layout parameters of the child object
+			//						//Everything else works fine
+			//						v.setPadding((int) event.getRawX(), (int) event.getRawY(), 0, 0); 
+			//						v.invalidate(); 
+			//						
+			//						
+			//						if (x_new <= 0){
+			//							//TODO- push to the left side chat view
+			//						}
+			//						if(x_new >= getWidth()- 76){
+			//							//TODO -push to the right side chat 
+			//						}
+			//						return true; 
+			//					case MotionEvent.ACTION_UP:
+			//						//TODO - push it to the original placeholder 
+			//						
+			//						return true; 
+			//					}
+			//					return false; 
+			//				}
+			//			}); 
+			//		}
 		}
-
 	}
 
 	@Override
@@ -228,16 +251,26 @@ public class ChatSpaceViewGroup extends ViewGroup{
 
 	}
 
-	//TODO- Backend Implementation- Till then dummy users 
-	public ArrayList<User> createExampleUsers(){
-		ArrayList<User> users = new ArrayList<User>();
-		users.add(new User("naka_shaka_laka", "Risa Naka", R.drawable.example_picture_1));
-		users.add(new User("noratheexplora", "Nora Ng-Quinn", R.drawable.example_picture_2));
-		users.add(new User("makomania", "Makoto Bentz", R.drawable.example_picture_3));
-		users.add(new User("graeme_craka", "Graeme Bailey", R.drawable.example_picture_1));
-		users.add(new User("naj_hodge", "Najla Elmachtoub", R.drawable.example_picture_2));
-		users.add(new User("xu_mu_moo", "Jason Xu", R.drawable.example_picture_3));
-		return users;
+
+
+	private ImageView image; 
+	public boolean onTouch(View view, MotionEvent me) {
+		if (me.getAction() == MotionEvent.ACTION_DOWN) {
+			image = new ImageView (this.getContext()); 
+			image.setImageBitmap(view.getDrawingCache()); 
+//			RelativeLayout layout = (RelativeLayout) findViewById(R.layout.activity_main); 
+//			layout.addView(image); 
+		}
+		
+		if (me.getAction() == MotionEvent.ACTION_UP) {
+
+			Log.i("Drag", "Stopped Dragging");
+		} else if (me.getAction() == MotionEvent.ACTION_MOVE) {			
+			image.setPadding((int) me.getRawX(), (int) me.getRawY(), 0, 0);
+			image.invalidate();
+		}
+
+		return false;
 	}
 
 }

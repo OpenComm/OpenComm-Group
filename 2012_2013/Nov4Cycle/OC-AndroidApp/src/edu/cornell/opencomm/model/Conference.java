@@ -1,5 +1,6 @@
 package edu.cornell.opencomm.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -7,12 +8,14 @@ import edu.cornell.opencomm.packet.ConferencePacket;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Conference implements Parcelable {
+public class Conference implements Serializable{
     private String conferenceTitle, reoccurrence, description;
     private Calendar startDateAndTime, endDateAndTime;
     private User inviter;
     private ArrayList<User> attendees;
     private boolean hasAcceptedInvite = false;
+    
+    ConferenceRoom[] conferenceRooms;
     
     // TEMPORARY VARIABLES - TODO need to discuss with backend
     private String inviter_name;
@@ -81,6 +84,10 @@ public class Conference implements Parcelable {
     }
     
     // GETTERS
+    
+    public ConferenceRoom[] getConferenceRooms(){
+    	return conferenceRooms;
+    }
     
     public String getConferenceTitle(){
     	return conferenceTitle;
@@ -214,6 +221,14 @@ public class Conference implements Parcelable {
     }
     
     // SETTERS
+    public void setConferenceRooms(ConferenceRoom[] conferenceRooms){
+    	this.conferenceRooms = conferenceRooms;
+    }
+    
+    public void setConferenceRoom(ConferenceRoom room, int position){
+    	this.conferenceRooms[position] = room;
+    }
+    
     public void acceptInvite(){
     	hasAcceptedInvite = true;
     }

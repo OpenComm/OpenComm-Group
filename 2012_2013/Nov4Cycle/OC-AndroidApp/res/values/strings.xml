@@ -23,6 +23,8 @@
     <string name="sign_up">sign up</string>
     <string name="remove">remove</string>
     <string name="send_email">send email</string>
+    <string name="sidechat">sidechat</string>
+    <string name="mainChat">mainChat</string>
     <string name="end">end</string>
     <string name="leave">leave</string>
     <string name="send">send</string>
@@ -79,7 +81,7 @@
     <string name="enter_conference_desc">Enter Conference</string>
     <string name="email_sample">jimmyjoe@jimmyjoe.com</string>
     <string name="phone_number">phone number</string>
-    <string name="phone_number_sample">(555) 555-5555</string>
+    <string name="phone_number_sample">(555) 555–5555</string>
     <string name="previous_conferences">previous conferences</string>
     <string name="conference_sample">sample conference</string>
     <string name="block">block</string>
@@ -93,7 +95,20 @@
     <string name="name_sample">Joseph Levitt</string>
     <string name="title_sample">Actor</string>
     <string name="password_sample">********</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string-array name="overflow_dashboard">
+        <item>logout</item>
+    </string-array>
+    <string-array name="overflow_notifications">
+        <item >account</item>
+        <item >contacts</item>
+    </string-array>
+    <string-array name="overflow_contacts">
+        <item >conferences</item>
+        <item >account</item>
+    </string-array>
+    <string-array name="overflow_myaccount">
+        <item >conferences</item>
+        <item >contacts</item>
+    </string-array>
 
 </resources>

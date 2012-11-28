@@ -8,8 +8,9 @@
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Hellooooo"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/black" />
+        android:textColor="@color/green" />
 
     <RelativeLayout
         android:id="@+id/action_bar"
@@ -17,9 +18,9 @@
         android:layout_height="42.67dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:background="@color/dark_grey"
+        android:background="@color/grey_thirtythree"
         android:orientation="horizontal"
-        android:visibility="gone" >
+        android:visibility="invisible" >
 
         <ImageButton
             android:id="@+id/conference_action_bar_back_button"
@@ -27,7 +28,7 @@
             android:layout_height="14dp"
             android:layout_marginLeft="10.67dp"
             android:layout_marginTop="14.67dp"
-            android:background="@color/dark_grey"
+            android:background="@color/grey_thirtythree"
             android:contentDescription="@string/desc"
             android:onClick="backButtonClicked"
             android:scaleType="centerInside"
@@ -40,8 +41,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
+            android:layout_marginBottom="10dp"
             android:layout_marginRight="12dp"
-            android:background="@color/dark_grey"
+            android:layout_marginTop="8dp"
+            android:background="@color/grey_thirtythree"
             android:contentDescription="@string/desc"
             android:onClick="overflowButtonClicked"
             android:scaleType="centerInside"
@@ -64,7 +67,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="90dp"
-            android:background="@color/dark_grey"
+            android:background="@color/grey_thirtythree"
             android:contentDescription="@string/desc"
             android:onClick="pingClicked"
             android:scaleType="centerInside"
@@ -77,7 +80,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginRight="12dp"
             android:layout_toLeftOf="@+id/clock_conference"
-            android:background="@color/dark_grey"
+            android:background="@color/grey_thirtythree"
             android:contentDescription="@string/desc"
             android:onClick="addPersonClicked"
             android:scaleType="centerInside"
@@ -91,7 +94,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginBottom="10dp"
-            android:layout_marginLeft="246dp"
+            android:layout_marginLeft="247dp"
             android:layout_marginRight="52.5dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/unmute"
@@ -104,9 +107,9 @@
         android:layout_height="42.67dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:background="@color/dark_grey"
+        android:background="@color/grey_thirtythree"
         android:orientation="horizontal"
-        android:visibility="gone" >
+        android:visibility="invisible" >
 
         <ImageView
             android:id="@+id/conference_leave"
@@ -138,9 +141,9 @@
         android:layout_height="42.67dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:background="@color/dark_grey"
+        android:background="@color/grey_thirtythree"
         android:orientation="horizontal"
-        android:visibility="gone" >
+        android:visibility="invisible" >
 
         <ImageView
             android:id="@+id/context_reg_user_profil"
@@ -198,9 +201,9 @@
         android:layout_height="42.67dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:background="@color/dark_grey"
+        android:background="@color/grey_thirtythree"
         android:orientation="horizontal"
-        android:visibility="gone" >
+        android:visibility="invisible" >
 
         <ImageView
             android:id="@+id/bottom_bar_mod_leave"
@@ -258,9 +261,9 @@
         android:layout_height="42.67dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:background="@color/dark_grey"
+        android:background="@color/grey_thirtythree"
         android:orientation="horizontal"
-        android:visibility="gone" >
+        android:visibility="invisible" >
 
         <ImageView
             android:id="@+id/bottom_bar_mod_context_profile"
@@ -360,6 +363,82 @@
             android:text="@string/add"
             android:textColor="@color/white"
             android:textSize="10sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/actionbar_sidechat"
+        android:layout_width="fill_parent"
+        android:layout_height="42.67dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/grey_thirtythree"
+        android:orientation="horizontal"
+        android:visibility="invisible" >
+
+        <ImageButton
+            android:id="@+id/actionbar_sidechat_backbutton"
+            android:layout_width="10.67dp"
+            android:layout_height="14dp"
+            android:layout_marginLeft="10.67dp"
+            android:layout_marginTop="14.67dp"
+            android:background="@color/grey_thirtythree"
+            android:contentDescription="@string/desc"
+            android:onClick="backButtonClicked"
+            android:scaleType="centerInside"
+            android:src="@drawable/action_arrow"
+            android:tint="@color/white" />
+
+        <ImageButton
+            android:id="@+id/actionbar_sidechat_overflow"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/grey_thirtythree"
+            android:contentDescription="@string/desc"
+            android:onClick="overflowButtonClicked"
+            android:scaleType="centerInside"
+            android:src="@drawable/action_overflow" />
+
+        <ImageButton
+            android:id="@+id/add_person_sidechat"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="200dp"
+            android:layout_marginRight="12dp"
+            android:background="@color/grey_thirtythree"
+            android:contentDescription="@string/desc"
+            android:onClick="addPersonClicked"
+            android:scaleType="centerInside"
+            android:src="@drawable/person_add_conference" />
+
+        <Button
+            android:id="@+id/mute_sidechat"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="247dp"
+            android:layout_marginRight="52.5dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/unmute"
+            android:onClick="muteClicked" />
+
+        <TextView
+            android:id="@+id/actionbar_sidechat_conference_text"
+            android:layout_width="226dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/mute_sidechat"
+            android:layout_toRightOf="@+id/actionbar_sidechat_backbutton"
+            android:text="@string/conference"
+            android:textColor="@color/blue"
+            android:textSize="20dp" />
     </RelativeLayout>
 
 </RelativeLayout>

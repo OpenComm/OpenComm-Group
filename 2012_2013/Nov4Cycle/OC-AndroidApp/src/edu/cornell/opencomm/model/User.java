@@ -3,21 +3,23 @@ package edu.cornell.opencomm.model;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.packet.VCard;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.Manager.UserManager;
+import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.network.NetworkService;
 
 /* An object representing a user who is taking part in the conversation */
 
-public class User implements Comparable<User> {
+public class User implements Comparable<User>, Serializable {
 	private static final String TAG = "Model.User";
 	/**
 	 * 
@@ -52,8 +54,6 @@ public class User implements Comparable<User> {
 	Bitmap userImage;
 
 	/**
-	 * TODO Ankit: Move this out of here it is only used for conference and
-	 * store it in a map in chat space model The color of the user contact card
 	 */
 	public int userColor;
 
@@ -142,7 +142,7 @@ public class User implements Comparable<User> {
 	public VCard getVCard() {
 		return this.vCard;
 	}
-
+	
 	public int compareTo(User arg0) {
 		return (getUsername().compareTo(arg0.getUsername()));
 		// returns alphabetic comparison of usernames by using string compareTo
@@ -159,4 +159,7 @@ public class User implements Comparable<User> {
 		byte[] bitmapdata = vCard.getAvatar();
 		return BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
 	}
+
+	
+
 }

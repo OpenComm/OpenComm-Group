@@ -31,7 +31,7 @@
         android:layout_height="0.67dp"
         android:layout_below="@+id/attendee_information"
         android:layout_centerHorizontal="true"
-        android:background="@color/grey_conference_card_attendee_separator_bar" >
+        android:background="@color/grey_twentyone" >
     </RelativeLayout>
 
 </RelativeLayout>

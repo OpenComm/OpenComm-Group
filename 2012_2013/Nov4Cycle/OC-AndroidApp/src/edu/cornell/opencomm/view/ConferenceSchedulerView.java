@@ -82,9 +82,9 @@ public class ConferenceSchedulerView extends Activity {
 			invited.setOnItemClickListener(new OnItemClickListener(){
 				public void onItemClick(AdapterView<?> arg0, View view, int position, long id) {
 					Conference selectedFrom = (Conference) (invited.getAdapter().getItem(position));
-					Intent i = new Intent(getApplicationContext(), ConferenceCardView.class);
+					/*Intent i = new Intent(getApplicationContext(), ConferenceCardView.class);
 					i.putExtra("com.cornell.opencomm.model.Conference", selectedFrom);
-					startActivity(i);					
+					startActivity(i);		 */			
 				}
 
 			});
@@ -308,7 +308,9 @@ public class ConferenceSchedulerView extends Activity {
 
 	public void openContactCardActivity(Conference conference){
 		Intent i = new Intent(this, ConferenceCardView.class);
-		i.putExtra("com.cornell.opencomm.model.Conference", conference);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("conference", conference);
+        i.putExtras(bundle);
 		startActivity(i);
 	}
 }

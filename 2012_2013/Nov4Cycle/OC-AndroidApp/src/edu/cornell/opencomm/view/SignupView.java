@@ -11,125 +11,165 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.controller.SignupController;
 
-/** TODO add class comment -- see loginView, LoginController*/
-public class SignupView extends Activity{
-	// TODO add debug variable
-	// TODO alter comment
-	private static final String TAG = SignupView.class.getName();
+
+/**
+ * View for sign up screen. Functionality (handled by SignupController)
+ * <ul>
+ * <li>When the user has provided valid registration inputs, creates account to database, and 
+ * email with new dummhy password sent.</li>
+ * <li>When the user provides invalid inputs, returns toasts with errors.</li>
+ * <li>When the user opts out by cancel button or back button, returns to previous activity.</li>
+ * </ul>
+ * 
+ * Issues [TODO] - For any other issues search for string "TODO"
+ * 
+ * @author Ankit Singh[frontend], Risa Naka[frontend]
+ * */
+public class SignupView extends Activity {
+	/**
+	 * Debugging variable: if true, all logs are logged; set to false before
+	 * packaging
+	 */
+	private static final boolean D = true;
+
+	/**
+	 * The TAG for logging
+	 */
+	private static final String TAG = SignupView.class.getSimpleName();
 	protected static final int ACTIVITY_SELECT_IMAGE = 1000;
+	// TODO [frontend/Ankit] what is the purpose of REQ_CODE_PICK_IMAGE?
 	private static final int REQ_CODE_PICK_IMAGE = 9999;
+
+	private static final int SELECT_PHOTO = 100;
+
+	private EditText firstNameInput;
+	private EditText lastNameInput;
+	private EditText emailInput;
+	private EditText titleInput;
+	private EditText confirmPwdInput;
+	private EditText pwdInput;
+	
+	private ImageView acceptOverlay;
+	private ImageView cancelOverlay;
+
 	/**
-	/**
-	 * The controller for signup
+	 * /** The controller for signup
 	 */
 	private SignupController controller;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.signup_view_layout);
-		FontSetter.applySanSerifFont(SignupView.this, findViewById(R.id.signup_view_layout));
-		controller = new SignupController(this,SignupView.this);
+		setContentView(R.layout.signup_layout);
+		FontSetter.applySanSerifFont(SignupView.this,findViewById(R.id.signup_layout));
+		controller = new SignupController(this);
+		this.firstNameInput = (EditText) findViewById(R.id.signup_firstNameInput);
+		this.lastNameInput = (EditText) findViewById(R.id.signup_lastNameInput);
+		this.emailInput = (EditText) findViewById(R.id.signup_emailInput);
+		this.titleInput = (EditText) findViewById(R.id.signup_titleInput);
+		this.pwdInput = (EditText) findViewById(R.id.signup_pwdInput);
+		this.confirmPwdInput = (EditText) findViewById(R.id.signup_confirmPwdInput);
+		this.acceptOverlay = (ImageView) findViewById(R.id.signup_acceptOverlay);
+		this.cancelOverlay = (ImageView) findViewById(R.id.signup_cancelOverlay);
 	}
 
+	/** = password input */
+	public EditText getPasswordTextBox() {
+		return this.pwdInput;
+	}
 
-	private static final int SELECT_PHOTO = 100;
+	/** = confirmPassword input */
+	public EditText getConfirmPasswordTextBox() {
+		return this.confirmPwdInput;
+	}
+
+	/** = first name input */
+	public EditText getFirstNameTextBox() {
+		return this.firstNameInput;
+	}
+
+	/** = last name input */
+	public EditText getLastNameTextBox() {
+		return this.lastNameInput;
+	}
+
+	/** = email input */
+	public EditText getEmailTextBox() {
+		return this.emailInput;
+	}
+
+	/** = title input */
+	public EditText getTitleTextBox() {
+		return this.titleInput;
+	}
+
+	/** Called when save is clicked: checks if the inputs are all valid, and if they are not, 
+	 * generates a toast with the errors. If the inputs are all valid, registers account w/ server 
+	 */
+	public void save(View v) {
+		controller.handleSave(this.firstNameInput.getText().toString().trim(),
+				this.lastNameInput.getText().toString().trim(), this.emailInput
+						.getText().toString().trim(), this.titleInput.getText()
+						.toString().trim(), this.pwdInput.getText().toString()
+						.trim(), this.confirmPwdInput.getText().toString()
+						.trim());
+	}
+
+	/** Called when cancel is clicked: return to the previous page 
+	 */
+	public void cancel(View v) {
+		this.cancelOverlay.setVisibility(View.VISIBLE);
+		super.onBackPressed();
+	}
+
+	/** Chooses a photo to use as a profile
+	 * TODO [frontend/Ankit] - currently not being sent to the server
+	 * TODO [frontend/Ankit] - handlePhotoButtonClick is an empty method*/
+	public void choosePhoto(View v) {
+		Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+		photoPickerIntent.setType("image/*");
+		startActivityForResult(photoPickerIntent, SELECT_PHOTO);
+		controller.handlePhotoButtonClick(v);
+	}
+
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) { 
-		super.onActivityResult(requestCode, resultCode, imageReturnedIntent); 
+	public void onResume() {
+		super.onResume();
+		this.acceptOverlay.setVisibility(View.INVISIBLE);
+		this.cancelOverlay.setVisibility(View.INVISIBLE);
+	}
 
-		switch(requestCode) { 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode,
+			Intent imageReturnedIntent) {
+		super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+
+		switch (requestCode) {
 		case SELECT_PHOTO:
-			if(resultCode == RESULT_OK){  
+			if (resultCode == RESULT_OK) {
 				Uri selectedImage = imageReturnedIntent.getData();
 				InputStream imageStream;
 				try {
-					imageStream =  getContentResolver().openInputStream(selectedImage);
+					imageStream = getContentResolver().openInputStream(
+							selectedImage);
 
-					Bitmap yourSelectedImage = BitmapFactory.decodeStream(imageStream);
-					ImageView photo = (ImageView) findViewById(R.id.photoButton);
-					//					yourSelectedImage.
+					Bitmap yourSelectedImage = BitmapFactory
+							.decodeStream(imageStream);
+					ImageView photo = (ImageView) findViewById(R.id.signup_photoInput);
 					photo.setImageBitmap(yourSelectedImage);
 					photo.invalidate();
-					Log.d(TAG,"Thing workded");
+					if (D) Log.d(TAG, "Photo imported");
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		}
 	}
-	/**
-	 * initialize photo button click event listener
-	 */
-	public void addPhoto(View v){
-		Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-		photoPickerIntent.setType("image/*");
-		startActivityForResult(photoPickerIntent, SELECT_PHOTO);  
 
-		controller.handlePhotoButtonClick(v);
-
-	}
-
-	public void createAccount(View v){
-		controller.handleSave(
-				((EditText) this.findViewById(R.id.firstNameBox)).getText().toString().trim(),
-				((EditText) this.findViewById(R.id.lastNameBox)).getText().toString().trim(),
-				((EditText) this.findViewById(R.id.emailBox)).getText().toString().trim(),
-				((EditText) this.findViewById(R.id.titleBox)).getText().toString().trim(),
-				((EditText) this.findViewById(R.id.passwordBox)).getText().toString().trim(),
-				((EditText) this.findViewById(R.id.confirmPasswordBox)).getText().toString().trim());
-	}
-	public void launchPreviousActivity(View v){
-		super.onBackPressed();
-	}
-	public EditText getPasswordTextBox(){
-		EditText passwordTextBox = (EditText) findViewById(R.id.passwordBox);
-		return passwordTextBox;
-	}
-	public EditText getConfirmPasswordTextBox(){
-		EditText cnfPasswordTextBox = (EditText) findViewById(R.id.confirmPasswordBox);
-		return cnfPasswordTextBox;
-	}
-	public EditText getFirstNameTextBox(){
-		EditText firstName = (EditText) findViewById(R.id.firstNameBox);
-		return firstName;
-	}
-	public EditText getLastNameTextBox(){
-		EditText textBox = (EditText) findViewById(R.id.lastNameBox);
-		return textBox;
-	}
-	public EditText getEmailTextBox(){
-		EditText textBox = (EditText) findViewById(R.id.emailBox);
-		return textBox;
-	}
-	public EditText getTitleTextBox(){
-		EditText textBox = (EditText) findViewById(R.id.titleBox);
-		return textBox;
-	}
-	@Override
-	public void onBackPressed() {
-		// Consume the key like a Boss!
-	}
-	@Override
-	public void onResume() {
-		super.onResume();
-		findViewById(R.id.acceptSignupOverlay).setVisibility(View.INVISIBLE);
-		findViewById(R.id.cancelSignupOverlay).setVisibility(View.INVISIBLE);
-	}
-
-	public void resetFocus(View view) {
-		if(view != null){
-		view.requestFocus();
-		}
-	}
 }
-

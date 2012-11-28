@@ -1,9 +1,11 @@
 package edu.cornell.opencomm.view;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.model.Conference;
+import edu.cornell.opencomm.model.User;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -28,8 +30,9 @@ public class ConferenceCardView extends Activity{
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.conference_card_layout);
 	    currentTime = Calendar.getInstance();
-	    Bundle b = getIntent().getExtras();
-	    conference = b.getParcelable("com.cornell.opencomm.model.Conference");
+	    /*Bundle b = getIntent().getExtras();
+	    conference = b.getParcelable("com.cornell.opencomm.model.Conference"); */
+	    conference = (Conference)getIntent().getSerializableExtra("conference");
 	    retrieveAndDisplayConferenceInformation();
 	    adjustLayoutLookAndFunctionality();
 	}
@@ -54,13 +57,16 @@ public class ConferenceCardView extends Activity{
 	
 	
 	public void retrieveAndDisplayAttendeeInformation(){
-		String[] attendee_names = conference.getAttendeeNames();
-		int[] attendee_pictures = conference.getAttendeePictures();
+		//String[] attendee_names = conference.getAttendeeNames();
+		//int[] attendee_pictures = conference.getAttendeePictures();
+		
+		ArrayList<User> users = conference.getAttendees();
 		LinearLayout conference_information_layout = (LinearLayout) findViewById(R.id.conference_information_linear_layout);
 		LayoutInflater layoutInflater = (LayoutInflater) 
 		        this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);  
-		for (int i=0 ; i < attendee_names.length ; i++){
-			createUserEntry(conference_information_layout, layoutInflater, attendee_names[i], attendee_pictures[i]);
+		for (int i=0 ; i < users.size() ; i++){
+			//createUserEntry(conference_information_layout, layoutInflater, attendee_names[i], attendee_pictures[i]);
+			createUserEntry(conference_information_layout, layoutInflater, users.get(i).getNickname(), users.get(i).getImage());
 		}
 	}
 	
@@ -192,9 +198,10 @@ public class ConferenceCardView extends Activity{
 	                break;
 	            }
 	            case MotionEvent.ACTION_UP:{
-	            	showToast("Enter Conference");
 	            	Intent i = new Intent(activity, ConferenceView.class);
-	        		// TODO Input conference information, notify backend
+	                Bundle bundle = new Bundle();
+	                bundle.putSerializable("conference", conference);
+	                 i.putExtras(bundle);
 	        		startActivity(i);
 	                break;
 	            }

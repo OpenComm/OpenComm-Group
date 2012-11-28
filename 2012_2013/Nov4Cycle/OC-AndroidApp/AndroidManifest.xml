@@ -9,16 +9,18 @@
 
     <uses-permission android:name="android.permission.INTERNET" >
     </uses-permission>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:theme="@style/Theme.offwhite" >
+        android:theme="@style/Theme.white_smoke" >
         <activity
             android:name=".view.SplashView"
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_dark" >
-                 <intent-filter>
+            android:theme="@style/Theme.grey_thirtythree" >
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -31,7 +33,12 @@
         <activity
             android:name=".view.DashboardView"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_dark_dashboard" >
+            android:theme="@style/Theme.grey_nineteen" >
+        </activity>
+        <activity
+            android:name=".view.NotificationsView"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.grey_eleven" >
         </activity>
         <activity
             android:name=".view.ResetPasswordView"
@@ -39,45 +46,47 @@
         </activity>
         <activity
             android:name=".view.SignupView"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_dark_dashboard" >
+            android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".view.ContactsView"
+            android:name=".view.ContactListView"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_dark_dashboard" >
+            android:theme="@style/Theme.grey_eleven" >
         </activity>
         <activity
             android:name=".view.ContactCardView"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_dark_dashboard" >
+            android:theme="@style/Theme.grey_eleven" >
         </activity>
         <activity
-            android:name=".view.ContactsSearchView"
+            android:name=".view.ContactAddView"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_dark_dashboard" >
+            android:theme="@style/Theme.grey_eleven" >
+        </activity>
+        <activity
+            android:name=".view.ContactSearchView"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.grey_nineteen" >
         </activity>
         <activity
             android:name=".view.ConferenceSchedulerView"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_dark_dashboard" >
+            android:theme="@style/Theme.grey_nineteen" >
         </activity>
         <activity
             android:name=".view.ConferenceCardView"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_dark_dashboard" >
+            android:theme="@style/Theme.grey_nineteen" >
         </activity>
         <activity
             android:name=".view.MyAccountView"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_dark_dashboard" >
+            android:theme="@style/Theme.grey_eleven" >
         </activity>
         <activity android:name=".view.ConferenceView" >
         </activity>
         <activity
-            android:name=".view.ChatSpaceViewActivity"
-            android:label="@string/title_activity_main" >
-       
+            android:name="edu.cornell.opencomm.view.ChatSpaceViewActivity" >
         </activity>
     </application>
 

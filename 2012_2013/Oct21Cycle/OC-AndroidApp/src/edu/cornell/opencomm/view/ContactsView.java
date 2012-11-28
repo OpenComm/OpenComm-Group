@@ -3,10 +3,10 @@ package edu.cornell.opencomm.view;
 import java.util.ArrayList;
 
 import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.Manager.UserManager;
 import edu.cornell.opencomm.controller.ContactListController;
 import edu.cornell.opencomm.controller.ContactListController.ReturnState;
 import edu.cornell.opencomm.controller.FontSetter;
+import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.User;
 import android.app.Activity;
 import android.content.Intent;

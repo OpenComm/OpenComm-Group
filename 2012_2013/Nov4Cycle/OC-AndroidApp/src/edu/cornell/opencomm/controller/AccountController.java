@@ -3,6 +3,9 @@ package edu.cornell.opencomm.controller;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashMap;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 
 import org.jivesoftware.smack.AccountManager;
 import org.jivesoftware.smack.XMPPException;
@@ -10,7 +13,7 @@ import org.jivesoftware.smackx.packet.VCard;
 
 import android.util.Log;
 
-import edu.cornell.opencomm.Manager.UserManager;
+import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
 
@@ -26,6 +29,8 @@ public class AccountController {
 	private VCard vCard;
 
 	private static final String TAG = "Controller.AccountController";
+	
+	private static final String USERSERVICE_URL = "http://cuopencomm.no-ip.org/userService/userservice?";
 
 	public AccountController() {
 		this.accountManager = NetworkService.getInstance().getAccountManager();
@@ -62,6 +67,18 @@ public class AccountController {
 		} catch (XMPPException e) {
 			Log.v(TAG, "Account creation failed");
 		}
+		try {
+			String requestURL = USERSERVICE_URL;
+			requestURL += "type=add&username=" + username + "&password=" + password;
+			requestURL += "&name=" + nickname + "&email=" + email;
+			URL url = new URL(requestURL);
+			URLConnection urlConn = url.openConnection();
+			urlConn.connect();
+		}
+		catch (Exception e)
+		{
+			Log.v(TAG, "server cannot create user");
+		}
 	}
 
 	public void changeNickname(String nickname) {
@@ -70,6 +87,17 @@ public class AccountController {
 			vCard.save(NetworkService.getInstance().getConnection());
 		} catch (XMPPException e) {
 			Log.v(TAG, "error in updating nickname");
+		}
+		try {
+			String requestURL = USERSERVICE_URL;
+			requestURL += "type=update&name=" + nickname;
+			URL url = new URL(requestURL);
+			URLConnection urlConn = url.openConnection();
+			urlConn.connect();
+		}
+		catch (Exception e)
+		{
+			Log.v(TAG, "server cannot update nickname");
 		}
 	}
 
@@ -89,6 +117,17 @@ public class AccountController {
 		} catch (XMPPException e) {
 			Log.v(TAG, "error in updating email");
 		}
+		try {
+			String requestURL = USERSERVICE_URL;
+			requestURL += "type=update&email=" + email;
+			URL url = new URL(requestURL);
+			URLConnection urlConn = url.openConnection();
+			urlConn.connect();
+		}
+		catch (Exception e)
+		{
+			Log.v(TAG, "server cannot update email");
+		}
 	}
 
 	public void changeImage(byte[] image) {
@@ -105,6 +144,51 @@ public class AccountController {
 			accountManager.changePassword(password);
 		} catch (XMPPException e) {
 			Log.v(TAG, "error changing password");
+		}
+		try {
+			String requestURL = USERSERVICE_URL;
+			requestURL += "type=update&password=" + password;
+			URL url = new URL(requestURL);
+			URLConnection urlConn = url.openConnection();
+			urlConn.connect();
+		} catch (Exception e) {
+			Log.v(TAG, "server cannot update password");
+		}
+	}
+	
+	public void deleteUser(String username)	{
+		try {
+			String requestURL = USERSERVICE_URL;
+			requestURL += "type=delete&username=" + username;
+			URL url = new URL(requestURL);
+			URLConnection urlConn = url.openConnection();
+			urlConn.connect();
+		} catch (Exception e) {
+			Log.v(TAG, "server cannot delete user");
+		}
+	}
+	
+	public void disableUser(String username) {
+		try {
+			String requestURL = USERSERVICE_URL;
+			requestURL += "type=disable&username=" + username;
+			URL url = new URL(requestURL);
+			URLConnection urlConn = url.openConnection();
+			urlConn.connect();
+		} catch (Exception e) {
+			Log.v(TAG, "server cannot disable user");
+		}
+	}
+	
+	public void enableUser(String username) {
+		try {
+			String requestURL = USERSERVICE_URL;
+			requestURL += "type=enable&username=" + username;
+			URL url = new URL(requestURL);
+			URLConnection urlConn = url.openConnection();
+			urlConn.connect();
+		} catch (Exception e) {
+			Log.v(TAG, "server cannot enable user");
 		}
 	}
 }

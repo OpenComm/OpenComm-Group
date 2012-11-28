@@ -9,9 +9,11 @@ import org.jivesoftware.smack.packet.Packet;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Vibrator;
 import android.util.Log;
-import edu.cornell.opencomm.Manager.UserManager;
-import edu.cornell.opencomm.model.ChatSpaceModel;
+import android.widget.Toast;
+import edu.cornell.opencomm.manager.UserManager;
+import edu.cornell.opencomm.model.ConferenceRoom;
 import edu.cornell.opencomm.model.ConferenceDataModel;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.view.ConferenceCardView;
@@ -24,7 +26,7 @@ public class ConferenceController {
 
 	private Context context;
 
-	private ConferenceDataModel _conference; // the conference that is being
+	private ConferenceDataModel conferenceModel; // the conference that is being
 												// controlled
 
 	private static final String TAG = "ConferenceController";
@@ -36,16 +38,32 @@ public class ConferenceController {
 	// information
 
 	// TODO: add a listener for invitations and invitation responses
+	
+	public ConferenceController(ConferenceView view,ConferenceDataModel model){
+		//TODO: do we really need this 
+		this.context = view; 
+		this.view = view; 
+		this.conferenceModel = model;
+	}
 
 	// Constructor - initialize required fields
 	public ConferenceController(ConferenceDataModel conf) {
-		this._conference = conf;
+		this.conferenceModel = conf;
 		invitedUsersToConference = new HashMap<User, String>();
+	}
+	
+	public void init(boolean isMod) {
+//		if(isMod){
+//			this._conference.initialize(true);
+//		}
+//		else{
+//			this._conference.initialize(false);
+//		}
 	}
 
 	public void inviteUser(User u, String sChat) {
 		User primaryUser = UserManager.PRIMARY_USER;
-		ChatSpaceModel chatRoom = findChat(sChat);
+		ConferenceRoom chatRoom = findChat(sChat);
 		// check if user is moderator in the chat sChat
 		User moderator = chatRoom.getModerator();
 		if (!primaryUser.equals(moderator)) {
@@ -94,19 +112,19 @@ public class ConferenceController {
 	}
 
 	public void addUser(User u, String sChat) {
-		ChatSpaceModel chatRoom = findChat(sChat);
-		_conference.getIDMap().get(chatRoom.getRoomID()).updateForNewUser(u);
+		ConferenceRoom chatRoom = findChat(sChat);
+		//_conference.getIDMap().get(chatRoom.getRoomID()).addUser(u); TODO 
 	}
 
-	private ChatSpaceModel findChat(String sChat) {
+	private ConferenceRoom findChat(String sChat) {
 		// find roomID of the chat (may be replaced with
 		// _conference.getActiveChat();
 		// if we can be confident that the active chat is the same as sChat
 		String roomID = sChat;
 
 		// roomId = _conference.getActiveChat();
-		HashMap<String, ChatSpaceModel> chatSpaceIDMap = _conference.getIDMap();
-		ChatSpaceModel chatRoom = chatSpaceIDMap.get(roomID);
+		HashMap<String, ConferenceRoom> chatSpaceIDMap = conferenceModel.getIDMap();
+		ConferenceRoom chatRoom = chatSpaceIDMap.get(roomID);
 		return chatRoom;
 	}
 
@@ -116,8 +134,8 @@ public class ConferenceController {
 	// chat
 	public void leaveChat(String sChat, User currentUser) throws XMPPException {
 
-		HashMap<String, ChatSpaceModel> conferencemap = _conference.getIDMap();
-		ChatSpaceModel spacechat = conferencemap.get(sChat);
+		HashMap<String, ConferenceRoom> conferencemap = conferenceModel.getIDMap();
+		ConferenceRoom spacechat = conferencemap.get(sChat);
 		User moderator = spacechat.getModerator();
 
 		if (moderator.getUsername().equals(currentUser.getUsername())) { // if
@@ -126,39 +144,42 @@ public class ConferenceController {
 										// moderator is leaving
 			User new_sidemoderator = null; // find the new_sidemoderator for
 											// this side chat
-			if (_conference.getIsmain()) { // if in mainchat
+			if (conferenceModel.getIsmain()) { // if in mainchat
 				String[] keys = (String[]) conferencemap.keySet().toArray();
 				for (int i = 0; i <= 2; i++) {
 					if (keys[i] != sChat) { // if not mainchat i.e. sidechats,
 											// transfer privileges and then
 											// leave
-						ChatSpaceModel spacechat1 = conferencemap.get(keys[i]);
+						ConferenceRoom spacechat1 = conferencemap.get(keys[i]);
+						String name = spacechat1.getRoomID();
 						transferPrivileges(currentUser, newmoderator,
-								spacechat1);
+								name);
 						spacechat1.leave();
-						_conference.setIsmain(true); // not sure if this is
+						conferenceModel.setIsmain(true); // not sure if this is
 														// needed, please check
 					}
-					transferPrivileges(newmoderator, currentUser, spacechat); // finally
+					String name = spacechat.getRoomID();
+					transferPrivileges(newmoderator, currentUser, name); // finally
 																				// leave
 																				// the
 																				// mainchat
 					spacechat.leave();
 				}
 			} else { // if this is a side chat than only for that
-				transferPrivileges(newmoderator, currentUser, spacechat);
+				String name = spacechat.getRoomID();
+				transferPrivileges(newmoderator, currentUser, name);
 				spacechat.leave();
 			}
 		}
 
 		else { // if only a user
-			if ((_conference.getIsmain())) { // if main then leave side chat
+			if ((conferenceModel.getIsmain())) { // if main then leave side chat
 												// also
 				String[] keys = (String[]) conferencemap.keySet().toArray();
 				for (int i = 0; i <= 2; i++) {
 					if (keys[i] != sChat) { // if not mainchat i.e. sidechats
 											// leave
-						ChatSpaceModel spacechat1 = conferencemap.get(keys[i]);
+						ConferenceRoom spacechat1 = conferencemap.get(keys[i]);
 						spacechat1.leave();
 					}
 					spacechat.leave(); // leave main
@@ -170,9 +191,9 @@ public class ConferenceController {
 	}
 
 	public void endConference(String conf, User u) {
-		ChatSpaceModel chat = this._conference.getIDMap().get(conf);
+		ConferenceRoom chat = this.conferenceModel.getIDMap().get(conf);
 		if (chat.getModerator().equals(u)) {
-			HashMap<String, ChatSpaceModel> allChats = this._conference
+			HashMap<String, ConferenceRoom> allChats = this.conferenceModel
 					.getIDMap();
 			for (String s : allChats.keySet()) {
 				try {
@@ -188,28 +209,29 @@ public class ConferenceController {
 	/**
 	 * 
 	 * @param u1
-	 *            new moderator
-	 * @param u2
 	 *            current moderator leaving the chat
+	 * @param u2
+	 *            new moderator
 	 * @param room
 	 *            ChatSpaceModel in which the privilege has to be transferred
 	 * @throws XMPPException
 	 */
-	public void transferPrivileges(User u1, User u2, ChatSpaceModel room)
+	public void transferPrivileges(User u1, User u2, String chat)
 			throws XMPPException {
-		room.grantModerator(u1.getNickname());
-		room.revokeModerator(u2.getNickname());
+		ConferenceRoom room = this.conferenceModel.getIDMap().get(chat);
+		room.updateMod(u1, u2);
 	}
 
 	public void kickoutUser(String chat, User userToBeKicked, User currUser) {
-		if (this._conference.getIDMap().get(chat).getModerator()
+		if (this.conferenceModel.getIDMap().get(chat).getModerator()
 				.equals(currUser)) {
-			this._conference.getIDMap().get(chat).getAllNicknames()
-					.remove(userToBeKicked.getNickname());
-			this._conference.getIDMap().get(chat).getAllParticipants()
-					.remove(userToBeKicked.getUsername());
+			//AnKit
+//			this._conference.getIDMap().get(chat).getAllNicknames()
+//					.remove(userToBeKicked.getNickname());
+//			this._conference.getIDMap().get(chat).getAllParticipants()
+//					.remove(userToBeKicked.getUsername());
 			try {
-				this._conference.getIDMap().get(chat)
+				this.conferenceModel.getIDMap().get(chat)
 						.kickParticipant(userToBeKicked.getNickname(), null);
 			} catch (XMPPException e) {
 				e.printStackTrace();
@@ -217,16 +239,7 @@ public class ConferenceController {
 		}
 	}
 
-	public ChatSpaceModel switchChat(String chat) {
-		ChatSpaceModel newChat = this._conference.getIDMap().get(chat);
-		this._conference.setActiveChat(chat);
-		if (this._conference.getLocationMap().get(chat).equals("MAIN")) {
-			this._conference.setIsmain(true);
-		} else {
-			this._conference.setIsmain(false);
-		}
-		return newChat;
-	}
+
 
 	// TODO: the following methods will not be implemented for the Nov4 cycle
 
@@ -253,45 +266,44 @@ public class ConferenceController {
 		// 2.trans_priv
 	}
 
-	// TODO- need to store the current conference as a conference object
-	public void handleBackButtonClicked() {
-		Intent click = new Intent(this.view, ConferenceCardView.class);
-		// click.putExtra("com.cornell.opencomm.model.Conference", conference);
-		this.view.startActivity(click);
-	}
-
 	public void handleOverflow() {
-
+		Toast.makeText(this.context, "Overflow Clicked", Toast.LENGTH_SHORT).show(); 
 	}
-
-	public void pingClicked() {
-
-	}
-
+	
 	public void addPersonClicked() {
+		Toast.makeText(this.context, "Add Contact Clicked", Toast.LENGTH_SHORT).show();
 		// TODO- Should go to add contact to conference page
 	}
 
 	public void muteClicked() {
-
+		Toast.makeText(this.context, "Mute Clicked", Toast.LENGTH_SHORT).show();
 	}
 
 	public void leaveConference() {
-
+		Toast.makeText(this.context, "Leave Conference Clicked", Toast.LENGTH_SHORT).show();
 	}
 
 	public void removeUser() {
-
+		Toast.makeText(this.context, "Remove User", Toast.LENGTH_SHORT).show();
 	}
 
 	public void setNewModerator() {
-		// TODO Auto-generated method stub
+		Toast.makeText(this.context, "Set New Moderator", Toast.LENGTH_SHORT).show();
 
 	}
-
+	
 	public void showProfile() {
-		// TODO Auto-generated method stub
-
+		Toast.makeText(this.context, "Show Profile", Toast.LENGTH_SHORT).show();
 	}
+
+	public void handleEndClicked() {
+		Toast.makeText(this.context, "End conference", Toast.LENGTH_SHORT).show();		
+	}
+
+	public void handleOnContextAddClicked() {
+		Toast.makeText(this.context, "Add Contact clicked", Toast.LENGTH_SHORT).show();		
+	}
+	
+	
 
 }

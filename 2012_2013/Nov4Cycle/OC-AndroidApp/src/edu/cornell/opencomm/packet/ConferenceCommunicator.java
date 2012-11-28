@@ -1,13 +1,11 @@
 package edu.cornell.opencomm.packet;
 
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -21,11 +19,9 @@ import org.jivesoftware.smack.packet.Packet;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.Log;
-import edu.cornell.opencomm.interfaces.SimpleObserver;
+import edu.cornell.opencomm.interfaces.OCResponseListner;
 import edu.cornell.opencomm.model.Conference;
-import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
-import edu.cornell.opencomm.view.ConferenceSchedulerView;
 
 public class ConferenceCommunicator implements PacketListener {
 
@@ -40,7 +36,7 @@ public class ConferenceCommunicator implements PacketListener {
 	
 	private static final String PUSH_SUCCESS = "SUCCESS";
 	private static final String DESTINATION = "conferencescheduling.cuopencomm";
-	private SimpleObserver listner;
+	private OCResponseListner listner;
 
 	public static final String LOG_TAG = "Network.ConferenceCommunicator";
 
@@ -50,16 +46,16 @@ public class ConferenceCommunicator implements PacketListener {
 				.addPacketListener(this, filter);
 	}
 	/*pull the conferences which the current user is part of*/
-	public void pullConferences(SimpleObserver listner) {
+	public void pullConferences(OCResponseListner listner) {
 		this.listner = listner;
 		//test only: TOBEDELETED
 		//Conference conference=new Conference("Testers Meeting", "We are awesome!", new GregorianCalendar(2012,11,24, 9,10,0),new GregorianCalendar(2012,11,24, 11,10,0),"Annual",new User("oc4testorg","Bull", 0), null);
 		//this.pushConference(conference, listner);
 		//this.NotificationChecker();
-		new PullTask().execute();
+//		new PullTask().execute();
 	}
 	/*push a new conference to the Database*/
-	public void pushConference(Conference conference, SimpleObserver listner) {
+	public void pushConference(Conference conference, OCResponseListner listner) {
 		this.listner = listner;
 		new PushTask().execute(conference);
 	}
@@ -71,20 +67,22 @@ public class ConferenceCommunicator implements PacketListener {
 		protected String doInBackground(Void...voids) {
 			XMPPConnection xmppConn = NetworkService.getInstance()
 					.getConnection();
-			/* String to split. */
-			String str = xmppConn.getUser();
-			String[] temp;
-			/* delimiter */
-			String delimiter = "@";
-			/* given string will be split by the argument delimiter provided. */
-			temp = str.split(delimiter);
-			ConferencePacket packet = new ConferencePacket(temp[0],
-					PULL_ID);
-			packet.setFrom(xmppConn.getUser());
-			packet.setTo(DESTINATION);
-			packet.setPacketID(PULL_ID);
-			xmppConn.sendPacket(packet);
-			Log.v(LOG_TAG, "pull message sent: "+packet.toXML());
+			//TODO: Ankit : Handle when the connection is null
+			if (xmppConn != null) {
+				/* String to split. */
+				String str = xmppConn.getUser();
+				String[] temp;
+				/* delimiter */
+				String delimiter = "@";
+				/* given string will be split by the argument delimiter provided. */
+				temp = str.split(delimiter);
+				ConferencePacket packet = new ConferencePacket(temp[0], PULL_ID);
+				packet.setFrom(xmppConn.getUser());
+				packet.setTo(DESTINATION);
+				packet.setPacketID(PULL_ID);
+				xmppConn.sendPacket(packet);
+				Log.v(LOG_TAG, "pull message sent: " + packet.toXML());
+			}
 			return null;
 		}
 
@@ -207,7 +205,7 @@ public class ConferenceCommunicator implements PacketListener {
 				} else {
 					Log.v(LOG_TAG, "pull successful.  returned info: "
 							+ received.getBody());
-					listner.onUpdate(911, received.getBody());
+					listner.onResponse(911, received.getBody());
 				}
 
 			} else if (received.getPacketID().equals(PUSH_CONFIRMATION)) {

@@ -2,11 +2,17 @@ package edu.cornell.opencomm.controller;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ConferenceSchedulerView;
-import edu.cornell.opencomm.view.ContactsView;
+import edu.cornell.opencomm.view.ContactListView;
 import edu.cornell.opencomm.view.DashboardView;
+import edu.cornell.opencomm.view.LoginView;
 import edu.cornell.opencomm.view.MyAccountView;
+import edu.cornell.opencomm.view.NotificationsView;
 
 /**
  * Controller for Dashboard (DashboardView)
@@ -22,7 +28,7 @@ import edu.cornell.opencomm.view.MyAccountView;
  * </ul>
  *
  * Issues [TODO]
- * - [frontend] Implement Action Bar functionality
+ * - [frontend] Implement notification functionality
  * - [backend] pull the most recent conference/current conf in session
  *
  * @author Risa Naka [frontend]
@@ -76,8 +82,7 @@ public class DashboardController {
 	 * Launches Contact List
 	 */
 	public void handleContactsButtonClicked() {
-		// start conference view
-    	Intent i = new Intent(this.dashboardView,ContactsView.class);
+    	Intent i = new Intent(this.dashboardView,ContactListView.class);
     	this.dashboardView.startActivity(i);
 	}
 
@@ -90,18 +95,37 @@ public class DashboardController {
 	}
 
 	public void handleNotificationClicked() {
-		int duration = Toast.LENGTH_SHORT;
-    	Toast send = Toast.makeText(this.dashboardView.getApplicationContext(),"Action Bar: Notification clicked",duration);
-    	send.show();
-    	// TODO launch notification overlay
-		
+		Intent i = new Intent(this.dashboardView, NotificationsView.class);
+    	this.dashboardView.startActivity(i);	
 	}
 
+	/** 
+	 * Shows/hides Overflow
+	 */
 	public void handleOverflowClicked() {
-		int duration = Toast.LENGTH_SHORT;
-    	Toast send = Toast.makeText(this.dashboardView.getApplicationContext(),"Action Bar: Overflow clicked",duration);
-    	send.show();
-    	// TODO launch notification overlay
-		
+    	if (this.dashboardView.getOverflowList().getVisibility() == View.INVISIBLE) {
+    		this.dashboardView.getOverflowList().setVisibility(View.VISIBLE);
+    	}
+    	else {
+    		this.dashboardView.getOverflowList().setVisibility(View.INVISIBLE);
+    	}		
+	}
+
+	/** 
+	 * Overflow option clicked:
+	 * <ul>
+	 * <li>log out: logs out, returns to the login page
+	 * </ul>
+	 * */
+	public void handleOptionClick(View view) {
+		String option = ((TextView) view.findViewById(R.id.overflow_itemtext)).getText().toString().trim();
+		// if the user selects log out
+		if (option.equals("logout")) {
+			// log out
+			NetworkService.getInstance().logout();
+			// launch login page
+			Intent i = new Intent(this.dashboardView, LoginView.class);
+			this.dashboardView.startActivity(i);
+		}		
 	}
 }

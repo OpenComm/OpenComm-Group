@@ -3,7 +3,7 @@ package edu.cornell.opencomm.controller;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
-import edu.cornell.opencomm.interfaces.SimpleObserver;
+import edu.cornell.opencomm.interfaces.OCResponseListner;
 import edu.cornell.opencomm.packet.ConferenceCommunicator;
 import edu.cornell.opencomm.view.ConferenceSchedulerView;
 import edu.cornell.opencomm.view.DashboardView;
@@ -12,7 +12,7 @@ import edu.cornell.opencomm.view.DashboardView;
  * @author 
  *
  */
-public class ConferenceSchedulerController implements SimpleObserver{
+public class ConferenceSchedulerController implements OCResponseListner{
 
 	private ConferenceSchedulerView conferenceSchedulerView;
 	private Context context; 
@@ -56,7 +56,7 @@ public class ConferenceSchedulerController implements SimpleObserver{
 	/* (non-Javadoc)
 	 * @see edu.cornell.opencomm.interfaces.SimpleObserver#onUpdate(int, java.lang.Object)
 	 */
-	public void onUpdate(int eventid, Object event) {
+	public void onResponse(int eventid, Object event) {
 		if(eventid == 911){
 			String response = (String) event;
 			conferenceSchedulerView.dataReceived(response);
