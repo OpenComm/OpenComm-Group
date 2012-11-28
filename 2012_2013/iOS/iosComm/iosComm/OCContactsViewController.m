@@ -17,11 +17,13 @@
 @end
 
 @implementation OCContactsViewController{
-    NSArray* contactsArray;
+    NSMutableArray* contactsArray;
+    NSMutableArray* imageArray;
     NSArray* indexArray; // To create horizontal index on the right
     NSMutableDictionary* sections;
     NSInteger currentSection; // The current section of the index the user is at, not to change if no contact exists with touched letter.
     NSArray* searchResults;
+    NSMutableArray* contactsList;
     //OCXMPPDelegateHandler *delegateHandler; //to set the appropriate jingle session
 }
 
@@ -44,9 +46,11 @@ OCXMPPDelegateHandler *delegateHandler;
 {
     [super viewDidLoad];
     //contactsArray = [NSArray arrayWithObjects:@"Sofia", @"Giulia", @"Andrea", @"Francesco", @"Alessandro", @"Giorgia", @"Matteo", @"Lorenzo", @"Martina", @"Sara", nil];
-    contactsArray = [NSArray arrayWithObjects: @"Sam's Iphone", @"Alabama", @"Alaska", @"American Samoa", @"Arizona", @"Arkansas", @"California", @"Colorado", @"Connecticut", @"Delaware", @"District of Columbia", @"Florida", @"Georgia", @"Guam", @"Hawaii", @"Idaho", @"Illinois", @"Indiana", @"Iowa", @"Kansas", @"Kentucky", @"Louisiana", @"Maine", @"Maryland", @"Massachusetts", @"Michigan", @"Minnesota", @"Mississippi", @"Missouri", @"Montana", @"Nebraska", @"Nevada", @"New Hampshire", @"New Jersey", @"New Mexico", @"New York", @"North Carolina", @"North Dakota", @"Northern Marianas Islands", @"Ohio", @"Oklahoma", @"Oregon", @"Pennsylvania", @"Puerto Rico", @"Rhode Island", @"South Carolina", @"South Dakota", @"Tennessee", @"Texas", @"Utah", @"Vermont", @"Virginia", @"Virgin Islands", @"Washington", @"West Virginia", @"Wisconsin", @"Wyoming", nil];
+    contactsArray = [NSMutableArray arrayWithObjects: @"Sam's Iphone", @"Alabama", @"Alaska", @"American Samoa", @"Arizona", @"Arkansas", @"California", @"Colorado", @"Connecticut", @"Delaware", @"District of Columbia", @"Florida", @"Georgia", @"Guam", @"Hawaii", @"Idaho", @"Illinois", @"Indiana", @"Iowa", @"Kansas", @"Kentucky", @"Louisiana", @"Maine", @"Maryland", @"Massachusetts", @"Michigan", @"Minnesota", @"Mississippi", @"Missouri", @"Montana", @"Nebraska", @"Nevada", @"New Hampshire", @"New Jersey", @"New Mexico", @"New York", @"North Carolina", @"North Dakota", @"Northern Marianas Islands", @"Ohio", @"Oklahoma", @"Oregon", @"Pennsylvania", @"Puerto Rico", @"Rhode Island", @"South Carolina", @"South Dakota", @"Tennessee", @"Texas", @"Utah", @"Vermont", @"Virginia", @"Virgin Islands", @"Washington", @"West Virginia", @"Wisconsin", @"Wyoming", nil];
+    imageArray = [NSMutableArray arrayWithObjects:@"zoo1.jpeg", @"zoo2.jpeg", @"zoo3.jpeg", @"zoo4.jpeg", @"zoo5.jpeg", @"zoo6.jpeg", @"zoo7.jpeg", @"zoo8.jpeg", @"zoo9.jpeg", @"zoo10.jpeg", nil];
     sections = [[NSMutableDictionary alloc] init];
-    
+    contactsList = [[NSMutableArray alloc] init];
+    [self makeContactsArray:contactsArray :imageArray];
     //[self initializeIndexArray];
     [self setUpContactsList];
     currentSection = 0;
@@ -67,6 +71,32 @@ OCXMPPDelegateHandler *delegateHandler;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)makeContactsArray: (NSMutableArray *)contacts: (NSMutableArray *) images
+{
+    NSLog(@"In makeContactsArray");
+    int contactsSize = [contacts count];
+    int imagesSize = [images count];
+
+    if (imagesSize<contactsSize){
+        for (int j = 0; j<(contactsSize-imagesSize); j++){
+            [images addObject:@"default.png"];
+        }
+    }
+    
+    for (int i = 0; i<contactsSize; i++){
+        NSMutableDictionary *contactItem = [[NSMutableDictionary alloc]init];
+        [contactItem setValue:[contacts objectAtIndex:i] forKey:@"Name"];
+        
+        [contactItem setValue:[images objectAtIndex:i] forKey:@"Image"];
+        
+        //NSLog(@"ContactItem: %@", contactItem);
+        [contactsList addObject:contactItem];
+        //[contactItem removeAllObjects];
+    }
+    NSLog(@"Array: %@", contactsList);
+}
+
 
 #pragma mark - Table view data source
 
