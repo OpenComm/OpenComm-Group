@@ -2,9 +2,17 @@ package edu.cornell.opencomm.manager;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.concurrent.ExecutionException;
+
+import org.jivesoftware.smack.RosterEntry;
+
+import android.os.AsyncTask;
+import android.widget.Toast;
 
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.model.User;
+import edu.cornell.opencomm.network.NetworkService;
 
 /**Manager class to hold state if the primary user 
  * 
@@ -64,6 +72,24 @@ public class UserManager {
 	public static void updateContactList(ArrayList<User> list){
 		synchronized (contactList) {
 			contactList = list;
+		}
+	}
+	
+	/** Updates the contact list, returning true if the update is successful */
+	public static class UpdateContactsTask extends AsyncTask<Void, Void, Boolean> {
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+			Iterator<RosterEntry> entries = NetworkService.getInstance()
+					.getConnection().getRoster().getEntries().iterator();
+			ArrayList<User> updatedList = new ArrayList<User>();
+			while (entries.hasNext()) {
+				RosterEntry entry = entries.next();
+				// TODO [backend] obtain complete info on user
+				User buddy = new User(entry.getUser(), entry.getName(), 0);
+				updatedList.add(buddy);
+			}
+			UserManager.updateContactList(updatedList);
+			return true;
 		}
 	}
 }
