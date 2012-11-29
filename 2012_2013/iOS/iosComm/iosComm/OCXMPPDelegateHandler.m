@@ -282,6 +282,15 @@
 }
 
 - (void)xmppStreamDidRegister:(XMPPStream *)sender {
+    UIAlertView *info = [
+                         [UIAlertView alloc]
+                         initWithTitle:@"Successfully Registered!"
+                         message:@"Please log in with the credentials you provided!"
+                         delegate:nil
+                         cancelButtonTitle:@"Dismiss"
+                         otherButtonTitles:nil
+                         ];
+    [info show];
     NSLog(@"I did register!");
 }
 

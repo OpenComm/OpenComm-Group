@@ -100,6 +100,7 @@ extern OCXMPPDelegateHandler *delegateHandler;
 }
 - (IBAction)submitPressed:(id)sender{
     /*Error checking form inputs*/
+    NSString *username = nil;
     NSString *errorMessage = nil;
     if ([firstnameField.text length] <= 0) {
         errorMessage = @"First Name Required";
@@ -110,19 +111,31 @@ extern OCXMPPDelegateHandler *delegateHandler;
     else if ([emailaddressField.text length] <= 0) {
         errorMessage = @"Email Address Required";
     }
-    else if ([emailaddressField.text rangeOfString: @"@"].location == NSNotFound) {
-        errorMessage = @"Invalid Email Address";
-    }
-    else if ([jobtitleField.text length] <= 0) {
-        errorMessage = @"Job Title Required";
-    }
-    else if ([passwordField.text length] <= 0) {
-        errorMessage = @"Password Required";
-    }
-    else if (![passwordField.text isEqualToString: confirmpasswordField.text]) {
-        errorMessage = @"Mismatching Passwords";
-        passwordField.text = @"";
-        confirmpasswordField.text = @"";
+    else {
+        NSRange rangeOfAt = [emailaddressField.text rangeOfString:@"@"];
+        if (rangeOfAt.location == NSNotFound) {
+            errorMessage = @"Invalid Email Address";
+        }
+        else {
+            username = [emailaddressField.text substringToIndex: rangeOfAt.location];
+    
+            NSString *rest = [emailaddressField.text substringFromIndex: rangeOfAt.location];
+            NSRange rangeOfPeriod = [rest rangeOfString:@"."];
+            if (rangeOfPeriod.location == NSNotFound) {
+                errorMessage = @"Invalid Email Address";
+            }
+            else if ([jobtitleField.text length] <= 0) {
+                errorMessage = @"Job Title Required";
+            }
+            else if ([passwordField.text length] <= 0) {
+                errorMessage = @"Password Required";
+            }
+            else if (![passwordField.text isEqualToString: confirmpasswordField.text]) {
+                errorMessage = @"Mismatching Passwords";
+                passwordField.text = @"";
+                confirmpasswordField.text = @"";
+            }
+        }
     }
     
     if (errorMessage != nil) {
@@ -139,9 +152,11 @@ extern OCXMPPDelegateHandler *delegateHandler;
     }
     
     /*Register the user with the connected XMPP Stream*/
-    [delegateHandler myXMPPStream].myJID = [XMPPJID jidWithString: emailaddressField.text];
+    //username is not nil if errorMessage == nil
+    NSString *jid = [[username stringByAppendingString: @"@"] stringByAppendingString: [[delegateHandler getDefaults] DEFAULT_HOSTNAME]];
+    [[delegateHandler myXMPPStream] setMyJID:[XMPPJID jidWithString: jid]];
     NSError *error;
-    if (![[delegateHandler myXMPPStream] registerWithPassword: passwordField.text error: &error]) {
+    if (![[delegateHandler myXMPPStream] registerWithPassword: passwordField.text email: emailaddressField.text error: &error]) {
         NSLog(@"Oops, I probably forgot something: %@", error);
     }
     

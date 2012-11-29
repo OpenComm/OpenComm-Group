@@ -1456,7 +1456,7 @@ enum XMPPStreamConfig
  * 
  * If the XMPPStream is not connected, or the server doesn't support in-band registration, this method does nothing.
 **/
-- (BOOL)registerWithPassword:(NSString *)password error:(NSError **)errPtr
+- (BOOL)registerWithPassword:(NSString *)password email:(NSString *) email error:(NSError **)errPtr
 {
 	XMPPLogTrace();
 	
@@ -1503,6 +1503,8 @@ enum XMPPStreamConfig
 		NSXMLElement *queryElement = [NSXMLElement elementWithName:@"query" xmlns:@"jabber:iq:register"];
 		[queryElement addChild:[NSXMLElement elementWithName:@"username" stringValue:username]];
 		[queryElement addChild:[NSXMLElement elementWithName:@"password" stringValue:password]];
+        /*MODIFIED BY KFC35*/
+        [queryElement addChild:[NSXMLElement elementWithName:@"email" stringValue:email]];
 		
 		NSXMLElement *iqElement = [NSXMLElement elementWithName:@"iq"];
 		[iqElement addAttributeWithName:@"type" stringValue:@"set"];

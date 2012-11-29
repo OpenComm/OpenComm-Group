@@ -370,7 +370,8 @@ typedef enum XMPPStreamErrorCode XMPPStreamErrorCode;
  * The password will be sent in the clear unless the stream has been secured.
 **/
 - (BOOL)supportsInBandRegistration;
-- (BOOL)registerWithPassword:(NSString *)password error:(NSError **)errPtr;
+/*MODIFIED BY KFC35 - Added email argument*/
+- (BOOL)registerWithPassword:(NSString *)password  email:(NSString *)email error:(NSError **)errPtr;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark Authentication
