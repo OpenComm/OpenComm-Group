@@ -127,6 +127,7 @@
         <scene sceneID="SUB-mc-3wa">
             <objects>
                 <tabBarController definesPresentationContext="YES" id="w1t-xM-IlL" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="bpv-GY-IFi"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="InP-nh-oe5">
@@ -144,10 +145,10 @@
             </objects>
             <point key="canvasLocation" x="1495" y="38"/>
         </scene>
-        <!--View Controller - account-->
+        <!--Account Settings View Controller - account-->
         <scene sceneID="yrq-1P-enl">
             <objects>
-                <viewController id="5vd-CP-wMf" sceneMemberID="viewController">
+                <viewController id="5vd-CP-wMf" customClass="OCAccountSettingsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WeK-dG-sDw">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -296,7 +297,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="contacts" id="zrB-YX-l2P">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="F6a-UV-azH"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="F6a-UV-azH">
+                            <connections>
+                                <action selector="testButton:" destination="y1M-Ws-UsC" id="GBh-eW-hsa"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
@@ -323,6 +328,7 @@
                 <navigationController id="5nk-TK-yRl" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="conferences" image="conferences_icon.png" id="lIC-kw-TFP"/>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="ypI-ZP-9fh"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="blackOpaque" id="T8z-mV-Z1n">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -455,6 +461,47 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JWh-rs-9fO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2037" y="717"/>
+        </scene>
+        <!--Single Call View Controller-->
+        <scene sceneID="qqC-ta-Mpq">
+            <objects>
+                <viewController storyboardIdentifier="SingleCall" id="ff7-te-luu" customClass="OCSingleCallViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="N3Y-nS-BeI">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="You are in a call" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vA0-0L-M31">
+                                <rect key="frame" x="74" y="84" width="172" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="8Ly-VO-RlU">
+                        <barButtonItem key="leftBarButtonItem" title="Confernces" id="BTE-Ba-H2e">
+                            <connections>
+                                <action selector="conferencesButtonPressed:" destination="ff7-te-luu" id="Vn5-T1-qbw"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="stop" id="5gg-A5-JOA">
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="ff7-te-luu" id="9Qi-fG-IsJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="callTextLabel" destination="vA0-0L-M31" id="Mmw-eg-uvC"/>
+                        <segue destination="w1t-xM-IlL" kind="modal" identifier="backToConferences" modalTransitionStyle="flipHorizontal" id="gK0-pN-Sb7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qzg-bT-XLV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2491" y="1480"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fbn-rd-Eiq">
@@ -738,6 +785,26 @@
             </objects>
             <point key="canvasLocation" x="439" y="-629"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="prn-Ff-H5P">
+            <objects>
+                <navigationController storyboardIdentifier="singleCallNavigator" id="dmZ-gc-2nw" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="blackOpaque" id="PhY-Bw-wQi">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ff7-te-luu" kind="relationship" relationship="rootViewController" id="9VZ-9E-fgs"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M2t-te-qhv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1965" y="1480"/>
+        </scene>
     </scenes>
     <resources>
         <image name="account_icon.png" width="30" height="30"/>
@@ -747,12 +814,78 @@
         <image name="signInButton.png" width="55" height="29"/>
         <image name="signUpButton.png" width="279" height="45"/>
     </resources>
+    <classes>
+        <class className="OCAccountSettingsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCAccountSettingsViewController.h"/>
+        </class>
+        <class className="OCConferenceViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCConferenceViewController.h"/>
+        </class>
+        <class className="OCContactCardViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCContactCardViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="contactLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="OCContactsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCContactsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="testButton:"/>
+            </relationships>
+        </class>
+        <class className="OCForgotPasswordViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCForgotPasswordViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="backButtonPressed:"/>
+                <relationship kind="action" name="resetButton:"/>
+                <relationship kind="action" name="textfieldReturned:"/>
+                <relationship kind="outlet" name="enteremailField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="firstView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="OCSignUpViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCSignUpViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="backButtonPressed:"/>
+                <relationship kind="action" name="setimageButton:"/>
+                <relationship kind="action" name="submitPressed:"/>
+                <relationship kind="action" name="textfieldReturned:"/>
+                <relationship kind="outlet" name="confirmpasswordField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="emailaddressField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="firstnameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="jobtitleField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="lowerView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="passwordField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="secondnameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="setimageButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="signupView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="OCSingleCallViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCSingleCallViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelButtonPressed:"/>
+                <relationship kind="action" name="conferencesButtonPressed:"/>
+                <relationship kind="outlet" name="callTextLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="OCViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="loginButtonPressed:"/>
+                <relationship kind="outlet" name="loginPasswordField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="loginUsernameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="loginView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="gK0-pN-Sb7"/>
         <segue reference="DJo-C0-6TI"/>
     </inferredMetricsTieBreakers>
 </document>

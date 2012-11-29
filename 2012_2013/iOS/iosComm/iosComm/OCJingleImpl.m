@@ -11,6 +11,8 @@
 #include <ifaddrs.h>
 #include <arpa/inet.h>
 #import "pjmedia.h"
+#import "OCConferenceViewController.h"
+#import "OCSingleCallViewController.h"
 
 //TODO ACK IQ messages that return with the ID of the given request packet? id's are unused by android though.
 //TODO check what happens if we get two IQ session-initiates at the same time...
@@ -19,6 +21,9 @@
 @implementation OCJingleImpl
 
 @synthesize jingleConstants;
+@synthesize currentViewController;
+
+UIViewController* currentViewController;
 
 //-------------------------------------------------------------------
 // TODO: This function has been c/p-ed here. It belongs in its own class probably
@@ -438,6 +443,15 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
     if([title isEqualToString:@"Accept"])
     {
+        
+        
+      //  OCConferenceViewController* conferenceViewController = [[OCConferenceViewController alloc] init];
+        /* Code to transition to in call view */
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
+        UIViewController *vc = [sb instantiateViewControllerWithIdentifier:@"SingleCall"];
+        vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+        [currentViewController presentViewController:vc animated:YES completion:NULL];
+        
         NSXMLElement *returnIQ = nil;
         if ([jingleConstants DEBUG_PARAM]) {
             returnIQ = [self jingleRespondSessionAcceptWithRecvportnum: [jingleConstants DEBUG_RECVPORTNUM_RECEIVER] SID:nil];
@@ -466,7 +480,8 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
     }
     else //reject the call
     {
-    
+        callActive = NO;
+        callTextLabel.text = @"The call has been disconnected";
     }
 }
 

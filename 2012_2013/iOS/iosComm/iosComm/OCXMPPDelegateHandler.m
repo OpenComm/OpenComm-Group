@@ -196,7 +196,7 @@
                          message:@"Username/Password combination not found.\nPlease try again with correct details."
                          delegate:self
                          cancelButtonTitle:@"Dismiss"
-                         otherButtonTitles:@"Temp1", @"Temp2", nil
+                         otherButtonTitles:nil
                          ];
     [info show];
     //[sender disconnect];

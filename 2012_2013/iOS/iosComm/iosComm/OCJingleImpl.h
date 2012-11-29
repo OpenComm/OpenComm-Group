@@ -15,6 +15,7 @@
  * Also contains the state for the current Jingle Session
  */
 
+extern UIViewController* currentViewController;
 //Alert - Incoming Call
 @interface OCJingleImpl : NSObject<UIAlertViewDelegate> {
     //OCJingleConstantsController *jingleConstants;
@@ -38,6 +39,7 @@
 //contains all the string constants
 @property (strong, nonatomic) OCJingleConstantsController *jingleConstants;
 
+@property (strong, nonatomic) UIViewController* currentViewController;
 /**For implementation details / specs, check the .m file**/
 
 /**Init the object with YOUR OWN JID and xmpp stream to the server**/

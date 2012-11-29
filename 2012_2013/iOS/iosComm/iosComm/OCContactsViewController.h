@@ -15,5 +15,6 @@
 }
 
 //@property (nonatomic, strong) IBOutlet UITableView *tableView;
+- (IBAction)testButton:(id)sender;
 
 @end

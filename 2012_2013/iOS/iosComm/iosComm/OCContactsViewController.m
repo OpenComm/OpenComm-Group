@@ -11,7 +11,8 @@
 #import "OCContactCardViewController.h"
 #import "OCXMPPDelegateHandler.h"
 #import "OCViewController.h"
-
+#import "OCConferenceViewController.h"
+#import "OCJingleImpl.h"
 
 @implementation OCContactsViewController /* Sweet Commented out{
     NSMutableArray* contactsArray;
@@ -50,8 +51,8 @@
 {
     
     [super viewWillAppear:animated];
-    
-    
+    //NSLog(@"Contacs");
+    currentViewController = self;
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 400, 44)];
     
@@ -70,7 +71,7 @@
     titleLabel.textAlignment = UITextAlignmentCenter;
     
     
-        titleLabel.text = @"MUAHAHAHA";
+        titleLabel.text = @"contacts";
     
     
     [titleLabel sizeToFit];
@@ -526,5 +527,17 @@ shouldReloadTableForSearchString:(NSString *)searchString
 {
 	[[self tableView] reloadData];
 }
+
+- (IBAction)testButton:(id)sender {
+   // OCConferenceViewController* conferenceViewController = [[OCConferenceViewController alloc] init];
+    /* Code to transition to in call view */
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
+    UIViewController *vc = [sb instantiateViewControllerWithIdentifier:@"singleCallNavigator"];
+   // UIViewController *currentVC = conferenceViewController.getSelfValue;
+    vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [currentViewController presentViewController:vc animated:YES completion:NULL];
+
+}
+
 
 @end

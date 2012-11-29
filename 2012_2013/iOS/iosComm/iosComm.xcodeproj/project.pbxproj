@@ -169,6 +169,8 @@
 		BA97A9EE16439B160008AEEA /* OCHappeningNowConferenceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BA97A9ED16439B160008AEEA /* OCHappeningNowConferenceCell.m */; };
 		BA97A9F01643A2900008AEEA /* ContactCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA97A9EF1643A2900008AEEA /* ContactCell.xib */; };
 		BA97A9F31643A2A20008AEEA /* OCContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BA97A9F21643A2A20008AEEA /* OCContactCell.m */; };
+		BACCDBB016670576002AC5C5 /* OCSingleCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BACCDBAF16670576002AC5C5 /* OCSingleCallViewController.m */; };
+		BACCDBB616674CF2002AC5C5 /* OCAccountSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BACCDBB516674CF2002AC5C5 /* OCAccountSettingsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -451,6 +453,10 @@
 		BA97A9EF1643A2900008AEEA /* ContactCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactCell.xib; sourceTree = "<group>"; };
 		BA97A9F11643A2A20008AEEA /* OCContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCContactCell.h; sourceTree = "<group>"; };
 		BA97A9F21643A2A20008AEEA /* OCContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCContactCell.m; sourceTree = "<group>"; };
+		BACCDBAE16670576002AC5C5 /* OCSingleCallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSingleCallViewController.h; sourceTree = "<group>"; };
+		BACCDBAF16670576002AC5C5 /* OCSingleCallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSingleCallViewController.m; sourceTree = "<group>"; };
+		BACCDBB416674CF2002AC5C5 /* OCAccountSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCAccountSettingsViewController.h; sourceTree = "<group>"; };
+		BACCDBB516674CF2002AC5C5 /* OCAccountSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCAccountSettingsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -949,9 +955,12 @@
 				BA97A9C4164393A90008AEEA /* Icons */,
 				BA95679E164B3272003496DF /* Conference Screen */,
 				BA95679D164B3225003496DF /* Contacs */,
+				BACCDBB316674CCA002AC5C5 /* Account */,
 				BA97A9EB16439AC00008AEEA /* Images */,
 				BA89B64A1647835E003D46ED /* OCDataGenerator.h */,
 				BA89B64B1647835E003D46ED /* OCDataGenerator.m */,
+				BACCDBAE16670576002AC5C5 /* OCSingleCallViewController.h */,
+				BACCDBAF16670576002AC5C5 /* OCSingleCallViewController.m */,
 			);
 			name = ui;
 			sourceTree = "<group>";
@@ -1130,6 +1139,15 @@
 				BA97A9E016439AB20008AEEA /* zoo10.jpeg */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		BACCDBB316674CCA002AC5C5 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				BACCDBB416674CF2002AC5C5 /* OCAccountSettingsViewController.h */,
+				BACCDBB516674CF2002AC5C5 /* OCAccountSettingsViewController.m */,
+			);
+			name = Account;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1317,6 +1335,8 @@
 				4D5BA13F164C756E00FBFBF4 /* pjmedia.c in Sources */,
 				0A458D8E1659A20C001D516F /* OCForgotPasswordViewController.m in Sources */,
 				0A458D8F1659A20C001D516F /* OCSignUpViewController.m in Sources */,
+				BACCDBB016670576002AC5C5 /* OCSingleCallViewController.m in Sources */,
+				BACCDBB616674CF2002AC5C5 /* OCAccountSettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
