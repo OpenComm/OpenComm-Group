@@ -5,7 +5,7 @@
     android:contentDescription="@string/sidechat"
     android:onClick="clickedEmptySpace"
     android:background="@drawable/portrait_right_background" >
-
+
     <RelativeLayout
         android:id="@+id/actionbar_sidechat"
         android:layout_width="fill_parent"
@@ -43,12 +43,13 @@
             android:onClick="overflowButtonClicked"
             android:scaleType="centerInside"
             android:src="@drawable/action_overflow" />
-
+
         <ImageButton
             android:id="@+id/add_person_sidechat"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_marginBottom="3dp"
             android:layout_marginLeft="200dp"
             android:layout_marginRight="12dp"
             android:background="@color/grey_thirtythree"
