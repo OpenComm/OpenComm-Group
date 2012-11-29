@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -20,6 +19,8 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -191,6 +192,8 @@ public class ConferenceRoomFragment extends Fragment {
 		 * 
 		 */
 		ImageView dittoUser = null ;
+		
+		Animation a = AnimationUtils.loadAnimation(context, R.anim.set);
 
 		/*
 		 * (non-Javadoc)
@@ -221,10 +224,15 @@ public class ConferenceRoomFragment extends Fragment {
 					String s =(isOnEdge(new Point(absoluteX, absoluteY))==0)?"Left Room":"Right Room";
 					//TODO : Need to show gradient
 					if (s.equals("Left Room")){						
-						left_gradient.setVisibility(View.VISIBLE); 
+						a.reset(); 
+						left_gradient.clearAnimation(); 
+						left_gradient.startAnimation(a);
+						
 					}
 					else if(s.equals("Right Room")){
-						right_gradient.setVisibility(View.VISIBLE); 
+						a.reset(); 
+						right_gradient.clearAnimation(); 
+						right_gradient.startAnimation(a);
 					}
 					//Send invitation using conf room/muc
 					Toast.makeText(context, "Send Invitation:"+s, Toast.LENGTH_SHORT).show();
@@ -251,7 +259,7 @@ public class ConferenceRoomFragment extends Fragment {
 					dittoUser =  new 	ImageView(context);
 					dittoUser.setImageBitmap(b);
 					dittoUser.setPadding(absoluteX,absoluteY, 0, 0);
-					((UserView)v).setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.greybox)); 
+					((UserView)v).setImageBitmap(null); 
 					((ViewGroup)roomLayout).addView(dittoUser, params);
 					
 				}
