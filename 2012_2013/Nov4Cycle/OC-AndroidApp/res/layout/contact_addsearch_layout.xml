@@ -76,7 +76,9 @@
             android:gravity="center_vertical"
             android:inputType="text"
             android:textColor="@color/black"
-            android:textSize="26.66sp" />
+            android:textSize="26.66sp"
+            android:dropDownVerticalOffset="6.66dp"
+            android:completionThreshold="1" />
     </LinearLayout>
 
     <ListView
@@ -86,7 +88,6 @@
         android:layout_below="@+id/contact_addsearch_searchbar"
         android:background="@color/grey_eleven"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="6.66dp"
         android:divider="@color/grey_twentyone"
         android:dividerHeight="0.66dp"
         android:listSelector="@drawable/selector_bg_list" >
