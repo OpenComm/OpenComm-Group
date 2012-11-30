@@ -8,6 +8,7 @@ import java.util.Calendar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -122,8 +123,11 @@ public class ConferenceSchedulerView extends Activity {
 	 *  starttime and endtime given in this form: yyyy-mm-dd hh:mm:ss
 	 */
 	public ArrayList<Conference> parseConferenceDataToObjects(String data){
-		String[] conferences_data = data.split("$");
+		data = data.replaceFirst("&", "");
+		String[] conferences_data = data.split("&");
 		ArrayList<Conference> conferences = new ArrayList<Conference>();
+		Log.v("ConferenceFirst: ", "" + conferences_data[0]);
+		Log.v("ConferencePreNumber", "" + conferences_data.length);
 		for (String conference_data : conferences_data){
 			// Split data into two sections (1) Conference Data and (2) List of attendees
 			String[] conference_attendees = conference_data.split("%");
@@ -148,6 +152,7 @@ public class ConferenceSchedulerView extends Activity {
 												  );  
 			conferences.add(conference);
 		}
+		Log.v("ConferenceNumber", "" + conferences.size());
 		
 		return conferences;
 	}
@@ -181,6 +186,7 @@ public class ConferenceSchedulerView extends Activity {
 			// TODO : refactor to use new constructor
 			User user = new User(username, null, 0);
 			users.add(user);
+			Log.v("TOUSER", username);
 		}
 		return users;
 	}
@@ -310,6 +316,12 @@ public class ConferenceSchedulerView extends Activity {
 		Intent i = new Intent(this, ConferenceCardView.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("conference", conference);
+        
+        // Check TODO take out
+        conference.getAttendees();
+        for (User user : conference.getAttendees()){
+        	Log.v("UsersInIntent", user.getUsername());
+        }
         i.putExtras(bundle);
 		startActivity(i);
 	}
