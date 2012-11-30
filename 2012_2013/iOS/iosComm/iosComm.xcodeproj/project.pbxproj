@@ -173,6 +173,22 @@
 		BACCDBB616674CF2002AC5C5 /* OCAccountSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BACCDBB516674CF2002AC5C5 /* OCAccountSettingsViewController.m */; };
 		BACCDBC916689953002AC5C5 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BACCDBC816689953002AC5C5 /* Icon.png */; };
 		BACCDBCB16689961002AC5C5 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BACCDBCA16689961002AC5C5 /* Icon@2x.png */; };
+		BACCDBD316689E19002AC5C5 /* gradient-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = BACCDBD216689E19002AC5C5 /* gradient-bg.png */; };
+		BACCDBD516689F24002AC5C5 /* dots.png in Resources */ = {isa = PBXBuildFile; fileRef = BACCDBD416689F24002AC5C5 /* dots.png */; };
+		BACCDBD71668A077002AC5C5 /* user-box.png in Resources */ = {isa = PBXBuildFile; fileRef = BACCDBD61668A077002AC5C5 /* user-box.png */; };
+		BACCDBD91668A08F002AC5C5 /* ping.png in Resources */ = {isa = PBXBuildFile; fileRef = BACCDBD81668A08F002AC5C5 /* ping.png */; };
+		BACCDBDB1668A0A7002AC5C5 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = BACCDBDA1668A0A7002AC5C5 /* back.png */; };
+		BACCDBDD1668A0F4002AC5C5 /* mute.png in Resources */ = {isa = PBXBuildFile; fileRef = BACCDBDC1668A0F4002AC5C5 /* mute.png */; };
+		BACCDBDF1668A114002AC5C5 /* leave.png in Resources */ = {isa = PBXBuildFile; fileRef = BACCDBDE1668A114002AC5C5 /* leave.png */; };
+		BACCDBE11668A146002AC5C5 /* conf-circcle.png in Resources */ = {isa = PBXBuildFile; fileRef = BACCDBE01668A146002AC5C5 /* conf-circcle.png */; };
+		BACCDBE31668A5D7002AC5C5 /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = BACCDBE21668A5D6002AC5C5 /* add.png */; };
+		BACCDBED1668A941002AC5C5 /* blue_box.png in Resources */ = {isa = PBXBuildFile; fileRef = BACCDBEA1668A940002AC5C5 /* blue_box.png */; };
+		BACCDBEE1668A941002AC5C5 /* green_box.png in Resources */ = {isa = PBXBuildFile; fileRef = BACCDBEB1668A940002AC5C5 /* green_box.png */; };
+		BACCDBEF1668A941002AC5C5 /* orange_box.png in Resources */ = {isa = PBXBuildFile; fileRef = BACCDBEC1668A940002AC5C5 /* orange_box.png */; };
+		BACCDBF11668A971002AC5C5 /* black_box.png in Resources */ = {isa = PBXBuildFile; fileRef = BACCDBF01668A971002AC5C5 /* black_box.png */; };
+		BACCDBF31668AAB2002AC5C5 /* bane.png in Resources */ = {isa = PBXBuildFile; fileRef = BACCDBF21668AAB2002AC5C5 /* bane.png */; };
+		BACCDBF61668AB9B002AC5C5 /* catwoman.png in Resources */ = {isa = PBXBuildFile; fileRef = BACCDBF41668AB9B002AC5C5 /* catwoman.png */; };
+		BACCDBF71668AB9B002AC5C5 /* joker.png in Resources */ = {isa = PBXBuildFile; fileRef = BACCDBF51668AB9B002AC5C5 /* joker.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -461,6 +477,22 @@
 		BACCDBB516674CF2002AC5C5 /* OCAccountSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCAccountSettingsViewController.m; sourceTree = "<group>"; };
 		BACCDBC816689953002AC5C5 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../Icon.png; sourceTree = "<group>"; };
 		BACCDBCA16689961002AC5C5 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../Icon@2x.png"; sourceTree = "<group>"; };
+		BACCDBD216689E19002AC5C5 /* gradient-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gradient-bg.png"; sourceTree = "<group>"; };
+		BACCDBD416689F24002AC5C5 /* dots.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dots.png; sourceTree = "<group>"; };
+		BACCDBD61668A077002AC5C5 /* user-box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user-box.png"; sourceTree = "<group>"; };
+		BACCDBD81668A08F002AC5C5 /* ping.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ping.png; sourceTree = "<group>"; };
+		BACCDBDA1668A0A7002AC5C5 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
+		BACCDBDC1668A0F4002AC5C5 /* mute.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mute.png; sourceTree = "<group>"; };
+		BACCDBDE1668A114002AC5C5 /* leave.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leave.png; sourceTree = "<group>"; };
+		BACCDBE01668A146002AC5C5 /* conf-circcle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "conf-circcle.png"; sourceTree = "<group>"; };
+		BACCDBE21668A5D6002AC5C5 /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add.png; sourceTree = "<group>"; };
+		BACCDBEA1668A940002AC5C5 /* blue_box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blue_box.png; sourceTree = "<group>"; };
+		BACCDBEB1668A940002AC5C5 /* green_box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green_box.png; sourceTree = "<group>"; };
+		BACCDBEC1668A940002AC5C5 /* orange_box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = orange_box.png; sourceTree = "<group>"; };
+		BACCDBF01668A971002AC5C5 /* black_box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = black_box.png; sourceTree = "<group>"; };
+		BACCDBF21668AAB2002AC5C5 /* bane.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bane.png; sourceTree = "<group>"; };
+		BACCDBF41668AB9B002AC5C5 /* catwoman.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = catwoman.png; sourceTree = "<group>"; };
+		BACCDBF51668AB9B002AC5C5 /* joker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = joker.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -960,11 +992,10 @@
 				BA95679E164B3272003496DF /* Conference Screen */,
 				BA95679D164B3225003496DF /* Contacs */,
 				BACCDBB316674CCA002AC5C5 /* Account */,
+				BACCDBD016689DD1002AC5C5 /* In Conference View */,
 				BA97A9EB16439AC00008AEEA /* Images */,
 				BA89B64A1647835E003D46ED /* OCDataGenerator.h */,
 				BA89B64B1647835E003D46ED /* OCDataGenerator.m */,
-				BACCDBAE16670576002AC5C5 /* OCSingleCallViewController.h */,
-				BACCDBAF16670576002AC5C5 /* OCSingleCallViewController.m */,
 			);
 			name = ui;
 			sourceTree = "<group>";
@@ -1156,6 +1187,39 @@
 			name = Account;
 			sourceTree = "<group>";
 		};
+		BACCDBD016689DD1002AC5C5 /* In Conference View */ = {
+			isa = PBXGroup;
+			children = (
+				BACCDBF81668ABBA002AC5C5 /* Images */,
+				BACCDBAE16670576002AC5C5 /* OCSingleCallViewController.h */,
+				BACCDBAF16670576002AC5C5 /* OCSingleCallViewController.m */,
+			);
+			name = "In Conference View";
+			sourceTree = "<group>";
+		};
+		BACCDBF81668ABBA002AC5C5 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				BACCDBF41668AB9B002AC5C5 /* catwoman.png */,
+				BACCDBF51668AB9B002AC5C5 /* joker.png */,
+				BACCDBF21668AAB2002AC5C5 /* bane.png */,
+				BACCDBF01668A971002AC5C5 /* black_box.png */,
+				BACCDBEA1668A940002AC5C5 /* blue_box.png */,
+				BACCDBEB1668A940002AC5C5 /* green_box.png */,
+				BACCDBEC1668A940002AC5C5 /* orange_box.png */,
+				BACCDBE21668A5D6002AC5C5 /* add.png */,
+				BACCDBE01668A146002AC5C5 /* conf-circcle.png */,
+				BACCDBDE1668A114002AC5C5 /* leave.png */,
+				BACCDBDC1668A0F4002AC5C5 /* mute.png */,
+				BACCDBDA1668A0A7002AC5C5 /* back.png */,
+				BACCDBD81668A08F002AC5C5 /* ping.png */,
+				BACCDBD61668A077002AC5C5 /* user-box.png */,
+				BACCDBD416689F24002AC5C5 /* dots.png */,
+				BACCDBD216689E19002AC5C5 /* gradient-bg.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1238,6 +1302,22 @@
 				0A2ABA4A1665C696009E3B94 /* rsz_1arrow.jpg in Resources */,
 				BACCDBC916689953002AC5C5 /* Icon.png in Resources */,
 				BACCDBCB16689961002AC5C5 /* Icon@2x.png in Resources */,
+				BACCDBD316689E19002AC5C5 /* gradient-bg.png in Resources */,
+				BACCDBD516689F24002AC5C5 /* dots.png in Resources */,
+				BACCDBD71668A077002AC5C5 /* user-box.png in Resources */,
+				BACCDBD91668A08F002AC5C5 /* ping.png in Resources */,
+				BACCDBDB1668A0A7002AC5C5 /* back.png in Resources */,
+				BACCDBDD1668A0F4002AC5C5 /* mute.png in Resources */,
+				BACCDBDF1668A114002AC5C5 /* leave.png in Resources */,
+				BACCDBE11668A146002AC5C5 /* conf-circcle.png in Resources */,
+				BACCDBE31668A5D7002AC5C5 /* add.png in Resources */,
+				BACCDBED1668A941002AC5C5 /* blue_box.png in Resources */,
+				BACCDBEE1668A941002AC5C5 /* green_box.png in Resources */,
+				BACCDBEF1668A941002AC5C5 /* orange_box.png in Resources */,
+				BACCDBF11668A971002AC5C5 /* black_box.png in Resources */,
+				BACCDBF31668AAB2002AC5C5 /* bane.png in Resources */,
+				BACCDBF61668AB9B002AC5C5 /* catwoman.png in Resources */,
+				BACCDBF71668AB9B002AC5C5 /* joker.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

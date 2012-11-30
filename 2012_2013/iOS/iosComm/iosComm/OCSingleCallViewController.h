@@ -20,6 +20,7 @@ extern BOOL callActive;
 - (IBAction)conferencesButtonPressed:(id)sender;
 
 
+- (IBAction)infoButtonPressed:(id)sender;
 @property (strong, nonatomic) IBOutlet UILabel *callTextLabel;
 //@property BOOL callActive;
 

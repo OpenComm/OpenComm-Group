@@ -84,6 +84,9 @@ UILabel *callTextLabel;
     }
 }
 
+- (IBAction)infoButtonPressed:(id)sender {
+}
+
 - (void)viewDidUnload {
     [super viewDidUnload];
 }
