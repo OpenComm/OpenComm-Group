@@ -171,7 +171,8 @@
 		BA97A9F31643A2A20008AEEA /* OCContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BA97A9F21643A2A20008AEEA /* OCContactCell.m */; };
 		BACCDBB016670576002AC5C5 /* OCSingleCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BACCDBAF16670576002AC5C5 /* OCSingleCallViewController.m */; };
 		BACCDBB616674CF2002AC5C5 /* OCAccountSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BACCDBB516674CF2002AC5C5 /* OCAccountSettingsViewController.m */; };
-		BACCDBBE16688FD9002AC5C5 /* app_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = BACCDBBD16688FD8002AC5C5 /* app_logo.png */; };
+		BACCDBC916689953002AC5C5 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BACCDBC816689953002AC5C5 /* Icon.png */; };
+		BACCDBCB16689961002AC5C5 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BACCDBCA16689961002AC5C5 /* Icon@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -458,7 +459,8 @@
 		BACCDBAF16670576002AC5C5 /* OCSingleCallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSingleCallViewController.m; sourceTree = "<group>"; };
 		BACCDBB416674CF2002AC5C5 /* OCAccountSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCAccountSettingsViewController.h; sourceTree = "<group>"; };
 		BACCDBB516674CF2002AC5C5 /* OCAccountSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCAccountSettingsViewController.m; sourceTree = "<group>"; };
-		BACCDBBD16688FD8002AC5C5 /* app_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app_logo.png; sourceTree = "<group>"; };
+		BACCDBC816689953002AC5C5 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../Icon.png; sourceTree = "<group>"; };
+		BACCDBCA16689961002AC5C5 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../Icon@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -991,7 +993,6 @@
 		4DE6A430160FC14B005F7857 = {
 			isa = PBXGroup;
 			children = (
-				BACCDBBD16688FD8002AC5C5 /* app_logo.png */,
 				4D5BA13C164C756E00FBFBF4 /* util.h */,
 				4D5BA13D164C756E00FBFBF4 /* pjmedia.c */,
 				4D5BA13E164C756E00FBFBF4 /* pjmedia.h */,
@@ -1054,6 +1055,8 @@
 		4DE6A446160FC14B005F7857 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BACCDBCA16689961002AC5C5 /* Icon@2x.png */,
+				BACCDBC816689953002AC5C5 /* Icon.png */,
 				0A2ABA471665C696009E3B94 /* opencommimage.tiff */,
 				0A2ABA481665C696009E3B94 /* rsz_1arrow.jpg */,
 				4DE6A447160FC14B005F7857 /* iosComm-Info.plist */,
@@ -1233,7 +1236,8 @@
 				0AD2A7D51643752700AA3A8D /* JingleConstants.plist in Resources */,
 				0A2ABA491665C696009E3B94 /* opencommimage.tiff in Resources */,
 				0A2ABA4A1665C696009E3B94 /* rsz_1arrow.jpg in Resources */,
-				BACCDBBE16688FD9002AC5C5 /* app_logo.png in Resources */,
+				BACCDBC916689953002AC5C5 /* Icon.png in Resources */,
+				BACCDBCB16689961002AC5C5 /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
