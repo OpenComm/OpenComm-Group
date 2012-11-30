@@ -49,15 +49,11 @@ public class NetworkService {
 	public static final boolean D = true;
 	private static final String TAG = "Network.NetworkService";
 
-	private static final String DEFAULT_HOST = "@"
-			+ Resources.getSystem().getString(R.string.DEFAULT_HOST);
-	private static final String DEFAULT_HOSTNAME = "@"
-			+ Resources.getSystem().getString(R.string.DEFAULT_HOSTNAME);
-	private static final int DEFAULT_PORT = Resources.getSystem().getInteger(
-			R.integer.DEFAULT_PORT);
-	private static final String DEFAULT_RESOURCE = Resources.getSystem()
-			.getString(R.string.DEFAULT_RESOURCE);
-
+	private static final String DEFAULT_HOST = "cuopencomm.no-ip.org";
+	private static final String DEFAULT_HOSTNAME = "@cuopencomm";
+	private static final int DEFAULT_PORT = 5222;
+	private static final String DEFAULT_RESOURCE = "OpenComm";
+			
 	private static NetworkService _instance = null;
 
 	// XMPP connection
