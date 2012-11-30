@@ -84,7 +84,7 @@ public class ContactListController {
 			this.contactListView.startActivity(i);
 		}
 		// if the user selects account
-		else if (option.equals("account")) {
+		else if (option.equals("profile")) {
 			// launch my profile page
 			Intent i = new Intent(this.contactListView, MyProfileView.class);
 			this.contactListView.startActivity(i);

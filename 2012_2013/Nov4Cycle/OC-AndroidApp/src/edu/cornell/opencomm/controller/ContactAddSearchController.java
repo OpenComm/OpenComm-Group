@@ -86,7 +86,7 @@ public class ContactAddSearchController {
 			this.contactAddSearchView.startActivity(i);
 		}
 		// if the user selects account
-		else if (option.equals("account")) {
+		else if (option.equals("profile")) {
 			// launch my profile page
 			Intent i = new Intent(this.contactAddSearchView, MyProfileView.class);
 			this.contactAddSearchView.startActivity(i);

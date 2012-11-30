@@ -99,12 +99,12 @@
         <item>logout</item>
     </string-array>
     <string-array name="overflow_notifications">
-        <item >account</item>
+        <item >profile</item>
         <item >contacts</item>
     </string-array>
     <string-array name="overflow_contacts">
         <item >conferences</item>
-        <item >account</item>
+        <item >profile</item>
     </string-array>
     <string-array name="overflow_myaccount">
         <item >conferences</item>

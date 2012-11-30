@@ -74,7 +74,7 @@ public class NotificationsController {
 		String option = ((TextView) view.findViewById(R.id.overflow_itemtext))
 				.getText().toString().trim();
 		// if the user selects account
-		if (option.equals("account")) {
+		if (option.equals("profile")) {
 			// launch profile page
 			Intent i = new Intent(this.notificationsView, MyProfileView.class);
 			this.notificationsView.startActivity(i);
