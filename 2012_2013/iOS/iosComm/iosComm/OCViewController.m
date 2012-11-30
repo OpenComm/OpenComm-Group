@@ -89,6 +89,20 @@ OCXMPPDelegateHandler *delegateHandler;
         [delegateHandler setXMPPRosterStorage:myXMPPRosterStorage roster:myXMPPRoster stream:myXMPPStream];
         NSError *error = nil;
         
+  		NSManagedObjectContext *moc = [delegateHandler managedObjectContext_roster];      
+        NSFetchRequest *allUsers = [[NSFetchRequest alloc] init];
+        [allUsers setEntity:[NSEntityDescription entityForName:@"XMPPUserCoreDataStorageObject"
+                                        inManagedObjectContext:moc]];
+        [allUsers setIncludesPropertyValues:NO];
+        
+        NSArray *users = [moc executeFetchRequest:allUsers error:&error];
+        //[allUsers release];
+        for (NSManagedObject *user in users) {
+            [moc deleteObject:user];
+        }
+        NSError *saveError = nil;
+        [moc save:&saveError];
+        
         if (![myXMPPStream connect:&error])
         {
             NSLog(@"Oops, I probably forgot something: %@", error);
