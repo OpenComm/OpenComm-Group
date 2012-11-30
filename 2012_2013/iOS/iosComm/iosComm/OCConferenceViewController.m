@@ -11,7 +11,7 @@
 #import "OCConferenceTableCell.h"
 #import "OCHappeningNowConferenceCell.h"
 #import "OCJingleImpl.h"
-
+#import "OCAppDelegate.h"
 @interface OCConferenceViewController ()
 
 @end
@@ -60,11 +60,17 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-- (void) viewWillAppear:(BOOL)animated
+- (void) viewDidAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
-    //NSLog(@"Conferences");
+    [super viewDidAppear:animated];
+    NSLog(@"Conferences");
     currentViewController = self;
+    if(currentViewController == nil){
+        NSLog(@"Conference current view null");
+    }
+    else{
+        NSLog(@"Conference current view not null");
+    }
 }
 
 - (void)didReceiveMemoryWarning

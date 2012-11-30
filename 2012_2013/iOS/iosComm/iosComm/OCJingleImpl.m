@@ -21,7 +21,7 @@
 @implementation OCJingleImpl
 
 @synthesize jingleConstants;
-@synthesize currentViewController;
+//@synthesize currentViewController;
 
 UIViewController* currentViewController;
 
@@ -365,6 +365,7 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
         const char* ipChar = [toIPAddress UTF8String];
         const char* ip[1];
         ip[0] = ipChar;
+        
         pjmedia_main(1, (char **)ip);
         return true;
     }
@@ -441,16 +442,26 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
+    NSLog(@"title: %@", title);
     if([title isEqualToString:@"Accept"])
     {
         
-        
+        NSLog(@"Blah blah blah blah");
       //  OCConferenceViewController* conferenceViewController = [[OCConferenceViewController alloc] init];
         /* Code to transition to in call view */
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
-        UIViewController *vc = [sb instantiateViewControllerWithIdentifier:@"SingleCall"];
+        UIViewController *vc = [sb instantiateViewControllerWithIdentifier:@"singleCallNavigator"];
+        // UIViewController *currentVC = conferenceViewController.getSelfValue;
         vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+        if(currentViewController == nil){
+            NSLog(@"current view null");
+        }
+        else{
+           NSLog(@"current view not null"); 
+        }
+        
         [currentViewController presentViewController:vc animated:YES completion:NULL];
+        
         
         NSXMLElement *returnIQ = nil;
         if ([jingleConstants DEBUG_PARAM]) {

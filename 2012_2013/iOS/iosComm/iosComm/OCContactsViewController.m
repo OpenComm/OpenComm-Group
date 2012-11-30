@@ -52,7 +52,7 @@
     
     [super viewWillAppear:animated];
     //NSLog(@"Contacs");
-    currentViewController = self;
+    //currentViewController = self;
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 400, 44)];
     
@@ -82,7 +82,12 @@
     
 }
 
-
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    NSLog(@"Contacs");
+    currentViewController = self;
+}
 
 - (void)viewWillDisappear:(BOOL)animated
 
@@ -418,12 +423,12 @@ shouldReloadTableForSearchString:(NSString *)searchString
 }
 */
 
-/* SWEET Commented out
+// SWEET Commented out
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
- */
+ 
     // Navigation logic may go here. Create and push another view controller.
     /*
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
@@ -431,17 +436,23 @@ shouldReloadTableForSearchString:(NSString *)searchString
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
-    // Sweet Commented out [self performSegueWithIdentifier:@"showContactCard" sender:[self.tableView cellForRowAtIndexPath:indexPath]];
+    // Sweet Commented out
+    //[self performSegueWithIdentifier:@"showContactCard" sender:[self.tableView cellForRowAtIndexPath:indexPath]];
+    
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
+    UIViewController *vc = [sb instantiateViewControllerWithIdentifier:@"singleCallNavigator"];
+    vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentViewController:vc animated:YES completion:NULL];
     
     /** ~*- Integration Code -*~ **/
     /*Fetch cell*/
-    //OCContactCell *cell = (OCContactCell *)[self.tableView cellForRowAtIndexPath: indexPath];
     
-    //TODO OCContactCell should contain the first person's JID... fetch it. Hardcoded as contactNameLabel
-    //NSString *JIDString = [cell contactNameLabel].text;
-    //XMPPJID *JID = [XMPPJID jidWithUser: JIDString domain: [[delegateHandler getDefaults] DEFAULT_DOMAIN] resource:[[delegateHandler getDefaults] DEFAULT_RESOURCE]];
-    /* Sweet COmmented out
-     XMPPJID *JID = [XMPPJID jidWithUser: @"qimingiscool" domain: [[delegateHandler getDefaults] DEFAULT_DOMAIN] resource:[[delegateHandler getDefaults] DEFAULT_RESOURCE]];
+    //XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+   // NSLog(@"The string before amp is %@", [[user.jidStr componentsSeparatedByString:@"@"] objectAtIndex:0]);
+    // XMPPJID *JID = [XMPPJID jidWithUser: [[user.jidStr componentsSeparatedByString:@"@"] objectAtIndex:0] domain: [[delegateHandler getDefaults] DEFAULT_DOMAIN] resource:[[delegateHandler getDefaults] DEFAULT_RESOURCE]];
+    XMPPJID *JID = [XMPPJID jidWithUser: @"qimingiscool" domain: [[delegateHandler getDefaults] DEFAULT_DOMAIN] resource:[[delegateHandler getDefaults] DEFAULT_RESOURCE]];
+    // TODO KEVIN, there's this user.jid which returns a XMPPJID
+    //JID = user.jid;
     
     //alloc and init a new OCJingleImpl object (destroy the old one if it is not nil)
     OCJingleImpl *jingleObj = [[OCJingleImpl alloc] initWithJID: [[delegateHandler myXMPPStream] myJID] xmppStream: [delegateHandler myXMPPStream]];
@@ -460,7 +471,7 @@ shouldReloadTableForSearchString:(NSString *)searchString
 }
 
 
-
+/*
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"showContactCard"]) {
         NSIndexPath *indexPath = nil;
@@ -535,6 +546,13 @@ shouldReloadTableForSearchString:(NSString *)searchString
     UIViewController *vc = [sb instantiateViewControllerWithIdentifier:@"singleCallNavigator"];
    // UIViewController *currentVC = conferenceViewController.getSelfValue;
     vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    if(currentViewController == nil){
+        NSLog(@"current view null");
+    }
+    else{
+        NSLog(@"current view not null");
+    }
+
     [currentViewController presentViewController:vc animated:YES completion:NULL];
 
 }

@@ -47,6 +47,7 @@ UILabel *callTextLabel;
         callTextLabel.text = @"The call has ended";
         pjmedia_antimain();
         callActive = NO;
+        //[self dismissModalViewControllerAnimated:YES];
     }
     else{
         UIAlertView *info = [
