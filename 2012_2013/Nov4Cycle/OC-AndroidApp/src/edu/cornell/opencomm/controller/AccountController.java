@@ -1,6 +1,7 @@
 package edu.cornell.opencomm.controller;
 
 import java.io.InputStream;
+import java.io.BufferedInputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.net.HttpURLConnection;
@@ -29,8 +30,8 @@ public class AccountController {
 	private VCard vCard;
 
 	private static final String TAG = "Controller.AccountController";
-	
-	private static final String USERSERVICE_URL = "http://cuopencomm.no-ip.org/userService/userservice?";
+	private static final String SECRET_KEY = "VyR652Td";
+	private static final String USERSERVICE_URL = "http://cuopencomm.no-ip.org/plugins/userService/userservice?";
 
 	public AccountController() {
 		this.accountManager = NetworkService.getInstance().getAccountManager();
@@ -43,11 +44,11 @@ public class AccountController {
 			}
 		}
 	}
-
+	//VyR652Td
 	public void createAcccount(String username, String nickname, String email,
 			String firstName, String lastName, String phoneNumber,
 			InputStream photo, String title, String password) {
-		HashMap<String, String> attributes = new HashMap<String, String>();
+		/*HashMap<String, String> attributes = new HashMap<String, String>();
 		Collection<String> requiredAttributes = accountManager
 				.getAccountAttributes();
 		for (String attr : requiredAttributes) {
@@ -66,14 +67,16 @@ public class AccountController {
 			//TODO: store VCard on server
 		} catch (XMPPException e) {
 			Log.v(TAG, "Account creation failed");
-		}
+		}*/
 		try {
 			String requestURL = USERSERVICE_URL;
-			requestURL += "type=add&username=" + username + "&password=" + password;
+			requestURL += "type=add&secret=" + SECRET_KEY;
+			requestURL += "&username=" + username + "&password=" + password;
 			requestURL += "&name=" + nickname + "&email=" + email;
 			URL url = new URL(requestURL);
-			URLConnection urlConn = url.openConnection();
-			urlConn.connect();
+			Log.d(TAG, requestURL);
+			HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
+			urlConn.disconnect();
 		}
 		catch (Exception e)
 		{
@@ -90,7 +93,8 @@ public class AccountController {
 		}
 		try {
 			String requestURL = USERSERVICE_URL;
-			requestURL += "type=update&name=" + nickname;
+			requestURL += "type=update&secret=" + SECRET_KEY;
+			requestURL += "&name=" + nickname;
 			URL url = new URL(requestURL);
 			URLConnection urlConn = url.openConnection();
 			urlConn.connect();
@@ -119,7 +123,8 @@ public class AccountController {
 		}
 		try {
 			String requestURL = USERSERVICE_URL;
-			requestURL += "type=update&email=" + email;
+			requestURL += "type=add&secret=" + SECRET_KEY;
+			requestURL += "&email=" + email;
 			URL url = new URL(requestURL);
 			URLConnection urlConn = url.openConnection();
 			urlConn.connect();
@@ -147,7 +152,8 @@ public class AccountController {
 		}
 		try {
 			String requestURL = USERSERVICE_URL;
-			requestURL += "type=update&password=" + password;
+			requestURL += "type=add&secret=" + SECRET_KEY;
+			requestURL += "e&password=" + password;
 			URL url = new URL(requestURL);
 			URLConnection urlConn = url.openConnection();
 			urlConn.connect();
@@ -159,7 +165,8 @@ public class AccountController {
 	public void deleteUser(String username)	{
 		try {
 			String requestURL = USERSERVICE_URL;
-			requestURL += "type=delete&username=" + username;
+			requestURL += "type=add&secret=" + SECRET_KEY;
+			requestURL += "&username=" + username;
 			URL url = new URL(requestURL);
 			URLConnection urlConn = url.openConnection();
 			urlConn.connect();
@@ -171,7 +178,8 @@ public class AccountController {
 	public void disableUser(String username) {
 		try {
 			String requestURL = USERSERVICE_URL;
-			requestURL += "type=disable&username=" + username;
+			requestURL += "type=add&secret=" + SECRET_KEY;
+			requestURL += "&username=" + username;
 			URL url = new URL(requestURL);
 			URLConnection urlConn = url.openConnection();
 			urlConn.connect();
@@ -183,7 +191,8 @@ public class AccountController {
 	public void enableUser(String username) {
 		try {
 			String requestURL = USERSERVICE_URL;
-			requestURL += "type=enable&username=" + username;
+			requestURL += "type=add&secret=" + SECRET_KEY;
+			requestURL += "&username=" + username;
 			URL url = new URL(requestURL);
 			URLConnection urlConn = url.openConnection();
 			urlConn.connect();
