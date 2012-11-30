@@ -143,6 +143,8 @@
 		4DE6A459160FC14B005F7857 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DE6A457160FC14B005F7857 /* MainStoryboard_iPhone.storyboard */; };
 		4DE6A45C160FC14B005F7857 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DE6A45A160FC14B005F7857 /* MainStoryboard_iPad.storyboard */; };
 		4DE6A45F160FC14B005F7857 /* OCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6A45E160FC14B005F7857 /* OCViewController.m */; };
+		BA17D5F81668BF4800D81A97 /* door_arrow_left.png in Resources */ = {isa = PBXBuildFile; fileRef = BA17D5F61668BF4800D81A97 /* door_arrow_left.png */; };
+		BA17D5F91668BF4800D81A97 /* door_arrow_right.png in Resources */ = {isa = PBXBuildFile; fileRef = BA17D5F71668BF4800D81A97 /* door_arrow_right.png */; };
 		BA777D0116214A530088F734 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA777D0016214A530088F734 /* QuartzCore.framework */; };
 		BA89B64016474DBB003D46ED /* OCContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA89B63F16474DBB003D46ED /* OCContactsViewController.m */; };
 		BA89B64C1647835F003D46ED /* OCDataGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = BA89B64B1647835E003D46ED /* OCDataGenerator.m */; };
@@ -438,6 +440,8 @@
 		4DE6A470160FC14B005F7857 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4DE6A472160FC14B005F7857 /* iosCommTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iosCommTests.h; sourceTree = "<group>"; };
 		4DE6A473160FC14B005F7857 /* iosCommTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iosCommTests.m; sourceTree = "<group>"; };
+		BA17D5F61668BF4800D81A97 /* door_arrow_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = door_arrow_left.png; sourceTree = "<group>"; };
+		BA17D5F71668BF4800D81A97 /* door_arrow_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = door_arrow_right.png; sourceTree = "<group>"; };
 		BA777D0016214A530088F734 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BA89B63E16474DBB003D46ED /* OCContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCContactsViewController.h; sourceTree = "<group>"; };
 		BA89B63F16474DBB003D46ED /* OCContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCContactsViewController.m; sourceTree = "<group>"; };
@@ -1200,6 +1204,8 @@
 		BACCDBF81668ABBA002AC5C5 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BA17D5F61668BF4800D81A97 /* door_arrow_left.png */,
+				BA17D5F71668BF4800D81A97 /* door_arrow_right.png */,
 				BACCDBF41668AB9B002AC5C5 /* catwoman.png */,
 				BACCDBF51668AB9B002AC5C5 /* joker.png */,
 				BACCDBF21668AAB2002AC5C5 /* bane.png */,
@@ -1318,6 +1324,8 @@
 				BACCDBF31668AAB2002AC5C5 /* bane.png in Resources */,
 				BACCDBF61668AB9B002AC5C5 /* catwoman.png in Resources */,
 				BACCDBF71668AB9B002AC5C5 /* joker.png in Resources */,
+				BA17D5F81668BF4800D81A97 /* door_arrow_left.png in Resources */,
+				BA17D5F91668BF4800D81A97 /* door_arrow_right.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

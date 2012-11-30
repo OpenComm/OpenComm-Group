@@ -203,27 +203,28 @@ shouldReloadTableForSearchString:(NSString *)searchString
 // ss2249 TODO SAUHARD for you
  - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
  {
- return [[[self fetchedResultsController] sections] count];
+     return [[[self fetchedResultsController] sections] count];
+     //return 0;
  }
  
  - (NSString *)tableView:(UITableView *)sender titleForHeaderInSection:(NSInteger)sectionIndex
  {
- NSArray *sections = [[self fetchedResultsController] sections];
+     NSArray *sections = [[self fetchedResultsController] sections];
  
- if (sectionIndex < [sections count])
- {
- id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:sectionIndex];
+     if (sectionIndex < [sections count])
+     {
+         id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:sectionIndex];
  
- int section = [sectionInfo.name intValue];
- switch (section)
- {
- case 0  : return @"Available";
- case 1  : return @"Away";
- default : return @"Offline";
- }
- }
+         int section = [sectionInfo.name intValue];
+//         switch (section)
+//         {
+//             case 0  : return @"Available";
+//             case 1  : return @"Away";
+//             default : return @"Offline";
+//         }
+     }
  
- return @"";
+     return @"";
  }
  
  - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
