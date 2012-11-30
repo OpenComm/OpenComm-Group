@@ -398,6 +398,27 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
 - (bool) jingleReceiveSessionTerminateFromPacket: (XMPPIQ *)jingleIQPacket{
     /* If you're not in the right state (active state) or if the received termination packet is NOT
      * from the other endpoint */
+    if ([state isEqualToString:[jingleConstants STATE_PENDING]]) {
+        //You are free to reset state
+        state = [jingleConstants STATE_ENDED];
+        toJID = nil;
+        toSID = nil;
+        toIPAddress = nil;
+        toPort = nil;
+        //[currentViewController dismissViewControllerAnimated:YES completion:NULL];
+        callActive = NO;
+        //callTextLabel.text = @"The call has ended";
+        UIAlertView *info = [
+                             [UIAlertView alloc]
+                             initWithTitle:@"Call ended"
+                             message:@"The call is no longer active"
+                             delegate:self
+                             cancelButtonTitle:@"Dismiss"
+                             otherButtonTitles:nil
+                             ];
+        [info show];
+        return true;
+    }
     if (!([state isEqualToString:[jingleConstants STATE_ACTIVE]] &&
           [[jingleIQPacket attributeStringValueForName: [jingleConstants ATTRIBUTE_FROM]] isEqualToString:[toJID full]])) {
         return false;
@@ -453,6 +474,7 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
         UIViewController *vc = [sb instantiateViewControllerWithIdentifier:@"singleCallNavigator"];
         // UIViewController *currentVC = conferenceViewController.getSelfValue;
         vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+        callActive = YES;
         if(currentViewController == nil){
             NSLog(@"current view null");
         }
@@ -493,6 +515,9 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
     {
         callActive = NO;
         callTextLabel.text = @"The call has been disconnected";
+        
+        NSXMLElement *returnIQ = [self jingleSessionTerminateWithReason: [jingleConstants DECLINE_ELEMENT_NAME] inResponseTo: nil];
+        [xmppStream sendElement: returnIQ];
     }
 }
 
@@ -539,6 +564,10 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
             return [self jingleReceiveSessionAcceptFromPacket: IQPacket];
         }
         else if ([self isJinglePacket: IQPacket OfAction: [jingleConstants SESSION_TERMINATE]] && [state isEqualToString: [jingleConstants STATE_ACTIVE]]) {
+            //merely process the session terminate - no need to respond with an IQPacket.
+            return [self jingleReceiveSessionTerminateFromPacket: IQPacket];
+        }
+        else if ([self isJinglePacket: IQPacket OfAction: [jingleConstants SESSION_TERMINATE]] && [state isEqualToString: [jingleConstants STATE_PENDING]]) {
             //merely process the session terminate - no need to respond with an IQPacket.
             return [self jingleReceiveSessionTerminateFromPacket: IQPacket];
         }

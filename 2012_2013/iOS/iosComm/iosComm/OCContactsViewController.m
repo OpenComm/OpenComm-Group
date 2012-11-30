@@ -13,7 +13,7 @@
 #import "OCViewController.h"
 #import "OCConferenceViewController.h"
 #import "OCJingleImpl.h"
-
+#import "OCSingleCallViewController.h"
 @implementation OCContactsViewController /* Sweet Commented out{
     NSMutableArray* contactsArray;
     NSMutableArray* imageArray;
@@ -443,7 +443,7 @@ shouldReloadTableForSearchString:(NSString *)searchString
     UIViewController *vc = [sb instantiateViewControllerWithIdentifier:@"singleCallNavigator"];
     vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentViewController:vc animated:YES completion:NULL];
-    
+    callActive = YES;
     /** ~*- Integration Code -*~ **/
     /*Fetch cell*/
     

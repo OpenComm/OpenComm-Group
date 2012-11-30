@@ -19,7 +19,7 @@ extern BOOL callActive;
 
 
 @property (strong, nonatomic) IBOutlet UILabel *callTextLabel;
-@property BOOL callActive;
+//@property BOOL callActive;
 
 
 @end

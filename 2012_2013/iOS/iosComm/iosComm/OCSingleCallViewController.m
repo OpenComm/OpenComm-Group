@@ -12,11 +12,11 @@
 
 @end
 
-BOOL callActive;
+BOOL callActive = YES;
 UILabel *callTextLabel;
 
 @implementation OCSingleCallViewController
-@synthesize callActive;
+//@synthesize callActive;
 @synthesize callTextLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -32,8 +32,12 @@ UILabel *callTextLabel;
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
-    callActive = YES;
+    if (callActive == YES){
+        callTextLabel.text = @"The call is active";
+    }
+    else{
+        callTextLabel.text = @"The call has been terminated";
+    }
 }
 
 - (void)didReceiveMemoryWarning
