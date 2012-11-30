@@ -1,6 +1,10 @@
 package edu.cornell.opencomm.controller;
 
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.view.View;
 import android.widget.TextView;
 import edu.cornell.opencomm.R;
@@ -91,10 +95,42 @@ public class ContactAddSearchController {
 	
 	/** Contact clicked: launch corresponding ContactView using its username */
 	public void handleContactClick(User user) {
-		Intent i = new Intent(this.contactAddSearchView, ContactCardView.class);
-		i.putExtra(ContactCardView.contactCardKey, user.getUsername());
-		this.contactAddSearchView.startActivity(i);
+		if (isAdd) {
+			// TODO launch contact add page
+		}
+		else {
+			Intent i = new Intent(this.contactAddSearchView, ContactCardView.class);
+			i.putExtra(ContactCardView.contactCardKey, user.getUsername());
+			this.contactAddSearchView.startActivity(i);
+		}
 
+	}
+	
+	
+	/** Obtain all of the possible contacts (email addresses and names) from the OpenComm users and 
+	 * phone contacts with email addresses */
+	private class GetContactSuggestionTask extends AsyncTask<Void, Void, ArrayList<User>> {
+
+		@Override
+		protected ArrayList<User> doInBackground(Void... params) {
+			ArrayList<User> allContacts = new ArrayList<User>();			
+			// TODO [backend] add all emails and names from OpenComm users to the arraylist
+			// TODO [backend] add all emails and names from the phonebook with emails
+			return allContacts;
+		}
+	}
+	
+	/** Get all possible contacts (email addresses and names) from the OpenComm users and 
+	 * phone contacts with email addresses */
+	public ArrayList<User> getSuggestions() {
+		try {
+			return new GetContactSuggestionTask().execute().get();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
+		return new ArrayList<User>();
 	}
 
 }

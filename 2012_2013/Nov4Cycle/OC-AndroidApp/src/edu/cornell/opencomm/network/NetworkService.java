@@ -31,14 +31,17 @@ import org.jivesoftware.smackx.provider.VCardProvider;
 import org.jivesoftware.smackx.provider.XHTMLExtensionProvider;
 import org.jivesoftware.smackx.search.UserSearch;
 
+import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.LoginController.ReturnState;
 
+import android.content.res.Resources;
 import android.util.Log;
 
-/** Service that handles the network connection
+/**
+ * Service that handles the network connection
  * 
- * @author Ankit Singh [frontend], Risa Naka [frontend], 
- * Kris Kooi [backend], Brian O'Connor [backend]
+ * @author Ankit Singh [frontend], Risa Naka [frontend], Kris Kooi [backend],
+ *         Brian O'Connor [backend]
  * 
  */
 public class NetworkService {
@@ -50,7 +53,7 @@ public class NetworkService {
 	private static final String DEFAULT_HOSTNAME = "@cuopencomm";
 	private static final int DEFAULT_PORT = 5222;
 	private static final String DEFAULT_RESOURCE = "OpenComm";
-
+			
 	private static NetworkService _instance = null;
 
 	// XMPP connection
@@ -94,25 +97,31 @@ public class NetworkService {
 			try {
 				this.xmppConn.connect();
 			} catch (XMPPException e) {
-				if (D) Log.d(TAG, "Connection error!");
+				if (D)
+					Log.d(TAG, "Connection error!");
 			}
 		}
 		return this.xmppConn;
 	}
-	
+
 	public ReturnState login(String email, String password) {
 		try {
 			// attempt to connect
 			this.xmppConn.connect();
-			// extract JID from the email address by removing nonalphanumeric 
+			// extract JID from the email address by removing nonalphanumeric
 			// characters from the email address
-			String jid = email.replaceAll("[^a-zA-Z0-9]", "") + DEFAULT_HOSTNAME;
-			if (D) Log.d(TAG, "Attempt login: email - " + email + ", jid - " + jid + ", password - " + password);
+			String jid = email.replaceAll("[^a-zA-Z0-9]", "")
+					+ DEFAULT_HOSTNAME;
+			if (D)
+				Log.d(TAG, "Attempt login: email - " + email + ", jid - " + jid
+						+ ", password - " + password);
 			try {
 				this.xmppConn.login(jid, password, DEFAULT_RESOURCE);
 				// check that the email is the right one
-				if (!email.equals(this.getConnection().getAccountManager().getAccountAttribute("email"))) {
-					if (D) Log.d(TAG, "Email does not match");
+				if (!email.equals(this.getConnection().getAccountManager()
+						.getAccountAttribute("email"))) {
+					if (D)
+						Log.d(TAG, "Email does not match");
 					// disconnect
 					this.xmppConn.disconnect();
 					// reconnect to the server
@@ -126,7 +135,8 @@ public class NetworkService {
 				return ReturnState.INVALID_PAIR;
 			}
 		} catch (XMPPException e) {
-			if (D) Log.d(TAG, "Connection to server failed");
+			if (D)
+				Log.d(TAG, "Connection to server failed");
 			return ReturnState.COULDNT_CONNECT;
 		}
 	}
@@ -137,11 +147,11 @@ public class NetworkService {
 		_instance = new NetworkService(DEFAULT_HOST, DEFAULT_PORT);
 		return true;
 	}
-	
+
 	public PrivacyList getBlockList() {
 		return this.blockList;
 	}
-	
+
 	public AccountManager getAccountManager() {
 		if (this.accountManager == null) {
 			this.accountManager = new AccountManager(this.getConnection());

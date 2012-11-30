@@ -17,6 +17,7 @@
     <string name="opencomm">OpenComm</string>
     <string name="dashboard_confinfo">Conference Info</string>
     <string name="dashboard_confs">Conferences</string>
+    <string name="side_chat_text">invited you to a side chat</string>
     <string name="dashboard_contacts">Contacts</string>
     <string name="dashboard_profile">My Profile</string>
     <string name="reset_password">reset password</string>
@@ -24,6 +25,9 @@
     <string name="remove">remove</string>
     <string name="send_email">send email</string>
     <string name="sidechat">sidechat</string>
+    <string name="open_right">open right</string>
+    <string name="side_chat_invite">contact name</string>
+    <string name="open_left">open left</string>
     <string name="mainChat">mainChat</string>
     <string name="end">end</string>
     <string name="leave">leave</string>

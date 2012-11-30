@@ -1,20 +1,14 @@
 package edu.cornell.opencomm.controller;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
-import org.jivesoftware.smack.RosterEntry;
-
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.User;
-import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ConferenceSchedulerView;
 import edu.cornell.opencomm.view.ContactCardView;
 import edu.cornell.opencomm.view.ContactListView;
@@ -132,7 +126,7 @@ public class ContactListController {
 	public void updateContactList() {
 		boolean updated = false;
 		try {
-			updated = new UpdateContactsTask().execute().get();
+			updated = new UserManager.UpdateContactsTask().execute().get();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (ExecutionException e) {
@@ -143,21 +137,4 @@ public class ContactListController {
 					Toast.LENGTH_SHORT).show();
 	}
 
-	/** Updates the contact list, returning true if the update is successful */
-	private class UpdateContactsTask extends AsyncTask<Void, Void, Boolean> {
-		@Override
-		protected Boolean doInBackground(Void... arg0) {
-			Iterator<RosterEntry> entries = NetworkService.getInstance()
-					.getConnection().getRoster().getEntries().iterator();
-			ArrayList<User> updatedList = new ArrayList<User>();
-			while (entries.hasNext()) {
-				RosterEntry entry = entries.next();
-				// TODO [backend] obtain complete info on user
-				User buddy = new User(entry.getUser(), entry.getName(), 0);
-				updatedList.add(buddy);
-			}
-			UserManager.updateContactList(updatedList);
-			return true;
-		}
-	}
 }

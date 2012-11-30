@@ -105,5 +105,4 @@
         android:dividerHeight="0.66dp"
         android:padding="0.66dp"
         android:visibility="invisible" />
-
 </RelativeLayout>

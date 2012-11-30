@@ -109,6 +109,11 @@ public class ConferenceRoom extends MultiUserChat{
 			this.confUserList.add(cu);
 		}
 	}
+	
+	public void addUser(User u){
+		ConferenceUser cu = new ConferenceUser(u);
+		this.confUserList.add(cu);
+	}
 	public User getModerator(){
 		return moderator;
 	}
