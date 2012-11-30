@@ -867,7 +867,7 @@
         <!--Navigation Controller-->
         <scene sceneID="prn-Ff-H5P">
             <objects>
-                <navigationController storyboardIdentifier="singleCallNavigator" id="dmZ-gc-2nw" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="" id="dmZ-gc-2nw" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
@@ -887,15 +887,20 @@
         <!--Navigation Controller-->
         <scene sceneID="J57-d7-79a">
             <objects>
-                <navigationController id="pFI-Zu-2L5" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="singleCallNavigator" toolbarHidden="NO" id="pFI-Zu-2L5" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="blackOpaque"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="blackOpaque" id="jol-Ae-kjx">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackOpaque" id="ph6-zJ-iSV">
+                        <rect key="frame" x="0.0" y="436" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="if6-0i-Hrb" kind="relationship" relationship="rootViewController" id="Nuf-Wv-2r2"/>
                     </connections>
@@ -980,6 +985,7 @@
             <relationships>
                 <relationship kind="action" name="cancelButtonPressed:"/>
                 <relationship kind="action" name="conferencesButtonPressed:"/>
+                <relationship kind="action" name="infoButtonPressed:"/>
                 <relationship kind="outlet" name="callTextLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
