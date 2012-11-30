@@ -18,7 +18,7 @@
 @synthesize myXMPPRoster;
 @synthesize myXMPPRosterStorage;
 
-- (id)initWithView:(OCViewController *)controller  andDefaults:(OCDefaultServerConstantsController *) def{
+- (id)initWithView:(UIViewController *)controller  andDefaults:(OCDefaultServerConstantsController *) def{
     self = [super init];
     if (self) {
         viewController = controller;
@@ -26,6 +26,10 @@
     }
     
     return self;
+}
+
+- (void) setViewController: (UIViewController *)controller {
+    viewController = controller;
 }
 
 - (void)setJingleImpl:(OCJingleImpl *)jingleObjParam {
@@ -285,10 +289,21 @@
                          otherButtonTitles:nil
                          ];
     [info show];
+    [viewController performSegueWithIdentifier: @"submitButton" sender: nil];
     NSLog(@"I did register!");
 }
 
 - (void)xmppStream:(XMPPStream *)sender didNotRegister:(NSXMLElement *)error {
+    NSString *message = [@"Here is the error:" stringByAppendingFormat: @"%@",error];
+    UIAlertView *info = [
+                         [UIAlertView alloc]
+                         initWithTitle:@"Could not register!"
+                         message: message
+                         delegate:nil
+                         cancelButtonTitle:@"Dismiss"
+                         otherButtonTitles:nil
+                         ];
+    [info show];
     NSLog(@"I did not register: %@", error);
 }
 

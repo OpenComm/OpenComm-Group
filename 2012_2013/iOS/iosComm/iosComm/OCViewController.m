@@ -122,6 +122,8 @@ OCXMPPDelegateHandler *delegateHandler;
         [info show];
     }
     
+    [delegateHandler setViewController: self];
+    
     NSLog(@"My IP Address: %@", [[[OCAudioPassingProtocol alloc] init] getIPAddress]);
 }
 

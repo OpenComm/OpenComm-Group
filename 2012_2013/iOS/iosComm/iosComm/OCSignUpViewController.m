@@ -161,7 +161,7 @@ extern OCXMPPDelegateHandler *delegateHandler;
     }
     
     //Segue change should be moved to DelegateHandler?
-    [self performSegueWithIdentifier: @"submitButton" sender: nil];
+    [delegateHandler setViewController: self];
 }
 
 - (IBAction)backButtonPressed:(id)sender {

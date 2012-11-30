@@ -18,7 +18,7 @@
     XMPPRosterCoreDataStorage *myXMPPRosterStorage;
     XMPPStream *myXMPPStream;
     OCJingleImpl *jingleObj;
-    OCViewController *viewController;
+    UIViewController *viewController;
     OCDefaultServerConstantsController *defaults;
 }
 
@@ -28,7 +28,8 @@
 @property (nonatomic, strong, readonly) XMPPRosterCoreDataStorage *myXMPPRosterStorage;
 - (NSManagedObjectContext *)managedObjectContext_roster;
 
-- (id)initWithView:(OCViewController *)controller andDefaults:(OCDefaultServerConstantsController *) def;
+- (id)initWithView:(UIViewController *)controller andDefaults:(OCDefaultServerConstantsController *) def;
+- (void) setViewController: (UIViewController *)controller;
 - (OCDefaultServerConstantsController *) getDefaults;
 - (void)setXMPPRosterStorage:(XMPPRosterCoreDataStorage *)storage roster:(XMPPRoster *)r stream:(XMPPStream *)s;
 - (void)setJingleImpl:(OCJingleImpl *)jingleObjParam;
