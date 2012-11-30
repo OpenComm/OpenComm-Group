@@ -226,6 +226,16 @@
 - (void)xmppStream:(XMPPStream *)sender didReceiveError:(id)error
 {
 	NSLog(@"Received an error");
+    UIAlertView *info = [
+                         [UIAlertView alloc]
+                         initWithTitle:@"Cannot connect to server"
+                         message:@"Connection to server timeout out, please try again in a few minutes"
+                         delegate:self
+                         cancelButtonTitle:@"Dismiss"
+                         otherButtonTitles:nil
+                         ];
+    [info show];
+
 }
 
 - (BOOL)xmppStream:(XMPPStream *)sender didReceiveIQ:(XMPPIQ *)iq
