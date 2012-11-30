@@ -187,6 +187,12 @@ public class EmailController extends Authenticator {
 			Log.v(TAG, "Error in resetting password");
 			Log.v(TAG, e.getMessage());
 		}
+		
+		try {
+			this.send();
+		} catch (Exception e) {
+			Log.v(TAG, "Error sending email");
+		}
 	}
 
 	public void addAttachment(String filename) throws Exception {
