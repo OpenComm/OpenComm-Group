@@ -41,4 +41,6 @@
 - (BOOL)xmppStream:(XMPPStream *)sender didReceiveIQ:(XMPPIQ *)iq;
 - (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message;
 
+- (OCJingleImpl *)getJingle;
+
 @end

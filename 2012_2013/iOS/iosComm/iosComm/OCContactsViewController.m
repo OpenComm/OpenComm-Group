@@ -461,6 +461,7 @@ shouldReloadTableForSearchString:(NSString *)searchString
     vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     //OCSingleCallViewController* scvc = (OCSingleCallViewController*) vc;
     //NSLog(@"%@", vc);
+    
     [self presentViewController:vc animated:YES completion:NULL];
     callActive = YES;
     

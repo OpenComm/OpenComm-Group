@@ -292,4 +292,9 @@
     NSLog(@"I did not register: %@", error);
 }
 
+- (OCJingleImpl *) getJingle
+{
+    return jingleObj;
+}
+
 @end

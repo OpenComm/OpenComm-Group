@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2843" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="UBs-JJ-ZED">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="UBs-JJ-ZED">
     <dependencies>
         <deployment version="1280" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1929"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -440,7 +440,7 @@
         <!--Single Call View Controller-->
         <scene sceneID="qqC-ta-Mpq">
             <objects>
-                <viewController storyboardIdentifier="SingleCall" id="ff7-te-luu" customClass="OCSingleCallViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="" id="ff7-te-luu" customClass="OCSingleCallViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="N3Y-nS-BeI">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -456,27 +456,131 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="8Ly-VO-RlU">
-                        <barButtonItem key="leftBarButtonItem" title="Confernces" id="BTE-Ba-H2e">
-                            <connections>
-                                <action selector="conferencesButtonPressed:" destination="ff7-te-luu" id="Vn5-T1-qbw"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="stop" id="5gg-A5-JOA">
-                            <connections>
-                                <action selector="cancelButtonPressed:" destination="ff7-te-luu" id="9Qi-fG-IsJ"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" title="Confernces" id="BTE-Ba-H2e"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="stop" id="5gg-A5-JOA"/>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
-                    <connections>
-                        <outlet property="callTextLabel" destination="vA0-0L-M31" id="Mmw-eg-uvC"/>
-                        <segue destination="w1t-xM-IlL" kind="modal" identifier="backToConferences" modalTransitionStyle="flipHorizontal" id="gK0-pN-Sb7"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qzg-bT-XLV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2491" y="1480"/>
+        </scene>
+        <!--Single Call View Controller - Conference-->
+        <scene sceneID="0qm-UR-OH8">
+            <objects>
+                <viewController storyboardIdentifier="SingleCall" id="if6-0i-Hrb" customClass="OCSingleCallViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="OtT-xG-4ou">
+                        <rect key="frame" x="0.0" y="64" width="320" height="372"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="gradient-bg.png" id="eKC-7X-TZe">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="372"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="dots.png" id="Z8o-lm-lrw">
+                                <rect key="frame" x="138" y="351" width="44" height="4"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="conf-circcle.png" id="KC2-0o-63o">
+                                <rect key="frame" x="49" y="74" width="223" height="223"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="orange_box.png" id="GZ7-tX-6JM">
+                                <rect key="frame" x="134" y="55" width="53" height="53"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="green_box.png" id="SWa-uX-XVn">
+                                <rect key="frame" x="20" y="163" width="53" height="53"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="user-box.png" id="PN7-P5-73Y">
+                                <rect key="frame" x="49" y="74" width="53" height="53"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="user-box.png" id="feb-Fc-pcZ">
+                                <rect key="frame" x="49" y="244" width="53" height="53"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="user-box.png" id="bdM-jZ-x5y">
+                                <rect key="frame" x="219" y="244" width="53" height="53"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="user-box.png" id="Dx2-VP-b5F">
+                                <rect key="frame" x="219" y="74" width="53" height="53"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="blue_box.png" id="yYY-55-fVs">
+                                <rect key="frame" x="247" y="163" width="53" height="53"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="black_box.png" id="kCm-u2-Kg2">
+                                <rect key="frame" x="134" y="271" width="53" height="53"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="joker.png" id="n1m-HH-Lrk">
+                                <rect key="frame" x="24.5" y="168" width="43" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="bane.png" id="SFv-gK-mSa">
+                                <rect key="frame" x="139" y="60" width="43" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="catwoman.png" id="pU3-9e-pDk">
+                                <rect key="frame" x="252" y="168" width="43" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="kBR-Nu-0fY"/>
+                        <barButtonItem image="ping.png" style="plain" id="alu-KQ-5fo"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="YQH-0b-P2t"/>
+                        <barButtonItem image="mute.png" style="plain" id="sZk-mn-lEa"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="5UR-W0-T0c"/>
+                        <barButtonItem image="leave.png" style="plain" id="kqR-Pf-xOR">
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="if6-0i-Hrb" id="MeL-Ek-bzF"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="0Qu-eG-YaM"/>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="Conference" id="AqC-S1-t9K">
+                        <barButtonItem key="leftBarButtonItem" image="back.png" style="plain" id="83P-8a-q7G">
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="conferencesButtonPressed:" destination="if6-0i-Hrb" id="chM-mz-GKs"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="JAV-Ji-DkT">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="nCe-ft-kYN">
+                                <rect key="frame" x="297" y="12" width="18" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <connections>
+                                <action selector="infoButtonPressed:" destination="if6-0i-Hrb" id="0Wr-XM-Ljb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="blackOpaque"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <segue destination="w1t-xM-IlL" kind="modal" identifier="backToConferences" id="ngj-Bl-z7p"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hGn-6g-MLc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4011" y="1484"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fbn-rd-Eiq">
@@ -763,7 +867,7 @@
         <!--Navigation Controller-->
         <scene sceneID="prn-Ff-H5P">
             <objects>
-                <navigationController storyboardIdentifier="singleCallNavigator" id="dmZ-gc-2nw" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="" id="dmZ-gc-2nw" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
@@ -780,14 +884,54 @@
             </objects>
             <point key="canvasLocation" x="1965" y="1480"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="J57-d7-79a">
+            <objects>
+                <navigationController storyboardIdentifier="singleCallNavigator" toolbarHidden="NO" id="pFI-Zu-2L5" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="blackOpaque"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="blackOpaque" id="jol-Ae-kjx">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackOpaque" id="ph6-zJ-iSV">
+                        <rect key="frame" x="0.0" y="436" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="if6-0i-Hrb" kind="relationship" relationship="rootViewController" id="Nuf-Wv-2r2"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ts4-cl-Uou" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3485" y="1484"/>
+        </scene>
     </scenes>
     <resources>
         <image name="account_icon.png" width="30" height="30"/>
+        <image name="back.png" width="32" height="28"/>
+        <image name="bane.png" width="84" height="95"/>
+        <image name="black_box.png" width="53" height="53"/>
+        <image name="blue_box.png" width="53" height="53"/>
+        <image name="catwoman.png" width="54" height="54"/>
+        <image name="conf-circcle.png" width="223" height="223"/>
         <image name="conferences_icon.png" width="30" height="30"/>
         <image name="contact_icon.png" width="30" height="30"/>
+        <image name="dots.png" width="44" height="4"/>
+        <image name="gradient-bg.png" width="320" height="480"/>
+        <image name="green_box.png" width="53" height="53"/>
+        <image name="joker.png" width="54" height="54"/>
+        <image name="leave.png" width="26" height="31"/>
+        <image name="mute.png" width="24" height="31"/>
+        <image name="orange_box.png" width="53" height="53"/>
+        <image name="ping.png" width="34" height="31"/>
         <image name="rsz_1arrow.jpg" width="20" height="18"/>
         <image name="signInButton.png" width="55" height="29"/>
         <image name="signUpButton.png" width="279" height="45"/>
+        <image name="user-box.png" width="53" height="53"/>
     </resources>
     <classes>
         <class className="OCAccountSettingsViewController" superclassName="UIViewController">
@@ -841,6 +985,7 @@
             <relationships>
                 <relationship kind="action" name="cancelButtonPressed:"/>
                 <relationship kind="action" name="conferencesButtonPressed:"/>
+                <relationship kind="action" name="infoButtonPressed:"/>
                 <relationship kind="outlet" name="callTextLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
@@ -860,7 +1005,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Jn4-CV-X1x"/>
+        <segue reference="ngj-Bl-z7p"/>
         <segue reference="DJo-C0-6TI"/>
     </inferredMetricsTieBreakers>
 </document>

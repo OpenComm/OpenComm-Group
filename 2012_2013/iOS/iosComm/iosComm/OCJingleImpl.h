@@ -93,4 +93,6 @@ extern UIViewController* currentViewController;
 //If I were to implement this, it would return nil if everything is supported
 //Or return the appropriate error string defined by XMPP Jingle if something is not supported.
 //- (NSString *) supportedFunctionalty: (XMPPIQ *)jingleIQPacket;
+
+- (void) terminate;
 @end
