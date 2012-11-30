@@ -330,10 +330,21 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
             //state = [jingleConstants STATE_ACTIVE];
         //}
         /**********/
+        //If you are in the active state waiting and toIPAddress is nil, you are
+        //waiting for a terminate ack
+        if (state == [jingleConstants STATE_ACTIVE] && toIPAddress == nil) {
+            state = [jingleConstants STATE_ENDED];
+            toJID = nil;
+            toSID = nil;
+            toIPAddress = nil;
+            toPort = nil;
+        }
         pendingAck = false;
         return true;
     }
-    else return false;
+    NSLog(@"This ack is not meant for me...");
+    NSLog(@"toJID %@", toJID);
+    return false;
 }
 
 //-------------------------------------------------------------------
@@ -412,7 +423,7 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
                              [UIAlertView alloc]
                              initWithTitle:@"Call ended"
                              message:@"The call is no longer active"
-                             delegate:self
+                             delegate: nil
                              cancelButtonTitle:@"Dismiss"
                              otherButtonTitles:nil
                              ];
@@ -420,8 +431,8 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
         return true;
     }
     if (!([state isEqualToString:[jingleConstants STATE_ACTIVE]] &&
-          [[jingleIQPacket attributeStringValueForName: [jingleConstants ATTRIBUTE_FROM]] isEqualToString:[toJID full]])) {
-        return false;
+          [self isFromCorrectPerson: jingleIQPacket])) {
+        return true;
     }
     //You are free to reset state
     state = [jingleConstants STATE_ENDED];
@@ -447,7 +458,7 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
 // Checks whether the IQPacket is of type result (ack packets are of type result)
 //-------------------------------------------------------------------
 - (bool) isAckPacket: (XMPPIQ *)IQPacket {
-    return [IQPacket isResultIQ];
+    return [IQPacket isResultIQ] && ([IQPacket childElement] != nil);
 }
 
 //-------------------------------------------------------------------
@@ -463,7 +474,6 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
-    NSLog(@"title: %@", title);
     if([title isEqualToString:@"Accept"])
     {
         
@@ -495,11 +505,7 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
         //not in correct state to respond. don't respond with accept! send them a decline.
         if (returnIQ == nil) {
             returnIQ = [self jingleSessionTerminateWithReason: [jingleConstants DECLINE_ELEMENT_NAME] inResponseTo: nil];
-            state = [jingleConstants STATE_ENDED];
-            toJID = nil;
-            toSID = nil;
             toIPAddress = nil;
-            toPort = nil;
             [xmppStream sendElement: returnIQ];
         }
         else {
@@ -514,10 +520,11 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
     else //reject the call
     {
         callActive = NO;
-        callTextLabel.text = @"The call has been disconnected";
+        //callTextLabel.text = @"The call has been disconnected";
         
         NSXMLElement *returnIQ = [self jingleSessionTerminateWithReason: [jingleConstants DECLINE_ELEMENT_NAME] inResponseTo: nil];
         [xmppStream sendElement: returnIQ];
+        toIPAddress = nil;
     }
 }
 
@@ -569,6 +576,7 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
         }
         else if ([self isJinglePacket: IQPacket OfAction: [jingleConstants SESSION_TERMINATE]] && [state isEqualToString: [jingleConstants STATE_PENDING]]) {
             //merely process the session terminate - no need to respond with an IQPacket.
+            NSLog(@"Call was rejected on remote end");
             return [self jingleReceiveSessionTerminateFromPacket: IQPacket];
         }
         else { //There are other actions, but we just don't support them yet...
@@ -576,6 +584,7 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
             //we will send back a reject packet for now.
             NSXMLElement *returnIQ = [self jingleSessionTerminateWithReason: [jingleConstants DECLINE_ELEMENT_NAME] inResponseTo: IQPacket];
             [xmppStream sendElement: returnIQ];
+            NSLog(@"Sending This: %@", returnIQ);
             return true;
         }
     }

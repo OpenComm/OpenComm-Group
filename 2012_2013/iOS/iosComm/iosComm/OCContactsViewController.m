@@ -457,7 +457,11 @@ shouldReloadTableForSearchString:(NSString *)searchString
     // For transitioning to the conferencing page
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
     UIViewController *vc = [sb instantiateViewControllerWithIdentifier:@"singleCallNavigator"];
+    NSLog(@"%@", vc);
     vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    //OCSingleCallViewController* scvc = (OCSingleCallViewController*) vc;
+    //NSLog(@"%@", vc);
+    
     [self presentViewController:vc animated:YES completion:NULL];
     callActive = YES;
     

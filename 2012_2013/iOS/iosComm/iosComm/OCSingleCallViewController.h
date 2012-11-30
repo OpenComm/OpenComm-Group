@@ -10,7 +10,7 @@
 #import "OCJingleImpl.h"
 #import "OCViewController.h"
 
-extern UILabel *callTextLabel;
+
 extern BOOL callActive;
 
 @interface OCSingleCallViewController : UIViewController {}
@@ -20,7 +20,8 @@ extern BOOL callActive;
 - (IBAction)conferencesButtonPressed:(id)sender;
 
 
-@property (strong, nonatomic) IBOutlet UILabel *callTextLabel;
+- (IBAction)infoButtonPressed:(id)sender;
+
 //@property BOOL callActive;
 
 @end

@@ -109,6 +109,19 @@ OCXMPPDelegateHandler *delegateHandler;
         }
     }
     
+    /*Test if user is connected online*/
+    if ([[[[OCAudioPassingProtocol alloc] init] getIPAddress] isEqualToString: @"error"]) {
+        UIAlertView *info = [
+                             [UIAlertView alloc]
+                             initWithTitle:@"Cannot connect to server"
+                             message:@"Please turn your WiFi on before using this application."
+                             delegate: nil
+                             cancelButtonTitle:@"Dismiss"
+                             otherButtonTitles:nil
+                             ];
+        [info show];
+    }
+    
     NSLog(@"My IP Address: %@", [[[OCAudioPassingProtocol alloc] init] getIPAddress]);
 }
 
