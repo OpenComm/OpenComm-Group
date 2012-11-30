@@ -13,7 +13,7 @@ import edu.cornell.opencomm.view.ConferenceSchedulerView;
 import edu.cornell.opencomm.view.ContactCardView;
 import edu.cornell.opencomm.view.ContactListView;
 import edu.cornell.opencomm.view.ContactAddSearchView;
-import edu.cornell.opencomm.view.MyAccountView;
+import edu.cornell.opencomm.view.MyProfileView;
 
 /**
  * Controller for contacts page (ContactListView). Functionality:<br>
@@ -86,7 +86,7 @@ public class ContactListController {
 		// if the user selects account
 		else if (option.equals("account")) {
 			// launch my profile page
-			Intent i = new Intent(this.contactListView, MyAccountView.class);
+			Intent i = new Intent(this.contactListView, MyProfileView.class);
 			this.contactListView.startActivity(i);
 		}
 	}

@@ -12,7 +12,7 @@ import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.view.ConferenceSchedulerView;
 import edu.cornell.opencomm.view.ContactCardView;
 import edu.cornell.opencomm.view.ContactAddSearchView;
-import edu.cornell.opencomm.view.MyAccountView;
+import edu.cornell.opencomm.view.MyProfileView;
 
 /**
  * Controller for contact add/search page (ContactAddSearchView). Functionality:<br>
@@ -88,7 +88,7 @@ public class ContactAddSearchController {
 		// if the user selects account
 		else if (option.equals("account")) {
 			// launch my profile page
-			Intent i = new Intent(this.contactAddSearchView, MyAccountView.class);
+			Intent i = new Intent(this.contactAddSearchView, MyProfileView.class);
 			this.contactAddSearchView.startActivity(i);
 		}
 	}

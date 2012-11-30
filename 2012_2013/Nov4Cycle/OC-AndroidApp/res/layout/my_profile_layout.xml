@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/my_account_layout"
+    android:id="@+id/my_profile_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
     <RelativeLayout
-        android:id="@+id/my_account_actionbar"
+        android:id="@+id/my_profile_actionbar"
         android:layout_width="fill_parent"
         android:layout_height="42.66dp"
         android:background="@color/grey_thirtythree" >
 
         <ImageView
-            android:id="@+id/my_account_backIcon"
+            android:id="@+id/my_profile_backIcon"
             android:layout_width="8.5dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -23,19 +23,19 @@
             android:src="@drawable/action_back" />
 
         <TextView
-            android:id="@+id/my_account_title"
+            android:id="@+id/my_profile_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginBottom="14dp"
             android:layout_marginLeft="24dp"
-            android:text="@string/my_account"
+            android:text="@string/my_profile"
             android:textColor="@color/blue_title"
             android:textSize="24sp" />
 
         <ImageView
-            android:id="@+id/my_account_overflowIcon"
+            android:id="@+id/my_profile_overflowIcon"
             android:layout_width="5.33dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -47,12 +47,12 @@
             android:src="@drawable/action_overflow" />
 
         <ImageView
-            android:id="@+id/my_account_editIcon"
+            android:id="@+id/my_profile_editIcon"
             android:layout_width="21.33dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
-            android:layout_toLeftOf="@id/my_account_overflowIcon"
+            android:layout_toLeftOf="@id/my_profile_overflowIcon"
             android:adjustViewBounds="true"
             android:contentDescription="@string/desc"
             android:onClick="edit"
@@ -62,11 +62,11 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@id/my_account_actionbar"
+        android:layout_below="@id/my_profile_actionbar"
         android:orientation="vertical" >
 
         <ImageView
-            android:id="@+id/my_account_photo"
+            android:id="@+id/my_profile_photo"
             android:layout_width="161.33dp"
             android:layout_height="161.33dp"
             android:layout_gravity="center_horizontal"
@@ -77,7 +77,7 @@
             android:src="@drawable/contact_default_image" />
 
         <TextView
-            android:id="@+id/my_account_name_label"
+            android:id="@+id/my_profile_name_label"
             android:layout_width="232dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -87,7 +87,7 @@
             android:textSize="18.66sp" />
 
         <TextView
-            android:id="@+id/my_account_name_content"
+            android:id="@+id/my_profile_name_content"
             android:layout_width="232dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -97,7 +97,7 @@
             android:textSize="18.66sp" />
 
         <TextView
-            android:id="@+id/my_account_title_label"
+            android:id="@+id/my_profile_title_label"
             android:layout_width="232dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -107,7 +107,7 @@
             android:textSize="18.66sp" />
 
         <TextView
-            android:id="@+id/my_account_title_content"
+            android:id="@+id/my_profile_title_content"
             android:layout_width="232dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -117,7 +117,7 @@
             android:textSize="18.66sp" />
 
         <TextView
-            android:id="@+id/my_account_email_label"
+            android:id="@+id/my_profile_email_label"
             android:layout_width="232dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -127,7 +127,7 @@
             android:textSize="18.66sp" />
 
         <TextView
-            android:id="@+id/my_account_email_content"
+            android:id="@+id/my_profile_email_content"
             android:layout_width="232dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -137,7 +137,7 @@
             android:textSize="18.66sp" />
 
         <TextView
-            android:id="@+id/my_account_password_label"
+            android:id="@+id/my_profile_password_label"
             android:layout_width="232dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -147,7 +147,7 @@
             android:textSize="18.66sp" />
 
         <TextView
-            android:id="@+id/my_account_password_content"
+            android:id="@+id/my_profile_password_content"
             android:layout_width="232dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -158,11 +158,11 @@
     </LinearLayout>
 
     <ListView
-        android:id="@+id/my_account_overflowList"
+        android:id="@+id/my_profile_overflowList"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/my_account_actionbar"
+        android:layout_below="@id/my_profile_actionbar"
         android:layout_marginRight="10.66dp"
         android:background="@color/black"
         android:divider="@color/black"

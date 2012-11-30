@@ -6,7 +6,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.view.ContactListView;
-import edu.cornell.opencomm.view.MyAccountView;
+import edu.cornell.opencomm.view.MyProfileView;
 import edu.cornell.opencomm.view.NotificationsView;
 
 /**
@@ -76,7 +76,7 @@ public class NotificationsController {
 		// if the user selects account
 		if (option.equals("account")) {
 			// launch profile page
-			Intent i = new Intent(this.notificationsView, MyAccountView.class);
+			Intent i = new Intent(this.notificationsView, MyProfileView.class);
 			this.notificationsView.startActivity(i);
 		}
 		// if the user selects contact

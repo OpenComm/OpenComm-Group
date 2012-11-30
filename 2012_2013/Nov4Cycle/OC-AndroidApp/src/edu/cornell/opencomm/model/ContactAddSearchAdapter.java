@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import edu.cornell.opencomm.R;
 
-public class ContactSearchAdapter extends ArrayAdapter<User> {
+public class ContactAddSearchAdapter extends ArrayAdapter<User> {
 	
 	@SuppressWarnings("unused")
 	private static final String TAG = "ContactSearchAdapter";
@@ -22,7 +22,7 @@ public class ContactSearchAdapter extends ArrayAdapter<User> {
 	int layoutResourceId;
 	ArrayList<User> data = null;
 
-	public ContactSearchAdapter(Context context, int layoutResourceId, ArrayList<User> data){
+	public ContactAddSearchAdapter(Context context, int layoutResourceId, ArrayList<User> data){
 		super(context, layoutResourceId, data);
 		this.layoutResourceId = layoutResourceId;
 		this.context = context;

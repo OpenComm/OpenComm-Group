@@ -15,11 +15,7 @@
     <string name="search_hint">Search Contacts</string>
     <string name="resetNotify">Reset password email sent</string>
     <string name="opencomm">OpenComm</string>
-    <string name="dashboard_confinfo">Conference Info</string>
-    <string name="dashboard_confs">Conferences</string>
     <string name="side_chat_text">invited you to a side chat</string>
-    <string name="dashboard_contacts">Contacts</string>
-    <string name="dashboard_profile">My Profile</string>
     <string name="reset_password">reset password</string>
     <string name="sign_up">sign up</string>
     <string name="remove">remove</string>
@@ -94,7 +90,7 @@
     <string name="empty_field_error">cannot be empty</string>
     <string name="invalid_title">Incorrect title </string>
     <string name="notifications">notifications</string>
-    <string name="my_account">my account</string>
+    <string name="my_profile">my profile</string>
     <string name="name">name</string>
     <string name="name_sample">Joseph Levitt</string>
     <string name="title_sample">Actor</string>

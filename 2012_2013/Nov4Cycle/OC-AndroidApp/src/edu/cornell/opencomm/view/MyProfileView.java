@@ -11,12 +11,12 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.FontSetter;
-import edu.cornell.opencomm.controller.MyAccountController;
+import edu.cornell.opencomm.controller.MyProfileController;
 import edu.cornell.opencomm.model.OverflowAdapter;
 import edu.cornell.opencomm.manager.UserManager;
 
 /**
- * View for profile page. Functionality (handled by MyAccountController).<br>
+ * View for profile page. Functionality (handled by MyProfileController).<br>
  * When corresponding buttons are clicked in the action bar, different app features are launched:
  * <ul>
  * <li>Back: returns to dashboard</li>
@@ -29,9 +29,9 @@ import edu.cornell.opencomm.manager.UserManager;
  * - [backend] Generate full info of primary user
  * info
  * 
- * @author Risa Naka [frontend]
+ * @author Heming Ge [frontend], Risa Naka [frontend]
  * */
-public class MyAccountView extends Activity{
+public class MyProfileView extends Activity{
 	/**
 	 * Debugging variable: if true, all logs are logged; set to false before
 	 * packaging
@@ -43,7 +43,7 @@ public class MyAccountView extends Activity{
 	 * The TAG for logging
 	 */
 	@SuppressWarnings("unused")
-	private static final String TAG = MyAccountView.class.getSimpleName();
+	private static final String TAG = MyProfileView.class.getSimpleName();
 
 	private TextView name;
 	private ImageView icon;
@@ -53,19 +53,19 @@ public class MyAccountView extends Activity{
 	private ListView overflowList;
 	private String[] options;
 	
-	private MyAccountController controller;
+	private MyProfileController controller;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.my_account_layout);
-		FontSetter.applySanSerifFont(this, findViewById(R.id.my_account_layout));
-		name = (TextView) findViewById(R.id.my_account_name_content);
-		icon = (ImageView) findViewById(R.id.my_account_photo);
-		email = (TextView) findViewById(R.id.my_account_email_content);
-		password = (TextView) findViewById(R.id.my_account_password_content);
-		title = (TextView) findViewById(R.id.my_account_title_content);
-		controller = new MyAccountController(this);
+		setContentView(R.layout.my_profile_layout);
+		FontSetter.applySanSerifFont(this, findViewById(R.id.my_profile_layout));
+		name = (TextView) findViewById(R.id.my_profile_name_content);
+		icon = (ImageView) findViewById(R.id.my_profile_photo);
+		email = (TextView) findViewById(R.id.my_profile_email_content);
+		password = (TextView) findViewById(R.id.my_profile_password_content);
+		title = (TextView) findViewById(R.id.my_profile_title_content);
+		controller = new MyProfileController(this);
 		// TODO [frontend] set primary user's information as content
 		name.setText(UserManager.PRIMARY_USER.getNickname());
 		email.setText(UserManager.PRIMARY_USER.getUsername());
@@ -77,7 +77,7 @@ public class MyAccountView extends Activity{
 	private void initializeOverflow() {
 		this.options = this.getResources().getStringArray(R.array.overflow_myaccount);
 		OverflowAdapter oAdapter = new OverflowAdapter(this, R.layout.overflow_item_layout, this.options);
-		overflowList = (ListView) this.findViewById(R.id.my_account_overflowList);
+		overflowList = (ListView) this.findViewById(R.id.my_profile_overflowList);
 		overflowList.setAdapter(oAdapter);
 		// Click event for single list row
 		overflowList.setOnItemClickListener(new OnItemClickListener() {
