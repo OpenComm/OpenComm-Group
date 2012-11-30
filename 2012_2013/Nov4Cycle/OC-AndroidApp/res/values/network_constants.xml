@@ -6,4 +6,5 @@
     <string name="DEBUG_USERNAME">opencommsec</string>
     <string name="DEBUG_PASSWORD">secopencomm</string>
     <string name="DEFAULT_CONFERENCE">conference.cuopencomm</string>
+    <string name="DEFAULT_RESOURCE">OpenComm</string>
 </resources>

@@ -6,7 +6,7 @@
     android:background="@drawable/portrait_main_background"
     android:contentDescription="@string/mainChat"
     android:onClick="clickedEmptySpace" >
-
+
     <RelativeLayout
         android:id="@+id/action_bar"
         android:layout_width="fill_parent"
@@ -54,7 +54,7 @@
             android:text="@string/conference"
             android:textColor="@color/blue"
             android:textSize="20dp" />
-
+
         <ImageButton
             android:id="@+id/clock_conference"
             android:layout_width="30dp"
@@ -67,12 +67,13 @@
             android:onClick="pingClicked"
             android:scaleType="centerInside"
             android:src="@drawable/time_action_bar" />
-
+
         <ImageButton
             android:id="@+id/conference_add"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_marginBottom="3dp"
             android:layout_marginRight="12dp"
             android:layout_toLeftOf="@+id/clock_conference"
             android:background="@color/grey_thirtythree"
