@@ -520,7 +520,7 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
     else //reject the call
     {
         callActive = NO;
-        callTextLabel.text = @"The call has been disconnected";
+        //callTextLabel.text = @"The call has been disconnected";
         
         NSXMLElement *returnIQ = [self jingleSessionTerminateWithReason: [jingleConstants DECLINE_ELEMENT_NAME] inResponseTo: nil];
         [xmppStream sendElement: returnIQ];
