@@ -439,20 +439,11 @@ shouldReloadTableForSearchString:(NSString *)searchString
     // Sweet Commented out
     //[self performSegueWithIdentifier:@"showContactCard" sender:[self.tableView cellForRowAtIndexPath:indexPath]];
     
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
-    UIViewController *vc = [sb instantiateViewControllerWithIdentifier:@"singleCallNavigator"];
-    vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    [self presentViewController:vc animated:YES completion:NULL];
-    callActive = YES;
     /** ~*- Integration Code -*~ **/
     /*Fetch cell*/
     
-    //XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-   // NSLog(@"The string before amp is %@", [[user.jidStr componentsSeparatedByString:@"@"] objectAtIndex:0]);
-    // XMPPJID *JID = [XMPPJID jidWithUser: [[user.jidStr componentsSeparatedByString:@"@"] objectAtIndex:0] domain: [[delegateHandler getDefaults] DEFAULT_DOMAIN] resource:[[delegateHandler getDefaults] DEFAULT_RESOURCE]];
-    XMPPJID *JID = [XMPPJID jidWithUser: @"qimingiscool" domain: [[delegateHandler getDefaults] DEFAULT_DOMAIN] resource:[[delegateHandler getDefaults] DEFAULT_RESOURCE]];
-    // TODO KEVIN, there's this user.jid which returns a XMPPJID
-    //JID = user.jid;
+    XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+    XMPPJID *JID = [XMPPJID jidWithUser: [[user.jidStr componentsSeparatedByString:@"@"] objectAtIndex:0] domain: [[delegateHandler getDefaults] DEFAULT_DOMAIN] resource:[[delegateHandler getDefaults] DEFAULT_RESOURCE]];
     
     //alloc and init a new OCJingleImpl object (destroy the old one if it is not nil)
     OCJingleImpl *jingleObj = [[OCJingleImpl alloc] initWithJID: [[delegateHandler myXMPPStream] myJID] xmppStream: [delegateHandler myXMPPStream]];
@@ -462,6 +453,15 @@ shouldReloadTableForSearchString:(NSString *)searchString
 
     //Send a session initiate message.
     [[delegateHandler myXMPPStream] sendElement: [jingleObj jingleSessionInitiateTo: JID recvportnum: 8888 SID: nil]];
+    
+    // For transitioning to the conferencing page
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
+    UIViewController *vc = [sb instantiateViewControllerWithIdentifier:@"singleCallNavigator"];
+    vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    OCSingleCallViewController* scvc = (OCSingleCallViewController*) vc;
+    [scvc setJingle:jingleObj];
+    [self presentViewController:vc animated:YES completion:NULL];
+    callActive = YES;
     
 }
 

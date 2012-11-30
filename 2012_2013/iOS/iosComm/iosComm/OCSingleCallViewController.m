@@ -28,6 +28,11 @@ UILabel *callTextLabel;
     return self;
 }
 
+- (void)setJingle:(OCJingleImpl *) j
+{
+    jingle = j;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -52,6 +57,7 @@ UILabel *callTextLabel;
         pjmedia_antimain();
         callActive = NO;
         //[self dismissModalViewControllerAnimated:YES];
+        
     }
     else{
         UIAlertView *info = [
