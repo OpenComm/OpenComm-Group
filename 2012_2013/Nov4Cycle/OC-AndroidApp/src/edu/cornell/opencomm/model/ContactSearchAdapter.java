@@ -39,8 +39,8 @@ public class ContactSearchAdapter extends ArrayAdapter<User> {
 			LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 			row = inflater.inflate(layoutResourceId, parent, false);
 			holder = new SearchHolder();
-			holder.contactName = (Button)row.findViewById(R.id.contact_search_itemtext);
-			holder.picture = (ImageView) row.findViewById(R.id.contact_search_itemimage);
+			holder.contactName = (Button)row.findViewById(R.id.contact_addsearch_itemtext);
+			holder.picture = (ImageView) row.findViewById(R.id.contact_addsearch_itemimage);
 			row.setTag(holder);
 		}
 		else {

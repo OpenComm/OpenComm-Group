@@ -4,10 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.ContactAddSearchController;
@@ -15,13 +15,16 @@ import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.model.OverflowAdapter;
 
 /**
- * View for contact add page. Functionality (handled by ContactAddController).<br>
+ * View for contact add/search page.
+ * When launching this activity, add to the intent the following boolean extra:<br>
+ * key: ContactAddSearchView.AddSearchKey, value: true if AddView, false if SearchView<br>
+ * Functionality (handled by ContactSearchController).<br>
  * When corresponding buttons are clicked in the action bar, different app features are launched:
  * <ul>
  * <li>Back: returns to contact list view</li>
  * <li>Overflow: go to conferences or account page</li>
  * </ul>
- * When a contact name is clicked, the contact card for the user is added to the contact list
+ * When a contact name is clicked, the contact card for the user is launched
  * 
  * Issues [TODO] 
  * - [frontend] Implement functionality for action bar and conf
@@ -30,7 +33,7 @@ import edu.cornell.opencomm.model.OverflowAdapter;
  * 
  * @author Risa Naka [frontend]
  * */
-public class ContactAddView extends Activity {
+public class ContactAddSearchView extends Activity {
 	/**
 	 * Debugging variable: if true, all logs are logged; set to false before
 	 * packaging
@@ -42,7 +45,14 @@ public class ContactAddView extends Activity {
 	 * The TAG for logging
 	 */
 	@SuppressWarnings("unused")
-	private static final String TAG = ContactAddView.class.getSimpleName();
+	private static final String TAG = ContactAddSearchView.class.getSimpleName();
+	
+	/** Key for determining if this is an addview or searchview*/
+	public static final String AddSearchKey = "ADDSEARCHKEY";
+	
+	/** boolean value retrieved from the intent that started this activity that defines whether 
+	 * this activity is a search page or an add page*/
+	private boolean isAdd = false;
 
 	private ContactAddSearchController controller;  
 
@@ -53,10 +63,14 @@ public class ContactAddView extends Activity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.contact_search_layout);
-		FontSetter.applySanSerifFont(this, findViewById(R.id.contact_search_layout));
-		((TextView) findViewById(R.id.contact_search_title)).setText("add");
-		this.controller = new ContactAddSearchController(this);
+		setContentView(R.layout.contact_addsearch_layout);
+		FontSetter.applySanSerifFont(this, findViewById(R.id.contact_addsearch_layout));
+		// determine if this is an add view or search view: if false, it's a search view
+		this.isAdd = this.getIntent().getBooleanExtra(ContactAddSearchView.AddSearchKey, false);
+		if (this.isAdd) {
+			((TextView) this.findViewById(R.id.contact_addsearch_title)).setText("add");
+		}
+		this.controller = new ContactAddSearchController(this, this.isAdd);
 		this.initializeOverflow();
 	}
 	
@@ -65,7 +79,7 @@ public class ContactAddView extends Activity {
 	private void initializeOverflow() {
 		this.options = this.getResources().getStringArray(R.array.overflow_contacts);
 		OverflowAdapter oAdapter = new OverflowAdapter(this, R.layout.overflow_item_layout, this.options);
-		overflowList = (ListView) this.findViewById(R.id.contact_search_overflowList);
+		overflowList = (ListView) this.findViewById(R.id.contact_addsearch_overflowList);
 		overflowList.setAdapter(oAdapter);
 		// Click event for single list row
 		overflowList.setOnItemClickListener(new OnItemClickListener() {

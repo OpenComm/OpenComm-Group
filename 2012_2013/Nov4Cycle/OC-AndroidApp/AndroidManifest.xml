@@ -64,7 +64,7 @@
             android:theme="@style/Theme.grey_eleven" >
         </activity>
         <activity
-            android:name=".view.ContactSearchView"
+            android:name="edu.cornell.opencomm.view.ContactAddSearchView"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.grey_nineteen" >
         </activity>

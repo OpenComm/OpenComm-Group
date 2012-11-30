@@ -2,16 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:id="@+id/contact_search_layout">
+    android:id="@+id/contact_addsearch_layout">
 
     <RelativeLayout
-        android:id="@+id/contact_search_actionbar"
+        android:id="@+id/contact_addsearch_actionbar"
         android:layout_width="fill_parent"
         android:layout_height="42.66dp"
         android:background="@color/grey_thirtythree" >
 
         <ImageView
-            android:id="@+id/contact_search_backIcon"
+            android:id="@+id/contact_addsearch_backIcon"
             android:layout_width="8.5dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -23,7 +23,7 @@
             android:src="@drawable/action_back" />
 
         <TextView
-            android:id="@+id/contact_search_title"
+            android:id="@+id/contact_addsearch_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -35,7 +35,7 @@
             android:textSize="24sp" />
 
         <ImageView
-            android:id="@+id/contact_search_overflowIcon"
+            android:id="@+id/contact_addsearch_overflowIcon"
             android:layout_width="5.33dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -48,10 +48,10 @@
     </RelativeLayout>
     
     <LinearLayout 
-        android:id="@+id/contact_search_searchbar"
+        android:id="@+id/contact_addsearch_searchbar"
         android:layout_width="226.66dp"
         android:layout_height="36dp"
-        android:layout_below="@id/contact_search_actionbar"
+        android:layout_below="@id/contact_addsearch_actionbar"
         android:layout_marginTop="32dp"
         android:layout_centerHorizontal="true"
         android:background="@color/white"
@@ -68,7 +68,7 @@
             android:src="@drawable/contact_search" />
         
         <EditText
-            android:id="@+id/contact_search_search_input"
+            android:id="@+id/contact_addsearch_search_input"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_marginLeft="8dp"
@@ -81,11 +81,11 @@
     </LinearLayout>
     
     <ListView
-            android:id="@+id/contact_search_list"
+            android:id="@+id/contact_addsearch_list"
             android:layout_width="226.66dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/contact_search_searchbar"
+            android:layout_below="@+id/contact_addsearch_searchbar"
             android:layout_marginTop="6.66dp"
             android:listSelector="@drawable/selector_bg_list"
             android:divider="@color/grey_twentyone"
@@ -93,11 +93,11 @@
         </ListView>
     
         <ListView
-        android:id="@+id/contact_search_overflowList"
+        android:id="@+id/contact_addsearch_overflowList"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/contact_search_actionbar"
+        android:layout_below="@id/contact_addsearch_actionbar"
         android:layout_marginRight="10.66dp"
         android:background="@color/black"
         android:listSelector="@drawable/selector_bg_list"

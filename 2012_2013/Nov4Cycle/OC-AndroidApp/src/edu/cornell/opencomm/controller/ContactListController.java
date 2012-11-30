@@ -16,10 +16,9 @@ import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ConferenceSchedulerView;
-import edu.cornell.opencomm.view.ContactAddView;
 import edu.cornell.opencomm.view.ContactCardView;
 import edu.cornell.opencomm.view.ContactListView;
-import edu.cornell.opencomm.view.ContactSearchView;
+import edu.cornell.opencomm.view.ContactAddSearchView;
 import edu.cornell.opencomm.view.MyAccountView;
 
 /**
@@ -102,14 +101,16 @@ public class ContactListController {
 	 * Search button clicked; launch ContactSearchView
 	 * */
 	public void handleSearchButtonClicked() {
-		Intent i = new Intent(this.contactListView, ContactSearchView.class);
+		Intent i = new Intent(this.contactListView, ContactAddSearchView.class);
+		i.putExtra(ContactAddSearchView.AddSearchKey, false);
 		this.contactListView.startActivity(i);
 
 	}
 
 	/** Add button clicked: launch ContactAddView */
 	public void handleAddButtonClicked() {
-		Intent i = new Intent(this.contactListView, ContactAddView.class);
+		Intent i = new Intent(this.contactListView, ContactAddSearchView.class);
+		i.putExtra(ContactAddSearchView.AddSearchKey, true);
 		this.contactListView.startActivity(i);
 
 	}
