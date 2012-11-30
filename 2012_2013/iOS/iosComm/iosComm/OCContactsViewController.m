@@ -458,8 +458,6 @@ shouldReloadTableForSearchString:(NSString *)searchString
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
     UIViewController *vc = [sb instantiateViewControllerWithIdentifier:@"singleCallNavigator"];
     vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    OCSingleCallViewController* scvc = (OCSingleCallViewController*) vc;
-    [scvc setJingle:jingleObj];
     [self presentViewController:vc animated:YES completion:NULL];
     callActive = YES;
     

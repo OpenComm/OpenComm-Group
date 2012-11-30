@@ -8,9 +8,6 @@
 
 #import "OCSingleCallViewController.h"
 #import "pjmedia.h"
-@interface OCSingleCallViewController ()
-
-@end
 
 BOOL callActive = YES;
 UILabel *callTextLabel;
@@ -26,11 +23,6 @@ UILabel *callTextLabel;
         // Custom initialization
     }
     return self;
-}
-
-- (void)setJingle:(OCJingleImpl *) j
-{
-    jingle = j;
 }
 
 - (void)viewDidLoad
@@ -57,7 +49,7 @@ UILabel *callTextLabel;
         pjmedia_antimain();
         callActive = NO;
         //[self dismissModalViewControllerAnimated:YES];
-        
+        [[delegateHandler getJingle] terminate];
     }
     else{
         UIAlertView *info = [
@@ -71,6 +63,8 @@ UILabel *callTextLabel;
         [info show];
         callTextLabel.text = @"The call is not active";
     }
+    
+    
 }
 
 - (IBAction)conferencesButtonPressed:(id)sender {

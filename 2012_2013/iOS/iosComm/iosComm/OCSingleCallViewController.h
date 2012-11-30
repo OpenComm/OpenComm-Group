@@ -8,13 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "OCJingleImpl.h"
+#import "OCViewController.h"
 
 extern UILabel *callTextLabel;
 extern BOOL callActive;
 
-@interface OCSingleCallViewController : UIViewController {
-    OCJingleImpl* jingle;
-}
+@interface OCSingleCallViewController : UIViewController {}
 
 - (IBAction)cancelButtonPressed:(id)sender;
 
@@ -23,8 +22,5 @@ extern BOOL callActive;
 
 @property (strong, nonatomic) IBOutlet UILabel *callTextLabel;
 //@property BOOL callActive;
-
-
-- (void) setJingle:(OCJingleImpl *) j;
 
 @end

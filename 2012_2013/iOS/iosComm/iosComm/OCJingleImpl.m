@@ -591,4 +591,15 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
     
 }
 
+- (void) terminate
+{
+    NSXMLElement *returnIQ = [self jingleSessionTerminateWithReason: [jingleConstants DECLINE_ELEMENT_NAME] inResponseTo: nil];
+    state = [jingleConstants STATE_ENDED];
+    toJID = nil;
+    toSID = nil;
+    toIPAddress = nil;
+    toPort = nil;
+    [xmppStream sendElement: returnIQ];
+}
+
 @end
