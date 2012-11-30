@@ -1,19 +1,22 @@
 package edu.cornell.opencomm.view;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.ContactAddSearchController;
 import edu.cornell.opencomm.controller.FontSetter;
+import edu.cornell.opencomm.model.ContactAddSearchAdapter;
 import edu.cornell.opencomm.model.OverflowAdapter;
-
 /**
  * View for contact add/search page.
  * When launching this activity, add to the intent the following boolean extra:<br>
@@ -60,6 +63,10 @@ public class ContactAddSearchView extends Activity {
 	private ListView overflowList;
 	private String[] options;
 	
+	/** Search suggestion variables: list */
+	private AutoCompleteTextView suggestion;
+	private ContactAddSearchAdapter casAdapter;
+	
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -72,8 +79,27 @@ public class ContactAddSearchView extends Activity {
 		}
 		this.controller = new ContactAddSearchController(this, this.isAdd);
 		this.initializeOverflow();
+		this.initializeSuggestionList();
 	}
 	
+	/** Initialize the content of suggestion list. When an item is clicked, user feedback is generated 
+	 * and an appropriate action is launched */
+	private void initializeSuggestionList() {
+		ArrayList<String> data = this.controller.getSuggestions();
+		this.casAdapter = new ContactAddSearchAdapter(this, R.layout.contact_addsearch_item_layout, data);
+		this.suggestion = (AutoCompleteTextView) this.findViewById(R.id.contact_addsearch_search_input);
+		this.suggestion.setDropDownAnchor(R.id.contact_addsearch_list);
+		this.suggestion.setDropDownBackgroundResource(R.color.grey_eleven);
+		this.suggestion.setAdapter(casAdapter);
+		// Click event for single list row
+		this.suggestion.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				controller.handleContactClick(casAdapter.getItem(position));
+			}
+		});
+	}
+
 	/** Initializes the content of overflow. When an item is clicked, user feedback is generated 
 	 * and an appropriate action is launched */
 	private void initializeOverflow() {

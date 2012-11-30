@@ -1,16 +1,18 @@
 package edu.cornell.opencomm.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.view.ConferenceSchedulerView;
-import edu.cornell.opencomm.view.ContactCardView;
 import edu.cornell.opencomm.view.ContactAddSearchView;
 import edu.cornell.opencomm.view.MyProfileView;
 
@@ -93,15 +95,21 @@ public class ContactAddSearchController {
 		}
 	}
 	
-	/** Contact clicked: launch corresponding ContactView using its username */
-	public void handleContactClick(User user) {
+	/** Contact clicked: launch corresponding ContactView using its nickname or email */
+	public void handleContactClick(String userStr) {
+		// TODO find corresponding User object that has userStr as email or name
+		User user = new User(userStr, userStr, 0);
 		if (isAdd) {
-			// TODO launch contact add page
+			Toast.makeText(this.contactAddSearchView, "Contact clicked", Toast.LENGTH_SHORT).show();
+			// TODO [backend] set user as a friend
+			// Toast.makeText(this.contactAddSearchView, "User added to contact", Toast.LENGTH_SHORT).show();
 		}
 		else {
-			Intent i = new Intent(this.contactAddSearchView, ContactCardView.class);
+			Toast.makeText(this.contactAddSearchView, "Contact clicked", Toast.LENGTH_SHORT).show();
+			/** TODO Uncomment once corresponding User object is found
+			 * Intent i = new Intent(this.contactAddSearchView, ContactCardView.class);
 			i.putExtra(ContactCardView.contactCardKey, user.getUsername());
-			this.contactAddSearchView.startActivity(i);
+			this.contactAddSearchView.startActivity(i); */
 		}
 
 	}
@@ -109,11 +117,16 @@ public class ContactAddSearchController {
 	
 	/** Obtain all of the possible contacts (email addresses and names) from the OpenComm users and 
 	 * phone contacts with email addresses */
-	private class GetContactSuggestionTask extends AsyncTask<Void, Void, ArrayList<User>> {
+	private class GetContactSuggestionTask extends AsyncTask<Void, Void, ArrayList<String>> {
 
 		@Override
-		protected ArrayList<User> doInBackground(Void... params) {
-			ArrayList<User> allContacts = new ArrayList<User>();			
+		protected ArrayList<String> doInBackground(Void... params) {
+			ArrayList<String> allContacts = new ArrayList<String>();
+			Iterator<User> iter = UserManager.getContactList().iterator();
+			while (iter.hasNext()) {
+				User u = iter.next();
+				allContacts.add(u.getNickname());
+			}
 			// TODO [backend] add all emails and names from OpenComm users to the arraylist
 			// TODO [backend] add all emails and names from the phonebook with emails
 			return allContacts;
@@ -122,7 +135,7 @@ public class ContactAddSearchController {
 	
 	/** Get all possible contacts (email addresses and names) from the OpenComm users and 
 	 * phone contacts with email addresses */
-	public ArrayList<User> getSuggestions() {
+	public ArrayList<String> getSuggestions() {
 		try {
 			return new GetContactSuggestionTask().execute().get();
 		} catch (InterruptedException e) {
@@ -130,7 +143,6 @@ public class ContactAddSearchController {
 		} catch (ExecutionException e) {
 			e.printStackTrace();
 		}
-		return new ArrayList<User>();
+		return new ArrayList<String>();
 	}
-
 }

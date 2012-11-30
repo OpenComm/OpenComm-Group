@@ -74,7 +74,7 @@
             android:theme="@style/Theme.grey_nineteen" >
         </activity>
         <activity
-            android:name="edu.cornell.opencomm.view.MyProfileView"
+            android:name=".view.MyProfileView"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.grey_eleven" >
         </activity>

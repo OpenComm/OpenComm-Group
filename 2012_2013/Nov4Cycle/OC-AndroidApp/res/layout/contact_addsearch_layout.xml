@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/contact_addsearch_layout"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:id="@+id/contact_addsearch_layout">
+    android:layout_height="fill_parent" >
 
     <RelativeLayout
         android:id="@+id/contact_addsearch_actionbar"
@@ -46,17 +46,17 @@
             android:onClick="overflow"
             android:src="@drawable/action_overflow" />
     </RelativeLayout>
-    
-    <LinearLayout 
+
+    <LinearLayout
         android:id="@+id/contact_addsearch_searchbar"
         android:layout_width="226.66dp"
         android:layout_height="36dp"
         android:layout_below="@id/contact_addsearch_actionbar"
-        android:layout_marginTop="32dp"
         android:layout_centerHorizontal="true"
-        android:background="@color/white"
         android:layout_gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_marginTop="32dp"
+        android:background="@color/white"
+        android:orientation="horizontal" >
 
         <ImageView
             android:layout_width="25.33dp"
@@ -66,33 +66,33 @@
             android:adjustViewBounds="true"
             android:contentDescription="@string/desc"
             android:src="@drawable/contact_search" />
-        
-        <EditText
+
+        <AutoCompleteTextView
             android:id="@+id/contact_addsearch_search_input"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_marginLeft="8dp"
+            android:background="@color/white"
             android:gravity="center_vertical"
             android:inputType="text"
-            android:background="@color/white"
             android:textColor="@color/black"
             android:textSize="26.66sp" />
-        
     </LinearLayout>
-    
+
     <ListView
-            android:id="@+id/contact_addsearch_list"
-            android:layout_width="226.66dp"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/contact_addsearch_searchbar"
-            android:layout_marginTop="6.66dp"
-            android:listSelector="@drawable/selector_bg_list"
-            android:divider="@color/grey_twentyone"
-            android:dividerHeight="0.66dp" >
-        </ListView>
-    
-        <ListView
+        android:id="@+id/contact_addsearch_list"
+        android:layout_width="226.66dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/contact_addsearch_searchbar"
+        android:background="@color/grey_eleven"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="6.66dp"
+        android:divider="@color/grey_twentyone"
+        android:dividerHeight="0.66dp"
+        android:listSelector="@drawable/selector_bg_list" >
+    </ListView>
+
+    <ListView
         android:id="@+id/contact_addsearch_overflowList"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
@@ -100,9 +100,10 @@
         android:layout_below="@id/contact_addsearch_actionbar"
         android:layout_marginRight="10.66dp"
         android:background="@color/black"
-        android:listSelector="@drawable/selector_bg_list"
         android:divider="@color/black"
         android:dividerHeight="0.66dp"
+        android:listSelector="@drawable/selector_bg_list"
         android:padding="0.66dp"
         android:visibility="invisible" />
+
 </RelativeLayout>
