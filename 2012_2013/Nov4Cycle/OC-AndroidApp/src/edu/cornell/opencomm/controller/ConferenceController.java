@@ -80,14 +80,11 @@ public class ConferenceController {
 		// the MUC
 		chatRoom.addParticipantListener(new PacketListener() {
 			public void processPacket(Packet packet) {
-				boolean userFound = false;
 				for (Entry<User, String> entry : invitedUsersToConference
 						.entrySet()) {
 					if (entry.getKey().getUsername().equals(packet.getFrom())) {
-						// if user has been invited to a chat, call the addUser
-						// method to update model information
-						// and remove the user from the invitedUsersToConference
-						// method.
+						//check the packet to see if it is from a user who has been invited,
+						//if so they must have joined the chat. Remove user from invited list
 						if (D)
 							Log.v(TAG, "User " + entry.getKey()
 									+ " has accepted an invitation");
@@ -113,16 +110,11 @@ public class ConferenceController {
 
 	public void addUser(User u, String sChat) {
 		ConferenceRoom chatRoom = findChat(sChat);
-		//_conference.getIDMap().get(chatRoom.getRoomID()).addUser(u); TODO 
+		chatRoom.addUser(u);
 	}
 
 	private ConferenceRoom findChat(String sChat) {
-		// find roomID of the chat (may be replaced with
-		// _conference.getActiveChat();
-		// if we can be confident that the active chat is the same as sChat
 		String roomID = sChat;
-
-		// roomId = _conference.getActiveChat();
 		HashMap<String, ConferenceRoom> chatSpaceIDMap = conferenceModel.getIDMap();
 		ConferenceRoom chatRoom = chatSpaceIDMap.get(roomID);
 		return chatRoom;
