@@ -154,18 +154,18 @@ OCXMPPDelegateHandler *delegateHandler;
     //myXMPPStream = [delegateHandler getXMPPStream];
     if ([defaults DEBUG_PARAM]) {
         NSLog(@"DEBUG PARAM SET");
-        myXMPPStream.myJID = [XMPPJID jidWithString:[defaults DEFAULT_JID]];
+        myXMPPStream.myJID = [XMPPJID jidWithString:[[delegateHandler getDefaults] DEFAULT_JID]];
         //myXMPPStream.hostName = [defaults DEFAULT_DOMAIN];
         /*Don't need to set port. The default is always 5222*/
         //myXMPPStream.hostPort = [defaults DEFAULT_PORT];
-        myPassword = [defaults DEFAULT_PASSWORD];
+        myPassword = [[delegateHandler getDefaults] DEFAULT_PASSWORD];
     }
 
     else {
         NSString *myJID =
             [[loginUsernameField.text 
              stringByAppendingString: @"/"]
-             stringByAppendingString:[defaults DEFAULT_RESOURCE]];
+             stringByAppendingString:[[delegateHandler getDefaults] DEFAULT_RESOURCE]];
         myPassword = loginPasswordField.text;
         NSLog(@"%@", myJID);
         myXMPPStream.myJID = [XMPPJID jidWithString:myJID];
@@ -184,9 +184,9 @@ OCXMPPDelegateHandler *delegateHandler;
     //if (![myXMPPStream isDisconnected]) {
         //NSLog(@"I'm already connected");
     //}
-    
-    XMPPPlainAuthentication *auth = [[XMPPPlainAuthentication alloc]initWithStream: myXMPPStream password: myPassword];
-    if (![myXMPPStream authenticate:auth error:&error]) {
+    NSLog(@"%@", [delegateHandler myXMPPStream]);
+    XMPPPlainAuthentication *auth = [[XMPPPlainAuthentication alloc]initWithStream: [delegateHandler myXMPPStream] password: myPassword];
+    if (![[delegateHandler myXMPPStream] authenticate:auth error:&error]) {
         NSLog(@"Oops, I probably forgot something: %@", error);
     }
     

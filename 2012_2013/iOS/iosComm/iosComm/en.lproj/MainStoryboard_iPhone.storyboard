@@ -323,7 +323,7 @@
             <objects>
                 <tableViewController id="h9e-Xv-2KA" customClass="OCConferenceViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="3ve-wl-jHR">
-                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -371,11 +371,11 @@
             <objects>
                 <viewController id="Z2b-we-pdq" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="edb-uN-ut8">
-                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8Xs-Xi-PFv">
-                                <rect key="frame" x="139" y="172" width="42" height="21"/>
+                                <rect key="frame" x="139" y="196" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -559,12 +559,12 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hGn-6g-MLc" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <swipeGestureRecognizer direction="left" id="qwh-2v-pzh">
                     <connections>
-                        <segue destination="KlV-Op-rec" kind="modal" modalTransitionStyle="flipHorizontal" id="cd3-Ub-70l"/>
+                        <segue destination="vw7-ii-LO7" kind="modal" modalTransitionStyle="flipHorizontal" id="cd3-Ub-70l"/>
                     </connections>
                 </swipeGestureRecognizer>
                 <swipeGestureRecognizer direction="right" id="Q2M-dQ-kzT">
                     <connections>
-                        <segue destination="9rj-Pb-kKJ" kind="modal" modalTransitionStyle="flipHorizontal" id="Gk7-H7-yPq"/>
+                        <segue destination="zjS-y3-M7V" kind="modal" modalTransitionStyle="flipHorizontal" id="Gk7-H7-yPq"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
@@ -747,7 +747,7 @@
                                         </state>
                                         <connections>
                                             <action selector="backButtonPressed:" destination="TFw-Ty-t0b" eventType="touchUpInside" id="J2k-oi-nQt"/>
-                                            <segue destination="2" kind="modal" id="DJo-C0-6TI"/>
+                                            <segue destination="2" kind="modal" identifier="backButton" id="DJo-C0-6TI"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -769,7 +769,7 @@
                         <outlet property="secondnameField" destination="jpc-y0-9Cg" id="s0y-24-xQZ"/>
                         <outlet property="setimageButton" destination="r6C-8K-d2V" id="Ah9-He-A4b"/>
                         <outlet property="signupView" destination="qU1-mR-HTS" id="Ega-A1-hY2"/>
-                        <segue destination="w1t-xM-IlL" kind="modal" identifier="submitButton" id="v6z-sd-eQp"/>
+                        <segue destination="2" kind="modal" identifier="submitButton" id="z1l-NF-JI7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r8f-nI-71d" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -965,9 +965,6 @@
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Conference Left" id="zBO-Sy-79k">
-                        <barButtonItem key="leftBarButtonItem" image="back.png" style="plain" id="DgD-Kw-GCm">
-                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="tgz-6U-C1Q">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="9C7-q0-ruN">
                                 <rect key="frame" x="297" y="12" width="18" height="19"/>
@@ -995,7 +992,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="701" y="2019"/>
+            <point key="canvasLocation" x="1227" y="2019"/>
         </scene>
         <!--View Controller - Conference Right-->
         <scene sceneID="ZXq-DQ-3rn">
@@ -1084,9 +1081,6 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="aAz-0d-w6O"/>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Conference Right" id="aii-La-lqI">
-                        <barButtonItem key="leftBarButtonItem" image="back.png" style="plain" id="0M6-2G-jhg">
-                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="ljc-z4-DYb">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="gvv-C0-hU0">
                                 <rect key="frame" x="297" y="12" width="18" height="19"/>
@@ -1114,7 +1108,57 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1271" y="2025"/>
+            <point key="canvasLocation" x="2323" y="2025"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="LlF-7G-lcd">
+            <objects>
+                <navigationController toolbarHidden="NO" id="vw7-ii-LO7" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="blackOpaque"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="blackOpaque" id="wo9-sy-yOo">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackOpaque" id="haC-Qc-P9S">
+                        <rect key="frame" x="0.0" y="436" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="KlV-Op-rec" kind="relationship" relationship="rootViewController" id="lT4-X3-nLU"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ukc-md-ciz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="701" y="2019"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="00j-pZ-trb">
+            <objects>
+                <navigationController toolbarHidden="NO" id="zjS-y3-M7V" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="blackOpaque"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="blackOpaque" id="DPZ-pY-DTF">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackOpaque" id="BNg-lh-lIX">
+                        <rect key="frame" x="0.0" y="436" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="9rj-Pb-kKJ" kind="relationship" relationship="rootViewController" id="EN8-7b-L2y"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DVs-d2-U3n" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1797" y="2025"/>
         </scene>
     </scenes>
     <resources>
@@ -1148,8 +1192,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Jn4-CV-X1x"/>
-        <segue reference="DJo-C0-6TI"/>
-        <segue reference="8Xp-GV-Q9e"/>
+        <segue reference="ngj-Bl-z7p"/>
+        <segue reference="u5k-dy-ufH"/>
+        <segue reference="z1l-NF-JI7"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -283,22 +283,23 @@
     UIAlertView *info = [
                          [UIAlertView alloc]
                          initWithTitle:@"Successfully Registered!"
-                         message:@"Please log in with the credentials you provided!"
+                         message:@"You are now registered!!"
                          delegate:nil
                          cancelButtonTitle:@"Dismiss"
                          otherButtonTitles:nil
                          ];
     [info show];
     [viewController performSegueWithIdentifier: @"submitButton" sender: nil];
+    //[self goOnline:sender];
     NSLog(@"I did register!");
 }
 
 - (void)xmppStream:(XMPPStream *)sender didNotRegister:(NSXMLElement *)error {
-    NSString *message = [@"Here is the error:" stringByAppendingFormat: @"%@",error];
+    //NSString *message = [@"Here is the error:" stringByAppendingFormat: @"%@",error];
     UIAlertView *info = [
                          [UIAlertView alloc]
                          initWithTitle:@"Could not register!"
-                         message: message
+                         message: @"User already exists"
                          delegate:nil
                          cancelButtonTitle:@"Dismiss"
                          otherButtonTitles:nil
