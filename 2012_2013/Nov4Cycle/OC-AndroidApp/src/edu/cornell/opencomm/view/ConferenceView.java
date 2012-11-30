@@ -84,9 +84,9 @@ public final class ConferenceView extends FragmentActivity implements
 
 	private List<Fragment> createFragments(){
 		List<Fragment> conferenceFragments = new Vector<Fragment>();
-		conferenceFragments.add(new ConferenceRoomFragment(this, LEFT_ROOM_LAYOUT, conferenceModel.getRoomByTag(LEFT_ROOM_INDEX)));
+		conferenceFragments.add(new ConferenceRoomFragment(this, SIDE_ROOM_LAYOUT, conferenceModel.getRoomByTag(LEFT_ROOM_INDEX)));
 		conferenceFragments.add(new ConferenceRoomFragment(this, MAIN_ROOM_LAYOUT, conferenceModel.getRoomByTag(MAIN_ROOM_INDEX)));
-		conferenceFragments.add(new ConferenceRoomFragment(this, RIGHT_ROOM_LAYOUT, conferenceModel.getRoomByTag(RIGHT_ROOM_INDEX)));
+		conferenceFragments.add(new ConferenceRoomFragment(this, SIDE_ROOM_LAYOUT, conferenceModel.getRoomByTag(RIGHT_ROOM_INDEX)));
 		return conferenceFragments;
 	}
 

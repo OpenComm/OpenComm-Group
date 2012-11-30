@@ -14,13 +14,9 @@ public interface ConferenceConstants {
 	 */
 	public static int MAIN_ROOM_LAYOUT = R.layout.conference_main_room;
 	/**
-	 * The constant to hold the layout id for the left confernece room
-	 */
-	public static int LEFT_ROOM_LAYOUT = R.layout.conference_leftside_room;
-	/**
 	 * 
 	 */
-	public static int RIGHT_ROOM_LAYOUT = R.layout.conference_rightside_room;
+	public static int SIDE_ROOM_LAYOUT = R.layout.conference_leftside_room;
 	/**
 	 * The number of conference rooms
 	 */
