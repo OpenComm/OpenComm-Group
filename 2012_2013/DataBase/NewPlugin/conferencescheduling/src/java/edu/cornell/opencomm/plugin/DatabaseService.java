@@ -45,12 +45,16 @@ public class DatabaseService {
 				Log.error("result in db: "+ result);
 				return result;
 			}
+			
+			
 			//else: pull conferences for the specified username
-			rs=stmt.executeQuery("select groupname from "+RF_TABLE+" where username= '"+ username+"'");
+			rs=stmt.executeQuery("select groupname,administrator from "+RF_TABLE+" where username= '"+ username+"'");
 			
 			while (rs.next()){
 						String gid=rs.getString("groupname");
-						result += pullConference(gid);
+						int accepted=rs.getInt("administrator");
+						String prefix=((accepted==1)? "&^":"&");
+						result += (prefix+pullConference(gid));
 				
 			}
 			Log.error("result in db: "+ result);
@@ -61,7 +65,7 @@ public class DatabaseService {
 		return null;
 		
 	}
-/*Pull information of the conference identified by the groupID; Conferences are separated by '$'*/
+/*Pull information of the conference identified by the groupID; Conferences are separated by '&'*/
 	public String pullConference(String groupID) {
 		try {
 			Connection dbConn = DbConnectionManager.getTransactionConnection();
@@ -85,7 +89,7 @@ public class DatabaseService {
 			starttime = rs.getString("starttime");
 			endtime = rs.getString("endtime");
 			recurrence = rs.getString("recurrence");
-			result = "$"+roomID + "//" + roomname + "//" + invitername + "//" +starttime + "//" 
+			result = roomID + "//" + roomname + "//" + invitername + "//" +starttime + "//" 
 			+ endtime+"//"+recurrence+"//"+description;
 			
 			
