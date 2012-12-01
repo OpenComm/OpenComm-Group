@@ -284,6 +284,11 @@
                 android:background="@drawable/selector_bg_edittext"
                 android:inputType="text"
                 android:paddingLeft="5dp" />
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="6dp"
+                android:layout_below="@id/signup_confirmPwdInput"
+                />
         </RelativeLayout>
     </ScrollView>
 

@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,8 +31,6 @@ public class ConferenceCardView extends Activity{
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.conference_card_layout);
 	    currentTime = Calendar.getInstance();
-	    /*Bundle b = getIntent().getExtras();
-	    conference = b.getParcelable("com.cornell.opencomm.model.Conference"); */
 	    conference = (Conference)getIntent().getSerializableExtra("conference");
 	    retrieveAndDisplayConferenceInformation();
 	    adjustLayoutLookAndFunctionality();
@@ -50,23 +49,20 @@ public class ConferenceCardView extends Activity{
 		TextView recurring_time = (TextView) findViewById(R.id.recurring);
 		recurring_time.setText(conference.getReoccurence());
 		TextView inviter_name = (TextView) findViewById(R.id.invited_by_contact);
-		inviter_name.setText(conference.getInviterName());
+		inviter_name.setText(conference.getInviter().getUsername());
 		retrieveAndDisplayAttendeeInformation();
 		
 	}
 	
 	
 	public void retrieveAndDisplayAttendeeInformation(){
-		//String[] attendee_names = conference.getAttendeeNames();
-		//int[] attendee_pictures = conference.getAttendeePictures();
-		
+		Log.v("UserCheck", ""+conference.getAttendees().size());
 		ArrayList<User> users = conference.getAttendees();
 		LinearLayout conference_information_layout = (LinearLayout) findViewById(R.id.conference_information_linear_layout);
 		LayoutInflater layoutInflater = (LayoutInflater) 
 		        this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);  
 		for (int i=0 ; i < users.size() ; i++){
-			//createUserEntry(conference_information_layout, layoutInflater, attendee_names[i], attendee_pictures[i]);
-			createUserEntry(conference_information_layout, layoutInflater, users.get(i).getNickname(), users.get(i).getImage());
+			createUserEntry(conference_information_layout, layoutInflater, users.get(i).getUsername(), users.get(i).getImage());
 		}
 	}
 	

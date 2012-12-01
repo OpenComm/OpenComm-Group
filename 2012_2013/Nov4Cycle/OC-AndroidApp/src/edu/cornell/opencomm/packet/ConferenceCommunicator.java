@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ExecutionException;
 
 import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.XMPPConnection;
@@ -52,7 +53,15 @@ public class ConferenceCommunicator implements PacketListener {
 		//Conference conference=new Conference("Testers Meeting", "We are awesome!", new GregorianCalendar(2012,11,24, 9,10,0),new GregorianCalendar(2012,11,24, 11,10,0),"Annual",new User("oc4testorg","Bull", 0), null);
 		//this.pushConference(conference, listner);
 		//this.NotificationChecker();
-//		new PullTask().execute();
+		try {
+			new PullTask().execute().get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	/*push a new conference to the Database*/
 	public void pushConference(Conference conference, OCResponseListner listner) {

@@ -17,11 +17,6 @@ public class Conference implements Serializable {
     
     ConferenceRoom[] conferenceRooms;
     
-    // TEMPORARY VARIABLES - TODO need to discuss with backend
-    private String inviter_name;
-    private String[] attendee_names;
-    private int[] attendee_pictures;
-    
     // CONSTANTS
     public final static int UPCOMING = 0;
     public final static int HAPPENING_NOW = 1;
@@ -45,42 +40,6 @@ public class Conference implements Serializable {
     	this.reoccurrence = reoccurrence;
     	this.inviter = inviter;
     	this.attendees = attendees;
-    }
-    
-    /** Construct a Conference object from a Parcel */
-    public Conference(Parcel parcel){
-    	hasAcceptedInvite= parcel.readByte() == 1;
-    	conferenceTitle = parcel.readString();
-		description = parcel.readString();
-		startDateAndTime = Calendar.getInstance();
-		startDateAndTime.set(Calendar.HOUR_OF_DAY, parcel.readInt());
-		startDateAndTime.set(Calendar.MINUTE, parcel.readInt());
-		startDateAndTime.set(Calendar.MONTH, parcel.readInt());
-		startDateAndTime.set(Calendar.DAY_OF_MONTH, parcel.readInt());
-		startDateAndTime.set(Calendar.YEAR, parcel.readInt());
-		endDateAndTime = Calendar.getInstance();
-		endDateAndTime.set(Calendar.HOUR_OF_DAY, parcel.readInt());
-		endDateAndTime.set(Calendar.MINUTE, parcel.readInt());
-		endDateAndTime.set(Calendar.MONTH, parcel.readInt());
-		endDateAndTime.set(Calendar.DAY_OF_MONTH, parcel.readInt());
-		endDateAndTime.set(Calendar.YEAR, parcel.readInt());
-		reoccurrence = parcel.readString();
-		inviter_name = parcel.readString();
-		attendee_names = parcel.createStringArray();
-		attendee_pictures = parcel.createIntArray();
-    }
-    
-    // TEMPORARY GETTERS
-    public String getInviterName(){
-    	return inviter_name;
-    }
-    
-    public String[] getAttendeeNames(){
-    	return attendee_names;
-    }
-    
-    public int[] getAttendeePictures(){
-    	return attendee_pictures;
     }
     
     // GETTERS
@@ -271,16 +230,4 @@ public class Conference implements Serializable {
 		return new ConferencePacket(conferenceTitle, startDateAndTime,
 				endDateAndTime, reoccurrence, inviter, description, attendees);
 	}
-	
-	 @SuppressWarnings("rawtypes")
-	public static final Parcelable.Creator CREATOR =
-		    	new Parcelable.Creator() {
-		            public Conference createFromParcel(Parcel in) {
-		                return new Conference(in);
-		            }
-		 
-		            public Conference[] newArray(int size) {
-		                return new Conference[size];
-		            }
-		        };
 }
