@@ -150,6 +150,8 @@ OCXMPPDelegateHandler *delegateHandler;
 // What happens when the login button is pressed
 //-------------------------------------------------------------------
 - (IBAction)loginButtonPressed:(id)sender {
+    [delegateHandler setViewController: self];
+    
     NSLog(@"Username: %@, Password: %@", loginUsernameField.text, loginPasswordField.text);
     //myXMPPStream = [delegateHandler getXMPPStream];
     if ([defaults DEBUG_PARAM]) {
