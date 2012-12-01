@@ -11,7 +11,9 @@ import org.jivesoftware.smackx.Form;
 import org.jivesoftware.smackx.FormField;
 import org.jivesoftware.smackx.muc.InvitationListener;
 import org.jivesoftware.smackx.muc.MultiUserChat;
+import org.jivesoftware.smackx.muc.Occupant;
 import org.jivesoftware.smackx.muc.ParticipantStatusListener;
+import org.jivesoftware.smackx.packet.VCard;
 
 import android.graphics.Point;
 import android.util.Log;
@@ -21,10 +23,6 @@ import edu.cornell.opencomm.network.NetworkService;
 public class ConferenceRoom extends MultiUserChat {
 
 	String TAG = "ConferenceRoom";
-
-	/**
-	 * 
-	 */
 
 	private ArrayList<ConferenceUser> confUserList = new ArrayList<ConferenceUser>();
 
@@ -50,6 +48,20 @@ public class ConferenceRoom extends MultiUserChat {
 		retriveOccupants();
 	}
 
+	public void addUserByJid(String u) {
+		VCard user_data = new VCard();
+		try {
+			user_data.load(NetworkService.getInstance().getConnection(), u);
+		} catch (XMPPException e) {
+			Log.v(TAG, "couldn't get new user's info from VCard");
+			Log.v(TAG, "User is :" + u);
+		}
+		User added = new User(user_data.getFirstName(),
+				user_data.getLastName(), user_data.getEmailHome(), null, null,
+				u, user_data.getNickName());
+		addUser(added);
+	}
+
 	public ConferenceRoom(Connection c, String s) {
 		super(c, formatRoomName(s));
 		roomId = s;
@@ -67,6 +79,7 @@ public class ConferenceRoom extends MultiUserChat {
 
 			public void joined(String participant) {
 				// TODO Auto-generated method stub	
+				addUserByJid(participant);
 			}
 
 			public void kicked(String participant, String actor, String reason) {

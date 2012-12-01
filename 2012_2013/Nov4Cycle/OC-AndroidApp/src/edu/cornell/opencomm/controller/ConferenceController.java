@@ -57,22 +57,6 @@ public class ConferenceController {
 		chatRoom.invite(u.getUsername(), null);
 	}
 
-	public void addUser(String u, String sChat) {
-		ConferenceRoom chatRoom = findChat(sChat);
-		Occupant o = chatRoom.getOccupant(u);
-		VCard user_data = new VCard();
-		try {
-			user_data.load(NetworkService.getInstance().getConnection(), u);
-		} catch (XMPPException e) {
-			Log.v(TAG, "couldn't get new user's info from VCard");
-			Log.v(TAG, "User is :" + u);
-		}
-		User added = new User(user_data.getFirstName(),
-				user_data.getLastName(), user_data.getEmailHome(), null, null,
-				u, user_data.getNickName());
-		chatRoom.addUser(added);
-	}
-
 	private ConferenceRoom findChat(String sChat) {
 		String roomID = sChat;
 		HashMap<String, ConferenceRoom> chatSpaceIDMap = conferenceModel
