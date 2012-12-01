@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "OCViewController.h"
 
-@interface OCMUCExampleViewController : UIViewController
+@interface OCMUCExampleViewController : UIViewController {
+    XMPPRoom *xmppRoom;
+}
 
 @property (strong, nonatomic) IBOutlet UILabel *participantsLabel;
 @property (strong, nonatomic) IBOutlet UILabel *fifthMessageLabel;

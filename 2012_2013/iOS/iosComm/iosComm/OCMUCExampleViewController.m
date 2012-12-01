@@ -19,11 +19,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        // Core storage
-        //XMPPRoomCoreDataStorage *roomDataStorage = [[XMPPRoomCoreDataStorage alloc] init];
-        //roomDataStorage
         
-        [delegateHandler myXMPPStream];
     }
     return self;
 }
@@ -32,7 +28,21 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    // Core storage
+    XMPPRoomCoreDataStorage *xmppRoomStorage = [[XMPPRoomCoreDataStorage alloc] init];
+    XMPPJID *roomJID = [XMPPJID jidWithString:@"iOSTestRoom@conference.cuopencomm/ios_team"];
+    xmppRoom = [[XMPPRoom alloc] initWithRoomStorage:xmppRoomStorage jid:roomJID];
     
+    [xmppRoom addDelegate:self delegateQueue:dispatch_get_main_queue()];
+    // xmppRoomStorage automatically inherits the delegate(s) of it's parent xmppRoom
+    
+    if([xmppRoom activate: [delegateHandler myXMPPStream]]) {
+        NSLog(@"room activated");
+    }
+    else {
+        NSLog(@"room unactivated");
+    }
+    [xmppRoom joinRoomUsingNickname:@"xmppFrameworkMucTest" history:nil];
     
     
 }
@@ -54,8 +64,15 @@
     [super viewDidUnload];
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    // when you touch away from these, then remove the keyboard
+    [_textMessage resignFirstResponder];
+}
+
 - (IBAction)sendMessage:(id)sender {
-    
+    [xmppRoom sendMessage: _textMessage.text];
+    _textMessage.text = @"";
 }
 
 - (void)xmppRoomDidCreate:(XMPPRoom *)sender
@@ -85,7 +102,7 @@
 
 - (void)xmppRoom:(XMPPRoom *)sender didReceiveMessage:(XMPPMessage *)message fromOccupant:(XMPPJID *)occupantJID
 {
-	NSLog(@"did receive msg from: %@", [occupantJID full]);
+	NSLog(@"did receive msg: %@ from: %@", message, [occupantJID full]);
 }
 
 @end
