@@ -110,10 +110,15 @@ public class ConferenceRoom extends MultiUserChat{
 		}
 	}
 	
-	public void addUser(User u){
-		ConferenceUser cu = new ConferenceUser(u);
+	public void addUser(User user){
+		ConferenceUser cu = new ConferenceUser(user);
 		this.confUserList.add(cu);
 	}
+	
+	public void removeUser(User user){
+		this.confUserList.remove(user);
+	}
+	
 	public User getModerator(){
 		return moderator;
 	}

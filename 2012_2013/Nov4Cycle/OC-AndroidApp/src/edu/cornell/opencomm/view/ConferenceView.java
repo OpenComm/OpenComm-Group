@@ -1,5 +1,6 @@
 package edu.cornell.opencomm.view;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -17,6 +18,9 @@ import edu.cornell.opencomm.controller.ConferenceController;
 import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.model.ConferenceConstants;
 import edu.cornell.opencomm.model.ConferenceDataModel;
+import edu.cornell.opencomm.model.ConferenceRoom;
+import edu.cornell.opencomm.model.ConferenceUser;
+import edu.cornell.opencomm.model.User;
 
 /**
  * 
@@ -47,6 +51,11 @@ public final class ConferenceView extends FragmentActivity implements
 	 * The conference pager adaptor
 	 */
 	private ConferencePageAdapter mPagerAdapter;
+	
+	/**
+	 * The conference (holds data about the conference) e.g. for the conferenceCardPage
+	 */
+	private Conference conference;
 
 	/*
 	 * (non-Javadoc)
@@ -61,11 +70,11 @@ public final class ConferenceView extends FragmentActivity implements
 		setContentView(R.layout.conference_layout);
 		// Bind the DataModel(s)
 		// Get the main room id from the intent
-		Conference confernce = getConferenceFromIntent();
+		conference = getConferenceFromIntent();
 	
 		conferenceModel = new ConferenceDataModel(
-				confernce.getConferenceTitle(), confernce.getStartDateAndTime()
-						.toString(), confernce.getInviter().getUsername());
+				conference.getConferenceTitle(), conference.getStartDateAndTime()
+						.toString(), conference.getInviter().getUsername());
 		// Instantiate the controller
 		conferenceController = new ConferenceController(this, conferenceModel);
 		// Initialize the pager
@@ -89,7 +98,93 @@ public final class ConferenceView extends FragmentActivity implements
 		conferenceFragments.add(new ConferenceRoomFragment(this, SIDE_ROOM_LAYOUT, conferenceModel.getRoomByTag(RIGHT_ROOM_INDEX)));
 		return conferenceFragments;
 	}
+	
+	/**
+	 * Update a specific room given the room index
+	 * @param roomIndex => Examples... MAIN_ROOM_INDEX, LEFT_ROOM_INDEX, RIGHT_ROOM_INDEX
+	 */
+	public void updateRoom(int roomIndex){
+		// TODO need lock/mutex?
+		ArrayList<ConferenceUser> users = conferenceModel.getRoomByTag(roomIndex).getCUserList();
+		ConferenceRoomFragment roomView = (ConferenceRoomFragment) mPagerAdapter.getItem(roomIndex);
+		ArrayList<UserView> userViews = roomView.getUserView(); 
+		if (users.size()>userViews.size()){
+			ArrayList<ConferenceUser> usersToAdd = getUsersToAdd(users, userViews);
+			addUserViewsToConference(roomView, usersToAdd);
+		}
+		else if (users.size()>userViews.size()){
+			ArrayList<UserView> userViewsToDelete = getUserViewsToDelete(users, userViews);
+			removeUserViewsFromConference(roomView, userViewsToDelete);
+		}
+		roomView.createTheCirleOfTrust();
+	}
 
+	/**
+	 * Return a list of ConferenceUsers who have not had a userView created for them in the conference screen
+	 * @param users
+	 * @param userViews
+	 * @return
+	 */
+	public ArrayList<ConferenceUser> getUsersToAdd(ArrayList<ConferenceUser> users, ArrayList<UserView> userViews){
+		ArrayList<ConferenceUser> newUsers = users;
+		for (UserView userView : userViews){
+			newUsers.remove(userView.getCUser());
+		}
+		return newUsers;
+	}
+	
+	
+	/**
+	 * Return a list of UserViews who do not have their corresponding ConferenceUsers in the conference
+	 * @param users
+	 * @param userViews
+	 * @return
+	 */
+	public ArrayList<UserView> getUserViewsToDelete(ArrayList<ConferenceUser> users, ArrayList<UserView> userViews){
+		ArrayList<UserView> userViewsToDelete = userViews;
+		for(UserView userView : userViews){
+			if(users.contains(userView.getCUser())){
+				userViewsToDelete.remove(userView);
+			}
+		}
+		return userViewsToDelete;
+	}
+	
+	/**
+	 * Create a UserView for each given ConferenceUser and add to the ConferenceRoomFragment
+	 * @param users
+	 * @param roomView
+	 */
+	public void addUserViewsToConference(ConferenceRoomFragment roomView, ArrayList<ConferenceUser> users){
+		for (ConferenceUser user : users){
+			UserView userView = new UserView(this, user);
+			roomView.addUserView(userView);
+		}
+	}
+	
+	/**
+	 * Remove the corresponding UserView for each given ConferenceUser and add to the ConferenceRoomFragment
+	 * @param users
+	 * @param roomView
+	 */
+	public void removeUserViewsFromConference(ConferenceRoomFragment roomView, ArrayList<UserView> userViews){
+		for (UserView userView : userViews){
+			roomView.removeUserView(userView);
+		}
+	}
+	
+	/**
+	 * Exit the conference and return to the conference card page for this conference
+	 */
+	public void exitConference(){
+		Intent i = new Intent(this, ConferenceCardView.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("conference", conference);
+         i.putExtras(bundle);
+		startActivity(i);
+	}
+ 
+	
 	/**
 	 * When user clicks an empty space on the screen toggle between showing both
 	 * the action and bottom bar

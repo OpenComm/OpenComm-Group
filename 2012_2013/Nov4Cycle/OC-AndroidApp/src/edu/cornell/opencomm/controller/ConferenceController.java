@@ -108,11 +108,21 @@ public class ConferenceController {
 		// requesting an invitation if the current user is not a moderator
 	}
 
-	public void addUser(User u, String sChat) {
+	/**
+	 * Add
+	 * @param user
+	 * @param sChat
+	 */
+	public void addUser(User user, String sChat) {
 		ConferenceRoom chatRoom = findChat(sChat);
-		chatRoom.addUser(u);
+		chatRoom.addUser(user);
 	}
 
+	/**
+	 * Find a ChatRoom objects
+	 * @param sChat
+	 * @return
+	 */
 	private ConferenceRoom findChat(String sChat) {
 		String roomID = sChat;
 		HashMap<String, ConferenceRoom> chatSpaceIDMap = conferenceModel.getIDMap();
@@ -296,6 +306,4 @@ public class ConferenceController {
 		Toast.makeText(this.context, "Add Contact clicked", Toast.LENGTH_SHORT).show();		
 	}
 	
-	
-
 }
