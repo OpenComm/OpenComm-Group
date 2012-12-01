@@ -125,6 +125,7 @@ public class ResetPasswordController {
 		// go back to login page
 		Intent click = new Intent(this.resetPasswordView, LoginView.class);
 		this.resetPasswordView.startActivity(click);
+		this.resetPasswordView.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 	}
 
 	private class FindEmailTask extends AsyncTask<String, Void, ReturnState> {
