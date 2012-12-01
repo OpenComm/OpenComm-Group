@@ -6,6 +6,8 @@ import java.util.Map.Entry;
 import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Packet;
+import org.jivesoftware.smackx.muc.Occupant;
+import org.jivesoftware.smackx.packet.VCard;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +18,7 @@ import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.ConferenceRoom;
 import edu.cornell.opencomm.model.ConferenceDataModel;
 import edu.cornell.opencomm.model.User;
+import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ConferenceCardView;
 import edu.cornell.opencomm.view.ConferenceView;
 
@@ -27,7 +30,7 @@ public class ConferenceController {
 	private Context context;
 
 	private ConferenceDataModel conferenceModel; // the conference that is being
-												// controlled
+													// controlled
 
 	private static final String TAG = "ConferenceController";
 	private static final boolean D = true;
@@ -36,11 +39,11 @@ public class ConferenceController {
 	// information
 
 	// TODO: add a listener for invitations and invitation responses
-	
-	public ConferenceController(ConferenceView view,ConferenceDataModel model){
-		//TODO: do we really need this 
-		this.context = view; 
-		this.view = view; 
+
+	public ConferenceController(ConferenceView view, ConferenceDataModel model) {
+		// TODO: do we really need this
+		this.context = view;
+		this.view = view;
 		this.conferenceModel = model;
 	}
 
@@ -54,14 +57,26 @@ public class ConferenceController {
 		chatRoom.invite(u.getUsername(), null);
 	}
 
-	public void addUser(User u, String sChat) {
+	public void addUser(String u, String sChat) {
 		ConferenceRoom chatRoom = findChat(sChat);
-		chatRoom.addUser(u);
+		Occupant o = chatRoom.getOccupant(u);
+		VCard user_data = new VCard();
+		try {
+			user_data.load(NetworkService.getInstance().getConnection(), u);
+		} catch (XMPPException e) {
+			Log.v(TAG, "couldn't get new user's info from VCard");
+			Log.v(TAG, "User is :" + u);
+		}
+		User added = new User(user_data.getFirstName(),
+				user_data.getLastName(), user_data.getEmailHome(), null, null,
+				u, user_data.getNickName());
+		chatRoom.addUser(added);
 	}
 
 	private ConferenceRoom findChat(String sChat) {
 		String roomID = sChat;
-		HashMap<String, ConferenceRoom> chatSpaceIDMap = conferenceModel.getIDMap();
+		HashMap<String, ConferenceRoom> chatSpaceIDMap = conferenceModel
+				.getIDMap();
 		ConferenceRoom chatRoom = chatSpaceIDMap.get(roomID);
 		return chatRoom;
 	}
@@ -123,8 +138,6 @@ public class ConferenceController {
 		}
 	}
 
-
-
 	// TODO: the following methods will not be implemented for the Nov4 cycle
 
 	public void moveUser(User u) {
@@ -151,11 +164,13 @@ public class ConferenceController {
 	}
 
 	public void handleOverflow() {
-		Toast.makeText(this.context, "Overflow Clicked", Toast.LENGTH_SHORT).show(); 
+		Toast.makeText(this.context, "Overflow Clicked", Toast.LENGTH_SHORT)
+				.show();
 	}
-	
+
 	public void addPersonClicked() {
-		Toast.makeText(this.context, "Add Contact Clicked", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this.context, "Add Contact Clicked", Toast.LENGTH_SHORT)
+				.show();
 		// TODO- Should go to add contact to conference page
 	}
 
@@ -164,7 +179,8 @@ public class ConferenceController {
 	}
 
 	public void leaveConference() {
-		Toast.makeText(this.context, "Leave Conference Clicked", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this.context, "Leave Conference Clicked",
+				Toast.LENGTH_SHORT).show();
 	}
 
 	public void removeUser() {
@@ -172,22 +188,23 @@ public class ConferenceController {
 	}
 
 	public void setNewModerator() {
-		Toast.makeText(this.context, "Set New Moderator", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this.context, "Set New Moderator", Toast.LENGTH_SHORT)
+				.show();
 
 	}
-	
+
 	public void showProfile() {
 		Toast.makeText(this.context, "Show Profile", Toast.LENGTH_SHORT).show();
 	}
 
 	public void handleEndClicked() {
-		Toast.makeText(this.context, "End conference", Toast.LENGTH_SHORT).show();		
+		Toast.makeText(this.context, "End conference", Toast.LENGTH_SHORT)
+				.show();
 	}
 
 	public void handleOnContextAddClicked() {
-		Toast.makeText(this.context, "Add Contact clicked", Toast.LENGTH_SHORT).show();		
+		Toast.makeText(this.context, "Add Contact clicked", Toast.LENGTH_SHORT)
+				.show();
 	}
-	
-	
 
 }
