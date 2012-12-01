@@ -54,7 +54,6 @@ public class DashboardView extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dashboard_layout);
 		FontSetter.applySanSerifFont(this, findViewById(R.id.dashboard_layout));
-		this.options = this.getResources().getStringArray(R.array.overflow_dashboard);
 		this.controller = new DashboardController(this, DashboardView.this);
 		this.initializeOverflow();
 	}
@@ -62,7 +61,7 @@ public class DashboardView extends Activity {
 	/** Initializes the content of overflow. When an item is clicked, user feedback is generated 
 	 * and an appropriate action is launched */
 	private void initializeOverflow() {
-		
+		this.options = this.getResources().getStringArray(R.array.overflow_dashboard);
 		OverflowAdapter oAdapter = new OverflowAdapter(this,
 				R.layout.overflow_item_layout, this.options);
 		overflowList = (ListView) this
@@ -91,7 +90,7 @@ public class DashboardView extends Activity {
 	/** Called when overflow icon in the action bar is clicked: if overflows are not 
 	 * already visible, display them. Otherwise, hide them. */
 	public void overflow(View v) {
-		this.controller.handleOverflowClicked();
+		this.controller.handleOverflowButtonClicked();
 	}
 
 	/** Called when Conf Info icon is clicked: opens the current conference in session */
@@ -116,10 +115,5 @@ public class DashboardView extends Activity {
 
 	public void onBackPressed() {
 		// back button disabled
-	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
 	}
 }

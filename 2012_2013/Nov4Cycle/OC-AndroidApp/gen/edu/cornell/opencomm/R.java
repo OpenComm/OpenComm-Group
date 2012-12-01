@@ -238,7 +238,7 @@ public final class R {
         public static final int dashboardOverflowIcon=0x7f0b00a4;
         public static final int dashboard_actionbar=0x7f0b00a2;
         public static final int dashboard_layout=0x7f0b00a1;
-        public static final int dashboard_overflowList=0x7f0b00a6;
+        public static final int dashboard_overflowList=0x7f0b00aa;
         public static final int date_and_time_title=0x7f0b000c;
         public static final int decline_button=0x7f0b001b;
         public static final int decline_image=0x7f0b001c;
@@ -251,10 +251,10 @@ public final class R {
         public static final int enter_conference_bar=0x7f0b0015;
         public static final int enter_conference_text=0x7f0b0016;
         public static final int entireScreen=0x7f0b0067;
-        public static final int icon_confinfo=0x7f0b00a7;
-        public static final int icon_confs=0x7f0b00a8;
-        public static final int icon_contacts=0x7f0b00a9;
-        public static final int icon_profile=0x7f0b00aa;
+        public static final int icon_confinfo=0x7f0b00a6;
+        public static final int icon_confs=0x7f0b00a7;
+        public static final int icon_contacts=0x7f0b00a8;
+        public static final int icon_profile=0x7f0b00a9;
         public static final int imageAcceptConfirm=0x7f0b0070;
         public static final int imageButton1=0x7f0b00f7;
         public static final int imageCancel=0x7f0b00dd;

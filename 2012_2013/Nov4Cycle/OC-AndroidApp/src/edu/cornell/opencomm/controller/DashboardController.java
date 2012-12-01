@@ -102,7 +102,7 @@ public class DashboardController {
 	/** 
 	 * Shows/hides Overflow
 	 */
-	public void handleOverflowClicked() {
+	public void handleOverflowButtonClicked() {
     	if (this.dashboardView.getOverflowList().getVisibility() == View.INVISIBLE) {
     		this.dashboardView.getOverflowList().setVisibility(View.VISIBLE);
     	}
