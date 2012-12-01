@@ -1,6 +1,7 @@
 package edu.cornell.opencomm.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import org.jivesoftware.smack.Connection;
@@ -139,6 +140,15 @@ public class ConferenceRoom extends MultiUserChat{
 	public ArrayList<ConferenceUser> getCUserList(){
 		return confUserList;
 	}
+	
+	public HashMap<String, User> getUserMap() {
+		HashMap<String, User> tmp = new HashMap<String, User>();
+		for (ConferenceUser u : confUserList) {
+			tmp.put(u.getUser().getUsername(), u.getUser());
+		}
+		return tmp;
+	}
+	
 	public  ArrayList<ConferenceUser> updateLocations(Point center,int radius){
 		int noOfusers = confUserList.size();
 		ArrayList<Point> pointList = getPoints(noOfusers, radius, center);

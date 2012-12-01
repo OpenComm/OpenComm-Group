@@ -49,10 +49,10 @@ public class NetworkService {
 	public static final boolean D = true;
 	private static final String TAG = "Network.NetworkService";
 
-	private static final String DEFAULT_HOST = "cuopencomm.no-ip.org";
-	private static final String DEFAULT_HOSTNAME = "@cuopencomm";
-	private static final int DEFAULT_PORT = 5222;
-	private static final String DEFAULT_RESOURCE = "OpenComm";
+	public static final String DEFAULT_HOST = "cuopencomm.no-ip.org";
+	public static final String DEFAULT_HOSTNAME = "@cuopencomm";
+	public static final int DEFAULT_PORT = 5222;
+	public static final String DEFAULT_RESOURCE = "OpenComm";
 			
 	private static NetworkService _instance = null;
 

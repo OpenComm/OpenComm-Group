@@ -21,7 +21,7 @@ import edu.cornell.opencomm.network.NetworkService;
  * Controller class responsible for account creation and editing the primary
  * user's account info
  * 
- * @author Kris Kooi
+ * @author Kris Kooi, Brian O'Conner
  * 
  */
 public class AccountController {
@@ -44,10 +44,10 @@ public class AccountController {
 		}
 	}
 
-	public void createAcccount(String username, String nickname, String email,
+	public static void createAcccount(String username, String nickname, String email,
 			String firstName, String lastName, String phoneNumber,
 			InputStream photo, String title, String password) {
-		HashMap<String, String> attributes = new HashMap<String, String>();
+		/* HashMap<String, String> attributes = new HashMap<String, String>();
 		Collection<String> requiredAttributes = accountManager
 				.getAccountAttributes();
 		for (String attr : requiredAttributes) {
@@ -66,7 +66,7 @@ public class AccountController {
 			//TODO: store VCard on server
 		} catch (XMPPException e) {
 			Log.v(TAG, "Account creation failed");
-		}
+		} */
 		try {
 			String requestURL = USERSERVICE_URL;
 			requestURL += "type=add&username=" + username + "&password=" + password;
@@ -81,13 +81,13 @@ public class AccountController {
 		}
 	}
 
-	public void changeNickname(String nickname) {
-		vCard.setNickName(nickname);
+	public static void changeNickname(String nickname) {
+		/* vCard.setNickName(nickname);
 		try {
 			vCard.save(NetworkService.getInstance().getConnection());
 		} catch (XMPPException e) {
 			Log.v(TAG, "error in updating nickname");
-		}
+		} */
 		try {
 			String requestURL = USERSERVICE_URL;
 			requestURL += "type=update&name=" + nickname;
@@ -110,13 +110,13 @@ public class AccountController {
 		}
 	}
 
-	public void changeEmail(String email) {
-		vCard.setEmailHome(email);
+	public static void changeEmail(String email) {
+		/* vCard.setEmailHome(email);
 		try {
 			vCard.save(NetworkService.getInstance().getConnection());
 		} catch (XMPPException e) {
 			Log.v(TAG, "error in updating email");
-		}
+		} */
 		try {
 			String requestURL = USERSERVICE_URL;
 			requestURL += "type=update&email=" + email;
@@ -140,11 +140,11 @@ public class AccountController {
 	}
 
 	public void changePassword(String password) {
-		try {
+		/* try {
 			accountManager.changePassword(password);
 		} catch (XMPPException e) {
 			Log.v(TAG, "error changing password");
-		}
+		} */
 		try {
 			String requestURL = USERSERVICE_URL;
 			requestURL += "type=update&password=" + password;
@@ -156,7 +156,7 @@ public class AccountController {
 		}
 	}
 	
-	public void deleteUser(String username)	{
+	public static void deleteUser(String username)	{
 		try {
 			String requestURL = USERSERVICE_URL;
 			requestURL += "type=delete&username=" + username;
@@ -168,7 +168,7 @@ public class AccountController {
 		}
 	}
 	
-	public void disableUser(String username) {
+	public static void disableUser(String username) {
 		try {
 			String requestURL = USERSERVICE_URL;
 			requestURL += "type=disable&username=" + username;
@@ -180,7 +180,7 @@ public class AccountController {
 		}
 	}
 	
-	public void enableUser(String username) {
+	public static void enableUser(String username) {
 		try {
 			String requestURL = USERSERVICE_URL;
 			requestURL += "type=enable&username=" + username;
