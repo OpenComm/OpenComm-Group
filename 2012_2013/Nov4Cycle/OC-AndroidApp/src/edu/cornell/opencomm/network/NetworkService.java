@@ -1,15 +1,19 @@
 package edu.cornell.opencomm.network;
 
 import org.jivesoftware.smack.AccountManager;
+import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.PrivacyList;
+import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.provider.PrivacyProvider;
 import org.jivesoftware.smack.provider.ProviderManager;
 import org.jivesoftware.smackx.GroupChatInvitation;
 import org.jivesoftware.smackx.PrivateDataManager;
+import org.jivesoftware.smackx.muc.InvitationListener;
+import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.packet.ChatStateExtension;
 import org.jivesoftware.smackx.packet.LastActivity;
 import org.jivesoftware.smackx.packet.OfflineMessageInfo;
@@ -53,7 +57,7 @@ public class NetworkService {
 	public static final String DEFAULT_HOSTNAME = "@cuopencomm";
 	public static final int DEFAULT_PORT = 5222;
 	public static final String DEFAULT_RESOURCE = "OpenComm";
-			
+
 	private static NetworkService _instance = null;
 
 	// XMPP connection
@@ -126,6 +130,10 @@ public class NetworkService {
 					this.xmppConn.disconnect();
 					// reconnect to the server
 					_instance = new NetworkService(DEFAULT_HOST, DEFAULT_PORT);
+
+					MultiUserChat.addInvitationListener(NetworkService
+							.getInstance().getConnection(), null);
+
 					return ReturnState.INVALID_PAIR;
 				}
 				return ReturnState.SUCCEEDED;
