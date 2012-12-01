@@ -207,6 +207,14 @@ public class ConferenceRoom extends MultiUserChat {
 		return tmp;
 	}
 
+	public HashMap<String, ConferenceUser> getConferenceUserMap() {
+		HashMap<String, ConferenceUser> tmp = new HashMap<String, ConferenceUser>();
+		for (ConferenceUser u : confUserList) {
+			tmp.put(u.getUser().getUsername(), u);
+		}
+		return tmp;
+	}
+
 	public ArrayList<ConferenceUser> updateLocations(Point center, int radius) {
 		int noOfusers = confUserList.size();
 		ArrayList<Point> pointList = getPoints(noOfusers, radius, center);

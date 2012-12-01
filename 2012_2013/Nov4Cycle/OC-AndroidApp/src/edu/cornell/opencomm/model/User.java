@@ -57,10 +57,6 @@ public class User implements Comparable<User>, Serializable {
 	/**
 	 */
 	public int userColor;
-	
-	/**
-	 */
-	private JingleController jCtrl;
 
 	/**
 	 * use the new constructor with all needed fields
@@ -84,7 +80,6 @@ public class User implements Comparable<User>, Serializable {
 			this.image = image;
 		}
 		this.userColor = UserManager.getUserColor(username);
-		this.jCtrl = new JingleController(this);
 	}
 
 	/**
@@ -165,9 +160,4 @@ public class User implements Comparable<User>, Serializable {
 		byte[] bitmapdata = vCard.getAvatar();
 		return BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
 	}
-
-	public JingleController getJingle() {
-		return jCtrl;
-	}
-
 }

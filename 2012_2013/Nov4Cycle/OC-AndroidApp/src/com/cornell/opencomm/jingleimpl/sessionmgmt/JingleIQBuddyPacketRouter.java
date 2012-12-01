@@ -16,6 +16,7 @@ import com.cornell.opencomm.jingleimpl.JingleIQProvider;
 import edu.cornell.opencomm.audio.JingleController;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.ConferenceRoom;
+import edu.cornell.opencomm.model.ConferenceUser;
 import edu.cornell.opencomm.model.User;
 
 /**
@@ -94,8 +95,8 @@ public class JingleIQBuddyPacketRouter {
 						// TODO: integrate with new Conference code
 						ConferenceRoom mainSpace = null;
 						// if User in Main Conference
-						if (mainSpace.getUserMap().containsKey(fromJID)) {
-							User u = mainSpace.getUserMap().get(fromJID);
+						if (mainSpace.getConferenceUserMap().containsKey(fromJID)) {
+							ConferenceUser u = mainSpace.getConferenceUserMap().get(fromJID);
 							u.getJingle().processPacket(iq);
 						}
 					}
