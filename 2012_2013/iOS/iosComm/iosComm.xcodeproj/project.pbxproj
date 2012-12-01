@@ -103,6 +103,7 @@
 		0AA17FF61630D30400CD704A /* XMPPCoreDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA17FF41630D30400CD704A /* XMPPCoreDataStorage.m */; };
 		0AA17FFE1630D39F00CD704A /* NSDate+XMPPDateTimeProfiles.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA17FFB1630D39F00CD704A /* NSDate+XMPPDateTimeProfiles.m */; };
 		0AA180001630D39F00CD704A /* XMPPDateTimeProfiles.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA17FFD1630D39F00CD704A /* XMPPDateTimeProfiles.m */; };
+		0ACAB1EB166A5E0800E27BA5 /* OCMUCExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ACAB1EA166A5E0800E27BA5 /* OCMUCExampleViewController.m */; };
 		0AD2A7D51643752700AA3A8D /* JingleConstants.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0AD2A7D41643752700AA3A8D /* JingleConstants.plist */; };
 		0AD2A7D916437A4B00AA3A8D /* OCJingleConstantsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD2A7D816437A4B00AA3A8D /* OCJingleConstantsController.m */; };
 		4D004DA616333AFE00706B1A /* OCAudioPassingProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D004DA516333AFE00706B1A /* OCAudioPassingProtocol.m */; };
@@ -386,6 +387,8 @@
 		0AA17FFB1630D39F00CD704A /* NSDate+XMPPDateTimeProfiles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+XMPPDateTimeProfiles.m"; path = "XMPPFramework/Extensions/XEP-0082/NSDate+XMPPDateTimeProfiles.m"; sourceTree = "<group>"; };
 		0AA17FFC1630D39F00CD704A /* XMPPDateTimeProfiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPDateTimeProfiles.h; path = "XMPPFramework/Extensions/XEP-0082/XMPPDateTimeProfiles.h"; sourceTree = "<group>"; };
 		0AA17FFD1630D39F00CD704A /* XMPPDateTimeProfiles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMPPDateTimeProfiles.m; path = "XMPPFramework/Extensions/XEP-0082/XMPPDateTimeProfiles.m"; sourceTree = "<group>"; };
+		0ACAB1E9166A5E0800E27BA5 /* OCMUCExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMUCExampleViewController.h; sourceTree = "<group>"; };
+		0ACAB1EA166A5E0800E27BA5 /* OCMUCExampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCMUCExampleViewController.m; sourceTree = "<group>"; };
 		0AD2A7D41643752700AA3A8D /* JingleConstants.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = JingleConstants.plist; sourceTree = "<group>"; };
 		0AD2A7D716437A4B00AA3A8D /* OCJingleConstantsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCJingleConstantsController.h; sourceTree = "<group>"; };
 		0AD2A7D816437A4B00AA3A8D /* OCJingleConstantsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCJingleConstantsController.m; sourceTree = "<group>"; };
@@ -1083,6 +1086,8 @@
 				4DE6A446160FC14B005F7857 /* Supporting Files */,
 				0A42C8BA163107A40053C5F2 /* OCSocketViewController.h */,
 				0A42C8BB163107A40053C5F2 /* OCSocketViewController.mm */,
+				0ACAB1E9166A5E0800E27BA5 /* OCMUCExampleViewController.h */,
+				0ACAB1EA166A5E0800E27BA5 /* OCMUCExampleViewController.m */,
 			);
 			path = iosComm;
 			sourceTree = "<group>";
@@ -1433,6 +1438,7 @@
 				0A458D8F1659A20C001D516F /* OCSignUpViewController.m in Sources */,
 				BACCDBB016670576002AC5C5 /* OCSingleCallViewController.m in Sources */,
 				BACCDBB616674CF2002AC5C5 /* OCAccountSettingsViewController.m in Sources */,
+				0ACAB1EB166A5E0800E27BA5 /* OCMUCExampleViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
