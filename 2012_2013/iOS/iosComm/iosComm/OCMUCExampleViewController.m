@@ -5,10 +5,14 @@
 //  Created by Kevin Chen on 12/1/12.
 //  Copyright (c) 2012 OpenComm. All rights reserved.
 //
+//  THIS CLASS IS INSPIRED BY THE ROBBIE HANSON TUTORIAL XMPPStream.xcodeproj
+//  Look there for MUC inspiration!
 
 #import "OCMUCExampleViewController.h"
 
-@interface OCMUCExampleViewController ()
+@interface OCMUCExampleViewController () {
+    NSMutableArray *participants;
+}
 
 @end
 
@@ -28,9 +32,11 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    // Core storage
+    
+    // Core storage -- I don't use this personally, but for official usage, you will have to!
     XMPPRoomCoreDataStorage *xmppRoomStorage = [[XMPPRoomCoreDataStorage alloc] init];
-    XMPPJID *roomJID = [XMPPJID jidWithString:@"iOSTestRoom@conference.cuopencomm/ios_team"];
+    // roomJID is "room@conference.cuopencomm/yourownjid
+    XMPPJID *roomJID = [XMPPJID jidWithString: [@"iostestroom@conference.cuopencomm/" stringByAppendingString: [[[delegateHandler myXMPPStream] myJID] user]]];
     xmppRoom = [[XMPPRoom alloc] initWithRoomStorage:xmppRoomStorage jid:roomJID];
     
     [xmppRoom addDelegate:self delegateQueue:dispatch_get_main_queue()];
@@ -42,9 +48,11 @@
     else {
         NSLog(@"room unactivated");
     }
-    [xmppRoom joinRoomUsingNickname:@"xmppFrameworkMucTest" history:nil];
+    //use your own jid as your nickname
+    [xmppRoom joinRoomUsingNickname: [[[delegateHandler myXMPPStream] myJID] user] history:nil];
     
-    
+    //to keep track of participants... you SHOULD use coredatastorage for this though!
+    participants = [[NSMutableArray alloc] init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -78,11 +86,21 @@
 - (void)xmppRoomDidCreate:(XMPPRoom *)sender
 {
 	NSLog(@"did create room");
+    //use the default configurations upon creating the room
+    [xmppRoom configureRoomUsingOptions: nil];
 }
 
 - (void)xmppRoomDidJoin:(XMPPRoom *)sender
 {
+    [participants addObject: [sender myNickname]];
 	NSLog(@"did join room");
+    _participantsLabel.text = @"Participants: ";
+    for (int i = 0; i < [participants count]; i++) {
+        _participantsLabel.text = [_participantsLabel.text stringByAppendingString: [participants objectAtIndex: i]];
+        if (i != [participants count] - 1) {
+            _participantsLabel.text = [_participantsLabel.text stringByAppendingString: @", "];
+        }
+    }
 }
 
 - (void)xmppRoomDidLeave:(XMPPRoom *)sender
@@ -92,17 +110,46 @@
 
 - (void)xmppRoom:(XMPPRoom *)sender occupantDidJoin:(XMPPJID *)occupantJID
 {
-	NSLog(@"occupant did join: %@", [occupantJID full]);
+    [participants addObject: [occupantJID resource]];
+	NSLog(@"occupant did join: %@", [occupantJID resource]);
+    //update participants label
+    _participantsLabel.text = @"Participants: ";
+    for (int i = 0; i < [participants count]; i++) {
+        _participantsLabel.text = [_participantsLabel.text stringByAppendingString: [participants objectAtIndex: i]];
+        if (i != [participants count] - 1) {
+            _participantsLabel.text = [_participantsLabel.text stringByAppendingString: @", "];
+        }
+    }
 }
 
 - (void)xmppRoom:(XMPPRoom *)sender occupantDidLeave:(XMPPJID *)occupantJID
 {
-	NSLog(@"occupant did join: %@", [occupantJID full]);
+    [participants removeObject: [occupantJID resource]];
+	NSLog(@"occupant did leave: %@", [occupantJID resource]);
+    //update participants label
+    _participantsLabel.text = @"Participants: ";
+    for (int i = 0; i < [participants count]; i++) {
+        _participantsLabel.text = [_participantsLabel.text stringByAppendingString: [participants objectAtIndex: i]];
+        if (i != [participants count] - 1) {
+            _participantsLabel.text = [_participantsLabel.text stringByAppendingString: @", "];
+        }
+    }
 }
 
 - (void)xmppRoom:(XMPPRoom *)sender didReceiveMessage:(XMPPMessage *)message fromOccupant:(XMPPJID *)occupantJID
 {
-	NSLog(@"did receive msg: %@ from: %@", message, [occupantJID full]);
+    if ([occupantJID resource] == nil) {
+        return; //this is from the room only
+    }
+    //"nickname: messagebody"
+    NSString *messageToPrint = [[[occupantJID resource] stringByAppendingString: @": "] stringByAppendingString: [[message elementForName: @"body"] stringValue]];
+    //scroll up all messages
+    _fifthMessageLabel.text = _thirdMessageLabel.text;
+    _thirdMessageLabel.text = _secondMessageLabel.text;
+    _secondMessageLabel.text = _firstMessageLabel.text;
+    _firstMessageLabel.text = messageToPrint;
+    NSLog(@"%@", messageToPrint);
+    NSLog(@"%@", message);
 }
 
 @end
