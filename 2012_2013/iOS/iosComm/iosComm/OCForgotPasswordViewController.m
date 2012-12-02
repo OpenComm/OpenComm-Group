@@ -49,22 +49,44 @@
 
 
 - (IBAction)resetButton:(id)sender {
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]
-                                    initWithURL:[NSURL
-                                                 URLWithString:@"http://199.167.198.149/userchange.php"]];
-    [request setHTTPMethod:@"POST"];
-    NSString *email = [enteremailField text];
-    [request setValue:email forHTTPHeaderField:@"userEmail"];
-    [request setValue:@"forgot" forHTTPHeaderField:@"action"];
-    
-    NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:request delegate:self];
-    if (theConnection) {
-        // Create the NSMutableData to hold the received data.
-        // receivedData is an instance variable declared elsewhere.
-        _receivedData = [NSMutableData data];
+    NSString *errorMessage = nil;
+    if ([[enteremailField text] length] <= 0) {
+        errorMessage = @"Email Address Required";
     } else {
-        // Inform the user that the connection failed.
-    }}
+        NSRange rangeOfAt = [[enteremailField text] rangeOfString:@"@"];
+        if (rangeOfAt.location == NSNotFound) {
+            errorMessage = @"Invalid Email Address";
+        } else {
+            NSRange rangeOfPeriod = [[enteremailField text] rangeOfString:@"."];
+            if (rangeOfPeriod.location == NSNotFound) {
+                errorMessage = @"Invalid Email Address";
+            }
+        }
+    }
+    
+    if (errorMessage != nil) {
+        UIAlertView *errorAlert = [
+                                   [UIAlertView alloc]
+                                   initWithTitle:@"Email Address Error"
+                                   message: errorMessage
+                                   delegate:nil
+                                   cancelButtonTitle: @"OK"
+                                   otherButtonTitles: nil
+                                   ];
+        [errorAlert show];
+        return ;
+    } 
+    
+        NSMutableURLRequest *request =
+            [[NSMutableURLRequest alloc] initWithURL:
+                [NSURL URLWithString:@"http://199.167.198.149/userchange.php"]];
+    
+        [request setHTTPMethod:@"POST"];
+            NSString *postString = [NSString stringWithFormat:@"action=forgot&userEmail=%@", [enteremailField text]];
+        [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
+    
+        [[NSURLConnection alloc] initWithRequest:request delegate:self];
+}
 
 
 - (IBAction)backButtonPressed:(id)sender {
