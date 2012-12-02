@@ -12,6 +12,7 @@ import java.util.concurrent.ExecutionException;
 
 import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.XMPPConnection;
+import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.filter.PacketFilter;
 import org.jivesoftware.smack.filter.PacketTypeFilter;
 import org.jivesoftware.smack.packet.Message;
@@ -22,7 +23,9 @@ import android.os.Handler;
 import android.util.Log;
 import edu.cornell.opencomm.interfaces.OCResponseListner;
 import edu.cornell.opencomm.model.Conference;
+import edu.cornell.opencomm.model.ConferenceRoom;
 import edu.cornell.opencomm.network.NetworkService;
+import edu.cornell.opencomm.util.Util;
 
 public class ConferenceCommunicator implements PacketListener {
 
@@ -104,6 +107,14 @@ public class ConferenceCommunicator implements PacketListener {
 			XMPPConnection xmppConn = NetworkService.getInstance()
 					.getConnection();
 			Conference conference = params[0];
+			ConferenceRoom muc = new ConferenceRoom(NetworkService.getInstance()
+					.getConnection(), conference.getConferenceTitle());
+			try {
+				muc.join("");
+			} catch (XMPPException e) {
+				Log.v("ConferencePush", e.getMessage());
+			}
+			muc.leave();
 			ConferencePacket packet = conference.toPacket();
 			packet.setFrom(xmppConn.getUser());
 			packet.setTo(DESTINATION);

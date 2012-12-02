@@ -1,6 +1,7 @@
 package edu.cornell.opencomm.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -9,6 +10,7 @@ import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smackx.Form;
 import org.jivesoftware.smackx.FormField;
+import org.jivesoftware.smackx.muc.Affiliate;
 import org.jivesoftware.smackx.muc.InvitationListener;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.muc.Occupant;
@@ -31,7 +33,7 @@ public class ConferenceRoom extends MultiUserChat {
 	private User moderator;
 
 	public ConferenceRoom(String roomId) {
-		this(NetworkService.getInstance().getConnection(), roomId);
+		super(NetworkService.getInstance().getConnection(), roomId);
 		this.roomId = roomId;
 	}
 
@@ -42,10 +44,20 @@ public class ConferenceRoom extends MultiUserChat {
 	}
 
 	public ConferenceRoom(Connection c, String s, User u) {
-		this(c, formatRoomName(s));
+		super(c, formatRoomName(s));
 		roomId = s;
 		moderator = u;
 		retriveOccupants();
+	}
+
+	public void join(String nickname) throws XMPPException {
+		super.join(nickname);
+		Collection<Affiliate> owners = this.getOwners();
+		for (Affiliate a : owners) {
+			if (a.getJid().equals(UserManager.PRIMARY_USER.getUsername())) {
+				this.grantModerator(UserManager.PRIMARY_USER.getNickname());
+			}
+		}
 	}
 
 	public void addUserByJid(String u) {
@@ -66,19 +78,21 @@ public class ConferenceRoom extends MultiUserChat {
 		super(c, formatRoomName(s));
 		roomId = s;
 		retriveOccupants();
-		
+
 		this.addParticipantStatusListener(new ParticipantStatusListener() {
 
 			public void adminGranted(String arg0) {
 				// TODO Auto-generated method stub
 			}
 
-			public void adminRevoked(String participant) {}
+			public void adminRevoked(String participant) {
+			}
 
-			public void banned(String participant, String actor, String reason) {}
+			public void banned(String participant, String actor, String reason) {
+			}
 
 			public void joined(String participant) {
-				// TODO Auto-generated method stub	
+				// TODO Auto-generated method stub
 				addUserByJid(participant);
 			}
 
@@ -90,23 +104,32 @@ public class ConferenceRoom extends MultiUserChat {
 				// TODO Auto-generated method stub
 			}
 
-			public void membershipGranted(String participant) {}
+			public void membershipGranted(String participant) {
+			}
 
-			public void membershipRevoked(String participant) {}
+			public void membershipRevoked(String participant) {
+			}
 
-			public void moderatorGranted(String participant) {}
+			public void moderatorGranted(String participant) {
+			}
 
-			public void moderatorRevoked(String participant) {}
+			public void moderatorRevoked(String participant) {
+			}
 
-			public void nicknameChanged(String participant, String newNickname) {}
+			public void nicknameChanged(String participant, String newNickname) {
+			}
 
-			public void ownershipGranted(String participant) {}
+			public void ownershipGranted(String participant) {
+			}
 
-			public void ownershipRevoked(String participant) {}
+			public void ownershipRevoked(String participant) {
+			}
 
-			public void voiceGranted(String participant) {}
+			public void voiceGranted(String participant) {
+			}
 
-			public void voiceRevoked(String participant) {}
+			public void voiceRevoked(String participant) {
+			}
 		});
 	}
 
@@ -256,6 +279,6 @@ public class ConferenceRoom extends MultiUserChat {
 	public void invitationReceived(Connection conn, String room,
 			String inviter, String reason, String password, Message message) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
