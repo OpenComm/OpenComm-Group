@@ -15,7 +15,7 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *participantsLabel;
 @property (strong, nonatomic) IBOutlet UILabel *fifthMessageLabel;
-@property (strong, nonatomic) IBOutlet UIView *fourthMessageLabel;
+@property (strong, nonatomic) IBOutlet UILabel *fourthMessageLabel;
 @property (strong, nonatomic) IBOutlet UILabel *thirdMessageLabel;
 @property (strong, nonatomic) IBOutlet UILabel *secondMessageLabel;
 @property (strong, nonatomic) IBOutlet UILabel *firstMessageLabel;
