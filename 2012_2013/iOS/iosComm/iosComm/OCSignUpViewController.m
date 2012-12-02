@@ -9,10 +9,6 @@
 #import "OCSignUpViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface OCSignUpViewController ()
-
-@end
-
 @implementation OCSignUpViewController
 
 @synthesize signupView;
@@ -52,7 +48,12 @@ extern OCXMPPDelegateHandler *delegateHandler;
     [passwordField.layer setCornerRadius:cornerRadius];
     [confirmpasswordField.layer setCornerRadius:cornerRadius];
     
-    
+    [firstnameField setDelegate:self];
+    [secondnameField setDelegate:self];
+    [emailaddressField setDelegate:self];
+    [jobtitleField setDelegate:self];
+    [passwordField setDelegate:self];
+    [confirmpasswordField setDelegate:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -87,16 +88,18 @@ extern OCXMPPDelegateHandler *delegateHandler;
     [jobtitleField resignFirstResponder];
     [passwordField resignFirstResponder];
     [confirmpasswordField resignFirstResponder];
+    self.view.center = svos;
 }
 - (IBAction)setimageButton:(id)sender {
     UIImagePickerController *pickerController=[[UIImagePickerController alloc]init];
     pickerController.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
-    pickerController.delegate=self;
+    [pickerController setDelegate:self];
     [self presentViewController:pickerController animated:YES completion:nil];
 }
 
 - (IBAction)textfieldReturned:(id)sender{
     [sender resignFirstResponder];
+    self.view.center = svos;
 }
 - (IBAction)submitPressed:(id)sender{
     /*Error checking form inputs*/
@@ -167,7 +170,42 @@ extern OCXMPPDelegateHandler *delegateHandler;
 - (IBAction)backButtonPressed:(id)sender {
 }
 
+- (void) textFieldDidBeginEditing:(UITextField *)textField
+{
+    current = textField;
+    if ([textField isEqual:jobtitleField] || [textField isEqual:passwordField] || [textField isEqual:confirmpasswordField])
+    {
+        [self setViewMovedUp:YES forTextField:textField];
+    }
+}
 
+- (void) textFieldDidEndEditing:(UITextField *)textField
+{
+    self.view.center = svos;
+}
+
+- (void) setViewMovedUp:(BOOL)movedUp forTextField:(UITextField *)textField
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.1];
+    
+    NSInteger howMuch = 0;
+    if ([textField isEqual:jobtitleField])
+    {
+        howMuch = 60;
+    }
+    else if ([textField isEqual:passwordField])
+    {
+        howMuch = 80;
+    }
+    else
+    {
+        howMuch = 100;
+    }
+    
+    self.view.center = CGPointMake(self.view.center.x, self.view.center.y - howMuch);
+    [UIView commitAnimations];
+}
 
 
 @end

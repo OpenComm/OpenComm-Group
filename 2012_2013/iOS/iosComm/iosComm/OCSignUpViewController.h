@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "OCViewController.h"
 
-@interface OCSignUpViewController : UIViewController <UIImagePickerControllerDelegate>
+@interface OCSignUpViewController : UIViewController <UIImagePickerControllerDelegate, UITextFieldDelegate> {
+    CGPoint svos;
+    UITextField * current;
+}
 
 
 @property (strong, nonatomic) IBOutlet UIView *signupView;
