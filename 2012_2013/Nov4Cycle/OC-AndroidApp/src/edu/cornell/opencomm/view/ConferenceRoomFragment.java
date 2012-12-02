@@ -170,8 +170,15 @@ public class ConferenceRoomFragment extends Fragment {
 	}
 	public void displayInvitationBar(){
 		RelativeLayout invitationBar = (RelativeLayout) roomLayout.findViewById(R.id.side_chat_invitation_bar);
-		int visibility = (invitationBar.getVisibility() == View.VISIBLE)?View.INVISIBLE:View.VISIBLE;
-		invitationBar.setVisibility(visibility);
+		invitationBar.setVisibility(View.INVISIBLE);
+		invitationBar.setOnClickListener(new OnClickListener() {
+			
+			public void onClick(View v) {
+				v.setVisibility(View.INVISIBLE);
+				v.invalidate();
+				
+			}
+		});
 		invitationBar.invalidate();
 	}
 	public ConferenceUser isOverLapping(int x, int y){

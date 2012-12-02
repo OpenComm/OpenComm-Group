@@ -184,6 +184,7 @@ public final class ConferenceView extends FragmentActivity implements
         Bundle bundle = new Bundle();
         bundle.putSerializable("conference", conference);
          i.putExtras(bundle);
+         onStop();
 		startActivity(i);
 	}
 	
@@ -420,6 +421,7 @@ public final class ConferenceView extends FragmentActivity implements
 		case KeyEvent.KEYCODE_K:
 			//when someone gets 
 			break;
+		
 		default:
 			returnType = super.dispatchKeyEvent(event);
 			break;
