@@ -146,6 +146,7 @@
 		4DE6A45F160FC14B005F7857 /* OCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6A45E160FC14B005F7857 /* OCViewController.m */; };
 		BA17D5F81668BF4800D81A97 /* door_arrow_left.png in Resources */ = {isa = PBXBuildFile; fileRef = BA17D5F61668BF4800D81A97 /* door_arrow_left.png */; };
 		BA17D5F91668BF4800D81A97 /* door_arrow_right.png in Resources */ = {isa = PBXBuildFile; fileRef = BA17D5F71668BF4800D81A97 /* door_arrow_right.png */; };
+		BA3E6560166B0E4C009717EA /* chat-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BA3E655F166B0E4C009717EA /* chat-icon.png */; };
 		BA777D0116214A530088F734 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA777D0016214A530088F734 /* QuartzCore.framework */; };
 		BA89B64016474DBB003D46ED /* OCContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA89B63F16474DBB003D46ED /* OCContactsViewController.m */; };
 		BA89B64C1647835F003D46ED /* OCDataGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = BA89B64B1647835E003D46ED /* OCDataGenerator.m */; };
@@ -445,6 +446,7 @@
 		4DE6A473160FC14B005F7857 /* iosCommTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iosCommTests.m; sourceTree = "<group>"; };
 		BA17D5F61668BF4800D81A97 /* door_arrow_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = door_arrow_left.png; sourceTree = "<group>"; };
 		BA17D5F71668BF4800D81A97 /* door_arrow_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = door_arrow_right.png; sourceTree = "<group>"; };
+		BA3E655F166B0E4C009717EA /* chat-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-icon.png"; sourceTree = "<group>"; };
 		BA777D0016214A530088F734 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BA89B63E16474DBB003D46ED /* OCContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCContactsViewController.h; sourceTree = "<group>"; };
 		BA89B63F16474DBB003D46ED /* OCContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCContactsViewController.m; sourceTree = "<group>"; };
@@ -1163,6 +1165,7 @@
 			children = (
 				BA97A9CB164397910008AEEA /* account_icon.png */,
 				BA97A9CC164397910008AEEA /* conferences_icon.png */,
+				BA3E655F166B0E4C009717EA /* chat-icon.png */,
 				BA97A9CD164397910008AEEA /* contact_icon.png */,
 				BA97A9BB16438D3A0008AEEA /* signInButton.png */,
 				BA97A9BC16438D3A0008AEEA /* signUpButton.png */,
@@ -1331,6 +1334,7 @@
 				BACCDBF71668AB9B002AC5C5 /* joker.png in Resources */,
 				BA17D5F81668BF4800D81A97 /* door_arrow_left.png in Resources */,
 				BA17D5F91668BF4800D81A97 /* door_arrow_right.png in Resources */,
+				BA3E6560166B0E4C009717EA /* chat-icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
