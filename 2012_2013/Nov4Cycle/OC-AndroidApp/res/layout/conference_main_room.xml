@@ -132,7 +132,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/bottom_bar_users_reg_user"
+        android:id="@+id/bottom_bar_user_action"
         android:layout_width="fill_parent"
         android:layout_height="42.67dp"
         android:layout_alignParentBottom="true"
@@ -366,6 +366,116 @@
             android:layout_alignRight="@+id/contact_invited"
             android:layout_alignTop="@+id/side_chat_invite_decline"
             android:text="@string/decline"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/bottom_bar_user_action_moderator"
+        android:layout_width="fill_parent"
+        android:layout_height="42.67dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@color/grey_thirtythree"
+        android:orientation="horizontal"
+        android:visibility="invisible" >
+
+        <ImageView
+            android:id="@+id/bottom_bar_mod_context_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="2dp"
+            android:contentDescription="@string/desc"
+            android:onClick="onProfileClicked"
+            android:src="@drawable/reg_user_conference_profile" />
+
+        <TextView
+            android:id="@+id/bottom_bar_mod_context_remove_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="38dp"
+            android:gravity="center_horizontal"
+            android:text="@string/remove"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/bottom_bar_mod_context_profile_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="43dp"
+            android:gravity="center_horizontal"
+            android:text="@string/profile"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+        <ImageView
+            android:id="@+id/bottom_mod_context_remove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="2dp"
+            android:contentDescription="@string/desc"
+            android:onClick="onRemoveClicked"
+            android:src="@drawable/remove" />
+
+        <ImageView
+            android:id="@+id/bottom_bar_mod_context_moderator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/bottom_bar_mod_context_profile"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@+id/bottom_bar_mod_context_profile"
+            android:contentDescription="@string/desc"
+            android:onClick="onModeratorClicked"
+            android:src="@drawable/moderator" />
+
+        <ImageView
+            android:id="@+id/bottom_bar_mod_context_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/bottom_mod_context_remove"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="2dp"
+            android:layout_toLeftOf="@+id/bottom_mod_context_remove"
+            android:contentDescription="@string/desc"
+            android:onClick="onContextAddClicked"
+            android:src="@drawable/reg_user_conferenc_add" />
+
+        <TextView
+            android:id="@+id/bottom_bar_context_mod_moderator_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="105dp"
+            android:gravity="center_horizontal"
+            android:text="@string/moderator"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/bottom_bar_mod_context_add_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="118dp"
+            android:gravity="center_horizontal"
+            android:text="@string/add"
             android:textColor="@color/white"
             android:textSize="10sp" />
     </RelativeLayout>

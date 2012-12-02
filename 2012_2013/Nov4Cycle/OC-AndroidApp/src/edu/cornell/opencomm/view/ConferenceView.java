@@ -229,6 +229,11 @@ public final class ConferenceView extends FragmentActivity implements
 			action_bar.setVisibility(visibility);
 			bottom_bar.setVisibility(visibility);
 		}
+		RelativeLayout bottom_bar_user_action = (RelativeLayout) screen.findViewById(R.id.bottom_bar_user_action);
+		RelativeLayout bottom_bar_user_action_moderator = (RelativeLayout) screen.findViewById(R.id.bottom_bar_user_action_moderator);
+		bottom_bar_user_action.setVisibility(View.INVISIBLE);
+		bottom_bar_user_action_moderator.setVisibility(View.INVISIBLE);
+	
 
 	}
 

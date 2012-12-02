@@ -298,9 +298,14 @@ public class ConferenceRoomFragment extends Fragment {
 		}
 		public boolean onLongClick(View v) {
 			if(status != DRAGGING){
-				
-				Toast.makeText(context, "Long Click:Open Contact Card", Toast.LENGTH_SHORT).show();
-				
+				RelativeLayout bottom_bar_user = (RelativeLayout) roomLayout.findViewById(R.id.bottom_bar_user_action);
+				RelativeLayout bottom_bar_conference = (RelativeLayout) roomLayout.findViewById(R.id.bottom_bar_conference_action);
+				RelativeLayout bottom_bar_conference_moderator = (RelativeLayout) roomLayout.findViewById(R.id.bottom_bar_conference_action_moderator);
+				RelativeLayout action_bar = (RelativeLayout) roomLayout.findViewById(R.id.action_bar);
+				bottom_bar_user.setVisibility(View.VISIBLE);
+				action_bar.setVisibility(View.VISIBLE);
+				bottom_bar_conference.setVisibility(View.INVISIBLE);
+				bottom_bar_conference_moderator.setVisibility(View.INVISIBLE);
 			}
 			return false;
 		}

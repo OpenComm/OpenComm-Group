@@ -144,7 +144,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/bottom_bar_reg_user"
+        android:id="@+id/bottom_bar_user_action"
         android:layout_width="fill_parent"
         android:layout_height="42.67dp"
         android:layout_alignParentBottom="true"
@@ -237,7 +237,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/bottom_bar_mod_context"
+        android:id="@+id/bottom_bar_user_action_moderator"
         android:layout_width="fill_parent"
         android:layout_height="42.67dp"
         android:layout_alignParentBottom="true"
