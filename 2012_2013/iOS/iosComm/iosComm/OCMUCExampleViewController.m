@@ -152,7 +152,8 @@
     //"nickname: messagebody"
     NSString *messageToPrint = [[[occupantJID resource] stringByAppendingString: @": "] stringByAppendingString: [[message elementForName: @"body"] stringValue]];
     //scroll up all messages
-    _fifthMessageLabel.text = _thirdMessageLabel.text;
+    _fifthMessageLabel.text = _fourthMessageLabel.text;
+    _fourthMessageLabel.text = _thirdMessageLabel.text;
     _thirdMessageLabel.text = _secondMessageLabel.text;
     _secondMessageLabel.text = _firstMessageLabel.text;
     _firstMessageLabel.text = messageToPrint;
