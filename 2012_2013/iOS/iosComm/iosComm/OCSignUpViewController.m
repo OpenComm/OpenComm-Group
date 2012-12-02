@@ -21,7 +21,7 @@
 @synthesize lowerView;
 @synthesize setimageButton;
 
-extern OCXMPPDelegateHandler *delegateHandler;
+//extern OCXMPPDelegateHandler *delegateHandler;
 
 
 - (void)viewDidLoad
@@ -47,6 +47,8 @@ extern OCXMPPDelegateHandler *delegateHandler;
     [jobtitleField.layer setCornerRadius:cornerRadius];
     [passwordField.layer setCornerRadius:cornerRadius];
     [confirmpasswordField.layer setCornerRadius:cornerRadius];
+    
+    svos = self.view.center;
     
     [firstnameField setDelegate:self];
     [secondnameField setDelegate:self];
@@ -90,6 +92,7 @@ extern OCXMPPDelegateHandler *delegateHandler;
     [confirmpasswordField resignFirstResponder];
     self.view.center = svos;
 }
+
 - (IBAction)setimageButton:(id)sender {
     UIImagePickerController *pickerController=[[UIImagePickerController alloc]init];
     pickerController.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "OCViewController.h"
 
-@interface OCSignUpViewController : UIViewController <UIImagePickerControllerDelegate, UITextFieldDelegate> {
+@interface OCSignUpViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate> {
     CGPoint svos;
     UITextField * current;
 }
