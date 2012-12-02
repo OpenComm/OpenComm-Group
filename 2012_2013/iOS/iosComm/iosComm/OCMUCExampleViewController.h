@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "OCViewController.h"
 
-@interface OCMUCExampleViewController : UIViewController {
+@interface OCMUCExampleViewController : UIViewController <UITextViewDelegate, UITextFieldDelegate>{
     XMPPRoom *xmppRoom;
+    CGPoint svos;
 }
 
 //@property (strong, nonatomic) IBOutlet UILabel *participantsLabel;

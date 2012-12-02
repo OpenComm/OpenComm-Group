@@ -104,6 +104,7 @@
     [sender resignFirstResponder];
     self.view.center = svos;
 }
+
 - (IBAction)submitPressed:(id)sender{
     /*Error checking form inputs*/
     NSString *username = nil;

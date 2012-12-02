@@ -10,6 +10,8 @@
 
 #import "OCMUCExampleViewController.h"
 
+#define kOFFSET_FOR_KEYBOARD 80.0
+
 @interface OCMUCExampleViewController () {
     NSMutableArray *participants;
     XMPPRoomCoreDataStorage *xmppRoomStorage;
@@ -60,6 +62,9 @@
         //to keep track of participants... you SHOULD use coredatastorage for this though!
         participants = [[NSMutableArray alloc] init];
     }
+    
+    svos = self.view.center;
+    [_textMessage setDelegate:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -84,7 +89,9 @@
 {
     // when you touch away from these, then remove the keyboard
     [_textMessage resignFirstResponder];
+    //self.view.center = svos;
 }
+
 
 - (IBAction)sendMessage:(id)sender {
     [xmppRoom sendMessage: _textMessage.text];
@@ -164,6 +171,38 @@
     _firstMessageLabel.text = messageToPrint;
     NSLog(@"%@", messageToPrint);
     //NSLog(@"%@", message);
+}
+
+- (void) textFieldDidBeginEditing:(UITextField *)textField
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3];
+    
+    self.view.center = CGPointMake(self.view.center.x, self.view.center.y - 150);
+    [UIView commitAnimations];
+}
+
+- (void) textFieldDidEndEditing:(UITextField *)textField
+{
+    self.view.center = svos;
+}
+
+- (void) textViewDidBeginEditing:(UITextField *)textField
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3];
+    
+    self.view.center = CGPointMake(self.view.center.x, self.view.center.y - 150);
+    [UIView commitAnimations];
+}
+
+- (void) textViewDidEndEditing:(UITextField *)textField
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3];
+    
+    self.view.center = CGPointMake(self.view.center.x, self.view.center.y + 150);
+    [UIView commitAnimations];
 }
 
 @end
