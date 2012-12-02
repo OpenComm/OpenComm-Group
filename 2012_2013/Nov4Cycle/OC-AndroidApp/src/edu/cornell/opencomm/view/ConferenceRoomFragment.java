@@ -100,10 +100,23 @@ public class ConferenceRoomFragment extends Fragment {
 	}
 
 	/**
-	 * Add a userView to this roomFragment
+	 * Add a given userView to this roomFragment's list of UserViews
+	 * @param userView
 	 */
 	public void addUserView(UserView userView) {
 		userViews.add(userView);
+	}
+	
+	/** 
+	 * Remove a given userView from this roomFragment's list of UserViews
+	 * @param userView
+	 */
+	public void removeUserView(UserView userView){
+		userViews.remove(userView);
+	}
+	
+	public ArrayList<UserView> getUserView(){
+		return userViews;
 	}
 	
 	/**

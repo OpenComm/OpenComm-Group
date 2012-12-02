@@ -64,6 +64,7 @@ public class ConferenceSchedulerView extends Activity {
 	//1.Ask the design team about invited section
 	//2. Need a field to check if you created the conference or if someone else did and invited you
 	public void retrieveAndDisplayConferences(ArrayList<Conference> conferences){
+		Log.d("DATARECEIVED", "" + conferences.size());
 		ArrayList<Conference> happeningNow_conferences = this.getConferencesHappeningNow(conferences);
 		ArrayList<Conference> upcoming_conferences = this.getUpcomingConferences(conferences);
 		ArrayList<Conference> invited_list = new ArrayList<Conference>();
