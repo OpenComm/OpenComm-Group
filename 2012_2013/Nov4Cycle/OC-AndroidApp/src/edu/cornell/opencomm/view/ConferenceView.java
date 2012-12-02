@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -236,7 +237,10 @@ public final class ConferenceView extends FragmentActivity implements
 	
 
 	}
-
+	public void displayInvitation(){
+		RelativeLayout invitationBar = (RelativeLayout) findViewById(R.id.side_chat_invitation_bar);
+		
+	}
 	public void addPersonClicked(View v) {
 		this.conferenceController.addPersonClicked();
 	}
@@ -373,9 +377,10 @@ public final class ConferenceView extends FragmentActivity implements
 		// TODO Auto-generated method stub
 
 	}
-
+	int currentPageNumber = 1;
 	public void onPageSelected(int roomNumber) {
 		Log.d(TAG, "Room Number selected :" + roomNumber);
+		currentPageNumber = roomNumber;
 		ConferenceRoomFragment fragment = (ConferenceRoomFragment) mPagerAdapter.getItem(roomNumber);
 		
 //		fragment.createUsers();
@@ -384,6 +389,35 @@ public final class ConferenceView extends FragmentActivity implements
 	public void onPageScrolled(int arg0, float arg1, int arg2) {
 		// TODO Auto-generated method stub
 
+	}
+	@Override
+	public boolean dispatchKeyEvent(KeyEvent event) {
+		int eventType = event.getKeyCode();
+		boolean returnType = false;
+		switch (eventType) {
+		case KeyEvent.KEYCODE_I:
+			System.out.println("ConferenceView.dispatchKeyEvent()");
+			ConferenceRoomFragment fragment = (ConferenceRoomFragment) mPagerAdapter.getItem(currentPageNumber);
+			fragment.displayInvitationBar();
+			
+			break;
+		case KeyEvent.KEYCODE_J:
+			//Someone joins the room
+			break;
+		case KeyEvent.KEYCODE_E:
+			//Mod ends the conference
+			break;
+		case KeyEvent.KEYCODE_M:
+			//When you get mode priv
+			break;
+		case KeyEvent.KEYCODE_K:
+			//when someone gets 
+			break;
+		default:
+			returnType = super.dispatchKeyEvent(event);
+			break;
+		}
+		return returnType;
 	}
 
 }

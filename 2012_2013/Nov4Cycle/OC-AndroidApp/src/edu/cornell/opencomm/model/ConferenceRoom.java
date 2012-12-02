@@ -252,10 +252,5 @@ public class ConferenceRoom extends MultiUserChat {
 		}
 		return pointList;
 	}
-
-	public void invitationReceived(Connection conn, String room,
-			String inviter, String reason, String password, Message message) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 }

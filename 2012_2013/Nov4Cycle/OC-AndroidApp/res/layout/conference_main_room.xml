@@ -273,7 +273,7 @@
         android:visibility="invisible" />
 
     <RelativeLayout
-        android:id="@+id/side_chat_invitation"
+        android:id="@+id/side_chat_invitation_bar"
         android:layout_width="fill_parent"
         android:layout_height="42.67dp"
         android:layout_alignParentBottom="true"
