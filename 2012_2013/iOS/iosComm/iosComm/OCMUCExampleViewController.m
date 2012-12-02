@@ -69,7 +69,7 @@
 }
 
 - (void)viewDidUnload {
-    [self setParticipantsLabel:nil];
+    //[self setParticipantsLabel:nil];
     [self setFifthMessageLabel:nil];
     [self setFourthMessageLabel:nil];
     [self setThirdMessageLabel:nil];
@@ -102,13 +102,14 @@
 {
     [participants addObject: [sender myNickname]];
 	NSLog(@"did join room");
+    /*
     _participantsLabel.text = @"Participants: ";
     for (int i = 0; i < [participants count]; i++) {
         _participantsLabel.text = [_participantsLabel.text stringByAppendingString: [participants objectAtIndex: i]];
         if (i != [participants count] - 1) {
             _participantsLabel.text = [_participantsLabel.text stringByAppendingString: @", "];
         }
-    }
+    }*/
 }
 
 - (void)xmppRoomDidLeave:(XMPPRoom *)sender
@@ -118,30 +119,34 @@
 
 - (void)xmppRoom:(XMPPRoom *)sender occupantDidJoin:(XMPPJID *)occupantJID
 {
+    //TODO: for some reason, this isn't called when someone new joins the room!
     [participants addObject: [occupantJID resource]];
 	NSLog(@"occupant did join: %@", [occupantJID resource]);
     //update participants label
+    /*
     _participantsLabel.text = @"Participants: ";
     for (int i = 0; i < [participants count]; i++) {
         _participantsLabel.text = [_participantsLabel.text stringByAppendingString: [participants objectAtIndex: i]];
         if (i != [participants count] - 1) {
             _participantsLabel.text = [_participantsLabel.text stringByAppendingString: @", "];
         }
-    }
+    }*/
 }
 
 - (void)xmppRoom:(XMPPRoom *)sender occupantDidLeave:(XMPPJID *)occupantJID
 {
+    //TODO: for some reason, this isn't called when someone new joins the room!
     [participants removeObject: [occupantJID resource]];
 	NSLog(@"occupant did leave: %@", [occupantJID resource]);
     //update participants label
+    /*
     _participantsLabel.text = @"Participants: ";
     for (int i = 0; i < [participants count]; i++) {
         _participantsLabel.text = [_participantsLabel.text stringByAppendingString: [participants objectAtIndex: i]];
         if (i != [participants count] - 1) {
             _participantsLabel.text = [_participantsLabel.text stringByAppendingString: @", "];
         }
-    }
+    }*/
 }
 
 - (void)xmppRoom:(XMPPRoom *)sender didReceiveMessage:(XMPPMessage *)message fromOccupant:(XMPPJID *)occupantJID
@@ -158,7 +163,7 @@
     _secondMessageLabel.text = _firstMessageLabel.text;
     _firstMessageLabel.text = messageToPrint;
     NSLog(@"%@", messageToPrint);
-    NSLog(@"%@", message);
+    //NSLog(@"%@", message);
 }
 
 @end

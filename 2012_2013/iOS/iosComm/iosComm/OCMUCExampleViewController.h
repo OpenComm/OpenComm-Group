@@ -13,7 +13,7 @@
     XMPPRoom *xmppRoom;
 }
 
-@property (strong, nonatomic) IBOutlet UILabel *participantsLabel;
+//@property (strong, nonatomic) IBOutlet UILabel *participantsLabel;
 @property (strong, nonatomic) IBOutlet UILabel *fifthMessageLabel;
 @property (strong, nonatomic) IBOutlet UILabel *fourthMessageLabel;
 @property (strong, nonatomic) IBOutlet UILabel *thirdMessageLabel;
