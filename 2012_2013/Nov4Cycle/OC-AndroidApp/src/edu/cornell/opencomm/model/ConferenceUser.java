@@ -3,7 +3,6 @@ package edu.cornell.opencomm.model;
 import java.util.ArrayList;
 
 import android.graphics.Point;
-import edu.cornell.opencomm.audio.JingleController;
 import edu.cornell.opencomm.interfaces.OCUpdateListener;
 
 
@@ -12,13 +11,11 @@ public class ConferenceUser {
 	 * 
 	 */
 	private Point LOCATION;
-	private JingleController jCtrl;
 	public User user;
 	ArrayList<OCUpdateListener> locationUpdateListners = new ArrayList<OCUpdateListener>();
 	
 	public ConferenceUser(User user){
 		this.user = user;
-		this.jCtrl = new JingleController(user);
 	}
 	
 	public User getUser(){
@@ -44,10 +41,6 @@ public class ConferenceUser {
 		for(OCUpdateListener lis : locationUpdateListners){
 			lis.onUpdate(100, new String("location changed"));
 		}
-	}
-	
-	public JingleController getJingle() {
-		return this.jCtrl;
 	}
 	
 }

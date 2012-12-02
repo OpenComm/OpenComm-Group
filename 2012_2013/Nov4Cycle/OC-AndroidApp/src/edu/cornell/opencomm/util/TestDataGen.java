@@ -18,8 +18,8 @@ public class TestDataGen {
 		users.add(UserManager.PRIMARY_USER);
 		users.add(new User("noratheexplora", "Nora Ng-Quinn", R.drawable.example_picture_2));
 		users.add(new User("batman", "Bruce Wayne", R.drawable.example_picture_3));
-		users.add(new User("batman", "Bruce Wayne", R.drawable.example_picture_3));
-		users.add(new User("batman", "Bruce Wayne", R.drawable.example_picture_3));
+		//users.add(new User("batman", "Bruce Wayne", R.drawable.example_picture_3));
+		//users.add(new User("batman", "Bruce Wayne", R.drawable.example_picture_3));
 		return users;
 	}
 }

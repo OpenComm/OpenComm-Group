@@ -14,7 +14,6 @@ import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.audio.JingleController;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.network.NetworkService;
 

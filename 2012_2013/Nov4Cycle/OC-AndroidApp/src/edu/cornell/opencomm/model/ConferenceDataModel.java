@@ -7,7 +7,6 @@ import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smackx.muc.InvitationListener;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 
-import edu.cornell.opencomm.audio.JingleController;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.util.TestDataGen;
