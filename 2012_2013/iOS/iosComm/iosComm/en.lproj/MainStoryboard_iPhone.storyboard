@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="UBs-JJ-ZED">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2843" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="pFI-Zu-2L5">
     <dependencies>
         <deployment version="1280" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1929"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -125,7 +125,7 @@
             <objects>
                 <viewController id="5vd-CP-wMf" customClass="OCAccountSettingsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WeK-dG-sDw">
-                        <rect key="frame" x="0.0" y="20" width="320" height="367"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="T5X-C6-ody">
@@ -430,7 +430,7 @@
             <objects>
                 <tableViewController id="h9e-Xv-2KA" customClass="OCConferenceViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="3ve-wl-jHR">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -478,11 +478,11 @@
             <objects>
                 <viewController id="Z2b-we-pdq" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="edb-uN-ut8">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8Xs-Xi-PFv">
-                                <rect key="frame" x="139" y="196" width="42" height="21"/>
+                                <rect key="frame" x="139" y="171" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -502,7 +502,7 @@
             <objects>
                 <viewController id="g9r-AW-ccZ" customClass="OCContactCardViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1DI-YU-1Pd">
-                        <rect key="frame" x="0.0" y="20" width="320" height="367"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lEi-kq-PwK">
@@ -566,7 +566,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="orange_box.png" id="GZ7-tX-6JM">
-                                <rect key="frame" x="134" y="55" width="53" height="53"/>
+                                <rect key="frame" x="133" y="55" width="53" height="53"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="green_box.png" id="SWa-uX-XVn">
@@ -600,6 +600,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="joker.png" id="n1m-HH-Lrk">
                                 <rect key="frame" x="24" y="168" width="43" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="bane.png" id="SFv-gK-mSa">
                                 <rect key="frame" x="139" y="60" width="43" height="43"/>
@@ -649,10 +650,10 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="infoButtonPressed:" destination="if6-0i-Hrb" eventType="touchUpInside" id="mVV-Vi-nSH"/>
+                                </connections>
                             </button>
-                            <connections>
-                                <action selector="infoButtonPressed:" destination="if6-0i-Hrb" id="0Wr-XM-Ljb"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
@@ -660,18 +661,28 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="blackOpaque"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="eBox" destination="yYY-55-fVs" id="5R3-9D-0hd"/>
+                        <outlet property="imageBane" destination="SFv-gK-mSa" id="9ky-Yj-DTa"/>
+                        <outlet property="imageCatwoman" destination="pU3-9e-pDk" id="Z7u-Gx-z0e"/>
+                        <outlet property="imageJoker" destination="n1m-HH-Lrk" id="biX-4w-We2"/>
+                        <outlet property="nBox" destination="GZ7-tX-6JM" id="ymT-H3-Aq9"/>
+                        <outlet property="neBox" destination="Dx2-VP-b5F" id="xp2-Be-Jl6"/>
+                        <outlet property="nwBox" destination="PN7-P5-73Y" id="Ngs-uW-6lb"/>
+                        <outlet property="seBox" destination="bdM-jZ-x5y" id="DU5-f1-yzL"/>
+                        <outlet property="swBox" destination="feb-Fc-pcZ" id="BhV-F8-KuS"/>
+                        <outlet property="wBox" destination="SWa-uX-XVn" id="fsz-Pk-gZb"/>
                         <segue destination="w1t-xM-IlL" kind="modal" identifier="backToConferences" id="ngj-Bl-z7p"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hGn-6g-MLc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="left" id="qwh-2v-pzh">
+                <swipeGestureRecognizer direction="left" numberOfTouchesRequired="2" id="qwh-2v-pzh">
                     <connections>
-                        <segue destination="vw7-ii-LO7" kind="modal" modalTransitionStyle="flipHorizontal" id="cd3-Ub-70l"/>
+                        <segue destination="vw7-ii-LO7" kind="modal" modalTransitionStyle="flipHorizontal" id="UKq-qd-o2A"/>
                     </connections>
                 </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="right" id="Q2M-dQ-kzT">
+                <swipeGestureRecognizer direction="right" numberOfTouchesRequired="2" id="Q2M-dQ-kzT">
                     <connections>
-                        <segue destination="zjS-y3-M7V" kind="modal" modalTransitionStyle="flipHorizontal" id="Gk7-H7-yPq"/>
+                        <segue destination="zjS-y3-M7V" kind="modal" modalTransitionStyle="flipHorizontal" id="Rfr-UR-T4O"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
@@ -1093,7 +1104,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ngr-ka-kfz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="right" id="yCf-fH-K8A">
+                <swipeGestureRecognizer direction="right" numberOfTouchesRequired="2" id="yCf-fH-K8A">
                     <connections>
                         <segue destination="pFI-Zu-2L5" kind="modal" modalTransitionStyle="flipHorizontal" id="8Xp-GV-Q9e"/>
                     </connections>
@@ -1209,7 +1220,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W6S-Du-Itv" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="left" id="iKM-EE-lxG">
+                <swipeGestureRecognizer direction="left" numberOfTouchesRequired="2" id="iKM-EE-lxG">
                     <connections>
                         <segue destination="pFI-Zu-2L5" kind="modal" modalTransitionStyle="flipHorizontal" id="u5k-dy-ufH"/>
                     </connections>
@@ -1293,6 +1304,94 @@
         <image name="signUpButton.png" width="279" height="45"/>
         <image name="user-box.png" width="53" height="53"/>
     </resources>
+    <classes>
+        <class className="OCAccountSettingsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCAccountSettingsViewController.h"/>
+        </class>
+        <class className="OCConferenceViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCConferenceViewController.h"/>
+        </class>
+        <class className="OCContactCardViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCContactCardViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="contactLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="OCContactsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCContactsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="testButton:"/>
+            </relationships>
+        </class>
+        <class className="OCForgotPasswordViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCForgotPasswordViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="backButtonPressed:"/>
+                <relationship kind="action" name="resetButton:"/>
+                <relationship kind="action" name="textfieldReturned:"/>
+                <relationship kind="outlet" name="enteremailField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="firstView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="OCMUCExampleViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCMUCExampleViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="sendMessage:"/>
+                <relationship kind="outlet" name="fifthMessageLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="firstMessageLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="fourthMessageLabel" candidateClass="UIView"/>
+                <relationship kind="outlet" name="participantsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="secondMessageLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="textMessage" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="thirdMessageLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="OCSignUpViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCSignUpViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="backButtonPressed:"/>
+                <relationship kind="action" name="setimageButton:"/>
+                <relationship kind="action" name="submitPressed:"/>
+                <relationship kind="action" name="textfieldReturned:"/>
+                <relationship kind="outlet" name="confirmpasswordField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="emailaddressField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="firstnameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="jobtitleField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="lowerView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="passwordField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="secondnameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="setimageButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="signupView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="OCSingleCallViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCSingleCallViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelButtonPressed:"/>
+                <relationship kind="action" name="conferencesButtonPressed:"/>
+                <relationship kind="action" name="infoButtonPressed:"/>
+                <relationship kind="outlet" name="eBox" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="imageBane" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="imageCatwoman" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="imageJoker" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="nBox" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="neBox" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="nwBox" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="seBox" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="swBox" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="wBox" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="OCViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/OCViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="loginButtonPressed:"/>
+                <relationship kind="outlet" name="loginPasswordField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="loginUsernameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="loginView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
