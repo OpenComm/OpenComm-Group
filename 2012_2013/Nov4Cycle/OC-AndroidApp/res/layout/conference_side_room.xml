@@ -84,7 +84,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/bottom_bar_moderator"
+        android:id="@+id/bottom_bar_chat_action_moderator"
         android:layout_width="fill_parent"
         android:layout_height="42.67dp"
         android:layout_alignParentBottom="true"
@@ -102,7 +102,7 @@
             android:layout_marginLeft="88.67dp"
             android:layout_marginTop="2dp"
             android:contentDescription="@string/desc"
-            android:onClick="onModeratorLeaveConference"
+            android:onClick="onModeratorLeaveChat"
             android:src="@drawable/viewgroup_context_door_cancel" />
 
         <ImageView
@@ -115,7 +115,7 @@
             android:layout_marginRight="88.67dp"
             android:layout_marginTop="2dp"
             android:contentDescription="@string/desc"
-            android:onClick="onModeratorEndConference"
+            android:onClick="onModeratorEndChat"
             android:src="@drawable/mod_end" />
 
         <TextView
@@ -203,7 +203,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/bottom_bar"
+        android:id="@+id/bottom_bar_chat_action"
         android:layout_width="fill_parent"
         android:layout_height="42.67dp"
         android:layout_alignParentBottom="true"
@@ -221,7 +221,7 @@
             android:layout_marginLeft="140dp"
             android:layout_marginTop="2dp"
             android:contentDescription="@string/desc"
-            android:onClick="onLeaveClicked"
+            android:onClick="onUserLeaveChat"
             android:src="@drawable/viewgroup_context_door_cancel" />
 
         <TextView

@@ -185,6 +185,16 @@ public final class ConferenceView extends FragmentActivity implements
          i.putExtras(bundle);
 		startActivity(i);
 	}
+	
+	/**
+	 * Switch the view back to the page with the given index
+	 * @param roomIndex
+	 */
+	public void returnToPage(int roomIndex){
+		ViewPager pager = (ViewPager) super.findViewById(R.id.threepanelpager);
+		pager.setCurrentItem(MAIN_ROOM_INDEX);
+		pager.invalidate();
+	}
  
 	
 	/**
@@ -203,7 +213,7 @@ public final class ConferenceView extends FragmentActivity implements
 		if (view.equals("mainChat")) {
 			RelativeLayout action_bar = (RelativeLayout) screen
 					.findViewById(R.id.action_bar);
-			boolean isModeratorOfConference = false; // TODO check to see if user is moderator from backend
+			boolean isModeratorOfConference = true; // TODO check to see if user is moderator from backend
 			int bottom_bar_id = (isModeratorOfConference ? R.id.bottom_bar_conference_action_moderator : R.id.bottom_bar_conference_action);
 			RelativeLayout bottom_bar = (RelativeLayout) screen
 					.findViewById(bottom_bar_id);
@@ -212,8 +222,8 @@ public final class ConferenceView extends FragmentActivity implements
 		} else {
 			RelativeLayout action_bar = (RelativeLayout) screen
 					.findViewById(R.id.actionbar_sidechat);
-			boolean isModeratorOfChat = true; // TODO check to see if user is moderator for this chat from backend
-			int bottom_bar_id = (isModeratorOfChat ? R.id.bottom_bar_mod_context : R.id.bottom_bar);
+			boolean isModeratorOfChat = false; // TODO check to see if user is moderator for this chat from backend
+			int bottom_bar_id = (isModeratorOfChat ? R.id.bottom_bar_chat_action_moderator : R.id.bottom_bar_chat_action);
 			RelativeLayout bottom_bar = (RelativeLayout) screen
 					.findViewById(bottom_bar_id);
 			action_bar.setVisibility(visibility);
@@ -265,11 +275,12 @@ public final class ConferenceView extends FragmentActivity implements
 	}
 
 	// Context Bar methods
+	
 	// TODO - need a method to check to see if this user is a regular user or
 	// the moderator
-	public void onLeaveClicked(View v) {
+	/*public void onLeaveClicked(View v) {
 		this.conferenceController.leaveConference();
-	}
+	}*/
 
 	// Open the profile of this user
 	public void onProfileClicked(View v) {
@@ -286,7 +297,7 @@ public final class ConferenceView extends FragmentActivity implements
 	}
 
 	/**
-	 * When moderator presses End Conference on main chat
+	 * When moderator presses End in main chat
 	 * @param v
 	 */
 	public void onModeratorEndConference(View v) {
@@ -295,23 +306,53 @@ public final class ConferenceView extends FragmentActivity implements
 	}
 
 	/**
-	 * When the moderator presses Leave Conference on main chat
+	 * When the moderator presses Leave in main chat
 	 * @param v
 	 */
 	public void onModeratorLeaveConference(View v) {
-		conferenceController.handleLeaveClicked(MAIN_ROOM_LAYOUT, UserManager.PRIMARY_USER);
+		conferenceController.handleLeaveClicked(MAIN_ROOM_INDEX, UserManager.PRIMARY_USER);
 		conferenceController.setNewModerator();
 		exitConference();
+	}
+	
+	/**
+	 * When moderator presses End in side chat
+	 * @param v
+	 */
+	public void onModeratorEndChat(View v){
+		// TODO how is this different?
+		returnToPage(MAIN_ROOM_INDEX);
+	}
+	
+	/**
+	 * When moderator presses Leave in side chat
+	 * @param v
+	 */
+	public void onModeratorLeaveChat(View v){
+		// TODO how to get index?
+		int roomIndex = LEFT_ROOM_INDEX;
+		conferenceController.handleLeaveClicked(roomIndex, UserManager.PRIMARY_USER);
+		returnToPage(MAIN_ROOM_INDEX);
+	}
+	
+	/**
+	 * When non-moderator presses Leave in side chat
+	 * @param v
+	 */
+	public void onUserLeaveChat(View v){
+		int roomIndex = RIGHT_ROOM_INDEX; // TODO how to tell index?
+		conferenceController.handleLeaveClicked(roomIndex, UserManager.PRIMARY_USER);
+		returnToPage(MAIN_ROOM_INDEX);
 	}
 	
 	/**
 	 * When the moderator presses Leave Conference on main chat
 	 * @param v
 	 */
-	public void onLeaveConference(View v) {
+	/*public void onLeaveConference(View v) {
 		conferenceController.handleLeaveClicked(MAIN_ROOM_LAYOUT, UserManager.PRIMARY_USER);
 		exitConference();
-	}
+	} */
 
 	// TODO - Not sure what this is supposed to do. Ask Design team
 	public void onModeratorClicked(View v) {
