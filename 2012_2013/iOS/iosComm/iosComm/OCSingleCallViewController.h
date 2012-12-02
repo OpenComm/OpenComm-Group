@@ -21,6 +21,17 @@ extern BOOL callActive;
 
 
 - (IBAction)infoButtonPressed:(id)sender;
+@property (strong, nonatomic) IBOutlet UIImageView *imageJoker;
+@property (strong, nonatomic) IBOutlet UIImageView *imageBane;
+@property (strong, nonatomic) IBOutlet UIImageView *imageCatwoman;
+@property (strong, nonatomic) IBOutlet UIImageView *nwBox;
+@property (strong, nonatomic) IBOutlet UIImageView *neBox;
+@property (strong, nonatomic) IBOutlet UIImageView *seBox;
+@property (strong, nonatomic) IBOutlet UIImageView *swBox;
+
+@property (strong, nonatomic) IBOutlet UIImageView *nBox;
+@property (strong, nonatomic) IBOutlet UIImageView *wBox;
+@property (strong, nonatomic) IBOutlet UIImageView *eBox;
 
 //@property BOOL callActive;
 
