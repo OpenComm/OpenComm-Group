@@ -8,7 +8,7 @@ import edu.cornell.opencomm.packet.ConferencePacket;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Conference implements Serializable{
+public class Conference implements Serializable {
     private String conferenceTitle, reoccurrence, description;
     private Calendar startDateAndTime, endDateAndTime;
     private User inviter;

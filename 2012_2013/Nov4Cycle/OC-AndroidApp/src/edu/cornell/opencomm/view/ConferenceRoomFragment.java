@@ -2,6 +2,9 @@ package edu.cornell.opencomm.view;
 
 import java.util.ArrayList;
 
+import org.jivesoftware.smack.Connection;
+import org.jivesoftware.smack.packet.Message;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -311,5 +314,9 @@ public class ConferenceRoomFragment extends Fragment {
 				else return -1; 
 			}
 	}
-
+	public void onInvitationReceived(Connection conn, String room,
+			String inviter, String reason, String password,
+			Message message) {
+		
+	}
 }
