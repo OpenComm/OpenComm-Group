@@ -12,6 +12,7 @@
 
 @interface OCMUCExampleViewController () {
     NSMutableArray *participants;
+    XMPPRoomCoreDataStorage *xmppRoomStorage;
 }
 
 @end
@@ -33,26 +34,32 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    // Core storage -- I don't use this personally, but for official usage, you will have to!
-    XMPPRoomCoreDataStorage *xmppRoomStorage = [[XMPPRoomCoreDataStorage alloc] init];
-    // roomJID is "room@conference.cuopencomm/yourownjid
-    XMPPJID *roomJID = [XMPPJID jidWithString: [@"iostestroom@conference.cuopencomm/" stringByAppendingString: [[[delegateHandler myXMPPStream] myJID] user]]];
-    xmppRoom = [[XMPPRoom alloc] initWithRoomStorage:xmppRoomStorage jid:roomJID];
+    if (xmppRoom == nil) {
+        // Core storage -- I don't use this personally, but for official usage, you will have to!
+        xmppRoomStorage = [[XMPPRoomCoreDataStorage alloc] init];
+        if (xmppRoomStorage == nil) {
+            xmppRoomStorage = [[XMPPRoomCoreDataStorage alloc] initWithInMemoryStore];
+        }
+        
+        // roomJID is "room@conference.cuopencomm/yourownjid
+        XMPPJID *roomJID = [XMPPJID jidWithString: [@"iostestroom@conference.cuopencomm/" stringByAppendingString: [[[delegateHandler myXMPPStream] myJID] user]]];
+        xmppRoom = [[XMPPRoom alloc] initWithRoomStorage:xmppRoomStorage jid:roomJID];
     
-    [xmppRoom addDelegate:self delegateQueue:dispatch_get_main_queue()];
-    // xmppRoomStorage automatically inherits the delegate(s) of it's parent xmppRoom
+        [xmppRoom addDelegate:self delegateQueue:dispatch_get_main_queue()];
+        // xmppRoomStorage automatically inherits the delegate(s) of it's parent xmppRoom
     
-    if([xmppRoom activate: [delegateHandler myXMPPStream]]) {
-        NSLog(@"room activated");
+        if([xmppRoom activate: [delegateHandler myXMPPStream]]) {
+            NSLog(@"room activated");
+        }
+        else {
+            NSLog(@"room unactivated");
+        }
+        //use your own jid as your nickname
+        [xmppRoom joinRoomUsingNickname: [[[delegateHandler myXMPPStream] myJID] user] history:nil];
+    
+        //to keep track of participants... you SHOULD use coredatastorage for this though!
+        participants = [[NSMutableArray alloc] init];
     }
-    else {
-        NSLog(@"room unactivated");
-    }
-    //use your own jid as your nickname
-    [xmppRoom joinRoomUsingNickname: [[[delegateHandler myXMPPStream] myJID] user] history:nil];
-    
-    //to keep track of participants... you SHOULD use coredatastorage for this though!
-    participants = [[NSMutableArray alloc] init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -69,6 +76,7 @@
     [self setSecondMessageLabel:nil];
     [self setFirstMessageLabel:nil];
     [self setTextMessage:nil];
+    [self setFourthMessageLabel:nil];
     [super viewDidUnload];
 }
 
