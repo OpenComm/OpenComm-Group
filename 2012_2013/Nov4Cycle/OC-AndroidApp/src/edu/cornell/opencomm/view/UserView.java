@@ -59,7 +59,7 @@ public class UserView extends ImageButton implements OCUpdateListener {
 		}
 
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+				76, 80);
 		params.leftMargin = conferenceUser.getX();
 		params.topMargin = conferenceUser.getY();
 		setLayoutParams(params);

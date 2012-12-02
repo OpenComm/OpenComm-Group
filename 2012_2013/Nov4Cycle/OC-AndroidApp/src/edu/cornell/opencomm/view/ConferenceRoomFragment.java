@@ -159,7 +159,7 @@ public class ConferenceRoomFragment extends Fragment {
 				uv.setOnLongClickListener(listener);
 				}
 				RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-						76, 76);
+						76, 80);
 				params.leftMargin = confUser.getX();
 				params.topMargin = confUser.getY();
 				((ViewGroup) roomLayout).addView(uv, params);

@@ -391,15 +391,22 @@ public final class ConferenceView extends FragmentActivity implements
 
 	}
 	@Override
+	protected void onStop() {
+		conference = null;
+		conferenceController = null;
+		conferenceModel = null;
+		mPagerAdapter = null; 
+		super.onStop();
+	}
+	@Override
 	public boolean dispatchKeyEvent(KeyEvent event) {
 		int eventType = event.getKeyCode();
-		boolean returnType = false;
+		boolean returnType = true;
 		switch (eventType) {
 		case KeyEvent.KEYCODE_I:
 			System.out.println("ConferenceView.dispatchKeyEvent()");
 			ConferenceRoomFragment fragment = (ConferenceRoomFragment) mPagerAdapter.getItem(currentPageNumber);
 			fragment.displayInvitationBar();
-			
 			break;
 		case KeyEvent.KEYCODE_J:
 			//Someone joins the room

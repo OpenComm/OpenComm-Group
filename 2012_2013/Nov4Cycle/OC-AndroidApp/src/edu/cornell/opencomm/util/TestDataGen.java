@@ -3,6 +3,7 @@ package edu.cornell.opencomm.util;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import android.graphics.Color;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.Conference;
@@ -15,6 +16,10 @@ import edu.cornell.opencomm.model.User;
  */
 public class TestDataGen {
 	public static ArrayList<User> createExampleUsers(){
+		UserManager.userColorTable.put("oc1testorg", Color.YELLOW);
+		UserManager.userColorTable.put("oc2testorg", Color.GREEN);
+		UserManager.userColorTable.put("oc3testorg", Color.BLUE);
+		UserManager.userColorTable.put("oc4testorg", Color.YELLOW);
 		ArrayList<User> users = new ArrayList<User>();
 		users.add(UserManager.PRIMARY_USER);
 		users.add(new User("oc1testorg", "Nora Ng-Quinn", R.drawable.example_picture_1));
