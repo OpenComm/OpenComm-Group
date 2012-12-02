@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.ConferenceController;
+import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.model.ConferenceConstants;
 import edu.cornell.opencomm.model.ConferenceDataModel;
@@ -177,6 +178,7 @@ public final class ConferenceView extends FragmentActivity implements
 	 * Exit the conference and return to the conference card page for this conference
 	 */
 	public void exitConference(){
+		Log.d("MODERATOR", "exitConference");
 		Intent i = new Intent(this, ConferenceCardView.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("conference", conference);
@@ -197,22 +199,23 @@ public final class ConferenceView extends FragmentActivity implements
 		if (areActionBarsDisplayed)
 			visibility = View.INVISIBLE;
 		areActionBarsDisplayed = !areActionBarsDisplayed;
+		
 		if (view.equals("mainChat")) {
 			RelativeLayout action_bar = (RelativeLayout) screen
 					.findViewById(R.id.action_bar);
-			// TODO- Check to see if the user is the moderator or not - display
-			// respective bottom bars for moderator/user
+			boolean isModeratorOfConference = false; // TODO check to see if user is moderator from backend
+			int bottom_bar_id = (isModeratorOfConference ? R.id.bottom_bar_conference_action_moderator : R.id.bottom_bar_conference_action);
 			RelativeLayout bottom_bar = (RelativeLayout) screen
-					.findViewById(R.id.bottom_bar_reg_user);
+					.findViewById(bottom_bar_id);
 			action_bar.setVisibility(visibility);
 			bottom_bar.setVisibility(visibility);
 		} else {
 			RelativeLayout action_bar = (RelativeLayout) screen
 					.findViewById(R.id.actionbar_sidechat);
-			// TODO- Check to see if the user is the moderator or not - display
-			// respective bottom bars for moderator/user
+			boolean isModeratorOfChat = true; // TODO check to see if user is moderator for this chat from backend
+			int bottom_bar_id = (isModeratorOfChat ? R.id.bottom_bar_mod_context : R.id.bottom_bar);
 			RelativeLayout bottom_bar = (RelativeLayout) screen
-					.findViewById(R.id.bottom_bar_reg_user);
+					.findViewById(bottom_bar_id);
 			action_bar.setVisibility(visibility);
 			bottom_bar.setVisibility(visibility);
 		}
@@ -282,16 +285,32 @@ public final class ConferenceView extends FragmentActivity implements
 		// R.drawable.example_picture_2), "Add to side chat");
 	}
 
-	// Moderator Context Bar
-	public void onEndClicked(View v) {
-		conferenceController.handleEndClicked();
-		// this.conferenceController.endConference("Not sure what to pass in",
-		// new User("hello", "Dog", R.drawable.example_picture_1));
+	/**
+	 * When moderator presses End Conference on main chat
+	 * @param v
+	 */
+	public void onModeratorEndConference(View v) {
+		conferenceController.handleEndClicked(UserManager.PRIMARY_USER);
+		exitConference();
 	}
 
-	// When the moderator presses leave conference
-	public void onModeratorLeft(View v) {
+	/**
+	 * When the moderator presses Leave Conference on main chat
+	 * @param v
+	 */
+	public void onModeratorLeaveConference(View v) {
+		conferenceController.handleLeaveClicked(MAIN_ROOM_LAYOUT, UserManager.PRIMARY_USER);
 		conferenceController.setNewModerator();
+		exitConference();
+	}
+	
+	/**
+	 * When the moderator presses Leave Conference on main chat
+	 * @param v
+	 */
+	public void onLeaveConference(View v) {
+		conferenceController.handleLeaveClicked(MAIN_ROOM_LAYOUT, UserManager.PRIMARY_USER);
+		exitConference();
 	}
 
 	// TODO - Not sure what this is supposed to do. Ask Design team

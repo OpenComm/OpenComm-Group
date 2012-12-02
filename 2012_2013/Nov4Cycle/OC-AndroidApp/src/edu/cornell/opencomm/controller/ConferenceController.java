@@ -287,15 +287,21 @@ public class ConferenceController {
 	
 	public void setNewModerator() {
 		Toast.makeText(this.context, "Set New Moderator", Toast.LENGTH_SHORT).show();
+		//TODO
 	}
 
 	public void showProfile() {
 		Toast.makeText(this.context, "Show Profile", Toast.LENGTH_SHORT).show();
 	}
 	
-	public void handleEndClicked() {
-		Toast.makeText(this.context, "End conference", Toast.LENGTH_SHORT)
-				.show();
+	public void handleEndClicked(User user) {
+		// TODO won't work until backend finds a way to retrieve the moderator (as of now moderator is null)
+		// end(user);
+	}
+	
+	public void handleLeaveClicked(int roomIndex, User user){
+		// TODO won't work until backend fins a way to retrieve the moderator (as of now moderator is null)
+		//leaveChat(roomIndex, user); 
 	}
 	
 	public void handleOnContextAddClicked() {

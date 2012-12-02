@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/portrait_right_background"
     android:contentDescription="@string/sidechat"
-    android:background="@drawable/portrait_right_background" 
     android:onClick="clickedEmptySpace" >
-
+
     <RelativeLayout
         android:id="@+id/actionbar_sidechat"
         android:layout_width="fill_parent"
@@ -43,7 +43,7 @@
             android:onClick="overflowButtonClicked"
             android:scaleType="centerInside"
             android:src="@drawable/action_overflow" />
-
+
         <ImageButton
             android:id="@+id/add_person_sidechat"
             android:layout_width="30dp"
@@ -102,7 +102,7 @@
             android:layout_marginLeft="88.67dp"
             android:layout_marginTop="2dp"
             android:contentDescription="@string/desc"
-            android:onClick="onModeratorLeft"
+            android:onClick="onModeratorLeaveConference"
             android:src="@drawable/viewgroup_context_door_cancel" />
 
         <ImageView
@@ -115,7 +115,7 @@
             android:layout_marginRight="88.67dp"
             android:layout_marginTop="2dp"
             android:contentDescription="@string/desc"
-            android:onClick="onEndClicked"
+            android:onClick="onModeratorEndConference"
             android:src="@drawable/mod_end" />
 
         <TextView
@@ -345,7 +345,7 @@
             android:textColor="@color/white"
             android:textSize="10sp" />
     </RelativeLayout>
-
+
     <RelativeLayout
         android:id="@+id/side_chat_invitation"
         android:layout_width="fill_parent"

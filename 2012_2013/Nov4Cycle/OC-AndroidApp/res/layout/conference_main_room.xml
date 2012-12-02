@@ -6,7 +6,7 @@
     android:background="@drawable/portrait_main_background"
     android:contentDescription="@string/mainChat"
     android:onClick="clickedEmptySpace" >
-
+ 
     <RelativeLayout
         android:id="@+id/action_bar"
         android:layout_width="fill_parent"
@@ -54,7 +54,7 @@
             android:text="@string/conference"
             android:textColor="@color/blue"
             android:textSize="20dp" />
-
+
         <ImageButton
             android:id="@+id/clock_conference"
             android:layout_width="30dp"
@@ -67,7 +67,7 @@
             android:onClick="pingClicked"
             android:scaleType="centerInside"
             android:src="@drawable/time_action_bar" />
-
+
         <ImageButton
             android:id="@+id/conference_add"
             android:layout_width="30dp"
@@ -98,7 +98,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/bottom_bar"
+        android:id="@+id/bottom_bar_conference_action"
         android:layout_width="fill_parent"
         android:layout_height="42.67dp"
         android:layout_alignParentBottom="true"
@@ -116,7 +116,7 @@
             android:layout_marginLeft="140dp"
             android:layout_marginTop="2dp"
             android:contentDescription="@string/desc"
-            android:onClick="onLeaveClicked"
+            android:onClick="onLeaveConference"
             android:src="@drawable/viewgroup_context_door_cancel" />
 
         <TextView
@@ -132,7 +132,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/bottom_bar_reg_user"
+        android:id="@+id/bottom_bar_users_reg_user"
         android:layout_width="fill_parent"
         android:layout_height="42.67dp"
         android:layout_alignParentBottom="true"
@@ -192,7 +192,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/bottom_bar_moderator"
+        android:id="@+id/bottom_bar_conference_action_moderator"
         android:layout_width="fill_parent"
         android:layout_height="42.67dp"
         android:layout_alignParentBottom="true"
@@ -210,7 +210,7 @@
             android:layout_marginLeft="88.67dp"
             android:layout_marginTop="2dp"
             android:contentDescription="@string/desc"
-            android:onClick="onModeratorLeft"
+            android:onClick="onModeratorLeaveConference"
             android:src="@drawable/viewgroup_context_door_cancel" />
 
         <ImageView
@@ -223,7 +223,7 @@
             android:layout_marginRight="88.67dp"
             android:layout_marginTop="2dp"
             android:contentDescription="@string/desc"
-            android:onClick="onEndClicked"
+            android:onClick="onModeratorEndConference"
             android:src="@drawable/mod_end" />
 
         <TextView
@@ -250,7 +250,7 @@
             android:textColor="@color/white"
             android:textSize="10sp" />
     </RelativeLayout>
-
+
     <ImageView
         android:id="@+id/rightsidechatgradient"
         android:layout_width="wrap_content"
