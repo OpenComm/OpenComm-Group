@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 import edu.cornell.opencomm.interfaces.OCResponseListner;
+import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.packet.ConferenceCommunicator;
+import edu.cornell.opencomm.util.TestDataGen;
 import edu.cornell.opencomm.view.ConferenceSchedulerView;
 import edu.cornell.opencomm.view.DashboardView;
 
@@ -26,6 +28,10 @@ public class ConferenceSchedulerController implements OCResponseListner{
 	public void addConferencePressed(){
 		//TODO [frontend] launch add conference page
 		Toast.makeText(this.context, "Action Bar: Add Conference clicked", Toast.LENGTH_SHORT).show();
+		//Using TestData Gen with actuall user data
+		Conference confToAdd = TestDataGen.getCurrentConference();
+		communicator.pushConference(confToAdd,this);
+		
 	}
 
 	public void notificationsPressed(){

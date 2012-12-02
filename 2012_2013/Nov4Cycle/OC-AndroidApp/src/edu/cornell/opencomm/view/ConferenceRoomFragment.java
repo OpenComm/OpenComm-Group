@@ -168,10 +168,15 @@ public class ConferenceRoomFragment extends Fragment {
 		}
 
 	}
+	public void displayInvitationBar(){
+		RelativeLayout invitationBar = (RelativeLayout) roomLayout.findViewById(R.id.side_chat_invitation_bar);
+		int visibility = (invitationBar.getVisibility() == View.VISIBLE)?View.INVISIBLE:View.VISIBLE;
+		invitationBar.setVisibility(visibility);
+		invitationBar.invalidate();
+	}
 	public ConferenceUser isOverLapping(int x, int y){
 		ArrayList<ConferenceUser> list = conferenceRoom.getCUserList();
 		for(ConferenceUser cu : list){
-			System.out.println("ConferenceRoomFragment.isOverLapping()"+(cu.getUser().compareTo(UserManager.PRIMARY_USER) == 0));
 			if(!(cu.getUser().compareTo(UserManager.PRIMARY_USER) == 0)&& isOverlapping(new Point(x, y), cu.getLocation())){
 				
 				return cu;
@@ -239,17 +244,17 @@ public class ConferenceRoomFragment extends Fragment {
 				if(isOnEdge(new Point(absoluteX, absoluteY))!= -1){
 					String s =(isOnEdge(new Point(absoluteX, absoluteY))==0)?"Left Room":"Right Room";
 					//TODO : Need to show gradient
-					if (s.equals("Left Room")){						
-						a.reset(); 
-						left_gradient.clearAnimation(); 
-						left_gradient.startAnimation(a);
-						
-					}
-					else if(s.equals("Right Room")){
-						a.reset(); 
-						right_gradient.clearAnimation(); 
-						right_gradient.startAnimation(a);
-					}
+//					if (s.equals("Left Room")){						
+//						a.reset(); 
+//						left_gradient.clearAnimation(); 
+//						left_gradient.startAnimation(a);
+//						
+//					}
+//					else if(s.equals("Right Room")){
+//						a.reset(); 
+//						right_gradient.clearAnimation(); 
+//						right_gradient.startAnimation(a);
+//					}
 					//Send invitation using conf room/muc
 					Toast.makeText(context, "Send Invitation:"+s, Toast.LENGTH_SHORT).show();
 				}
@@ -298,9 +303,14 @@ public class ConferenceRoomFragment extends Fragment {
 		}
 		public boolean onLongClick(View v) {
 			if(status != DRAGGING){
-				
-				Toast.makeText(context, "Long Click:Open Contact Card", Toast.LENGTH_SHORT).show();
-				
+				RelativeLayout bottom_bar_user = (RelativeLayout) roomLayout.findViewById(R.id.bottom_bar_user_action);
+				RelativeLayout bottom_bar_conference = (RelativeLayout) roomLayout.findViewById(R.id.bottom_bar_conference_action);
+				RelativeLayout bottom_bar_conference_moderator = (RelativeLayout) roomLayout.findViewById(R.id.bottom_bar_conference_action_moderator);
+				RelativeLayout action_bar = (RelativeLayout) roomLayout.findViewById(R.id.action_bar);
+				bottom_bar_user.setVisibility(View.VISIBLE);
+				action_bar.setVisibility(View.VISIBLE);
+				bottom_bar_conference.setVisibility(View.INVISIBLE);
+				bottom_bar_conference_moderator.setVisibility(View.INVISIBLE);
 			}
 			return false;
 		}
@@ -313,10 +323,5 @@ public class ConferenceRoomFragment extends Fragment {
 				}
 				else return -1; 
 			}
-	}
-	public void onInvitationReceived(Connection conn, String room,
-			String inviter, String reason, String password,
-			Message message) {
-		
 	}
 }

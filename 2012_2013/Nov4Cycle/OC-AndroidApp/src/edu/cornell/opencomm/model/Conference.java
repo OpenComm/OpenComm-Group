@@ -12,6 +12,7 @@ import edu.cornell.opencomm.packet.ConferencePacket;
 import edu.cornell.opencomm.util.Util;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 public class Conference implements Serializable {
 	private String conferenceTitle, reoccurrence, description;
@@ -241,4 +242,80 @@ public class Conference implements Serializable {
 		return new ConferencePacket(conferenceTitle, startDateAndTime,
 				endDateAndTime, reoccurrence, inviter, description, attendees);
 	}
+	/** Parse string conference data into a list of Conference objects
+	 *  Data given in this form:
+	 *  $roomId//roomname//inviter_username//starttime//endtime//recurrence//description%//attendee_username1//attendee_username2$roomId2...  
+	 *  starttime and endtime given in this form: yyyy-mm-dd hh:mm:ss
+	 */
+	public  static ArrayList<Conference> parseConferenceDataToObjects(String data){
+		data = data.replaceFirst("&", "");
+		String[] conferences_data = data.split("&");
+		ArrayList<Conference> conferences = new ArrayList<Conference>();
+		Log.v("ConferenceFirst: ", "" + conferences_data[0]);
+		Log.v("ConferencePreNumber", "" + conferences_data.length);
+		for (String conference_data : conferences_data){
+			// Split data into two sections (1) Conference Data and (2) List of attendees
+			String[] conference_attendees = conference_data.split("%");
+			// Parse Conference Data
+			String[] data_fields = conference_attendees[0].split("//");
+			String conferenceTitle = data_fields[1];
+			String description = data_fields[6];
+			Calendar startDateAndTime = toCalendar(data_fields[3]);
+			Calendar endDateAndTime = toCalendar(data_fields[4]);
+			String reoccurrence = data_fields[5];
+			User inviter = new User(data_fields[2], null, 0);
+			// Parse List of Attendees data
+			ArrayList<User> attendees = toUsers(conference_attendees[1]);
+			
+			Conference conference = new Conference( conferenceTitle, 
+  				   									description,
+  				   									startDateAndTime, 
+  				   									endDateAndTime, 
+  				   									reoccurrence, 
+  				   									inviter,
+  				   									attendees
+												  );  
+			conferences.add(conference);
+		}
+		Log.v("Conference Number", "" + conferences.size());
+		
+		return conferences;
+	}
+	
+	/** Parse a string in this format yyyy-mm-dd hh:mm:ss into a Calendar object */
+	private static  Calendar toCalendar(String dateAndTime){
+		Calendar calendar = Calendar.getInstance();
+		dateAndTime=dateAndTime.substring(0, (dateAndTime.length())-2);
+		String[] date_time = dateAndTime.split(" ");
+		String[] date = date_time[0].split("-");
+		String[] time = date_time[1].split(":");
+		
+		calendar.set( Integer.parseInt(date[0]), 
+					  Integer.parseInt(date[1]), 
+					  Integer.parseInt(date[2]), 
+					  Integer.parseInt(time[0]), 
+					  Integer.parseInt(time[1]), 
+					  Integer.parseInt(time[2])
+					);
+		return calendar;
+	}
+	
+	/** Return a list of User objects given a String of usernames in this format:
+	 *  //username1//username2//username3
+	 */
+	private static ArrayList<User> toUsers(String conference_data){
+		conference_data = conference_data.replaceFirst("//", ""); // Remove the first '//'
+		String[] attendee_usernames = conference_data.split("//");
+		ArrayList<User> users = new ArrayList<User>();
+		for (String username : attendee_usernames){
+			// TODO : refactor to use new constructor
+			User user = new User(username, null, 0);
+			users.add(user);
+			Log.v("TOUSER :", username);
+		}
+		return users;
+	}
+
+
+	
 }

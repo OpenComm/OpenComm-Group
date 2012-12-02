@@ -18,6 +18,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import edu.cornell.opencomm.interfaces.OCUpdateListener;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.ConferenceUser;
@@ -58,7 +59,7 @@ public class UserView extends ImageButton implements OCUpdateListener {
 		}
 
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-				USER_WIDTH, USER_HEIGHT);
+				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		params.leftMargin = conferenceUser.getX();
 		params.topMargin = conferenceUser.getY();
 		setLayoutParams(params);
@@ -140,8 +141,8 @@ public class UserView extends ImageButton implements OCUpdateListener {
 			opts.inJustDecodeBounds = true;
 			this.image = BitmapFactory.decodeResource(context.getResources(),
 					imageID);
-			int newWidth = 76;
-			int newHeight = 76;
+			int newWidth = USER_WIDTH;
+			int newHeight = USER_HEIGHT;
 			rescaleSize(newWidth, newHeight);
 		} else {
 			image = null;
