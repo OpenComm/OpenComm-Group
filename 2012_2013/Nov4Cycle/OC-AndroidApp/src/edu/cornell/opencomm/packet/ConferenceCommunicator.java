@@ -22,6 +22,7 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.Log;
 import edu.cornell.opencomm.interfaces.OCResponseListner;
+import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.model.ConferenceRoom;
 import edu.cornell.opencomm.network.NetworkService;
@@ -110,7 +111,7 @@ public class ConferenceCommunicator implements PacketListener {
 			ConferenceRoom muc = new ConferenceRoom(NetworkService.getInstance()
 					.getConnection(), conference.getConferenceTitle());
 			try {
-				muc.join("");
+				muc.join(UserManager.PRIMARY_USER.getNickname());
 			} catch (XMPPException e) {
 				Log.v("ConferencePush", e.getMessage());
 			}

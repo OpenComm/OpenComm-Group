@@ -66,8 +66,8 @@ public class ConferenceRoomFragment extends Fragment {
 			return null;
 		}
 		this.roomLayout = inflater.inflate(layoutId, container, false);
-		left_gradient = (ImageView) ((ViewGroup)roomLayout).findViewById(R.id.leftsidechatgradient);
-		right_gradient = (ImageView) ((ViewGroup)roomLayout).findViewById(R.id.rightsidechatgradient); 
+//		left_gradient = (ImageView) ((ViewGroup)roomLayout).findViewById(R.id.leftsidechatgradient);
+//		right_gradient = (ImageView) ((ViewGroup)roomLayout).findViewById(R.id.rightsidechatgradient); 
 
 		ViewTreeObserver observer = roomLayout.getViewTreeObserver();
 		observer.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
@@ -118,7 +118,12 @@ public class ConferenceRoomFragment extends Fragment {
 	public ArrayList<UserView> getUserView(){
 		return userViews;
 	}
-	
+	@Override
+	public void onStop() {
+		userViews = null;
+		conferenceRoom = null;
+		super.onStop();
+	}
 	/**
 	 * Position the users
 	 */
