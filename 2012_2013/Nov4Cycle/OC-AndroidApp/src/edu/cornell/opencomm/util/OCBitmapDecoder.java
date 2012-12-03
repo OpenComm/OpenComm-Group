@@ -5,6 +5,7 @@ import java.io.InputStream;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 
 /**This util class should be used to get all bitmaps of user images 
  * failure to do so may lead to OOM exceptions 
@@ -29,7 +30,6 @@ public final class OCBitmapDecoder {
 		final int height = options.outHeight;
 		final int width = options.outWidth;
 		int inSampleSize = 1;
-
 		if (height > reqHeight || width > reqWidth) {
 			if (width > height) {
 				inSampleSize = Math.round((float)height / (float)reqHeight);
@@ -62,7 +62,6 @@ public final class OCBitmapDecoder {
 		options.inJustDecodeBounds = true;
 		BitmapFactory.decodeResource(res, resId, options);
 		options.inSampleSize = resizeImage(options, reqWidth, reqHeight);
-
 		options.inJustDecodeBounds = false;
 		return BitmapFactory.decodeResource(res, resId, options);
 	}
@@ -76,7 +75,6 @@ public final class OCBitmapDecoder {
 		options.inJustDecodeBounds = false;
 		return BitmapFactory.decodeStream(stream, null, options);
 	}
-
 	/**
 	 * @param byteArray
 	 * @param resId

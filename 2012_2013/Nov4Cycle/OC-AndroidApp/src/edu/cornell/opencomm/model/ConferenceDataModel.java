@@ -108,7 +108,11 @@ public class ConferenceDataModel implements InvitationListener {
 		//TODO: Warning: for testing only
 		mainRoom.setList(TestDataGen.createExampleUsers());
 		conferenceRoomMap.put(roomId, mainRoom);
+		conferenceRoomMap.put(roomId+"left", mainRoom);
+		conferenceRoomMap.put(roomId+"right", mainRoom);
 		tagToRoomIdMap.put(ConferenceConstants.MAIN_ROOM_INDEX, roomId);
+		tagToRoomIdMap.put(ConferenceConstants.LEFT_ROOM_INDEX, roomId+"left");
+		tagToRoomIdMap.put(ConferenceConstants.RIGHT_ROOM_INDEX, roomId+"right");
 	}
 	/**Toggle between mute and unmute for the conference
 	 * @return the current state for mute

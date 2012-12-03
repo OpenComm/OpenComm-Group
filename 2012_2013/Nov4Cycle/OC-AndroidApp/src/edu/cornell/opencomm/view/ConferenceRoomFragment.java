@@ -149,9 +149,7 @@ public class ConferenceRoomFragment extends Fragment {
 							UserView u = (UserView) v;
 							if(set){
 								u.setBackgroundColor(Color.BLACK);
-								u.setImage(-1);
 							}else{
-								u.setImage(u.getCUser().getUser().getImage());
 								u.setBackgroundColor(-1);
 							}
 							set = !set;
@@ -163,11 +161,7 @@ public class ConferenceRoomFragment extends Fragment {
 				uv.setOnTouchListener(listener);
 				uv.setOnLongClickListener(listener);
 				}
-				RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-						76, 80);
-				params.leftMargin = confUser.getX();
-				params.topMargin = confUser.getY();
-				((ViewGroup) roomLayout).addView(uv, params);
+				((ViewGroup) roomLayout).addView(uv);
 
 			}
 		}
