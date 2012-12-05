@@ -159,7 +159,4 @@ public class User implements Comparable<User>, Serializable {
 		byte[] bitmapdata = vCard.getAvatar();
 		return BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
 	}
-
-	
-
 }

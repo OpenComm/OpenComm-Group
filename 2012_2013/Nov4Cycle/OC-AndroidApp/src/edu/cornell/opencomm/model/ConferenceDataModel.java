@@ -2,12 +2,17 @@ package edu.cornell.opencomm.model;
 
 import java.util.HashMap;
 
+import org.jivesoftware.smack.Connection;
+import org.jivesoftware.smack.packet.Message;
+import org.jivesoftware.smackx.muc.InvitationListener;
+import org.jivesoftware.smackx.muc.MultiUserChat;
+
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.util.TestDataGen;
 import edu.cornell.opencomm.util.Util;
 
-public class ConferenceDataModel {
+public class ConferenceDataModel implements InvitationListener {
 	
 	/**
 	 * The map to hold chat space data model 
@@ -88,11 +93,10 @@ public class ConferenceDataModel {
 	}
 	
 	boolean isMain;	//if the space is main chat set this to true
-	private String conferenceOwner;
+	
 	public ConferenceDataModel(String conferenceTitle,String conferenceTime,String conferenceOwner){
 		conferenceRoomMap = new HashMap<String, ConferenceRoom>();
 		tagToRoomIdMap = new HashMap<Integer, String>();
-		this.conferenceOwner = conferenceOwner;
 		isMain=true;
 		//Bind the main room
 		createMainRoom(Util.generateUniqueRoomId(conferenceTitle, conferenceTime, conferenceOwner));
@@ -104,7 +108,11 @@ public class ConferenceDataModel {
 		//TODO: Warning: for testing only
 		mainRoom.setList(TestDataGen.createExampleUsers());
 		conferenceRoomMap.put(roomId, mainRoom);
+		conferenceRoomMap.put(roomId+"left", mainRoom);
+		conferenceRoomMap.put(roomId+"right", mainRoom);
 		tagToRoomIdMap.put(ConferenceConstants.MAIN_ROOM_INDEX, roomId);
+		tagToRoomIdMap.put(ConferenceConstants.LEFT_ROOM_INDEX, roomId+"left");
+		tagToRoomIdMap.put(ConferenceConstants.RIGHT_ROOM_INDEX, roomId+"right");
 	}
 	/**Toggle between mute and unmute for the conference
 	 * @return the current state for mute
@@ -150,6 +158,18 @@ public class ConferenceDataModel {
     public boolean isRoomAvailable(){
     	return false; 
     }
+
+	public void invitationReceived(Connection conn, String room,
+			String inviter, String reason, String password, Message message) {
+		if (!isRoomAvailable()) {
+			MultiUserChat.decline(conn, room, inviter, reason);
+		}
+		// UI update
+		// If accepted and available slot, create new MUC and join conferences
+		
+		// If declined or no slot, send rejection
+		MultiUserChat.decline(conn, room, inviter, reason);
+	}
     
     
 }

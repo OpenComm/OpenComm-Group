@@ -39,7 +39,7 @@ public class UserManager {
 	private static int[] colors = { R.color.blue, R.color.green, R.color.orange };
 	
 	
-	private static Hashtable<String, Integer> userColorTable = 
+	public static Hashtable<String, Integer> userColorTable = 
 			new Hashtable<String, Integer>();
 	
 	/**

@@ -1,18 +1,10 @@
 package edu.cornell.opencomm.controller;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-
-import org.apache.http.NameValuePair;
-import org.jivesoftware.smack.AccountManager;
-
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.util.Util;
 import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.SignupView;
@@ -32,13 +24,9 @@ import edu.cornell.opencomm.view.SignupView;
  * @author Ankit Singh [frontend], Risa Naka [frontend]
  * */
 public class SignupController {
-	/**
-	 * The TAG for logging
-	 */
-	
-	private AccountController accountController;
-	
+	@SuppressWarnings("unused")
 	private static final String TAG = SignupController.class.getSimpleName();
+	@SuppressWarnings("unused")
 	private static final boolean D = true;
 	/**
 	 * The View
@@ -51,7 +39,7 @@ public class SignupController {
 	 * @param view
 	 */
 	public SignupController(SignupView view) {
-		accountController = new AccountController();
+		new AccountController();
 		this.signupView = view;
 	}
 
@@ -99,7 +87,6 @@ public class SignupController {
 					errorText.toString(), Toast.LENGTH_SHORT).show();
 			this.signupView.findViewById(R.id.signup_acceptOverlay).setVisibility(View.INVISIBLE);
 		} else {
-			// TODO [backend] create a new user
 			String userName = email.replaceAll("[^a-zA-Z0-9]", "");
 			String[] userInfo = {userName, fName, lName, email, title, pwd};
 			new CreateUser().execute(userInfo);
@@ -115,7 +102,6 @@ public class SignupController {
 	
 	public void handlePhotoButtonClick(View v) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	/** Creates user based on given inputs
@@ -129,7 +115,7 @@ public class SignupController {
 		@Override
 		protected Boolean doInBackground(String... params) {
 			// {userName, fName, lName, email, title, pwd};
-			accountController.createAcccount(params[0], params[1], params[3],
+			AccountController.createAcccount(params[0], params[1], params[3],
 							params[1], params[2], "0", null, params[4], params[5]);
 			return null;
 		}

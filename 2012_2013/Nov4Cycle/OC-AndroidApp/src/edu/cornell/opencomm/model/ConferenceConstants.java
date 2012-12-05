@@ -16,7 +16,7 @@ public interface ConferenceConstants {
 	/**
 	 * 
 	 */
-	public static int SIDE_ROOM_LAYOUT = R.layout.conference_leftside_room;
+	public static int SIDE_ROOM_LAYOUT = R.layout.conference_side_room;
 	/**
 	 * The number of conference rooms
 	 */
