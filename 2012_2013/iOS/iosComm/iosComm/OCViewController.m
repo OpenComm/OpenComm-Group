@@ -138,15 +138,6 @@ OCXMPPDelegateHandler *delegateHandler;
 }
 
 //-------------------------------------------------------------------
-// Kevin please fill in?
-//-------------------------------------------------------------------
-/*
-- (void)xmppStreamDidStartNegotiation:(XMPPStream *)sender
-{
-    NSLog(@"I'm starting the negotiation");
-}*/
-
-//-------------------------------------------------------------------
 // What happens when the login button is pressed
 //-------------------------------------------------------------------
 - (IBAction)loginButtonPressed:(id)sender {
