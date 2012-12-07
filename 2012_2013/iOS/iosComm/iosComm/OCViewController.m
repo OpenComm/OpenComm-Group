@@ -54,9 +54,9 @@ OCXMPPDelegateHandler *delegateHandler;
     
     /*Initialize everything for this application ONLY ONCE*/
     if (delegateHandler == nil) {
-        defaults = [[OCDefaultServerConstantsController alloc] init];
+        OCDefaultServerConstantsController *defaults = [[OCDefaultServerConstantsController alloc] init];
         delegateHandler = [[OCXMPPDelegateHandler alloc] initWithView:self andDefaults:defaults];
-        myXMPPStream = [[XMPPStream alloc] init];
+        XMPPStream *myXMPPStream = [[XMPPStream alloc] init];
         
         // ss2249 Storage setup
         // Setup roster
@@ -69,9 +69,9 @@ OCXMPPDelegateHandler *delegateHandler;
         // You can do it however you like! It's your application.
         // But you do need to provide the roster with some storage facility.
         
-        myXMPPRosterStorage = [[XMPPRosterCoreDataStorage alloc] init];
+        XMPPRosterCoreDataStorage *myXMPPRosterStorage = [[XMPPRosterCoreDataStorage alloc] init];
         
-        myXMPPRoster = [[XMPPRoster alloc] initWithRosterStorage:myXMPPRosterStorage];
+        XMPPRoster *myXMPPRoster = [[XMPPRoster alloc] initWithRosterStorage:myXMPPRosterStorage];
         
         myXMPPRoster.autoFetchRoster = YES;
         [myXMPPRoster activate:myXMPPStream];
@@ -150,13 +150,15 @@ OCXMPPDelegateHandler *delegateHandler;
 // What happens when the login button is pressed
 //-------------------------------------------------------------------
 - (IBAction)loginButtonPressed:(id)sender {
-    [delegateHandler setViewController: self];
+    
+    [delegateHandler setViewController: self]; //so the correct segue is called
     
     NSLog(@"Username: %@, Password: %@", loginUsernameField.text, loginPasswordField.text);
-    //myXMPPStream = [delegateHandler getXMPPStream];
-    if ([defaults DEBUG_PARAM]) {
+    //Have to get ALL variables from the delegateHandler, because they are not initialized in the viewC
+    NSString *myPassword;
+    if ([[delegateHandler getDefaults] DEBUG_PARAM]) {
         NSLog(@"DEBUG PARAM SET");
-        myXMPPStream.myJID = [XMPPJID jidWithString:[[delegateHandler getDefaults] DEFAULT_JID]];
+        [delegateHandler myXMPPStream].myJID = [XMPPJID jidWithString:[[delegateHandler getDefaults] DEFAULT_JID]];
         //myXMPPStream.hostName = [defaults DEFAULT_DOMAIN];
         /*Don't need to set port. The default is always 5222*/
         //myXMPPStream.hostPort = [defaults DEFAULT_PORT];
@@ -170,54 +172,16 @@ OCXMPPDelegateHandler *delegateHandler;
              stringByAppendingString:[[delegateHandler getDefaults] DEFAULT_RESOURCE]];
         myPassword = loginPasswordField.text;
         NSLog(@"%@", myJID);
-        myXMPPStream.myJID = [XMPPJID jidWithString:myJID];
+        [delegateHandler myXMPPStream].myJID = [XMPPJID jidWithString:myJID];
         //myXMPPStream.hostPort = [defaults DEFAULT_PORT];
     }
     
-    //delegateHandler = [[OCXMPPDelegateHandler alloc] initWithView:self andDefaults:defaults];
-    //[delegateHandler setXMPPRosterStorage:myXMPPRosterStorage roster:myXMPPRoster stream:myXMPPStream];
-    
-    //[myXMPPStream addDelegate:delegateHandler delegateQueue:dispatch_get_main_queue()];
-    //[myXMPPRoster addDelegate:delegateHandler delegateQueue:dispatch_get_main_queue()];
     NSError *error = nil;
     
-    //NSLog(@"stream's JID: %@", myXMPPStream.myJID);
-    
-    //if (![myXMPPStream isDisconnected]) {
-        //NSLog(@"I'm already connected");
-    //}
-    NSLog(@"%@", [delegateHandler myXMPPStream]);
     XMPPPlainAuthentication *auth = [[XMPPPlainAuthentication alloc]initWithStream: [delegateHandler myXMPPStream] password: myPassword];
     if (![[delegateHandler myXMPPStream] authenticate:auth error:&error]) {
         NSLog(@"Oops, I probably forgot something: %@", error);
-    }
-    
-    /* THIS IS SOCKET STUFF*/
-    /*
-    UDPSocket = [[OCUDPSocket alloc] init];
-    UDPDelegateHandler = [[OCUDPDelegateHandler alloc] init];
-    [UDPSocket setDelegate:UDPDelegateHandler];
-    [UDPDelegateHandler setUDPSocket:UDPSocket];
-    */
-    
-    /* THIS IS THE CLIENT STATEMENT*/
-    //[UDPSocket startConnectedToHostName:@"ec2-50-16-95-237.compute-1.amazonaws.com" port: 8001];
-    /* THIS IS THE SERVER STATEMENT*/
-    //[UDPSocket startServerOnPort: 8001];
-    
-    
-    /*This only returns an error if JID and hostname are not set, which is dumb
-     *The method is asynchronous, so it returns even though there is not a full connection*/
-    //if (![myXMPPStream connect:&error])
-    //{
-        //NSLog(@"Oops, I probably forgot something: %@", error);
-    //}
-    
-    //NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
-    //XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:path];
-    //NSLog(@"%@", [[self fetchedResultsController] sections]);
-    NSLog(@"I get here");
-}
+    }}
 
 
 //-------------------------------------------------------------------

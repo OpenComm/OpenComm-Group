@@ -24,7 +24,6 @@
 		0A3612731641AFB600E99A1E /* XMPPvCardCoreDataStorageObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A36126D1641AFB600E99A1E /* XMPPvCardCoreDataStorageObject.m */; };
 		0A3612741641AFB600E99A1E /* XMPPvCardTempCoreDataStorageObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A36126F1641AFB600E99A1E /* XMPPvCardTempCoreDataStorageObject.m */; };
 		0A3612781641AFF400E99A1E /* XMPPvCardAvatarModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3612771641AFF400E99A1E /* XMPPvCardAvatarModule.m */; };
-		0A42C8BC163107A40053C5F2 /* OCSocketViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0A42C8BB163107A40053C5F2 /* OCSocketViewController.mm */; };
 		0A458D8E1659A20C001D516F /* OCForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A458D8B1659A20C001D516F /* OCForgotPasswordViewController.m */; };
 		0A458D8F1659A20C001D516F /* OCSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A458D8D1659A20C001D516F /* OCSignUpViewController.m */; };
 		0A5CCDAB16421B9C00843346 /* OCJingleImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5CCDAA16421B9C00843346 /* OCJingleImpl.m */; };
@@ -149,7 +148,6 @@
 		BA3E6560166B0E4C009717EA /* chat-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BA3E655F166B0E4C009717EA /* chat-icon.png */; };
 		BA777D0116214A530088F734 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA777D0016214A530088F734 /* QuartzCore.framework */; };
 		BA89B64016474DBB003D46ED /* OCContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA89B63F16474DBB003D46ED /* OCContactsViewController.m */; };
-		BA89B64C1647835F003D46ED /* OCDataGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = BA89B64B1647835E003D46ED /* OCDataGenerator.m */; };
 		BA95679B164B320A003496DF /* OCContactCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BA95679A164B320A003496DF /* OCContactCardViewController.m */; };
 		BA97A9BD16438D3A0008AEEA /* signInButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BA97A9BB16438D3A0008AEEA /* signInButton.png */; };
 		BA97A9BE16438D3A0008AEEA /* signUpButton.png in Resources */ = {isa = PBXBuildFile; fileRef = BA97A9BC16438D3A0008AEEA /* signUpButton.png */; };
@@ -226,8 +224,6 @@
 		0A36126F1641AFB600E99A1E /* XMPPvCardTempCoreDataStorageObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMPPvCardTempCoreDataStorageObject.m; path = "XMPPFramework/Extensions/XEP-0054/CoreDataStorage/XMPPvCardTempCoreDataStorageObject.m"; sourceTree = "<group>"; };
 		0A3612761641AFF400E99A1E /* XMPPvCardAvatarModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPvCardAvatarModule.h; path = "XMPPFramework/Extensions/XEP-0153/XMPPvCardAvatarModule.h"; sourceTree = "<group>"; };
 		0A3612771641AFF400E99A1E /* XMPPvCardAvatarModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMPPvCardAvatarModule.m; path = "XMPPFramework/Extensions/XEP-0153/XMPPvCardAvatarModule.m"; sourceTree = "<group>"; };
-		0A42C8BA163107A40053C5F2 /* OCSocketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSocketViewController.h; sourceTree = "<group>"; };
-		0A42C8BB163107A40053C5F2 /* OCSocketViewController.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = OCSocketViewController.mm; sourceTree = "<group>"; };
 		0A458D8A1659A20C001D516F /* OCForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCForgotPasswordViewController.h; sourceTree = "<group>"; };
 		0A458D8B1659A20C001D516F /* OCForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCForgotPasswordViewController.m; sourceTree = "<group>"; };
 		0A458D8C1659A20C001D516F /* OCSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSignUpViewController.h; sourceTree = "<group>"; };
@@ -450,8 +446,6 @@
 		BA777D0016214A530088F734 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BA89B63E16474DBB003D46ED /* OCContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCContactsViewController.h; sourceTree = "<group>"; };
 		BA89B63F16474DBB003D46ED /* OCContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCContactsViewController.m; sourceTree = "<group>"; };
-		BA89B64A1647835E003D46ED /* OCDataGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCDataGenerator.h; sourceTree = "<group>"; };
-		BA89B64B1647835E003D46ED /* OCDataGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCDataGenerator.m; sourceTree = "<group>"; };
 		BA956799164B320A003496DF /* OCContactCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCContactCardViewController.h; sourceTree = "<group>"; };
 		BA95679A164B320A003496DF /* OCContactCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCContactCardViewController.m; sourceTree = "<group>"; };
 		BA97A9BB16438D3A0008AEEA /* signInButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signInButton.png; sourceTree = "<group>"; };
@@ -619,6 +613,60 @@
 				4D66E96F16310114000C589E /* AudioToolbox.framework */,
 			);
 			name = BuiltInFrameworks;
+			sourceTree = "<group>";
+		};
+		0A3E253C1671927A00C253CB /* Forgot Password */ = {
+			isa = PBXGroup;
+			children = (
+				0A458D8A1659A20C001D516F /* OCForgotPasswordViewController.h */,
+				0A458D8B1659A20C001D516F /* OCForgotPasswordViewController.m */,
+			);
+			name = "Forgot Password";
+			sourceTree = "<group>";
+		};
+		0A3E253D1671928500C253CB /* Contacts */ = {
+			isa = PBXGroup;
+			children = (
+				BA89B63E16474DBB003D46ED /* OCContactsViewController.h */,
+				BA89B63F16474DBB003D46ED /* OCContactsViewController.m */,
+				BA956799164B320A003496DF /* OCContactCardViewController.h */,
+				BA95679A164B320A003496DF /* OCContactCardViewController.m */,
+				BA97A9EF1643A2900008AEEA /* ContactCell.xib */,
+				BA97A9F11643A2A20008AEEA /* OCContactCell.h */,
+				BA97A9F21643A2A20008AEEA /* OCContactCell.m */,
+			);
+			name = Contacts;
+			sourceTree = "<group>";
+		};
+		0A3E253E167192A100C253CB /* Sign Up */ = {
+			isa = PBXGroup;
+			children = (
+				0A458D8C1659A20C001D516F /* OCSignUpViewController.h */,
+				0A458D8D1659A20C001D516F /* OCSignUpViewController.m */,
+			);
+			name = "Sign Up";
+			sourceTree = "<group>";
+		};
+		0A3E253F1671931200C253CB /* muc */ = {
+			isa = PBXGroup;
+			children = (
+				0ACAB1E9166A5E0800E27BA5 /* OCMUCExampleViewController.h */,
+				0ACAB1EA166A5E0800E27BA5 /* OCMUCExampleViewController.m */,
+			);
+			name = muc;
+			sourceTree = "<group>";
+		};
+		0A3E25401671936700C253CB /* pj */ = {
+			isa = PBXGroup;
+			children = (
+				4D5BA13C164C756E00FBFBF4 /* util.h */,
+				4D5BA13D164C756E00FBFBF4 /* pjmedia.c */,
+				4D5BA13E164C756E00FBFBF4 /* pjmedia.h */,
+				4D5BA132164C6C9600FBFBF4 /* CoreVideo.framework */,
+				4D5BA130164C6C8700FBFBF4 /* CoreMedia.framework */,
+				4D5BA12E164C6C6B00FBFBF4 /* OpenGLES.framework */,
+			);
+			name = pj;
 			sourceTree = "<group>";
 		};
 		0A5CCDAD16421BFD00843346 /* jingle */ = {
@@ -995,16 +1043,16 @@
 		4D76F8CA163328CA00DE7833 /* ui */ = {
 			isa = PBXGroup;
 			children = (
+				BACCDBB316674CCA002AC5C5 /* Account */,
+				BA95679E164B3272003496DF /* Conference Screen */,
+				0A3E253D1671928500C253CB /* Contacts */,
+				0A3E253C1671927A00C253CB /* Forgot Password */,
+				BA97A9C4164393A90008AEEA /* Icons */,
+				BA97A9EB16439AC00008AEEA /* Images */,
+				BACCDBD016689DD1002AC5C5 /* In Conference View */,
+				0A3E253E167192A100C253CB /* Sign Up */,
 				4DE6A45D160FC14B005F7857 /* OCViewController.h */,
 				4DE6A45E160FC14B005F7857 /* OCViewController.m */,
-				BA97A9C4164393A90008AEEA /* Icons */,
-				BA95679E164B3272003496DF /* Conference Screen */,
-				BA95679D164B3225003496DF /* Contacs */,
-				BACCDBB316674CCA002AC5C5 /* Account */,
-				BACCDBD016689DD1002AC5C5 /* In Conference View */,
-				BA97A9EB16439AC00008AEEA /* Images */,
-				BA89B64A1647835E003D46ED /* OCDataGenerator.h */,
-				BA89B64B1647835E003D46ED /* OCDataGenerator.m */,
 			);
 			name = ui;
 			sourceTree = "<group>";
@@ -1033,12 +1081,7 @@
 		4DE6A430160FC14B005F7857 = {
 			isa = PBXGroup;
 			children = (
-				4D5BA13C164C756E00FBFBF4 /* util.h */,
-				4D5BA13D164C756E00FBFBF4 /* pjmedia.c */,
-				4D5BA13E164C756E00FBFBF4 /* pjmedia.h */,
-				4D5BA132164C6C9600FBFBF4 /* CoreVideo.framework */,
-				4D5BA130164C6C8700FBFBF4 /* CoreMedia.framework */,
-				4D5BA12E164C6C6B00FBFBF4 /* OpenGLES.framework */,
+				0A3E25401671936700C253CB /* pj */,
 				4D5BA0F9164C68D600FBFBF4 /* Libraries */,
 				0A3C60F11633057A001FBFBC /* BuiltInFrameworks */,
 				0A9D8FDE16150F7C00A18E14 /* XMPPFramework */,
@@ -1073,10 +1116,7 @@
 		4DE6A445160FC14B005F7857 /* iosComm */ = {
 			isa = PBXGroup;
 			children = (
-				0A458D8A1659A20C001D516F /* OCForgotPasswordViewController.h */,
-				0A458D8B1659A20C001D516F /* OCForgotPasswordViewController.m */,
-				0A458D8C1659A20C001D516F /* OCSignUpViewController.h */,
-				0A458D8D1659A20C001D516F /* OCSignUpViewController.m */,
+				0A3E253F1671931200C253CB /* muc */,
 				0A5CCDAD16421BFD00843346 /* jingle */,
 				4D76F8CF1633291300DE7833 /* constants */,
 				4D76F8CE1633290700DE7833 /* protocol */,
@@ -1086,10 +1126,6 @@
 				4DE6A457160FC14B005F7857 /* MainStoryboard_iPhone.storyboard */,
 				4DE6A45A160FC14B005F7857 /* MainStoryboard_iPad.storyboard */,
 				4DE6A446160FC14B005F7857 /* Supporting Files */,
-				0A42C8BA163107A40053C5F2 /* OCSocketViewController.h */,
-				0A42C8BB163107A40053C5F2 /* OCSocketViewController.mm */,
-				0ACAB1E9166A5E0800E27BA5 /* OCMUCExampleViewController.h */,
-				0ACAB1EA166A5E0800E27BA5 /* OCMUCExampleViewController.m */,
 			);
 			path = iosComm;
 			sourceTree = "<group>";
@@ -1129,20 +1165,6 @@
 				4DE6A46F160FC14B005F7857 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		BA95679D164B3225003496DF /* Contacs */ = {
-			isa = PBXGroup;
-			children = (
-				BA89B63E16474DBB003D46ED /* OCContactsViewController.h */,
-				BA89B63F16474DBB003D46ED /* OCContactsViewController.m */,
-				BA956799164B320A003496DF /* OCContactCardViewController.h */,
-				BA95679A164B320A003496DF /* OCContactCardViewController.m */,
-				BA97A9EF1643A2900008AEEA /* ContactCell.xib */,
-				BA97A9F11643A2A20008AEEA /* OCContactCell.h */,
-				BA97A9F21643A2A20008AEEA /* OCContactCell.m */,
-			);
-			name = Contacs;
 			sourceTree = "<group>";
 		};
 		BA95679E164B3272003496DF /* Conference Screen */ = {
@@ -1398,7 +1420,6 @@
 				0AA17FF61630D30400CD704A /* XMPPCoreDataStorage.m in Sources */,
 				0AA17FFE1630D39F00CD704A /* NSDate+XMPPDateTimeProfiles.m in Sources */,
 				0AA180001630D39F00CD704A /* XMPPDateTimeProfiles.m in Sources */,
-				0A42C8BC163107A40053C5F2 /* OCSocketViewController.mm in Sources */,
 				4D004DA616333AFE00706B1A /* OCAudioPassingProtocol.m in Sources */,
 				0A36125D1641AF9700E99A1E /* XMPPvCardTemp.m in Sources */,
 				0A36125E1641AF9700E99A1E /* XMPPvCardTempAdr.m in Sources */,
@@ -1435,7 +1456,6 @@
 				0A9A3417164576EF009B2E2F /* XMPPRoomMessageMemoryStorageObject.m in Sources */,
 				0A9A3418164576EF009B2E2F /* XMPPRoomOccupantMemoryStorageObject.m in Sources */,
 				BA89B64016474DBB003D46ED /* OCContactsViewController.m in Sources */,
-				BA89B64C1647835F003D46ED /* OCDataGenerator.m in Sources */,
 				BA95679B164B320A003496DF /* OCContactCardViewController.m in Sources */,
 				4D5BA13F164C756E00FBFBF4 /* pjmedia.c in Sources */,
 				0A458D8E1659A20C001D516F /* OCForgotPasswordViewController.m in Sources */,

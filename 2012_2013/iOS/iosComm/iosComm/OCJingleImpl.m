@@ -232,7 +232,6 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
                                          stringValue: [jingleConstants ATTRIBUTE_ID_CANDIDATE_VALUE_ACCEPT]];
     }
     
-    //TODO should we make the port here?
     [remoteCandidateElement addAttributeWithName: [jingleConstants ATTRIBUTE_IP]
                                      stringValue: ip];
     [remoteCandidateElement addAttributeWithName: [jingleConstants ATTRIBUTE_PORT]
@@ -336,7 +335,6 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
             state = [jingleConstants STATE_ENDED];
             toJID = nil;
             toSID = nil;
-            toIPAddress = nil;
             toPort = nil;
         }
         pendingAck = false;
@@ -388,7 +386,6 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
 // If the packet is nil, it is aimed to the toJID person.
 //-------------------------------------------------------------------
 - (NSXMLElement *) jingleSessionTerminateWithReason: (NSString *)reason inResponseTo: (XMPPIQ *)IQPacket{    
-    //Termination with no error reason.
     NSXMLElement *reasonElement = [self createReasonElementWithReason: reason];
     NSXMLElement *jingleElement = [self createJingleElementWithAction: [jingleConstants SESSION_TERMINATE] SID: mySID Initiator: nil Responder: nil childElement: reasonElement];
     XMPPJID *respondingToJID;
@@ -454,7 +451,7 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
 }
 
 //-------------------------------------------------------------------
-// Checks whether the IQPacket's child
+// Checks whether the IQPacket's child is a Jingle element
 //-------------------------------------------------------------------
 - (bool) isJinglePacket: (XMPPIQ *)IQPacket {
     NSXMLElement *child = [IQPacket childElement];
@@ -481,14 +478,17 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
         return [actionOfPacket isEqualToString: Action];
 }
 
+//-------------------------------------------------------------------
+// Handles the alert button interaction when asking for whether the user
+// wants to accept or decline the call
+//-------------------------------------------------------------------
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
     if([title isEqualToString:@"Accept"])
     {
         
-        NSLog(@"Blah blah blah blah");
-      //  OCConferenceViewController* conferenceViewController = [[OCConferenceViewController alloc] init];
+        
         /* Code to transition to in call view */
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
         UIViewController *vc = [sb instantiateViewControllerWithIdentifier:@"singleCallNavigator"];
@@ -510,6 +510,7 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
             returnIQ = [self jingleRespondSessionAcceptWithRecvportnum: [jingleConstants DEBUG_RECVPORTNUM_RECEIVER] SID:nil];
         }
         else {
+            //port 8888 because that is the port PJ works on
             returnIQ = [self jingleRespondSessionAcceptWithRecvportnum: 8888 SID:nil];
         }
         //not in correct state to respond. don't respond with accept! send them a decline.
@@ -533,10 +534,10 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
         callActive = NO;
         //callTextLabel.text = @"The call has been disconnected";
         
-        NSXMLElement *returnIQ = [self jingleSessionTerminateWithReason: [jingleConstants DECLINE_ELEMENT_NAME] inResponseTo: nil];
+        NSXMLElement *returnIQ = [self jingleSessionTerminateWithReason: [jingleConstants DECLINE_ELEMENT_NAME] inResponseTo: nil]; //DECLINE_element_name
         [xmppStream sendElement: returnIQ];
         pendingAck = true;
-        toIPAddress = nil;
+        toIPAddress = nil; //waiting for an ack from terminate, so toIPAddress = nil
     }
 }
 
@@ -614,11 +615,15 @@ Initiator: (NSString *)initiator Responder: (NSString *)responder childElement: 
     
 }
 
+//-------------------------------------------------------------------
+// sends a terminate message through the network, and pends on a ACK for its
+// terminate message
+//-------------------------------------------------------------------
 - (void) terminate
 {
     NSXMLElement *returnIQ = [self jingleSessionTerminateWithReason: [jingleConstants SUCCESS_ELEMENT_NAME] inResponseTo: nil];
     state = [jingleConstants STATE_ENDED];
-    toIPAddress = nil;
+    toIPAddress = nil; //waiting for an ack from terminate, so toIPAddress = nil
     pendingAck = true;
     [xmppStream sendElement: returnIQ];
 }

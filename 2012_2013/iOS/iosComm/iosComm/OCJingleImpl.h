@@ -18,12 +18,12 @@
 extern UIViewController* currentViewController;
 //Alert - Incoming Call
 @interface OCJingleImpl : NSObject<UIAlertViewDelegate> {
-    //OCJingleConstantsController *jingleConstants;
     NSString *state; //PENDING, ACTIVE, or ENDED as defined in jingleConstants
     XMPPJID *myJID;
     XMPPJID *toJID;
     NSString *myIPAddress;
-    NSString *toIPAddress;
+    NSString *toIPAddress; //when state == ACTIVE and toIPAddress = nil, you are waiting for a
+        //ack from a terminate you sent. might be better to put this condition in a sep. variable.
     NSString *myPort;
     NSString *toPort;
     NSString *mySID; //CURRENT SESSION ID
@@ -94,5 +94,6 @@ extern UIViewController* currentViewController;
 //Or return the appropriate error string defined by XMPP Jingle if something is not supported.
 //- (NSString *) supportedFunctionalty: (XMPPIQ *)jingleIQPacket;
 
+/**Sends a terminate over the network to an ESTABLISHED REMOTE END with a SUCCESS reason, and pends on an ack from the terminate message**/
 - (void) terminate;
 @end
