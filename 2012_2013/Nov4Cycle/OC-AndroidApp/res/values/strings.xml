@@ -72,6 +72,8 @@
     <string name="recurring">recurring</string>
     <string name="invited_by">invited_by</string>
     <string name="attendees">attendees</string>
+    <string name="date">date</string>
+    <string name="start">start</string>
     <string name="to">to</string>
     <string name="accept">accept</string>
     <string name="accept_desc">Accept the invite to this conference</string>
@@ -95,20 +97,23 @@
     <string name="name_sample">Joseph Levitt</string>
     <string name="title_sample">Actor</string>
     <string name="password_sample">********</string>
+    <string name="create_conference">create conference</string>
+    <string name="create">create</string>
+
     <string-array name="overflow_dashboard">
         <item>logout</item>
     </string-array>
     <string-array name="overflow_notifications">
-        <item >profile</item>
-        <item >contacts</item>
+        <item>profile</item>
+        <item>contacts</item>
     </string-array>
     <string-array name="overflow_contacts">
-        <item >conferences</item>
-        <item >profile</item>
+        <item>conferences</item>
+        <item>profile</item>
     </string-array>
     <string-array name="overflow_myaccount">
-        <item >conferences</item>
-        <item >contacts</item>
+        <item>conferences</item>
+        <item>contacts</item>
     </string-array>
 
 </resources>
