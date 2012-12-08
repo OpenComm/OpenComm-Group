@@ -8,9 +8,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ExecutionException;
 
 import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.XMPPConnection;
+import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.filter.PacketFilter;
 import org.jivesoftware.smack.filter.PacketTypeFilter;
 import org.jivesoftware.smack.packet.Message;
@@ -20,8 +22,11 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.Log;
 import edu.cornell.opencomm.interfaces.OCResponseListner;
+import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.Conference;
+import edu.cornell.opencomm.model.ConferenceRoom;
 import edu.cornell.opencomm.network.NetworkService;
+import edu.cornell.opencomm.util.Util;
 
 public class ConferenceCommunicator implements PacketListener {
 
@@ -52,7 +57,15 @@ public class ConferenceCommunicator implements PacketListener {
 		//Conference conference=new Conference("Testers Meeting", "We are awesome!", new GregorianCalendar(2012,11,24, 9,10,0),new GregorianCalendar(2012,11,24, 11,10,0),"Annual",new User("oc4testorg","Bull", 0), null);
 		//this.pushConference(conference, listner);
 		//this.NotificationChecker();
-//		new PullTask().execute();
+		try {
+			new PullTask().execute().get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	/*push a new conference to the Database*/
 	public void pushConference(Conference conference, OCResponseListner listner) {
@@ -95,6 +108,14 @@ public class ConferenceCommunicator implements PacketListener {
 			XMPPConnection xmppConn = NetworkService.getInstance()
 					.getConnection();
 			Conference conference = params[0];
+			ConferenceRoom muc = new ConferenceRoom(NetworkService.getInstance()
+					.getConnection(), conference.getConferenceTitle());
+			try {
+				muc.join(UserManager.PRIMARY_USER.getNickname());
+			} catch (XMPPException e) {
+				Log.v("ConferencePush", e.getMessage());
+			}
+			muc.leave();
 			ConferencePacket packet = conference.toPacket();
 			packet.setFrom(xmppConn.getUser());
 			packet.setTo(DESTINATION);

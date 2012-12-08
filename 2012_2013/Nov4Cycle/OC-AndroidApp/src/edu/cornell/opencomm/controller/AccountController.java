@@ -1,39 +1,34 @@
 package edu.cornell.opencomm.controller;
 
 import java.io.InputStream;
-import java.util.Collection;
-import java.util.HashMap;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
-import org.jivesoftware.smack.AccountManager;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.packet.VCard;
 
 import android.util.Log;
 
 import edu.cornell.opencomm.manager.UserManager;
-import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
 
 /**
  * Controller class responsible for account creation and editing the primary
  * user's account info
  * 
- * @author Kris Kooi
+ * @author Kris Kooi, Brian O'Conner
  * 
  */
 public class AccountController {
-	private AccountManager accountManager;
 	private VCard vCard;
 
 	private static final String TAG = "Controller.AccountController";
-	
-	private static final String USERSERVICE_URL = "http://cuopencomm.no-ip.org/userService/userservice?";
+	private static final String SECRET_KEY = "VyR652Td";
+	private static final String USERSERVICE_URL = "http://cuopencomm.no-ip.org/plugins/userService/userservice?";
 
 	public AccountController() {
-		this.accountManager = NetworkService.getInstance().getAccountManager();
+		NetworkService.getInstance().getAccountManager();
 		if (UserManager.PRIMARY_USER != null) {
 			try {
 				vCard.load(NetworkService.getInstance().getConnection(),
@@ -44,36 +39,20 @@ public class AccountController {
 		}
 	}
 
-	public void createAcccount(String username, String nickname, String email,
+	public static void createAcccount(String username, String nickname, String email,
 			String firstName, String lastName, String phoneNumber,
 			InputStream photo, String title, String password) {
-		HashMap<String, String> attributes = new HashMap<String, String>();
-		Collection<String> requiredAttributes = accountManager
-				.getAccountAttributes();
-		for (String attr : requiredAttributes) {
-			attributes.put(attr, "");
-		}
-		attributes.put("first", firstName);
-		attributes.put("last", lastName);
-		attributes.put("email", email);
-		attributes.put("phone", phoneNumber);
-		try {
-			accountManager.createAccount(username, password, attributes);
-			// create new User to populate VCard and store on server
-			User u = new User(firstName, lastName, email, photo, title,
-					username, nickname);
-			this.vCard = u.getVCard();
-			//TODO: store VCard on server
-		} catch (XMPPException e) {
-			Log.v(TAG, "Account creation failed");
-		}
+		/* HashMap<String, String> attributes = new HashMap<String, String>();
+		}*/
 		try {
 			String requestURL = USERSERVICE_URL;
-			requestURL += "type=add&username=" + username + "&password=" + password;
+			requestURL += "type=add&secret=" + SECRET_KEY;
+			requestURL += "&username=" + username + "&password=" + password;
 			requestURL += "&name=" + nickname + "&email=" + email;
 			URL url = new URL(requestURL);
-			URLConnection urlConn = url.openConnection();
-			urlConn.connect();
+			Log.d(TAG, requestURL);
+			HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
+			urlConn.disconnect();
 		}
 		catch (Exception e)
 		{
@@ -81,16 +60,17 @@ public class AccountController {
 		}
 	}
 
-	public void changeNickname(String nickname) {
-		vCard.setNickName(nickname);
+	public static void changeNickname(String nickname) {
+		/* vCard.setNickName(nickname);
 		try {
 			vCard.save(NetworkService.getInstance().getConnection());
 		} catch (XMPPException e) {
 			Log.v(TAG, "error in updating nickname");
-		}
+		} */
 		try {
 			String requestURL = USERSERVICE_URL;
-			requestURL += "type=update&name=" + nickname;
+			requestURL += "type=update&secret=" + SECRET_KEY;
+			requestURL += "&name=" + nickname;
 			URL url = new URL(requestURL);
 			URLConnection urlConn = url.openConnection();
 			urlConn.connect();
@@ -110,16 +90,17 @@ public class AccountController {
 		}
 	}
 
-	public void changeEmail(String email) {
-		vCard.setEmailHome(email);
+	public static void changeEmail(String email) {
+		/* vCard.setEmailHome(email);
 		try {
 			vCard.save(NetworkService.getInstance().getConnection());
 		} catch (XMPPException e) {
 			Log.v(TAG, "error in updating email");
-		}
+		} */
 		try {
 			String requestURL = USERSERVICE_URL;
-			requestURL += "type=update&email=" + email;
+			requestURL += "type=add&secret=" + SECRET_KEY;
+			requestURL += "&email=" + email;
 			URL url = new URL(requestURL);
 			URLConnection urlConn = url.openConnection();
 			urlConn.connect();
@@ -140,14 +121,15 @@ public class AccountController {
 	}
 
 	public void changePassword(String password) {
-		try {
+		/* try {
 			accountManager.changePassword(password);
 		} catch (XMPPException e) {
 			Log.v(TAG, "error changing password");
-		}
+		} */
 		try {
 			String requestURL = USERSERVICE_URL;
-			requestURL += "type=update&password=" + password;
+			requestURL += "type=add&secret=" + SECRET_KEY;
+			requestURL += "e&password=" + password;
 			URL url = new URL(requestURL);
 			URLConnection urlConn = url.openConnection();
 			urlConn.connect();
@@ -156,10 +138,11 @@ public class AccountController {
 		}
 	}
 	
-	public void deleteUser(String username)	{
+	public static void deleteUser(String username)	{
 		try {
 			String requestURL = USERSERVICE_URL;
-			requestURL += "type=delete&username=" + username;
+			requestURL += "type=add&secret=" + SECRET_KEY;
+			requestURL += "&username=" + username;
 			URL url = new URL(requestURL);
 			URLConnection urlConn = url.openConnection();
 			urlConn.connect();
@@ -168,10 +151,11 @@ public class AccountController {
 		}
 	}
 	
-	public void disableUser(String username) {
+	public static void disableUser(String username) {
 		try {
 			String requestURL = USERSERVICE_URL;
-			requestURL += "type=disable&username=" + username;
+			requestURL += "type=add&secret=" + SECRET_KEY;
+			requestURL += "&username=" + username;
 			URL url = new URL(requestURL);
 			URLConnection urlConn = url.openConnection();
 			urlConn.connect();
@@ -180,10 +164,11 @@ public class AccountController {
 		}
 	}
 	
-	public void enableUser(String username) {
+	public static void enableUser(String username) {
 		try {
 			String requestURL = USERSERVICE_URL;
-			requestURL += "type=enable&username=" + username;
+			requestURL += "type=add&secret=" + SECRET_KEY;
+			requestURL += "&username=" + username;
 			URL url = new URL(requestURL);
 			URLConnection urlConn = url.openConnection();
 			urlConn.connect();

@@ -8,7 +8,7 @@ import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.view.ConferenceSchedulerView;
 import edu.cornell.opencomm.view.ContactCardView;
-import edu.cornell.opencomm.view.MyAccountView;
+import edu.cornell.opencomm.view.MyProfileView;
 
 public class ContactCardController {
 	/**
@@ -114,9 +114,9 @@ public class ContactCardController {
 			this.contactCardView.startActivity(i);
 		}
 		// if the user selects account
-		else if (option.equals("account")) {
+		else if (option.equals("profile")) {
 			// launch my profile page
-			Intent i = new Intent(this.contactCardView, MyAccountView.class);
+			Intent i = new Intent(this.contactCardView, MyProfileView.class);
 			this.contactCardView.startActivity(i);
 		}
 	}

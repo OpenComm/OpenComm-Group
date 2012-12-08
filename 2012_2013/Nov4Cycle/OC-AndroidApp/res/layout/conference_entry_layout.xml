@@ -13,27 +13,24 @@
         android:clickable="true"
         android:gravity="center_vertical" >
 
-
-
-
         <Button
             android:id="@+id/conferenceTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="10.7dp"
-            android:layout_marginTop="-2dp"
             android:background="@color/black_light"
             android:clickable="true"
+            android:gravity="clip_horizontal"
             android:onClick="OnItemClick"
             android:text="@string/conferenceTitle"
             android:textColor="@color/white_smoke"
             android:textSize="20sp" />
 
-
-
-        <Button
+        <TextView
             android:id="@+id/startTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,7 +42,6 @@
             android:textColor="@color/white_smoke"
             android:textSize="10sp" />
 
-
         <ImageView
             android:id="@+id/conferenceEntry_overlay"
             android:layout_width="fill_parent"
@@ -56,7 +52,6 @@
             android:scaleType="fitXY"
             android:src="@drawable/overlay_white"
             android:visibility="invisible" />
-
     </RelativeLayout>
 
 </RelativeLayout>

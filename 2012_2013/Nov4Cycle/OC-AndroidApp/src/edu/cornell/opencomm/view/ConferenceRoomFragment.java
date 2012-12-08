@@ -2,6 +2,9 @@ package edu.cornell.opencomm.view;
 
 import java.util.ArrayList;
 
+import org.jivesoftware.smack.Connection;
+import org.jivesoftware.smack.packet.Message;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -19,6 +22,8 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -42,6 +47,8 @@ public class ConferenceRoomFragment extends Fragment {
 	public ArrayList<UserView> userViews = new ArrayList<UserView>();
 	public Context context;
 	public static final int radius = 165;
+	private ImageView left_gradient; 
+	private ImageView right_gradient; 
 
 	public ConferenceRoomFragment(Context context, int layoutId,
 			ConferenceRoom room) {
@@ -59,7 +66,8 @@ public class ConferenceRoomFragment extends Fragment {
 			return null;
 		}
 		this.roomLayout = inflater.inflate(layoutId, container, false);
-		
+//		left_gradient = (ImageView) ((ViewGroup)roomLayout).findViewById(R.id.leftsidechatgradient);
+//		right_gradient = (ImageView) ((ViewGroup)roomLayout).findViewById(R.id.rightsidechatgradient); 
 
 		ViewTreeObserver observer = roomLayout.getViewTreeObserver();
 		observer.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
@@ -92,12 +100,30 @@ public class ConferenceRoomFragment extends Fragment {
 	}
 
 	/**
-	 * Add a userView to this roomFragment
+	 * Add a given userView to this roomFragment's list of UserViews
+	 * @param userView
 	 */
 	public void addUserView(UserView userView) {
 		userViews.add(userView);
 	}
 	
+	/** 
+	 * Remove a given userView from this roomFragment's list of UserViews
+	 * @param userView
+	 */
+	public void removeUserView(UserView userView){
+		userViews.remove(userView);
+	}
+	
+	public ArrayList<UserView> getUserView(){
+		return userViews;
+	}
+	@Override
+	public void onStop() {
+		userViews = null;
+		conferenceRoom = null;
+		super.onStop();
+	}
 	/**
 	 * Position the users
 	 */
@@ -123,9 +149,7 @@ public class ConferenceRoomFragment extends Fragment {
 							UserView u = (UserView) v;
 							if(set){
 								u.setBackgroundColor(Color.BLACK);
-								u.setImage(-1);
 							}else{
-								u.setImage(u.getCUser().getUser().getImage());
 								u.setBackgroundColor(-1);
 							}
 							set = !set;
@@ -137,20 +161,28 @@ public class ConferenceRoomFragment extends Fragment {
 				uv.setOnTouchListener(listener);
 				uv.setOnLongClickListener(listener);
 				}
-				RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-						76, 76);
-				params.leftMargin = confUser.getX();
-				params.topMargin = confUser.getY();
-				((ViewGroup) roomLayout).addView(uv, params);
+				((ViewGroup) roomLayout).addView(uv);
 
 			}
 		}
 
 	}
+	public void displayInvitationBar(){
+		RelativeLayout invitationBar = (RelativeLayout) roomLayout.findViewById(R.id.side_chat_invitation_bar);
+		invitationBar.setVisibility(View.INVISIBLE);
+		invitationBar.setOnClickListener(new OnClickListener() {
+			
+			public void onClick(View v) {
+				v.setVisibility(View.INVISIBLE);
+				v.invalidate();
+				
+			}
+		});
+		invitationBar.invalidate();
+	}
 	public ConferenceUser isOverLapping(int x, int y){
 		ArrayList<ConferenceUser> list = conferenceRoom.getCUserList();
 		for(ConferenceUser cu : list){
-			System.out.println("ConferenceRoomFragment.isOverLapping()"+(cu.getUser().compareTo(UserManager.PRIMARY_USER) == 0));
 			if(!(cu.getUser().compareTo(UserManager.PRIMARY_USER) == 0)&& isOverlapping(new Point(x, y), cu.getLocation())){
 				
 				return cu;
@@ -187,6 +219,8 @@ public class ConferenceRoomFragment extends Fragment {
 		 * 
 		 */
 		ImageView dittoUser = null ;
+		
+		Animation a = AnimationUtils.loadAnimation(context, R.anim.set);
 
 		/*
 		 * (non-Javadoc)
@@ -216,6 +250,17 @@ public class ConferenceRoomFragment extends Fragment {
 				if(isOnEdge(new Point(absoluteX, absoluteY))!= -1){
 					String s =(isOnEdge(new Point(absoluteX, absoluteY))==0)?"Left Room":"Right Room";
 					//TODO : Need to show gradient
+//					if (s.equals("Left Room")){						
+//						a.reset(); 
+//						left_gradient.clearAnimation(); 
+//						left_gradient.startAnimation(a);
+//						
+//					}
+//					else if(s.equals("Right Room")){
+//						a.reset(); 
+//						right_gradient.clearAnimation(); 
+//						right_gradient.startAnimation(a);
+//					}
 					//Send invitation using conf room/muc
 					Toast.makeText(context, "Send Invitation:"+s, Toast.LENGTH_SHORT).show();
 				}
@@ -241,7 +286,8 @@ public class ConferenceRoomFragment extends Fragment {
 					dittoUser =  new 	ImageView(context);
 					dittoUser.setImageBitmap(b);
 					dittoUser.setPadding(absoluteX,absoluteY, 0, 0);
-					((UserView)v).setImageBitmap(null);
+					((UserView)v).setImageBitmap(null); 
+					((UserView)v).setBackgroundResource(R.drawable.greybox);	
 					((ViewGroup)roomLayout).addView(dittoUser, params);
 					
 				}
@@ -263,9 +309,14 @@ public class ConferenceRoomFragment extends Fragment {
 		}
 		public boolean onLongClick(View v) {
 			if(status != DRAGGING){
-				
-				Toast.makeText(context, "Long Click:Open Contact Card", Toast.LENGTH_SHORT).show();
-				
+				RelativeLayout bottom_bar_user = (RelativeLayout) roomLayout.findViewById(R.id.bottom_bar_user_action);
+				RelativeLayout bottom_bar_conference = (RelativeLayout) roomLayout.findViewById(R.id.bottom_bar_conference_action);
+				RelativeLayout bottom_bar_conference_moderator = (RelativeLayout) roomLayout.findViewById(R.id.bottom_bar_conference_action_moderator);
+				RelativeLayout action_bar = (RelativeLayout) roomLayout.findViewById(R.id.action_bar);
+				bottom_bar_user.setVisibility(View.VISIBLE);
+				action_bar.setVisibility(View.VISIBLE);
+				bottom_bar_conference.setVisibility(View.INVISIBLE);
+				bottom_bar_conference_moderator.setVisibility(View.INVISIBLE);
 			}
 			return false;
 		}
@@ -279,5 +330,4 @@ public class ConferenceRoomFragment extends Fragment {
 				else return -1; 
 			}
 	}
-
 }

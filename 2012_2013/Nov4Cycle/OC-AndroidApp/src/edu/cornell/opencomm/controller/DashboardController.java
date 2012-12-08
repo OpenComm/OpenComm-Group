@@ -11,7 +11,7 @@ import edu.cornell.opencomm.view.ConferenceSchedulerView;
 import edu.cornell.opencomm.view.ContactListView;
 import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.LoginView;
-import edu.cornell.opencomm.view.MyAccountView;
+import edu.cornell.opencomm.view.MyProfileView;
 import edu.cornell.opencomm.view.NotificationsView;
 
 /**
@@ -90,7 +90,7 @@ public class DashboardController {
 	 * Launches Profile Button
 	 */
 	public void handleProfileButtonClicked() {
-		Intent i = new Intent(this.dashboardView,MyAccountView.class);
+		Intent i = new Intent(this.dashboardView,MyProfileView.class);
     	this.dashboardView.startActivity(i);
 	}
 
@@ -102,7 +102,7 @@ public class DashboardController {
 	/** 
 	 * Shows/hides Overflow
 	 */
-	public void handleOverflowClicked() {
+	public void handleOverflowButtonClicked() {
     	if (this.dashboardView.getOverflowList().getVisibility() == View.INVISIBLE) {
     		this.dashboardView.getOverflowList().setVisibility(View.VISIBLE);
     	}
@@ -126,6 +126,7 @@ public class DashboardController {
 			// launch login page
 			Intent i = new Intent(this.dashboardView, LoginView.class);
 			this.dashboardView.startActivity(i);
+			this.dashboardView.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 		}		
 	}
 }

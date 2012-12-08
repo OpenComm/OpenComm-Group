@@ -54,6 +54,8 @@ public class ResetPasswordController {
 	};
 
 	private ProgressDialog findEmailProgress;
+	
+	private String email;
 
 	private ResetPasswordView resetPasswordView;
 
@@ -123,6 +125,7 @@ public class ResetPasswordController {
 		// go back to login page
 		Intent click = new Intent(this.resetPasswordView, LoginView.class);
 		this.resetPasswordView.startActivity(click);
+		this.resetPasswordView.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 	}
 
 	private class FindEmailTask extends AsyncTask<String, Void, ReturnState> {
@@ -138,7 +141,7 @@ public class ResetPasswordController {
 
 		@Override
 		protected ReturnState doInBackground(String... params) {
-			String email = params[0];
+			email = params[0];
 			// TODO [backend] look for user using the given email in the network
 			// TODO [backend] if use rnot in network, return ReturnState.NONEXISTING_USER
 			return ReturnState.EXISTING_USER;
@@ -148,6 +151,8 @@ public class ResetPasswordController {
 		protected void onPostExecute(ReturnState state) {
 			findEmailProgress.dismiss();
 			if (state == ReturnState.EXISTING_USER) {
+				EmailController sendEmail= new EmailController();
+				sendEmail.resetPasword(email);
 				// TODO [backend] send new dummy password to user
 			}
 		}

@@ -1,26 +1,19 @@
 package edu.cornell.opencomm.controller;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
-import org.jivesoftware.smack.RosterEntry;
-
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.User;
-import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ConferenceSchedulerView;
-import edu.cornell.opencomm.view.ContactAddView;
 import edu.cornell.opencomm.view.ContactCardView;
 import edu.cornell.opencomm.view.ContactListView;
-import edu.cornell.opencomm.view.ContactSearchView;
-import edu.cornell.opencomm.view.MyAccountView;
+import edu.cornell.opencomm.view.ContactAddSearchView;
+import edu.cornell.opencomm.view.MyProfileView;
 
 /**
  * Controller for contacts page (ContactListView). Functionality:<br>
@@ -91,9 +84,9 @@ public class ContactListController {
 			this.contactListView.startActivity(i);
 		}
 		// if the user selects account
-		else if (option.equals("account")) {
+		else if (option.equals("profile")) {
 			// launch my profile page
-			Intent i = new Intent(this.contactListView, MyAccountView.class);
+			Intent i = new Intent(this.contactListView, MyProfileView.class);
 			this.contactListView.startActivity(i);
 		}
 	}
@@ -102,14 +95,16 @@ public class ContactListController {
 	 * Search button clicked; launch ContactSearchView
 	 * */
 	public void handleSearchButtonClicked() {
-		Intent i = new Intent(this.contactListView, ContactSearchView.class);
+		Intent i = new Intent(this.contactListView, ContactAddSearchView.class);
+		i.putExtra(ContactAddSearchView.AddSearchKey, false);
 		this.contactListView.startActivity(i);
 
 	}
 
 	/** Add button clicked: launch ContactAddView */
 	public void handleAddButtonClicked() {
-		Intent i = new Intent(this.contactListView, ContactAddView.class);
+		Intent i = new Intent(this.contactListView, ContactAddSearchView.class);
+		i.putExtra(ContactAddSearchView.AddSearchKey, true);
 		this.contactListView.startActivity(i);
 
 	}
@@ -131,7 +126,7 @@ public class ContactListController {
 	public void updateContactList() {
 		boolean updated = false;
 		try {
-			updated = new UpdateContactsTask().execute().get();
+			updated = new UserManager.UpdateContactsTask().execute().get();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (ExecutionException e) {
@@ -142,21 +137,4 @@ public class ContactListController {
 					Toast.LENGTH_SHORT).show();
 	}
 
-	/** Updates the contact list, returning true if the update is successful */
-	private class UpdateContactsTask extends AsyncTask<Void, Void, Boolean> {
-		@Override
-		protected Boolean doInBackground(Void... arg0) {
-			Iterator<RosterEntry> entries = NetworkService.getInstance()
-					.getConnection().getRoster().getEntries().iterator();
-			ArrayList<User> updatedList = new ArrayList<User>();
-			while (entries.hasNext()) {
-				RosterEntry entry = entries.next();
-				// TODO [backend] obtain complete info on user
-				User buddy = new User(entry.getUser(), entry.getName(), 0);
-				updatedList.add(buddy);
-			}
-			UserManager.updateContactList(updatedList);
-			return true;
-		}
-	}
 }

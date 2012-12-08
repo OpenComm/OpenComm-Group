@@ -14,7 +14,7 @@
         android:gravity="center_vertical"
         android:includeFontPadding="false"
         android:paddingLeft="41.25dp"
-        android:text="@string/my_account"
+        android:text="@string/new_account"
         android:textColor="@color/green"
         android:textSize="45sp" />
 
@@ -284,6 +284,11 @@
                 android:background="@drawable/selector_bg_edittext"
                 android:inputType="text"
                 android:paddingLeft="5dp" />
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="6dp"
+                android:layout_below="@id/signup_confirmPwdInput"
+                />
         </RelativeLayout>
     </ScrollView>
 

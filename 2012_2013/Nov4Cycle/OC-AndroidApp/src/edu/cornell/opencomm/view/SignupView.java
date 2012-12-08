@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.controller.SignupController;
+import edu.cornell.opencomm.util.OCBitmapDecoder;
 
 
 /**
@@ -158,9 +159,9 @@ public class SignupView extends Activity {
 				try {
 					imageStream = getContentResolver().openInputStream(
 							selectedImage);
-
-					Bitmap yourSelectedImage = BitmapFactory
-							.decodeStream(imageStream);
+					//My faith in humanity tells me that this may some how work.
+					//if it does not please do not try to find out who wrote this code
+					Bitmap yourSelectedImage = OCBitmapDecoder.getThumbnailFromInputStream(imageStream);
 					ImageView photo = (ImageView) findViewById(R.id.signup_photoInput);
 					photo.setImageBitmap(yourSelectedImage);
 					photo.invalidate();

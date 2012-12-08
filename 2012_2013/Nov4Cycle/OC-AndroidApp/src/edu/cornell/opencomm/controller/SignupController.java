@@ -1,17 +1,10 @@
 package edu.cornell.opencomm.controller;
 
-import java.util.ArrayList;
-
-import org.apache.http.NameValuePair;
-import org.jivesoftware.smack.AccountManager;
-
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.util.Util;
 import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.SignupView;
@@ -31,10 +24,9 @@ import edu.cornell.opencomm.view.SignupView;
  * @author Ankit Singh [frontend], Risa Naka [frontend]
  * */
 public class SignupController {
-	/**
-	 * The TAG for logging
-	 */
+	@SuppressWarnings("unused")
 	private static final String TAG = SignupController.class.getSimpleName();
+	@SuppressWarnings("unused")
 	private static final boolean D = true;
 	/**
 	 * The View
@@ -47,6 +39,7 @@ public class SignupController {
 	 * @param view
 	 */
 	public SignupController(SignupView view) {
+		new AccountController();
 		this.signupView = view;
 	}
 
@@ -94,8 +87,9 @@ public class SignupController {
 					errorText.toString(), Toast.LENGTH_SHORT).show();
 			this.signupView.findViewById(R.id.signup_acceptOverlay).setVisibility(View.INVISIBLE);
 		} else {
-			// TODO [backend] create a new user
-			new CreateUser().execute();
+			String userName = email.replaceAll("[^a-zA-Z0-9]", "");
+			String[] userInfo = {userName, fName, lName, email, title, pwd};
+			new CreateUser().execute(userInfo);
 			Intent click = new Intent(this.signupView, DashboardView.class);
 			this.signupView.startActivity(click);
 		}
@@ -108,42 +102,21 @@ public class SignupController {
 	
 	public void handlePhotoButtonClick(View v) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	/** Creates user based on given inputs
 	 * TODO [backend] what error results are outputted for each case (creation fail, already 
 	 * registered emails, etc) */
 	private class CreateUser extends
-			AsyncTask<ArrayList<NameValuePair>, Void, Boolean> {
+			AsyncTask<String, Void, Boolean> {
 
 		// TODO send the request to the server to create a new user
 		// see if you can or should reuse UserManager
 		@Override
-		protected Boolean doInBackground(ArrayList<NameValuePair>... params) {
-			AccountManager accountManager = NetworkService.getInstance()
-					.getConnection().getAccountManager();
-			try {
-				if (accountManager.supportsAccountCreation()) {
-					// TODO [backend] use input from user
-					accountManager.createAccount("Test007", "Skyfall");
-					if (D)
-						Log.d(TAG, "Successful account creation");
-				} else {
-					if (D)
-						Log.d(TAG, "Account Creation is not supported");
-					if (D)
-						Log.d(TAG,
-								"Account Instructions: "
-										+ accountManager
-												.getAccountInstructions());
-
-				}
-			} catch (Exception e) {
-				if (D)
-					Log.d(TAG, "Error in account creation:" + e.getMessage());
-				e.printStackTrace();
-			}
+		protected Boolean doInBackground(String... params) {
+			// {userName, fName, lName, email, title, pwd};
+			AccountController.createAcccount(params[0], params[1], params[3],
+							params[1], params[2], "0", null, params[4], params[5]);
 			return null;
 		}
 
