@@ -3,11 +3,15 @@
 <plist version="1.0">
 <dict>
 	<key>DEBUG_PARAM</key>
-	<true/>
+	<false/>
 	<key>DEFAULT_HOSTNAME</key>
 	<string>cuopencomm.no-ip.org</string>
+	<key>DEFAULT_DOMAIN</key>
+	<string>cuopencomm</string>
+	<key>DEFAULT_RESOURCE</key>
+	<string>smack</string>
 	<key>DEFAULT_JID</key>
-	<string>ios_team@cuopencomm.no-ip.org</string>
+	<string>ios_team@cuopencomm.no-ip.org/mobile</string>
 	<key>DEFAULT_PASSWORD</key>
 	<string>opencomm</string>
 	<key>DEFAULT_PORT</key>

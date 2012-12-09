@@ -7,17 +7,41 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "XMPP.h"
+#import "XMPPFramework.h"
+#import "OCJingleImpl.h"
+#import "OCViewController.h"
 
-@interface OCXMPPDelegateHandler : NSObject {
-    NSString *password;
+@class OCViewController;
+
+@interface OCXMPPDelegateHandler : NSObject <UIAlertViewDelegate, XMPPRosterDelegate> {
+    XMPPRoster *myXMPPRoster;
+    XMPPRosterCoreDataStorage *myXMPPRosterStorage;
+    XMPPStream *myXMPPStream;
+    OCJingleImpl *jingleObj;
+    UIViewController *viewController;
+    OCDefaultServerConstantsController *defaults;
 }
 
-- (id)initWithPassword: (NSString *) password;
+// ss2249 for roster
+@property (nonatomic, strong, readonly) XMPPStream *myXMPPStream;
+@property (nonatomic, strong, readonly) XMPPRoster *myXMPPRoster;
+@property (nonatomic, strong, readonly) XMPPRosterCoreDataStorage *myXMPPRosterStorage;
+- (NSManagedObjectContext *)managedObjectContext_roster;
+
+- (id)initWithView:(UIViewController *)controller andDefaults:(OCDefaultServerConstantsController *) def;
+- (void) setViewController: (UIViewController *)controller;
+- (OCDefaultServerConstantsController *) getDefaults;
+- (void)setXMPPRosterStorage:(XMPPRosterCoreDataStorage *)storage roster:(XMPPRoster *)r stream:(XMPPStream *)s;
+- (void)setJingleImpl:(OCJingleImpl *)jingleObjParam;
 - (void)xmppStreamDidConnect:(XMPPStream *) sender;
 - (void)xmppStreamDidAuthenticate:(XMPPStream *) sender;
 - (void)xmppStream:(XMPPStream *)sender didSendPresence:(XMPPPresence *)presence;
 - (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(NSXMLElement *)error;
 - (void)xmppStream:(XMPPStream *)sender didReceiveError:(id) error;
+
+- (BOOL)xmppStream:(XMPPStream *)sender didReceiveIQ:(XMPPIQ *)iq;
+- (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message;
+
+- (OCJingleImpl *)getJingle;
 
 @end

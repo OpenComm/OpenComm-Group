@@ -8,14 +8,43 @@
 
 #import "OCXMPPDelegateHandler.h"
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 @implementation OCXMPPDelegateHandler
 
-- (id)initWithPassword: (NSString *) passwordParam {
+@synthesize myXMPPStream;
+@synthesize myXMPPRoster;
+@synthesize myXMPPRosterStorage;
+
+- (id)initWithView:(UIViewController *)controller  andDefaults:(OCDefaultServerConstantsController *) def{
     self = [super init];
     if (self) {
-        password = passwordParam;
+        viewController = controller;
+        defaults = def;
     }
+    
     return self;
+}
+
+- (void) setViewController: (UIViewController *)controller {
+    viewController = controller;
+}
+
+- (void)setJingleImpl:(OCJingleImpl *)jingleObjParam {
+    jingleObj = jingleObjParam;
+}
+
+- (OCDefaultServerConstantsController *) getDefaults {
+    return defaults;
+}
+
+- (void)setXMPPRosterStorage:(XMPPRosterCoreDataStorage *)storage roster:(XMPPRoster *) r stream:(XMPPStream *)s
+{
+    myXMPPRosterStorage = storage;
+    myXMPPRoster = r;
+    myXMPPStream = s;
 }
 
 //-------------------------------------------------------------------
@@ -25,6 +54,8 @@
 {
     XMPPPresence *presc = [XMPPPresence presence];
     [sender sendElement: presc]; //available is implicit supposedly
+    
+    jingleObj = [[OCJingleImpl alloc] initWithJID: [sender myJID] xmppStream: sender];
     NSLog(@"I'm supposedly online");
 }
 
@@ -68,24 +99,31 @@
     /*DigestMD5 should be used to connect to Facebook instead of XFacebook, because XFacebook
      *Requires a appID and token. MD5 only requires the password*/
     
-    NSError *error = nil;
-    BOOL result;
-    if (DEBUG == YES) {
-        XMPPPlainAuthentication *auth = [[XMPPPlainAuthentication alloc]initWithStream: sender password: password];
-        result = [sender authenticate:auth error:&error];
+    //NSError *error = nil;
+    //BOOL result;
+    
+    //if (DEBUG == YES) {
+        //XMPPPlainAuthentication *auth = [[XMPPPlainAuthentication alloc]initWithStream: sender password: password];
+        //result = [sender authenticate:auth error:&error];
         
-    }
-    else {
-        XMPPDigestMD5Authentication *auth = [[XMPPDigestMD5Authentication alloc]initWithStream: sender password: password];
-        result = [sender authenticate:auth error:&error];
-    }
-    if (!result) {
-        NSLog(@"Oops, I probably forgot something: %@", error);
-    }
-    if (sender.isAuthenticated) {
-        NSLog(@"I'm authenticated in Did Connect");
-    }
-    NSLog(@"Goodbye!");
+    //}
+    //else {
+        //XMPPDigestMD5Authentication *auth = [[XMPPDigestMD5Authentication alloc]initWithStream: sender password: password];
+        //result = [sender authenticate:auth error:&error];
+    //}
+    
+     /*
+    XMPPDigestMD5Authentication *auth = [[XMPPDigestMD5Authentication alloc]initWithStream: sender password: password];
+    result = [sender authenticate:auth error:&error];
+     */
+    
+    //if (!result) {
+        //NSLog(@"Oops, I probably forgot something: %@", error);
+    //}
+    //if (sender.isAuthenticated) {
+        //NSLog(@"I'm authenticated in Did Connect");
+    //}
+    //NSLog(@"Goodbye!");
     
     //This is not really printed... so I hypothesize that this delegate is called
     //Before the state is set to connected.
@@ -112,6 +150,7 @@
     
     /*This gets me online!*/
     [self goOnline:sender];
+    [viewController performSegueWithIdentifier:@"successfulLogin" sender:nil];
     
     //[self sendMessage: sender];
     
@@ -122,14 +161,27 @@
     //[sender disconnect];
 }
 
-
 //-------------------------------------------------------------------
 // Delegate method called once the presence is sent, implements XMPP stream delegate
 //-------------------------------------------------------------------
 - (void)xmppStream:(XMPPStream *)sender didSendPresence:(XMPPPresence *)presence {
-    NSLog(@"I sent my presence");
-    //[NSThread sleepForTimeInterval: 30];
-    [self sendMessageWith:sender message:@"QIMING IS COOL" to:@"qimingiscool@cuopencomm" ];
+    //NSLog(@"I sent my presence");
+    //[self sendMessageWith:sender message:@"QIMING IS COOL" to:@"opencommsec@cuopencomm" ];
+    
+    //init jingleObj here once we go online -- we are now open for jingle connections
+    if ([[jingleObj jingleConstants] DEBUG_PARAM]) {
+        //If you're the sender, send an session-initiate to the "receiver".
+        if ([[jingleObj jingleConstants] DEBUG_IS_SENDER]) {
+            NSXMLElement *element = [jingleObj jingleSessionInitiateTo:[XMPPJID jidWithString: [[jingleObj jingleConstants] DEBUG_RECEIVER_JID]] recvportnum: (uint16_t)[[jingleObj jingleConstants] DEBUG_RECVPORTNUM_SENDER] SID:nil];
+            [sender sendElement: element];
+            NSLog(@"DEBUG: Sent the following session-initiate msg: %@", element);
+            [jingleObj printJingleObject];
+        }
+    }
+}
+
+- (void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence {
+    NSLog(@"%@", presence);
 }
 
 
@@ -140,6 +192,19 @@
 {
     NSLog(@"I did not authenticate");
     NSLog(@"%@", error);
+    
+    // Display error message
+    UIAlertView *info = [
+                         [UIAlertView alloc]
+                         initWithTitle:@"Incorrect Username/Password"
+                         message:@"Username/Password combination not found.\nPlease try again with correct details."
+                         delegate:self
+                         cancelButtonTitle:@"Dismiss"
+                         otherButtonTitles:nil
+                         ];
+    [info show];
+    //[sender disconnect];
+    
 }
 
 
@@ -149,7 +214,103 @@
 - (void)xmppStream:(XMPPStream *)sender didReceiveError:(id)error
 {
 	NSLog(@"Received an error");
+    UIAlertView *info = [
+                         [UIAlertView alloc]
+                         initWithTitle:@"Cannot connect to server"
+                         message:@"Connection to server timeout out, please try again in a few minutes"
+                         delegate:self
+                         cancelButtonTitle:@"Dismiss"
+                         otherButtonTitles:nil
+                         ];
+    [info show];
+
 }
 
+- (BOOL)xmppStream:(XMPPStream *)sender didReceiveIQ:(XMPPIQ *)iq
+{
+	NSLog(@"%@", iq);
+    if ([jingleObj processPacketForJingle: iq]) {
+        [jingleObj printJingleObject];
+        return YES;
+    }
+    else {
+        //If there are other IQ packets that are not jingle, process here.
+        NSLog(@"The previously printed packet is not a jingle IQ packet");
+    }
+	return NO;
+}
+
+- (NSManagedObjectContext *)managedObjectContext_roster
+{
+	return [myXMPPRosterStorage mainThreadManagedObjectContext];
+}
+
+- (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message
+{    
+	// A simple example of inbound message handling.
+    
+	if ([message isChatMessageWithBody])
+	{
+		XMPPUserCoreDataStorageObject *user = [myXMPPRosterStorage userForJID:[message from]
+		                                                         xmppStream:myXMPPStream
+		                                               managedObjectContext:[self managedObjectContext_roster]];
+		
+		NSString *body = [[message elementForName:@"body"] stringValue];
+		NSString *displayName = [user displayName];
+        
+		if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive)
+		{
+			UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:displayName
+                                                                message:body
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"Ok"
+                                                      otherButtonTitles:nil];
+			[alertView show];
+		}
+		else
+		{
+			// We are not active, so use a local notification instead
+			UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+			localNotification.alertAction = @"Ok";
+			localNotification.alertBody = [NSString stringWithFormat:@"From: %@\n\n%@",displayName,body];
+            
+			[[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+		}
+	}
+}
+
+- (void)xmppStreamDidRegister:(XMPPStream *)sender {
+    UIAlertView *info = [
+                         [UIAlertView alloc]
+                         initWithTitle:@"Successfully Registered!"
+                         message:@"You are now registered!!"
+                         delegate:nil
+                         cancelButtonTitle:@"Dismiss"
+                         otherButtonTitles:nil
+                         ];
+    [info show];
+    [viewController performSegueWithIdentifier: @"submitButton" sender: nil];
+    //[self goOnline:sender];
+    NSLog(@"I did register!");
+}
+
+- (void)xmppStream:(XMPPStream *)sender didNotRegister:(NSXMLElement *)error {
+    //NSString *message = [@"Here is the error:" stringByAppendingFormat: @"%@",error];
+    UIAlertView *info = [
+                         [UIAlertView alloc]
+                         initWithTitle:@"Could not register!"
+                         message: @"User already exists"
+                         delegate:nil
+                         cancelButtonTitle:@"Dismiss"
+                         otherButtonTitles:nil
+                         ];
+    [info show];
+    NSLog(@"I did not register: %@", error);
+}
+
+- (OCJingleImpl *) getJingle
+{
+    return jingleObj;
+}
 
 @end

@@ -33,9 +33,11 @@
         if (!temp) {
             NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
         }
-        self.DEBUG_PARAM = (Boolean) [temp objectForKey:@"DEBUG_PARAM"];
+        self.DEBUG_PARAM = (BOOL) [[temp objectForKey:@"DEBUG_PARAM"] boolValue];
+        self.DEFAULT_HOSTNAME = [temp objectForKey:@"DEFAULT_HOSTNAME"];
 		self.DEFAULT_JID = [temp objectForKey:@"DEFAULT_JID"];
-		self.DEFAULT_HOSTNAME = [temp objectForKey:@"DEFAULT_HOSTNAME"];
+		self.DEFAULT_DOMAIN = [temp objectForKey:@"DEFAULT_DOMAIN"];
+        self.DEFAULT_RESOURCE = [temp objectForKey:@"DEFAULT_RESOURCE"];
  		self.DEFAULT_PASSWORD = [temp objectForKey:@"DEFAULT_PASSWORD"];
 		self.DEFAULT_PORT = (int) [[temp objectForKey:@"DEFAULT_PORT"] intValue];
     }
@@ -45,6 +47,8 @@
 
 @synthesize DEBUG_PARAM;
 @synthesize DEFAULT_HOSTNAME;
+@synthesize DEFAULT_DOMAIN;
+@synthesize DEFAULT_RESOURCE;
 @synthesize DEFAULT_JID;
 @synthesize DEFAULT_PASSWORD;
 @synthesize DEFAULT_PORT;
