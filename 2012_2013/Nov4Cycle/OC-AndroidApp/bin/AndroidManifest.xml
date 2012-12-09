@@ -1,0 +1,92 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="edu.cornell.opencomm"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="10"
+        android:targetSdkVersion="15" />
+
+    <uses-permission android:name="android.permission.INTERNET" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.white_smoke" >
+        <activity
+            android:name=".view.SplashView"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.grey_thirtythree" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.LoginView"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".view.DashboardView"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.grey_nineteen" >
+        </activity>
+        <activity
+            android:name=".view.NotificationsView"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.grey_eleven" >
+        </activity>
+        <activity
+            android:name=".view.ResetPasswordView"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".view.SignupView"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".view.ContactListView"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.grey_eleven" >
+        </activity>
+        <activity
+            android:name=".view.ContactCardView"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.grey_eleven" >
+        </activity>
+        <activity
+            android:name=".view.ContactAddSearchView"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.grey_eleven" >
+        </activity>
+        <activity
+            android:name=".view.ConferenceSchedulerView"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.grey_nineteen" >
+        </activity>
+        <activity
+            android:name=".controller.ConferenceCreationController"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.grey_eleven" >
+        </activity>
+        <activity
+            android:name=".view.ConferenceCardView"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.grey_nineteen" >
+        </activity>
+        <activity
+            android:name=".view.MyProfileView"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.grey_eleven" >
+        </activity>
+        <activity android:name=".view.ConferenceView" >
+        </activity>
+        <activity
+            android:name="edu.cornell.opencomm.view.ChatSpaceViewActivity" >
+        </activity>
+    </application>
+</manifest>
