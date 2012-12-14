@@ -29,8 +29,10 @@ public class ConferenceSchedulerController implements OCResponseListner{
 		//TODO [frontend] launch add conference page
 		Toast.makeText(this.context, "Action Bar: Add Conference clicked", Toast.LENGTH_SHORT).show();
 		//Using TestData Gen with actuall user data
-		Conference confToAdd = TestDataGen.getCurrentConference();
-		communicator.pushConference(confToAdd,this);
+		//Conference confToAdd = TestDataGen.getCurrentConference();
+		//communicator.pushConference(confToAdd,this);
+		Intent i = new Intent(this.conferenceSchedulerView, ConferenceCreationController.class);
+		this.conferenceSchedulerView.startActivity(i);
 		
 	}
 

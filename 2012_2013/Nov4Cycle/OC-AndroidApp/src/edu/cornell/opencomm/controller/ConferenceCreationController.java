@@ -8,6 +8,7 @@ import edu.cornell.opencomm.model.ContactListAdapter;
 import edu.cornell.opencomm.model.User;
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -54,7 +55,7 @@ public class ConferenceCreationController extends Activity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.contactlist_layout);
+		setContentView(R.layout.conference_creation_layout);
 		this.initializeContactList();
 		FontSetter.applySanSerifFont(ConferenceCreationController.this,
 				findViewById(R.id.conference_creation_layout));
@@ -70,6 +71,8 @@ public class ConferenceCreationController extends Activity {
 		clAdapter = new ContactListAdapter(this,
 				R.layout.contactlist_item_layout, allContacts);
 		ListView contactList = (ListView) findViewById(R.id.conference_creation_attendeelist);
+		if (D) Log.d(this.TAG, "contact list is null" + (contactList == null));
+		if (D) Log.d(this.TAG, "contact list adapter is null" + (clAdapter == null));
 		contactList.setAdapter(clAdapter);
 		contactList.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -82,8 +85,7 @@ public class ConferenceCreationController extends Activity {
 	
 	/** Back button clicked: go back to the ConferenceList page*/
 	public void back(View v) {
-		// TODO [frontend] go back to conference page
-		Toast.makeText(this, "back button clicked", Toast.LENGTH_SHORT).show();
+		this.onBackPressed();
 	}
 	
 	/** Set date clicked: launch date selector */

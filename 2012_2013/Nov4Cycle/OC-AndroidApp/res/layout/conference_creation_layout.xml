@@ -54,6 +54,7 @@
         android:layout_marginLeft="122.66dp"
         android:layout_marginRight="24dp"
         android:layout_marginTop="16dp"
+        android:paddingLeft="6dp"
         android:inputType="text"
         android:background="@drawable/selector_bg_edittext" />
     
