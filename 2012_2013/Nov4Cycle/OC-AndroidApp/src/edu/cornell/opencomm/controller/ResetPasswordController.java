@@ -9,7 +9,6 @@ import android.os.AsyncTask;
 import android.view.View;
 import android.widget.Toast;
 import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.util.Util;
 import edu.cornell.opencomm.view.LoginView;
 import edu.cornell.opencomm.view.ResetPasswordView;
@@ -152,12 +151,7 @@ public class ResetPasswordController {
 		protected void onPostExecute(ReturnState state) {
 			findEmailProgress.dismiss();
 			if (state == ReturnState.EXISTING_USER) {
-<<<<<<< HEAD
-				EmailController sendEmail= new EmailController();
-				NetworkService.getInstance().getConnection();
-=======
 				EmailController sendEmail= new EmailController(resetPasswordView);
->>>>>>> Progress dialog for email
 				sendEmail.resetPasword(email);
 				// TODO [backend] send new dummy password to user
 			}
