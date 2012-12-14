@@ -39,7 +39,7 @@ public class SignupController {
 	 * @param view
 	 */
 	public SignupController(SignupView view) {
-		new AccountController();
+		//new AccountController();
 		this.signupView = view;
 	}
 
