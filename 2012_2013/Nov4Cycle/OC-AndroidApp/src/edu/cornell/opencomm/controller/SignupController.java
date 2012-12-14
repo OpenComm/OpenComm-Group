@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.util.Util;
-import edu.cornell.opencomm.view.DashboardView;
+import edu.cornell.opencomm.view.LoginView;
 import edu.cornell.opencomm.view.SignupView;
 
 /**
@@ -90,7 +90,7 @@ public class SignupController {
 			String userName = email.replaceAll("[^a-zA-Z0-9]", "");
 			String[] userInfo = {userName, fName, lName, email, title, pwd};
 			new CreateUser().execute(userInfo);
-			Intent click = new Intent(this.signupView, DashboardView.class);
+			Intent click = new Intent(this.signupView, LoginView.class);
 			this.signupView.startActivity(click);
 		}
 	}
@@ -114,7 +114,6 @@ public class SignupController {
 		// see if you can or should reuse UserManager
 		@Override
 		protected Boolean doInBackground(String... params) {
-			// {userName, fName, lName, email, title, pwd};
 			AccountController.createAcccount(params[0], params[1], params[3],
 							params[1], params[2], "0", null, params[4], params[5]);
 			return null;

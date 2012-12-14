@@ -1,17 +1,26 @@
 package edu.cornell.opencomm.controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.concurrent.ExecutionException;
+
+import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smackx.Form;
+import org.jivesoftware.smackx.ReportedData;
+import org.jivesoftware.smackx.search.UserSearchManager;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.User;
+import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ConferenceSchedulerView;
 import edu.cornell.opencomm.view.ContactAddSearchView;
 import edu.cornell.opencomm.view.MyProfileView;
@@ -127,6 +136,20 @@ public class ContactAddSearchController {
 				User u = iter.next();
 				allContacts.add(u.getNickname());
 			}
+			UserSearchManager search = new UserSearchManager(NetworkService.getInstance().getConnection());
+			try {
+				Object[] ss = search.getSearchServices().toArray();
+				for (Object s : ss) {
+					Log.d(TAG, s.toString());
+				}
+			} catch (XMPPException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//Form searchForm = search.getSearchForm();
+			//Form answerForm = searchForm.createAnswerForm();
+			//answerForm.setAnswer("last", "DeMoro");
+			//ReportedData data = search.getSearchResults(answerForm);
 			// TODO [backend] add all emails and names from OpenComm users to the arraylist
 			// TODO [backend] add all emails and names from the phonebook with emails
 			return allContacts;

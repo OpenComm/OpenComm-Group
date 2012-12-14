@@ -19,7 +19,6 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.util.StringUtils;
 
 import android.os.AsyncTask;
@@ -87,6 +86,8 @@ public class EmailController extends Authenticator {
 				msg.setFrom(new InternetAddress(fromRecipient));
 
 				InternetAddress[] addressTo = new InternetAddress[toRecipient.length];
+				Log.d(TAG, "# of recipients " + toRecipient.length);
+				Log.d(TAG, "recipient: " + toRecipient[0]);
 				for (int i = 0; i < toRecipient.length; i++) {
 					addressTo[i] = new InternetAddress(toRecipient[i]);
 				}
@@ -167,7 +168,7 @@ public class EmailController extends Authenticator {
 	}
 
 	public void resetPasword(String email) {
-		try {
+		//try {
 			String random = StringUtils.randomString(10);
 			String[] username = email.split("@");
 			String[] toArr = { email };
@@ -178,15 +179,15 @@ public class EmailController extends Authenticator {
 					+ random + ":\n\n" + URL + "?type=update&secret=" + secret
 					+ "&username=" + username[0] + "&password=" + random);
 
-			NetworkService.getInstance().getAccountManager()
+			/**NetworkService.getInstance().getAccountManager()
 					.changePassword(random);
 			String userEmail = UserManager.PRIMARY_USER.getVCard()
-					.getEmailHome();
-			toRecipient[0] = userEmail;
-		} catch (XMPPException e) {
+					.getEmailHome(); */
+			toRecipient[0] = email;
+		/**} catch (XMPPException e) {
 			Log.v(TAG, "Error in resetting password");
 			Log.v(TAG, e.getMessage());
-		}
+		} */
 		
 		try {
 			this.send();
@@ -205,8 +206,8 @@ public class EmailController extends Authenticator {
 	}
 
 	@Override
-	public PasswordAuthentication getPasswordAuthentication() {
-		return new PasswordAuthentication(user, password);
+	protected PasswordAuthentication getPasswordAuthentication() {
+		return new PasswordAuthentication(password, password);
 	}
 
 	private Properties _setProperties() {

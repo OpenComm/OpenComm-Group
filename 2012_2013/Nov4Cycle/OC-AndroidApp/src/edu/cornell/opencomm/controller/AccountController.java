@@ -45,18 +45,31 @@ public class AccountController {
 		/* HashMap<String, String> attributes = new HashMap<String, String>();
 		}*/
 		try {
-			String requestURL = USERSERVICE_URL;
-			requestURL += "type=add&secret=" + SECRET_KEY;
-			requestURL += "&username=" + username + "&password=" + password;
-			requestURL += "&name=" + nickname + "&email=" + email;
-			URL url = new URL(requestURL);
+			StringBuffer requestURLSB = new StringBuffer();
+			requestURLSB.append(USERSERVICE_URL);
+			requestURLSB.append("type=add&secret=");
+			requestURLSB.append(SECRET_KEY);
+			requestURLSB.append("&username=");
+			requestURLSB.append(username);
+			requestURLSB.append("&password=");
+			requestURLSB.append(password);
+			requestURLSB.append("&name=");
+			requestURLSB.append(firstName);
+			requestURLSB.append("%20");
+			requestURLSB.append(lastName);
+			requestURLSB.append("&email=");
+			requestURLSB.append(email);
+			String requestURL = requestURLSB.toString();
+			URL url = new URL(requestURL); 
 			Log.d(TAG, requestURL);
 			HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
+			Log.d(TAG,urlConn.getResponseMessage());
 			urlConn.disconnect();
 		}
 		catch (Exception e)
 		{
-			Log.v(TAG, "server cannot create user");
+			e.printStackTrace();
+			Log.e(TAG, "server cannot create user");
 		}
 	}
 

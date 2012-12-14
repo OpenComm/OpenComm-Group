@@ -92,6 +92,7 @@ public class NetworkService {
 		this.xmppConfig = new ConnectionConfiguration(host, port);
 		this.xmppConfig.setSASLAuthenticationEnabled(true);
 		this.xmppConn = new XMPPConnection(xmppConfig);
+		this.getConnection();
 		this.accountManager = this.xmppConn.getAccountManager();
 
 	}// end NetworkService method
