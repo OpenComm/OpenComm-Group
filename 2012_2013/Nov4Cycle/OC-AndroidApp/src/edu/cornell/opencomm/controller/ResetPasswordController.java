@@ -152,8 +152,12 @@ public class ResetPasswordController {
 		protected void onPostExecute(ReturnState state) {
 			findEmailProgress.dismiss();
 			if (state == ReturnState.EXISTING_USER) {
+<<<<<<< HEAD
 				EmailController sendEmail= new EmailController();
 				NetworkService.getInstance().getConnection();
+=======
+				EmailController sendEmail= new EmailController(resetPasswordView);
+>>>>>>> Progress dialog for email
 				sendEmail.resetPasword(email);
 				// TODO [backend] send new dummy password to user
 			}

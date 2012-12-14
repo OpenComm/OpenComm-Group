@@ -21,9 +21,12 @@ import javax.mail.internet.MimeMultipart;
 
 import org.jivesoftware.smack.util.StringUtils;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.network.NetworkService;
 
@@ -59,7 +62,9 @@ public class EmailController extends Authenticator {
 
 	private Multipart multipart;
 
-	public EmailController() {
+	private Context context;
+	public EmailController(Context context) {
+		this.context = context;
 		fromRecipient = ""; // email sent from
 		subject = ""; // email subject
 		body = ""; // email body
@@ -70,12 +75,21 @@ public class EmailController extends Authenticator {
 		multipart = new MimeMultipart();
 
 	}
+	
 
-	public EmailController(String user, String pass) {
-		this();
-	}
+	
 
 	private class EmailTask extends AsyncTask<Session, Void, Void> {
+		ProgressDialog emailProgress;
+		@Override
+		protected void onPreExecute() {
+			emailProgress = new ProgressDialog(context);
+			emailProgress.setIcon(context.getResources().getDrawable(
+					R.drawable.icon));
+			emailProgress.setTitle("Sending");
+			emailProgress.setMessage("Please wait...");
+			emailProgress.show();
+		}
 
 		@Override
 		protected Void doInBackground(Session... arg0) {
@@ -114,6 +128,13 @@ public class EmailController extends Authenticator {
 				Log.v(TAG, e.getMessage());
 			}
 			return null;
+		}
+		@Override
+		protected void onPostExecute(Void result) {
+			if(emailProgress != null){
+				emailProgress.dismiss();
+			}
+			super.onPostExecute(result);
 		}
 	}
 
