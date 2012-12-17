@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/notifications_bullet"
+        android:layout_width="5.33dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/desc"
+        android:scaleType="centerInside"
+        android:src="@drawable/notifications_bullet" />
+
+    <TextView
+        android:id="@+id/notifications_itemtext"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/notifications_bullet"
+        android:paddingBottom="16dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="16dp"
+        android:textColor="@color/white"
+        android:textSize="18.66sp" />
+
+</RelativeLayout>

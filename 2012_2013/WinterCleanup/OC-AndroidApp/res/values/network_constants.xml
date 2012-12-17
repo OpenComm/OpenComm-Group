@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="DEBUG_USERNAME">opencommsec</string>
+    <string name="DEBUG_PASSWORD">secopencomm</string>
+</resources>
