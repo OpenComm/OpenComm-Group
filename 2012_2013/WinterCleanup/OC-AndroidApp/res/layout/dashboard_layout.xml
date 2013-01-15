@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dashboard_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/dashboard_actionbar"
+        android:layout_width="fill_parent"
+        android:layout_height="42.66dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/grey_thirtythree" >
+
+        <TextView
+            android:id="@+id/dashboardOpenComm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="14dp"
+            android:layout_marginLeft="26.67dp"
+            android:text="@string/opencomm"
+            android:textColor="@color/white_fthree"
+            android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/dashboardOverflowIcon"
+            android:layout_width="5.33dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="24dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/desc"
+            android:onClick="overflow"
+            android:src="@drawable/action_overflow" />
+
+        <ImageView
+            android:id="@+id/dashboardNotificationIcon"
+            android:layout_width="17.33dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:layout_toLeftOf="@id/dashboardOverflowIcon"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/desc"
+            android:onClick="notification"
+            android:src="@drawable/action_notification" />
+    </RelativeLayout>
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/dashboard_actionbar"
+        android:gravity="center"
+        android:paddingBottom="71.66dp" >
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <RelativeLayout
+                android:layout_width="160dp"
+                android:layout_height="82.66dp" >
+
+                <ImageView
+                    android:id="@+id/icon_confinfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="7.33dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/desc"
+                    android:onClick="goToConfInfo"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/icon_confinfo" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="160dp"
+                android:layout_height="82.66dp" >
+
+                <ImageView
+                    android:id="@+id/icon_confs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="22.66dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/desc"
+                    android:onClick="goToConfs"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/icon_confs" />
+            </RelativeLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="74.66dp" >
+
+            <RelativeLayout
+                android:layout_width="160dp"
+                android:layout_height="84dp"
+                android:gravity="top" >
+
+                <ImageView
+                    android:id="@+id/icon_contacts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="28.66dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/desc"
+                    android:onClick="goToContacts"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/icon_contacts" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="160dp"
+                android:layout_height="85.66dp" >
+
+                <ImageView
+                    android:id="@+id/icon_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="35.9dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/desc"
+                    android:onClick="goToProfile"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/icon_profile" />
+            </RelativeLayout>
+        </TableRow>
+    </TableLayout>
+
+    <ListView
+        android:id="@+id/dashboard_overflowList"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/dashboard_actionbar"
+        android:layout_marginRight="10.66dp"
+        android:background="@color/black"
+        android:divider="@color/black"
+        android:dividerHeight="0.66dp"
+        android:listSelector="@drawable/selector_bg_list"
+        android:padding="0.66dp"
+        android:visibility="invisible" />
+
+</RelativeLayout>

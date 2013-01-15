@@ -1,0 +1,20 @@
+<resources>
+
+   	<style name="Theme.white_smoke" parent="android:Theme.NoTitleBar">
+		<item name="android:windowBackground">@color/white_smoke</item>
+		<item name="android:colorBackground">@color/white_smoke</item>
+	</style>
+	<style name="Theme.grey_thirtythree" parent="android:Theme.NoTitleBar">
+		<item name="android:windowBackground">@color/grey_thirtythree</item>
+		<item name="android:colorBackground">@color/grey_thirtythree</item>
+	</style>
+	<style name="Theme.grey_nineteen" parent="android:Theme.NoTitleBar">
+		<item name="android:windowBackground">@color/grey_nineteen</item>
+		<item name="android:colorBackground">@color/grey_nineteen</item>
+	</style>
+	<style name="Theme.grey_eleven" parent="android:Theme.NoTitleBar">
+		<item name="android:windowBackground">@color/grey_eleven</item>
+		<item name="android:colorBackground">@color/grey_eleven</item>
+	</style>
+
+</resources>

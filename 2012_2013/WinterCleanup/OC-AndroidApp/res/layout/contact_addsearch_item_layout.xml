@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contact_addsearch_item_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="53.33dp" >
+
+    <ImageView
+        android:id="@+id/contact_addsearch_itemimage"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/desc"
+        android:src="@drawable/contact_default_image" />
+
+    <TextView
+        android:id="@+id/contact_addsearch_itemtext"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@id/contact_addsearch_itemimage"
+        android:textColor="@color/white"
+        android:textSize="26.66sp" />
+
+</RelativeLayout>
