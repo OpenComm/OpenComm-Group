@@ -1,0 +1,15 @@
+Git and GitHub Tutorial
+Risa Naka (rn96) - Modified Sep.18.2012
+
+================================================================================
+
+Group's GitHub page:
+https://github.com/OpenComm
+
+Software's repository page:
+- Click on OpenComm-Group
+
+Website's repository page:
+- Click on opencomm.github.com
+
+

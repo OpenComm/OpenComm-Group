@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/contact_addsearch_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        android:id="@+id/contact_addsearch_actionbar"
+        android:layout_width="fill_parent"
+        android:layout_height="42.66dp"
+        android:background="@color/grey_thirtythree" >
+
+        <ImageView
+            android:id="@+id/contact_addsearch_backIcon"
+            android:layout_width="8.5dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10.66dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/desc"
+            android:onClick="back"
+            android:src="@drawable/action_back" />
+
+        <TextView
+            android:id="@+id/contact_addsearch_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="14dp"
+            android:layout_marginLeft="24dp"
+            android:text="@string/search"
+            android:textColor="@color/blue_title"
+            android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/contact_addsearch_overflowIcon"
+            android:layout_width="5.33dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="24dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/desc"
+            android:onClick="overflow"
+            android:src="@drawable/action_overflow" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/contact_addsearch_searchbar"
+        android:layout_width="226.66dp"
+        android:layout_height="36dp"
+        android:layout_below="@id/contact_addsearch_actionbar"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="32dp"
+        android:background="@color/white"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="25.33dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/desc"
+            android:src="@drawable/contact_search" />
+
+        <AutoCompleteTextView
+            android:id="@+id/contact_addsearch_search_input"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="8dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textSize="26.66sp"
+            android:dropDownVerticalOffset="6.66dp"
+            android:completionThreshold="1" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/contact_addsearch_list"
+        android:layout_width="226.66dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/contact_addsearch_searchbar"
+        android:background="@color/grey_eleven"
+        android:layout_centerHorizontal="true"
+        android:divider="@color/grey_twentyone"
+        android:dividerHeight="0.66dp"
+        android:listSelector="@drawable/selector_bg_list" >
+    </ListView>
+
+    <ListView
+        android:id="@+id/contact_addsearch_overflowList"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/contact_addsearch_actionbar"
+        android:layout_marginRight="10.66dp"
+        android:background="@color/black"
+        android:divider="@color/black"
+        android:dividerHeight="0.66dp"
+        android:listSelector="@drawable/selector_bg_list"
+        android:padding="0.66dp"
+        android:visibility="invisible" />
+
+</RelativeLayout>

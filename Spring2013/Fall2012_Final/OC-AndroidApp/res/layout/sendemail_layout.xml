@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sendemail_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+	android:background="@color/black_opacity_ninety"
+    android:orientation="vertical">
+    
+    <TextView android:id="@+id/signupTitle"
+        android:layout_marginTop="40.67dp"
+        android:layout_width="fill_parent"
+    	android:layout_height="50dp"
+		android:gravity="center_vertical"
+		android:textSize="40dp"
+		android:background="@color/dark_grey_translucent"
+		android:scaleType="centerInside"
+        android:text="@string/send_email"
+        android:textColor="@color/green"
+        android:paddingLeft="44dp"
+        android:paddingBottom="8dp"
+        android:clickable="false"/>
+    
+    <TextView android:id="@+id/emailText"
+		android:layout_marginLeft="44dp"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/email"
+		android:textColor="@color/white_smoke"
+		android:textSize="30dp"/>
+            
+    <EditText android:id="@+id/emailBox"
+        android:layout_marginLeft="44dp"
+        android:layout_width="230dp"
+        android:layout_height="27dp"
+        android:background="@drawable/selector_bg_edittext"
+        android:paddingLeft="15dp"
+        android:hint=""/>
+    
+    <ImageButton android:id="@+id/sendPlus"
+        android:layout_marginTop="15.33dp"
+        android:layout_marginLeft="44dp"
+        android:layout_width="56.67dp"
+        android:layout_height="56.67dp"
+        android:background="@color/dark_grey_translucent"
+	 	android:scaleType="centerInside"
+		android:contentDescription="@string/desc"
+       	android:src="@drawable/accept_plus" />
+    
+    <LinearLayout android:id="@+id/confirmBar"
+        android:layout_marginTop="205dp"
+        android:layout_width="fill_parent"
+        android:layout_height="37.33dp"
+        android:background="@color/dark_grey_translucent"
+        android:orientation="horizontal">
+        
+        <ImageButton android:id="@+id/imageSend"
+            android:layout_marginLeft="10dp"
+        	android:layout_width="48.67dp"
+         	android:layout_height="fill_parent"
+          	android:background="@color/dark_grey_translucent"
+           	android:scaleType="centerInside"
+           	android:paddingTop="6dp"
+           	android:paddingBottom="6dp"
+          	android:src="@drawable/accept_plus"
+           	android:contentDescription="@string/desc" 
+           	android:onClick="sendEmail"/>
+        <Button android:id="@+id/buttonSend"
+            android:layout_marginLeft="5dp"
+         	android:layout_width="wrap_content"
+			android:layout_height="fill_parent"
+			android:background="@color/dark_grey_translucent"
+			android:text="@string/send"
+			android:textColor="@color/blue"
+			android:textSize="25sp"
+			android:onClick="sendEmail"/>
+        <ImageButton android:id="@+id/imageCancel"
+            android:layout_marginLeft="50dp"
+			android:layout_width="48.67dp"
+			android:layout_height="fill_parent"
+			android:gravity="center"
+			android:background="@color/dark_grey_translucent"
+			android:scaleType="centerInside"
+			android:paddingTop="6dp"
+			android:paddingBottom="6dp"
+			android:src="@drawable/cancelx"
+			android:contentDescription="@string/desc"
+			android:onClick="cancel"/>
+         <Button android:id="@+id/buttonCancel"
+			android:layout_marginLeft="5dp"
+			android:layout_width="wrap_content"
+			android:layout_height="fill_parent"
+			android:background="@color/dark_grey_translucent"
+			android:text="@string/cancel"
+			android:textColor="@color/orange"
+			android:textSize="25sp" 
+			android:onClick="cancel"/>
+        
+ 	</LinearLayout>
+
+</LinearLayout>
+     
