@@ -1,4 +1,0 @@
-The user can choose from 4 different options  which he can see every time he runs the code.
-Message that can be send and the server to connect with are both hardcoded.
-As asked, I have changed my try and catch blocks so that instead of having one large catch I
-have catch surrounding every try block.

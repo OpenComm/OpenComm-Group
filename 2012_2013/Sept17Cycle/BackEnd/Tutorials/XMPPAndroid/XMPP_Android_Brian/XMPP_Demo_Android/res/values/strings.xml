@@ -1,8 +1,0 @@
-<resources>
-
-    <string name="app_name">XMPP_Demo_Android</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="menu_settings">Settings</string>
-    <string name="title_activity_android_xmppdemo">MainActivity</string>
-
-</resources>

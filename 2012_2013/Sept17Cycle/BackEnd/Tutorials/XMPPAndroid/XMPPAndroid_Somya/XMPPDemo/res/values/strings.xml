@@ -1,8 +1,0 @@
-<resources>
-
-  <string name="app_name">XMPPDemo Systems</string>
-    <string name="edit_message">Enter your command</string>
-    <string name="button_send">Send</string>
-    <string name="menu_settings">Settings</string>
-    <string name="title_activity_main">MainActivity</string>
-</resources>
