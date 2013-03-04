@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+      <EditText
+        android:id="@+id/mainText"
+        android:layout_width="275dp"
+        android:layout_height="425dp"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:inputType="textMultiLine" >
+
+        <requestFocus />
+    </EditText>
+
+      <Button
+          android:id="@+id/inviteButton"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignLeft="@+id/mainText"
+          android:layout_below="@+id/mainText"
+          android:text="@+string/Invite" />
+
+      <Button
+          android:id="@+id/sendButton"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignRight="@+id/mainText"
+          android:layout_below="@+id/mainText"
+          android:text="@+string/Send" />
+
+      <EditText
+          android:id="@+id/sendText"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignBaseline="@+id/inviteButton"
+          android:layout_alignBottom="@+id/inviteButton"
+          android:layout_marginLeft="14dp"
+          android:layout_toLeftOf="@+id/sendButton"
+          android:layout_toRightOf="@+id/inviteButton"
+          android:ems="10"
+          android:hint="@+string/TypeHere"
+          android:inputType="text" />
+
+</RelativeLayout>

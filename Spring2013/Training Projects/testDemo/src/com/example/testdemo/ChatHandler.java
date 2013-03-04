@@ -59,7 +59,7 @@ public class ChatHandler {
 		
 	public void configure(){
 		configure(ProviderManager.getInstance());
-		SmackConfiguration.setPacketReplyTimeout(100000);
+		SmackConfiguration.setPacketReplyTimeout(10000);
 	}
 	
 	public boolean connect(String server, int port){
@@ -68,24 +68,15 @@ public class ChatHandler {
 		connection = new XMPPConnection(config); //connects to server address provided
 		try {
 			connection.connect();
-		} catch (XMPPException e) {
-			Log.e("PHAIL", "connection exception occurred at connection.connect()", e);
-			return false;
-		}
-		if(connection.isConnected()){
 			serverName = server;
 			return true;
-		}
-		else{
-			connection = null;
+		} catch (XMPPException e) {
+			Log.e("PHAIL", "connection exception occurred at connection.connect()", e);
 			return false;
 		}
 	}
 	
 	public boolean login(String userName, String password){
-		if(!connection.isConnected()){
-			return false;
-		}
 		try {
 			connection.login(userName, password);
 			mainUserName = userName;
@@ -96,10 +87,9 @@ public class ChatHandler {
 	}
 	
 	public boolean createRoom(){
-		if(connection.isConnected()){
-			chat = new MultiUserChat(connection, "OCtestRoom@" + serverName);
+		chat = new MultiUserChat(connection, "OCtestRoom@" + "conference.cuopencomm");
 		try {
-			chat.create(mainUserName);
+			chat.create("OCtestRoom");
 			chat.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
 		} catch (XMPPException e) {
 			return false;
@@ -109,22 +99,18 @@ public class ChatHandler {
 			if(arg0 instanceof Message){
 				Message message = (Message) arg0;
 				String from = message.getFrom();
-				if(from.equals(mainUserName)){
-					return;
-				}
 				String messageBody = message.getBody();
-				Frontend.handleMessage(from, messageBody);
+				Tester.handleMessage(from, messageBody);
 			}
 		}
 		};
 		chat.addMessageListener(packetListener);
 		return true;
-		}
-		return false;
 	}
+
 	
 	public void invite(String user){
-		
+		chat.invite(user, "Let's chat!");
 	}
 	
 	public void kickout(String user){
