@@ -40,20 +40,19 @@ import org.jivesoftware.smackx.search.UserSearch;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.EditText;
 
 public class ChatHandler {
 
-	private Context context;
 	private XMPPConnection connection;
 	private String serverName;
 	private MultiUserChat chat;
 	private String mainUserName;
-	public static boolean inviteFailed = false;
-	public static boolean kickoutFailed = false;
-	public static boolean sendMessageFailed = false;
+	private boolean chatStarted = false;
+	private EditText editText;
 	
-	public ChatHandler(Context context){
-		this.context = context;
+	public ChatHandler(EditText editText){
+		this.editText = editText;
 		configure();
 	}
 		
@@ -89,7 +88,7 @@ public class ChatHandler {
 	public boolean createRoom(){
 		chat = new MultiUserChat(connection, "OCtestRoom@" + "conference.cuopencomm");
 		try {
-			chat.create("OCtestRoom");
+			chat.join("OCtest");
 			chat.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
 		} catch (XMPPException e) {
 			return false;
@@ -100,7 +99,14 @@ public class ChatHandler {
 				Message message = (Message) arg0;
 				String from = message.getFrom();
 				String messageBody = message.getBody();
-				Tester.handleMessage(from, messageBody);
+				from = from.replace("octestroom@conference.cuopencomm/", "");
+				if (!chatStarted) {
+					editText.setText(from + ":  " + messageBody);
+					chatStarted = true;
+				} else {
+					editText.setText(editText.getText().toString() + "\n" + from
+							+ ":  " + messageBody);
+				}
 			}
 		}
 		};
@@ -110,7 +116,7 @@ public class ChatHandler {
 
 	
 	public void invite(String user){
-		chat.invite(user, "Let's chat!");
+		chat.invite(user + "@conference.cuopencomm", "Let's chat!");
 	}
 	
 	public void kickout(String user){
@@ -125,7 +131,7 @@ public class ChatHandler {
 		try {
 			chat.sendMessage(message);
 		} catch (XMPPException e) {
-			sendMessageFailed = true;
+			//;
 		}
 	}
 	

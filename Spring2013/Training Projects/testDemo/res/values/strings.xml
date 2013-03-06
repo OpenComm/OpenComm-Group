@@ -4,5 +4,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="invite">Invite</string>
+    <string name="send">Send</string>
+    <string name="hint">Type Message Here</string>
 
 </resources>

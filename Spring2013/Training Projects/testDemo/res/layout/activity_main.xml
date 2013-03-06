@@ -20,7 +20,8 @@
           android:layout_height="wrap_content"
           android:layout_alignLeft="@+id/mainText"
           android:layout_below="@+id/mainText"
-          android:text="@+string/Invite" />
+          android:onClick="onClick"
+          android:text="@string/invite" />
 
       <Button
           android:id="@+id/sendButton"
@@ -28,19 +29,17 @@
           android:layout_height="wrap_content"
           android:layout_alignRight="@+id/mainText"
           android:layout_below="@+id/mainText"
-          android:text="@+string/Send" />
+          android:onClick="onClick"
+          android:text="@string/send" />
 
       <EditText
-          android:id="@+id/sendText"
+          android:id="@+id/editText1"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_alignBaseline="@+id/inviteButton"
-          android:layout_alignBottom="@+id/inviteButton"
-          android:layout_marginLeft="14dp"
+          android:layout_alignTop="@+id/inviteButton"
           android:layout_toLeftOf="@+id/sendButton"
           android:layout_toRightOf="@+id/inviteButton"
           android:ems="10"
-          android:hint="@+string/TypeHere"
-          android:inputType="text" />
+          android:hint="@string/hint" />
 
 </RelativeLayout>
