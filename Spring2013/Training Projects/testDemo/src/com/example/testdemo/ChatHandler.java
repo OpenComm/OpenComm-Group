@@ -49,10 +49,8 @@ public class ChatHandler {
 	private MultiUserChat chat;
 	private String mainUserName;
 	private boolean chatStarted = false;
-	private EditText editText;
 	
-	public ChatHandler(EditText editText){
-		this.editText = editText;
+	public ChatHandler(){
 		configure();
 	}
 		
@@ -95,19 +93,14 @@ public class ChatHandler {
 		}
 		PacketListener packetListener = new PacketListener() {
 		public void processPacket(Packet arg0) {
-			if(arg0 instanceof Message){
+			//if(arg0 instanceof Message){
 				Message message = (Message) arg0;
 				String from = message.getFrom();
 				String messageBody = message.getBody();
 				from = from.replace("octestroom@conference.cuopencomm/", "");
-				if (!chatStarted) {
-					editText.setText(from + ":  " + messageBody);
-					chatStarted = true;
-				} else {
-					editText.setText(editText.getText().toString() + "\n" + from
+				Log.v("v",from
 							+ ":  " + messageBody);
-				}
-			}
+			//}
 		}
 		};
 		chat.addMessageListener(packetListener);
@@ -116,11 +109,15 @@ public class ChatHandler {
 
 	
 	public void invite(String user){
-		chat.invite(user + "@conference.cuopencomm", "Let's chat!");
+		chat.invite(user,"let's chat");
 	}
 	
 	public void kickout(String user){
-		
+		try {
+			chat.kickParticipant(user, "I dont need a reason");
+		} catch (XMPPException e) {
+			Log.v("v","failed to kick participant");
+		}
 	}
 	
 	public ArrayList<String> getParticipants(){

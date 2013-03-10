@@ -20,7 +20,7 @@
           android:layout_height="wrap_content"
           android:layout_alignLeft="@+id/mainText"
           android:layout_below="@+id/mainText"
-          android:onClick="onClick"
+          android:onClick="invite"
           android:text="@string/invite" />
 
       <Button
@@ -29,7 +29,7 @@
           android:layout_height="wrap_content"
           android:layout_alignRight="@+id/mainText"
           android:layout_below="@+id/mainText"
-          android:onClick="onClick"
+          android:onClick="send"
           android:text="@string/send" />
 
       <EditText
