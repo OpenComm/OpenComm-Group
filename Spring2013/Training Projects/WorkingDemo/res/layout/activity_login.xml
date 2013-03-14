@@ -1,0 +1,84 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f1f1f1"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".Login" >
+
+    <LinearLayout
+        android:layout_width="0px"
+        android:layout_height="0px"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+
+    <EditText
+        android:id="@+id/tbx_usrn"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="150dp"
+        android:background="@drawable/txb_state"
+        android:ems="20"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:hint="@string/hintusr"
+        android:inputType="textEmailAddress"
+        android:textColor="#5b5959"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/tbx_pwd"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_alignLeft="@+id/tbx_usrn"
+        android:layout_alignRight="@+id/tbx_usrn"
+        android:layout_below="@+id/tbx_usrn"
+        android:layout_marginTop="13dp"
+        android:background="@drawable/txb_state"
+        android:ems="16"
+        android:gravity="center"
+        android:hint="@string/hintpwd"
+        android:inputType="textPassword"
+        android:textColor="#5b5959"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btn_signin"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_alignLeft="@+id/tbx_usrn"
+        android:layout_alignRight="@+id/tbx_usrn"
+        android:layout_below="@+id/tbx_pwd"
+        android:layout_marginTop="13dp"
+        android:background="@drawable/btn_state"
+        android:text="@string/btn_name"
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_signin"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="5dp"
+        android:text="@string/forgot"
+        android:textColor="#959494"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="350dp"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:layout_marginTop="35dp"
+        android:src="@drawable/logo" />
+
+</RelativeLayout>
