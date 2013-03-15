@@ -20,11 +20,6 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.grey_thirtythree" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".view.LoginView"
@@ -79,14 +74,23 @@
             android:theme="@style/Theme.grey_nineteen" >
         </activity>
         <activity
+            android:name=".view.CreateAccountView"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".view.MyProfileView"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.grey_eleven" >
         </activity>
         <activity android:name=".view.ConferenceView" >
         </activity>
-        <activity
-            android:name="edu.cornell.opencomm.view.ChatSpaceViewActivity" >
+        <activity android:name="edu.cornell.opencomm.view.ChatSpaceViewActivity" >
         </activity>
     </application>
+
 </manifest>
