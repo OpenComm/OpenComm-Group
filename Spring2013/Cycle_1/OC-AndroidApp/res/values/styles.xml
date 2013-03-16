@@ -16,5 +16,8 @@
 		<item name="android:windowBackground">@color/grey_eleven</item>
 		<item name="android:colorBackground">@color/grey_eleven</item>
 	</style>
-
+    <style name="AppTheme" parent="android:Theme.NoTitleBar">
+        <item name="android:windowBackground">@color/white</item>
+		<item name="android:colorBackground">@color/white</item>
+    </style>
 </resources>
