@@ -64,12 +64,16 @@ public class CreateAccountView extends Activity {
 		return this.emailInput;
 	}
 
+	/** = username input*/
+	public EditText getUsernameTextBox() {
+		return this.usernameInput;
+	}
 	public void signUpPressed(View v){
 		CharSequence text = "Go to sign up page";
 		int duration = Toast.LENGTH_SHORT; 
 		Toast send = Toast.makeText(getApplicationContext(),text,duration);
 		send.show(); 
-		//[TODO]: this.controller.handleSignUp(); 
+		this.controller.handleSignUp(); 
 	}
 
 }
