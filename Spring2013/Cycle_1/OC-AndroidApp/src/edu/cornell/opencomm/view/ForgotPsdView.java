@@ -1,8 +1,8 @@
-package view;
+package edu.cornell.opencomm.view;
 
-import com.example.opencomm.R;
+import edu.cornell.opencomm.R;
 
-import controller.ForgotPsdController;
+import edu.cornell.opencomm.controller.ForgotPsdController;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;

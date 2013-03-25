@@ -1,11 +1,11 @@
-package controller;
+package edu.cornell.opencomm.controller;
 
-import com.example.opencomm.R;
+import edu.cornell.opencomm.R;
 
 import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.view.View;
 import android.widget.Button;
-import view.ForgotPsdView;
+import edu.cornell.opencomm.view.ForgotPsdView;
 
 
 /**
