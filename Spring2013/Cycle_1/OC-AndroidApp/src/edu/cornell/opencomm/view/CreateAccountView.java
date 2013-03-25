@@ -68,12 +68,16 @@ public class CreateAccountView extends Activity {
 	public EditText getUsernameTextBox() {
 		return this.usernameInput;
 	}
+	/**
+	 * TODO: check if inputs are valid when the sign up button is pressed
+	 * */
 	public void signUpPressed(View v){
 		CharSequence text = "Go to sign up page";
 		int duration = Toast.LENGTH_SHORT; 
 		Toast send = Toast.makeText(getApplicationContext(),text,duration);
 		send.show(); 
 		this.controller.handleSignUp(); 
+		//TODO: change to a different view after button pressed 
 	}
 
 }
