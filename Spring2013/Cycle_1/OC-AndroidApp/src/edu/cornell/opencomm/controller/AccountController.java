@@ -39,7 +39,7 @@ public class AccountController {
 		}
 	}
 
-	public static void createAcccount(String username, String nickname, String email,
+	public static boolean createAcccount(String username, String nickname, String email,
 			String firstName, String lastName, String phoneNumber,
 			InputStream photo, String title, String password) {
 		/* HashMap<String, String> attributes = new HashMap<String, String>();
@@ -61,15 +61,17 @@ public class AccountController {
 			requestURLSB.append(email);
 			String requestURL = requestURLSB.toString();
 			URL url = new URL(requestURL); 
-			Log.d(TAG, requestURL);
+//			Log.d(TAG, requestURL);
 			HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
-			Log.d(TAG,urlConn.getResponseMessage());
+//			Log.d(TAG,urlConn.getResponseMessage());
 			//urlConn.connect();
+			return true;
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
 			Log.e(TAG, "server cannot create user");
+			return false;
 		}
 	}
 
