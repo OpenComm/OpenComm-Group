@@ -10,7 +10,10 @@ import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.CreateAccountController;
 import edu.cornell.opencomm.controller.FontSetter;
-
+/*
+ * Author: Spandana Govindgari
+ * 
+ */
 public class CreateAccountView extends Activity {
 	/**
 	 * Debugging variable: if true, all logs are logged; set to false before
@@ -28,7 +31,6 @@ public class CreateAccountView extends Activity {
 	private EditText pwdInput;
 	
 	private ImageView acceptOverlay;
-	private ImageView cancelOverlay;
 
 	/**
 	 * /** The controller for signup
@@ -46,7 +48,6 @@ public class CreateAccountView extends Activity {
 		this.usernameInput = (EditText) findViewById(R.id.username_field); 
 		this.pwdInput = (EditText) findViewById(R.id.password_field);
 		//this.acceptOverlay = (ImageView) findViewById(R.id.signup_acceptOverlay);
-		//this.cancelOverlay = (ImageView) findViewById(R.id.signup_cancelOverlay);
 	}
 
 	/** = password input */
@@ -72,11 +73,10 @@ public class CreateAccountView extends Activity {
 	 * TODO: check if inputs are valid when the sign up button is pressed
 	 * */
 	public void signUpPressed(View v){
-		CharSequence text = "Go to sign up page";
-		int duration = Toast.LENGTH_SHORT; 
-		Toast send = Toast.makeText(getApplicationContext(),text,duration);
-		send.show(); 
-		this.controller.handleSignUp(); 
+		this.controller.handleSignUp(this.usernameInput.getText().toString(), 
+				this.emailInput.getText().toString(), this.getFirstNameTextBox().getText().toString(),
+				this.pwdInput.getText().toString()); 
+		
 		//TODO: change to a different view after button pressed 
 	}
 
