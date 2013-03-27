@@ -1,11 +1,14 @@
 package edu.cornell.opencomm.controller;
 
+
 import java.util.concurrent.ExecutionException;
+
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import edu.cornell.opencomm.R;
@@ -144,7 +147,9 @@ public class ResetPasswordController {
 			email = params[0];
 			// TODO [backend] look for user using the given email in the network
 			// TODO [backend] if use rnot in network, return ReturnState.NONEXISTING_USER
-			return ReturnState.EXISTING_USER;
+			CheckEmail checkEmail = new CheckEmail();
+			CheckEmail.main();
+			return ReturnState.NONEXISTING_USER;
 		}
 
 		@Override
