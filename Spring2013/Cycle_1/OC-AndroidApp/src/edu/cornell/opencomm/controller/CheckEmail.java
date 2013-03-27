@@ -30,45 +30,11 @@ public class CheckEmail {
          XMPPConnection con = new XMPPConnection(config);
          con.connect();
          con.login("oc1testorg","opencomm2012");
-         System.out.println("logged in");
+         System.out.println("Logged in");
          UserSearchManager search = new UserSearchManager(con);
-         System.out.println("user Search created");
-         
-         
-         
-         //Collection services = search.getSearchServices();
-         
-         
-         List<String> searchServices = new ArrayList<String>();
-         ServiceDiscoveryManager discoManager = ServiceDiscoveryManager.getInstanceFor(con);
-         System.out.println("1");
-         DiscoverItems items = discoManager.discoverItems(con.getServiceName());
-         System.out.println("2");
-         Iterator<DiscoverItems.Item> iter = items.getItems();
-         while (iter.hasNext()) {
-             DiscoverItems.Item item = iter.next();
-             try {
-                 DiscoverInfo info;
-                 try {
-                     info = discoManager.discoverInfo(item.getEntityID());
-                 }
-                 catch (XMPPException e) {
-                     // Ignore Case
-                     continue;
-                 }
-
-                 if (info.containsFeature("jabber:iq:search")) {
-                     searchServices.add(item.getEntityID());
-                 }
-             }
-             catch (Exception e) {
-                 // No info found.
-                 break;
-             }
-         }
-         
+         System.out.println("User Search created");
+         Collection services = search.getSearchServices();
          System.out.println("Search Services found");
-         
          Form searchForm = search.getSearchForm("search." + DOMAIN);
          System.out.println("Available search fields:");
          Iterator<FormField> fields = searchForm.getFields();
