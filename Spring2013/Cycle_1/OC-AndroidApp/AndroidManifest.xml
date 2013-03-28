@@ -76,6 +76,10 @@
         <activity
             android:name=".view.CreateAccountView"
             android:screenOrientation="portrait" >
+        </activity>
+          <activity
+            android:name=".view.ForgotPsdView"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
