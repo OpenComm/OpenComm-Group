@@ -17,12 +17,13 @@ public class ForgotPsdController {
 	
 	private ForgotPsdView forgotPsdView;
 	
+	/** The constructor */
 	public ForgotPsdController(ForgotPsdView view){
 		this.forgotPsdView = view;
 	}
 	
-	public void handleSendEmailClick(Email email){
-			//Implement Here
+	public void handleSendEmailClick(String email){
+			//Implement here
 		}
 		
 }

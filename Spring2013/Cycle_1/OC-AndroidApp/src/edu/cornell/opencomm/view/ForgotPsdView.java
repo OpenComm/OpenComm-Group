@@ -15,25 +15,28 @@ import android.widget.*;
 
 public class ForgotPsdView extends Activity {
 	
-	private static final View ImageView = null;
-	private ForgotPsdController forgotPsdController;
-	private EditText emailEdit;
+
+	private EditText emailEdit;	
 	private ImageView sendEmail;
 	
+	/** The controller for forgot password screen */
+	private ForgotPsdController forgotPsdController;
+	
+
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.forgot_password);
-		emailEdit= (EditText) findViewById(R.id.email_input);
-		sendEmail = (ImageView) findViewById(R.id.send_email_button);
 		forgotPsdController=new ForgotPsdController(this);
+		emailEdit= (EditText) findViewById(R.id.email_input);
 	}
 	
-	public void sendEmail(View v){
-		Button button = (Button)findViewById(R.id.send_email_button);
-		button.setOnClickListener(new View.OnClickListener() {
-		    public void onClick(View v) {
-		        // Do something in response to button click
-		    }
-		});		
+	/** Email Input */
+	public EditText getEmail(){
+		return this.emailEdit;
+	}
+	
+	/** Called when email button is pressed */
+	public void sendEmailPressed(View v){
+		       forgotPsdController.handleSendEmailClick(getEmail().getText().toString());	
 	}
 }
