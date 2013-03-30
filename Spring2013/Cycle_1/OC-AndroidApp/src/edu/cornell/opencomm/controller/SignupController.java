@@ -2,12 +2,16 @@ package edu.cornell.opencomm.controller;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.util.Util;
+import edu.cornell.opencomm.view.CreateAccountView;
+import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.LoginView;
-import edu.cornell.opencomm.view.SignupView;
+import edu.cornell.opencomm.view.LoginView_v2;
+
 
 /**
  * Controller for Sign up page (SignupView) Functionality:
@@ -31,14 +35,14 @@ public class SignupController {
 	/**
 	 * The View
 	 */
-	private SignupView signupView;
+	private CreateAccountView signupView;
 
 	/**
 	 * The constructor
 	 * 
 	 * @param view
 	 */
-	public SignupController(SignupView view) {
+	public SignupController(CreateAccountView view) {
 		//new AccountController();
 		this.signupView = view;
 	}
@@ -52,22 +56,25 @@ public class SignupController {
 	 * @param pwd
 	 * @param confirmPwd
 	 */
-	public void handleSave(String fName, String lName, String email,
+	public void handleSave(String fName, String lName, String email, String username,
 			String title, String pwd, String confirmPwd) {
-		this.signupView.findViewById(R.id.signup_acceptOverlay).setVisibility(View.VISIBLE);
+		//this.signupView.findViewById(R.id.signup_acceptOverlay).setVisibility(View.VISIBLE);
 		// check validity of input
+		Log.v("SIGNUP", fName+" "+lName+" "+email+" "+username+" "+title+" "+pwd+" "+confirmPwd);
 		boolean emptyFName = (fName == null || fName.length() == 0);
 		boolean invalidFName = !Util.validateString(fName, Util.NAME_PATTERN_SAVE);
 		boolean emptyLName = (lName == null || lName.length() == 0);
 		boolean invalidLName = !Util.validateString(lName, Util.NAME_PATTERN_SAVE);
 		boolean emptyEmail = (email == null || email.length() == 0);
 		boolean invalidEmail = !Util.validateString(email, Util.EMAIL_ADDRESS_PATTERN);
+		boolean emptyUsername = (username == null || username.length() == 0);
+		//TODO: validate username
 		boolean emptyPwd = (pwd == null || pwd.length() == 0);
 		boolean invalidPwd = !Util.validateString(pwd, Util.PASSWORD);
 		boolean emptyCPwd = (confirmPwd == null || confirmPwd.length() == 0);
 		boolean mismatchPwd = !(pwd.equals(confirmPwd));
 		if (emptyFName || invalidFName || emptyLName || invalidLName
-				|| emptyEmail || invalidEmail || emptyPwd || invalidPwd
+				|| emptyEmail || emptyUsername || invalidEmail || emptyPwd || invalidPwd
 				|| emptyCPwd || mismatchPwd) {
 			StringBuilder errorText = new StringBuilder();
 			errorText.append("Error:\n");
@@ -81,16 +88,16 @@ public class SignupController {
 			else if (invalidPwd) errorText.append("\tInvalid password (req: 10 - 30 chars)\n");
 			if (emptyCPwd) errorText.append("\tPassword confirmation is required\n");
 			else if (mismatchPwd) errorText.append("\tPassword confirmation does not match\n");
+			if (emptyUsername) errorText.append("\tUsername is required\n");
 			errorText.append("Please try again.");
 			// show a toast describing the error
 			Toast.makeText(this.signupView.getApplicationContext(),
 					errorText.toString(), Toast.LENGTH_SHORT).show();
-			this.signupView.findViewById(R.id.signup_acceptOverlay).setVisibility(View.INVISIBLE);
+			//this.signupView.findViewById(R.id.signup_acceptOverlay).setVisibility(View.INVISIBLE);
 		} else {
-			String userName = email.replaceAll("[^a-zA-Z0-9]", "");
-			String[] userInfo = {userName, fName, lName, email, title, pwd};
+			String[] userInfo = {username, fName, lName, email, title, pwd};
 			new CreateUser().execute(userInfo);
-			Intent click = new Intent(this.signupView, LoginView.class);
+			Intent click = new Intent(this.signupView, DashboardView.class);
 			this.signupView.startActivity(click);
 		}
 	}
@@ -114,6 +121,12 @@ public class SignupController {
 		// see if you can or should reuse UserManager
 		@Override
 		protected Boolean doInBackground(String... params) {
+			Log.v("SIGNUP2", params[0]);
+			Log.v("SIGNUP2", params[1]);
+			Log.v("SIGNUP2", params[2]);
+			Log.v("SIGNUP2", params[3]);
+			Log.v("SIGNUP2", params[4]);
+			Log.v("SIGNUP2", params[5]);
 			AccountController.createAcccount(params[0], params[1], params[3],
 							params[1], params[2], "0", null, params[4], params[5]);
 			return null;
