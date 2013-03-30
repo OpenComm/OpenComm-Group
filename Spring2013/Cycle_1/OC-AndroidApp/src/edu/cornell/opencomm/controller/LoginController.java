@@ -3,6 +3,7 @@ package edu.cornell.opencomm.controller;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import edu.cornell.opencomm.R;
@@ -10,10 +11,12 @@ import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.util.Util;
+import edu.cornell.opencomm.view.CreateAccountView;
 import edu.cornell.opencomm.view.DashboardView;
+import edu.cornell.opencomm.view.ForgotPsdView;
 import edu.cornell.opencomm.view.LoginView;
+import edu.cornell.opencomm.view.LoginView_v2;
 import edu.cornell.opencomm.view.ResetPasswordView;
-import edu.cornell.opencomm.view.SignupView;
 
 /**
  * Controller for Login page (LoginView) Functionality:
@@ -47,7 +50,7 @@ public class LoginController {
 	/**
 	 * The View Object
 	 */
-	private LoginView loginView;
+	private LoginView_v2 loginView;
 
 	/**
 	 * The enum defining the opcodes for Login Task:
@@ -66,7 +69,7 @@ public class LoginController {
 	/**
 	 * @param view
 	 */
-	public LoginController(LoginView view) {
+	public LoginController(LoginView_v2 view) {
 		this.loginView = view;
 	}
 
@@ -81,6 +84,8 @@ public class LoginController {
 	public void handleLoginButtonClick(String email, String password) {
 		this.loginView.getLoginOverlay().setVisibility(View.VISIBLE);
 		// check that the inputs are not empty and in valid formats
+		Log.v("LOGIN", email);
+		Log.v("LOGIN", password);
 		boolean isEmptyEmail = (email == null || email.equals(""));
 		boolean isInvalidEmail = !Util.validateString(email,
 				Util.EMAIL_ADDRESS_PATTERN);
@@ -119,7 +124,7 @@ public class LoginController {
 		// user feedback: white overlay
 		this.loginView.getSignupOverlay().setVisibility(View.VISIBLE);
 		// start sign up view
-		Intent account = new Intent(this.loginView, SignupView.class);
+		Intent account = new Intent(this.loginView, CreateAccountView.class);
 		this.loginView.startActivity(account);
 	}
 
@@ -129,7 +134,7 @@ public class LoginController {
 	 */
 	public void handleForgotPassword() {
 		// launch reset password page
-		Intent account = new Intent(this.loginView, ResetPasswordView.class);
+		Intent account = new Intent(this.loginView, ForgotPsdView.class);
 		this.loginView.startActivity(account);
 	}
 

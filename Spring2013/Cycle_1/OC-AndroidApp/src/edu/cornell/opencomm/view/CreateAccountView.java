@@ -1,6 +1,7 @@
 package edu.cornell.opencomm.view;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.CreateAccountController;
 import edu.cornell.opencomm.controller.FontSetter;
+import edu.cornell.opencomm.controller.SignupController;
 /*
  * Author: Spandana Govindgari
  * 
@@ -35,14 +37,14 @@ public class CreateAccountView extends Activity {
 	/**
 	 * /** The controller for signup
 	 */
-	private CreateAccountController controller;
+	private SignupController controller;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.create_account);
 		FontSetter.applySanSerifFont(this,findViewById(R.id.create_account));
-		controller = new CreateAccountController(this);
+		controller = new SignupController(this);
 		this.nameInput = (EditText) findViewById(R.id.name_field);
 		this.emailInput = (EditText) findViewById(R.id.email_field);
 		this.usernameInput = (EditText) findViewById(R.id.username_field); 
@@ -73,11 +75,12 @@ public class CreateAccountView extends Activity {
 	 * TODO: check if inputs are valid when the sign up button is pressed
 	 * */
 	public void signUpPressed(View v){
-		this.controller.handleSignUp(this.usernameInput.getText().toString(), 
-				this.emailInput.getText().toString(), this.getFirstNameTextBox().getText().toString(),
-				this.pwdInput.getText().toString()); 
-		
-		//TODO: change to a different view after button pressed 
+		String[] name = this.getFirstNameTextBox().getText().toString().split(" ");
+		String firstName = name[0];
+		String lastName = name[1];
+		this.controller.handleSave(firstName, lastName, this.emailInput.getText().toString(), 
+				this.usernameInput.getText().toString(), "",
+				this.pwdInput.getText().toString(), this.pwdInput.getText().toString()); 
 	}
 
 }

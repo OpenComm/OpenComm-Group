@@ -56,7 +56,6 @@ public class LoginView extends Activity {
 		passwordEdit = (EditText) findViewById(R.id.login_pwdInput);
 		loginOverlay = (ImageView) findViewById(R.id.login_loginOverlay);
 		signupOverlay = (ImageView) findViewById(R.id.login_signupOverlay);
-		loginController = new LoginController(this);
 	}
 
 	public ImageView getLoginOverlay() {

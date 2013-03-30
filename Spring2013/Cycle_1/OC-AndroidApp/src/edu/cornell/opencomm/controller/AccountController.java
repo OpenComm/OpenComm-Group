@@ -44,6 +44,14 @@ public class AccountController {
 			InputStream photo, String title, String password) {
 		/* HashMap<String, String> attributes = new HashMap<String, String>();
 		}*/
+		Log.v("SIGNUP3", "username: "+username);
+		Log.v("SIGNUP3", "nickname: "+nickname);
+		Log.v("SIGNUP3", "email: "+email);
+		Log.v("SIGNUP3", "firstName: "+firstName);
+		Log.v("SIGNUP3", "lastName: "+lastName);
+		Log.v("SIGNUP3", "phoneNumber: "+phoneNumber);
+		Log.v("SIGNUP3", "title: "+title);
+		Log.v("SIGNUP3", "password: "+password);
 		try {
 			StringBuffer requestURLSB = new StringBuffer();
 			requestURLSB.append(USERSERVICE_URL);
@@ -61,10 +69,10 @@ public class AccountController {
 			requestURLSB.append(email);
 			String requestURL = requestURLSB.toString();
 			URL url = new URL(requestURL); 
-//			Log.d(TAG, requestURL);
+			Log.d(TAG, requestURL);
 			HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
-//			Log.d(TAG,urlConn.getResponseMessage());
-			//urlConn.connect();
+			Log.d(TAG,urlConn.getResponseMessage());
+			urlConn.connect();
 			return true;
 		}
 		catch (Exception e)
