@@ -22,8 +22,12 @@
             android:theme="@style/Theme.grey_thirtythree" >
         </activity>
         <activity
-            android:name=".view.LoginView"
+            android:name=".view.LoginView_v2"
             android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".view.DashboardView"
@@ -80,11 +84,7 @@
           <activity
             android:name=".view.ForgotPsdView"
             android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            
         </activity>
         <activity
             android:name=".view.MyProfileView"

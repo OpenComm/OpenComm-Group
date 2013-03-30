@@ -43,7 +43,7 @@ public class LoginView_v2 extends Activity {
 		passwordEdit = (EditText) findViewById(R.id.tbx_pwd);
 		loginOverlay = (ImageView) findViewById(R.id.login_loginOverlay);
 		signupOverlay = (ImageView) findViewById(R.id.login_signupOverlay);
-		loginController = new LoginController(this);
+		//loginController = new LoginController(this);
 	}
 
 	@Override
@@ -82,6 +82,8 @@ public class LoginView_v2 extends Activity {
 			Log.d(TAG, "Login button clicked");
 		String email = emailEdit.getText().toString().trim();
 		String password = passwordEdit.getText().toString().trim();
+		Log.v(TAG, email);
+		Log.v(TAG, password);
 		this.loginController.handleLoginButtonClick(email, password);
 	 }
 	 
