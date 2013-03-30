@@ -5,6 +5,7 @@ import edu.cornell.opencomm.R;
 import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.view.View;
 import android.widget.Button;
+import edu.cornell.opencomm.controller.ResetPasswordController.ReturnState;
 import edu.cornell.opencomm.view.ForgotPsdView;
 
 
@@ -24,6 +25,17 @@ public class ForgotPsdController {
 	
 	public void handleSendEmailClick(String email){
 			//Implement here
+			CheckEmail check = new CheckEmail(email);
+			String jid = check.getJid();
+			if (jid != "0"){
+				HttpRequest req = new HttpRequest(jid,email);
+				String response = req.getResponse();
+				if (response != null) {
+					System.out.println(response);
+				} else {
+					System.out.println("-1");
+				}
+			}
 		}
 		
 }

@@ -40,6 +40,7 @@ public class ResetPasswordController {
 	 */
 	@SuppressWarnings("unused")
 	private static final boolean D = true;
+	private String jid;
 
 	/**
 	 * The TAG for logging
@@ -52,7 +53,7 @@ public class ResetPasswordController {
 	public static final String PWDRESET = "PasswordReset";
 
 	// enum for email address check
-	private enum ReturnState {
+	public enum ReturnState {
 		EXISTING_USER, NONEXISTING_USER
 	};
 
@@ -146,9 +147,12 @@ public class ResetPasswordController {
 		protected ReturnState doInBackground(String... params) {
 			email = params[0];
 			// TODO [backend] look for user using the given email in the network
-			// TODO [backend] if use rnot in network, return ReturnState.NONEXISTING_USER
-			CheckEmail checkEmail = new CheckEmail();
-			CheckEmail.main();
+			// TODO [backend] if user not in network, return ReturnState.NONEXISTING_USER
+			CheckEmail check = new CheckEmail(email);
+			jid = check.getJid();
+			if (jid != "0"){
+				return ReturnState.EXISTING_USER;
+			}
 			return ReturnState.NONEXISTING_USER;
 		}
 
@@ -156,9 +160,19 @@ public class ResetPasswordController {
 		protected void onPostExecute(ReturnState state) {
 			findEmailProgress.dismiss();
 			if (state == ReturnState.EXISTING_USER) {
-				EmailController sendEmail= new EmailController(resetPasswordView);
-				sendEmail.resetPasword(email);
+				//EmailController sendEmail= new EmailController(resetPasswordView);
+				//sendEmail.resetPasword(email);
 				// TODO [backend] send new dummy password to user
+				HttpRequest req = new HttpRequest(jid,email);
+				String response = req.getResponse();
+				if (response != null) {
+					System.out.println(response);
+				} else {
+					System.out.println("-1");
+				}
+				
+				// TODO [frontend] Toast depending on response
+				
 			}
 		}
 	}
