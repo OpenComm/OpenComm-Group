@@ -17,15 +17,13 @@ public class CreateAccountController {
 	 * The View
 	 */
 	private CreateAccountView createAccountView;
-	private AccountController accountController;
-
 	/**
 	 * The constructor
 	 * 
 	 * @param view
 	 */
 	public CreateAccountController(CreateAccountView view) {
-		this.accountController = new AccountController();
+		new AccountController();
 		this.createAccountView = view;
 	}
 

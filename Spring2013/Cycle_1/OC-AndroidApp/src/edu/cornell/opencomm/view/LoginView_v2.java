@@ -2,9 +2,6 @@ package edu.cornell.opencomm.view;
 
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.LoginController;
-import edu.cornell.opencomm.controller.FontSetter;
-import edu.cornell.opencomm.controller.ResetPasswordController;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
