@@ -82,8 +82,6 @@ public class LoginView_v2 extends Activity {
 			Log.d(TAG, "Login button clicked");
 		String email = emailEdit.getText().toString().trim();
 		String password = passwordEdit.getText().toString().trim();
-		Log.v(TAG, email);
-		Log.v(TAG, password);
 		this.loginController.handleLoginButtonClick(email, password);
 	 }
 	 
