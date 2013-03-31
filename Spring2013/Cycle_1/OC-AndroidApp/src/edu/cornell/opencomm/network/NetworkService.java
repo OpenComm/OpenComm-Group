@@ -3,6 +3,7 @@ package edu.cornell.opencomm.network;
 import org.jivesoftware.smack.AccountManager;
 import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.ConnectionConfiguration;
+import org.jivesoftware.smack.SASLAuthentication;
 import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
@@ -90,7 +91,7 @@ public class NetworkService {
 
 		// create connection to host:port
 		this.xmppConfig = new ConnectionConfiguration(host, port);
-		//this.xmppConfig.setSASLAuthenticationEnabled(false);
+		this.xmppConfig.setSASLAuthenticationEnabled(true);
 		this.xmppConn = new XMPPConnection(xmppConfig);
 		this.accountManager = this.xmppConn.getAccountManager();
 
@@ -111,6 +112,7 @@ public class NetworkService {
 	public ReturnState login(String email, String password) {
 		try {
 			// attempt to connect
+//			SASLAuthentication.supportSASLMechanism("PLAIN", 0);
 			this.xmppConn.connect();
 			// extract JID from the email address by removing nonalphanumeric
 			// characters from the email address
@@ -120,7 +122,7 @@ public class NetworkService {
 				Log.d(TAG, "Attempt login: email - " + email + ", jid - " + jid
 						+ ", password - " + password);
 			try {
-				Log.v(TAG, "jid: "+jid);
+				Log.v(TAG, "username: "+jid);
 				Log.v(TAG, "password: "+password);
 				this.xmppConn.login(jid, password, DEFAULT_RESOURCE);
 				// check that the email is the right one
@@ -143,6 +145,18 @@ public class NetworkService {
 				return ReturnState.SUCCEEDED;
 			} catch (XMPPException e) {
 				// if login failed
+				try{
+					String[] s = email.split("@");
+					Log.v(TAG, "username: "+s[0]);
+					Log.v(TAG, "password: "+password);
+					//SASLAuthentication.supportSASLMechanism("PLAIN", 0);
+					this.xmppConn.login(s[0], password, DEFAULT_RESOURCE);
+					Log.v(TAG, "success2");
+				} catch(XMPPException e2){
+					Log.v(TAG, "xmppexception");
+					Log.e(TAG, e.getMessage());
+					return ReturnState.INVALID_PAIR;
+				}
 				Log.v(TAG, "xmppexception");
 				Log.e(TAG, e.getMessage());
 				return ReturnState.INVALID_PAIR;

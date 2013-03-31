@@ -187,6 +187,7 @@ public class LoginController {
 				Toast.makeText(loginView.getApplicationContext(),
 						"Incorrect email and/or password. Please try again.",
 						Toast.LENGTH_SHORT).show();
+				NetworkService.getInstance().logout();
 				break;
 			case SUCCEEDED:
 				// launch dashboard
