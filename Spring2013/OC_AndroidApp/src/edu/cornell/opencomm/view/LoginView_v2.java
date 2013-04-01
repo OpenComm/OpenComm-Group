@@ -40,7 +40,7 @@ public class LoginView_v2 extends Activity {
 		passwordEdit = (EditText) findViewById(R.id.tbx_pwd);
 		loginOverlay = (ImageView) findViewById(R.id.login_loginOverlay);
 		signupOverlay = (ImageView) findViewById(R.id.login_signupOverlay);
-		//loginController = new LoginController(this);
+		loginController = new LoginController(this);
 	}
 
 	@Override
