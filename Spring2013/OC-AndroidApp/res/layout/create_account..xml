@@ -8,11 +8,11 @@
 
     <RelativeLayout
         android:id="@+id/create_acc_main_win"
-        android:layout_width="230dp"
-        android:layout_height="340dp"
+        android:layout_width="240dp"
+        android:layout_height="350dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:background="#E6E6E6"
+        android:background="@drawable/border"
         android:orientation="vertical" >
 
         <ImageView
@@ -93,41 +93,5 @@
             android:onClick="signUpPressed"
             android:textColor="@color/white" />
     </RelativeLayout>
-
-    <View
-        android:id="@+id/shadow_1"
-        android:layout_width="fill_parent"
-        android:layout_height="10dip"
-        android:layout_alignLeft="@+id/create_acc_main_win"
-        android:layout_alignRight="@+id/create_acc_main_win"
-        android:layout_below="@+id/create_acc_main_win"
-        android:background="@drawable/dropshadow" />
-
-    <View
-        android:id="@+id/shadow_3"
-        android:layout_width="10dip"
-        android:layout_height="fill_parent"
-        android:layout_above="@+id/shadow_1"
-        android:layout_below="@+id/shadow_2"
-        android:layout_toRightOf="@+id/create_acc_main_win"
-        android:background="@drawable/dropshadow3" />
-
-    <View
-        android:id="@+id/shadow_4"
-        android:layout_width="10dip"
-        android:layout_height="fill_parent"
-        android:layout_alignBottom="@+id/create_acc_main_win"
-        android:layout_alignTop="@+id/shadow_3"
-        android:layout_toLeftOf="@+id/create_acc_main_win"
-        android:background="@drawable/dropshadow4" />
-
-    <View
-        android:id="@+id/shadow_2"
-        android:layout_width="fill_parent"
-        android:layout_height="10dip"
-        android:layout_above="@+id/create_acc_main_win"
-        android:layout_alignLeft="@+id/create_acc_main_win"
-        android:layout_toLeftOf="@+id/shadow_3"
-        android:background="@drawable/dropshadow2" />
 
 </RelativeLayout>
