@@ -11,6 +11,7 @@ import edu.cornell.opencomm.view.ConferenceSchedulerView;
 import edu.cornell.opencomm.view.ContactListView;
 import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.LoginView;
+import edu.cornell.opencomm.view.LoginView_v2;
 import edu.cornell.opencomm.view.MyProfileView;
 import edu.cornell.opencomm.view.NotificationsView;
 
@@ -124,7 +125,7 @@ public class DashboardController {
 			// log out
 			NetworkService.getInstance().logout();
 			// launch login page
-			Intent i = new Intent(this.dashboardView, LoginView.class);
+			Intent i = new Intent(this.dashboardView, LoginView_v2.class);
 			this.dashboardView.startActivity(i);
 			this.dashboardView.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 		}		

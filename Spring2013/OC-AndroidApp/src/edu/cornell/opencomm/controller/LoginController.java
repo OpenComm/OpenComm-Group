@@ -87,18 +87,15 @@ public class LoginController {
 		Log.v("LOGIN", email);
 		Log.v("LOGIN", password);
 		boolean isEmptyEmail = (email == null || email.equals(""));
-		boolean isInvalidEmail = !Util.validateString(email,
-				Util.EMAIL_ADDRESS_PATTERN);
+		//TODO: validate username characters
 		boolean isEmptyPwd = (password == null || password.equals(""));
 		boolean isInvalidPwd = !Util.validateString(password, Util.PASSWORD);
 		// if there are any errors with the inputs
-		if (isEmptyEmail || isInvalidEmail || isEmptyPwd || isInvalidPwd) {
+		if (isEmptyEmail || isEmptyPwd || isInvalidPwd) {
 			StringBuilder errorText = new StringBuilder();
 			errorText.append("Error:\n");
 			if (isEmptyEmail) {
 				errorText.append("\tEmail is required\n");
-			} else if (isInvalidEmail) {
-				errorText.append("\tInvalid email\n");
 			}
 			if (isEmptyPwd) {
 				errorText.append("\tPassword is required\n");
