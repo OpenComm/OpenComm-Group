@@ -112,6 +112,7 @@ public class NetworkService {
 	public ReturnState login(String email, String password) {
 		try {
 			// attempt to connect
+//			SASLAuthentication.supportSASLMechanism("PLAIN", 0);
 			this.xmppConn.connect();
 			// extract JID from the email address by removing nonalphanumeric
 			// characters from the email address
@@ -126,9 +127,10 @@ public class NetworkService {
 				this.xmppConn.login(jid, password, DEFAULT_RESOURCE);
 				// check that the email is the right one
 				Log.v(TAG, "successfully logged in");
-				if(!email.equals(this.getConnection().getAccountManager().getAccountAttribute("username"))){
+				if (!email.equals(this.getConnection().getAccountManager()
+						.getAccountAttribute("email"))) {
 					if (D)
-						Log.d(TAG, "Username does not match");
+						Log.d(TAG, "Email does not match");
 					// disconnect
 					Log.v(TAG, "disconnecting");
 					this.xmppConn.disconnect();
@@ -140,21 +142,6 @@ public class NetworkService {
 
 					return ReturnState.INVALID_PAIR;
 				}
-//				if (!email.equals(this.getConnection().getAccountManager()
-//						.getAccountAttribute("email"))) {
-//					if (D)
-//						Log.d(TAG, "Email does not match");
-//					// disconnect
-//					Log.v(TAG, "disconnecting");
-//					this.xmppConn.disconnect();
-//					// reconnect to the server
-//					_instance = new NetworkService(DEFAULT_HOST, DEFAULT_PORT);
-//
-//					MultiUserChat.addInvitationListener(NetworkService
-//							.getInstance().getConnection(), null);
-//
-//					return ReturnState.INVALID_PAIR;
-//				}
 				return ReturnState.SUCCEEDED;
 			} catch (XMPPException e) {
 				// if login failed
