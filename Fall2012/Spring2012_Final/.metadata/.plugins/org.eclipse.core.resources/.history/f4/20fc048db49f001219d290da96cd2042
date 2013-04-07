@@ -44,6 +44,16 @@
             android:onClick="overflowButtonClicked"
             android:scaleType="centerInside"
             android:src="@drawable/action_overflow" />
+
+        <TextView
+            android:id="@+id/conference_name"
+            android:layout_width="226dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/conference_action_bar_back_button"
+            android:text="@string/conference"
+            android:textColor="@color/blue"
+            android:textSize="20dp" />
 <!-- 
         <ImageButton
             android:id="@+id/clock_conference"
@@ -85,7 +95,7 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/unmute"
             android:onClick="muteClicked" />
--->
+            -->
     </RelativeLayout>
 
 

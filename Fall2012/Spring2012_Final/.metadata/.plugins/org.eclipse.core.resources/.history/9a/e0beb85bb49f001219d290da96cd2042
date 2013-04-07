@@ -44,7 +44,17 @@
             android:onClick="overflowButtonClicked"
             android:scaleType="centerInside"
             android:src="@drawable/action_overflow" />
-<!-- 
+
+        <TextView
+            android:id="@+id/conference_name"
+            android:layout_width="226dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/conference_action_bar_back_button"
+            android:text="@string/conference"
+            android:textColor="@color/blue"
+            android:textSize="20dp" />
+<--!
         <ImageButton
             android:id="@+id/clock_conference"
             android:layout_width="30dp"
@@ -65,13 +75,13 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="3dp"
             android:layout_marginRight="12dp"
-            android:layout_toLeftOf="@+id/conference_overflow"
+            android:layout_toLeftOf="@+id/clock_conference"
             android:background="@color/grey_thirtythree"
             android:contentDescription="@string/desc"
             android:onClick="addPersonClicked"
             android:scaleType="centerInside"
             android:src="@drawable/person_add_conference" />
-<!-- 
+
         <Button
             android:id="@+id/mute"
             style="?android:attr/buttonStyleSmall"
@@ -85,9 +95,7 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/unmute"
             android:onClick="muteClicked" />
--->
     </RelativeLayout>
-
 
     <RelativeLayout
         android:id="@+id/bottom_bar_conference_action"
