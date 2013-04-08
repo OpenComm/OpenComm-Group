@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="circleview">
+        <attr name="cRadius" format="integer" />
+        <attr name="cFillColor" format="color" />
+        <attr name="cStrokeColor" format="color" />
+    </declare-styleable>
+
+</resources>
