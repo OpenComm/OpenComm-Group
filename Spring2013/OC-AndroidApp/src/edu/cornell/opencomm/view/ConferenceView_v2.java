@@ -1,0 +1,64 @@
+package edu.cornell.opencomm.view;
+
+import edu.cornell.opencomm.R;
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+import edu.cornell.opencomm.controller.ConferenceController_v2;
+
+public final class ConferenceView_v2 extends Activity 
+{
+	//if true: debug mode
+	private static final boolean D = true;
+	
+	private static String TAG = ConferenceView_v2.class.getName();
+	//TODO: ADD a controller
+	private ConferenceController_v2 controller;
+
+	/*
+	 *controls on this view
+	*/
+	public TextView txtv_ConfTitle;
+	
+	protected void onCreate(Bundle savedInstanceState) 
+	{
+		if(D)
+			Log.d(TAG, "onCreate()");
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.conference_v2);
+		//instantiate the handlers
+		txtv_ConfTitle = (TextView) findViewById(R.id.confernecev2_title);
+		
+		controller = new ConferenceController_v2(this);
+	}
+	
+	
+	//triggered when add person button was pressed (on confernece_v2)
+	public void addPersonClicked(View v)
+	{
+		controller.HandleAddPerson();
+	}
+	
+	
+	//triggered when overflow button was pressed (on confernece_v2)
+	public void overflowButtonClicked(View v)
+	{
+		controller.HandleOverflow();
+	}
+	
+	
+	//triggered when back button was pressed (on confernece_v2)
+	public void backButtonClicked(View v)
+	{
+		controller.HandleBackButton();
+	}
+	
+	
+	//change the title of the conference ("CONFERENCE NAME" by default)
+	public void renameConference(String title)
+	{
+		controller.setTitle(title);
+	}
+}

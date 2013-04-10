@@ -5,7 +5,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:contentDescription="@string/mainChat"
-    android:onClick="clickedEmptySpace" >
+    android:onClick="clickedEmptySpace" 
+    android:gravity = "center_horizontal">
 
     <RelativeLayout
         android:id="@+id/conferencev2_action_bar"
@@ -56,14 +57,28 @@
             android:scaleType="centerInside"
             android:src="@drawable/person_add_conference" />
     </RelativeLayout>
-
-    <edu.cornell.opencomm.util.CircleView
+    
+    <TextView
+        android:id="@+id/confernecev2_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/conferencev2_action_bar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
+        android:text="@string/conference_name"
+        android:textColor="@color/black_light"
+        android:textSize="24sp" />
+    
+      <edu.cornell.opencomm.util.CircleView
         android:id="@+id/pieCircle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below = "@+id/confernecev2_title"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         circleview:cFillColor="#F2F2F2" />
+
+      
 
 </RelativeLayout>

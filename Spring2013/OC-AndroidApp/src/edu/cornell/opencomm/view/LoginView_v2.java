@@ -21,7 +21,7 @@ public class LoginView_v2 extends Activity {
 	/**
 	 * The TAG for logging
 	 */
-	private static final String TAG = LoginView.class.getSimpleName();
+	private static final String TAG = LoginView_v2.class.getSimpleName();
 	
 	
 	private LoginController loginController;

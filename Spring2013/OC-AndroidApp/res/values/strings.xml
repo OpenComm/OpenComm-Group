@@ -122,5 +122,6 @@
         <item>conferences</item>
         <item>contacts</item>
     </string-array>
+    <string name="conference_name">CONFERENCE NAME</string>
 
 </resources>
