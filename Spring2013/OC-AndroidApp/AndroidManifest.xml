@@ -1,20 +1,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.cornell.opencomm"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0" xmlns:tools="http://schemas.android.com/tools">
 
     <uses-sdk
         android:minSdkVersion="10"
-        android:targetSdkVersion="10" />
+        android:targetSdkVersion="10" tools:ignore="OldTargetApi"/>
 
-    <uses-permission android:name="android.permission.INTERNET" >
-    </uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:theme="@style/Theme.white_smoke" >
+        android:theme="@style/Theme.white_smoke" android:allowBackup="true">
         <activity
             android:name=".view.SplashView"
             android:label="@string/app_name"

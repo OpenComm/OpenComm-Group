@@ -14,6 +14,7 @@ import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.audio.JingleController;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.network.NetworkService;
 
@@ -56,6 +57,9 @@ public class User implements Comparable<User>, Serializable {
 	/**
 	 */
 	public int userColor;
+	
+	// for audio
+	private JingleController jCtrl;
 
 	/**
 	 * use the new constructor with all needed fields
@@ -79,6 +83,7 @@ public class User implements Comparable<User>, Serializable {
 			this.image = image;
 		}
 		this.userColor = UserManager.getUserColor(username);
+		this.jCtrl = new JingleController(this);
 	}
 
 	/**
@@ -141,6 +146,11 @@ public class User implements Comparable<User>, Serializable {
 	/** @return - the User's vCard */
 	public VCard getVCard() {
 		return this.vCard;
+	}
+	
+	/** @return - the jingle controller associated with this user */
+	public JingleController getJingle() {
+		return this.jCtrl;
 	}
 	
 	public int compareTo(User arg0) {

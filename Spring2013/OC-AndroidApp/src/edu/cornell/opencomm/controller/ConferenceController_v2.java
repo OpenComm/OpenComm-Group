@@ -1,8 +1,6 @@
 package edu.cornell.opencomm.controller;
 
 import android.util.Log;
-import edu.cornell.opencomm.model.ConferenceDataModel;
-import edu.cornell.opencomm.view.ConferenceView;
 import edu.cornell.opencomm.view.ConferenceView_v2;
 
 public class ConferenceController_v2 

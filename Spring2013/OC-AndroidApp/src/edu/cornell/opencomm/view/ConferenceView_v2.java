@@ -3,6 +3,8 @@ package edu.cornell.opencomm.view;
 import edu.cornell.opencomm.R;
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -16,6 +18,10 @@ public final class ConferenceView_v2 extends Activity
 	private static String TAG = ConferenceView_v2.class.getName();
 	//TODO: ADD a controller
 	private ConferenceController_v2 controller;
+	
+	// Audio variables
+	private PowerManager pm;
+	private WakeLock mWakeLock;
 
 	/*
 	 *controls on this view
@@ -32,8 +38,20 @@ public final class ConferenceView_v2 extends Activity
 		txtv_ConfTitle = (TextView) findViewById(R.id.confernecev2_title);
 		
 		controller = new ConferenceController_v2(this);
+		
+		// Audio integration
+		mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "MyTag");
+		mWakeLock.acquire();
 	}
 	
+	/* [TODO]: check to see if this should be onPause() */
+	protected void onDestroy() {
+		super.onDestroy();
+		if (mWakeLock != null) {
+			mWakeLock.release();
+			mWakeLock = null;
+		}
+	}
 	
 	//triggered when add person button was pressed (on confernece_v2)
 	public void addPersonClicked(View v)
