@@ -2,6 +2,7 @@ package edu.cornell.opencomm.view;
 
 import edu.cornell.opencomm.R;
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +31,12 @@ public final class ConferenceView_v2 extends Activity
 		setContentView(R.layout.conference_v2);
 		//instantiate the handlers
 		txtv_ConfTitle = (TextView) findViewById(R.id.confernecev2_title);
+		
+		
+		// Loading Font Face
+        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
+        // Applying font
+        txtv_ConfTitle.setTypeface(tf);
 		
 		controller = new ConferenceController_v2(this);
 	}
