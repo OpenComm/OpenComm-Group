@@ -49,6 +49,7 @@ public class UserView extends ImageButton implements OCUpdateListener {
 		this.context = context;
 		this.conferenceUser = conferenceUser;
 		this.conferenceUser.addLocationUpdateListner(this);
+		this.setBackgroundResource(0); 
 		init();
 
 		Log.d(LOG_TAG, "Created a UserView for : "
@@ -57,16 +58,16 @@ public class UserView extends ImageButton implements OCUpdateListener {
 
 	private void init() {
 		if (conferenceUser.getUser().compareTo(UserManager.PRIMARY_USER) == 0) {
-			setBackgroundColor(Color.BLACK);
+			this.setBackgroundColor(Color.GRAY);
 		} else {
-			setImageBitmap(getImage());
+			this.setImageBitmap(getImage());
 			
 		}
 		invalidateLocation();
 	}
 	private void invalidateLocation(){
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-				OCBitmapDecoder.THUMBNAIL_WIDTH,OCBitmapDecoder.THUMBNAIL_HEIGTH+5);
+				OCBitmapDecoder.THUMBNAIL_WIDTH,OCBitmapDecoder.THUMBNAIL_HEIGTH);
 		params.leftMargin = conferenceUser.getX();
 		params.topMargin = conferenceUser.getY();
 		setLayoutParams(params);
@@ -84,43 +85,37 @@ public class UserView extends ImageButton implements OCUpdateListener {
 	// Borrowed from:
 	// http://stackoverflow.com/questions/11012556/border-over-a-bitmap-with-rounded-corners-in-android//
 
-	private Bitmap getRoundedCornerBitmap(Bitmap bitmap) {
+	private Bitmap getRoundedCornerBitmap(Bitmap bitmap) {		
 		Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
 				bitmap.getHeight(), Bitmap.Config.ARGB_8888);
 		Canvas canvas = new Canvas(output);
 		// just for conversion
-		// Can this defined else where?
 		int borderDips = 6;
-		int cornerDips = 4;
 		final int borderSizePx = (int) TypedValue.applyDimension(
 				TypedValue.COMPLEX_UNIT_DIP, (float) borderDips, context
-				.getResources().getDisplayMetrics());
-		final int cornerSizePx = (int) TypedValue.applyDimension(
-				TypedValue.COMPLEX_UNIT_DIP, (float) cornerDips, context
 				.getResources().getDisplayMetrics());
 		// prepare for canvas
 		final Paint paint = new Paint();
 		final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-		final RectF rectF = new RectF(rect);
-		// TODO: Add admin badge here if the user if the moderator
 		// prepare canvas for transfer
 		paint.setAntiAlias(true);
 		paint.setColor(0xFFFFFFFF);
 		paint.setStyle(Paint.Style.FILL);
 		canvas.drawARGB(0, 0, 0, 0);
-		canvas.drawRoundRect(rectF, cornerSizePx, cornerSizePx, paint);
+		canvas.drawCircle(bitmap.getWidth()/2, bitmap.getHeight()/2, bitmap.getWidth()/2, paint);
 
 		// draw bitmap
 		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
 		canvas.drawBitmap(bitmap, rect, rect, paint);
 
 		// draw border
-		paint.setColor(conferenceUser.getUser().userColor);
+		paint.setColor(Color.BLACK);
 		paint.setStyle(Paint.Style.STROKE);
 		paint.setStrokeWidth((float) borderSizePx);
-		canvas.drawRoundRect(rectF, cornerSizePx, cornerSizePx, paint);
+		canvas.drawCircle(bitmap.getWidth()/2, bitmap.getHeight()/2, bitmap.getWidth()/2, paint);
 
 		return output;
+		
 	}
 
 	public Bitmap getImage() {

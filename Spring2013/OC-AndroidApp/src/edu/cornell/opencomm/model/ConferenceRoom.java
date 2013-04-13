@@ -260,8 +260,8 @@ public class ConferenceRoom extends MultiUserChat {
 		double startAngle = Math.toRadians(90);
 		double endAngle = Math.toRadians(360);
 		double slice = 2 * Math.PI / users;
-		center.x = center.x - 38;
-		center.y = center.y - 38;
+		center.x = center.x - 65;
+		center.y = center.y - 65;
 
 		ArrayList<Point> pointList = new ArrayList<Point>();
 		for (int i = 0; i < users; i++) {

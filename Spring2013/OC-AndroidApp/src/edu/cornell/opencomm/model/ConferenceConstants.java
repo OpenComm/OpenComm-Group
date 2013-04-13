@@ -12,7 +12,7 @@ public interface ConferenceConstants {
 	/**
 	 * The constant to hold the layout id for the main conference room
 	 */
-	public static int MAIN_ROOM_LAYOUT = R.layout.conference_main_room;
+	public static int MAIN_ROOM_LAYOUT = R.layout.conference_v2;
 	/**
 	 * 
 	 */

@@ -4,15 +4,18 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import org.jivesoftware.smack.AccountManager;
+import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.PrivacyList;
+import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.provider.PrivacyProvider;
 import org.jivesoftware.smack.provider.ProviderManager;
 import org.jivesoftware.smackx.GroupChatInvitation;
 import org.jivesoftware.smackx.PrivateDataManager;
+import org.jivesoftware.smackx.muc.InvitationListener;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.packet.ChatStateExtension;
 import org.jivesoftware.smackx.packet.LastActivity;
@@ -143,7 +146,18 @@ public class NetworkService {
 					_instance = new NetworkService(DEFAULT_HOST, DEFAULT_PORT);
 
 					MultiUserChat.addInvitationListener(NetworkService
-							.getInstance().getConnection(), null);
+							.getInstance().getConnection(), 
+							new InvitationListener() {
+
+								@Override
+								public void invitationReceived(Connection arg0,
+										String arg1, String arg2, String arg3,
+										String arg4, Message arg5) {
+									// TODO Auto-generated method stub
+									
+								}
+						
+					});
 
 					return ReturnState.INVALID_PAIR;
 				}
