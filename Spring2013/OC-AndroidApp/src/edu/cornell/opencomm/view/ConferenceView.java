@@ -70,7 +70,7 @@ public final class ConferenceView extends FragmentActivity implements
 		// Bind the DataModel(s)
 		// Get the main room id from the intent
 		conference = getConferenceFromIntent();
-	
+
 		conferenceModel = new ConferenceDataModel(
 				conference.getConferenceTitle(), conference.getStartDateAndTime()
 						.toString(), conference.getInviter().getUsername());
