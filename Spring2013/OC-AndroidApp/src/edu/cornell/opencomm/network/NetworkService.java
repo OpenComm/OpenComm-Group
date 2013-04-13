@@ -4,15 +4,18 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import org.jivesoftware.smack.AccountManager;
+import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.PrivacyList;
+import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.provider.PrivacyProvider;
 import org.jivesoftware.smack.provider.ProviderManager;
 import org.jivesoftware.smackx.GroupChatInvitation;
 import org.jivesoftware.smackx.PrivateDataManager;
+import org.jivesoftware.smackx.muc.InvitationListener;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.packet.ChatStateExtension;
 import org.jivesoftware.smackx.packet.LastActivity;
@@ -35,11 +38,13 @@ import org.jivesoftware.smackx.provider.VCardProvider;
 import org.jivesoftware.smackx.provider.XHTMLExtensionProvider;
 import org.jivesoftware.smackx.search.UserSearch;
 
+import com.cornell.opencomm.jingleimpl.JingleIQPacket;
 import com.cornell.opencomm.jingleimpl.ReasonElementType;
 import com.cornell.opencomm.jingleimpl.sessionmgmt.JingleIQBuddyPacketRouter;
 
 import edu.cornell.opencomm.audio.JingleController;
 import edu.cornell.opencomm.controller.LoginController.ReturnState;
+import edu.cornell.opencomm.manager.UserManager;
 
 import android.util.Log;
 
@@ -130,21 +135,25 @@ public class NetworkService {
 				this.xmppConn.login(jid, password, DEFAULT_RESOURCE);
 				// check that the email is the right one
 				Log.v(TAG, "successfully logged in");
-				if (!email.equals(this.getConnection().getAccountManager()
-						.getAccountAttribute("email"))) {
-					if (D)
-						Log.d(TAG, "Email does not match");
-					// disconnect
-					Log.v(TAG, "disconnecting");
-					this.xmppConn.disconnect();
-					// reconnect to the server
-					_instance = new NetworkService(DEFAULT_HOST, DEFAULT_PORT);
+				// disconnect
+				Log.v(TAG, "disconnecting");
+				this.xmppConn.disconnect();
+				// reconnect to the server
+				_instance = new NetworkService(DEFAULT_HOST, DEFAULT_PORT);
 
-					MultiUserChat.addInvitationListener(NetworkService
-							.getInstance().getConnection(), null);
+				MultiUserChat.addInvitationListener(NetworkService
+						.getInstance().getConnection(),
+						new InvitationListener() {
 
-					return ReturnState.INVALID_PAIR;
-				}
+							@Override
+							public void invitationReceived(Connection arg0,
+									String arg1, String arg2, String arg3,
+									String arg4, Message arg5) {
+								// TODO Auto-generated method stub
+
+							}
+
+						});
 				return ReturnState.SUCCEEDED;
 			} catch (XMPPException e) {
 				// if login failed
@@ -184,8 +193,10 @@ public class NetworkService {
 					ReasonElementType.TYPE_SUCCESS, "Done, Logging Off!");
 			reason.setAttributeSID(jCtrl.getSID());
 			jCtrl.getJiqActionMessageSender().sendSessionTerminate(
-					null, //TODO: get user's JID
+					UserManager.PRIMARY_USER.getJingle().getBuddyJID(),
 					jCtrl.getBuddyJID(), jCtrl.getSID(), reason, jCtrl);
+			jCtrl.getSessionState().changeSessionState(
+					JingleIQPacket.AttributeActionValues.SESSION_TERMINATE);
 		}
 
 		// reconnect to the server
