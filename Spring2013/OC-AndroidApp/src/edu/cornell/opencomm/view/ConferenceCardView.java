@@ -76,7 +76,7 @@ public class ConferenceCardView extends Activity{
 		Resources res = this.getResources();
 		System.out.println("This is the user" + name); 
 		System.out.println("This is the picture" + picture); 
-		Drawable drawable = res.getDrawable(R.id.picture);
+		Drawable drawable = res.getDrawable(R.drawable.contact_default_image);
 		attendee_picture.setImageDrawable(drawable); 
 		conference_information_layout.addView(attendee_entry);
 	}

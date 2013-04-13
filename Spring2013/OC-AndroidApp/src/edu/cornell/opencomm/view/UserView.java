@@ -58,7 +58,15 @@ public class UserView extends ImageButton implements OCUpdateListener {
 
 	private void init() {
 		if (conferenceUser.getUser().compareTo(UserManager.PRIMARY_USER) == 0) {
-			this.setBackgroundColor(Color.GRAY);
+			Bitmap  bm = getRoundedCornerBitmap(OCBitmapDecoder.getThumbnailFromResource(
+					getResources(), UserManager.PRIMARY_USER.getImage()));
+			int width = bm.getWidth();
+	        int height = bm.getHeight();
+	        float scaleWidth = ((float) OCBitmapDecoder.THUMBNAIL_WIDTH)/width;
+	        float scaleHeight = ((float) OCBitmapDecoder.THUMBNAIL_HEIGTH) / height;
+	        Matrix matrix = new Matrix();
+	        matrix.postScale(scaleWidth, scaleHeight);
+	        this.setImageBitmap(Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true));
 		} else {
 			this.setImageBitmap(getImage());
 			
