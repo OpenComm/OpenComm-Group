@@ -90,6 +90,16 @@ public class ConferenceController_v2
 	public void HandleLeaveButton(){
 		if(D)
 			Log.d(TAG, "leave button clicked");
+		
 		room.leave();
+		
+		//if no one is left then manually destroy the room
+		try {
+			if(room.getParticipants().isEmpty()){
+				room = null;
+			}
+		} catch (XMPPException e) {
+			e.printStackTrace();
+		}
 	}
 }

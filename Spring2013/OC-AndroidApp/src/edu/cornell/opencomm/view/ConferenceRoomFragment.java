@@ -287,7 +287,7 @@ public class ConferenceRoomFragment extends Fragment {
 					dittoUser.setImageBitmap(b);
 					dittoUser.setPadding(absoluteX,absoluteY, 0, 0);
 					((UserView)v).setImageBitmap(null); 
-					((UserView)v).setBackgroundResource(R.drawable.greybox);	
+					//((UserView)v).setBackgroundResource(R.drawable.greybox);	
 					((ViewGroup)roomLayout).addView(dittoUser, params);
 					
 				}

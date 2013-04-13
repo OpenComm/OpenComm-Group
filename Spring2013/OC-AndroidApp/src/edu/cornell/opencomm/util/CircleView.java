@@ -57,7 +57,7 @@ public class CircleView extends View {
 		// Otherwise the stroke gets cut off.
 		canvas.translate(1,1);
 		circlePaint.setColor(circleFillColor);
-		canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, 180, circleStrokePaint); 
+		canvas.drawCircle(this.getWidth()/2, this.getHeight()/2, this.getWidth()*3/8, circleStrokePaint); 
 //		canvas.drawArc(circleArc, circleStartAngle, circleEndAngle, true, circlePaint);
 //		canvas.drawArc(circleArc, circleStartAngle, circleEndAngle, true, circleStrokePaint);
 	}
