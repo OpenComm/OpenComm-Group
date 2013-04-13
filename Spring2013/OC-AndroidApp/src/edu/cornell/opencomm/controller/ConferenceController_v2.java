@@ -10,9 +10,16 @@ public class ConferenceController_v2
 	
 	private static final String TAG = "ConferenceController_v2";
 	private static final boolean D = true;
+	private static ConferenceController_v2 _instance;
 	
+	public static ConferenceController_v2 getInstance() {
+		if (_instance == null) {
+			_instance = new ConferenceController_v2();
+		}
+		return _instance;
+	}
 	
-	public ConferenceController_v2() 
+	private ConferenceController_v2() 
 	{
 		this.view = ConferenceView_v2.getInstance();
 	}

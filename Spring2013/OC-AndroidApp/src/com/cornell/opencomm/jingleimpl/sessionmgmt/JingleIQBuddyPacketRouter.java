@@ -11,7 +11,9 @@ import com.cornell.opencomm.jingleimpl.JingleIQPacket;
 import com.cornell.opencomm.jingleimpl.JingleIQProvider;
 
 import edu.cornell.opencomm.audio.JingleController;
+import edu.cornell.opencomm.controller.ConferenceController_v2;
 import edu.cornell.opencomm.model.User;
+import edu.cornell.opencomm.view.ConferenceView_v2;
 
 /**
  * This class is a router class for incoming <code>IQ</code> packets. It forwards the packet
@@ -78,6 +80,7 @@ public class JingleIQBuddyPacketRouter {
 						IQ iq = (IQ) p;
 						Log.i(JingleIQBuddyPacketRouter.TAG, "From: "  + iq.getFrom()+ "To: " + iq.getTo());
 						String fromJID = iq.getFrom().split("/")[0];
+						ConferenceController_v2.getInstance();
 						// TODO: replace with reference to main conference
 						/*if (Space.getMainSpace().getAllParticipants().containsKey(fromJID)) {
 							Space.getMainSpace().getAllParticipants().get(fromJID).getJingle().processPacket(iq);

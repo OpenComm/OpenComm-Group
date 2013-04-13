@@ -53,7 +53,7 @@ public final class ConferenceView_v2 extends Activity
         // Applying font
         txtv_ConfTitle.setTypeface(tf);
 		
-		controller = new ConferenceController_v2();
+		controller = ConferenceController_v2.getInstance();
 		
 		// Audio integration
 		mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "MyTag");

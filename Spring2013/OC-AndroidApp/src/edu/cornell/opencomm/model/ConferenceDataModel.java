@@ -47,50 +47,6 @@ public class ConferenceDataModel implements InvitationListener {
 	}
 
 	public void initialize(boolean isMod) {
-		// if(isMod){
-		// ConferenceRoom csm1 = new
-		// ConferenceRoom(NetworkService.getInstance().getConnection(), mainID,
-		// UserManager.PRIMARY_USER);
-		// csm1.init(true);
-		// chatSpaceIDMap.put(mainID, csm1);
-		// chatSpaceLocationMap.put(mainID, "MAIN");
-		//
-		// ConferenceRoom csm2 = new
-		// ConferenceRoom(NetworkService.getInstance().getConnection(), leftID,
-		// UserManager.PRIMARY_USER);
-		// csm2.init(true);
-		// chatSpaceIDMap.put(leftID, csm2);
-		// chatSpaceLocationMap.put(leftID, "LEFT");
-		//
-		// ConferenceRoom csm3 = new
-		// ConferenceRoom(NetworkService.getInstance().getConnection(), rightID,
-		// UserManager.PRIMARY_USER);
-		// csm3.init(true);
-		// chatSpaceIDMap.put(rightID, csm3);
-		// chatSpaceLocationMap.put(rightID, "RIGHT");
-		// }
-		// else{
-		// ConferenceRoom csm1 = new
-		// ConferenceRoom(NetworkService.getInstance().getConnection(), mainID,
-		// UserManager.PRIMARY_USER);
-		// csm1.init(false);
-		// chatSpaceIDMap.put(mainID, csm1);
-		// chatSpaceLocationMap.put(mainID, "MAIN");
-		//
-		// ConferenceRoom csm2 = new
-		// ConferenceRoom(NetworkService.getInstance().getConnection(), leftID,
-		// UserManager.PRIMARY_USER);
-		// csm2.init(false);
-		// chatSpaceIDMap.put(leftID, csm2);
-		// chatSpaceLocationMap.put(leftID, "LEFT");
-		//
-		// ConferenceRoom csm3 = new
-		// ConferenceRoom(NetworkService.getInstance().getConnection(), rightID,
-		// UserManager.PRIMARY_USER);
-		// csm3.init(false);
-		// chatSpaceIDMap.put(rightID, csm3);
-		// chatSpaceLocationMap.put(rightID, "RIGHT");
-		// }
 	}
 
 	public void setMod(User u) {
