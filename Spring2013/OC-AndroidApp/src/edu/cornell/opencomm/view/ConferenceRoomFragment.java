@@ -13,11 +13,9 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
@@ -134,12 +132,11 @@ public class ConferenceRoomFragment extends Fragment {
 				+ conferenceRoom);
 		Log.d(TAG, "Room Height :" + roomLayout.getHeight());
 		Log.d(TAG, "Room Width :" + roomLayout.getWidth());
-		WindowManager wm = (WindowManager) roomLayout.getContext().getSystemService(Context.WINDOW_SERVICE);
-		Display display = wm.getDefaultDisplay();
-		int screenWidth = display.getWidth();
 		if (conferenceRoom != null) {
-			Point center = new Point(roomLayout.getWidth() / 2, roomLayout.getHeight() / 2);
-			ArrayList<ConferenceUser> userList = conferenceRoom.updateLocations(center, screenWidth * 3 / 8);
+			Point center = new Point(roomLayout.getWidth() / 2,
+					roomLayout.getHeight() / 2);
+			ArrayList<ConferenceUser> userList = conferenceRoom
+					.updateLocations(center, radius);
 			for (ConferenceUser confUser : userList) {
 				
 				UserView uv = new UserView(context, confUser);
@@ -174,9 +171,11 @@ public class ConferenceRoomFragment extends Fragment {
 		RelativeLayout invitationBar = (RelativeLayout) roomLayout.findViewById(R.id.side_chat_invitation_bar);
 		invitationBar.setVisibility(View.INVISIBLE);
 		invitationBar.setOnClickListener(new OnClickListener() {
+			
 			public void onClick(View v) {
 				v.setVisibility(View.INVISIBLE);
 				v.invalidate();
+				
 			}
 		});
 		invitationBar.invalidate();
