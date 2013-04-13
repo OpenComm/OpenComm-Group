@@ -72,7 +72,8 @@ public final class ConferenceView_v2 extends Activity
 	//triggered when add person button was pressed (on confernece_v2)
 	public void addPersonClicked(View v)
 	{
-		controller.HandleAddPerson("username");
+		//TODO: get username of person to be added (hardcoded for now)
+		controller.HandleAddPerson("oc4testorg");
 	}
 	
 	
