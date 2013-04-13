@@ -39,8 +39,17 @@ public class InvitationsList {
         return InvitationsList.instance;
     }
     
-    public void addinvitation(Invitation invitation) {
+    public void addInvitation(Invitation invitation) {
     	invitationsList.add(invitation);
     }
+    
+    public void removeProcessedInvitations() {
+    	for (Invitation invitation : invitationsList) {
+    		if (invitation.processed = true) {
+    			invitationsList.remove(invitation);
+    		}
+    	}
+    }
+    
 	
 }

@@ -5,14 +5,14 @@ import org.jivesoftware.smackx.Form;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 
 import android.util.Log;
-import edu.cornell.opencomm.model.ConferenceRoom;
+import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ConferenceView_v2;
 
 public class ConferenceController_v2 
 {
 	ConferenceView_v2 view;
-	ConferenceRoom room;
+	MultiUserChat room;
 	
 	private static final String TAG = "ConferenceController_v2";
 	private static final boolean D = true;
@@ -21,9 +21,9 @@ public class ConferenceController_v2
 	public ConferenceController_v2() 
 	{
 		this.view = ConferenceView_v2.getInstance();
-		room = new ConferenceRoom("1234");
+		room = new MultiUserChat(NetworkService.getInstance().getConnection(), "testroom@conference.cuopencomm");
 		try {
-			room.create("test");
+			room.create(UserManager.PRIMARY_USER.getUsername());
 		} catch (XMPPException e) {
 			e.printStackTrace();
 		}
@@ -54,7 +54,7 @@ public class ConferenceController_v2
 	{
 		if(D)
 			Log.d(TAG,"addPerson button clicked");
-		room.invite(username, "lets chat");
+			room.invite(username, "lets chat");
 	}
 	
 	

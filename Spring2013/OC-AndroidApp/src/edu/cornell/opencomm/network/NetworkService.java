@@ -154,7 +154,7 @@ public class NetworkService {
 
 							@Override
 							public void invitationReceived(Connection conn, String room, String inviter, String reason, String password, Message message) {
-								InvitationsList.getInstance().addinvitation(new Invitation(conn, room, inviter, reason, password, message));
+								InvitationsList.getInstance().addInvitation(new Invitation(conn, room, inviter, reason, password, message));
 							}
 
 						});
