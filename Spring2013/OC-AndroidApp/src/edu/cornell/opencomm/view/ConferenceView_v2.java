@@ -20,6 +20,8 @@ public final class ConferenceView_v2 extends Activity
 	//TODO: ADD a controller
 	private ConferenceController_v2 controller;
 	
+	private static ConferenceView_v2 _instance = null;
+	
 	// Audio variables
 	private PowerManager pm;
 	private WakeLock mWakeLock;
@@ -28,6 +30,13 @@ public final class ConferenceView_v2 extends Activity
 	 *controls on this view
 	*/
 	public TextView txtv_ConfTitle;
+	
+	public static ConferenceView_v2 getInstance() {
+		if (_instance == null) {
+			_instance = new ConferenceView_v2();
+		}
+		return _instance;
+	}
 	
 	protected void onCreate(Bundle savedInstanceState) 
 	{
@@ -44,7 +53,7 @@ public final class ConferenceView_v2 extends Activity
         // Applying font
         txtv_ConfTitle.setTypeface(tf);
 		
-		controller = new ConferenceController_v2(this);
+		controller = new ConferenceController_v2();
 		
 		// Audio integration
 		mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "MyTag");
