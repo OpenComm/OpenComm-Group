@@ -62,4 +62,10 @@ public class ConferenceController_v2
 			Log.d(TAG,"back button clicked");
 		//TODO:add "go back" functions here
 	}
+	
+	public void HandleLeaveButton(){
+		if(D)
+			Log.d(TAG, "leave button clicked");
+		//TODO: add leave functionality
+	}
 }
