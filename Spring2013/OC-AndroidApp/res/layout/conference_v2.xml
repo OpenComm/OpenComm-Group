@@ -71,14 +71,12 @@
         android:textSize="24sp" />
     
       <edu.cornell.opencomm.util.CircleView
-        android:id="@+id/pieCircle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below = "@+id/confernecev2_title"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        circleview:cFillColor="#F2F2F2" />
-
-      
+          android:id="@+id/pieCircle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentBottom="true"
+          android:layout_alignParentLeft="true"
+          android:layout_alignParentTop="true"
+          circleview:cFillColor="#F2F2F2" />
 
 </RelativeLayout>
