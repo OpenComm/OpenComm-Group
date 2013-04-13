@@ -1,19 +1,18 @@
 package edu.cornell.opencomm.network;
 
+import java.util.HashMap;
+import java.util.Iterator;
+
 import org.jivesoftware.smack.AccountManager;
-import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.ConnectionConfiguration;
-import org.jivesoftware.smack.SASLAuthentication;
 import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.PrivacyList;
-import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.provider.PrivacyProvider;
 import org.jivesoftware.smack.provider.ProviderManager;
 import org.jivesoftware.smackx.GroupChatInvitation;
 import org.jivesoftware.smackx.PrivateDataManager;
-import org.jivesoftware.smackx.muc.InvitationListener;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.packet.ChatStateExtension;
 import org.jivesoftware.smackx.packet.LastActivity;
@@ -36,10 +35,12 @@ import org.jivesoftware.smackx.provider.VCardProvider;
 import org.jivesoftware.smackx.provider.XHTMLExtensionProvider;
 import org.jivesoftware.smackx.search.UserSearch;
 
-import edu.cornell.opencomm.R;
+import com.cornell.opencomm.jingleimpl.ReasonElementType;
+import com.cornell.opencomm.jingleimpl.sessionmgmt.JingleIQBuddyPacketRouter;
+
+import edu.cornell.opencomm.audio.JingleController;
 import edu.cornell.opencomm.controller.LoginController.ReturnState;
 
-import android.content.res.Resources;
 import android.util.Log;
 
 /**
@@ -95,6 +96,8 @@ public class NetworkService {
 		this.xmppConn = new XMPPConnection(xmppConfig);
 		this.accountManager = this.xmppConn.getAccountManager();
 
+		// Audio connection
+		JingleIQBuddyPacketRouter.setup(this.xmppConn);
 	}// end NetworkService method
 
 	public XMPPConnection getConnection() {
@@ -112,7 +115,7 @@ public class NetworkService {
 	public ReturnState login(String email, String password) {
 		try {
 			// attempt to connect
-//			SASLAuthentication.supportSASLMechanism("PLAIN", 0);
+			// SASLAuthentication.supportSASLMechanism("PLAIN", 0);
 			this.xmppConn.connect();
 			// extract JID from the email address by removing nonalphanumeric
 			// characters from the email address
@@ -122,8 +125,8 @@ public class NetworkService {
 				Log.d(TAG, "Attempt login: email - " + email + ", jid - " + jid
 						+ ", password - " + password);
 			try {
-				Log.v(TAG, "username: "+jid);
-				Log.v(TAG, "password: "+password);
+				Log.v(TAG, "username: " + jid);
+				Log.v(TAG, "password: " + password);
 				this.xmppConn.login(jid, password, DEFAULT_RESOURCE);
 				// check that the email is the right one
 				Log.v(TAG, "successfully logged in");
@@ -145,14 +148,14 @@ public class NetworkService {
 				return ReturnState.SUCCEEDED;
 			} catch (XMPPException e) {
 				// if login failed
-				try{
+				try {
 					String[] s = email.split("@");
-					Log.v(TAG, "username: "+s[0]);
-					Log.v(TAG, "password: "+password);
-					//SASLAuthentication.supportSASLMechanism("PLAIN", 0);
+					Log.v(TAG, "username: " + s[0]);
+					Log.v(TAG, "password: " + password);
+					// SASLAuthentication.supportSASLMechanism("PLAIN", 0);
 					this.xmppConn.login(s[0], password, DEFAULT_RESOURCE);
 					Log.v(TAG, "success2");
-				} catch(XMPPException e2){
+				} catch (XMPPException e2) {
 					Log.v(TAG, "xmppexception");
 					Log.e(TAG, e.getMessage());
 					return ReturnState.INVALID_PAIR;
@@ -170,6 +173,21 @@ public class NetworkService {
 
 	public boolean logout() {
 		this.xmppConn.disconnect();
+
+		// Disconnect audio
+		HashMap<String, JingleController> allJCtrls = JingleController
+				.getUsernameToJingleController();
+		Iterator<String> jCtrlIter = allJCtrls.keySet().iterator();
+		while (jCtrlIter.hasNext()) {
+			JingleController jCtrl = allJCtrls.get(jCtrlIter.next());
+			ReasonElementType reason = new ReasonElementType(
+					ReasonElementType.TYPE_SUCCESS, "Done, Logging Off!");
+			reason.setAttributeSID(jCtrl.getSID());
+			jCtrl.getJiqActionMessageSender().sendSessionTerminate(
+					null, //TODO: get user's JID
+					jCtrl.getBuddyJID(), jCtrl.getSID(), reason, jCtrl);
+		}
+
 		// reconnect to the server
 		_instance = new NetworkService(DEFAULT_HOST, DEFAULT_PORT);
 		return true;

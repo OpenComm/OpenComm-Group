@@ -32,9 +32,6 @@ import edu.cornell.opencomm.model.User;
 public final class ConferenceView extends FragmentActivity implements
 		ConferenceConstants, ViewPager.OnPageChangeListener {
 
-	// TODO: Get rid of all the local boolean flags
-	private boolean areActionBarsDisplayed = false;
-
 	private static String TAG = ConferenceView.class.getName();
 	// TODO the debug flag should not be here
 	private static final boolean D = true;
@@ -95,9 +92,9 @@ public final class ConferenceView extends FragmentActivity implements
 
 	private List<Fragment> createFragments(){
 		List<Fragment> conferenceFragments = new Vector<Fragment>();
-		conferenceFragments.add(new ConferenceRoomFragment(this, SIDE_ROOM_LAYOUT, conferenceModel.getRoomByTag(LEFT_ROOM_INDEX)));
+		//conferenceFragments.add(new ConferenceRoomFragment(this, SIDE_ROOM_LAYOUT, conferenceModel.getRoomByTag(LEFT_ROOM_INDEX)));
 		conferenceFragments.add(new ConferenceRoomFragment(this, MAIN_ROOM_LAYOUT, conferenceModel.getRoomByTag(MAIN_ROOM_INDEX)));
-		conferenceFragments.add(new ConferenceRoomFragment(this, SIDE_ROOM_LAYOUT, conferenceModel.getRoomByTag(RIGHT_ROOM_INDEX)));
+		//conferenceFragments.add(new ConferenceRoomFragment(this, SIDE_ROOM_LAYOUT, conferenceModel.getRoomByTag(RIGHT_ROOM_INDEX)));
 		return conferenceFragments;
 	}
 	
@@ -198,46 +195,6 @@ public final class ConferenceView extends FragmentActivity implements
 		pager.invalidate();
 	}
  
-	
-	/**
-	 * When user clicks an empty space on the screen toggle between showing both
-	 * the action and bottom bar
-	 * 
-	 * @param screen
-	 */
-	public void clickedEmptySpace(View screen) {
-		String view = screen.getContentDescription().toString();
-		int visibility = View.VISIBLE;
-		if (areActionBarsDisplayed)
-			visibility = View.INVISIBLE;
-		areActionBarsDisplayed = !areActionBarsDisplayed;
-		
-		if (view.equals("mainChat")) {
-			RelativeLayout action_bar = (RelativeLayout) screen
-					.findViewById(R.id.action_bar);
-			boolean isModeratorOfConference = true; // TODO check to see if user is moderator from backend
-			int bottom_bar_id = (isModeratorOfConference ? R.id.bottom_bar_conference_action_moderator : R.id.bottom_bar_conference_action);
-			RelativeLayout bottom_bar = (RelativeLayout) screen
-					.findViewById(bottom_bar_id);
-			action_bar.setVisibility(visibility);
-			bottom_bar.setVisibility(visibility);
-		} else {
-			RelativeLayout action_bar = (RelativeLayout) screen
-					.findViewById(R.id.actionbar_sidechat);
-			boolean isModeratorOfChat = false; // TODO check to see if user is moderator for this chat from backend
-			int bottom_bar_id = (isModeratorOfChat ? R.id.bottom_bar_chat_action_moderator : R.id.bottom_bar_chat_action);
-			RelativeLayout bottom_bar = (RelativeLayout) screen
-					.findViewById(bottom_bar_id);
-			action_bar.setVisibility(visibility);
-			bottom_bar.setVisibility(visibility);
-		}
-		RelativeLayout bottom_bar_user_action = (RelativeLayout) screen.findViewById(R.id.bottom_bar_user_action);
-		RelativeLayout bottom_bar_user_action_moderator = (RelativeLayout) screen.findViewById(R.id.bottom_bar_user_action_moderator);
-		bottom_bar_user_action.setVisibility(View.INVISIBLE);
-		bottom_bar_user_action_moderator.setVisibility(View.INVISIBLE);
-	
-
-	}
 	public void displayInvitation(){
 		RelativeLayout invitationBar = (RelativeLayout) findViewById(R.id.side_chat_invitation_bar);
 		

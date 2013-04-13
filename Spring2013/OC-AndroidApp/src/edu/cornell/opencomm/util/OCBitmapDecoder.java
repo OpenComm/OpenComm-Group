@@ -16,8 +16,8 @@ import android.graphics.Matrix;
  *
  */
 public final class OCBitmapDecoder {
-	public static final  int THUMBNAIL_WIDTH  = 76;
-	public static final  int THUMBNAIL_HEIGTH = 76;
+	public static final  int THUMBNAIL_WIDTH  = 130;
+	public static final  int THUMBNAIL_HEIGTH = 130;
 	/**
 	 * @param options
 	 * @param reqWidth

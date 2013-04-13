@@ -62,6 +62,7 @@ public class ConferenceCardView extends Activity{
 		LayoutInflater layoutInflater = (LayoutInflater) 
 		        this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);  
 		for (int i=0 ; i < users.size() ; i++){
+			System.out.println("Why null" + users.get(i).getUsername() + users.get(i).getNickname() + users.get(i).getImage()); 
 			createUserEntry(conference_information_layout, layoutInflater, users.get(i).getUsername(), users.get(i).getImage());
 		}
 	}
@@ -70,10 +71,12 @@ public class ConferenceCardView extends Activity{
 		View attendee_entry = layoutInflater.inflate(R.layout.conference_card_attendee_entry, null);
 		RelativeLayout entry_container= (RelativeLayout) attendee_entry.findViewById(R.id.attendee_information);
 		TextView attendee_name = (TextView) entry_container.findViewById(R.id.name);
-		attendee_name.setText(name);
+		attendee_name.setText(name);		
 		ImageView attendee_picture = (ImageView) entry_container.findViewById(R.id.picture);
-		Resources res = getResources();
-		Drawable drawable = res.getDrawable(picture);
+		Resources res = this.getResources();
+		System.out.println("This is the user" + name); 
+		System.out.println("This is the picture" + picture); 
+		Drawable drawable = res.getDrawable(R.id.picture);
 		attendee_picture.setImageDrawable(drawable); 
 		conference_information_layout.addView(attendee_entry);
 	}

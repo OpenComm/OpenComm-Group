@@ -3,7 +3,10 @@ package edu.cornell.opencomm.view;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.LoginController;
 import android.os.Bundle;
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -21,7 +24,7 @@ public class LoginView_v2 extends Activity {
 	/**
 	 * The TAG for logging
 	 */
-	private static final String TAG = LoginView.class.getSimpleName();
+	private static final String TAG = LoginView_v2.class.getSimpleName();
 	
 	
 	private LoginController loginController;
@@ -41,6 +44,7 @@ public class LoginView_v2 extends Activity {
 		loginOverlay = (ImageView) findViewById(R.id.login_loginOverlay);
 		signupOverlay = (ImageView) findViewById(R.id.login_signupOverlay);
 		loginController = new LoginController(this);
+		PowerManager pm = (PowerManager)getSystemService(Context.POWER_SERVICE);
 	}
 
 	@Override

@@ -15,6 +15,10 @@ import android.os.Parcelable;
 import android.util.Log;
 
 public class Conference implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String conferenceTitle, reoccurrence, description;
 	private Calendar startDateAndTime, endDateAndTime;
 	private User inviter;

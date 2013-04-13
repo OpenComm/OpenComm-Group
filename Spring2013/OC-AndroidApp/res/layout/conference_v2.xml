@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:circleview="http://schemas.android.com/apk/res/edu.cornell.opencomm"
+    android:id="@+id/conference_v2_main_container"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:contentDescription="@string/mainChat"
+    android:onClick="clickedEmptySpace" 
+    android:gravity = "center_horizontal">
+
+    <RelativeLayout
+        android:id="@+id/conferencev2_action_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="42.67dp"
+        android:background="@color/grey_thirtythree"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/conference_action_bar_back_button"
+            android:layout_width="10.67dp"
+            android:layout_height="14dp"
+            android:layout_marginLeft="10.67dp"
+            android:layout_marginTop="14.67dp"
+            android:background="@color/grey_thirtythree"
+            android:contentDescription="@string/desc"
+            android:onClick="backButtonClicked"
+            android:scaleType="centerInside"
+            android:src="@drawable/action_arrow"
+            android:tint="@color/white" />
+
+        <ImageButton
+            android:id="@+id/conference_overflow"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/grey_thirtythree"
+            android:contentDescription="@string/desc"
+            android:onClick="overflowButtonClicked"
+            android:scaleType="centerInside"
+            android:src="@drawable/action_overflow" />
+
+        <ImageButton
+            android:id="@+id/conference_add"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="3dp"
+            android:layout_marginRight="12dp"
+            android:layout_toLeftOf="@+id/conference_overflow"
+            android:background="@color/grey_thirtythree"
+            android:contentDescription="@string/desc"
+            android:onClick="addPersonClicked"
+            android:scaleType="centerInside"
+            android:src="@drawable/person_add_conference" />
+    </RelativeLayout>
+    
+    <TextView
+        android:id="@+id/confernecev2_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/conferencev2_action_bar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
+        android:text="@string/conference_name"
+        android:textColor="@color/black_light"
+        android:textSize="24sp" />
+    
+      <edu.cornell.opencomm.util.CircleView
+          android:id="@+id/pieCircle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentBottom="true"
+          android:layout_alignParentLeft="true"
+          android:layout_alignParentTop="true"
+          circleview:cFillColor="#F2F2F2" />
+
+</RelativeLayout>

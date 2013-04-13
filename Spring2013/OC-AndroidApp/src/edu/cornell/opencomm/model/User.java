@@ -14,12 +14,17 @@ import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.audio.JingleController;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.network.NetworkService;
 
 /* An object representing a user who is taking part in the conversation */
 
 public class User implements Comparable<User>, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final String TAG = "Model.User";
 	/**
 	 * 
@@ -47,7 +52,7 @@ public class User implements Comparable<User>, Serializable {
 	 * use BitMap
 	 */
 	int image;
-	
+
 	/** 
 	 * A bitmap of the User's image
 	 */
@@ -56,6 +61,9 @@ public class User implements Comparable<User>, Serializable {
 	/**
 	 */
 	public int userColor;
+
+	// for audio
+	private JingleController jCtrl;
 
 	/**
 	 * use the new constructor with all needed fields
@@ -79,6 +87,7 @@ public class User implements Comparable<User>, Serializable {
 			this.image = image;
 		}
 		this.userColor = UserManager.getUserColor(username);
+		this.jCtrl = new JingleController(this);
 	}
 
 	/**
@@ -142,7 +151,12 @@ public class User implements Comparable<User>, Serializable {
 	public VCard getVCard() {
 		return this.vCard;
 	}
-	
+
+	/** @return - the jingle controller associated with this user */
+	public JingleController getJingle() {
+		return this.jCtrl;
+	}
+
 	public int compareTo(User arg0) {
 		return (getUsername().compareTo(arg0.getUsername()));
 		// returns alphabetic comparison of usernames by using string compareTo
@@ -159,4 +173,17 @@ public class User implements Comparable<User>, Serializable {
 		byte[] bitmapdata = vCard.getAvatar();
 		return BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
 	}
+
+	//REQUIRED METHODS
+
+	private void writeObject(java.io.ObjectOutputStream out)
+			throws IOException {
+		// write 'this' to 'out'...
+	}
+
+	private void readObject(java.io.ObjectInputStream in)
+			throws IOException, ClassNotFoundException {
+		// populate the fields of 'this' from the data in 'in'...
+	}
 }
+
