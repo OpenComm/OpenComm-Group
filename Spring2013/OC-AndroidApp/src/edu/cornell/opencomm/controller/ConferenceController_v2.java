@@ -28,7 +28,27 @@ public class ConferenceController_v2
 	private ConferenceController_v2() 
 	{
 		this.view = ConferenceView_v2.getInstance();
-		room = new ConferenceRoom("1234");
+		String roomID = NetworkService.generateRoomID();
+		boolean isInvalidRoomID = true;
+		
+		
+		while(isInvalidRoomID){
+			roomID = NetworkService.generateRoomID();
+			try{
+				room = new ConferenceRoom(NetworkService.getInstance().getConnection(), roomID);
+			} catch(Exception e){
+				//do nothing
+			}
+			isInvalidRoomID = false;
+		}
+		
+		try{
+			room = new ConferenceRoom(NetworkService.getInstance().getConnection(), roomID);
+		} catch(Exception e){
+			roomID = NetworkService.generateRoomID();
+			room = new ConferenceRoom(NetworkService.getInstance().getConnection(), roomID);
+		}
+		
 		try {
 			room.create("test");
 		} catch (XMPPException e) {
