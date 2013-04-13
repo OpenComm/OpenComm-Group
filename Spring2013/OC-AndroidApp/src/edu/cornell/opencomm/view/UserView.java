@@ -69,7 +69,6 @@ public class UserView extends ImageButton implements OCUpdateListener {
 	        this.setImageBitmap(Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true));
 		} else {
 			this.setImageBitmap(getImage());
-			
 		}
 		invalidateLocation();
 	}
@@ -94,8 +93,8 @@ public class UserView extends ImageButton implements OCUpdateListener {
 	// http://stackoverflow.com/questions/11012556/border-over-a-bitmap-with-rounded-corners-in-android//
 
 	private Bitmap getRoundedCornerBitmap(Bitmap bitmap) {		
-		Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
-				bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+		Bitmap output = Bitmap.createBitmap(130,
+				130, Bitmap.Config.ARGB_8888);
 		Canvas canvas = new Canvas(output);
 		// just for conversion
 		int borderDips = 6;
@@ -104,23 +103,23 @@ public class UserView extends ImageButton implements OCUpdateListener {
 				.getResources().getDisplayMetrics());
 		// prepare for canvas
 		final Paint paint = new Paint();
-		final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+		final Rect rect = new Rect(0, 0, 130, 130);
 		// prepare canvas for transfer
 		paint.setAntiAlias(true);
 		paint.setColor(0xFFFFFFFF);
 		paint.setStyle(Paint.Style.FILL);
 		canvas.drawARGB(0, 0, 0, 0);
-		canvas.drawCircle(bitmap.getWidth()/2, bitmap.getHeight()/2, bitmap.getWidth()/2, paint);
+		canvas.drawCircle(65, 65, 60, paint);
 
 		// draw bitmap
 		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-		canvas.drawBitmap(bitmap, rect, rect, paint);
+		canvas.drawBitmap(bitmap, null, rect, paint);
 
 		// draw border
 		paint.setColor(Color.BLACK);
 		paint.setStyle(Paint.Style.STROKE);
 		paint.setStrokeWidth((float) borderSizePx);
-		canvas.drawCircle(bitmap.getWidth()/2, bitmap.getHeight()/2, bitmap.getWidth()/2, paint);
+		canvas.drawCircle(65, 65, 60, paint);
 
 		return output;
 		
@@ -147,8 +146,6 @@ public class UserView extends ImageButton implements OCUpdateListener {
 	}
 	public void onUpdate(int eventId, Object data) {
 		invalidate();
-
-
 	}
 
 }

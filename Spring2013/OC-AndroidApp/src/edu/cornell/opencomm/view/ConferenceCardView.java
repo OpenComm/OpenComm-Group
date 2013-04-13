@@ -26,7 +26,7 @@ import android.widget.Toast;
 public class ConferenceCardView extends Activity{
 	Conference conference;
 	Calendar currentTime;
-	
+
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.conference_card_layout);
@@ -35,8 +35,8 @@ public class ConferenceCardView extends Activity{
 	    retrieveAndDisplayConferenceInformation();
 	    adjustLayoutLookAndFunctionality();
 	}
-	
-	
+
+
 	public void retrieveAndDisplayConferenceInformation(){
 		TextView conference_title = (TextView) findViewById(R.id.conference_title);
 		conference_title.setText(conference.getConferenceTitle());
@@ -51,10 +51,10 @@ public class ConferenceCardView extends Activity{
 		TextView inviter_name = (TextView) findViewById(R.id.invited_by_contact);
 		inviter_name.setText(conference.getInviter().getUsername());
 		retrieveAndDisplayAttendeeInformation();
-		
+
 	}
-	
-	
+
+
 	public void retrieveAndDisplayAttendeeInformation(){
 		Log.v("UserCheck", ""+conference.getAttendees().size());
 		ArrayList<User> users = conference.getAttendees();
@@ -66,7 +66,7 @@ public class ConferenceCardView extends Activity{
 			createUserEntry(conference_information_layout, layoutInflater, users.get(i).getUsername(), users.get(i).getImage());
 		}
 	}
-	
+
 	public void createUserEntry(LinearLayout conference_information_layout, LayoutInflater layoutInflater, String name, int picture){
 		View attendee_entry = layoutInflater.inflate(R.layout.conference_card_attendee_entry, null);
 		RelativeLayout entry_container= (RelativeLayout) attendee_entry.findViewById(R.id.attendee_information);
@@ -80,17 +80,17 @@ public class ConferenceCardView extends Activity{
 		attendee_picture.setImageDrawable(drawable); 
 		conference_information_layout.addView(attendee_entry);
 	}
-	
+
 	public void adjustLayoutLookAndFunctionality(){
 		setTypeOfConference();
 		initializeBackButton();
 		initializeActionOverflowButton();
 	}
-	
+
 	public void setTypeOfConference(){
 		switch(conference.getConferenceType(currentTime)){
 		case(Conference.UPCOMING):
-			
+
 			break;
 		case(Conference.INVITED):
 			RelativeLayout invitation_bar = (RelativeLayout) findViewById(R.id.invitation_bar);
@@ -105,7 +105,7 @@ public class ConferenceCardView extends Activity{
 			break;
 		}
 	}
-	
+
 	public void initializeBackButton(){
 		final ImageView backButton = (ImageView) findViewById(R.id.back_button);
 		backButton.setOnTouchListener(new OnTouchListener() {
@@ -125,7 +125,7 @@ public class ConferenceCardView extends Activity{
 	        }
 		}); 
 	}
-	
+
 	public void initializeActionOverflowButton(){
 		final ImageView actionOverflowButton = (ImageView) findViewById(R.id.action_overflow_button);
 		actionOverflowButton.setOnTouchListener(new OnTouchListener() {
@@ -145,7 +145,7 @@ public class ConferenceCardView extends Activity{
 	        }
 		}); 
 	}
-	
+
 	public void initializeAcceptButton(){
 		final RelativeLayout acceptButton = (RelativeLayout) findViewById(R.id.accept_button);
 		acceptButton.setOnTouchListener(new OnTouchListener() {
@@ -165,7 +165,7 @@ public class ConferenceCardView extends Activity{
 	        }
 		}); 
 	}
-	
+
 	public void initializeDeclineButton(){
 		final RelativeLayout declineButton = (RelativeLayout) findViewById(R.id.decline_button);
 		declineButton.setOnTouchListener(new OnTouchListener() {
@@ -185,7 +185,7 @@ public class ConferenceCardView extends Activity{
 	        }
 		}); 
 	}
-	
+
 	public void initializeEnterConferenceBar(){
 		final Activity activity = this;
 		final RelativeLayout enterConferenceBar = (RelativeLayout) findViewById(R.id.enter_conference_bar);
@@ -209,7 +209,7 @@ public class ConferenceCardView extends Activity{
 	        }
 		}); 
 	}
-	
+
 	public void showToast(String message){
 		Context context = getApplicationContext();
 		CharSequence text = message;
@@ -220,4 +220,3 @@ public class ConferenceCardView extends Activity{
 	}
 
 }
-
