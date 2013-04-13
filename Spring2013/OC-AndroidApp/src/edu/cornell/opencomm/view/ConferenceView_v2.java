@@ -73,7 +73,7 @@ public final class ConferenceView_v2 extends Activity
 	public void addPersonClicked(View v)
 	{
 		//TODO: get username of person to be added (hardcoded for now)
-		controller.HandleAddPerson("oc4testorg");
+		controller.HandleAddPerson("oc4testorg@cuopencomm");
 	}
 	
 	
