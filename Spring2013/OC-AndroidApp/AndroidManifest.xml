@@ -26,25 +26,17 @@
         <activity
             android:name=".view.ConferenceView_v2"
             android:screenOrientation="portrait" >
-<<<<<<< HEAD
            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-=======
-          
->>>>>>> 4c2d52cad24a05baed1c8ae182bdea7f6b55c296
         </activity>
         
         
         <activity
             android:name=".view.LoginView_v2"
             android:screenOrientation="portrait" >
-<<<<<<< HEAD
-           <intent-filter>
-=======
             <intent-filter>
->>>>>>> 4c2d52cad24a05baed1c8ae182bdea7f6b55c296
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
