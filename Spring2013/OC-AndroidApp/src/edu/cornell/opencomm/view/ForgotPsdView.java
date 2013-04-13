@@ -4,6 +4,7 @@ import edu.cornell.opencomm.R;
 
 import edu.cornell.opencomm.controller.ForgotPsdController;
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
@@ -17,8 +18,7 @@ public class ForgotPsdView extends Activity {
 	
 
 	private EditText emailEdit;	
-	private ImageView sendEmail;
-	
+		
 	/** The controller for forgot password screen */
 	private ForgotPsdController forgotPsdController;
 	
@@ -28,6 +28,9 @@ public class ForgotPsdView extends Activity {
 		setContentView(R.layout.forgot_password);
 		forgotPsdController=new ForgotPsdController(this);
 		emailEdit= (EditText) findViewById(R.id.email_input);
+		//set font
+		Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
+		emailEdit.setTypeface(tf);
 	}
 	
 	/** Email Input */
