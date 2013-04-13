@@ -12,6 +12,7 @@ import org.jivesoftware.smackx.FormField;
 import org.jivesoftware.smackx.muc.Affiliate;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.muc.ParticipantStatusListener;
+import org.jivesoftware.smackx.muc.RoomInfo;
 import org.jivesoftware.smackx.packet.VCard;
 
 import android.graphics.Point;
@@ -28,6 +29,8 @@ public class ConferenceRoom extends MultiUserChat {
 	private static String rName;
 	private String roomId;
 
+	private User moderator;
+
 	private static String formatRoomName(String roomName) {
 		roomName = roomName + "@conference.cuopencomm";
 		rName = roomName;
@@ -35,12 +38,17 @@ public class ConferenceRoom extends MultiUserChat {
 	}
 
 	public void join() throws XMPPException {
-		super.join(UserManager.PRIMARY_USER.getNickname());
-		Collection<Affiliate> owners = this.getOwners();
-		for (Affiliate a : owners) {
-			if (a.getJid().equals(UserManager.PRIMARY_USER.getUsername())) {
-				this.grantModerator(UserManager.PRIMARY_USER.getNickname());
+		if (getNumberOccupants() < 5) {
+			super.join(UserManager.PRIMARY_USER.getNickname());
+			Collection<Affiliate> owners = this.getOwners();
+			for (Affiliate a : owners) {
+				if (a.getJid().equals(UserManager.PRIMARY_USER.getUsername())) {
+					this.grantModerator(UserManager.PRIMARY_USER.getNickname());
+				}
 			}
+		}
+		else {
+			//TO DO: Let the user know that the room is full
 		}
 	}
 
@@ -183,11 +191,45 @@ public class ConferenceRoom extends MultiUserChat {
 			this.confUserList.add(cu);
 		}
 	}
+	
+	public int getNumberOccupants() {
+		RoomInfo info;
+		int numberOccupants = 5;
+		try {
+			info = MultiUserChat.getRoomInfo(NetworkService.getInstance().getConnection(), roomId);
+			numberOccupants = info.getOccupantsCount();
+		} catch (XMPPException e) {
+			System.out.println("Could not retrieve number of occupants:" + e);
+		}
+	    return numberOccupants;
+	}
 
 	public void addUser(User u) {
-		ConferenceUser cu = new ConferenceUser(u);
-		this.confUserList.add(cu);
-	} 
+		if (getNumberOccupants() < 5) {
+			ConferenceUser cu = new ConferenceUser(u);
+			this.confUserList.add(cu);
+		}
+	}
+
+	public User getModerator() {
+		return moderator;
+	}
+
+	// NOTE: cannot revoke privileges, so when leaving, just grant
+	// privileges to someone else and then leave.
+	public void updateMod(User currMod, User newMod) {
+		try {
+			super.grantModerator(newMod.getNickname());
+			setModerator(newMod);
+		} catch (XMPPException e) {
+			Log.e(TAG, "Could not transfer privileges", e);
+		}
+	}
+
+	public void setModerator(User u) {
+		moderator = u;
+	}
+
 
 	// public void addConferenceUser(ConferenceUser confUser){
 	// confUserList.add(confUser);
