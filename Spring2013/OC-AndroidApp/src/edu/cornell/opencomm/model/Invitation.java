@@ -8,6 +8,7 @@ import org.jivesoftware.smackx.muc.MultiUserChat;
 import android.util.Log;
 
 import edu.cornell.opencomm.manager.UserManager;
+import edu.cornell.opencomm.network.NetworkService;
 
 public class Invitation {
 	
@@ -31,7 +32,7 @@ public class Invitation {
 	}
 	
 	public MultiUserChat accept() {
-		ConferenceRoom muc = new ConferenceRoom(room);
+		ConferenceRoom muc = new ConferenceRoom(NetworkService.getInstance().getConnection(), room);
 		try {
 			muc.join();
 		} catch (XMPPException e) {

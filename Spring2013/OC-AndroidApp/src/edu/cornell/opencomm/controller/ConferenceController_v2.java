@@ -21,7 +21,21 @@ public class ConferenceController_v2
 	public ConferenceController_v2() 
 	{
 		this.view = ConferenceView_v2.getInstance();
-		room = new MultiUserChat(NetworkService.getInstance().getConnection(), "testroom@conference.cuopencomm");
+		MultiUserChat room = null;
+		String roomID = NetworkService.generateRoomID();
+		boolean isInvalidRoomID = true;
+		
+		
+		while(isInvalidRoomID){
+			roomID = NetworkService.generateRoomID();
+			try{
+				room = new MultiUserChat(NetworkService.getInstance().getConnection(), roomID);
+			} catch(Exception e){
+				//do nothing
+			}
+			isInvalidRoomID = false;
+		}
+
 		try {
 			room.create(UserManager.PRIMARY_USER.getUsername());
 		} catch (XMPPException e) {

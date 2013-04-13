@@ -2,6 +2,7 @@ package edu.cornell.opencomm.network;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Random;
 
 import org.jivesoftware.smack.AccountManager;
 import org.jivesoftware.smack.Connection;
@@ -80,6 +81,17 @@ public class NetworkService {
 	private PrivacyList blockList;
 	private AccountManager accountManager;
 
+	public static String generateRoomID(){
+		Random rng = new Random();
+		String characters = "abcdefghijklmnopqrstuvwxyz1234567890";
+		char[] text = new char[10];
+	    for (int i = 0; i < 10; i++)
+	    {
+	        text[i] = characters.charAt(rng.nextInt(characters.length()));
+	    }
+	    return new String(text);
+	}
+	
 	public static NetworkService getInstance() {
 		if (_instance == null) {
 			_instance = new NetworkService(DEFAULT_HOST, DEFAULT_PORT);

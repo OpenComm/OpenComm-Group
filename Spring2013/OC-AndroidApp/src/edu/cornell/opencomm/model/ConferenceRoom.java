@@ -28,24 +28,13 @@ public class ConferenceRoom extends MultiUserChat {
 
 	private static String rName;
 	private String roomId;
-	private User moderator;
 
-	public ConferenceRoom(String roomId) {
-		super(NetworkService.getInstance().getConnection(), roomId);
-		this.roomId = roomId;
-	}
+	private User moderator;
 
 	private static String formatRoomName(String roomName) {
 		roomName = roomName + "@conference.cuopencomm";
 		rName = roomName;
 		return roomName;
-	}
-
-	public ConferenceRoom(Connection c, String s, User u) {
-		super(c, formatRoomName(s));
-		roomId = s;
-		moderator = u;
-		retriveOccupants();
 	}
 
 	public void join() throws XMPPException {
@@ -134,6 +123,15 @@ public class ConferenceRoom extends MultiUserChat {
 			public void voiceRevoked(String participant) {
 			}
 		});
+		
+		try {
+			this.join(rName);
+		} catch (XMPPException e) {
+			Log.e(TAG, "Could not join room", e);
+		}
+		
+		// Create and instantiate all existing users
+		Iterator<String> occItr = this.getOccupants();
 	}
 
 	public void init(boolean isMod) {
@@ -231,6 +229,7 @@ public class ConferenceRoom extends MultiUserChat {
 	public void setModerator(User u) {
 		moderator = u;
 	}
+
 
 	// public void addConferenceUser(ConferenceUser confUser){
 	// confUserList.add(confUser);
