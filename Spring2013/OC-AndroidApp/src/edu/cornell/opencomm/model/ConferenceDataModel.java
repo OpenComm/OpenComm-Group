@@ -7,6 +7,7 @@ import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smackx.muc.InvitationListener;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 
+import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.util.TestDataGen;
 import edu.cornell.opencomm.util.Util;
 
@@ -116,17 +117,18 @@ public class ConferenceDataModel implements InvitationListener {
 	}
 
 	private void createMainRoom(String roomId) {
-//		ConferenceRoom mainRoom = new ConferenceRoom(roomId);
-//		// TODO: Warning: for testing only
-//		mainRoom.setList(TestDataGen.createExampleUsers());
-//		conferenceRoomMap.put(roomId, mainRoom);
-//		conferenceRoomMap.put(roomId + "left", mainRoom);
-//		conferenceRoomMap.put(roomId + "right", mainRoom);
-//		tagToRoomIdMap.put(ConferenceConstants.MAIN_ROOM_INDEX, roomId);
-//		tagToRoomIdMap
-//				.put(ConferenceConstants.LEFT_ROOM_INDEX, roomId + "left");
-//		tagToRoomIdMap.put(ConferenceConstants.RIGHT_ROOM_INDEX, roomId
-//				+ "right");
+		roomId = NetworkService.generateRoomID();
+		ConferenceRoom mainRoom = new ConferenceRoom(NetworkService.getInstance().getConnection(), roomId);
+		// TODO: Warning: for testing only
+		mainRoom.setList(TestDataGen.createExampleUsers());
+		conferenceRoomMap.put(roomId, mainRoom);
+		conferenceRoomMap.put(roomId + "left", mainRoom);
+		conferenceRoomMap.put(roomId + "right", mainRoom);
+		tagToRoomIdMap.put(ConferenceConstants.MAIN_ROOM_INDEX, roomId);
+		tagToRoomIdMap
+				.put(ConferenceConstants.LEFT_ROOM_INDEX, roomId + "left");
+		tagToRoomIdMap.put(ConferenceConstants.RIGHT_ROOM_INDEX, roomId
+				+ "right");
 	}
 
 	/**
