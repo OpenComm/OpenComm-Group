@@ -31,11 +31,11 @@ public class Invitation {
 	}
 	
 	public MultiUserChat accept() {
-		MultiUserChat muc = new MultiUserChat(conn, room);
+		ConferenceRoom muc = new ConferenceRoom(room);
 		try {
-			muc.join(UserManager.PRIMARY_USER.username);
+			muc.join();
 		} catch (XMPPException e) {
-			System.out.println("Error joining chat:" + e);
+			System.out.println("Could not join chatroom:" + e);
 		}
 		return muc;
 	}

@@ -47,8 +47,8 @@ public class ConferenceRoom extends MultiUserChat {
 		retriveOccupants();
 	}
 
-	public void join(String nickname) throws XMPPException {
-		super.join(nickname);
+	public void join() throws XMPPException {
+		super.join(UserManager.PRIMARY_USER.getNickname());
 		Collection<Affiliate> owners = this.getOwners();
 		for (Affiliate a : owners) {
 			if (a.getJid().equals(UserManager.PRIMARY_USER.getUsername())) {
