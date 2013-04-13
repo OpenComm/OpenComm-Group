@@ -78,7 +78,7 @@ public class JingleIQBuddyPacketRouter {
 						IQ iq = (IQ) p;
 						Log.i(JingleIQBuddyPacketRouter.TAG, "From: "  + iq.getFrom()+ "To: " + iq.getTo());
 						String fromJID = iq.getFrom().split("/")[0];
-						// TODO: replace with updated version
+						// TODO: replace with reference to main conference
 						/*if (Space.getMainSpace().getAllParticipants().containsKey(fromJID)) {
 							Space.getMainSpace().getAllParticipants().get(fromJID).getJingle().processPacket(iq);
 						}*/

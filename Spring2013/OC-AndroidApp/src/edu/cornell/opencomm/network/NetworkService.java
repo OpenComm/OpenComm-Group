@@ -135,32 +135,25 @@ public class NetworkService {
 				this.xmppConn.login(jid, password, DEFAULT_RESOURCE);
 				// check that the email is the right one
 				Log.v(TAG, "successfully logged in");
-				if (!email.equals(this.getConnection().getAccountManager()
-						.getAccountAttribute("email"))) {
-					if (D)
-						Log.d(TAG, "Email does not match");
-					// disconnect
-					Log.v(TAG, "disconnecting");
-					this.xmppConn.disconnect();
-					// reconnect to the server
-					_instance = new NetworkService(DEFAULT_HOST, DEFAULT_PORT);
+				// disconnect
+				Log.v(TAG, "disconnecting");
+				this.xmppConn.disconnect();
+				// reconnect to the server
+				_instance = new NetworkService(DEFAULT_HOST, DEFAULT_PORT);
 
-					MultiUserChat.addInvitationListener(NetworkService
-							.getInstance().getConnection(), 
-							new InvitationListener() {
+				MultiUserChat.addInvitationListener(NetworkService
+						.getInstance().getConnection(),
+						new InvitationListener() {
 
-								@Override
-								public void invitationReceived(Connection arg0,
-										String arg1, String arg2, String arg3,
-										String arg4, Message arg5) {
-									// TODO Auto-generated method stub
-									
-								}
-						
-					});
+							@Override
+							public void invitationReceived(Connection arg0,
+									String arg1, String arg2, String arg3,
+									String arg4, Message arg5) {
+								// TODO Auto-generated method stub
 
-					return ReturnState.INVALID_PAIR;
-				}
+							}
+
+						});
 				return ReturnState.SUCCEEDED;
 			} catch (XMPPException e) {
 				// if login failed
