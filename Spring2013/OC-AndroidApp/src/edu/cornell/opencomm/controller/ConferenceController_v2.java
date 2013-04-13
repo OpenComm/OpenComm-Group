@@ -7,11 +7,11 @@ import org.jivesoftware.smackx.muc.MultiUserChat;
 import android.util.Log;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.network.NetworkService;
-import edu.cornell.opencomm.view.ConferenceView_v2;
+import edu.cornell.opencomm.view.ConferenceView;
 
 public class ConferenceController_v2 
 {
-	ConferenceView_v2 view;
+	ConferenceView view;
 	MultiUserChat room;
 	
 	private static final String TAG = "ConferenceController_v2";
@@ -20,7 +20,7 @@ public class ConferenceController_v2
 	
 	public ConferenceController_v2() 
 	{
-		this.view = ConferenceView_v2.getInstance();
+		this.view = ConferenceView.getInstance();
 		MultiUserChat room = null;
 		String roomID = NetworkService.generateRoomID();
 		boolean isInvalidRoomID = true;
@@ -47,7 +47,6 @@ public class ConferenceController_v2
 			e.printStackTrace();
 		}
 	}
-	
 	
 	
 	/**
