@@ -13,6 +13,8 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Display;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import edu.cornell.opencomm.interfaces.OCUpdateListener;
@@ -72,6 +74,7 @@ public class UserView extends ImageButton implements OCUpdateListener {
 		}
 		invalidateLocation();
 	}
+	
 	private void invalidateLocation(){
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
 				OCBitmapDecoder.THUMBNAIL_WIDTH,OCBitmapDecoder.THUMBNAIL_HEIGTH);
@@ -93,8 +96,13 @@ public class UserView extends ImageButton implements OCUpdateListener {
 	// http://stackoverflow.com/questions/11012556/border-over-a-bitmap-with-rounded-corners-in-android//
 
 	private Bitmap getRoundedCornerBitmap(Bitmap bitmap) {		
-		Bitmap output = Bitmap.createBitmap(130,
-				130, Bitmap.Config.ARGB_8888);
+		
+		WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+		Display display = wm.getDefaultDisplay();
+		int screenWidth = display.getWidth();
+		int userPicSize = screenWidth * 13/48;
+		
+		Bitmap output = Bitmap.createBitmap(userPicSize, userPicSize, Bitmap.Config.ARGB_8888);
 		Canvas canvas = new Canvas(output);
 		// just for conversion
 		int borderDips = 6;
@@ -103,13 +111,13 @@ public class UserView extends ImageButton implements OCUpdateListener {
 				.getResources().getDisplayMetrics());
 		// prepare for canvas
 		final Paint paint = new Paint();
-		final Rect rect = new Rect(0, 0, 130, 130);
+		final Rect rect = new Rect(0, 0, userPicSize, userPicSize);
 		// prepare canvas for transfer
 		paint.setAntiAlias(true);
 		paint.setColor(0xFFFFFFFF);
 		paint.setStyle(Paint.Style.FILL);
 		canvas.drawARGB(0, 0, 0, 0);
-		canvas.drawCircle(65, 65, 60, paint);
+		canvas.drawCircle(userPicSize / 2, userPicSize / 2, userPicSize / 2 - 5, paint);
 
 		// draw bitmap
 		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
@@ -119,7 +127,7 @@ public class UserView extends ImageButton implements OCUpdateListener {
 		paint.setColor(Color.BLACK);
 		paint.setStyle(Paint.Style.STROKE);
 		paint.setStrokeWidth((float) borderSizePx);
-		canvas.drawCircle(65, 65, 60, paint);
+		canvas.drawCircle(userPicSize / 2, userPicSize / 2, userPicSize / 2 - 5, paint);
 
 		return output;
 		
