@@ -12,9 +12,9 @@ public class ConferenceController_v2
 	private static final boolean D = true;
 	
 	
-	public ConferenceController_v2(ConferenceView_v2 view) 
+	public ConferenceController_v2() 
 	{
-		this.view = view;
+		this.view = ConferenceView_v2.getInstance();
 	}
 	
 	
