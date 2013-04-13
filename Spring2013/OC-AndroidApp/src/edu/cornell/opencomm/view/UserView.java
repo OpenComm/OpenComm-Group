@@ -99,10 +99,10 @@ public class UserView extends ImageButton implements OCUpdateListener {
 		
 		WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
-		int screenWidth = display.getWidth();
-		int userPicSize = screenWidth * 13/48;
+		float screenWidth = (float) display.getWidth();
+		float userPicSize = screenWidth * 13/48;
 		
-		Bitmap output = Bitmap.createBitmap(userPicSize, userPicSize, Bitmap.Config.ARGB_8888);
+		Bitmap output = Bitmap.createBitmap((int)userPicSize, (int)userPicSize, Bitmap.Config.ARGB_8888);
 		Canvas canvas = new Canvas(output);
 		// just for conversion
 		int borderDips = 6;
@@ -111,7 +111,7 @@ public class UserView extends ImageButton implements OCUpdateListener {
 				.getResources().getDisplayMetrics());
 		// prepare for canvas
 		final Paint paint = new Paint();
-		final Rect rect = new Rect(0, 0, userPicSize, userPicSize);
+		final Rect rect = new Rect(0, 0, (int)userPicSize, (int)userPicSize);
 		// prepare canvas for transfer
 		paint.setAntiAlias(true);
 		paint.setColor(0xFFFFFFFF);

@@ -137,9 +137,10 @@ public class ConferenceRoomFragment extends Fragment {
 		WindowManager wm = (WindowManager) roomLayout.getContext().getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
 		int screenWidth = display.getWidth();
+		float radius = screenWidth * 3/8;
 		if (conferenceRoom != null) {
 			Point center = new Point(roomLayout.getWidth() / 2, roomLayout.getHeight() / 2);
-			ArrayList<ConferenceUser> userList = conferenceRoom.updateLocations(center, screenWidth * 3 / 8);
+			ArrayList<ConferenceUser> userList = conferenceRoom.updateLocations(center, (int)radius);
 			for (ConferenceUser confUser : userList) {
 				
 				UserView uv = new UserView(context, confUser);
