@@ -30,7 +30,7 @@ public class ConferenceController {
 
 	private ConferenceView view;
 
-	private Context context;
+	Context context;
 
 	private ConferenceDataModel conferenceModel; // the conference that is being
 													// controlled
