@@ -33,6 +33,7 @@
             android:name=".view.LoginView_v2"
             android:screenOrientation="portrait" >
             <intent-filter>
+>>>>>>> f408cd788b610b5f8cf0f1c75853b716b3e906ba
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

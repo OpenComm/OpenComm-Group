@@ -4,14 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import org.jivesoftware.smack.XMPPException;
-import org.jivesoftware.smackx.muc.MultiUserChat;
-
-import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.packet.ConferencePacket;
-import edu.cornell.opencomm.util.Util;
 import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.Log;
 
 public class Conference implements Serializable {

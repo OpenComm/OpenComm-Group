@@ -40,8 +40,6 @@ public class ConferenceController {
 
 	// users who have been invited who have not been added to the model
 	// information
-	
-	// TODO: add a listener for invitations and invitation responses
 
 	public ConferenceController(ConferenceView view, ConferenceDataModel model) {
 		// TODO: do we really need this
