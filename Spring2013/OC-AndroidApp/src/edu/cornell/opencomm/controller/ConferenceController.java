@@ -27,11 +27,11 @@ import edu.cornell.opencomm.view.ConferenceView;
 
 @SuppressWarnings("unused")
 public class ConferenceController {
-	
+
 	private ConferenceView view;
-	
-	private Context context;
-	
+
+	Context context;
+
 	private ConferenceDataModel conferenceModel; // the conference that is being
 													// controlled
 
@@ -47,17 +47,17 @@ public class ConferenceController {
 		this.view = view;
 		this.conferenceModel = model;
 	}
-	
+
 	// Constructor - initialize required fields
 	public ConferenceController(ConferenceDataModel conf) {
 		this.conferenceModel = conf;
 	}
-	
+
 	public void inviteUser(User u, String sChat) {
 		ConferenceRoom chatRoom = findChat(sChat);
 		chatRoom.invite(u.getUsername(), null);
 	}
-	
+
 	private ConferenceRoom findChat(String sChat) {
 		String roomID = sChat;
 		HashMap<String, ConferenceRoom> chatSpaceIDMap = conferenceModel
@@ -65,12 +65,12 @@ public class ConferenceController {
 		ConferenceRoom chatRoom = chatSpaceIDMap.get(roomID);
 		return chatRoom;
 	}
-	
+
 	public void leave(int sChat, User currUser){
-		
+
 		ConferenceRoom room = conferenceModel.getRoomByTag(sChat);
 		User moderator = room.getModerator();
-		
+
 		if(moderator.getUsername().equals(currUser.getUsername())){
 			if(room.getCUserList().size()>1){
 				User newMod = room.getCUserList().get(0).user;
@@ -86,7 +86,7 @@ public class ConferenceController {
 		}
 		room.leave();
 	}
-	
+
 	public void leaveChat(int chat, User currUser){
 		if(chat==(ConferenceConstants.MAIN_ROOM_INDEX)){
 			leave(ConferenceConstants.LEFT_ROOM_INDEX, currUser);
@@ -97,7 +97,7 @@ public class ConferenceController {
 			leave(chat, currUser);
 		}
 	}
-	
+
 	public void end(User currUser){
 		if(conferenceModel.getMod().equals(currUser)){
 			Collection<ConferenceRoom> allRooms = conferenceModel.getIDMap().values();
@@ -114,7 +114,7 @@ public class ConferenceController {
 				}
 			}
 		}
-	}
+	} 
 	
 	/**
 	 * 
@@ -131,7 +131,7 @@ public class ConferenceController {
 		ConferenceRoom room = this.conferenceModel.getRoomByTag(chat);
 		room.updateMod(u1, u2);
 	}
-	
+
 	public void kickoutUserByRoomID(String chat, User userToBeKicked, User currUser) {
 		if (this.conferenceModel.getIDMap().get(chat).getModerator()
 
@@ -144,7 +144,7 @@ public class ConferenceController {
 			}
 		}
 	}
-	
+
 	public void kickoutUserByRoomTAG(int chat, User userToBeKicked, User currUser) {
 		if (this.conferenceModel.getRoomByTag(chat).getModerator().equals(currUser)) {
 			try {
@@ -155,32 +155,32 @@ public class ConferenceController {
 			}
 		}
 	}
-	
+
 	// TODO: the following methods will not be implemented for the Nov4 cycle
-	
+
 	public void moveUser(User u) {
 		// TODO: modify audio manipulation based on new location (future work)
 	}
-	
+
 	public void init() {
 		// TODO Back End
 		// 1. Open a channel to listen to incoming messages / register this
 		// class with the connection
-		
+
 	}
-	
+
 	public void handleIncomingPackets() {
 		// Handle
 		// 1. Invitation response
 		// 2. Priv transfer
 	}
-	
+
 	public void sendPackets() {
 		// Send
 		// 1.invitation
 		// 2.trans_priv
 	}
-	
+
 	public void handleOverflow() {
 		Toast.makeText(this.context, "Overflow Clicked", Toast.LENGTH_SHORT)
 				.show();
@@ -191,20 +191,20 @@ public class ConferenceController {
 				.show();
 		// TODO- Should go to add contact to conference page
 	}
-	
+
 	public void muteClicked() {
 		Toast.makeText(this.context, "Mute Clicked", Toast.LENGTH_SHORT).show();
 	}
-	
+
 	public void leaveConference() {
 		Toast.makeText(this.context, "Leave Conference Clicked",
 				Toast.LENGTH_SHORT).show();
 	}
-	
+
 	public void removeUser() {
 		Toast.makeText(this.context, "Remove User", Toast.LENGTH_SHORT).show();
 	}
-	
+
 	public void setNewModerator() {
 		Toast.makeText(this.context, "Set New Moderator", Toast.LENGTH_SHORT).show();
 		//TODO
@@ -213,17 +213,17 @@ public class ConferenceController {
 	public void showProfile() {
 		Toast.makeText(this.context, "Show Profile", Toast.LENGTH_SHORT).show();
 	}
-	
+
 	public void handleEndClicked(User user) {
 		// TODO won't work until backend finds a way to retrieve the moderator (as of now moderator is null)
 		// end(user);
 	}
-	
+
 	public void handleLeaveClicked(int roomIndex, User user){
 		// TODO won't work until backend fins a way to retrieve the moderator (as of now moderator is null)
 		//leaveChat(roomIndex, user); 
 	}
-	
+
 	public void handleOnContextAddClicked() {
 		Toast.makeText(this.context, "Add Contact clicked", Toast.LENGTH_SHORT)
 				.show();

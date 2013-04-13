@@ -148,5 +148,4 @@ public class ConferenceDataModel implements InvitationListener {
 		// If declined or no slot, send rejection
 		MultiUserChat.decline(conn, room, inviter, reason);
 	}
-
 }

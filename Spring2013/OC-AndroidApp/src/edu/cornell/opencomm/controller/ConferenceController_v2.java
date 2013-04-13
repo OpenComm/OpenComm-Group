@@ -1,12 +1,18 @@
 package edu.cornell.opencomm.controller;
 
+import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smackx.Form;
+import org.jivesoftware.smackx.muc.MultiUserChat;
+
 import android.util.Log;
+import edu.cornell.opencomm.model.ConferenceRoom;
+import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ConferenceView_v2;
 
 public class ConferenceController_v2 
 {
 	ConferenceView_v2 view;
-	
+	ConferenceRoom room;
 	
 	private static final String TAG = "ConferenceController_v2";
 	private static final boolean D = true;
@@ -22,6 +28,17 @@ public class ConferenceController_v2
 	private ConferenceController_v2() 
 	{
 		this.view = ConferenceView_v2.getInstance();
+		room = new ConferenceRoom("1234");
+		try {
+			room.create("test");
+		} catch (XMPPException e) {
+			e.printStackTrace();
+		}
+		try {
+			room.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
+		} catch (XMPPException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -40,11 +57,11 @@ public class ConferenceController_v2
 	/**
 	 * handle the action when add person button was clicked
 	 */
-	public void HandleAddPerson()
+	public void HandleAddPerson(String username)
 	{
 		if(D)
 			Log.d(TAG,"addPerson button clicked");
-		//TODO: add "AddPerson" functions here
+		room.invite(username, "lets chat");
 	}
 	
 	
@@ -68,5 +85,11 @@ public class ConferenceController_v2
 		if(D)
 			Log.d(TAG,"back button clicked");
 		//TODO:add "go back" functions here
+	}
+	
+	public void HandleLeaveButton(){
+		if(D)
+			Log.d(TAG, "leave button clicked");
+		room.leave();
 	}
 }

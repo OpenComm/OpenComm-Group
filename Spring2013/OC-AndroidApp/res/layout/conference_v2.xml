@@ -5,8 +5,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:contentDescription="@string/mainChat"
-    android:onClick="clickedEmptySpace" 
-    android:gravity = "center_horizontal">
+    android:gravity="center_horizontal" >
 
     <RelativeLayout
         android:id="@+id/conferencev2_action_bar"
