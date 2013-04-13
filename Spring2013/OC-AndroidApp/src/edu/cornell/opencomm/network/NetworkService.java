@@ -35,11 +35,13 @@ import org.jivesoftware.smackx.provider.VCardProvider;
 import org.jivesoftware.smackx.provider.XHTMLExtensionProvider;
 import org.jivesoftware.smackx.search.UserSearch;
 
+import com.cornell.opencomm.jingleimpl.JingleIQPacket;
 import com.cornell.opencomm.jingleimpl.ReasonElementType;
 import com.cornell.opencomm.jingleimpl.sessionmgmt.JingleIQBuddyPacketRouter;
 
 import edu.cornell.opencomm.audio.JingleController;
 import edu.cornell.opencomm.controller.LoginController.ReturnState;
+import edu.cornell.opencomm.manager.UserManager;
 
 import android.util.Log;
 
@@ -184,8 +186,10 @@ public class NetworkService {
 					ReasonElementType.TYPE_SUCCESS, "Done, Logging Off!");
 			reason.setAttributeSID(jCtrl.getSID());
 			jCtrl.getJiqActionMessageSender().sendSessionTerminate(
-					null, //TODO: get user's JID
+					UserManager.PRIMARY_USER.getJingle().getBuddyJID(),
 					jCtrl.getBuddyJID(), jCtrl.getSID(), reason, jCtrl);
+			jCtrl.getSessionState().changeSessionState(
+					JingleIQPacket.AttributeActionValues.SESSION_TERMINATE);
 		}
 
 		// reconnect to the server

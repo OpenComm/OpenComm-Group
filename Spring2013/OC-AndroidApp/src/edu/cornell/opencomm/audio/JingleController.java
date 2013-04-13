@@ -20,7 +20,6 @@ import com.cornell.opencomm.rtpstreamer.MicrophonePusher;
 import com.cornell.opencomm.rtpstreamer.ReceiverThread;
 import com.cornell.opencomm.rtpstreamer.SenderThread;
 
-import edu.cornell.opencomm.controller.LoginController;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
 
@@ -53,7 +52,8 @@ public class JingleController {
 		jiqActionMessageSender = new JingleIQActionMessages();
 		iqMessageSender = new IQMessages();
 		// TODO: Is this a JID?
-		this.buddyJID = user.getUsername();
+		this.buddyJID = user.getUsername().split("@")[0]
+				+ NetworkService.DEFAULT_HOSTNAME + "/OpenComm";
 		jiqActionMessageSender.setConnection(connection);
 		iqMessageSender.setConnection(connection);
 		JingleController.UsernameToJingleController.put(

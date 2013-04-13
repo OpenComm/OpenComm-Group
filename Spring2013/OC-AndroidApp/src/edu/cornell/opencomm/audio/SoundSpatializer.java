@@ -1050,7 +1050,8 @@ public void setAudio(AudioTrack audio) {
 	
 	/** change volume of the audiotrack */
 	public void setStereoVolume(float left, float right) {
-		this.audio.setStereoVolume(left, right);
+		this.audio.setStereoVolume(1f, 1f);
+		//this.audio.setStereoVolume(left, right);
 	} // end setStereoVolume
 	
 	public String getVolume() {
@@ -1083,6 +1084,8 @@ public void setAudio(AudioTrack audio) {
 		return SoundSpatializer.monoToStereo(left, right);
 	} // end write method	
 	
+	
+	// [TODO] This is the one that gets used. Remove the extras
 	/** return a SS-modified source */
 	public short[][] spatializeSource(short[] source, int itd) {
 		short[] left = new short[0];
@@ -1090,7 +1093,8 @@ public void setAudio(AudioTrack audio) {
 		// if the audio has not been updated, update
 		//this.audio.setStereoVolume(this.vol[0] * SoundSpatializer.spaceVol, this.vol[1] * SoundSpatializer.spaceVol);
 		// if the sound source is left of the user
-		if (itd > 0) {
+		// [TODO] Commented out to remove spatialization
+		/*if (itd > 0) {
 			left = this.addITDAfter(source, itd);
 			right = this.addITDBefore(source, itd);
 		}
@@ -1100,10 +1104,10 @@ public void setAudio(AudioTrack audio) {
 			right = this.addITDBefore(source, itd);
 		}
 		// if the sound source is right in front of the user; no itd
-		else {
+		else {*/
 			left = source.clone();
 			right = source.clone();
-		}
+		//}
 		short[][] shorts = {left, right};
 		return shorts;
 		//Log.i(SoundSpatializer.TAG, "Left and right mono streams have been modified.");
