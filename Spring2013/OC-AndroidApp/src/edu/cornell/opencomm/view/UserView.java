@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.Paint.Align;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
@@ -131,6 +132,7 @@ public class UserView extends ImageButton implements OCUpdateListener {
 		canvas.drawCircle(userPicSize / 2, userPicSize / 2, userPicSize / 2 - 5, paint);
 
 		//draw banner
+		//int color = conferenceUser.getUser().userColor;
 		paint.setColor(Color.GRAY);
 		paint.setStyle(Paint.Style.FILL);
 		canvas.drawARGB(0, 0, 0, 0);
@@ -143,10 +145,14 @@ public class UserView extends ImageButton implements OCUpdateListener {
 		canvas.drawRect(0, 80, 130, 105, paint);
 		
 		//draw user name
+		//String firstName = conferenceUser.getUser().getVCard().getFirstName();
+		//String lastName = conferenceUser.getUser().getVCard().getLastName();
+		//String name = firstName + " " + lastName; 
 		paint.setColor(Color.WHITE);
 		paint.setTextSize(15);
+		paint.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Light.ttf"));
 	    paint.setTextAlign(Align.CENTER);
-		canvas.drawText("Hello", 65, 98, paint);
+		canvas.drawText("hello".toUpperCase(), 65, 97, paint);
 
 		return output;
 		
