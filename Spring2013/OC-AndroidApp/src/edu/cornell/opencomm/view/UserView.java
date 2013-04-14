@@ -125,12 +125,6 @@ public class UserView extends ImageButton implements OCUpdateListener {
 		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
 		canvas.drawBitmap(bitmap, null, rect, paint);
 
-		// draw border
-		paint.setColor(Color.BLACK);
-		paint.setStyle(Paint.Style.STROKE);
-		paint.setStrokeWidth((float) borderSizePx);
-		canvas.drawCircle(userPicSize / 2, userPicSize / 2, userPicSize / 2 - 5, paint);
-
 		//draw banner
 		//int color = conferenceUser.getUser().userColor;
 		paint.setColor(Color.GRAY);
@@ -138,22 +132,28 @@ public class UserView extends ImageButton implements OCUpdateListener {
 		canvas.drawARGB(0, 0, 0, 0);
 		canvas.drawRect(0, 80, 130, 105, paint);
 		
-		//draw banner border
-		paint.setColor(Color.BLACK);
-		paint.setStyle(Paint.Style.STROKE);
-		paint.setStrokeWidth(1);
-		canvas.drawRect(0, 80, 130, 105, paint);
-		
 		//draw user name
 		//String firstName = conferenceUser.getUser().getVCard().getFirstName();
 		//String lastName = conferenceUser.getUser().getVCard().getLastName();
 		//String name = firstName + " " + lastName; 
 		paint.setColor(Color.WHITE);
-		paint.setTextSize(15);
+		paint.setTextSize(14);
 		paint.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Light.ttf"));
 	    paint.setTextAlign(Align.CENTER);
 		canvas.drawText("hello".toUpperCase(), 65, 97, paint);
 
+		//draw banner border
+		paint.setColor(Color.BLACK);
+		paint.setStyle(Paint.Style.STROKE);
+		paint.setStrokeWidth(1);
+		canvas.drawRect(0, 80, 130, 105, paint);
+
+		// draw border
+		paint.setColor(Color.BLACK);
+		paint.setStyle(Paint.Style.STROKE);
+		paint.setStrokeWidth((float) borderSizePx);
+		canvas.drawCircle(userPicSize / 2, userPicSize / 2, userPicSize / 2 - 5, paint);
+		
 		return output;
 		
 	}
