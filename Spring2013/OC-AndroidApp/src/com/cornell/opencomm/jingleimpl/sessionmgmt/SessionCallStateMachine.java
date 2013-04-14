@@ -39,9 +39,7 @@ public class SessionCallStateMachine {
 	/**
 	 * Constructor
 	 */
-	public SessionCallStateMachine(){
-		
-	}
+	public SessionCallStateMachine() {}
 	
 	/**
 	 * Returns the current state of this session
@@ -69,12 +67,12 @@ public class SessionCallStateMachine {
 				sessionState = STATE_PENDING;
 				success = true;
 				Log.i(SessionCallStateMachine.TAG, 
-						"changeSessionState succeeded from STATE_ENDED: " + new Boolean(success).toString() + 
+						"changeSessionState succeeded from STATE_ENDED: " + Boolean.valueOf(success).toString() + 
 						"session State: " + getSessionStateString());
 			} else {
 				success = false;
 				Log.i(SessionCallStateMachine.TAG, 
-						"changeSessionState failed from STATE_ENDED: " + new Boolean(success).toString() + 
+						"changeSessionState failed from STATE_ENDED: " + Boolean.valueOf(success).toString() + 
 						"session state: " + getSessionStateString());
 			}
 			break;
@@ -83,13 +81,13 @@ public class SessionCallStateMachine {
 				sessionState = STATE_ACTIVE;
 				success = true;
 				Log.i(SessionCallStateMachine.TAG, 
-						"changeSessionState succeeded from STATE_PENDING: " + new Boolean(success).toString() + 
+						"changeSessionState succeeded from STATE_PENDING: " + Boolean.valueOf(success).toString() + 
 						"sessiontState: " + getSessionStateString());
 			} else if(action.equals(JingleIQPacket.AttributeActionValues.SESSION_TERMINATE)){
 				sessionState = STATE_ENDED;
 				success = true;
 				Log.i(SessionCallStateMachine.TAG, 
-						"changeSessionState succeeded from STATE_PENDING: " + new Boolean(success).toString() + 
+						"changeSessionState succeeded from STATE_PENDING: " + Boolean.valueOf(success).toString() + 
 						"sessiontState: " + getSessionStateString());
 			} else if(action.equals(JingleIQPacket.AttributeActionValues.CONTENT_ACCEPT) ||
 					action.equals(JingleIQPacket.AttributeActionValues.CONTENT_ADD) ||
@@ -105,12 +103,12 @@ public class SessionCallStateMachine {
 				// No change in sessionState
 				success = true;
 				Log.i(SessionCallStateMachine.TAG, 
-						"changeSessionState succeeded from STATE_PENDING: " + new Boolean(success).toString() + 
+						"changeSessionState succeeded from STATE_PENDING: " + Boolean.valueOf(success).toString() + 
 						"sessiontState: " + getSessionStateString());
 			} else {
 				success = false;
 				Log.i(SessionCallStateMachine.TAG, 
-						"changeSessionState failed from from STATE_PENDING: " + new Boolean(success).toString() + 
+						"changeSessionState failed from from STATE_PENDING: " + Boolean.valueOf(success).toString() + 
 						"sessiontState: " + getSessionStateString());
 			}
 			break;
@@ -119,7 +117,7 @@ public class SessionCallStateMachine {
 				sessionState = STATE_ENDED;
 				success = true;
 				Log.i(SessionCallStateMachine.TAG, 
-						"changeSessionState succeeded from from STATE_ACTIVE: " + new Boolean(success).toString() + 
+						"changeSessionState succeeded from from STATE_ACTIVE: " + Boolean.valueOf(success).toString() + 
 						"sessiontState: " + getSessionStateString());
 			} else if(action.equals(JingleIQPacket.AttributeActionValues.CONTENT_ACCEPT) ||
 					action.equals(JingleIQPacket.AttributeActionValues.CONTENT_ADD) ||
@@ -135,12 +133,12 @@ public class SessionCallStateMachine {
 				// No change in sessionState
 				success = true;
 				Log.i(SessionCallStateMachine.TAG, 
-						"changeSessionState succeeded from from STATE_ACTIVE: " + new Boolean(success).toString() + 
+						"changeSessionState succeeded from from STATE_ACTIVE: " + Boolean.valueOf(success).toString() + 
 						"sessiontState: " + getSessionStateString());
 			} else {
 				success = false;
 				Log.i(SessionCallStateMachine.TAG, 
-						"changeSessionState failed from from STATE_ACTIVE: " + new Boolean(success).toString() + 
+						"changeSessionState failed from from STATE_ACTIVE: " + Boolean.valueOf(success).toString() + 
 						"session State: " + getSessionStateString());
 			}
 			break;		

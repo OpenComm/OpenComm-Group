@@ -28,33 +28,28 @@ public class ConferenceController {
 
 	private ConferenceController() {
 		this.view = ConferenceView.getInstance();
-		String roomID = NetworkService.generateRoomID();
+		String roomID = null;
 		
 		// TODO: Move constructors to more sensible place
-		MultiUserChat muc = null;
-		while (muc == null) {
+		while (this.room == null) {
 			roomID = NetworkService.generateRoomID();
 			try {
-				muc = new MultiUserChat(NetworkService.getInstance()
-						.getConnection(), roomID
-						+ ConferenceConstants.CONFERENCE_HOST);
+				this.room = new Conference(roomID);
 			} catch (Exception e) {
 				Log.v(TAG, e.getMessage());
 				continue;
 			}
 		}
-
 		try {
-			muc.join(UserManager.PRIMARY_USER.getUsername());
+			this.room.join(UserManager.PRIMARY_USER.getUsername());
 		} catch (XMPPException e) {
 			e.printStackTrace();
 		}
 		try {
-			muc.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
+			this.room.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
 		} catch (XMPPException e) {
 			e.printStackTrace();
 		}
-		this.room = (Conference) muc;
 		// end TODO
 	}
 

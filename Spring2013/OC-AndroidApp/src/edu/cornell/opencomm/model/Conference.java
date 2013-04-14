@@ -2,8 +2,6 @@ package edu.cornell.opencomm.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import org.jivesoftware.smackx.muc.MultiUserChat;
 
 import edu.cornell.opencomm.controller.OCParticipantStatusListener;
@@ -27,6 +25,10 @@ public class Conference extends MultiUserChat implements Serializable {
 	public void addPresenceListener() {
 		super.addParticipantStatusListener(new OCParticipantStatusListener(this));
 
+	}
+	
+	public void invite(String JID, String reason) {
+		super.invite(JID, reason);
 	}
 
 	// Helper Functions

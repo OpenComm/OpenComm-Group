@@ -33,8 +33,7 @@ public class JingleIQActionMessages {
 	/**
 	 * Constructor
 	 */
-	public JingleIQActionMessages(){
-	}
+	public JingleIQActionMessages() {}
 	
 	/**
 	 * Allows access to the <code>XMPPConnection</code> object to send IQ packets

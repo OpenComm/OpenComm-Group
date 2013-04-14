@@ -45,15 +45,19 @@ public class JingleController {
 	private SoundSpatializer soundSpatializer;
 
 	public JingleController(User user) {
-		state = new SessionCallStateMachine();
+		Log.v(TAG, "making jingle controller for " + user.getUsername());
 		this.user = user;
 		this.connection = NetworkService.getInstance().getConnection();
+		this.state = new SessionCallStateMachine();
+		Log.v(TAG, "made state machine");
 		this.soundSpatializer = new SoundSpatializer();
+		Log.v(TAG, "made sound spatializer");
 		jiqActionMessageSender = new JingleIQActionMessages();
 		iqMessageSender = new IQMessages();
-		// TODO: Is this a JID?
-		this.buddyJID = user.getUsername().split("@")[0]
-				+ NetworkService.DEFAULT_HOSTNAME + "/OpenComm";
+		Log.v(TAG, "make message senders");
+		this.buddyJID = user.getUsername() + NetworkService.DEFAULT_HOSTNAME
+				+ "/OpenComm";
+		Log.v(TAG, buddyJID);
 		jiqActionMessageSender.setConnection(connection);
 		iqMessageSender.setConnection(connection);
 		JingleController.UsernameToJingleController.put(

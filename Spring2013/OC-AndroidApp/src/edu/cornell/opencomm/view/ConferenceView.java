@@ -147,6 +147,7 @@ ConferenceConstants, ViewPager.OnPageChangeListener {
 	public void addPersonClicked(View v)
 	{
 		//TODO: get username of person to be added (hardcoded for now)
+		Log.v(TAG, "trying to add oc4testorg@cuopencomm");
 		ConferenceController.getInstance().HandleAddPerson("oc4testorg@cuopencomm");
 	}
 
