@@ -12,6 +12,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.util.Log;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.audio.JingleController;
@@ -61,6 +62,10 @@ public class User implements Comparable<User>, Serializable {
 	/**
 	 */
 	public int userColor;
+	
+	/**
+	 */
+	public Point location;
 
 	// for audio
 	private JingleController jCtrl;
@@ -184,6 +189,10 @@ public class User implements Comparable<User>, Serializable {
 	private void readObject(java.io.ObjectInputStream in)
 			throws IOException, ClassNotFoundException {
 		// populate the fields of 'this' from the data in 'in'...
+	}
+
+	public Point getLocation() {
+		return this.location;
 	}
 }
 

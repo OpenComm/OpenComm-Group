@@ -13,7 +13,6 @@ import com.cornell.opencomm.jingleimpl.JingleIQProvider;
 import edu.cornell.opencomm.audio.JingleController;
 import edu.cornell.opencomm.controller.ConferenceController_v2;
 import edu.cornell.opencomm.model.User;
-import edu.cornell.opencomm.view.ConferenceView_v2;
 
 /**
  * This class is a router class for incoming <code>IQ</code> packets. It forwards the packet

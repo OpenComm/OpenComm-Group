@@ -1,17 +1,12 @@
 package edu.cornell.opencomm.controller;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.concurrent.ExecutionException;
 
 import org.jivesoftware.smack.XMPPException;
-import org.jivesoftware.smackx.Form;
-import org.jivesoftware.smackx.ReportedData;
 import org.jivesoftware.smackx.search.UserSearchManager;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -21,9 +16,7 @@ import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
-import edu.cornell.opencomm.view.ConferenceSchedulerView;
 import edu.cornell.opencomm.view.ContactAddSearchView;
-import edu.cornell.opencomm.view.MyProfileView;
 
 /**
  * Controller for contact add/search page (ContactAddSearchView). Functionality:<br>
@@ -92,15 +85,9 @@ public class ContactAddSearchController {
 				.getText().toString().trim();
 		// if the user selects conferences
 		if (option.equals("conferences")) {
-			// launch conferences page
-			Intent i = new Intent(this.contactAddSearchView, ConferenceSchedulerView.class);
-			this.contactAddSearchView.startActivity(i);
 		}
 		// if the user selects account
 		else if (option.equals("profile")) {
-			// launch my profile page
-			Intent i = new Intent(this.contactAddSearchView, MyProfileView.class);
-			this.contactAddSearchView.startActivity(i);
 		}
 	}
 	

@@ -1,6 +1,5 @@
 package edu.cornell.opencomm.view;
 
-import edu.cornell.opencomm.model.ConferenceUser;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -27,7 +26,7 @@ public class UserView_v2 {
 	/**
 	 * The ConferenceUser object for which the user view exists
 	 */
-	private ConferenceUser conferenceUser;
+	//private ConferenceUser conferenceUser;
 
 	
 	private Bitmap getCircleBitmap(Bitmap bitmap) {
@@ -54,7 +53,7 @@ public class UserView_v2 {
 		canvas.drawBitmap(bitmap, rect, rect, paint);
 
 		// draw border
-		paint.setColor(conferenceUser.getUser().userColor);
+		//paint.setColor(conferenceUser.getUser().userColor);
 		paint.setStyle(Paint.Style.STROKE);
 		paint.setStrokeWidth((float) borderSizePx);
 		canvas.drawCircle(bitmap.getWidth()/2, bitmap.getHeight()/2, bitmap.getWidth()/2, paint);

@@ -1,11 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="edu.cornell.opencomm"
     android:versionCode="1"
-    android:versionName="1.0" xmlns:tools="http://schemas.android.com/tools">
+    android:versionName="1.0" >
 
     <uses-sdk
         android:minSdkVersion="10"
-        android:targetSdkVersion="10" tools:ignore="OldTargetApi"/>
+        android:targetSdkVersion="10"
+        tools:ignore="OldTargetApi" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -13,28 +15,26 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
+        android:allowBackup="true"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:theme="@style/Theme.white_smoke" android:allowBackup="true">
+        android:theme="@style/Theme.white_smoke" >
         <activity
             android:name=".view.SplashView"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.grey_thirtythree" >
         </activity>
-        
         <activity
             android:name=".view.ConferenceView_v2"
             android:screenOrientation="portrait" >
         </activity>
-        
-        
         <activity
             android:name=".view.LoginView_v2"
             android:screenOrientation="portrait" >
             <intent-filter>
->>>>>>> f408cd788b610b5f8cf0f1c75853b716b3e906ba
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -44,22 +44,8 @@
             android:theme="@style/Theme.grey_nineteen" >
         </activity>
         <activity
-            android:name=".view.NotificationsView"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_eleven" >
-        </activity>
-        <activity
             android:name=".view.ResetPasswordView"
             android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name=".view.SignupView"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name=".view.ContactListView"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_eleven" >
         </activity>
         <activity
             android:name=".view.ContactCardView"
@@ -70,11 +56,6 @@
             android:name=".view.ContactAddSearchView"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.grey_eleven" >
-        </activity>
-        <activity
-            android:name=".view.ConferenceSchedulerView"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_nineteen" >
         </activity>
         <activity
             android:name=".controller.ConferenceCreationController"
@@ -90,15 +71,9 @@
             android:name=".view.CreateAccountView"
             android:screenOrientation="portrait" >
         </activity>
-          <activity
+        <activity
             android:name=".view.ForgotPsdView"
             android:screenOrientation="portrait" >
-            
-        </activity>
-        <activity
-            android:name=".view.MyProfileView"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.grey_eleven" >
         </activity>
         <activity android:name=".view.ConferenceView" >
         </activity>

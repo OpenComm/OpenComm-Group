@@ -1,119 +1,39 @@
 package edu.cornell.opencomm.controller;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map.Entry;
-
-import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.XMPPException;
-import org.jivesoftware.smack.packet.Packet;
-import org.jivesoftware.smackx.muc.Occupant;
-import org.jivesoftware.smackx.packet.VCard;
-
 import android.content.Context;
-import android.content.Intent;
-import android.os.Vibrator;
-import android.util.Log;
 import android.widget.Toast;
-import edu.cornell.opencomm.manager.UserManager;
-import edu.cornell.opencomm.model.ConferenceConstants;
-import edu.cornell.opencomm.model.ConferenceRoom;
-import edu.cornell.opencomm.model.ConferenceDataModel;
+import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.model.User;
-import edu.cornell.opencomm.network.NetworkService;
-import edu.cornell.opencomm.view.ConferenceCardView;
 import edu.cornell.opencomm.view.ConferenceView;
 
-@SuppressWarnings("unused")
 public class ConferenceController {
-
-	private ConferenceView view;
 
 	Context context;
 
-	private ConferenceDataModel conferenceModel; // the conference that is being
-													// controlled
+	private Conference conferenceModel;
 
 	private static final String TAG = "ConferenceController";
-	private static final boolean D = true;
 
 	// users who have been invited who have not been added to the model
 	// information
 
-	public ConferenceController(ConferenceView view, ConferenceDataModel model) {
-		// TODO: do we really need this
+	public ConferenceController(ConferenceView view, Conference model) {
 		this.context = view;
-		this.view = view;
 		this.conferenceModel = model;
 	}
 
 	// Constructor - initialize required fields
-	public ConferenceController(ConferenceDataModel conf) {
+	public ConferenceController(Conference conf) {
 		this.conferenceModel = conf;
 	}
 
 	public void inviteUser(User u, String sChat) {
-		ConferenceRoom chatRoom = findChat(sChat);
-		chatRoom.invite(u.getUsername(), null);
-	}
-
-	private ConferenceRoom findChat(String sChat) {
-		String roomID = sChat;
-		HashMap<String, ConferenceRoom> chatSpaceIDMap = conferenceModel
-				.getIDMap();
-		ConferenceRoom chatRoom = chatSpaceIDMap.get(roomID);
-		return chatRoom;
-	}
-
-	public void leave(int sChat, User currUser){
-
-		ConferenceRoom room = conferenceModel.getRoomByTag(sChat);
-		User moderator = room.getModerator();
-
-		if(moderator.getUsername().equals(currUser.getUsername())){
-			if(room.getCUserList().size()>1){
-				User newMod = room.getCUserList().get(0).user;
-				if(newMod.equals(currUser)){
-					newMod = room.getCUserList().get(1).user;
-				}
-				try {
-					transferPrivileges(currUser, newMod, sChat);
-				} catch (XMPPException e) {
-					Log.e(TAG, "could not transfer privileges", e);
-				}
-			}
-		}
-		room.leave();
-	}
-
-	public void leaveChat(int chat, User currUser){
-		if(chat==(ConferenceConstants.MAIN_ROOM_INDEX)){
-			leave(ConferenceConstants.LEFT_ROOM_INDEX, currUser);
-			leave(ConferenceConstants.RIGHT_ROOM_INDEX, currUser);
-			leave(chat, currUser);
-		}
-		else{
-			leave(chat, currUser);
-		}
+		conferenceModel.getMUC().invite(u.getUsername(), null);
 	}
 
 	public void end(User currUser){
-		if(conferenceModel.getMod().equals(currUser)){
-			Collection<ConferenceRoom> allRooms = conferenceModel.getIDMap().values();
-			for(ConferenceRoom r : allRooms){
-				for(User u : r.getUserMap().values()){
-					if(!u.equals(currUser)){
-						kickoutUserByRoomID(r.getRoomID(), u, currUser);
-					}
-				}
-				try {
-					r.destroy(null, null);
-				} catch (XMPPException e) {
-					Log.e(TAG, "Could not destroy MUC", e);
-				}
-			}
-		}
+		
 	} 
 	
 	/**
@@ -126,37 +46,19 @@ public class ConferenceController {
 	 *            ChatSpaceModel in which the privilege has to be transferred
 	 * @throws XMPPException
 	 */
-	public void transferPrivileges(User u1, User u2, int chat)
+	public void transferPrivileges(User u1)
 	throws XMPPException {
-		ConferenceRoom room = this.conferenceModel.getRoomByTag(chat);
-		room.updateMod(u1, u2);
+		conferenceModel.getMUC().grantModerator(u1.getUsername());
 	}
 
-	public void kickoutUserByRoomID(String chat, User userToBeKicked, User currUser) {
-		if (this.conferenceModel.getIDMap().get(chat).getModerator()
-
-			.equals(currUser)) {
-			try {
-				this.conferenceModel.getIDMap().get(chat)
-				.kickParticipant(userToBeKicked.getNickname(), null);
-			} catch (XMPPException e) {
-				Log.e(TAG, "Could not kick participant", e);
-			}
+	public void kickoutUserByRoomID(User userToBeKicked) {
+		try {
+			conferenceModel.getMUC().kickParticipant(userToBeKicked.getUsername(), "you suck");
+		} catch (XMPPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
-
-	public void kickoutUserByRoomTAG(int chat, User userToBeKicked, User currUser) {
-		if (this.conferenceModel.getRoomByTag(chat).getModerator().equals(currUser)) {
-			try {
-				this.conferenceModel.getRoomByTag(chat)
-				.kickParticipant(userToBeKicked.getNickname(), null);
-			} catch (XMPPException e) {
-				Log.e(TAG, "Could not kick participant", e);
-			}
-		}
-	}
-
-	// TODO: the following methods will not be implemented for the Nov4 cycle
 
 	public void moveUser(User u) {
 		// TODO: modify audio manipulation based on new location (future work)

@@ -17,9 +17,7 @@ import android.view.Display;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
-import edu.cornell.opencomm.interfaces.OCUpdateListener;
 import edu.cornell.opencomm.manager.UserManager;
-import edu.cornell.opencomm.model.ConferenceUser;
 import edu.cornell.opencomm.util.OCBitmapDecoder;
 
 /**
@@ -30,7 +28,7 @@ import edu.cornell.opencomm.util.OCBitmapDecoder;
  *         on drag the border color is intact. 2. Why does every user have the
  *         same default color? Is hashing working?
  */
-public class UserView extends ImageButton implements OCUpdateListener {
+public class UserView extends ImageButton {
 
 	private static String LOG_TAG = UserView.class.getName(); // for error
 	// checking
@@ -38,28 +36,22 @@ public class UserView extends ImageButton implements OCUpdateListener {
 	 * The context in which the view exists
 	 */
 	private Context context;
-	/**
-	 * The ConferenceUser object for which the user view exists
-	 */
-	private ConferenceUser conferenceUser;
 
 	// private static final int cornerSize = 4;
 	// private static final int borderSize = 6;
 
-	public UserView(Context context, ConferenceUser conferenceUser) {
+	public UserView(Context context) {
 		super(context);
 		this.context = context;
-		this.conferenceUser = conferenceUser;
-		this.conferenceUser.addLocationUpdateListner(this);
 		this.setBackgroundResource(0); 
 		init();
 
-		Log.d(LOG_TAG, "Created a UserView for : "
-				+ conferenceUser.getUser().getUsername());
+		/*Log.d(LOG_TAG, "Created a UserView for : "
+				+ conferenceUser.getUser().getUsername());*/
 	}
 
 	private void init() {
-		if (conferenceUser.getUser().compareTo(UserManager.PRIMARY_USER) == 0) {
+		/*if (conferenceUser.getUser().compareTo(UserManager.PRIMARY_USER) == 0) {
 			Bitmap  bm = getRoundedCornerBitmap(OCBitmapDecoder.getThumbnailFromResource(
 					getResources(), UserManager.PRIMARY_USER.getImage()));
 			int width = bm.getWidth();
@@ -69,14 +61,14 @@ public class UserView extends ImageButton implements OCUpdateListener {
 	        Matrix matrix = new Matrix();
 	        matrix.postScale(scaleWidth, scaleHeight);
 	        this.setImageBitmap(Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true));
-		} else {
+		} else {*/
 			this.setImageBitmap(getImage());
-		}
+		//}
 		invalidateLocation();
 	}
 	
 	private void invalidateLocation(){
-		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+		/*RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
 				OCBitmapDecoder.THUMBNAIL_WIDTH,OCBitmapDecoder.THUMBNAIL_HEIGTH);
 		params.leftMargin = conferenceUser.getX();
 		params.topMargin = conferenceUser.getY();
@@ -87,7 +79,7 @@ public class UserView extends ImageButton implements OCUpdateListener {
 	}
 
 	public ConferenceUser getCUser() {
-		return conferenceUser;
+		return conferenceUser;*/
 	}
 
 
@@ -99,10 +91,10 @@ public class UserView extends ImageButton implements OCUpdateListener {
 		
 		WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
-		int screenWidth = display.getWidth();
-		int userPicSize = screenWidth * 13/48;
+		float screenWidth = (float) display.getWidth();
+		float userPicSize = screenWidth * 13/48;
 		
-		Bitmap output = Bitmap.createBitmap(userPicSize, userPicSize, Bitmap.Config.ARGB_8888);
+		Bitmap output = Bitmap.createBitmap((int)userPicSize, (int)userPicSize, Bitmap.Config.ARGB_8888);
 		Canvas canvas = new Canvas(output);
 		// just for conversion
 		int borderDips = 6;
@@ -111,7 +103,7 @@ public class UserView extends ImageButton implements OCUpdateListener {
 				.getResources().getDisplayMetrics());
 		// prepare for canvas
 		final Paint paint = new Paint();
-		final Rect rect = new Rect(0, 0, userPicSize, userPicSize);
+		final Rect rect = new Rect(0, 0, (int)userPicSize, (int)userPicSize);
 		// prepare canvas for transfer
 		paint.setAntiAlias(true);
 		paint.setColor(0xFFFFFFFF);
@@ -134,8 +126,9 @@ public class UserView extends ImageButton implements OCUpdateListener {
 	}
 
 	public Bitmap getImage() {
+		return null;
 		//Consider caching the image?
-		Bitmap  bm = getRoundedCornerBitmap(OCBitmapDecoder.getThumbnailFromResource(
+		/*Bitmap  bm = getRoundedCornerBitmap(OCBitmapDecoder.getThumbnailFromResource(
 				getResources(), conferenceUser.getUser().getImage()));
 		int width = bm.getWidth();
         int height = bm.getHeight();
@@ -143,13 +136,13 @@ public class UserView extends ImageButton implements OCUpdateListener {
         float scaleHeight = ((float) OCBitmapDecoder.THUMBNAIL_HEIGTH) / height;
         Matrix matrix = new Matrix();
         matrix.postScale(scaleWidth, scaleHeight);
-        return Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true);
+        return Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true);*/
 	}
 	@Override
 	public void invalidate() {
-		if(conferenceUser != null){
+		/*if(conferenceUser != null){
 		invalidateLocation();
-		}
+		}*/
 		super.invalidate();
 	}
 	public void onUpdate(int eventId, Object data) {

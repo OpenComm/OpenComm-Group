@@ -152,21 +152,14 @@ public class NetworkService {
 				Log.v(TAG, "username: " + jid);
 				Log.v(TAG, "password: " + password);
 				this.xmppConn.login(jid, password, DEFAULT_RESOURCE);
-				// check that the email is the right one
 				Log.v(TAG, "successfully logged in");
-				// disconnect
-				Log.v(TAG, "disconnecting");
-				this.xmppConn.disconnect();
-				// reconnect to the server
-				_instance = new NetworkService(DEFAULT_HOST, DEFAULT_PORT);
-
 				MultiUserChat.addInvitationListener(NetworkService
 						.getInstance().getConnection(),
 						new InvitationListener() {
 
 							@Override
 							public void invitationReceived(Connection conn, String room, String inviter, String reason, String password, Message message) {
-								InvitationsList.getInstance().addinvitation(new Invitation(conn, room, inviter, reason, password, message));
+								InvitationsList.getInstance().addInvitation(new Invitation(conn, room, inviter, reason, password, message));
 							}
 
 						});

@@ -24,8 +24,6 @@ public class ConferenceRoom extends MultiUserChat {
 
 	String TAG = "ConferenceRoom";
 
-	private ArrayList<ConferenceUser> confUserList = new ArrayList<ConferenceUser>();
-
 	private static String rName;
 	private String roomId;
 
@@ -63,7 +61,6 @@ public class ConferenceRoom extends MultiUserChat {
 		User added = new User(user_data.getFirstName(),
 				user_data.getLastName(), user_data.getEmailHome(), null, null,
 				u, user_data.getNickName());
-		addUser(added);
 	}
 
 	public ConferenceRoom(Connection c, String s) {
@@ -184,13 +181,6 @@ public class ConferenceRoom extends MultiUserChat {
 	public String getRoomID() {
 		return roomId;
 	}
-
-	public void setList(ArrayList<User> users) {
-		for (User user : users) {
-			ConferenceUser cu = new ConferenceUser(user);
-			this.confUserList.add(cu);
-		}
-	}
 	
 	public int getNumberOccupants() {
 		RoomInfo info;
@@ -202,13 +192,6 @@ public class ConferenceRoom extends MultiUserChat {
 			System.out.println("Could not retrieve number of occupants:" + e);
 		}
 	    return numberOccupants;
-	}
-
-	public void addUser(User u) {
-		if (getNumberOccupants() < 5) {
-			ConferenceUser cu = new ConferenceUser(u);
-			this.confUserList.add(cu);
-		}
 	}
 
 	public User getModerator() {
@@ -228,45 +211,6 @@ public class ConferenceRoom extends MultiUserChat {
 
 	public void setModerator(User u) {
 		moderator = u;
-	}
-
-
-	// public void addConferenceUser(ConferenceUser confUser){
-	// confUserList.add(confUser);
-	// }
-	public ArrayList<ConferenceUser> getCUserList() {
-		return confUserList;
-	}
-
-	public HashMap<String, User> getUserMap() {
-		HashMap<String, User> tmp = new HashMap<String, User>();
-		for (ConferenceUser u : confUserList) {
-			tmp.put(u.getUser().getUsername(), u.getUser());
-		}
-		return tmp;
-	}
-
-	public HashMap<String, ConferenceUser> getConferenceUserMap() {
-		HashMap<String, ConferenceUser> tmp = new HashMap<String, ConferenceUser>();
-		for (ConferenceUser u : confUserList) {
-			tmp.put(u.getUser().getUsername(), u);
-		}
-		return tmp;
-	}
-
-	public ArrayList<ConferenceUser> updateLocations(Point center, int radius) {
-		int noOfusers = confUserList.size();
-		ArrayList<Point> pointList = getPoints(noOfusers, radius, center);
-		for (int i = 0; i < pointList.size(); i++) {
-
-			// confUserList.get(i).LOCATION = pointList.get(i);
-			confUserList.get(i).setLocation(pointList.get(i));
-			Log.d("ConfUser-xy - point", "x = " + pointList.get(i).x + ", y = "
-					+ pointList.get(i).y);
-			Log.d("ConfUser-xy", "x = " + confUserList.get(i).getX() + ", y = "
-					+ confUserList.get(i).getY());
-		}
-		return confUserList;
 	}
 
 	private ArrayList<Point> getPoints(int users, double radius, Point center) {

@@ -39,19 +39,20 @@ public class AccountController {
 		}
 	}
 
-	public static boolean createAcccount(String username, String nickname, String email,
-			String firstName, String lastName, String phoneNumber,
-			InputStream photo, String title, String password) {
-		/* HashMap<String, String> attributes = new HashMap<String, String>();
-		}*/
-		Log.v("SIGNUP3", "username: "+username);
-		Log.v("SIGNUP3", "nickname: "+nickname);
-		Log.v("SIGNUP3", "email: "+email);
-		Log.v("SIGNUP3", "firstName: "+firstName);
-		Log.v("SIGNUP3", "lastName: "+lastName);
-		Log.v("SIGNUP3", "phoneNumber: "+phoneNumber);
-		Log.v("SIGNUP3", "title: "+title);
-		Log.v("SIGNUP3", "password: "+password);
+	public static boolean createAcccount(String username, String nickname,
+			String email, String firstName, String lastName,
+			String phoneNumber, InputStream photo, String title, String password) {
+		/*
+		 * HashMap<String, String> attributes = new HashMap<String, String>(); }
+		 */
+		Log.v("SIGNUP3", "username: " + username);
+		Log.v("SIGNUP3", "nickname: " + nickname);
+		Log.v("SIGNUP3", "email: " + email);
+		Log.v("SIGNUP3", "firstName: " + firstName);
+		Log.v("SIGNUP3", "lastName: " + lastName);
+		Log.v("SIGNUP3", "phoneNumber: " + phoneNumber);
+		Log.v("SIGNUP3", "title: " + title);
+		Log.v("SIGNUP3", "password: " + password);
 		try {
 			StringBuffer requestURLSB = new StringBuffer();
 			requestURLSB.append(USERSERVICE_URL);
@@ -68,15 +69,14 @@ public class AccountController {
 			requestURLSB.append("&email=");
 			requestURLSB.append(email);
 			String requestURL = requestURLSB.toString();
-			URL url = new URL(requestURL); 
+			URL url = new URL(requestURL);
 			Log.d(TAG, requestURL);
-			HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
-			Log.d(TAG,urlConn.getResponseMessage());
+			HttpURLConnection urlConn = (HttpURLConnection) url
+					.openConnection();
+			Log.d(TAG, urlConn.getResponseMessage());
 			urlConn.connect();
 			return true;
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 			Log.e(TAG, "server cannot create user");
 			return false;
@@ -84,12 +84,11 @@ public class AccountController {
 	}
 
 	public static void changeNickname(String nickname) {
-		/* vCard.setNickName(nickname);
-		try {
-			vCard.save(NetworkService.getInstance().getConnection());
-		} catch (XMPPException e) {
-			Log.v(TAG, "error in updating nickname");
-		} */
+		/*
+		 * vCard.setNickName(nickname); try {
+		 * vCard.save(NetworkService.getInstance().getConnection()); } catch
+		 * (XMPPException e) { Log.v(TAG, "error in updating nickname"); }
+		 */
 		try {
 			String requestURL = USERSERVICE_URL;
 			requestURL += "type=update&secret=" + SECRET_KEY;
@@ -97,9 +96,7 @@ public class AccountController {
 			URL url = new URL(requestURL);
 			URLConnection urlConn = url.openConnection();
 			urlConn.connect();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			Log.v(TAG, "server cannot update nickname");
 		}
 	}
@@ -114,12 +111,11 @@ public class AccountController {
 	}
 
 	public static void changeEmail(String email) {
-		/* vCard.setEmailHome(email);
-		try {
-			vCard.save(NetworkService.getInstance().getConnection());
-		} catch (XMPPException e) {
-			Log.v(TAG, "error in updating email");
-		} */
+		/*
+		 * vCard.setEmailHome(email); try {
+		 * vCard.save(NetworkService.getInstance().getConnection()); } catch
+		 * (XMPPException e) { Log.v(TAG, "error in updating email"); }
+		 */
 		try {
 			String requestURL = USERSERVICE_URL;
 			requestURL += "type=add&secret=" + SECRET_KEY;
@@ -127,9 +123,7 @@ public class AccountController {
 			URL url = new URL(requestURL);
 			URLConnection urlConn = url.openConnection();
 			urlConn.connect();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			Log.v(TAG, "server cannot update email");
 		}
 	}
@@ -144,11 +138,10 @@ public class AccountController {
 	}
 
 	public void changePassword(String password) {
-		/* try {
-			accountManager.changePassword(password);
-		} catch (XMPPException e) {
-			Log.v(TAG, "error changing password");
-		} */
+		/*
+		 * try { accountManager.changePassword(password); } catch (XMPPException
+		 * e) { Log.v(TAG, "error changing password"); }
+		 */
 		try {
 			String requestURL = USERSERVICE_URL;
 			requestURL += "type=add&secret=" + SECRET_KEY;
@@ -160,8 +153,8 @@ public class AccountController {
 			Log.v(TAG, "server cannot update password");
 		}
 	}
-	
-	public static void deleteUser(String username)	{
+
+	public static void deleteUser(String username) {
 		try {
 			String requestURL = USERSERVICE_URL;
 			requestURL += "type=add&secret=" + SECRET_KEY;
@@ -173,7 +166,7 @@ public class AccountController {
 			Log.v(TAG, "server cannot delete user");
 		}
 	}
-	
+
 	public static void disableUser(String username) {
 		try {
 			String requestURL = USERSERVICE_URL;
@@ -186,7 +179,7 @@ public class AccountController {
 			Log.v(TAG, "server cannot disable user");
 		}
 	}
-	
+
 	public static void enableUser(String username) {
 		try {
 			String requestURL = USERSERVICE_URL;

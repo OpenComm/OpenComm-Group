@@ -53,7 +53,7 @@ public class CheckEmail {
    
    public CheckEmail(String email){
 		configure();
-		this.email = email;
+		CheckEmail.email = email;
 	}
 		
    private void configure(){
