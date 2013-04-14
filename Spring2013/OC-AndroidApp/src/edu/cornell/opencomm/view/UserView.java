@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Paint.Align;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
@@ -105,7 +106,7 @@ public class UserView extends ImageButton implements OCUpdateListener {
 		Bitmap output = Bitmap.createBitmap((int)userPicSize, (int)userPicSize, Bitmap.Config.ARGB_8888);
 		Canvas canvas = new Canvas(output);
 		// just for conversion
-		int borderDips = 6;
+		int borderDips = 2;
 		final int borderSizePx = (int) TypedValue.applyDimension(
 				TypedValue.COMPLEX_UNIT_DIP, (float) borderDips, context
 				.getResources().getDisplayMetrics());
@@ -128,6 +129,24 @@ public class UserView extends ImageButton implements OCUpdateListener {
 		paint.setStyle(Paint.Style.STROKE);
 		paint.setStrokeWidth((float) borderSizePx);
 		canvas.drawCircle(userPicSize / 2, userPicSize / 2, userPicSize / 2 - 5, paint);
+
+		//draw banner
+		paint.setColor(Color.GRAY);
+		paint.setStyle(Paint.Style.FILL);
+		canvas.drawARGB(0, 0, 0, 0);
+		canvas.drawRect(0, 80, 130, 105, paint);
+		
+		//draw banner border
+		paint.setColor(Color.BLACK);
+		paint.setStyle(Paint.Style.STROKE);
+		paint.setStrokeWidth(1);
+		canvas.drawRect(0, 80, 130, 105, paint);
+		
+		//draw user name
+		paint.setColor(Color.WHITE);
+		paint.setTextSize(15);
+	    paint.setTextAlign(Align.CENTER);
+		canvas.drawText("Hello", 65, 98, paint);
 
 		return output;
 		
