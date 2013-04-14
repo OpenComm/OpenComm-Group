@@ -103,70 +103,7 @@ ConferenceConstants, ViewPager.OnPageChangeListener {
 		//conferenceFragments.add(new ConferenceRoomFragment(this, SIDE_ROOM_LAYOUT, conferenceModel.getRoomByTag(RIGHT_ROOM_INDEX)));
 		return conferenceFragments;
 	}
-/*
-	*//**
-	 * Update a specific room given the room index
-	 * @param roomIndex => Examples... MAIN_ROOM_INDEX, LEFT_ROOM_INDEX, RIGHT_ROOM_INDEX
-	 *//*
-	public void updateRoom(int roomIndex){
-		// TODO need lock/mutex?
-		ArrayList<ConferenceUser> users = conferenceModel.getRoomByTag(roomIndex).getCUserList();
-		ConferenceRoomFragment roomView = (ConferenceRoomFragment) mPagerAdapter.getItem(roomIndex);
-		ArrayList<UserView> userViews = roomView.getUserView(); 
-		if (users.size()>userViews.size()){
-			ArrayList<ConferenceUser> usersToAdd = getUsersToAdd(users, userViews);
-			addUserViewsToConference(roomView, usersToAdd);
-		}
-		else if (users.size()>userViews.size()){
-			ArrayList<UserView> userViewsToDelete = getUserViewsToDelete(users, userViews);
-			removeUserViewsFromConference(roomView, userViewsToDelete);
-		}
-		roomView.createTheCirleOfTrust();
-	}*/
-/*
-	*//**
-	 * Return a list of ConferenceUsers who have not had a userView created for them in the conference screen
-	 * @param users
-	 * @param userViews
-	 * @return
-	 *//*
-	public ArrayList<ConferenceUser> getUsersToAdd(ArrayList<ConferenceUser> users, ArrayList<UserView> userViews){
-		ArrayList<ConferenceUser> newUsers = users;
-		for (UserView userView : userViews){
-			newUsers.remove(userView.getCUser());
-		}
-		return newUsers;
-	}*/
-
-/*
-	*//**
-	 * Return a list of UserViews who do not have their corresponding ConferenceUsers in the conference
-	 * @param users
-	 * @param userViews
-	 * @return
-	 *//*
-	public ArrayList<UserView> getUserViewsToDelete(ArrayList<ConferenceUser> users, ArrayList<UserView> userViews){
-		ArrayList<UserView> userViewsToDelete = userViews;
-		for(UserView userView : userViews){
-			if(users.contains(userView.getCUser())){
-				userViewsToDelete.remove(userView);
-			}
-		}
-		return userViewsToDelete;
-	}
-
-	*//**
-	 * Create a UserView for each given ConferenceUser and add to the ConferenceRoomFragment
-	 * @param users
-	 * @param roomView
-	 *//*
-	public void addUserViewsToConference(ConferenceRoomFragment roomView, ArrayList<ConferenceUser> users){
-		for (ConferenceUser user : users){
-			UserView userView = new UserView(this, user);
-			roomView.addUserView(userView);
-		}
-	}
-*/
+	
 	/**
 	 * Remove the corresponding UserView for each given ConferenceUser and add to the ConferenceRoomFragment
 	 * @param users
@@ -252,13 +189,6 @@ ConferenceConstants, ViewPager.OnPageChangeListener {
 
 
 	// Context Bar methods
-
-	// TODO - need a method to check to see if this user is a regular user or
-	// the moderator
-	/*public void onLeaveClicked(View v) {
-		this.conferenceController.leaveConference();
-	}*/
-
 
 	public void onPageScrollStateChanged(int arg0) {
 		// TODO Auto-generated method stub

@@ -1,9 +1,13 @@
 package edu.cornell.opencomm.view;
 
+import edu.cornell.opencomm.manager.UserManager;
+import edu.cornell.opencomm.model.User;
+import edu.cornell.opencomm.util.OCBitmapDecoder;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
@@ -30,13 +34,16 @@ public class UserView extends ImageButton {
 	 * The context in which the view exists
 	 */
 	private Context context;
+	
+	private User user;
 
 	// private static final int cornerSize = 4;
 	// private static final int borderSize = 6;
 
-	public UserView(Context context) {
+	public UserView(Context context, User user) {
 		super(context);
 		this.context = context;
+		this.user = user;
 		this.setBackgroundResource(0); 
 		init();
 
@@ -45,7 +52,7 @@ public class UserView extends ImageButton {
 	}
 
 	private void init() {
-		/*if (conferenceUser.getUser().compareTo(UserManager.PRIMARY_USER) == 0) {
+		if (user.compareTo(UserManager.PRIMARY_USER) == 0) {
 			Bitmap  bm = getRoundedCornerBitmap(OCBitmapDecoder.getThumbnailFromResource(
 					getResources(), UserManager.PRIMARY_USER.getImage()));
 			int width = bm.getWidth();
@@ -55,9 +62,9 @@ public class UserView extends ImageButton {
 	        Matrix matrix = new Matrix();
 	        matrix.postScale(scaleWidth, scaleHeight);
 	        this.setImageBitmap(Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true));
-		} else {*/
+		} else {
 			this.setImageBitmap(getImage());
-		//}
+		}
 		invalidateLocation();
 	}
 	

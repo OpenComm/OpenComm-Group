@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 
 import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smackx.muc.Occupant;
 import org.jivesoftware.smackx.packet.VCard;
 
 import android.graphics.Bitmap;
@@ -135,6 +136,10 @@ public class User implements Comparable<User>, Serializable {
 			}
 		}
 		this.userImage = getBitMap();
+	}
+
+	public User(Occupant o) {
+		this(o.getJid(), o.getNick(), 0);
 	}
 
 	/** @return - the User's JID */

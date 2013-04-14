@@ -13,7 +13,7 @@ import edu.cornell.opencomm.view.ConferenceView;
 
 public class ConferenceController {
 	ConferenceView view;
-	MultiUserChat room;
+	Conference room;
 
 	private static final String TAG = "ConferenceController_v2";
 	private static final boolean D = true;
@@ -29,11 +29,13 @@ public class ConferenceController {
 	private ConferenceController() {
 		this.view = ConferenceView.getInstance();
 		String roomID = NetworkService.generateRoomID();
-
-		while (this.room == null) {
+		
+		// TODO: Move constructors to more sensible place
+		MultiUserChat muc = null;
+		while (muc == null) {
 			roomID = NetworkService.generateRoomID();
 			try {
-				this.room = new MultiUserChat(NetworkService.getInstance()
+				muc = new MultiUserChat(NetworkService.getInstance()
 						.getConnection(), roomID
 						+ ConferenceConstants.CONFERENCE_HOST);
 			} catch (Exception e) {
@@ -43,17 +45,17 @@ public class ConferenceController {
 		}
 
 		try {
-			this.room.join(UserManager.PRIMARY_USER.getUsername());
+			muc.join(UserManager.PRIMARY_USER.getUsername());
 		} catch (XMPPException e) {
 			e.printStackTrace();
 		}
 		try {
-			this.room.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
+			muc.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
 		} catch (XMPPException e) {
 			e.printStackTrace();
 		}
-		Log.v(TAG, "made the MUC");
-		Log.v(TAG, room.getRoom());
+		this.room = (Conference) muc;
+		// end TODO
 	}
 
 	/**
@@ -73,10 +75,6 @@ public class ConferenceController {
 	public void HandleAddPerson(String username) {
 		if (D)
 			Log.d(TAG, "addPerson button clicked");
-		if (room == null)
-			Log.v(TAG, "Room null!");
-		if (username == null)
-			Log.v(TAG, "Username null!");
 		room.invite(username, "lets chat");
 	}
 
@@ -104,18 +102,13 @@ public class ConferenceController {
 
 		room.leave();
 
-		// if no one is left then manually destroy the room
 		try {
 			if (room.getParticipants().isEmpty()) {
 				room = null;
 			}
 		} catch (XMPPException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	public Conference getMUC() {
-		// TODO Auto-generated method stub
-		return new Conference(this.room);
 	}
 }

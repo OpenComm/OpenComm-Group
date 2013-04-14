@@ -3,7 +3,9 @@ package edu.cornell.opencomm.view;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.muc.MultiUserChat;
+import org.jivesoftware.smackx.muc.Occupant;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -154,7 +156,7 @@ public class ConferenceRoomFragment extends Fragment {
 					(int) radius);
 			for (User u : userList) {
 
-				UserView uv = new UserView(context);
+				UserView uv = new UserView(context, u);
 				// Ankit: Make a primary equal to check
 				if (u.compareTo(UserManager.PRIMARY_USER) == 0) {
 					uv.setOnClickListener(new OnClickListener() {
@@ -190,7 +192,17 @@ public class ConferenceRoomFragment extends Fragment {
 	}
 
 	public User isOverLapping(int x, int y) {
-		Collection<User> list = conferenceRoom.getParticipants().values();
+		Collection<Occupant> occList = null;
+		try {
+			occList = conferenceRoom.getParticipants();
+		} catch (XMPPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ArrayList<User> list = new ArrayList<User>();
+		for (Occupant o : occList) {
+			list.add(new User(o));
+		}
 		for (User u : list) {
 			if (!(u.compareTo(UserManager.PRIMARY_USER) == 0)
 					&& isOverlapping(new Point(x, y), u.getLocation())) {

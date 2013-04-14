@@ -6,36 +6,32 @@ import java.util.HashMap;
 
 import org.jivesoftware.smackx.muc.MultiUserChat;
 
+import edu.cornell.opencomm.controller.OCParticipantStatusListener;
 import edu.cornell.opencomm.network.NetworkService;
-
 import android.graphics.Point;
 
-public class Conference implements Serializable {
+public class Conference extends MultiUserChat implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private HashMap<String, User> participants;
-	MultiUserChat conferenceRoom;
 
 	// CONSTRUCTORS
 
 	public Conference(String roomName) {
-		conferenceRoom = new MultiUserChat(NetworkService.getInstance()
-				.getConnection(), roomName);
-	}
-	
-	public Conference(MultiUserChat muc) {
-		this.conferenceRoom = muc;
+		super(NetworkService.getInstance().getConnection(), roomName);
 	}
 
-	public MultiUserChat getMUC() {
-		return this.conferenceRoom;
+	// API Functions
+
+	public void addPresenceListener() {
+		super.addParticipantStatusListener(new OCParticipantStatusListener(this));
+
 	}
-	
-	public HashMap<String,User> getParticipants() {
-		return this.participants;
-	}
+
+	// Helper Functions
+
+	// Getters and Setters
 
 	public ArrayList<User> updateLocations(Point center, int radius) {
 		// TODO Auto-generated method stub
