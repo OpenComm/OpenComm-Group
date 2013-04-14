@@ -3,13 +3,9 @@ package edu.cornell.opencomm.manager;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
-import java.util.concurrent.ExecutionException;
-
 import org.jivesoftware.smack.RosterEntry;
 
 import android.os.AsyncTask;
-import android.widget.Toast;
-
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;

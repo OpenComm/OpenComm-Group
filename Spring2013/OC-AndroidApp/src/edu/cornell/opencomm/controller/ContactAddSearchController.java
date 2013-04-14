@@ -45,7 +45,6 @@ public class ContactAddSearchController {
 	/**
 	 * The TAG for logging
 	 */
-	@SuppressWarnings("unused")
 	private static final String TAG = ContactAddSearchController.class.getSimpleName();
 	
 	private ContactAddSearchView contactAddSearchView;
@@ -94,7 +93,7 @@ public class ContactAddSearchController {
 	/** Contact clicked: launch corresponding ContactView using its nickname or email */
 	public void handleContactClick(String userStr) {
 		// TODO find corresponding User object that has userStr as email or name
-		User user = new User(userStr, userStr, 0);
+		//User user = new User(userStr, userStr, 0);
 		if (isAdd) {
 			Toast.makeText(this.contactAddSearchView, "Contact clicked", Toast.LENGTH_SHORT).show();
 			// TODO [backend] set user as a friend

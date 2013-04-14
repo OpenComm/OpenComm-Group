@@ -30,7 +30,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".view.LoginView_v2"
+            android:name=".view.LoginView"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

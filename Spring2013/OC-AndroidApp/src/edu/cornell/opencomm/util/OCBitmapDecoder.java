@@ -5,7 +5,6 @@ import java.io.InputStream;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 
 /**This util class should be used to get all bitmaps of user images 
  * failure to do so may lead to OOM exceptions 

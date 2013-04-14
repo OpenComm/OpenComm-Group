@@ -8,8 +8,6 @@ package com.cornell.opencomm.jingleimpl;
  */
 public class ReasonElementType {
 
-	private static final String DOUBLE_QUOTE = "\"";
-	
 	public static final String TYPE_ALTERNATIVE_SESSION = "alternative-session";
 	public static final String TYPE_BUSY = "busy";
 	public static final String TYPE_CANCEL = "cancel";
@@ -47,16 +45,6 @@ public class ReasonElementType {
 	
 	public void setAttributeSID(String sid){
 		this.SID = sid;
-	}
-	
-	/**
-	 * Returns a quoted string. Primarily used by getChildElementXML
-	 */
-	private String getQuoted(String input){
-		if(!input.startsWith(DOUBLE_QUOTE)){
-			return DOUBLE_QUOTE + input + DOUBLE_QUOTE;
-		} else
-			return input;
 	}
 	
 	public String toXML(){

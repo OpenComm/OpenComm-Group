@@ -15,8 +15,6 @@ import edu.cornell.opencomm.view.CreateAccountView;
 import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.ForgotPsdView;
 import edu.cornell.opencomm.view.LoginView;
-import edu.cornell.opencomm.view.LoginView_v2;
-import edu.cornell.opencomm.view.ResetPasswordView;
 
 /**
  * Controller for Login page (LoginView) Functionality:
@@ -50,7 +48,7 @@ public class LoginController {
 	/**
 	 * The View Object
 	 */
-	private LoginView_v2 loginView;
+	private LoginView loginView;
 
 	/**
 	 * The enum defining the opcodes for Login Task:
@@ -69,7 +67,7 @@ public class LoginController {
 	/**
 	 * @param view
 	 */
-	public LoginController(LoginView_v2 view) {
+	public LoginController(LoginView view) {
 		this.loginView = view;
 	}
 

@@ -42,13 +42,11 @@ public class ConferenceCreationController extends Activity {
 	 * Debugging variable: if true, all logs are logged; set to false before
 	 * packaging
 	 */
-	@SuppressWarnings("unused")
 	private static final boolean D = true;
 
 	/**
 	 * The TAG for logging
 	 */
-	@SuppressWarnings("unused")
 	private static final String TAG = ConferenceCreationController.class.getSimpleName();
 
 	private ContactListAdapter clAdapter;
@@ -71,8 +69,9 @@ public class ConferenceCreationController extends Activity {
 		clAdapter = new ContactListAdapter(this,
 				R.layout.contactlist_item_layout, allContacts);
 		ListView contactList = (ListView) findViewById(R.id.conference_creation_attendeelist);
-		if (D) Log.d(this.TAG, "contact list is null" + (contactList == null));
-		if (D) Log.d(this.TAG, "contact list adapter is null" + (clAdapter == null));
+		if (D)
+			Log.d(ConferenceCreationController.TAG, "contact list is null" + (contactList == null));
+		if (D) Log.d(ConferenceCreationController.TAG, "contact list adapter is null" + (clAdapter == null));
 		contactList.setAdapter(clAdapter);
 		contactList.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,

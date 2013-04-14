@@ -44,17 +44,12 @@ import com.cornell.opencomm.jingleimpl.ReasonElementType;
 import com.cornell.opencomm.jingleimpl.sessionmgmt.JingleIQBuddyPacketRouter;
 
 import edu.cornell.opencomm.audio.JingleController;
-import edu.cornell.opencomm.controller.ConferenceController;
 import edu.cornell.opencomm.controller.LoginController.ReturnState;
 import edu.cornell.opencomm.manager.UserManager;
-import edu.cornell.opencomm.view.ConferenceView;
-import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.model.Invitation;
 import edu.cornell.opencomm.model.InvitationsList;
 
-import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * Service that handles the network connection

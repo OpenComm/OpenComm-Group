@@ -1,11 +1,5 @@
 package edu.cornell.opencomm.controller;
 
-import edu.cornell.opencomm.R;
-
-import android.provider.ContactsContract.CommonDataKinds.Email;
-import android.view.View;
-import android.widget.Button;
-import edu.cornell.opencomm.controller.ResetPasswordController.ReturnState;
 import edu.cornell.opencomm.view.ForgotPsdView;
 
 

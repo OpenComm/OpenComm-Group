@@ -1,133 +1,121 @@
 package edu.cornell.opencomm.controller;
 
 import org.jivesoftware.smack.XMPPException;
-import android.content.Context;
-import android.widget.Toast;
+import org.jivesoftware.smackx.Form;
+import org.jivesoftware.smackx.muc.MultiUserChat;
+
+import android.util.Log;
+import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.Conference;
-import edu.cornell.opencomm.model.User;
+import edu.cornell.opencomm.model.ConferenceConstants;
+import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ConferenceView;
 
 public class ConferenceController {
+	ConferenceView view;
+	MultiUserChat room;
 
-	Context context;
+	private static final String TAG = "ConferenceController_v2";
+	private static final boolean D = true;
+	private static ConferenceController _instance;
 
-	private Conference conferenceModel;
-
-	private static final String TAG = "ConferenceController";
-
-	// users who have been invited who have not been added to the model
-	// information
-
-	public ConferenceController(ConferenceView view, Conference model) {
-		this.context = view;
-		this.conferenceModel = model;
+	public static ConferenceController getInstance() {
+		if (_instance == null) {
+			_instance = new ConferenceController();
+		}
+		return _instance;
 	}
 
-	// Constructor - initialize required fields
-	public ConferenceController(Conference conf) {
-		this.conferenceModel = conf;
-	}
+	private ConferenceController() {
+		this.view = ConferenceView.getInstance();
+		String roomID = NetworkService.generateRoomID();
 
-	public void inviteUser(User u, String sChat) {
-		conferenceModel.getMUC().invite(u.getUsername(), null);
-	}
+		while (this.room == null) {
+			roomID = NetworkService.generateRoomID();
+			try {
+				this.room = new MultiUserChat(NetworkService.getInstance()
+						.getConnection(), roomID
+						+ ConferenceConstants.CONFERENCE_HOST);
+			} catch (Exception e) {
+				Log.v(TAG, e.getMessage());
+				continue;
+			}
+		}
 
-	public void end(User currUser){
-		
-	} 
-	
-	/**
-	 * 
-	 * @param u1
-	 *            current moderator leaving the chat
-	 * @param u2
-	 *            new moderator
-	 * @param room
-	 *            ChatSpaceModel in which the privilege has to be transferred
-	 * @throws XMPPException
-	 */
-	public void transferPrivileges(User u1)
-	throws XMPPException {
-		conferenceModel.getMUC().grantModerator(u1.getUsername());
-	}
-
-	public void kickoutUserByRoomID(User userToBeKicked) {
 		try {
-			conferenceModel.getMUC().kickParticipant(userToBeKicked.getUsername(), "you suck");
+			this.room.join(UserManager.PRIMARY_USER.getUsername());
 		} catch (XMPPException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			this.room.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
+		} catch (XMPPException e) {
+			e.printStackTrace();
+		}
+		Log.v(TAG, "made the MUC");
+		Log.v(TAG, room.getRoom());
+	}
+
+	/**
+	 * Change the title of the conference (conference name)
+	 * 
+	 * @param title
+	 *            the new title
+	 * @return void
+	 */
+	public void setTitle(String title) {
+		view.txtv_ConfTitle.setText(title);
+	}
+
+	/**
+	 * handle the action when add person button was clicked
+	 */
+	public void HandleAddPerson(String username) {
+		if (D)
+			Log.d(TAG, "addPerson button clicked");
+		if (room == null)
+			Log.v(TAG, "Room null!");
+		if (username == null)
+			Log.v(TAG, "Username null!");
+		room.invite(username, "lets chat");
+	}
+
+	/**
+	 * handle the action when overflow button was clicked
+	 */
+	public void HandleOverflow() {
+		if (D)
+			Log.d(TAG, "Overflow button clicked");
+		// TODO: add "Handle overflow" functions here
+	}
+
+	/**
+	 * handle the action when back button was clicked
+	 */
+	public void HandleBackButton() {
+		if (D)
+			Log.d(TAG, "back button clicked");
+		// TODO:add "go back" functions here
+	}
+
+	public void HandleLeaveButton() {
+		if (D)
+			Log.d(TAG, "leave button clicked");
+
+		room.leave();
+
+		// if no one is left then manually destroy the room
+		try {
+			if (room.getParticipants().isEmpty()) {
+				room = null;
+			}
+		} catch (XMPPException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void moveUser(User u) {
-		// TODO: modify audio manipulation based on new location (future work)
-	}
-
-	public void init() {
-		// TODO Back End
-		// 1. Open a channel to listen to incoming messages / register this
-		// class with the connection
-
-	}
-
-	public void handleIncomingPackets() {
-		// Handle
-		// 1. Invitation response
-		// 2. Priv transfer
-	}
-
-	public void sendPackets() {
-		// Send
-		// 1.invitation
-		// 2.trans_priv
-	}
-
-	public void handleOverflow() {
-		Toast.makeText(this.context, "Overflow Clicked", Toast.LENGTH_SHORT)
-				.show();
-	}
-
-	public void addPersonClicked() {
-		Toast.makeText(this.context, "Add Contact Clicked", Toast.LENGTH_SHORT)
-				.show();
-		// TODO- Should go to add contact to conference page
-	}
-
-	public void muteClicked() {
-		Toast.makeText(this.context, "Mute Clicked", Toast.LENGTH_SHORT).show();
-	}
-
-	public void leaveConference() {
-		Toast.makeText(this.context, "Leave Conference Clicked",
-				Toast.LENGTH_SHORT).show();
-	}
-
-	public void removeUser() {
-		Toast.makeText(this.context, "Remove User", Toast.LENGTH_SHORT).show();
-	}
-
-	public void setNewModerator() {
-		Toast.makeText(this.context, "Set New Moderator", Toast.LENGTH_SHORT).show();
-		//TODO
-	}
-
-	public void showProfile() {
-		Toast.makeText(this.context, "Show Profile", Toast.LENGTH_SHORT).show();
-	}
-
-	public void handleEndClicked(User user) {
-		// TODO won't work until backend finds a way to retrieve the moderator (as of now moderator is null)
-		// end(user);
-	}
-
-	public void handleLeaveClicked(int roomIndex, User user){
-		// TODO won't work until backend fins a way to retrieve the moderator (as of now moderator is null)
-		//leaveChat(roomIndex, user); 
-	}
-
-	public void handleOnContextAddClicked() {
-		Toast.makeText(this.context, "Add Contact clicked", Toast.LENGTH_SHORT)
-				.show();
+	public Conference getMUC() {
+		// TODO Auto-generated method stub
+		return new Conference(this.room);
 	}
 }

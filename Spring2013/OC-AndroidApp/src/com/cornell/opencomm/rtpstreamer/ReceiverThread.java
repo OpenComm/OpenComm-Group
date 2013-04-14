@@ -2,9 +2,6 @@ package com.cornell.opencomm.rtpstreamer;
 
 import java.io.IOException;
 import java.net.SocketException;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-
 import org.sipdroid.net.RtpPacket;
 import org.sipdroid.net.RtpSocket;
 import org.sipdroid.net.SipdroidSocket;
@@ -13,16 +10,10 @@ import edu.cornell.opencomm.audio.JingleController;
 import edu.cornell.opencomm.audio.SoundSpatializer;
 
 import android.content.ContentResolver;
-//import android.content.Context;
-//import android.content.SharedPreferences.Editor;
 import android.media.AudioFormat;
 import android.media.AudioManager;
-import android.media.AudioRecord;
 import android.media.AudioTrack;
 import android.media.ToneGenerator;
-//import android.os.PowerManager;
-//import android.preference.PreferenceManager;
-//import android.provider.Settings;
 import android.util.Log;
 
 /**

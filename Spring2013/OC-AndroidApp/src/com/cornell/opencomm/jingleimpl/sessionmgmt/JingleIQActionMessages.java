@@ -1,12 +1,8 @@
 package com.cornell.opencomm.jingleimpl.sessionmgmt;
 
-import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.util.Vector;
 
 import org.jivesoftware.smack.XMPPConnection;
-import org.sipdroid.net.SipdroidSocket;
-
 import android.util.Log;
 
 import com.cornell.opencomm.jingleimpl.CandidateElementType;
@@ -18,8 +14,6 @@ import com.cornell.opencomm.jingleimpl.ReasonElementType;
 import com.cornell.opencomm.jingleimpl.TransportElementType;
 import com.cornell.opencomm.networking.IPAddresses;
 import com.cornell.opencomm.networking.PortHandler;
-import com.cornell.opencomm.rtpstreamer.ReceiverThread;
-
 import edu.cornell.opencomm.audio.JingleController;
 
 /**

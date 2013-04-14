@@ -37,7 +37,7 @@
         android:layout_marginTop="100dp"
         android:ems="50"
         android:focusableInTouchMode="true"
-        android:hint="email"
+        android:hint="@string/username"
         android:inputType="textEmailAddress"
         android:textColor="#5b5959"
         android:textSize="18sp" />
@@ -50,7 +50,7 @@
         android:layout_below="@+id/tbx_usrn"
         android:layout_marginTop="21dp"
         android:ems="40"
-        android:hint="password"
+        android:hint="@string/password"
         android:inputType="textPassword"
         android:textColor="#5b5959"
         android:textSize="18sp" />

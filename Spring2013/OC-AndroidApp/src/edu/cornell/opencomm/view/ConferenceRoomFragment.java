@@ -3,8 +3,7 @@ package edu.cornell.opencomm.view;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.jivesoftware.smack.Connection;
-import org.jivesoftware.smack.packet.Message;
+import org.jivesoftware.smackx.muc.MultiUserChat;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -35,7 +34,6 @@ import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.Conference;
-import edu.cornell.opencomm.model.ConferenceRoom;
 import edu.cornell.opencomm.model.User;
 
 /**
@@ -48,15 +46,13 @@ public class ConferenceRoomFragment extends Fragment {
 	// TODO : This class to be cleaned up once integrated with BE
 	private View roomLayout;
 	public int layoutId = R.layout.conference_main_room;
-	private String TAG = ConferenceRoom.class.getName();
+	private String TAG = MultiUserChat.class.getName();
 	public Conference conferenceRoom;
 	boolean DEBUG = true;
 	public ArrayList<UserView> userViews = new ArrayList<UserView>();
 	public Context context;
 	public static final int radius = 165;
-	private ImageView left_gradient;
-	private ImageView right_gradient;
-
+	
 	@SuppressLint("ValidFragment")
 	public ConferenceRoomFragment(Context context, int layoutId,
 			Conference conferenceModel) {

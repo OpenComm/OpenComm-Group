@@ -7,7 +7,6 @@ import java.util.Vector;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -15,10 +14,9 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.controller.ConferenceController_v2;
+import edu.cornell.opencomm.controller.ConferenceController;
 import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.model.ConferenceConstants;
 
@@ -31,8 +29,6 @@ public final class ConferenceView extends FragmentActivity implements
 ConferenceConstants, ViewPager.OnPageChangeListener {
 
 	private static String TAG = ConferenceView.class.getName();
-	// TODO the debug flag should not be here
-	private static final boolean D = true;
 
 	/**
 	 * The conference data model
@@ -42,7 +38,7 @@ ConferenceConstants, ViewPager.OnPageChangeListener {
 	/**
 	 * The conference controller
 	 */
-	private ConferenceController_v2 conferenceController;
+	private ConferenceController conferenceController;
 
 	/**
 	 * The conference pager adaptor
@@ -57,8 +53,6 @@ ConferenceConstants, ViewPager.OnPageChangeListener {
 
 	private static ConferenceView _instance = null;
 
-	// Audio variables
-	private PowerManager pm;
 	private WakeLock mWakeLock;
 
 	/*
@@ -83,10 +77,7 @@ ConferenceConstants, ViewPager.OnPageChangeListener {
 		txtv_ConfTitle = (TextView) findViewById(R.id.confernecev2_title);
 
 
-		// Loading Font Face
-		Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
-		// Applying font
-		//txtv_ConfTitle.setTypeface(tf);
+		Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
 
 
 		// Bind the DataModel(s)
@@ -219,7 +210,7 @@ ConferenceConstants, ViewPager.OnPageChangeListener {
 	public void addPersonClicked(View v)
 	{
 		//TODO: get username of person to be added (hardcoded for now)
-		ConferenceController_v2.getInstance().HandleAddPerson("oc4testorg@cuopencomm");
+		ConferenceController.getInstance().HandleAddPerson("oc4testorg@cuopencomm");
 	}
 
 
@@ -246,7 +237,7 @@ ConferenceConstants, ViewPager.OnPageChangeListener {
 
 
 	public void displayInvitation(){
-		RelativeLayout invitationBar = (RelativeLayout) findViewById(R.id.side_chat_invitation_bar);
+		findViewById(R.id.side_chat_invitation_bar);
 
 	}
 
@@ -277,7 +268,7 @@ ConferenceConstants, ViewPager.OnPageChangeListener {
 	public void onPageSelected(int roomNumber) {
 		Log.d(TAG, "Room Number selected :" + roomNumber);
 		currentPageNumber = roomNumber;
-		ConferenceRoomFragment fragment = (ConferenceRoomFragment) mPagerAdapter.getItem(roomNumber);
+		mPagerAdapter.getItem(roomNumber);
 
 		//		fragment.createUsers();
 	}

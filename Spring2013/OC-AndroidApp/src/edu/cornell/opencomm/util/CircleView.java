@@ -6,7 +6,6 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -25,8 +24,7 @@ public class CircleView extends View {
 	// Attrs
 	private int circleRadius;
 	private int circleFillColor;
-	private int circleStrokeColor;
-
+	
 	public CircleView(Context context, AttributeSet attrs) {
 
 		super(context, attrs);
@@ -46,7 +44,7 @@ public class CircleView extends View {
 		TypedArray attrsArray = getContext().obtainStyledAttributes(attrs, R.styleable.circleview);
 		circleRadius = attrsArray.getInteger(R.styleable.circleview_cRadius, 0);
 		circleFillColor = attrsArray.getColor(R.styleable.circleview_cFillColor, 16777215);
-		circleStrokeColor = attrsArray.getColor(R.styleable.circleview_cStrokeColor, -1);
+		attrsArray.getColor(R.styleable.circleview_cStrokeColor, -1);
 		// Google tells us to call recycle.
 		attrsArray.recycle();
 	}
@@ -76,8 +74,6 @@ public class CircleView extends View {
 				// width, then go half height as radius.
 				circleRadius = tempRadiusHeight;
 		}
-		// Remove 2 pixels for the stroke.
-		int circleDiameter = circleRadius * 2 - 2;
 		// RectF(float left, float top, float right, float bottom)
 		int measuredHeight = measureHeight(heightMeasureSpec);
 		setMeasuredDimension(measuredWidth, measuredHeight);

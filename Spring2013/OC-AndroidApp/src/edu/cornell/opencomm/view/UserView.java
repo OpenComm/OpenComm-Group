@@ -4,21 +4,14 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.graphics.RectF;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.WindowManager;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
-import edu.cornell.opencomm.manager.UserManager;
-import edu.cornell.opencomm.util.OCBitmapDecoder;
 
 /**
  * @author Spandana Govindgari [frontend], Nora NQ[frontend],Ankit
@@ -30,6 +23,7 @@ import edu.cornell.opencomm.util.OCBitmapDecoder;
  */
 public class UserView extends ImageButton {
 
+	@SuppressWarnings("unused")
 	private static String LOG_TAG = UserView.class.getName(); // for error
 	// checking
 	/**
@@ -87,6 +81,7 @@ public class UserView extends ImageButton {
 	// Borrowed from:
 	// http://stackoverflow.com/questions/11012556/border-over-a-bitmap-with-rounded-corners-in-android//
 
+	@SuppressWarnings("unused")
 	private Bitmap getRoundedCornerBitmap(Bitmap bitmap) {		
 		
 		WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);

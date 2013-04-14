@@ -3,7 +3,6 @@ package edu.cornell.opencomm.controller;
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.XMPPConnection;
-import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.provider.PrivacyProvider;
 import org.jivesoftware.smack.provider.ProviderManager;
 import org.jivesoftware.smackx.Form;
@@ -13,10 +12,7 @@ import org.jivesoftware.smackx.PrivateDataManager;
 import org.jivesoftware.smackx.ReportedData;
 import org.jivesoftware.smackx.ReportedData.Column;
 import org.jivesoftware.smackx.ReportedData.Row;
-import org.jivesoftware.smackx.ServiceDiscoveryManager;
 import org.jivesoftware.smackx.packet.ChatStateExtension;
-import org.jivesoftware.smackx.packet.DiscoverInfo;
-import org.jivesoftware.smackx.packet.DiscoverItems;
 import org.jivesoftware.smackx.packet.LastActivity;
 import org.jivesoftware.smackx.packet.OfflineMessageInfo;
 import org.jivesoftware.smackx.packet.OfflineMessageRequest;
@@ -40,10 +36,8 @@ import org.jivesoftware.smackx.search.UserSearchManager;
 
 import android.util.Log;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 
 public class CheckEmail {
    private static String DOMAIN = "cuopencomm.no-ip.org";
@@ -61,7 +55,8 @@ public class CheckEmail {
 		SmackConfiguration.setPacketReplyTimeout(10000);
 	}
    
-   public String getJid() {
+   @SuppressWarnings("unchecked")
+public String getJid() {
       try {
     	 System.out.println("getJid method executed");
     	 ConnectionConfiguration config = new ConnectionConfiguration(DOMAIN,PORT);
@@ -73,9 +68,9 @@ public class CheckEmail {
          System.out.println("Logged in");
          UserSearchManager search = new UserSearchManager(con);
          System.out.println("User Search created");
-         Collection services = search.getSearchServices();
+         Collection<?> services = search.getSearchServices();
          System.out.println("Search Services found:");
-         Iterator it = services.iterator();
+         Iterator<?> it = services.iterator();
          while(it.hasNext()){
         	 System.out.println(it.next());
          }

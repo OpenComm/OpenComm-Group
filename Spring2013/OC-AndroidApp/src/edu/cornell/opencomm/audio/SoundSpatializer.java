@@ -1,6 +1,5 @@
 package edu.cornell.opencomm.audio;
 
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 import android.media.AudioFormat;
@@ -937,57 +936,6 @@ public void setAudio(AudioTrack audio) {
 		}
 	} // end setITD method
 
-	/** = private:: a byte array with the itd added before the source */
-	private short[] addITDBefore(short[] source, int itd) {
-		int itdVal = Math.abs(itd)/2;
-		int len = source.length + itdVal;
-		// create new channel
-		short[] added = new short[len];
-		// add silence before source
-		for (int i = 0; i < itdVal; i++) {
-			added[i] = 0; // value of silence in signed 16bit: 0
-		}
-		// add source
-		for (int i = 0; i < source.length; i++) {
-			added[i+itdVal] = source[i];
-		}
-		return added;
-	} // end addITDBefore method
-	
-	/** = private:: a short array with the itd added after the source */
-	private short[] addITDAfter(short[] source, int itd) {
-		int itdVal = Math.abs(itd)/2;
-		int len = source.length + itdVal;
-		// create new channel
-		short[] added = new short[len];
-		// add silence after source
-		for (int i = 0; i < itdVal; i++) {
-			added[i + source.length] = 0; // value of silence in signed 16bit: 0
-		}
-		// add source
-		for (int i = 0; i < source.length; i++) {
-			added[i] = source[i];
-		}
-		return added;
-	} // end addITDBefore method
-	
-	/** = private:: stereo stream created from two mono streams left and right */
-	private static short[] monoToStereo(short[] left, short[] right) {
-		// check that both left and right mono streams are of equal length
-		if (left.length != right.length) {
-			Log.e(SoundSpatializer.TAG, "Left and right mono streams are not equal in length!");
-			return null;
-		}
-		short[] output = new short[left.length * 2];
-		// put mono channels into respective left and right channel
-		for (int i = 0; i < left.length; i++) {
-			output[(i * 2)] = left[i]; // put mono channel into left stereo channel
-			output[(i * 2) + 1] = right[i]; // put mono channel into right stereo channel
-		}
-		Log.i(SoundSpatializer.TAG, "2 mono streams inserted into 1 stereo stream");
-		return output;
-	} // end monoToStereo method
-	
 	/** update region, ITD, and vol based on new position */
 	public void moveTo(int nx, int ny) {
 		// update region

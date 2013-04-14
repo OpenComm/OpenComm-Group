@@ -2,9 +2,7 @@ package com.cornell.opencomm.jingleimpl;
 
 import org.jivesoftware.smack.packet.IQ;
 import org.jivesoftware.smack.provider.IQProvider;
-import org.jivesoftware.smack.provider.ProviderManager;
 import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
 
 /**
  * This class handles the parsing of incoming IQ packets. 

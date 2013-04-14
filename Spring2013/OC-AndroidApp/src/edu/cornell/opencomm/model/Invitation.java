@@ -5,15 +5,13 @@ import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 
-import android.util.Log;
-
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.network.NetworkService;
 
 public class Invitation {
-	
+
 	public static String declineMessage = "I'm busy right now";
-	
+
 	public Connection conn;
 	public String room;
 	public String inviter;
@@ -21,8 +19,9 @@ public class Invitation {
 	public String password;
 	public Message message;
 	public boolean processed = false;
-	
-	public Invitation(Connection conn, String room, String inviter, String reason, String password, Message message) {
+
+	public Invitation(Connection conn, String room, String inviter,
+			String reason, String password, Message message) {
 		this.conn = conn;
 		this.room = room;
 		this.inviter = inviter;
@@ -30,19 +29,20 @@ public class Invitation {
 		this.password = password;
 		this.message = message;
 	}
-	
+
 	public MultiUserChat accept() {
-		ConferenceRoom muc = new ConferenceRoom(NetworkService.getInstance().getConnection(), room);
+		MultiUserChat muc = new MultiUserChat(NetworkService.getInstance()
+				.getConnection(), room);
 		try {
-			muc.join();
+			muc.join(UserManager.PRIMARY_USER.nickname);
 		} catch (XMPPException e) {
 			System.out.println("Could not join chatroom:" + e);
 		}
 		return muc;
 	}
-	
+
 	public void decline() {
 		MultiUserChat.decline(conn, room, inviter, declineMessage);
 	}
-	
+
 }

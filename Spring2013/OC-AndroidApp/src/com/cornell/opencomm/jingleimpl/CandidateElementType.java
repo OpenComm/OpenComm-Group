@@ -17,12 +17,6 @@ public class CandidateElementType extends BaseElementType{
     public static final int TYPE_REMOTE_CANDIDATE = 0; // denotes remote-candidate as per XEP-0176
     public static final int TYPE_LOCAL_CANDIDATE = 1; // denotes candidate as per XEP-0176 and XEP-0177
     
-    // All possible values for the attributeType. NOTE: These might be obsoleted by RFC 5245 for STUN
-    private static final String NAT_TYPE_NONE = "host";
-    private static final String NAT_TYPE_PEER_REFLEXIVE = "prflx";
-    private static final String NAT_TYPE_RELAY = "relay";
-    private static final String NAT_TYPE_SERVER_REFLEXIVE = "srflx";    
-
     public static final String LOCAL_CANDIDATE_ELEMENT_NAME = "candidate";
     public static final String REMOTE_CANDIDATE_ELEMENT_NAME = "remote-candidate";
     

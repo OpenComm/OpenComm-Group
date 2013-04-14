@@ -61,6 +61,7 @@ public class IPAddresses {
 	/**
 	 * Discovers the public IPs exposed by a NAT, and stores the IPs into local structrues
 	 */
+	@SuppressWarnings("null")
 	public static void discoverNATedIPs(){
 		try {
     		for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {

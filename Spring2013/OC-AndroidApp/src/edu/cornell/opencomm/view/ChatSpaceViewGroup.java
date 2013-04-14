@@ -2,9 +2,7 @@ package edu.cornell.opencomm.view;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Point;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -20,9 +18,8 @@ import edu.cornell.opencomm.model.User;
 
 public class ChatSpaceViewGroup extends ViewGroup implements OnTouchListener{
 
-	private Activity view; 
-
 	/*For debugging purposes*/
+	@SuppressWarnings("unused")
 	private static final String TAG = ChatSpaceViewGroup.class.getSimpleName(); 
 
 	private static final boolean D = true; 
@@ -30,8 +27,6 @@ public class ChatSpaceViewGroup extends ViewGroup implements OnTouchListener{
 	private final int adjustRadiusX = 153/4; 
 
 	private final int adjustRadiusY = 207/4; 
-
-	private final int imageSize = 76; 
 
 	//TODO- remove this
 	public int p= 0; 
@@ -64,7 +59,7 @@ public class ChatSpaceViewGroup extends ViewGroup implements OnTouchListener{
 		final int count = getChildCount(); 
 		for(int i = 0; i<count; i++){
 			View child = this.getChildAt(i); 
-			LayoutParams lp = (LayoutParams)child.getLayoutParams(); 
+			child.getLayoutParams(); 
 			measureChild(child, widthMeasureSpec, heightMeasureSpec); 
 		}
 
@@ -134,22 +129,19 @@ public class ChatSpaceViewGroup extends ViewGroup implements OnTouchListener{
 		else return users; 
 	}
 
-	private int mXPosition; 
-
-	private int mYPosition; 
 	private void updateCircle(int p){
-		Resources res = this.getResources(); 
+		this.getResources(); 
 		ArrayList<User> conferenceUsers = this.getConferenceUsers(p); 
 		//TODO- check to see if the user is the main user- then set the background to black
 		Point[] placeholder = this.createPlaceHolders(conferenceUsers.size());
 		//Draw the primary user first 
 		Button child = (Button) this.getChildAt(1); 
-		LayoutParams lp = (LayoutParams)child.getLayoutParams(); 
+		child.getLayoutParams(); 
 		child.layout(placeholder[0].x, placeholder[0].y, placeholder[0].x+76, placeholder[0].y+76);
 
 		for (int i = 0; i < conferenceUsers.size(); i++){
 			Button child1 = (Button) this.getChildAt(i+1); 	 
-			LayoutParams lp1 = (LayoutParams)child1.getLayoutParams(); 
+			child1.getLayoutParams(); 
 			child1.layout(placeholder[i].x, placeholder[i].y, placeholder[i].x+76, placeholder[i].y+76);
 			if (!conferenceUsers.get(i).equals(UserManager.PRIMARY_USER)){
 				child1.setBackgroundResource(conferenceUsers.get(i).getImage());
@@ -210,19 +202,19 @@ public class ChatSpaceViewGroup extends ViewGroup implements OnTouchListener{
 
 		//Gets the chat space view and positions it on the group 
 		View child = this.getChildAt(0); 
-		LayoutParams lp = (LayoutParams)child.getLayoutParams(); 
+		child.getLayoutParams(); 
 		child.layout(0, 0, getWidth(), getHeight());	
 		if (D){Log.v("P value", ""+ p); }
 		this.updateCircle(getP()); 
 
 		//TODO- Remove this- just for now - dummy add and remove 
 		Button child2 = (Button) this.getChildAt(11); 
-		LayoutParams lp2 = (LayoutParams)child2.getLayoutParams(); 
+		child2.getLayoutParams(); 
 		child2.layout(40, 14, 165, 124);
 
 		//TODO- Remove this- just for now - dummy add and remove 
 		Button child3 = (Button) this.getChildAt(12); 
-		LayoutParams lp3 = (LayoutParams)child3.getLayoutParams(); 
+		child3.getLayoutParams(); 
 		child3.layout(220, 14, 345, 124);
 
 	}
