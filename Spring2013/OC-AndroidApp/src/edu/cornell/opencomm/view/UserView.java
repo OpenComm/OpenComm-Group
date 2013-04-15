@@ -35,6 +35,7 @@ public class UserView extends ImageButton {
 	 */
 	private Context context;
 	
+	
 	private User user;
 
 	// private static final int cornerSize = 4;
@@ -153,7 +154,7 @@ public class UserView extends ImageButton {
 
 	public User getCUser() {
 		// TODO Auto-generated method stub
-		return null;
+		return user;
 	}
 
 }
