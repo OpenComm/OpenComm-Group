@@ -1,13 +1,17 @@
 package edu.cornell.opencomm.controller;
 
+import java.util.ArrayList;
+
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.Form;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 
+import android.graphics.Point;
 import android.util.Log;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.model.ConferenceConstants;
+import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ConferenceView;
 
@@ -105,5 +109,15 @@ public class ConferenceController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public ArrayList<User> updateLocations(Point center, int radius) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ArrayList<User> getCUserList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

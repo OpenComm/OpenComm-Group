@@ -39,5 +39,4 @@ public class Conference extends MultiUserChat implements Serializable {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

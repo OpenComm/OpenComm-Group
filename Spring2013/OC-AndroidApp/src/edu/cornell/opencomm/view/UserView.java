@@ -151,4 +151,9 @@ public class UserView extends ImageButton {
 		invalidate();
 	}
 
+	public User getCUser() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
