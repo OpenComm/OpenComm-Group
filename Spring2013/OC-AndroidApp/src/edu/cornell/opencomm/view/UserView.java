@@ -152,7 +152,7 @@ public class UserView extends ImageButton {
 		invalidate();
 	}
 
-	public User getCUser() {
+	public User getUser() {
 		// TODO Auto-generated method stub
 		return user;
 	}

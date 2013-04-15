@@ -110,6 +110,7 @@ ConferenceConstants, ViewPager.OnPageChangeListener {
 		conferenceModel = getConferenceFromIntent();
 
 		initPager();
+		this.createTheCirleOfTrust(); 
 	}
 
 	private void initPager() {
@@ -399,7 +400,7 @@ ConferenceConstants, ViewPager.OnPageChangeListener {
 				else {
 					User cuoverlap = isOverLapping(absoluteX, absoluteY);
 					if (cuoverlap != null) {
-						User oldUser = ((UserView) v).getCUser();
+						User oldUser = ((UserView) v).getUser();
 						Point oldLocation = oldUser.getLocation();
 						oldUser.setLocation(cuoverlap.getLocation());
 						cuoverlap.setLocation(oldLocation);

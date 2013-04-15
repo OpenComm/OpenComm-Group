@@ -138,8 +138,7 @@ public class NetworkService {
 			this.xmppConn.connect();
 			// extract JID from the email address by removing nonalphanumeric
 			// characters from the email address
-			String jid = email.replaceAll("[^a-zA-Z0-9]", "")
-					+ DEFAULT_HOSTNAME;
+			String jid = email.replaceAll("[^a-zA-Z0-9]", "");
 			if (D)
 				Log.d(TAG, "Attempt login: email - " + email + ", jid - " + jid
 						+ ", password - " + password);
