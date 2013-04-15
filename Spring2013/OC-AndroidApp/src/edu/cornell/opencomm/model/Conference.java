@@ -13,6 +13,10 @@ public class Conference extends MultiUserChat implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private String title = "";
+	
+	private ArrayList<User> users = new ArrayList<User>();
 
 	// CONSTRUCTORS
 
@@ -21,12 +25,13 @@ public class Conference extends MultiUserChat implements Serializable {
 	}
 
 	// API Functions
-
+	
 	public void addPresenceListener() {
 		super.addParticipantStatusListener(new OCParticipantStatusListener(this));
 
 	}
 	
+	@Override
 	public void invite(String JID, String reason) {
 		super.invite(JID, reason);
 	}
@@ -34,6 +39,26 @@ public class Conference extends MultiUserChat implements Serializable {
 	// Helper Functions
 
 	// Getters and Setters
+	
+	public void setTitle(String newTitle){
+		title = newTitle;
+	}
+	
+	public String getTitle(){
+		return title;
+	}
+	
+	public ArrayList<User> getUsers(){
+		return users;
+	}
+	
+	public void addUser(User u){
+		users.add(u);
+	}
+	
+	public void removeUser(User u){
+		users.remove(u);
+	}
 
 	public ArrayList<User> updateLocations(Point center, int radius) {
 		// TODO Auto-generated method stub
