@@ -1,15 +1,18 @@
 package edu.cornell.opencomm.controller;
 
+import java.util.ArrayList;
+
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.Form;
-import org.jivesoftware.smackx.muc.MultiUserChat;
 
+import android.content.Intent;
 import android.util.Log;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.Conference;
-import edu.cornell.opencomm.model.ConferenceConstants;
+import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ConferenceView;
+import edu.cornell.opencomm.view.DashboardView;
 
 public class ConferenceController {
 	ConferenceView view;
@@ -42,11 +45,13 @@ public class ConferenceController {
 		}
 		try {
 			this.room.join(UserManager.PRIMARY_USER.getUsername());
+			Log.v(TAG, "primary user successfully joined room");
 		} catch (XMPPException e) {
 			e.printStackTrace();
 		}
 		try {
 			this.room.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
+			Log.v(TAG, "room config form successfully sent");
 		} catch (XMPPException e) {
 			e.printStackTrace();
 		}
@@ -61,6 +66,7 @@ public class ConferenceController {
 	 * @return void
 	 */
 	public void setTitle(String title) {
+		room.setTitle(title);
 		view.txtv_ConfTitle.setText(title);
 	}
 
@@ -88,7 +94,14 @@ public class ConferenceController {
 	public void HandleBackButton() {
 		if (D)
 			Log.d(TAG, "back button clicked");
-		// TODO:add "go back" functions here
+		
+		// start dashboard view
+		Intent account = new Intent(this.view, DashboardView.class);
+		this.view.startActivity(account);
+	}
+	
+	public ArrayList<User> getUsers(){
+		return room.getUsers();
 	}
 
 	public void HandleLeaveButton() {
@@ -102,7 +115,6 @@ public class ConferenceController {
 				room = null;
 			}
 		} catch (XMPPException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
