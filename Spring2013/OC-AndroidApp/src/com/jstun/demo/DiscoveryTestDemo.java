@@ -10,6 +10,7 @@ public class DiscoveryTestDemo implements Runnable {
 		this.iaddress = iaddress;
 	}
 	
+	@Override
 	public void run() {
 		try {
 			DiscoveryTest test = new DiscoveryTest(iaddress, "jstun.javawi.de", 3478);

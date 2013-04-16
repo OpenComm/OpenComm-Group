@@ -52,6 +52,7 @@ public class NotificationsAdapter extends ArrayAdapter<Notification> {
 	/** 
 	 * = View at position p, which contains a TextView and an ImageView
 	 * */
+	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View vi = convertView;
 		if (convertView == null)

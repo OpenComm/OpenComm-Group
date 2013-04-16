@@ -17,6 +17,7 @@ public class MessageIntegrity extends MessageAttribute {
 		super(MessageAttribute.MessageAttributeType.MessageIntegrity);
 	}
 	
+	@Override
 	public byte[] getBytes() {
 		return new byte[0];
 	}

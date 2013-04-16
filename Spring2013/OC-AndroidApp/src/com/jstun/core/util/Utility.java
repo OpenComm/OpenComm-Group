@@ -43,7 +43,7 @@ public class Utility {
 	}
 	
 	public static final int oneByteToInteger(byte value) throws UtilityException {
-		return (int)value & 0xFF;
+		return value & 0xFF;
 	}
 	
 	public static final int twoBytesToInteger(byte[] value) throws UtilityException {

@@ -135,6 +135,7 @@ ConferenceConstants, ViewPager.OnPageChangeListener {
 	}
 
 	/* [TODO]: check to see if this should be onPause() */
+	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		if (mWakeLock != null) {
@@ -191,11 +192,13 @@ ConferenceConstants, ViewPager.OnPageChangeListener {
 
 	// Context Bar methods
 
+	@Override
 	public void onPageScrollStateChanged(int arg0) {
 		// TODO Auto-generated method stub
 
 	}
 	int currentPageNumber = 1;
+	@Override
 	public void onPageSelected(int roomNumber) {
 		Log.d(TAG, "Room Number selected :" + roomNumber);
 		currentPageNumber = roomNumber;
@@ -204,6 +207,7 @@ ConferenceConstants, ViewPager.OnPageChangeListener {
 		//		fragment.createUsers();
 	}
 
+	@Override
 	public void onPageScrolled(int arg0, float arg1, int arg2) {
 		// TODO Auto-generated method stub
 

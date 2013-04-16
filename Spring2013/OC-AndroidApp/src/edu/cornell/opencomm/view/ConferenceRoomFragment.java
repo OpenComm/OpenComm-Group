@@ -65,6 +65,7 @@ public class ConferenceRoomFragment extends Fragment {
 		Log.d(TAG, "Conference Room :" + conferenceRoom);
 	}
 
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		Log.d(TAG, "onCreateView()");
@@ -80,6 +81,7 @@ public class ConferenceRoomFragment extends Fragment {
 		ViewTreeObserver observer = roomLayout.getViewTreeObserver();
 		observer.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
 
+			@Override
 			public void onGlobalLayout() {
 				createUsers();
 			}
@@ -160,6 +162,7 @@ public class ConferenceRoomFragment extends Fragment {
 				// Ankit: Make a primary equal to check
 				if (u.compareTo(UserManager.PRIMARY_USER) == 0) {
 					uv.setOnClickListener(new OnClickListener() {
+						@Override
 						public void onClick(View v) {
 							UserView u = (UserView) v;
 							u.setBackgroundColor(Color.BLACK);
@@ -183,6 +186,7 @@ public class ConferenceRoomFragment extends Fragment {
 				.findViewById(R.id.side_chat_invitation_bar);
 		invitationBar.setVisibility(View.INVISIBLE);
 		invitationBar.setOnClickListener(new OnClickListener() {
+			@Override
 			public void onClick(View v) {
 				v.setVisibility(View.INVISIBLE);
 				v.invalidate();
@@ -255,6 +259,7 @@ public class ConferenceRoomFragment extends Fragment {
 		 */
 		private LayoutParams params;
 
+		@Override
 		public boolean onTouch(View v, MotionEvent event) {
 			Log.d("UserTouchListner", "Status : " + status);
 			Log.d("UserTouchListner", "Action : " + event.getAction());
@@ -308,8 +313,8 @@ public class ConferenceRoomFragment extends Fragment {
 				Log.d("UserTouchListner", "ACTION_MOVE");
 				if (status == START_DRAGGING) {
 					status = DRAGGING;
-					params = new LayoutParams(LayoutParams.WRAP_CONTENT,
-							LayoutParams.WRAP_CONTENT);
+					params = new LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
+							android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 					dittoUser = new ImageView(context);
 					dittoUser.setImageBitmap(b);
 					dittoUser.setPadding(absoluteX, absoluteY, 0, 0);
@@ -333,6 +338,7 @@ public class ConferenceRoomFragment extends Fragment {
 			return false;
 		}
 
+		@Override
 		public boolean onLongClick(View v) {
 			if (status != DRAGGING) {
 				RelativeLayout bottom_bar_user = (RelativeLayout) roomLayout

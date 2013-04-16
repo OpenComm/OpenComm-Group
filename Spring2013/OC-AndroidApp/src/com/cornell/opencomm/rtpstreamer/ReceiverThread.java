@@ -114,6 +114,7 @@ public class ReceiverThread extends Thread {
 	AudioTrack track;
 
 	/** Runs it in a new Thread. */
+	@Override
 	public void run() {
 		Log.i("ReceiverThread", "started");
 
@@ -153,7 +154,7 @@ public class ReceiverThread extends Thread {
 		// luser = -8000;
 		cnt = 0;
 		ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_MUSIC,
-				(int) (ToneGenerator.MIN_VOLUME));
+				(ToneGenerator.MIN_VOLUME));
 		// track.play();
 		trackLeft.play();
 		trackRight.play();

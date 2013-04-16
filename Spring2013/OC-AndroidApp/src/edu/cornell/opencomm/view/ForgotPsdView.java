@@ -23,6 +23,7 @@ public class ForgotPsdView extends Activity {
 	private ForgotPsdController forgotPsdController;
 	
 
+	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.forgot_password);

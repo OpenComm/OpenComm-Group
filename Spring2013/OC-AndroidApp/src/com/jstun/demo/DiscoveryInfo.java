@@ -107,6 +107,7 @@ public class DiscoveryInfo {
 		this.publicIP = publicIP;
 	}
 	
+	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("Network interface: ");

@@ -93,7 +93,7 @@ public class UserView extends ImageButton {
 		
 		WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
-		float screenWidth = (float) display.getWidth();
+		float screenWidth = display.getWidth();
 		float userPicSize = screenWidth * 13/48;
 		
 		Bitmap output = Bitmap.createBitmap((int)userPicSize, (int)userPicSize, Bitmap.Config.ARGB_8888);
@@ -101,7 +101,7 @@ public class UserView extends ImageButton {
 		// just for conversion
 		int borderDips = 6;
 		final int borderSizePx = (int) TypedValue.applyDimension(
-				TypedValue.COMPLEX_UNIT_DIP, (float) borderDips, context
+				TypedValue.COMPLEX_UNIT_DIP, borderDips, context
 				.getResources().getDisplayMetrics());
 		// prepare for canvas
 		final Paint paint = new Paint();
@@ -120,7 +120,7 @@ public class UserView extends ImageButton {
 		// draw border
 		paint.setColor(Color.BLACK);
 		paint.setStyle(Paint.Style.STROKE);
-		paint.setStrokeWidth((float) borderSizePx);
+		paint.setStrokeWidth(borderSizePx);
 		canvas.drawCircle(userPicSize / 2, userPicSize / 2, userPicSize / 2 - 5, paint);
 
 		return output;
