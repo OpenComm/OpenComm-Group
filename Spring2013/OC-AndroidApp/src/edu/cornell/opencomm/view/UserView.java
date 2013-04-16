@@ -35,6 +35,7 @@ public class UserView extends ImageButton {
 	 */
 	private Context context;
 	
+	
 	private User user;
 
 	// private static final int cornerSize = 4;
@@ -149,6 +150,11 @@ public class UserView extends ImageButton {
 	}
 	public void onUpdate(int eventId, Object data) {
 		invalidate();
+	}
+
+	public User getUser() {
+		// TODO Auto-generated method stub
+		return user;
 	}
 
 }
