@@ -23,6 +23,7 @@ public class ConferenceController {
 	private static final String TAG = "ConferenceController_v2";
 	private static final boolean D = true;
 	private static ConferenceController _instance;
+	private ArrayList<User> confUserList = null; 
 
 	public static ConferenceController getInstance() {
 		if (_instance == null) {
@@ -34,7 +35,7 @@ public class ConferenceController {
 	private ConferenceController() {
 		this.view = ConferenceView.getInstance();
 		String roomID = null;
-		
+
 		// TODO: Move constructors to more sensible place
 		while (this.room == null) {
 			roomID = NetworkService.generateRoomID();
@@ -96,12 +97,12 @@ public class ConferenceController {
 	public void HandleBackButton() {
 		if (D)
 			Log.d(TAG, "back button clicked");
-		
+
 		// start dashboard view
 		Intent account = new Intent(this.view, DashboardView.class);
 		this.view.startActivity(account);
 	}
-	
+
 	public ArrayList<User> getUsers(){
 		return room.getUsers();
 	}
@@ -120,14 +121,45 @@ public class ConferenceController {
 			e.printStackTrace();
 		}
 	}
-
+	//TODO
 	public ArrayList<User> updateLocations(Point center, int radius) {
-		// TODO Auto-generated method stub
-		return null;
+		int noOfusers = confUserList.size();
+		ArrayList<Point> pointList = getPoints(noOfusers, radius, center);
+		for (int i = 0; i < pointList.size(); i++) {
+
+			// confUserList.get(i).LOCATION = pointList.get(i);
+			confUserList.get(i).setLocation(pointList.get(i));
+		}
+		return confUserList;
 	}
 
 	public ArrayList<User> getCUserList() {
+			
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	private ArrayList<Point> getPoints(int users, double radius, Point center) {
+		Log.d("ConferenceRoom", "Radius :" + radius);
+		Log.d("ConferenceRoom", "Center :" + center.toString());
+		Log.d("ConferenceRoom", "Users :" + users);
+		double startAngle = Math.toRadians(90);
+		double endAngle = Math.toRadians(360);
+		double slice = 2 * Math.PI / users;
+		center.x = center.x - 65;
+		center.y = center.y - 65;
+
+		ArrayList<Point> pointList = new ArrayList<Point>();
+		for (int i = 0; i < users; i++) {
+			double angle = (startAngle + slice * i) % endAngle;
+			int newX = (int) (center.x + radius * Math.cos(angle));
+			int newY = (int) (center.y + radius * Math.sin(angle));
+			Point p = new Point(newX, newY);
+			Log.d("ConferenceRoom", "Angle :" + angle);
+			Log.d("ConferenceRoom", "Point :" + p);
+			pointList.add(p);
+		}
+		return pointList;
+	}
+
 }
