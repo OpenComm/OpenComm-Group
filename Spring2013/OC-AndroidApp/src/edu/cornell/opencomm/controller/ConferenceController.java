@@ -15,7 +15,7 @@ public class ConferenceController {
 	ConferenceView view;
 	Conference room;
 
-	private static final String TAG = "ConferenceController_v2";
+	private static final String TAG = "ConferenceController";
 	private static final boolean D = true;
 	private static ConferenceController _instance;
 
@@ -29,26 +29,21 @@ public class ConferenceController {
 	private ConferenceController() {
 		this.view = ConferenceView.getInstance();
 		String roomID = null;
-		
+
 		// TODO: Move constructors to more sensible place
 		while (this.room == null) {
 			roomID = NetworkService.generateRoomID();
 			try {
+				Log.v(TAG, "trying to create the room");
 				this.room = new Conference(roomID);
+				Log.v(TAG, "trying to configure the room");
+				this.room.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
+				Log.v(TAG, "trying to join the room");
+				this.room.join(UserManager.PRIMARY_USER.getNickname());
 			} catch (Exception e) {
 				Log.v(TAG, e.getMessage());
 				continue;
 			}
-		}
-		try {
-			this.room.join(UserManager.PRIMARY_USER.getUsername());
-		} catch (XMPPException e) {
-			e.printStackTrace();
-		}
-		try {
-			this.room.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
-		} catch (XMPPException e) {
-			e.printStackTrace();
 		}
 		// end TODO
 	}
@@ -70,7 +65,7 @@ public class ConferenceController {
 	public void HandleAddPerson(String username) {
 		if (D)
 			Log.d(TAG, "addPerson button clicked");
-		room.invite(username, "lets chat");
+		room.invite(username, "let's chat");
 	}
 
 	/**
