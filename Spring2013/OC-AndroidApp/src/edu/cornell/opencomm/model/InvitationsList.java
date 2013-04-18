@@ -44,5 +44,15 @@ public class InvitationsList {
 			}
 		}
 	}
+	
+	public static int getNumberNewInvitations() {
+		int i = 0;
+		for (Invitation invitation : invitationsList) {
+			if (!invitation.processed) {
+				i += 1;
+			}
+		}
+		return i;
+	}
 
 }
