@@ -9,7 +9,6 @@ import android.graphics.Point;
 import android.util.Log;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.Conference;
-import edu.cornell.opencomm.model.ConferenceConstants;
 import android.content.Intent;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
@@ -134,9 +133,7 @@ public class ConferenceController {
 	}
 
 	public ArrayList<User> getCUserList() {
-			
-		// TODO Auto-generated method stub
-		return null;
+		return room.getUsers();
 	}
 
 	private ArrayList<Point> getPoints(int users, double radius, Point center) {
