@@ -51,6 +51,7 @@ public class ContactListAdapter extends ArrayAdapter<User> {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 	
+	@Override
 	public User getItem(int position) {
 		return this.contacts.get(position);
 	}
@@ -58,6 +59,7 @@ public class ContactListAdapter extends ArrayAdapter<User> {
 	/** 
 	 * = View at position p, which contains a TextView and an ImageView
 	 * */
+	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View vi = convertView;
 		if (convertView == null)

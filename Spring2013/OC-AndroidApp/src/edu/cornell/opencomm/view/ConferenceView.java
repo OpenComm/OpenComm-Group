@@ -36,8 +36,8 @@ import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.ConferenceController;
 import edu.cornell.opencomm.manager.UserManager;
-import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.model.ConferenceConstants;
+import edu.cornell.opencomm.model.Conference_Dummy;
 import edu.cornell.opencomm.model.User;
 
 /**
@@ -53,7 +53,7 @@ ConferenceConstants, ViewPager.OnPageChangeListener {
 	/**
 	 * The conference data model
 	 */
-	private Conference conferenceModel;
+	private Conference_Dummy conferenceModel;
 
 	/**
 	 * The conference controller
@@ -100,17 +100,16 @@ ConferenceConstants, ViewPager.OnPageChangeListener {
 		//instantiate the handlers
 		txtv_ConfTitle = (TextView) findViewById(R.id.confernecev2_title);
 
-		roomLayout = (View) findViewById(R.layout.conference_v2);
+		roomLayout = (ViewGroup) findViewById(R.layout.conference_v2);
 
 		Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
-
+		conferenceController = ConferenceController.getInstance(); 
 		context = this; 
 		// Bind the DataModel(s)
 		// Get the main room id from the intent
-		conferenceModel = getConferenceFromIntent();
-
 		initPager();
-		this.createTheCirleOfTrust(); 
+		//this.createTheCirleOfTrust(); 
+		conferenceModel = conferenceController.getCurrentConference();
 	}
 
 	private void initPager() {
@@ -161,6 +160,7 @@ ConferenceConstants, ViewPager.OnPageChangeListener {
 	}
 
 	/* [TODO]: check to see if this should be onPause() */
+	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		if (mWakeLock != null) {
@@ -200,28 +200,15 @@ ConferenceConstants, ViewPager.OnPageChangeListener {
 
 
 
-	public void displayInvitation(){
-		findViewById(R.id.side_chat_invitation_bar);
-
-	}
-
-
-	private Conference getConferenceFromIntent() {
-		Intent intent = getIntent();
-		Conference conference = (Conference) intent
-				.getSerializableExtra("conference");
-		Log.d(TAG, "Conference from Intent :"+conference);
-		return conference;
-	}
-
-
 	// Context Bar methods
 
+	@Override
 	public void onPageScrollStateChanged(int arg0) {
 		// TODO Auto-generated method stub
 
 	}
 	int currentPageNumber = 1;
+	@Override
 	public void onPageSelected(int roomNumber) {
 		Log.d(TAG, "Room Number selected :" + roomNumber);
 		currentPageNumber = roomNumber;
@@ -230,6 +217,7 @@ ConferenceConstants, ViewPager.OnPageChangeListener {
 		//		fragment.createUsers();
 	}
 
+	@Override
 	public void onPageScrolled(int arg0, float arg1, int arg2) {
 		// TODO Auto-generated method stub
 
@@ -272,13 +260,11 @@ ConferenceConstants, ViewPager.OnPageChangeListener {
 	}
 
 	public void createTheCirleOfTrust() {
-		Log.d(TAG, "Room Height :" + roomLayout.getHeight());
-		Log.d(TAG, "Room Width :" + roomLayout.getWidth());
-		WindowManager wm = (WindowManager) roomLayout.getContext().getSystemService(Context.WINDOW_SERVICE);
+		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
 		int screenWidth = display.getWidth();
 		float radius = screenWidth * 3/8;
-		Point center = new Point(roomLayout.getWidth() / 2, roomLayout.getHeight() / 2);
+		Point center = new Point(screenWidth/2, screenWidth/2);
 		ArrayList<User> userList = conferenceController.updateLocations(center, (int)radius);
 		for (User confUser : userList) {
 

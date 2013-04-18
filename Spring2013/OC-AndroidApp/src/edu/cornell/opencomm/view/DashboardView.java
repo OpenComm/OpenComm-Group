@@ -69,6 +69,7 @@ public class DashboardView extends Activity {
 		overflowList.setAdapter(oAdapter);
 		// Click event for single list row
 		overflowList.setOnItemClickListener(new OnItemClickListener() {
+			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				controller.handleOptionClick(view);
@@ -113,6 +114,7 @@ public class DashboardView extends Activity {
 		this.controller.handleProfileButtonClicked();
 	}
 
+	@Override
 	public void onBackPressed() {
 		// back button disabled
 	}

@@ -74,7 +74,7 @@ public class ChatSpaceViewGroup extends ViewGroup implements OnTouchListener{
 
 	@Override
 	protected LayoutParams generateDefaultLayoutParams() {
-		return new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT); 
+		return new LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT); 
 	}
 
 	@Override
@@ -245,6 +245,7 @@ public class ChatSpaceViewGroup extends ViewGroup implements OnTouchListener{
 
 
 	private ImageView image; 
+	@Override
 	public boolean onTouch(View view, MotionEvent me) {
 		if (me.getAction() == MotionEvent.ACTION_DOWN) {
 			image = new ImageView (this.getContext()); 

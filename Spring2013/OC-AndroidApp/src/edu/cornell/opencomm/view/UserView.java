@@ -9,9 +9,11 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Paint.Align;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.WindowManager;
@@ -94,7 +96,7 @@ public class UserView extends ImageButton {
 		
 		WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
-		float screenWidth = (float) display.getWidth();
+		float screenWidth = display.getWidth();
 		float userPicSize = screenWidth * 13/48;
 		
 		Bitmap output = Bitmap.createBitmap((int)userPicSize, (int)userPicSize, Bitmap.Config.ARGB_8888);
@@ -102,7 +104,7 @@ public class UserView extends ImageButton {
 		// just for conversion
 		int borderDips = 6;
 		final int borderSizePx = (int) TypedValue.applyDimension(
-				TypedValue.COMPLEX_UNIT_DIP, (float) borderDips, context
+				TypedValue.COMPLEX_UNIT_DIP, borderDips, context
 				.getResources().getDisplayMetrics());
 		// prepare for canvas
 		final Paint paint = new Paint();
@@ -118,10 +120,32 @@ public class UserView extends ImageButton {
 		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
 		canvas.drawBitmap(bitmap, null, rect, paint);
 
+		//draw banner
+ 		//int color = conferenceUser.getUser().userColor;
+ 		paint.setColor(Color.GRAY);
+ 		canvas.drawARGB(0, 0, 0, 0);
+ 		canvas.drawRect(0, 80, 130, 105, paint);
+		
+		//draw user name
+ 		//String firstName = conferenceUser.getUser().getVCard().getFirstName();
+ 		//String lastName = conferenceUser.getUser().getVCard().getLastName();
+ 		//String name = firstName + " " + lastName; 
+ 		paint.setColor(Color.WHITE);
+		paint.setTextSize(14);
+ 		paint.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Light.ttf"));
+ 	    paint.setTextAlign(Align.CENTER);
+ 		canvas.drawText("hello".toUpperCase(), 65, 97, paint);
+ 		
+		//draw banner border
+		paint.setColor(Color.BLACK);
+		paint.setStyle(Paint.Style.STROKE);
+		paint.setStrokeWidth(1);
+		canvas.drawRect(0, 80, 130, 105, paint);
+		
 		// draw border
 		paint.setColor(Color.BLACK);
 		paint.setStyle(Paint.Style.STROKE);
-		paint.setStrokeWidth((float) borderSizePx);
+		paint.setStrokeWidth(borderSizePx);
 		canvas.drawCircle(userPicSize / 2, userPicSize / 2, userPicSize / 2 - 5, paint);
 
 		return output;

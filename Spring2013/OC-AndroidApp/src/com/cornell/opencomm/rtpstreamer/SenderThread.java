@@ -151,6 +151,7 @@ public class SenderThread extends Thread {
 	public static int m;
 
 	/** Runs it in a new Thread. */
+	@Override
 	public void run() {
 		Log.i("SenderThread", "started");
 		if (rtp_socket == null)

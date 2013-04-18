@@ -56,6 +56,7 @@ public class ErrorCode extends MessageAttribute {
 		return reason;
 	}
 
+	@Override
 	public byte[] getBytes() throws UtilityException {
 		int length = reason.length();
 		// length adjustment

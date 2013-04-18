@@ -34,6 +34,7 @@ public class Username extends MessageAttribute {
 		this.username = username;
 	}
 	
+	@Override
 	public byte[] getBytes() throws UtilityException {
 		int length = username.length();
 		// username header

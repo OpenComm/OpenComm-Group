@@ -39,6 +39,7 @@ public class JingleIQBuddyPacketRouter {
 
 			// add packet listener for JingleIQPacket
 			connection.addPacketListener(new PacketListener() {
+				@Override
 				public void processPacket(Packet p) {
 					Log.i(JingleIQBuddyPacketRouter.TAG, "Received a packet: " + p.getXmlns());
 					if (p instanceof JingleIQPacket) {

@@ -20,13 +20,13 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -36,6 +36,7 @@ import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.Conference;
+import edu.cornell.opencomm.model.Conference_Dummy;
 import edu.cornell.opencomm.model.User;
 
 /**
@@ -49,15 +50,15 @@ public class ConferenceRoomFragment extends Fragment {
 	private View roomLayout;
 	public int layoutId = R.layout.conference_main_room;
 	private String TAG = MultiUserChat.class.getName();
-	public Conference conferenceRoom;
+	public Conference_Dummy conferenceRoom;
 	boolean DEBUG = true;
 	public ArrayList<UserView> userViews = new ArrayList<UserView>();
 	public Context context;
 	public static final int radius = 165;
-	
+
 	@SuppressLint("ValidFragment")
 	public ConferenceRoomFragment(Context context, int layoutId,
-			Conference conferenceModel) {
+			Conference_Dummy conferenceModel) {
 		this.layoutId = layoutId;
 		this.context = context;
 		this.conferenceRoom = conferenceModel;
@@ -65,6 +66,7 @@ public class ConferenceRoomFragment extends Fragment {
 		Log.d(TAG, "Conference Room :" + conferenceRoom);
 	}
 
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		Log.d(TAG, "onCreateView()");
@@ -80,6 +82,7 @@ public class ConferenceRoomFragment extends Fragment {
 		ViewTreeObserver observer = roomLayout.getViewTreeObserver();
 		observer.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
 
+			@Override
 			public void onGlobalLayout() {
 				createUsers();
 			}
@@ -160,6 +163,7 @@ public class ConferenceRoomFragment extends Fragment {
 				// Ankit: Make a primary equal to check
 				if (u.compareTo(UserManager.PRIMARY_USER) == 0) {
 					uv.setOnClickListener(new OnClickListener() {
+						@Override
 						public void onClick(View v) {
 							UserView u = (UserView) v;
 							u.setBackgroundColor(Color.BLACK);
@@ -183,6 +187,7 @@ public class ConferenceRoomFragment extends Fragment {
 				.findViewById(R.id.side_chat_invitation_bar);
 		invitationBar.setVisibility(View.INVISIBLE);
 		invitationBar.setOnClickListener(new OnClickListener() {
+			@Override
 			public void onClick(View v) {
 				v.setVisibility(View.INVISIBLE);
 				v.invalidate();
@@ -192,18 +197,20 @@ public class ConferenceRoomFragment extends Fragment {
 	}
 
 	public User isOverLapping(int x, int y) {
-		Collection<Occupant> occList = null;
-		try {
-			occList = conferenceRoom.getParticipants();
-		} catch (XMPPException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		ArrayList<User> list = new ArrayList<User>();
-		for (Occupant o : occList) {
-			list.add(new User(o));
-		}
-		for (User u : list) {
+		//		Collection<Occupant> occList = null;
+		//		try {
+		//			occList = conferenceRoom.getCUserList()();
+		//		} catch (XMPPException e) {
+		//			// TODO Auto-generated catch block
+		//			e.printStackTrace();
+		//		}
+		//		
+		//		ArrayList<User> list = new ArrayList<User>();
+		//		for (Occupant o : occList) {
+		//			list.add(new User(o));
+		//		}
+		ArrayList<User> users = conferenceRoom.getCUserList(); 
+		for (User u : users) {
 			if (!(u.compareTo(UserManager.PRIMARY_USER) == 0)
 					&& isOverlapping(new Point(x, y), u.getLocation())) {
 
@@ -222,7 +229,7 @@ public class ConferenceRoomFragment extends Fragment {
 	}
 
 	public class UserTouchListner implements OnTouchListener,
-			OnLongClickListener {
+	OnLongClickListener {
 		/**
 		 * 
 		 */
@@ -255,6 +262,7 @@ public class ConferenceRoomFragment extends Fragment {
 		 */
 		private LayoutParams params;
 
+		@Override
 		public boolean onTouch(View v, MotionEvent event) {
 			Log.d("UserTouchListner", "Status : " + status);
 			Log.d("UserTouchListner", "Action : " + event.getAction());
@@ -308,8 +316,8 @@ public class ConferenceRoomFragment extends Fragment {
 				Log.d("UserTouchListner", "ACTION_MOVE");
 				if (status == START_DRAGGING) {
 					status = DRAGGING;
-					params = new LayoutParams(LayoutParams.WRAP_CONTENT,
-							LayoutParams.WRAP_CONTENT);
+					params = new LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
+							android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 					dittoUser = new ImageView(context);
 					dittoUser.setImageBitmap(b);
 					dittoUser.setPadding(absoluteX, absoluteY, 0, 0);
@@ -333,6 +341,7 @@ public class ConferenceRoomFragment extends Fragment {
 			return false;
 		}
 
+		@Override
 		public boolean onLongClick(View v) {
 			if (status != DRAGGING) {
 				RelativeLayout bottom_bar_user = (RelativeLayout) roomLayout

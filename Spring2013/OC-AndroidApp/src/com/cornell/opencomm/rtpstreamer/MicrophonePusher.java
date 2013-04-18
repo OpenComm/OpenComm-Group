@@ -100,6 +100,7 @@ public class MicrophonePusher extends Thread{
 		running = false;
 	}
 
+	@Override
 	public void run() {
 		Log.i("MicrophonePusher", "started");
 

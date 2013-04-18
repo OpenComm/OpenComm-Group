@@ -297,7 +297,7 @@ public class JingleController {
 			}
 
 		} else if (incomingPacket instanceof IQ) {
-			IQ iq = (IQ) incomingPacket;
+			IQ iq = incomingPacket;
 			Log.i(JingleController.TAG,
 					"IQ Received in JingleController: From: " + iq.getFrom()
 							+ "; To: " + iq.getTo() + "; Type: " + iq.getType());

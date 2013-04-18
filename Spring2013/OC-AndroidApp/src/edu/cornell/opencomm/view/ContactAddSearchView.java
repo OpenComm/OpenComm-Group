@@ -70,6 +70,7 @@ public class ContactAddSearchView extends Activity {
 	private AutoCompleteTextView suggestion;
 	private ContactAddSearchAdapter casAdapter;
 
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.contact_addsearch_layout);
@@ -103,6 +104,7 @@ public class ContactAddSearchView extends Activity {
 		this.suggestion.setAdapter(casAdapter);
 		// Click event for single list row
 		this.suggestion.setOnItemClickListener(new OnItemClickListener() {
+			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				controller.handleContactClick(casAdapter.getItem(position));
@@ -124,6 +126,7 @@ public class ContactAddSearchView extends Activity {
 		overflowList.setAdapter(oAdapter);
 		// Click event for single list row
 		overflowList.setOnItemClickListener(new OnItemClickListener() {
+			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				controller.handleOptionClick(view);

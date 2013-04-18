@@ -60,6 +60,7 @@ public class Address {
 		fourthOctet = Utility.oneByteToInteger(address[3]);
 	}
 	
+	@Override
 	public String toString() {
 		return firstOctet + "." + secondOctet + "." + thirdOctet + "." + fourthOctet;
 	}
@@ -82,6 +83,7 @@ public class Address {
 		return InetAddress.getByAddress(address);
 	}
 	
+	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) return false;
 		try {
@@ -95,6 +97,7 @@ public class Address {
 		}
 	}
 	
+	@Override
 	public int hashCode() {
 		return (firstOctet << 24) + (secondOctet << 16) + (thirdOctet << 8) + fourthOctet; 
 	}
