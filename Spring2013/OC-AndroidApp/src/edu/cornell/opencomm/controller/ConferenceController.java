@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.Form;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.util.Log;
+import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.Conference;
-import edu.cornell.opencomm.model.ConferenceConstants;
-import android.content.Intent;
+import edu.cornell.opencomm.model.Conference_Dummy;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ConferenceView;
@@ -121,9 +123,29 @@ public class ConferenceController {
 			e.printStackTrace();
 		}
 	}
+
+	public ArrayList<User> getCUserList() {
+		confUserList = createExampleUsers();
+		return confUserList;
+	}
+
+	private ArrayList<User> createExampleUsers(){
+		UserManager.userColorTable.put("oc1testorg", Color.YELLOW);
+		UserManager.userColorTable.put("oc2testorg", Color.GREEN);
+		UserManager.userColorTable.put("oc3testorg", Color.BLUE);
+		UserManager.userColorTable.put("oc4testorg", Color.YELLOW);
+		ArrayList<User> users = new ArrayList<User>();
+		users.add(UserManager.PRIMARY_USER);
+		users.add(new User("oc1testorg", "Nora Ng-Quinn", R.drawable.example_picture_1));
+		users.add(new User("oc2testorg", "Risa Naka", R.drawable.example_picture_2));
+		users.add(new User("oc3testorg", "Kris Kooi", R.drawable.example_picture_3));
+		users.add(new User("oc4testorg", "Ankit Singh", R.drawable.example_picture_4));
+		return users;
+	}
+
 	//TODO
 	public ArrayList<User> updateLocations(Point center, int radius) {
-		int noOfusers = confUserList.size();
+		int noOfusers = this.getCUserList().size();
 		ArrayList<Point> pointList = getPoints(noOfusers, radius, center);
 		for (int i = 0; i < pointList.size(); i++) {
 
@@ -131,12 +153,6 @@ public class ConferenceController {
 			confUserList.get(i).setLocation(pointList.get(i));
 		}
 		return confUserList;
-	}
-
-	public ArrayList<User> getCUserList() {
-			
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	private ArrayList<Point> getPoints(int users, double radius, Point center) {
@@ -160,6 +176,11 @@ public class ConferenceController {
 			pointList.add(p);
 		}
 		return pointList;
+	}
+
+	public Conference_Dummy getCurrentConference() {
+		Conference_Dummy dummy = new Conference_Dummy("Happening Now", confUserList); 
+		return dummy; 
 	}
 
 }
