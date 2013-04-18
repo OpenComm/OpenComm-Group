@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.controller.CreateAccountController;
 import edu.cornell.opencomm.controller.FontSetter;
 /*
  * Author: Spandana Govindgari
@@ -27,6 +28,8 @@ public class CreateAccountView extends Activity {
 	private EditText usernameInput;
 	private EditText pwdInput;
 	
+	private CreateAccountController controller;
+	
 	private ImageView acceptOverlay;
 
 	@Override
@@ -34,6 +37,7 @@ public class CreateAccountView extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.create_account);
 		FontSetter.applySanSerifFont(this,findViewById(R.id.create_account));
+		controller = new CreateAccountController(this);
 		this.nameInput = (EditText) findViewById(R.id.name_field);
 		this.emailInput = (EditText) findViewById(R.id.email_field);
 		this.usernameInput = (EditText) findViewById(R.id.username_field); 
@@ -67,6 +71,9 @@ public class CreateAccountView extends Activity {
 		String[] name = this.getFirstNameTextBox().getText().toString().split(" ");
 		String firstName = name[0];
 		String lastName = name[1];
+		this.controller.handleSave(firstName, lastName, this.emailInput.getText().toString(), 
+				this.usernameInput.getText().toString(), "",
+				this.pwdInput.getText().toString(), this.pwdInput.getText().toString()); 
 	}
 
 }

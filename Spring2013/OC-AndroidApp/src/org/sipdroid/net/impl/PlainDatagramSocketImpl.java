@@ -111,7 +111,7 @@ public class PlainDatagramSocketImpl extends DatagramSocketImpl {
 
     @Override
     public void bind(int port, InetAddress addr) throws SocketException {
-        String prop = null; //AccessController.doPrivileged(new PriviAction<String>("bindToDevice")); //$NON-NLS-1$
+        String prop = null; //AccessController.doPrivileged(new PriviAction<String>("bindToDevice")); 
         boolean useBindToDevice = prop != null && prop.toLowerCase().equals("true"); //$NON-NLS-1$
         bindToDevice = netImpl.bind2(fd, port, useBindToDevice, addr);
         if (0 != port) {
@@ -151,7 +151,8 @@ public class PlainDatagramSocketImpl extends DatagramSocketImpl {
     }
 
 
-    public Object getOption(int optID) throws SocketException {
+    @Override
+	public Object getOption(int optID) throws SocketException {
         if (optID == SocketOptions.SO_TIMEOUT) {
             return Integer.valueOf(receiveTimeout);
         } else if (optID == SocketOptions.IP_TOS) {
@@ -281,7 +282,8 @@ public class PlainDatagramSocketImpl extends DatagramSocketImpl {
      * @throws SocketException thrown if the option value is unsupported or
      *         invalid
      */
-    public void setOption(int optID, Object val) throws SocketException {
+    @Override
+	public void setOption(int optID, Object val) throws SocketException {
         /*
          * for datagram sockets on some platforms we have to set both the
          * REUSEADDR AND REUSEPORT so for REUSEADDR set this option option which

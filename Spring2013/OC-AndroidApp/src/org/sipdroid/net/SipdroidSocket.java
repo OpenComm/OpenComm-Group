@@ -45,35 +45,42 @@ public class SipdroidSocket extends DatagramSocket {
 		}
 	}
 	
+	@Override
 	public void close() {
 		super.close();
 		if (loaded) impl.close();
 	}
 	
+	@Override
 	public void setSoTimeout(int val) throws SocketException {
 		if (loaded) impl.setOption(SocketOptions.SO_TIMEOUT, val);
 		else super.setSoTimeout(val);
 	}
 	
+	@Override
 	public void receive(DatagramPacket pack) throws IOException {
 		if (loaded) impl.receive(pack);
 		else super.receive(pack);
 	}
 	
+	@Override
 	public void send(DatagramPacket pack) throws IOException {
 		if (loaded) impl.send(pack);
 		else super.send(pack);
 	}
 	
+	@Override
 	public boolean isConnected() {
 		if (loaded) return true;
 		else return super.isConnected();
 	}
 	
+	@Override
 	public void disconnect() {
 		if (!loaded) super.disconnect();
 	}
 	
+	@Override
 	public void connect(InetAddress addr,int port) {
 		if (!loaded) super.connect(addr,port);
 	}

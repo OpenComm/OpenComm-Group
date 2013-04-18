@@ -166,6 +166,7 @@ public class User implements Comparable<User>, Serializable {
 		return this.jCtrl;
 	}
 
+	@Override
 	public int compareTo(User arg0) {
 		return (getUsername().compareTo(arg0.getUsername()));
 		// returns alphabetic comparison of usernames by using string compareTo

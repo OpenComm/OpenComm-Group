@@ -51,6 +51,7 @@ public class ConferenceCreationController extends Activity {
 
 	private ContactListAdapter clAdapter;
 
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.conference_creation_layout);
@@ -74,6 +75,7 @@ public class ConferenceCreationController extends Activity {
 		if (D) Log.d(ConferenceCreationController.TAG, "contact list adapter is null" + (clAdapter == null));
 		contactList.setAdapter(clAdapter);
 		contactList.setOnItemClickListener(new OnItemClickListener() {
+			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// TODO add contact to list

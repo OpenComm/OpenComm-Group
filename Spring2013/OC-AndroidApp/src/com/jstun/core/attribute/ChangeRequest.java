@@ -45,6 +45,7 @@ public class ChangeRequest extends MessageAttribute {
 		changePort = true;
 	}
 	
+	@Override
 	public byte[] getBytes() throws UtilityException {
 		byte[] result = new byte[8];
 		// message attribute header

@@ -36,6 +36,7 @@ public class JingleIQProvider implements IQProvider{
 	 * Overrides the <code>IQProvider.parseIQ</code> method and parses a Jingle element into a 
 	 * <code>JingleIQPacket</code>
 	 */
+	@Override
 	public IQ parseIQ(XmlPullParser parser) throws Exception {
 		jiqPacket = new JingleIQPacket();
 		eventType = parser.getEventType();

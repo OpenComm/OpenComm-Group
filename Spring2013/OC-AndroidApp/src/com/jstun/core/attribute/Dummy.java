@@ -24,6 +24,7 @@ public class Dummy extends MessageAttribute {
 		this.lengthValue = length;
 	}
 
+	@Override
 	public byte[] getBytes() throws UtilityException {
 		byte[] result = new byte[lengthValue + 4];
 		//	message attribute header

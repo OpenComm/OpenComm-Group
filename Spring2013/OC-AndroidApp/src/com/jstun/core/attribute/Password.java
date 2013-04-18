@@ -34,6 +34,7 @@ public class Password extends MessageAttribute {
 		this.password = password;
 	}
 	
+	@Override
 	public byte[] getBytes() throws UtilityException {
 		int length = password.length();
 		// password header
