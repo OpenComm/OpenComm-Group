@@ -55,8 +55,7 @@ public class CheckEmail {
 		SmackConfiguration.setPacketReplyTimeout(10000);
 	}
    
-   @SuppressWarnings("unchecked")
-public String getJid() {
+   public String getJid() {
       try {
     	 System.out.println("getJid method executed");
     	 ConnectionConfiguration config = new ConnectionConfiguration(DOMAIN,PORT);
