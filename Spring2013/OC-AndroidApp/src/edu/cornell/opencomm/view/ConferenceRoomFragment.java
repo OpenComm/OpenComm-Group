@@ -20,13 +20,13 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -36,6 +36,7 @@ import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.Conference;
+import edu.cornell.opencomm.model.Conference_Dummy;
 import edu.cornell.opencomm.model.User;
 
 /**
@@ -49,15 +50,15 @@ public class ConferenceRoomFragment extends Fragment {
 	private View roomLayout;
 	public int layoutId = R.layout.conference_main_room;
 	private String TAG = MultiUserChat.class.getName();
-	public Conference conferenceRoom;
+	public Conference_Dummy conferenceRoom;
 	boolean DEBUG = true;
 	public ArrayList<UserView> userViews = new ArrayList<UserView>();
 	public Context context;
 	public static final int radius = 165;
-	
+
 	@SuppressLint("ValidFragment")
 	public ConferenceRoomFragment(Context context, int layoutId,
-			Conference conferenceModel) {
+			Conference_Dummy conferenceModel) {
 		this.layoutId = layoutId;
 		this.context = context;
 		this.conferenceRoom = conferenceModel;
@@ -196,18 +197,20 @@ public class ConferenceRoomFragment extends Fragment {
 	}
 
 	public User isOverLapping(int x, int y) {
-		Collection<Occupant> occList = null;
-		try {
-			occList = conferenceRoom.getParticipants();
-		} catch (XMPPException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		ArrayList<User> list = new ArrayList<User>();
-		for (Occupant o : occList) {
-			list.add(new User(o));
-		}
-		for (User u : list) {
+		//		Collection<Occupant> occList = null;
+		//		try {
+		//			occList = conferenceRoom.getCUserList()();
+		//		} catch (XMPPException e) {
+		//			// TODO Auto-generated catch block
+		//			e.printStackTrace();
+		//		}
+		//		
+		//		ArrayList<User> list = new ArrayList<User>();
+		//		for (Occupant o : occList) {
+		//			list.add(new User(o));
+		//		}
+		ArrayList<User> users = conferenceRoom.getCUserList(); 
+		for (User u : users) {
 			if (!(u.compareTo(UserManager.PRIMARY_USER) == 0)
 					&& isOverlapping(new Point(x, y), u.getLocation())) {
 
@@ -226,7 +229,7 @@ public class ConferenceRoomFragment extends Fragment {
 	}
 
 	public class UserTouchListner implements OnTouchListener,
-			OnLongClickListener {
+	OnLongClickListener {
 		/**
 		 * 
 		 */
