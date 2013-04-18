@@ -198,5 +198,10 @@ public class User implements Comparable<User>, Serializable {
 	public Point getLocation() {
 		return this.location;
 	}
+
+	public void setLocation(Point location2) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
