@@ -25,7 +25,7 @@ public class ConferenceController {
 	private static final String TAG = "ConferenceController_v2";
 	private static final boolean D = true;
 	private static ConferenceController _instance;
-	private ArrayList<User> confUserList = null; 
+	private ArrayList<User> confUserList = this.createExampleUsers(); 
 
 	public static ConferenceController getInstance() {
 		if (_instance == null) {
@@ -124,10 +124,10 @@ public class ConferenceController {
 		}
 	}
 
-	public ArrayList<User> getCUserList() {
-		confUserList = createExampleUsers();
-		return confUserList;
-	}
+//	public ArrayList<User> getCUserList() {
+//		confUserList = createExampleUsers();
+//		return confUserList;
+//	}
 
 	private ArrayList<User> createExampleUsers(){
 		UserManager.userColorTable.put("oc1testorg", Color.YELLOW);
@@ -145,7 +145,7 @@ public class ConferenceController {
 
 	//TODO
 	public ArrayList<User> updateLocations(Point center, int radius) {
-		int noOfusers = this.getCUserList().size();
+		int noOfusers = confUserList.size();
 		ArrayList<Point> pointList = getPoints(noOfusers, radius, center);
 		for (int i = 0; i < pointList.size(); i++) {
 
@@ -183,7 +183,8 @@ public class ConferenceController {
 	}
 
 	public Conference_Dummy getCurrentConference() {
-		Conference_Dummy dummy = new Conference_Dummy("Happening Now", confUserList); 
+		Conference_Dummy dummy = new Conference_Dummy("Happening Now", confUserList);
+		System.out.println("Why is dummy dm?" + dummy==null); 
 		return dummy; 
 	}
 

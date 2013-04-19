@@ -173,10 +173,10 @@ public class ConferenceRoomFragment extends Fragment {
 				} else {
 					ConferenceRoomFragment.UserTouchListner listener = new ConferenceRoomFragment.UserTouchListner();
 					uv.setOnTouchListener(listener);
+					System.out.println("7"); 
 					uv.setOnLongClickListener(listener);
 				}
 				((ViewGroup) roomLayout).addView(uv);
-
 			}
 		}
 
