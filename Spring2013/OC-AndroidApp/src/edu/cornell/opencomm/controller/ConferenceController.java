@@ -43,24 +43,15 @@ public class ConferenceController {
 			roomID = NetworkService.generateRoomID();
 			try {
 				this.room = new Conference(roomID);
+				Log.v(TAG, "created new room");
 			} catch (Exception e) {
 				Log.v(TAG, e.getMessage());
 				continue;
 			}
 		}
-		try {
-			this.room.join(UserManager.PRIMARY_USER.getUsername());
-			Log.v(TAG, "primary user successfully joined room");
-		} catch (XMPPException e) {
-			e.printStackTrace();
-		}
-		try {
-			this.room.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
-			Log.v(TAG, "room config form successfully sent");
-		} catch (XMPPException e) {
-			e.printStackTrace();
-		}
-		// end TODO
+		this.room.join("oc1testorg@opencomm");
+		
+		this.room.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
 	}
 
 	/**
@@ -115,12 +106,8 @@ public class ConferenceController {
 
 		room.leave();
 
-		try {
-			if (room.getParticipants().isEmpty()) {
-				room = null;
-			}
-		} catch (XMPPException e) {
-			e.printStackTrace();
+		if (room.getParticipants().isEmpty()) {
+			room = null;
 		}
 	}
 
