@@ -56,6 +56,7 @@ public class Conference_Dummy {
 			// confUserList.get(i).LOCATION = pointList.get(i);
 			confUsersList.get(i).setLocation(pointList.get(i));
 		}
+		System.out.println("Is this null?" + confUsersList == null); 
 		return confUsersList;
 	}
 

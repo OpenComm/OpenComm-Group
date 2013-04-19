@@ -62,7 +62,7 @@ public class User implements Comparable<User>, Serializable {
 	/**
 	 */
 	public int userColor;
-	
+
 	/**
 	 */
 	public Point location;
@@ -201,8 +201,16 @@ public class User implements Comparable<User>, Serializable {
 	}
 
 	public void setLocation(Point location2) {
+		this.location = location2; 		
+	}
+
+	public int getX() {
 		// TODO Auto-generated method stub
-		
+		return this.location.x;
+	}
+	
+	public int getY(){
+		return this.location.y; 
 	}
 }
 
