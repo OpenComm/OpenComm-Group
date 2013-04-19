@@ -1,8 +1,5 @@
 package edu.cornell.opencomm.view;
 
-import edu.cornell.opencomm.manager.UserManager;
-import edu.cornell.opencomm.model.User;
-import edu.cornell.opencomm.util.OCBitmapDecoder;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -10,14 +7,20 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
+import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
+import edu.cornell.opencomm.manager.UserManager;
+import edu.cornell.opencomm.model.User;
+import edu.cornell.opencomm.util.OCBitmapDecoder;
 
 /**
  * @author Spandana Govindgari [frontend], Nora NQ[frontend],Ankit
@@ -50,8 +53,8 @@ public class UserView extends ImageButton {
 		this.setBackgroundResource(0); 
 		init();
 
-		/*Log.d(LOG_TAG, "Created a UserView for : "
-				+ conferenceUser.getUser().getUsername());*/
+		Log.d(LOG_TAG, "Created a UserView for : "
+				+ user.getUsername());
 	}
 
 	private void init() {
@@ -65,25 +68,22 @@ public class UserView extends ImageButton {
 	        Matrix matrix = new Matrix();
 	        matrix.postScale(scaleWidth, scaleHeight);
 	        this.setImageBitmap(Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true));
-		} else {
+		}
+		else {
 			this.setImageBitmap(getImage());
 		}
 		invalidateLocation();
 	}
 	
 	private void invalidateLocation(){
-		/*RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
 				OCBitmapDecoder.THUMBNAIL_WIDTH,OCBitmapDecoder.THUMBNAIL_HEIGTH);
-		params.leftMargin = conferenceUser.getX();
-		params.topMargin = conferenceUser.getY();
+		params.leftMargin = user.getX();
+		params.topMargin = user.getY();
 		setLayoutParams(params);
 	}
 	public Point getCurrentLocation() {
-		return conferenceUser.getLocation();
-	}
-
-	public ConferenceUser getCUser() {
-		return conferenceUser;*/
+		return user.getLocation();
 	}
 
 
@@ -153,17 +153,16 @@ public class UserView extends ImageButton {
 	}
 
 	public Bitmap getImage() {
-		return null;
 		//Consider caching the image?
-		/*Bitmap  bm = getRoundedCornerBitmap(OCBitmapDecoder.getThumbnailFromResource(
-				getResources(), conferenceUser.getUser().getImage()));
+		Bitmap  bm = getRoundedCornerBitmap(OCBitmapDecoder.getThumbnailFromResource(
+				getResources(), user.getImage()));
 		int width = bm.getWidth();
         int height = bm.getHeight();
         float scaleWidth = ((float) OCBitmapDecoder.THUMBNAIL_WIDTH)/width;
         float scaleHeight = ((float) OCBitmapDecoder.THUMBNAIL_HEIGTH) / height;
         Matrix matrix = new Matrix();
         matrix.postScale(scaleWidth, scaleHeight);
-        return Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true);*/
+        return Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true);
 	}
 	@Override
 	public void invalidate() {
