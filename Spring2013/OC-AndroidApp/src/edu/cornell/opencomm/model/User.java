@@ -83,6 +83,7 @@ public class User implements Comparable<User>, Serializable {
 	public User(String username, String nickname, int image) {
 		if (D) {
 			Log.v(LOG_TAG, "Made a person for the user " + username);
+			Log.v(LOG_TAG, "nickname: "+nickname);
 		}
 		this.username = username;
 		this.nickname = nickname;

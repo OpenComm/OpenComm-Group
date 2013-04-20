@@ -2,7 +2,6 @@ package edu.cornell.opencomm.controller;
 
 import java.util.ArrayList;
 
-import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.Form;
 
 import android.content.Intent;
@@ -33,6 +32,10 @@ public class ConferenceController {
 		}
 		return _instance;
 	}
+	
+	public Conference getRoom(){
+		return room;
+	}
 
 	private ConferenceController() {
 		this.view = ConferenceView.getInstance();
@@ -49,6 +52,7 @@ public class ConferenceController {
 				continue;
 			}
 		}
+		//Log.v(TAG, "is UserManager.PRIMARY_USER null? "+(UserManager.PRIMARY_USER==null));
 		this.room.join("oc1testorg@opencomm");
 		
 		this.room.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
