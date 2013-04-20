@@ -13,15 +13,13 @@ import android.graphics.Point;
 import android.util.Log;
 
 import edu.cornell.opencomm.controller.OCParticipantStatusListener;
+import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.network.NetworkService;
 
 public class Conference implements Serializable {
-	/**
-	 * 
-	 */
-	String TAG = "CONFERENCE";
 	
 	private static final long serialVersionUID = 1L;
+	private static final String TAG = Conference.class.getSimpleName();
 
 	private String title = "";
 
@@ -33,15 +31,20 @@ public class Conference implements Serializable {
 
 	public Conference(String roomName) {
 		chat = new MultiUserChat(NetworkService.getInstance().getConnection(), roomName);
-		Log.v(TAG, "creation "+chat.getRoom());
-		//super(NetworkService.getInstance().getConnection(), roomName);
+		try {
+			chat.join(UserManager.PRIMARY_USER.nickname);
+			chat.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
+			Log.v(TAG, "creation "+chat.getRoom());
+		} catch (XMPPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	// API Functions
 
 	public void addPresenceListener() {
 		chat.addParticipantStatusListener(new OCParticipantStatusListener(this));
-		//super.addParticipantStatusListener(new OCParticipantStatusListener(this));
 
 	}
 	
@@ -67,7 +70,6 @@ public class Conference implements Serializable {
 
 	public void invite(String JID, String reason) {
 		chat.invite(JID,  reason);
-		//super.invite(JID, reason);
 	}
 	
 	public void leave(){
@@ -87,23 +89,23 @@ public class Conference implements Serializable {
 
 	// Getters and Setters
 
-	public void setTitle(String newTitle){
+	public void setTitle(String newTitle) {
 		title = newTitle;
 	}
 
-	public String getTitle(){
+	public String getTitle() {
 		return title;
 	}
 
-	public ArrayList<User> getUsers(){
+	public ArrayList<User> getUsers() {
 		return users;
 	}
 
-	public void addUser(User u){
+	public void addUser(User u) {
 		users.add(u);
 	}
 
-	public void removeUser(User u){
+	public void removeUser(User u) {
 		users.remove(u);
 	}
 	

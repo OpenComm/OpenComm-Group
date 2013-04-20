@@ -7,6 +7,7 @@ import java.util.Random;
 import org.jivesoftware.smack.AccountManager;
 import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.ConnectionConfiguration;
+import org.jivesoftware.smack.SASLAuthentication;
 import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
@@ -67,6 +68,7 @@ public class NetworkService {
 	public static final String DEFAULT_HOSTNAME = "@cuopencomm";
 	public static final int DEFAULT_PORT = 5222;
 	public static final String DEFAULT_RESOURCE = "OpenComm";
+	public static final String CONF_SERVICE = "@conference.opencomm";
 
 	private static NetworkService _instance = null;
 
@@ -76,17 +78,16 @@ public class NetworkService {
 	private PrivacyList blockList;
 	private AccountManager accountManager;
 
-	public static String generateRoomID(){
+	public static String generateRoomID() {
 		Random rng = new Random();
 		String characters = "abcdefghijklmnopqrstuvwxyz1234567890";
 		char[] text = new char[10];
-	    for (int i = 0; i < 10; i++)
-	    {
-	        text[i] = characters.charAt(rng.nextInt(characters.length()));
-	    }
-	    return new String(text);
+		for (int i = 0; i < 10; i++) {
+			text[i] = characters.charAt(rng.nextInt(characters.length()));
+		}
+		return new String(text);
 	}
-	
+
 	public static NetworkService getInstance() {
 		if (_instance == null) {
 			_instance = new NetworkService(DEFAULT_HOST, DEFAULT_PORT);
@@ -122,6 +123,7 @@ public class NetworkService {
 	public XMPPConnection getConnection() {
 		if (!this.xmppConn.isConnected()) {
 			try {
+				SASLAuthentication.supportSASLMechanism("PLAIN", 0);
 				this.xmppConn.connect();
 			} catch (XMPPException e) {
 				if (D)
@@ -134,7 +136,7 @@ public class NetworkService {
 	public ReturnState login(String email, String password) {
 		try {
 			// attempt to connect
-			// SASLAuthentication.supportSASLMechanism("PLAIN", 0);
+			SASLAuthentication.supportSASLMechanism("PLAIN", 0);
 			this.xmppConn.connect();
 			// extract JID from the email address by removing nonalphanumeric
 			// characters from the email address
@@ -152,8 +154,12 @@ public class NetworkService {
 						new InvitationListener() {
 
 							@Override
-							public void invitationReceived(Connection conn, String room, String inviter, String reason, String password, Message message) {
-								InvitationsList.getInstance().addInvitation(new Invitation(conn, room, inviter, reason, password, message));
+							public void invitationReceived(Connection conn,
+									String room, String inviter, String reason,
+									String password, Message message) {
+								InvitationsList.getInstance().addInvitation(
+										new Invitation(conn, room, inviter,
+												reason, password, message));
 							}
 
 						});
@@ -177,8 +183,10 @@ public class NetworkService {
 				return ReturnState.INVALID_PAIR;
 			}
 		} catch (XMPPException e) {
-			if (D)
+			if (D) {
 				Log.d(TAG, "Connection to server failed");
+				Log.v(TAG, e.getMessage());
+			}
 			return ReturnState.COULDNT_CONNECT;
 		}
 	}
