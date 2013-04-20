@@ -42,15 +42,10 @@ public class ConferenceController {
 		while (this.room == null) {
 			roomID = NetworkService.generateRoomID();
 			try {
-				Log.v(TAG, "trying to create the room");
 				this.room = new Conference(roomID);
-				Log.v(TAG, "trying to configure the room");
-				this.room.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
-				Log.v(TAG, "trying to join the room");
-				this.room.join(UserManager.PRIMARY_USER.getNickname());
+				Log.v(TAG, "successfully created room " + this.room.toString());
 			} catch (Exception e) {
 				Log.v(TAG, e.getMessage());
-				continue;
 			}
 		}
 		try {

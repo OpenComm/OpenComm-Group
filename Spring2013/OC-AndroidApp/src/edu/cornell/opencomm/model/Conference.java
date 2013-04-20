@@ -6,13 +6,14 @@ import org.jivesoftware.smackx.muc.MultiUserChat;
 
 import edu.cornell.opencomm.controller.OCParticipantStatusListener;
 import edu.cornell.opencomm.network.NetworkService;
-import android.graphics.Point;
+import android.util.Log;
 
 public class Conference extends MultiUserChat implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static final String TAG = Conference.class.getSimpleName();
 
 	private String title = "";
 
@@ -22,6 +23,8 @@ public class Conference extends MultiUserChat implements Serializable {
 
 	public Conference(String roomName) {
 		super(NetworkService.getInstance().getConnection(), roomName);
+		Log.v(TAG, "connection: "
+				+ NetworkService.getInstance().getConnection().toString());
 	}
 
 	// API Functions
@@ -40,23 +43,23 @@ public class Conference extends MultiUserChat implements Serializable {
 
 	// Getters and Setters
 
-	public void setTitle(String newTitle){
+	public void setTitle(String newTitle) {
 		title = newTitle;
 	}
 
-	public String getTitle(){
+	public String getTitle() {
 		return title;
 	}
 
-	public ArrayList<User> getUsers(){
+	public ArrayList<User> getUsers() {
 		return users;
 	}
 
-	public void addUser(User u){
+	public void addUser(User u) {
 		users.add(u);
 	}
 
-	public void removeUser(User u){
+	public void removeUser(User u) {
 		users.remove(u);
 	}
 
