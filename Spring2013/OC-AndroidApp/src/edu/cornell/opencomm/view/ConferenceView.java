@@ -36,6 +36,7 @@ import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.ConferenceController;
 import edu.cornell.opencomm.manager.UserManager;
+import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.model.ConferenceConstants;
 import edu.cornell.opencomm.model.Conference_Dummy;
 import edu.cornell.opencomm.model.User;
@@ -53,7 +54,8 @@ ConferenceConstants, ViewPager.OnPageChangeListener {
 	/**
 	 * The conference data model
 	 */
-	private Conference_Dummy conferenceModel;
+	private Conference conferenceModel;
+//	private Conference_Dummy conferenceModel;
 
 	/**
 	 * The conference controller
@@ -106,7 +108,10 @@ ConferenceConstants, ViewPager.OnPageChangeListener {
 		System.out.println("2");
 		conferenceController = ConferenceController.getInstance(); 
 		context = this; 
-		conferenceModel = conferenceController.getCurrentConference(); 
+		
+		conferenceModel = conferenceController.getRoom();
+		
+//		conferenceModel = conferenceController.getCurrentConference(); 
 		// Bind the DataModel(s)
 		// Get the main room id from the intent
 		initPager();

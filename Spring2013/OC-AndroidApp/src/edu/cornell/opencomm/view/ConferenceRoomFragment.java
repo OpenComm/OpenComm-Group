@@ -50,7 +50,8 @@ public class ConferenceRoomFragment extends Fragment {
 	private View roomLayout;
 	public int layoutId = R.layout.conference_main_room;
 	private String TAG = MultiUserChat.class.getName();
-	public Conference_Dummy conferenceRoom;
+	public Conference conferenceRoom;
+//	public Conference_Dummy conferenceRoom;
 	boolean DEBUG = true;
 	public ArrayList<UserView> userViews = new ArrayList<UserView>();
 	public Context context;
@@ -58,13 +59,23 @@ public class ConferenceRoomFragment extends Fragment {
 
 	@SuppressLint("ValidFragment")
 	public ConferenceRoomFragment(Context context, int layoutId,
-			Conference_Dummy conferenceModel) {
+			Conference conferenceModel) {
 		this.layoutId = layoutId;
 		this.context = context;
 		this.conferenceRoom = conferenceModel;
 		Log.d(TAG, "layoutId :" + layoutId);
 		Log.d(TAG, "Conference Room :" + conferenceRoom);
 	}
+	
+//	@SuppressLint("ValidFragment")
+//	public ConferenceRoomFragment(Context context, int layoutId,
+//			Conference_Dummy conferenceModel) {
+//		this.layoutId = layoutId;
+//		this.context = context;
+//		this.conferenceRoom = conferenceModel;
+//		Log.d(TAG, "layoutId :" + layoutId);
+//		Log.d(TAG, "Conference Room :" + conferenceRoom);
+//	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -209,7 +220,8 @@ public class ConferenceRoomFragment extends Fragment {
 		//		for (Occupant o : occList) {
 		//			list.add(new User(o));
 		//		}
-		ArrayList<User> users = conferenceRoom.getCUserList(); 
+		ArrayList<User> users = conferenceRoom.getUsers();
+//		ArrayList<User> users = conferenceRoom.getCUserList(); 
 		for (User u : users) {
 			if (!(u.compareTo(UserManager.PRIMARY_USER) == 0)
 					&& isOverlapping(new Point(x, y), u.getLocation())) {
