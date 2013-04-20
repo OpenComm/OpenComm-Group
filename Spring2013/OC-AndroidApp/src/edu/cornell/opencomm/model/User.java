@@ -62,7 +62,7 @@ public class User implements Comparable<User>, Serializable {
 	/**
 	 */
 	public int userColor;
-	
+
 	/**
 	 */
 	public Point location;
@@ -83,6 +83,7 @@ public class User implements Comparable<User>, Serializable {
 	public User(String username, String nickname, int image) {
 		if (D) {
 			Log.v(LOG_TAG, "Made a person for the user " + username);
+			Log.v(LOG_TAG, "nickname: "+nickname);
 		}
 		this.username = username;
 		this.nickname = nickname;
@@ -201,8 +202,16 @@ public class User implements Comparable<User>, Serializable {
 	}
 
 	public void setLocation(Point location2) {
+		this.location = location2; 		
+	}
+
+	public int getX() {
 		// TODO Auto-generated method stub
-		
+		return this.location.x;
+	}
+	
+	public int getY(){
+		return this.location.y; 
 	}
 }
 

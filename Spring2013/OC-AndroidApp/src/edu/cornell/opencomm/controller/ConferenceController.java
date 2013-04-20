@@ -2,7 +2,6 @@ package edu.cornell.opencomm.controller;
 
 import java.util.ArrayList;
 
-import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.Form;
 
 import android.content.Intent;
@@ -25,7 +24,7 @@ public class ConferenceController {
 	private static final String TAG = "ConferenceController";
 	private static final boolean D = true;
 	private static ConferenceController _instance;
-	private ArrayList<User> confUserList = null; 
+	private ArrayList<User> confUserList = this.createExampleUsers();
 
 	public static ConferenceController getInstance() {
 		if (_instance == null) {
@@ -34,33 +33,20 @@ public class ConferenceController {
 		return _instance;
 	}
 
+	public Conference getRoom() {
+		return room;
+	}
+
 	private ConferenceController() {
 		this.view = ConferenceView.getInstance();
-		String roomID = null;
-
-		// TODO: Move constructors to more sensible place
-		while (this.room == null) {
-			roomID = NetworkService.generateRoomID();
-			try {
-				this.room = new Conference(roomID);
-				Log.v(TAG, "successfully created room " + this.room.toString());
-			} catch (Exception e) {
-				Log.v(TAG, e.getMessage());
-			}
-		}
+		String roomID = NetworkService.generateRoomID()
+				+ NetworkService.CONF_SERVICE;
 		try {
-			this.room.join(UserManager.PRIMARY_USER.getUsername());
-			Log.v(TAG, "primary user successfully joined room");
-		} catch (XMPPException e) {
-			e.printStackTrace();
+			this.room = new Conference(roomID);
+			Log.v(TAG, "successfully created room " + this.room.toString());
+		} catch (Exception e) {
+			Log.v(TAG, e.getMessage());
 		}
-		try {
-			this.room.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
-			Log.v(TAG, "room config form successfully sent");
-		} catch (XMPPException e) {
-			e.printStackTrace();
-		}
-		// end TODO
 	}
 
 	/**
@@ -105,7 +91,7 @@ public class ConferenceController {
 		this.view.startActivity(account);
 	}
 
-	public ArrayList<User> getUsers(){
+	public ArrayList<User> getUsers() {
 		return room.getUsers();
 	}
 
@@ -115,49 +101,39 @@ public class ConferenceController {
 
 		room.leave();
 
-		try {
-			if (room.getParticipants().isEmpty()) {
-				room = null;
-			}
-		} catch (XMPPException e) {
-			e.printStackTrace();
+		if (room.getParticipants().isEmpty()) {
+			room = null;
 		}
 	}
 
-	public ArrayList<User> getCUserList() {
-		confUserList = createExampleUsers();
-		return confUserList;
-	}
-
-	private ArrayList<User> createExampleUsers(){
+	private ArrayList<User> createExampleUsers() {
 		UserManager.userColorTable.put("oc1testorg", Color.YELLOW);
 		UserManager.userColorTable.put("oc2testorg", Color.GREEN);
 		UserManager.userColorTable.put("oc3testorg", Color.BLUE);
 		UserManager.userColorTable.put("oc4testorg", Color.YELLOW);
 		ArrayList<User> users = new ArrayList<User>();
 		users.add(UserManager.PRIMARY_USER);
-		users.add(new User("oc1testorg", "Nora Ng-Quinn", R.drawable.example_picture_1));
-		users.add(new User("oc2testorg", "Risa Naka", R.drawable.example_picture_2));
-		users.add(new User("oc3testorg", "Kris Kooi", R.drawable.example_picture_3));
-		users.add(new User("oc4testorg", "Ankit Singh", R.drawable.example_picture_4));
+		users.add(new User("oc1testorg", "Nora Ng-Quinn",
+				R.drawable.example_picture_1));
+		users.add(new User("oc2testorg", "Risa Naka",
+				R.drawable.example_picture_2));
+		users.add(new User("oc3testorg", "Kris Kooi",
+				R.drawable.example_picture_3));
+		users.add(new User("oc4testorg", "Ankit Singh",
+				R.drawable.example_picture_4));
 		return users;
 	}
 
-	//TODO
+	// TODO
 	public ArrayList<User> updateLocations(Point center, int radius) {
-		int noOfusers = this.getCUserList().size();
+		int noOfusers = confUserList.size();
 		ArrayList<Point> pointList = getPoints(noOfusers, radius, center);
 		for (int i = 0; i < pointList.size(); i++) {
 
-			// confUserList.get(i).LOCATION = pointList.get(i);
 			confUserList.get(i).setLocation(pointList.get(i));
 		}
 		return confUserList;
 	}
-
-//	public ArrayList<User> getCUserList() {
-//		return room.getUsers();
-//	}
 
 	private ArrayList<Point> getPoints(int users, double radius, Point center) {
 		Log.d("ConferenceRoom", "Radius :" + radius);
@@ -183,8 +159,10 @@ public class ConferenceController {
 	}
 
 	public Conference_Dummy getCurrentConference() {
-		Conference_Dummy dummy = new Conference_Dummy("Happening Now", confUserList); 
-		return dummy; 
+		Conference_Dummy dummy = new Conference_Dummy("Happening Now",
+				confUserList);
+		System.out.println("Why is dummy dm?" + dummy == null);
+		return dummy;
 	}
 
 }

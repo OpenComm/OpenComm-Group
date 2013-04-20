@@ -68,6 +68,7 @@ public class NetworkService {
 	public static final String DEFAULT_HOSTNAME = "@cuopencomm";
 	public static final int DEFAULT_PORT = 5222;
 	public static final String DEFAULT_RESOURCE = "OpenComm";
+	public static final String CONF_SERVICE = "@conference.opencomm";
 
 	private static NetworkService _instance = null;
 
@@ -135,7 +136,7 @@ public class NetworkService {
 	public ReturnState login(String email, String password) {
 		try {
 			// attempt to connect
-			// SASLAuthentication.supportSASLMechanism("PLAIN", 0);
+			SASLAuthentication.supportSASLMechanism("PLAIN", 0);
 			this.xmppConn.connect();
 			// extract JID from the email address by removing nonalphanumeric
 			// characters from the email address
@@ -182,8 +183,10 @@ public class NetworkService {
 				return ReturnState.INVALID_PAIR;
 			}
 		} catch (XMPPException e) {
-			if (D)
+			if (D) {
 				Log.d(TAG, "Connection to server failed");
+				Log.v(TAG, e.getMessage());
+			}
 			return ReturnState.COULDNT_CONNECT;
 		}
 	}

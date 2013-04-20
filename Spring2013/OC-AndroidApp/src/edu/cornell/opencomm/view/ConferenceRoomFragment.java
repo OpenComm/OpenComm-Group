@@ -50,15 +50,19 @@ public class ConferenceRoomFragment extends Fragment {
 	private View roomLayout;
 	public int layoutId = R.layout.conference_main_room;
 	private String TAG = MultiUserChat.class.getName();
-	public Conference_Dummy conferenceRoom;
+	public Conference conferenceRoom;
+	// public Conference_Dummy conferenceRoom;
 	boolean DEBUG = true;
 	public ArrayList<UserView> userViews = new ArrayList<UserView>();
 	public Context context;
 	public static final int radius = 165;
 
+	public ConferenceRoomFragment() {
+	}
+
 	@SuppressLint("ValidFragment")
 	public ConferenceRoomFragment(Context context, int layoutId,
-			Conference_Dummy conferenceModel) {
+			Conference conferenceModel) {
 		this.layoutId = layoutId;
 		this.context = context;
 		this.conferenceRoom = conferenceModel;
@@ -173,10 +177,10 @@ public class ConferenceRoomFragment extends Fragment {
 				} else {
 					ConferenceRoomFragment.UserTouchListner listener = new ConferenceRoomFragment.UserTouchListner();
 					uv.setOnTouchListener(listener);
+					System.out.println("7");
 					uv.setOnLongClickListener(listener);
 				}
 				((ViewGroup) roomLayout).addView(uv);
-
 			}
 		}
 
@@ -197,19 +201,20 @@ public class ConferenceRoomFragment extends Fragment {
 	}
 
 	public User isOverLapping(int x, int y) {
-		//		Collection<Occupant> occList = null;
-		//		try {
-		//			occList = conferenceRoom.getCUserList()();
-		//		} catch (XMPPException e) {
-		//			// TODO Auto-generated catch block
-		//			e.printStackTrace();
-		//		}
-		//		
-		//		ArrayList<User> list = new ArrayList<User>();
-		//		for (Occupant o : occList) {
-		//			list.add(new User(o));
-		//		}
-		ArrayList<User> users = conferenceRoom.getCUserList(); 
+		// Collection<Occupant> occList = null;
+		// try {
+		// occList = conferenceRoom.getCUserList()();
+		// } catch (XMPPException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		//
+		// ArrayList<User> list = new ArrayList<User>();
+		// for (Occupant o : occList) {
+		// list.add(new User(o));
+		// }
+		ArrayList<User> users = conferenceRoom.getUsers();
+		// ArrayList<User> users = conferenceRoom.getCUserList();
 		for (User u : users) {
 			if (!(u.compareTo(UserManager.PRIMARY_USER) == 0)
 					&& isOverlapping(new Point(x, y), u.getLocation())) {
@@ -229,7 +234,7 @@ public class ConferenceRoomFragment extends Fragment {
 	}
 
 	public class UserTouchListner implements OnTouchListener,
-	OnLongClickListener {
+			OnLongClickListener {
 		/**
 		 * 
 		 */
@@ -316,7 +321,8 @@ public class ConferenceRoomFragment extends Fragment {
 				Log.d("UserTouchListner", "ACTION_MOVE");
 				if (status == START_DRAGGING) {
 					status = DRAGGING;
-					params = new LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
+					params = new LayoutParams(
+							android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
 							android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 					dittoUser = new ImageView(context);
 					dittoUser.setImageBitmap(b);
