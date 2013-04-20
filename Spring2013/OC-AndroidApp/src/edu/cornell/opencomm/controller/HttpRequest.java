@@ -11,28 +11,31 @@ import org.apache.http.impl.client.DefaultHttpClient;
  
 public class HttpRequest {
 	
-	private String reponse = null;
+
+	static HttpClient httpClient;
 	
-	public HttpRequest(String jid, String email) {
-		HttpClient httpclient = new DefaultHttpClient();
- 
+	static {
+		HttpClient httpClient = new DefaultHttpClient();
+	}
+	
+
+	
+	public static String getResponse(String jid, String email){
+		String reponse = null;
 		try {
-			HttpGet httpget = new HttpGet("http://cuopencomm.no-ip.org/openComm.php?jid="+jid+"&email="+email);
+			HttpGet httpget = new HttpGet("http://cuopencomm.no-ip.org/forgotPassword.php?jid="+jid+"&email="+email);
 			ResponseHandler<String> gestionnaire_reponse = new BasicResponseHandler();
  
 			try {
-				reponse = httpclient.execute(httpget, gestionnaire_reponse);
+				reponse = httpClient.execute(httpget, gestionnaire_reponse);
 			} catch (ClientProtocolException e) {
 				System.err.println(e);
 			} catch (IOException e) {
 				System.err.println(e);
 			}
         	} finally {
-            		httpclient.getConnectionManager().shutdown();
+            		httpClient.getConnectionManager().shutdown();
         	}
-	}
-	
-	public String getResponse(){
 		return reponse;
 	}
 }

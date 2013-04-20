@@ -18,20 +18,17 @@ public class ForgotPsdController {
 	}
 	
 	public void handleSendEmailClick(String email){
-			//Implement here
-			CheckEmail check = new CheckEmail(email);
-			String jid = check.getJid();
-			if (jid != "0"){
-				HttpRequest req = new HttpRequest(jid,email);
-				String response = req.getResponse();
-				if (response != null) {
-					System.out.println(response);
-				} else {
-					System.out.println("-1");
-				}
-			}
+		String response = "-1";
+		String jid = CheckEmail.getJid(email);
+		if (jid != "0"){
+			response = HttpRequest.getResponse(jid, email);
+			System.out.println(response);
 		}
-		
+		//TO DO (Front-end) :
+		//if response = -1 : pop error: email not found
+		//if response = 0 : pop error: email found but error changing password in the database
+		//if response = 1 : pop toast : password reset successfully and sent to your email, then go back to login view
+	}	
 }
 	
 

@@ -42,20 +42,14 @@ import java.util.Iterator;
 public class CheckEmail {
    private static String DOMAIN = "cuopencomm.no-ip.org";
    private static int PORT = 5222;
-   private static String email;
-   private String jid = "0";
    
-   public CheckEmail(String email){
-		configure();
-		CheckEmail.email = email;
-	}
-		
-   private void configure(){
-		configure(ProviderManager.getInstance());
-		SmackConfiguration.setPacketReplyTimeout(10000);
-	}
+   static {
+	   configure(ProviderManager.getInstance());
+	   SmackConfiguration.setPacketReplyTimeout(10000);
+   }
    
-   public String getJid() {
+   public static String getJid(String email) {
+	  String jid = "0";
       try {
     	 System.out.println("getJid method executed");
     	 ConnectionConfiguration config = new ConnectionConfiguration(DOMAIN,PORT);
@@ -124,7 +118,8 @@ public class CheckEmail {
       }
    }
    
-   public void configure(ProviderManager pm) {
+   private static void configure(ProviderManager pm) {
+	   
 		// Private Data Storage
 		pm.addIQProvider("query", "jabber:iq:private",
 		new PrivateDataManager.PrivateDataIQProvider());
@@ -273,6 +268,4 @@ public class CheckEmail {
 		"http://jabber.org/protocol/commands",
 		new AdHocCommandDataProvider.SessionExpiredError());
    }
-   
-   
 }
