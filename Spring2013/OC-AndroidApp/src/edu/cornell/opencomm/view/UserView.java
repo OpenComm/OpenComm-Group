@@ -121,20 +121,20 @@ public class UserView extends ImageButton {
 		canvas.drawBitmap(bitmap, null, rect, paint);
 
 		//draw banner
- 		//int color = conferenceUser.getUser().userColor;
+ 		//int color = user.userColor;
  		paint.setColor(Color.GRAY);
  		canvas.drawARGB(0, 0, 0, 0);
  		canvas.drawRect(0, 80, 130, 105, paint);
 		
 		//draw user name
- 		//String firstName = conferenceUser.getUser().getVCard().getFirstName();
- 		//String lastName = conferenceUser.getUser().getVCard().getLastName();
- 		//String name = firstName + " " + lastName; 
+ 		//String firstName =user.getVCard().getFirstName();
+ 		//String lastName =user.getVCard().getLastName();
+ 		//String name = firstName + lastName; 
  		paint.setColor(Color.WHITE);
 		paint.setTextSize(14);
  		paint.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Light.ttf"));
  	    paint.setTextAlign(Align.CENTER);
- 		canvas.drawText("hello".toUpperCase(), 65, 97, paint);
+ 		canvas.drawText(user.getUsername().toUpperCase(), 65, 97, paint);
  		
 		//draw banner border
 		paint.setColor(Color.BLACK);
@@ -145,7 +145,7 @@ public class UserView extends ImageButton {
 		// draw border
 		paint.setColor(Color.BLACK);
 		paint.setStyle(Paint.Style.STROKE);
-		paint.setStrokeWidth(borderSizePx);
+		paint.setStrokeWidth(2);
 		canvas.drawCircle(userPicSize / 2, userPicSize / 2, userPicSize / 2 - 5, paint);
 
 		return output;
