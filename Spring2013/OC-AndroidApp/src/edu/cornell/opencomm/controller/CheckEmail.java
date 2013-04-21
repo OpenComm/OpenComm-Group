@@ -39,7 +39,7 @@ import android.util.Log;
 import java.util.Collection;
 import java.util.Iterator;
 
-public class CheckEmail {
+public abstract class CheckEmail {
    private static String DOMAIN = "cuopencomm.no-ip.org";
    private static int PORT = 5222;
    
@@ -57,7 +57,7 @@ public class CheckEmail {
          XMPPConnection con = new XMPPConnection(config);
          con.connect();
          System.out.println("Connection ok");
-         con.login("searchuser","search");
+         con.loginAnonymously();
          System.out.println("Logged in");
          UserSearchManager search = new UserSearchManager(con);
          System.out.println("User Search created");
@@ -67,7 +67,7 @@ public class CheckEmail {
          while(it.hasNext()){
         	 System.out.println(it.next());
          }
-         Form searchForm = search.getSearchForm("search." + "cuopencomm");
+         Form searchForm = search.getSearchForm("search." + "opencomm");
          System.out.println("Available search fields:");
          Iterator<FormField> fields = searchForm.getFields();
          while (fields.hasNext()) {
@@ -79,7 +79,7 @@ public class CheckEmail {
          answerForm.setAnswer("search", email);
          answerForm.setAnswer("Email", true);
          
-         ReportedData data = search.getSearchResults(answerForm, "search." + "cuopencomm");
+         ReportedData data = search.getSearchResults(answerForm, "search." + "opencomm");
          
          System.out.println("\nColumns that are included as part of the search results:");
          Iterator<Column> columns = data.getColumns();
@@ -116,6 +116,126 @@ public class CheckEmail {
          System.out.println("Caught Exception :"+ex.getMessage());
          return jid;
       }
+   }
+   
+   public static boolean emailAlreadyExists(String email) {
+	   try {
+	    	 System.out.println("emailAlreadyExists method executed");
+	    	 ConnectionConfiguration config = new ConnectionConfiguration(DOMAIN,PORT);
+	    	 config.setSASLAuthenticationEnabled(true);
+	         XMPPConnection con = new XMPPConnection(config);
+	         con.connect();
+	         System.out.println("Connection ok");
+	         con.loginAnonymously();
+	         System.out.println("Logged in");
+	         UserSearchManager search = new UserSearchManager(con);
+	         System.out.println("User Search created");
+	         Collection<?> services = search.getSearchServices();
+	         System.out.println("Search Services found:");
+	         Iterator<?> it = services.iterator();
+	         while(it.hasNext()){
+	        	 System.out.println(it.next());
+	         }
+	         Form searchForm = search.getSearchForm("search." + "opencomm");
+	         System.out.println("Available search fields:");
+	         Iterator<FormField> fields = searchForm.getFields();
+	         while (fields.hasNext()) {
+	            FormField field = fields.next();
+	            System.out.println(field.getVariable() + " : " + field.getType());
+	         }
+	         
+	         Form answerForm = searchForm.createAnswerForm();
+	         answerForm.setAnswer("search", email);
+	         answerForm.setAnswer("Email", true);
+	         
+	         ReportedData data = search.getSearchResults(answerForm, "search." + "opencomm");
+	         
+	         System.out.println("\nColumns that are included as part of the search results:");
+	         Iterator<Column> columns = data.getColumns();
+	         while (columns.hasNext()) {
+	            System.out.println(columns.next().getVariable());
+	         }
+	         
+	         System.out.println("\nThe emails from our each of our hits:");
+	         Iterator<Row> rows = data.getRows();
+	         while (rows.hasNext()) {
+	            Row row = rows.next();
+	            
+	            Iterator<String> emails = row.getValues("email");
+	            String emailFound = null;
+	            
+	            while (emails.hasNext()) {
+	               emailFound = emails.next();
+	               System.out.println(emailFound);
+	               if(emailFound.equalsIgnoreCase(email)){
+	            	  return true;
+	               } 
+	            } 
+	         }
+	   } catch (Exception ex) {
+	         System.out.println("Caught Exception :"+ex.getMessage());
+	   }
+	   return false;
+   }
+   
+   public static boolean jidAlreadyExists(String jid) {
+	   try {
+	    	 System.out.println("jidAlreadyExists method executed");
+	    	 ConnectionConfiguration config = new ConnectionConfiguration(DOMAIN,PORT);
+	    	 config.setSASLAuthenticationEnabled(true);
+	         XMPPConnection con = new XMPPConnection(config);
+	         con.connect();
+	         System.out.println("Connection ok");
+	         con.loginAnonymously();
+	         System.out.println("Logged in");
+	         UserSearchManager search = new UserSearchManager(con);
+	         System.out.println("User Search created");
+	         Collection<?> services = search.getSearchServices();
+	         System.out.println("Search Services found:");
+	         Iterator<?> it = services.iterator();
+	         while(it.hasNext()){
+	        	 System.out.println(it.next());
+	         }
+	         Form searchForm = search.getSearchForm("search." + "opencomm");
+	         System.out.println("Available search fields:");
+	         Iterator<FormField> fields = searchForm.getFields();
+	         while (fields.hasNext()) {
+	            FormField field = fields.next();
+	            System.out.println(field.getVariable() + " : " + field.getType());
+	         }
+	         
+	         Form answerForm = searchForm.createAnswerForm();
+	         answerForm.setAnswer("search", jid);
+	         answerForm.setAnswer("Username", true);
+	         
+	         ReportedData data = search.getSearchResults(answerForm, "search." + "opencomm");
+	         
+	         System.out.println("\nColumns that are included as part of the search results:");
+	         Iterator<Column> columns = data.getColumns();
+	         while (columns.hasNext()) {
+	            System.out.println(columns.next().getVariable());
+	         }
+	         
+	         System.out.println("\nThe jids from our each of our hits:");
+	         Iterator<Row> rows = data.getRows();
+	         while (rows.hasNext()) {
+	            Row row = rows.next();
+	            
+	            Iterator<String> jids = row.getValues("jid");
+	            String jidFound = null;
+	            
+	            while (jids.hasNext()) {
+	               jidFound = jids.next();
+	               System.out.println(jidFound);
+	               if(jidFound.equalsIgnoreCase(jid)){
+	            	   return true;
+	               } 
+	            } 
+	         }
+	   } catch (Exception ex) {
+	         System.out.println("Caught Exception :"+ex.getMessage());
+	   }
+	   return false;
    }
    
    private static void configure(ProviderManager pm) {

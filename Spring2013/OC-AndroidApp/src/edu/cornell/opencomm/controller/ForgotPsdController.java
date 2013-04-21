@@ -21,7 +21,7 @@ public class ForgotPsdController {
 		String response = "-1";
 		String jid = CheckEmail.getJid(email);
 		if (jid != "0"){
-			response = HttpRequest.getResponse(jid, email);
+			response = HttpRequest.forgotPassword(jid, email);
 			System.out.println(response);
 		}
 		//TO DO (Front-end) :

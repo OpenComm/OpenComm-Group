@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
+import edu.cornell.opencomm.manager.UserManager;
+import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.util.Util;
 import edu.cornell.opencomm.view.CreateAccountView;
 import edu.cornell.opencomm.view.DashboardView;
+import edu.cornell.opencomm.view.LoginView;
 
 /**
  * Author: Scarlet Yang (back-end) last edit: 3/25
@@ -21,13 +24,13 @@ public class CreateAccountController {
 	 * The View
 	 */
 	private CreateAccountView createAccountView;
+	
 	/**
 	 * The constructor
 	 * 
 	 * @param view
 	 */
 	public CreateAccountController(CreateAccountView view) {
-		new AccountController();
 		this.createAccountView = view;
 	}
 
@@ -78,37 +81,43 @@ public class CreateAccountController {
 		} else {
 			String[] userInfo = {username, fName, lName, email, title, pwd};
 			new CreateUser().execute(userInfo);
-			Intent click = new Intent(this.createAccountView, DashboardView.class);
-			this.createAccountView.startActivity(click);
 		}
 	}
 	
 	/** Creates user based on given inputs
 	 * TODO [backend] what error results are outputted for each case (creation fail, already 
 	 * registered emails, etc) */
-	private class CreateUser extends
-			AsyncTask<String, Void, Boolean> {
+	private class CreateUser extends AsyncTask<String, Void, Boolean> {
+		
 
-		// TODO send the request to the server to create a new user
-		// see if you can or should reuse UserManager
 		@Override
 		protected Boolean doInBackground(String... params) {
-			Log.v("SIGNUP2", params[0]);
-			Log.v("SIGNUP2", params[1]);
-			Log.v("SIGNUP2", params[2]);
-			Log.v("SIGNUP2", params[3]);
-			Log.v("SIGNUP2", params[4]);
-			Log.v("SIGNUP2", params[5]);
-			AccountController.createAcccount(params[0], params[1], params[3],
-							params[1], params[2], "0", null, params[4], params[5]);
-			return null;
+			if (CheckEmail.emailAlreadyExists(params[3])) {
+				//Toast.makeText(createAccountView.getApplicationContext(), "Email address already registered with OpenComm", Toast.LENGTH_SHORT).show();
+				return false;
+			}
+			else if (CheckEmail.jidAlreadyExists(params[0])) {
+				//Toast.makeText(createAccountView.getApplicationContext(), "Username already registered with OpenComm", Toast.LENGTH_SHORT).show();
+				return false;
+			}
+			else {
+				return HttpRequest.createAccount(params[0], params[1], params[3],params[1], params[2], "0", null, params[4], params[5]); 
+			}
+							
 		}
 
 		// TODO launch the next activity
 		@Override
 		protected void onPostExecute(Boolean result) {
-			// TODO Auto-generated method stub
-			super.onPostExecute(result);
+			if (result) {
+				Toast.makeText(createAccountView.getApplicationContext(), "Account created successfuly", Toast.LENGTH_SHORT).show();
+				Intent click = new Intent(createAccountView, DashboardView.class);
+				createAccountView.startActivity(click);
+			} else {
+				Toast.makeText(createAccountView.getApplicationContext(), "Error during account creation, please try again", Toast.LENGTH_SHORT).show();
+			}
+			
+			
 		}
 	}
 }
