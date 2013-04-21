@@ -157,11 +157,12 @@ public class NetworkService {
 							public void invitationReceived(Connection conn,
 									String room, String inviter, String reason,
 									String password, Message message) {
+								new Invitation(conn, room, inviter, reason, password, message).accept();
 								if (D)
 									Log.v(TAG, "Invitation received");
-								InvitationsList.getInstance().addInvitation(
+								/*InvitationsList.getInstance().addInvitation(
 										new Invitation(conn, room, inviter,
-												reason, password, message));
+												reason, password, message));*/
 							}
 
 						});
