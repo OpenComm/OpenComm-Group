@@ -13,7 +13,6 @@ import android.graphics.Point;
 import android.util.Log;
 
 import edu.cornell.opencomm.controller.OCParticipantStatusListener;
-import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.network.NetworkService;
 
 public class Conference implements Serializable {
@@ -36,6 +35,12 @@ public class Conference implements Serializable {
 		chat.addParticipantStatusListener(new OCParticipantStatusListener(this));
 	}
 
+	public Conference(MultiUserChat muc) {
+		this.chat = muc;
+		Log.v(TAG, "joined " + chat.getRoom());
+		chat.addParticipantStatusListener(new OCParticipantStatusListener(this));
+	}
+	
 	// API Functions
 
 	public void addPresenceListener() {

@@ -30,7 +30,7 @@ public class Invitation {
 		this.message = message;
 	}
 
-	public MultiUserChat accept() {
+	public Conference accept() {
 		MultiUserChat muc = new MultiUserChat(NetworkService.getInstance()
 				.getConnection(), room);
 		try {
@@ -38,7 +38,7 @@ public class Invitation {
 		} catch (XMPPException e) {
 			System.out.println("Could not join chatroom:" + e);
 		}
-		return muc;
+		return new Conference(muc);
 	}
 
 	public void decline() {
