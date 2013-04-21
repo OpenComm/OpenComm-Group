@@ -35,8 +35,6 @@ public class OCParticipantStatusListener implements ParticipantStatusListener {
 	@Override
 	public void joined(String arg0) {
 		Log.v(TAG, arg0 + " joined the room");
-		Log.v(TAG, "initiating Jingle session");
-		
 	}
 
 	@Override

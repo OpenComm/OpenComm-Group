@@ -44,7 +44,7 @@ public class InvitationsList {
 			}
 		}
 	}
-	
+
 	public static int getNumberNewInvitations() {
 		int i = 0;
 		for (Invitation invitation : invitationsList) {

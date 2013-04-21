@@ -3,6 +3,7 @@ package edu.cornell.opencomm.controller;
 import java.util.ArrayList;
 
 import org.jivesoftware.smackx.Form;
+import org.jivesoftware.smackx.pubsub.FormType;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -43,6 +44,8 @@ public class ConferenceController {
 				+ NetworkService.CONF_SERVICE;
 		try {
 			this.room = new Conference(roomID);
+			this.room.join(UserManager.PRIMARY_USER.getUsername());
+			this.room.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
 			Log.v(TAG, "successfully created room " + this.room.toString());
 		} catch (Exception e) {
 			Log.v(TAG, e.getMessage());
@@ -83,9 +86,10 @@ public class ConferenceController {
 	 * handle the action when back button was clicked
 	 */
 	public void HandleBackButton() {
-		if (D)
+		if (D) {
 			Log.d(TAG, "back button clicked");
-
+			Log.d(TAG, this.view.toString());
+		}
 		// start dashboard view
 		Intent account = new Intent(this.view, DashboardView.class);
 		this.view.startActivity(account);
