@@ -39,9 +39,10 @@ import android.util.Log;
 import java.util.Collection;
 import java.util.Iterator;
 
-public abstract class CheckEmail {
+public abstract class SearchService {
    private static String DOMAIN = "cuopencomm.no-ip.org";
    private static int PORT = 5222;
+   private static final String TAG = SearchService.class.getSimpleName();
    
    static {
 	   configure(ProviderManager.getInstance());
@@ -51,28 +52,28 @@ public abstract class CheckEmail {
    public static String getJid(String email) {
 	  String jid = "0";
       try {
-    	 System.out.println("getJid method executed");
+    	 Log.v(TAG, "getJid method executed");
     	 ConnectionConfiguration config = new ConnectionConfiguration(DOMAIN,PORT);
     	 config.setSASLAuthenticationEnabled(true);
          XMPPConnection con = new XMPPConnection(config);
          con.connect();
-         System.out.println("Connection ok");
+         Log.v(TAG, "Connection ok");
          con.loginAnonymously();
-         System.out.println("Logged in");
+         Log.v(TAG, "Logged in");
          UserSearchManager search = new UserSearchManager(con);
-         System.out.println("User Search created");
+         Log.v(TAG, "User Search created");
          Collection<?> services = search.getSearchServices();
-         System.out.println("Search Services found:");
+         Log.v(TAG, "Search Services found:");
          Iterator<?> it = services.iterator();
          while(it.hasNext()){
-        	 System.out.println(it.next());
+        	 Log.v(TAG, it.next().toString());
          }
          Form searchForm = search.getSearchForm("search." + "opencomm");
-         System.out.println("Available search fields:");
+         Log.v(TAG, "Available search fields:");
          Iterator<FormField> fields = searchForm.getFields();
          while (fields.hasNext()) {
             FormField field = fields.next();
-            System.out.println(field.getVariable() + " : " + field.getType());
+            Log.v(TAG, field.getVariable() + " : " + field.getType());
          }
          
          Form answerForm = searchForm.createAnswerForm();
@@ -81,13 +82,13 @@ public abstract class CheckEmail {
          
          ReportedData data = search.getSearchResults(answerForm, "search." + "opencomm");
          
-         System.out.println("\nColumns that are included as part of the search results:");
+         Log.v(TAG, "\nColumns that are included as part of the search results:");
          Iterator<Column> columns = data.getColumns();
          while (columns.hasNext()) {
-            System.out.println(columns.next().getVariable());
+            Log.v(TAG, columns.next().getVariable());
          }
          
-         System.out.println("\nThe jids and emails from our each of our hits:");
+         Log.v(TAG, "\nThe jids and emails from our each of our hits:");
          Iterator<Row> rows = data.getRows();
          while (rows.hasNext()) {
             Row row = rows.next();
@@ -100,48 +101,48 @@ public abstract class CheckEmail {
             while (emails.hasNext() && jids.hasNext()) {
                jidFound = jids.next();
                emailFound = emails.next();
-               System.out.println(jidFound);
-               System.out.println(emailFound);
+               Log.v(TAG, jidFound);
+               Log.v(TAG, emailFound);
                if(emailFound.equalsIgnoreCase(email)){
             	   jid = jidFound;
             	   String[] jidCleaned = jid.split("@");
             	   jid = jidCleaned[0];
-            	   System.out.println(jid);
+            	   Log.v(TAG, jid);
                } 
             } 
          }
          con.disconnect();
          return jid;
       } catch (Exception ex) {
-         System.out.println("Caught Exception :"+ex.getMessage());
+         Log.v(TAG, "Caught Exception :"+ex.getMessage());
          return jid;
       }
    }
    
    public static boolean emailAlreadyExists(String email) {
 	   try {
-	    	 System.out.println("emailAlreadyExists method executed");
+	    	 Log.v(TAG, "emailAlreadyExists method executed");
 	    	 ConnectionConfiguration config = new ConnectionConfiguration(DOMAIN,PORT);
 	    	 config.setSASLAuthenticationEnabled(true);
 	         XMPPConnection con = new XMPPConnection(config);
 	         con.connect();
-	         System.out.println("Connection ok");
+	         Log.v(TAG, "Connection ok");
 	         con.loginAnonymously();
-	         System.out.println("Logged in");
+	         Log.v(TAG, "Logged in");
 	         UserSearchManager search = new UserSearchManager(con);
-	         System.out.println("User Search created");
+	         Log.v(TAG, "User Search created");
 	         Collection<?> services = search.getSearchServices();
-	         System.out.println("Search Services found:");
+	         Log.v(TAG, "Search Services found:");
 	         Iterator<?> it = services.iterator();
 	         while(it.hasNext()){
-	        	 System.out.println(it.next());
+	        	 Log.v(TAG, it.next().toString());
 	         }
 	         Form searchForm = search.getSearchForm("search." + "opencomm");
-	         System.out.println("Available search fields:");
+	         Log.v(TAG, "Available search fields:");
 	         Iterator<FormField> fields = searchForm.getFields();
 	         while (fields.hasNext()) {
 	            FormField field = fields.next();
-	            System.out.println(field.getVariable() + " : " + field.getType());
+	            Log.v(TAG, field.getVariable() + " : " + field.getType());
 	         }
 	         
 	         Form answerForm = searchForm.createAnswerForm();
@@ -150,13 +151,13 @@ public abstract class CheckEmail {
 	         
 	         ReportedData data = search.getSearchResults(answerForm, "search." + "opencomm");
 	         
-	         System.out.println("\nColumns that are included as part of the search results:");
+	         Log.v(TAG, "\nColumns that are included as part of the search results:");
 	         Iterator<Column> columns = data.getColumns();
 	         while (columns.hasNext()) {
-	            System.out.println(columns.next().getVariable());
+	            Log.v(TAG, columns.next().getVariable());
 	         }
 	         
-	         System.out.println("\nThe emails from our each of our hits:");
+	         Log.v(TAG, "\nThe emails from our each of our hits:");
 	         Iterator<Row> rows = data.getRows();
 	         while (rows.hasNext()) {
 	            Row row = rows.next();
@@ -166,42 +167,42 @@ public abstract class CheckEmail {
 	            
 	            while (emails.hasNext()) {
 	               emailFound = emails.next();
-	               System.out.println(emailFound);
+	               Log.v(TAG, emailFound);
 	               if(emailFound.equalsIgnoreCase(email)){
 	            	  return true;
 	               } 
 	            } 
 	         }
 	   } catch (Exception ex) {
-	         System.out.println("Caught Exception :"+ex.getMessage());
+	         Log.v(TAG, "Caught Exception :"+ex.getMessage());
 	   }
 	   return false;
    }
    
    public static boolean jidAlreadyExists(String jid) {
 	   try {
-	    	 System.out.println("jidAlreadyExists method executed");
+	    	 Log.v(TAG, "jidAlreadyExists method executed");
 	    	 ConnectionConfiguration config = new ConnectionConfiguration(DOMAIN,PORT);
 	    	 config.setSASLAuthenticationEnabled(true);
 	         XMPPConnection con = new XMPPConnection(config);
 	         con.connect();
-	         System.out.println("Connection ok");
+	         Log.v(TAG, "Connection ok");
 	         con.loginAnonymously();
-	         System.out.println("Logged in");
+	         Log.v(TAG, "Logged in");
 	         UserSearchManager search = new UserSearchManager(con);
-	         System.out.println("User Search created");
+	         Log.v(TAG, "User Search created");
 	         Collection<?> services = search.getSearchServices();
-	         System.out.println("Search Services found:");
+	         Log.v(TAG, "Search Services found:");
 	         Iterator<?> it = services.iterator();
 	         while(it.hasNext()){
-	        	 System.out.println(it.next());
+	        	 Log.v(TAG, it.next().toString());
 	         }
 	         Form searchForm = search.getSearchForm("search." + "opencomm");
-	         System.out.println("Available search fields:");
+	         Log.v(TAG, "Available search fields:");
 	         Iterator<FormField> fields = searchForm.getFields();
 	         while (fields.hasNext()) {
 	            FormField field = fields.next();
-	            System.out.println(field.getVariable() + " : " + field.getType());
+	            Log.v(TAG, field.getVariable() + " : " + field.getType());
 	         }
 	         
 	         Form answerForm = searchForm.createAnswerForm();
@@ -210,13 +211,13 @@ public abstract class CheckEmail {
 	         
 	         ReportedData data = search.getSearchResults(answerForm, "search." + "opencomm");
 	         
-	         System.out.println("\nColumns that are included as part of the search results:");
+	         Log.v(TAG, "\nColumns that are included as part of the search results:");
 	         Iterator<Column> columns = data.getColumns();
 	         while (columns.hasNext()) {
-	            System.out.println(columns.next().getVariable());
+	            Log.v(TAG, columns.next().getVariable());
 	         }
 	         
-	         System.out.println("\nThe jids from our each of our hits:");
+	         Log.v(TAG, "\nThe jids from our each of our hits:");
 	         Iterator<Row> rows = data.getRows();
 	         while (rows.hasNext()) {
 	            Row row = rows.next();
@@ -226,14 +227,14 @@ public abstract class CheckEmail {
 	            
 	            while (jids.hasNext()) {
 	               jidFound = jids.next();
-	               System.out.println(jidFound);
+	               Log.v(TAG, jidFound);
 	               if(jidFound.equalsIgnoreCase(jid)){
 	            	   return true;
 	               } 
 	            } 
 	         }
 	   } catch (Exception ex) {
-	         System.out.println("Caught Exception :"+ex.getMessage());
+	         Log.v(TAG, "Caught Exception :"+ex.getMessage());
 	   }
 	   return false;
    }
