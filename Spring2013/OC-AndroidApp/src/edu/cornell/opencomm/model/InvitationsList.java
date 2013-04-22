@@ -9,16 +9,15 @@ public class InvitationsList {
 	private static ArrayList<Invitation> invitationsList = new ArrayList<Invitation>();
 
 	/**
-	 * Constructeur de l'objet.
+	 * Object constructor
 	 */
 	private InvitationsList() {
 		super();
 	}
 
 	/**
-	 * MŽthode permettant de renvoyer une instance de la classe Singleton
-	 * 
-	 * @return Retourne l'instance du singleton.
+	 * Method allowing to return an instance of the InvitationsList class
+	 * @return Returns instance of InvitationsList
 	 */
 	public final static InvitationsList getInstance() {
 

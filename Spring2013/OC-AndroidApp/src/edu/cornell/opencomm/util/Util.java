@@ -4,9 +4,7 @@ import java.util.regex.Pattern;
 
 /**
  * Utility class Issues [TODO] - For any other issues search for string "TODO"
- * 
  * @author Ankit Singh
- * 
  */
 public class Util {
 	// TODO create the values class
@@ -20,8 +18,7 @@ public class Util {
 	/**
 	 * Pattern for validating name
 	 */
-	public final static Pattern NAME_PATTERN_SAVE = Pattern
-			.compile("^[a-zA-Z]+(\\s[a-zA-Z]+)?$");
+	public final static Pattern NAME_PATTERN_SAVE = Pattern.compile("^[a-zA-Z]+ [a-zA-Z]+$");
 
 	/**
 	 * Pattern for validating Password

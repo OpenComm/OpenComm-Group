@@ -20,14 +20,39 @@ import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
 
 import android.util.Log;
+/**
+* @author Antoine Chkaiban
+* Class to implement Account Management:
+* Reset Password and Create Account are done through http request with webservice
+* All other services are handled with AccountManager
+*/
  
-public abstract class EnhancedAccountManager extends AccountManager {
+public class EnhancedAccountManager extends AccountManager {
 	
-	/*
-	 * Public Constructor to match parent Class requirements
+	private static volatile EnhancedAccountManager instance = null;
+	
+	/**
+	 * Object constructor
 	 */
-	public EnhancedAccountManager(Connection connection) {
+	private EnhancedAccountManager(Connection connection) {
 		super(connection);
+	}
+
+	/**
+	 * Method allowing to return an instance of the InvitationsList class
+	 * @return Returns instance of InvitationsList
+	 */
+	public final static EnhancedAccountManager getInstance() {
+
+		if (EnhancedAccountManager.instance == null) {
+
+			synchronized (EnhancedAccountManager.class) {
+				if (EnhancedAccountManager.instance == null) {
+					EnhancedAccountManager.instance = new EnhancedAccountManager(NetworkService.getInstance().getConnection());
+				}
+			}
+		}
+		return EnhancedAccountManager.instance;
 	}
 
 	private static final String TAG = EnhancedAccountManager.class.getSimpleName();
