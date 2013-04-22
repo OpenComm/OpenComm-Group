@@ -24,7 +24,7 @@ import android.util.Log;
 * @author Antoine Chkaiban
 * Class to implement Account Management:
 * Reset Password and Create Account are done through http request with webservice
-* All other services are handled with AccountManager
+* Updating password, contact photo, telephone number, handled with AccountManager
 */
  
 public class EnhancedAccountManager extends AccountManager {
@@ -192,22 +192,6 @@ public class EnhancedAccountManager extends AccountManager {
 
 		} catch (Exception e) {
 			Log.v(TAG, "server cannot delete user");
-		}
-	}
-
-	public static void disableUser(String username) {
-		try {
-
-		} catch (Exception e) {
-			Log.v(TAG, "server cannot disable user");
-		}
-	}
-
-	public static void enableUser(String username) {
-		try {
-
-		} catch (Exception e) {
-			Log.v(TAG, "server cannot enable user");
 		}
 	}
 	
