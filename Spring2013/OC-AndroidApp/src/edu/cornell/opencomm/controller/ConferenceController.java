@@ -27,9 +27,9 @@ public class ConferenceController {
 	private static ConferenceController _instance;
 	private ArrayList<User> confUserList = this.createExampleUsers();
 
-	public static ConferenceController getInstance() {
+	public static ConferenceController getInstance(ConferenceView view) {
 		if (_instance == null) {
-			_instance = new ConferenceController();
+			_instance = new ConferenceController(view);
 		}
 		return _instance;
 	}
@@ -38,8 +38,8 @@ public class ConferenceController {
 		return room;
 	}
 
-	private ConferenceController() {
-		this.view = ConferenceView.getInstance();
+	private ConferenceController(ConferenceView view) {
+		this.view = view;
 		String roomID = NetworkService.generateRoomID()
 				+ NetworkService.CONF_SERVICE;
 		try {

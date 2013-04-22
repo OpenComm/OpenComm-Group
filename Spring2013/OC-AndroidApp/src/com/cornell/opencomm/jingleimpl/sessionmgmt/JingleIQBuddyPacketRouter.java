@@ -105,7 +105,7 @@ public class JingleIQBuddyPacketRouter {
 						Log.i(JingleIQBuddyPacketRouter.TAG,
 								"From: " + iq.getFrom() + "To: " + iq.getTo());
 						String fromJID = iq.getFrom().split("/")[0];
-						ConferenceController.getInstance();
+						//ConferenceController.getInstance();
 						// Integrated 4/20/13 by kpk47
 						if (JingleController.getUsernameToJingleController()
 								.containsKey(fromJID)) {
