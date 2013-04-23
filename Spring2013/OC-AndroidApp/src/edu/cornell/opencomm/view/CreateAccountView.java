@@ -102,7 +102,14 @@ public class CreateAccountView extends Activity {
 			Toast.makeText(getApplicationContext(), errorText.toString(), Toast.LENGTH_SHORT).show();
 		} else {
 			String[] firstLastName = name.split(" ");
-			this.controller.handleSave(firstLastName[0], firstLastName[0], emailInput.getText().toString(), usernameInput.getText().toString(), pwdInput.getText().toString());
+			String lastName = "";
+			for (int i = 1; i < firstLastName.length; i++) {
+				lastName += firstLastName[i];
+				if (i != firstLastName.length - 1) {
+					lastName += " ";
+				}
+			}
+			this.controller.handleSave(firstLastName[0], lastName, emailInput.getText().toString(), usernameInput.getText().toString(), pwdInput.getText().toString());
 		}
 	}
 

@@ -18,7 +18,7 @@ public class Util {
 	/**
 	 * Pattern for validating name
 	 */
-	public final static Pattern NAME_PATTERN_SAVE = Pattern.compile("^[a-zA-Z]+ [a-zA-Z]+$");
+	public final static Pattern NAME_PATTERN_SAVE = Pattern.compile("^[a-zA-Z]+( [a-zA-Z]+)+$");
 
 	/**
 	 * Pattern for validating Password

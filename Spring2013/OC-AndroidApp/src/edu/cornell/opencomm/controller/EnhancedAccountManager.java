@@ -1,6 +1,7 @@
 package edu.cornell.opencomm.controller;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -96,7 +97,7 @@ public class EnhancedAccountManager extends AccountManager {
 		 */
 		
 		String reponse = null;
-		HttpGet httpget = new HttpGet("http://cuopencomm.no-ip.org/createAccount.php?jid="+username+"&email="+email+"&password="+password);
+		HttpGet httpget = new HttpGet("http://cuopencomm.no-ip.org/createAccount.php?jid="+username+"&email="+email+"&password="+password+"&name="+URLEncoder.encode(firstName+" "+lastName));
 		ResponseHandler<String> gestionnaire_reponse = new BasicResponseHandler();
 		
 		try {
