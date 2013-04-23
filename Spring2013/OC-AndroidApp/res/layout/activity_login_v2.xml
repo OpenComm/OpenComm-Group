@@ -79,16 +79,18 @@
         android:scaleType="fitXY"
         android:visibility="invisible"
          />
-
-    <ImageView
+    
+    <TextView
         android:id="@+id/forgot_pwd"
-        android:layout_width="130dp"
-        android:layout_height="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/btn_signin"
         android:layout_centerInParent="true"
         android:layout_marginTop="5dp"
         android:scaleType="fitXY"
-        android:src="@drawable/forgot_password_graphic"
+        android:text="@string/forgot_password"
+        android:textSize="13sp"
+        android:textColor = "@color/grey_eleven"
         android:onClick = "forgot"
          />
     
