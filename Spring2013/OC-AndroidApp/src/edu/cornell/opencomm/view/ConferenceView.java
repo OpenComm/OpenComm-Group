@@ -162,12 +162,16 @@ public final class ConferenceView extends FragmentActivity implements
 		ConferenceController.getInstance(this).HandleAddPerson(
 				"oc4testorg@opencomm");
 	}
-
-	// triggered when overflow button was pressed (on confernece_v2)
-	public void overflowButtonClicked(View v) {
-		conferenceController.HandleOverflow();
+	
+	// triggered when leave button was pressed (on confernece_v2)
+	public void leaveButtonClicked(View v) {
+			conferenceController.HandleLeave();
 	}
 
+	// triggered when setting button was pressed (on confernece_v2)
+	public void settingButtonClicked(View v) {
+		conferenceController.HandleSetting();
+	}
 	// triggered when back button was pressed (on confernece_v2)
 	public void backButtonClicked(View v) {
 		//conferenceController.HandleBackButton();

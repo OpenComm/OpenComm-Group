@@ -73,12 +73,23 @@ public class ConferenceController {
 		room.invite(username, "let's chat");
 	}
 
+
+	
 	/**
-	 * handle the action when overflow button was clicked
+	 * handle the action when leave button was clicked
 	 */
-	public void HandleOverflow() {
+	public void HandleLeave() {
 		if (D)
-			Log.d(TAG, "Overflow button clicked");
+			Log.d(TAG, "Leave button clicked");
+		// TODO: add "Handle overflow" functions here
+	}
+	
+	/**
+	 * handle the action when setting button was clicked
+	 */
+	public void HandleSetting() {
+		if (D)
+			Log.d(TAG, "Setting button clicked");
 		// TODO: add "Handle overflow" functions here
 	}
 
