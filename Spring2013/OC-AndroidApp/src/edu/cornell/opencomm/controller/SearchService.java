@@ -12,6 +12,7 @@ import edu.cornell.opencomm.network.NetworkService;
 
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -190,28 +191,123 @@ public abstract class SearchService {
    /**
     * @param String - the jid of the user we are looking for
     * @return String [] - A list of jids of users that match that jid
+    * Only call this method when authenticated.
     */
-   public static VCard [] searchByJid(String jid) {
-	   VCard [] results = {};
-	   
+   public static ArrayList<VCard> searchByJid(String jid) {
+	   ArrayList<VCard> results = new ArrayList<VCard>();
+	   try {
+	    	 Log.v(TAG, "jidAlreadyExists method executed");
+	    	 //Login anonymously and create search manager
+	    	 NetworkService.getInstance().getConnection().loginAnonymously();
+	         UserSearchManager search = new UserSearchManager(NetworkService.getInstance().getConnection());
+	         //Create search form
+	         Form searchForm = search.getSearchForm("search." + "opencomm");
+	         //create answer form
+	         Form answerForm = searchForm.createAnswerForm();
+	         answerForm.setAnswer("search", jid);
+	         answerForm.setAnswer("Username", true);
+	         //get search results
+	         ReportedData data = search.getSearchResults(answerForm, "search." + "opencomm");
+	         //Close the connection
+	         NetworkService.getInstance().getConnection().disconnect();
+	         //Hits:
+	         Iterator<Row> rows = data.getRows();
+	         while (rows.hasNext()) {
+	            Row row = rows.next();
+	            @SuppressWarnings("unchecked")
+				Iterator<String> jids = row.getValues("jid");
+	            while (jids.hasNext()) {
+	            	String jidFound = jids.next();
+	            	VCard vCard = new VCard();
+	            	vCard.load(NetworkService.getInstance().getConnection(), jidFound);
+	            	results.add(vCard);
+	            } 
+	         }
+	   } catch (Exception ex) {
+	         Log.v(TAG, "Caught Exception :"+ex.getMessage());
+	   }
 	   return results;
    }
    
    /**
     * @param String - the email of the user we are looking for
     * @return String [] - A list of jids of users that match that email
+    * Only call this method when authenticated.
     */
-   public static VCard [] searchByEmail(String email) {
-	   VCard [] results = {};
+   public static ArrayList<VCard> searchByEmail(String email) {
+	   ArrayList<VCard> results = new ArrayList<VCard>();
+	   try {
+	    	 Log.v(TAG, "jidAlreadyExists method executed");
+	    	 //Login anonymously and create search manager
+	    	 NetworkService.getInstance().getConnection().loginAnonymously();
+	         UserSearchManager search = new UserSearchManager(NetworkService.getInstance().getConnection());
+	         //Create search form
+	         Form searchForm = search.getSearchForm("search." + "opencomm");
+	         //create answer form
+	         Form answerForm = searchForm.createAnswerForm();
+	         answerForm.setAnswer("search", email);
+	         answerForm.setAnswer("Email", true);
+	         //get search results
+	         ReportedData data = search.getSearchResults(answerForm, "search." + "opencomm");
+	         //Close the connection
+	         NetworkService.getInstance().getConnection().disconnect();
+	         //Hits:
+	         Iterator<Row> rows = data.getRows();
+	         while (rows.hasNext()) {
+	            Row row = rows.next();
+	            @SuppressWarnings("unchecked")
+				Iterator<String> jids = row.getValues("jid");
+	            while (jids.hasNext()) {
+	            	String jidFound = jids.next();
+	            	VCard vCard = new VCard();
+	            	vCard.load(NetworkService.getInstance().getConnection(), jidFound);
+	            	results.add(vCard);
+	            } 
+	         }
+	   } catch (Exception ex) {
+	         Log.v(TAG, "Caught Exception :"+ex.getMessage());
+	   }
 	   return results;
    }
    
    /**
     * @param String - the name of the user we are looking for
     * @return String [] - A list of jids of users that match that name
+    * Only call this method when authenticated.
     */
-   public static VCard [] searchByName(String name) {
-	   VCard [] results = {};
+   public static ArrayList<VCard> searchByName(String name) {
+	   ArrayList<VCard> results = new ArrayList<VCard>();
+	   try {
+	    	 Log.v(TAG, "jidAlreadyExists method executed");
+	    	 //Login anonymously and create search manager
+	    	 NetworkService.getInstance().getConnection().loginAnonymously();
+	         UserSearchManager search = new UserSearchManager(NetworkService.getInstance().getConnection());
+	         //Create search form
+	         Form searchForm = search.getSearchForm("search." + "opencomm");
+	         //create answer form
+	         Form answerForm = searchForm.createAnswerForm();
+	         answerForm.setAnswer("search", name);
+	         answerForm.setAnswer("Name", true);
+	         //get search results
+	         ReportedData data = search.getSearchResults(answerForm, "search." + "opencomm");
+	         //Close the connection
+	         NetworkService.getInstance().getConnection().disconnect();
+	         //Hits:
+	         Iterator<Row> rows = data.getRows();
+	         while (rows.hasNext()) {
+	            Row row = rows.next();
+	            @SuppressWarnings("unchecked")
+				Iterator<String> jids = row.getValues("jid");
+	            while (jids.hasNext()) {
+	            	String jidFound = jids.next();
+	            	VCard vCard = new VCard();
+	            	vCard.load(NetworkService.getInstance().getConnection(), jidFound);
+	            	results.add(vCard);
+	            } 
+	         }
+	   } catch (Exception ex) {
+	         Log.v(TAG, "Caught Exception :"+ex.getMessage());
+	   }
 	   return results;
    }
 }

@@ -20,13 +20,13 @@ import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
 
 import android.util.Log;
+
 /**
 * @author Antoine Chkaiban
-* Class to implement Account Management:
+* Singleton class to implement Account Management:
 * Reset Password and Create Account are done through http request with webservice
 * Updating password, contact photo, telephone number, handled with AccountManager
 */
- 
 public class EnhancedAccountManager extends AccountManager {
 	
 	private static volatile EnhancedAccountManager instance = null;
@@ -56,9 +56,12 @@ public class EnhancedAccountManager extends AccountManager {
 	}
 
 	private static final String TAG = EnhancedAccountManager.class.getSimpleName();
-	private static VCard vCard;
 	private static HttpClient httpClient;
 	
+	/**
+	* @param String jid, String email - the email address and jid of the user whom password must be reset and sent to
+	* @return ResetPasswordReturnState - look up Enum in model package
+	**/
 	public static ResetPasswordReturnState resetPassword(String jid, String email){
 		
 		String reponse = null;
@@ -81,6 +84,11 @@ public class EnhancedAccountManager extends AccountManager {
 		return ResetPasswordReturnState.SERVER_ERROR;
 	}
 	
+	/**
+	* @param String username, String email, String firstName, string lastName, String password
+	* of the user we wish to add to the server and create VCard
+	* @return CreateAccountReturnState - look up Enum in model package
+	**/
 	public static CreateAccountReturnState createAccount(String username, String email, String firstName, String lastName, String password) {
 		/*
 		 * In Case more attributes need to be stored in the VCard:
@@ -109,10 +117,10 @@ public class EnhancedAccountManager extends AccountManager {
 		
 		if (reponse.equals("1")) {
 			UserManager.PRIMARY_USER = new User(username, firstName + " " + lastName, 0);
-			vCard = new VCard();
+			VCard vCard = new VCard();
 			vCard.setFirstName(firstName);
 			vCard.setLastName(lastName);
-			vCard.setEmailHome(email);
+			//vCard.setEmailHome(email);
 			vCard.setJabberId(username);
 			vCard.setNickName(firstName + " " + lastName);
 			try {
@@ -128,68 +136,97 @@ public class EnhancedAccountManager extends AccountManager {
 		
 	}
 	
+	/**
+	 * @param String - the user's new nickname
+	 * only call this method when authenticated
+	 */
 	public static void changeNickname(String nickname) {
 		if (UserManager.PRIMARY_USER != null) {
+			VCard vCard = new VCard();
 			try {
 				vCard.load(NetworkService.getInstance().getConnection(), UserManager.PRIMARY_USER.getUsername());
+				vCard.setNickName(nickname);
+				vCard.save(NetworkService.getInstance().getConnection());
 			} catch (XMPPException e) {
-				Log.v(TAG, "error getting primary user's VCard");
+				Log.v(TAG, "error in updating nickname");
 			}
 		}
-		 vCard.setNickName(nickname);
-		 try {
-			 vCard.save(NetworkService.getInstance().getConnection());
-		 } catch (XMPPException e) {
-			 Log.v(TAG, "error in updating nickname");
+	}
+
+	/**
+	 * @param String - the user's new phone number
+	 * only call this method when authenticated
+	 */
+	public void changePhoneNumber(String number) {
+		
+		if (UserManager.PRIMARY_USER != null) {
+			VCard vCard = new VCard();
+			try {
+				vCard.load(NetworkService.getInstance().getConnection(), UserManager.PRIMARY_USER.getUsername());
+				vCard.setPhoneHome("VOICE", number);
+				vCard.save(NetworkService.getInstance().getConnection());
+			} catch (XMPPException e) {
+				Log.v(TAG, "error in updating phone number");
+			}
+		}
+	}
+
+//	/**
+//	 * @param String - the user's new nickname
+//	 * only call this method when authenticated
+//	 */
+//	public static void changeEmail(String email) {
+//		/*
+//		 * vCard.setEmailHome(email); try {
+//		 * vCard.save(NetworkService.getInstance().getConnection()); } catch
+//		 * (XMPPException e) { Log.v(TAG, "error in updating email"); }
+//		 */
+//		try {
+//
+//		} catch (Exception e) {
+//			Log.v(TAG, "server cannot update email");
+//		}
+//	}
+
+	
+	/**
+	 * @param String - the user's new photo
+	 * only call this method when authenticated
+	 */
+	public void changeImage(byte[] image) {
+		
+		if (UserManager.PRIMARY_USER != null) {
+			VCard vCard = new VCard();
+			try {
+				vCard.load(NetworkService.getInstance().getConnection(), UserManager.PRIMARY_USER.getUsername());
+				vCard.setAvatar(image);
+				vCard.save(NetworkService.getInstance().getConnection());
+			} catch (XMPPException e) {
+				Log.v(TAG, "error in updating image");
+			}
+		}
+	}
+
+	
+	/**
+	 * @param String - the user's new password
+	 * only call this method when authenticated
+	 */
+	public void changePassword(String password) {
+		 try { 
+			 super.changePassword(password);
+		 } catch (XMPPException e) { 
+			 Log.v(TAG, "error changing password");
 		 }
 	}
 
-	public void changePhoneNumber(String number) {
-		vCard.setPhoneHome("VOICE", number);
+	/**
+	 * @param String - the jid of the user we wish to delete
+	 * only call this method when authenticated
+	 */
+	public void deleteAccount() {
 		try {
-			vCard.save(NetworkService.getInstance().getConnection());
-		} catch (XMPPException e) {
-			Log.v(TAG, "error in updating phone number");
-		}
-	}
-
-	public static void changeEmail(String email) {
-		/*
-		 * vCard.setEmailHome(email); try {
-		 * vCard.save(NetworkService.getInstance().getConnection()); } catch
-		 * (XMPPException e) { Log.v(TAG, "error in updating email"); }
-		 */
-		try {
-
-		} catch (Exception e) {
-			Log.v(TAG, "server cannot update email");
-		}
-	}
-
-	public void changeImage(byte[] image) {
-		vCard.setAvatar(image);
-		try {
-			vCard.save(NetworkService.getInstance().getConnection());
-		} catch (XMPPException e) {
-			Log.v(TAG, "error in updating image");
-		}
-	}
-
-	public void changePassword(String password) {
-		/*
-		 * try { accountManager.changePassword(password); } catch (XMPPException
-		 * e) { Log.v(TAG, "error changing password"); }
-		 */
-		try {
-
-		} catch (Exception e) {
-			Log.v(TAG, "server cannot update password");
-		}
-	}
-
-	public static void deleteUser(String username) {
-		try {
-
+			super.deleteAccount();
 		} catch (Exception e) {
 			Log.v(TAG, "server cannot delete user");
 		}
