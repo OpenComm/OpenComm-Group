@@ -68,14 +68,15 @@ public final class ConferenceView extends FragmentActivity implements
 	 * controls on this view
 	 */
 	public TextView txtv_ConfTitle;
-
+/*
 	public static ConferenceView getInstance() {
 		if (_instance == null) {
 			_instance = new ConferenceView();
 		}
 		return _instance;
 	}
-
+*/
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.d(TAG, "onCreate()");
@@ -161,16 +162,21 @@ public final class ConferenceView extends FragmentActivity implements
 		ConferenceController.getInstance(this).HandleAddPerson(
 				"oc4testorg@opencomm");
 	}
-
-	// triggered when overflow button was pressed (on confernece_v2)
-	public void overflowButtonClicked(View v) {
-		conferenceController.HandleOverflow();
+	
+	// triggered when leave button was pressed (on confernece_v2)
+	public void leaveButtonClicked(View v) {
+			conferenceController.HandleLeave();
 	}
 
+	// triggered when setting button was pressed (on confernece_v2)
+	public void settingButtonClicked(View v) {
+		conferenceController.HandleSetting();
+	}
 	// triggered when back button was pressed (on confernece_v2)
 	public void backButtonClicked(View v) {
-		Log.v(TAG, "is conferencecontroller null2? "+(conferenceController==null));
-		conferenceController.HandleBackButton();
+		//conferenceController.HandleBackButton();
+		Intent account = new Intent(this, DashboardView.class);
+		this.startActivity(account);
 	}
 
 	// change the title of the conference ("CONFERENCE NAME" by default)

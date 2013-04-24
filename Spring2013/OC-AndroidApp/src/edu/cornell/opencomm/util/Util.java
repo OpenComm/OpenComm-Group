@@ -4,9 +4,7 @@ import java.util.regex.Pattern;
 
 /**
  * Utility class Issues [TODO] - For any other issues search for string "TODO"
- * 
  * @author Ankit Singh
- * 
  */
 public class Util {
 	// TODO create the values class
@@ -18,16 +16,22 @@ public class Util {
 			.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[.][a-zA-Z]{2,4}$");
 
 	/**
-	 * 
+	 * Pattern for validating name
 	 */
-	public final static Pattern NAME_PATTERN_SAVE = Pattern
-			.compile("[a-zA-Z]+(\\s[a-zA-Z]+)?");
+	public final static Pattern NAME_PATTERN_SAVE = Pattern.compile("^[a-zA-Z]+( [a-zA-Z]+)+$");
 
 	/**
-	 * Password can be minimum 10 maximum 30
+	 * Pattern for validating Password
 	 */
-	public final static Pattern PASSWORD = Pattern.compile(".{10,30}$");
-
+	public final static Pattern PASSWORD = Pattern.compile("^[a-zA-Z0-9]{10,30}$");
+	
+	/**
+	 * Pattern for validating username
+	 */
+	//TO DO: 3 is too short but since oc1 etc allow it for test purposes
+	public final static Pattern USERNAME = Pattern.compile("^[a-zA-Z0-9]{3,30}$");
+	
+	
 	/**
 	 * @param str
 	 * @param pattern

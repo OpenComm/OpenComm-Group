@@ -28,7 +28,7 @@
             android:tint="@color/white" />
 
         <ImageButton
-            android:id="@+id/conference_overflow"
+            android:id="@+id/conference_leave"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -38,7 +38,21 @@
             android:layout_marginTop="8dp"
             android:background="@color/grey_thirtythree"
             android:contentDescription="@string/desc"
-            android:onClick="overflowButtonClicked"
+            android:onClick="leaveButtonClicked"
+            android:scaleType="centerInside"
+            android:src="@drawable/action_overflow" />
+        
+        <ImageButton
+            android:id="@+id/conference_setting"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/conference_leave"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/grey_thirtythree"
+            android:onClick="settingButtonClicked"
             android:scaleType="centerInside"
             android:src="@drawable/action_overflow" />
 
@@ -49,7 +63,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="3dp"
             android:layout_marginRight="12dp"
-            android:layout_toLeftOf="@+id/conference_overflow"
+            android:layout_toLeftOf="@+id/conference_setting"
             android:background="@color/grey_thirtythree"
             android:contentDescription="@string/desc"
             android:onClick="addPersonClicked"
