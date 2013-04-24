@@ -87,9 +87,9 @@ public final class ConferenceView extends FragmentActivity implements
 
 		roomLayout = (ViewGroup) findViewById(R.layout.conference_v2);
 		Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
-		conferenceController = ConferenceController.getInstance();
+		conferenceController = ConferenceController.getInstance(this);
 		context = this;
-
+		Log.v(TAG, "is conferencecontroller null1? "+(conferenceController==null));
 		conferenceModel = conferenceController.getRoom();
 		initPager();
 	}
@@ -158,7 +158,7 @@ public final class ConferenceView extends FragmentActivity implements
 	public void addPersonClicked(View v) {
 		// TODO: get username of person to be added (hardcoded for now)
 		Log.v(TAG, "trying to add oc4testorg@opencomm");
-		ConferenceController.getInstance().HandleAddPerson(
+		ConferenceController.getInstance(this).HandleAddPerson(
 				"oc4testorg@opencomm");
 	}
 
@@ -169,6 +169,7 @@ public final class ConferenceView extends FragmentActivity implements
 
 	// triggered when back button was pressed (on confernece_v2)
 	public void backButtonClicked(View v) {
+		Log.v(TAG, "is conferencecontroller null2? "+(conferenceController==null));
 		conferenceController.HandleBackButton();
 	}
 
