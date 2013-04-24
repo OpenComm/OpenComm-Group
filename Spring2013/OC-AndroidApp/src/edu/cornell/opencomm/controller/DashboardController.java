@@ -1,11 +1,19 @@
 package edu.cornell.opencomm.controller;
 
+import java.util.ArrayList;
+
+import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smackx.packet.VCard;
+
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.model.EnhancedAccountManager;
+import edu.cornell.opencomm.model.SearchService;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ConferenceView;
 import edu.cornell.opencomm.view.DashboardView;
@@ -79,6 +87,28 @@ public class DashboardController {
 		Toast send = Toast.makeText(this.dashboardView.getApplicationContext(),
 				"Contacts Button clicked", duration);
 		send.show();
+		
+//		testing search service
+//		ArrayList<VCard> results = SearchService.searchByEmail("*");
+//		for (VCard vCard : results) {
+//			Log.v("found user:", vCard.getFirstName() + " " + vCard.getLastName());
+//		}
+		
+//		testing getting user
+//		String jid = NetworkService.getInstance().getConnection().getUser();
+//		Log.v("user logged: ", jid);
+//		EnhancedAccountManager.changeName("Antoine Chkaiban");
+//		VCard vCard = new VCard();
+//		try {
+//			vCard.load(NetworkService.getInstance().getConnection());
+//			String name = vCard.getFirstName()+" "+vCard.getLastName();
+//			Log.v("name found: ", name);
+//		} catch (XMPPException e) {
+//			e.printStackTrace();
+//		}
+		
+		
+		
 	}
 
 	/**

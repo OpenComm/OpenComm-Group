@@ -1,4 +1,4 @@
-package edu.cornell.opencomm.controller;
+package edu.cornell.opencomm.model;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -15,9 +15,6 @@ import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.packet.VCard;
 
 import edu.cornell.opencomm.manager.UserManager;
-import edu.cornell.opencomm.model.CreateAccountReturnState;
-import edu.cornell.opencomm.model.ResetPasswordReturnState;
-import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
 
 import android.util.Log;
@@ -105,10 +102,8 @@ public class EnhancedAccountManager extends AccountManager {
 			reponse = httpClient.execute(httpget, gestionnaire_reponse).toString();
 			httpClient.getConnectionManager().shutdown();
 		} catch (ClientProtocolException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} finally {
 			httpClient.getConnectionManager().shutdown();
@@ -121,8 +116,9 @@ public class EnhancedAccountManager extends AccountManager {
 			VCard vCard = new VCard();
 			vCard.setFirstName(firstName);
 			vCard.setLastName(lastName);
-			//vCard.setEmailHome(email);
+			vCard.setEmailHome(email);
 			vCard.setJabberId(username);
+			//Sets Nickname by default to firstName lastName
 			vCard.setNickName(firstName + " " + lastName);
 			try {
 				NetworkService.getInstance().getConnection().login(username, password);
@@ -142,14 +138,82 @@ public class EnhancedAccountManager extends AccountManager {
 	 * only call this method when authenticated
 	 */
 	public static void changeNickname(String nickname) {
-		if (UserManager.PRIMARY_USER != null) {
+		if (NetworkService.getInstance().getConnection().isAuthenticated()) {
+			//change Nickname on VCard
 			VCard vCard = new VCard();
 			try {
-				vCard.load(NetworkService.getInstance().getConnection(), UserManager.PRIMARY_USER.getUsername());
+				vCard.load(NetworkService.getInstance().getConnection());
 				vCard.setNickName(nickname);
 				vCard.save(NetworkService.getInstance().getConnection());
 			} catch (XMPPException e) {
 				Log.v(TAG, "error in updating nickname");
+			}
+		}
+	}
+	
+	/**
+	 * @param String - the user's new nickname
+	 * only call this method when authenticated
+	 */
+	public static void changeName(String name) {
+		//split first and last names
+		String[] firstLastName = name.split(" ");
+		String lastName = "";
+		for (int i = 1; i < firstLastName.length; i++) {
+			lastName += firstLastName[i];
+			if (i != firstLastName.length - 1) {
+				lastName += " ";
+			}
+		}
+		
+		if (NetworkService.getInstance().getConnection().isAuthenticated()) {
+			//get jid
+			String jid = NetworkService.getInstance().getConnection().getUser();
+			jid = jid.split("@")[0];
+			//change Name on Server
+			String reponse = null;
+			HttpGet httpget = new HttpGet("http://cuopencomm.no-ip.org/changeName.php?jid="+jid+"&name="+URLEncoder.encode(name));
+			ResponseHandler<String> gestionnaire_reponse = new BasicResponseHandler();
+			try {
+				httpClient = new DefaultHttpClient();
+				reponse = httpClient.execute(httpget, gestionnaire_reponse).toString();
+				httpClient.getConnectionManager().shutdown();
+			} catch (ClientProtocolException e1) {
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			} finally {
+				httpClient.getConnectionManager().shutdown();
+			}
+			if (reponse.equals("1")) {
+				//change first and last names on VCard
+				VCard vCard = new VCard();
+				try {
+					vCard.load(NetworkService.getInstance().getConnection());
+					vCard.setFirstName(firstLastName[0]);
+					vCard.setLastName(lastName);
+					vCard.save(NetworkService.getInstance().getConnection());
+				} catch (XMPPException e) {
+					Log.v(TAG, "error in updating name on VCard");
+				}
+			}
+		}	
+	}
+	
+	/**
+	 * @param String - the user's new Home Address
+	 * only call this method when authenticated
+	 */
+	public static void changeHomeAddress(String homeAddress) {
+		if (NetworkService.getInstance().getConnection().isAuthenticated()) {
+			//change home address on VCard
+			VCard vCard = new VCard();
+			try {
+				vCard.load(NetworkService.getInstance().getConnection());
+				vCard.setAddressFieldHome("POSTAL", homeAddress);
+				vCard.save(NetworkService.getInstance().getConnection());
+			} catch (XMPPException e) {
+				Log.v(TAG, "error in updating phone number");
 			}
 		}
 	}
@@ -159,11 +223,11 @@ public class EnhancedAccountManager extends AccountManager {
 	 * only call this method when authenticated
 	 */
 	public void changePhoneNumber(String number) {
-		
-		if (UserManager.PRIMARY_USER != null) {
+		if (NetworkService.getInstance().getConnection().isAuthenticated()) {
+			//Change Phone number on VCard
 			VCard vCard = new VCard();
 			try {
-				vCard.load(NetworkService.getInstance().getConnection(), UserManager.PRIMARY_USER.getUsername());
+				vCard.load(NetworkService.getInstance().getConnection());
 				vCard.setPhoneHome("VOICE", number);
 				vCard.save(NetworkService.getInstance().getConnection());
 			} catch (XMPPException e) {
@@ -172,22 +236,43 @@ public class EnhancedAccountManager extends AccountManager {
 		}
 	}
 
-//	/**
-//	 * @param String - the user's new nickname
-//	 * only call this method when authenticated
-//	 */
-//	public static void changeEmail(String email) {
-//		/*
-//		 * vCard.setEmailHome(email); try {
-//		 * vCard.save(NetworkService.getInstance().getConnection()); } catch
-//		 * (XMPPException e) { Log.v(TAG, "error in updating email"); }
-//		 */
-//		try {
-//
-//		} catch (Exception e) {
-//			Log.v(TAG, "server cannot update email");
-//		}
-//	}
+	/**
+	 * @param String - the user's new email
+	 * only call this method when authenticated
+	 */
+	public static void changeEmail(String email) {
+		if (NetworkService.getInstance().getConnection().isAuthenticated()) {
+			//get jid
+			String jid = NetworkService.getInstance().getConnection().getUser();
+			jid = jid.split("@")[0];
+			//change email on server
+			String reponse = null;
+			HttpGet httpget = new HttpGet("http://cuopencomm.no-ip.org/changeEmail.php?jid="+jid+"&email="+email);
+			ResponseHandler<String> gestionnaire_reponse = new BasicResponseHandler();
+			try {
+				httpClient = new DefaultHttpClient();
+				reponse = httpClient.execute(httpget, gestionnaire_reponse).toString();
+				httpClient.getConnectionManager().shutdown();
+			} catch (ClientProtocolException e1) {
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			} finally {
+				httpClient.getConnectionManager().shutdown();
+			}
+			if (reponse.equals("1")) {
+				//change email on VCard
+				VCard vCard = new VCard();
+				try {
+					vCard.load(NetworkService.getInstance().getConnection());
+					vCard.setEmailHome(email);
+					vCard.save(NetworkService.getInstance().getConnection());
+				} catch (XMPPException e) {
+					Log.v(TAG, "error in updating name on VCard");
+				}
+			}
+		}
+	}
 
 	
 	/**
@@ -195,11 +280,11 @@ public class EnhancedAccountManager extends AccountManager {
 	 * only call this method when authenticated
 	 */
 	public void changeImage(byte[] image) {
-		
-		if (UserManager.PRIMARY_USER != null) {
+		if (NetworkService.getInstance().getConnection().isAuthenticated()) {
+			//Change image on VCard
 			VCard vCard = new VCard();
 			try {
-				vCard.load(NetworkService.getInstance().getConnection(), UserManager.PRIMARY_USER.getUsername());
+				vCard.load(NetworkService.getInstance().getConnection());
 				vCard.setAvatar(image);
 				vCard.save(NetworkService.getInstance().getConnection());
 			} catch (XMPPException e) {
@@ -214,11 +299,12 @@ public class EnhancedAccountManager extends AccountManager {
 	 * only call this method when authenticated
 	 */
 	public void changePassword(String password) {
-		 try { 
-			 super.changePassword(password);
-		 } catch (XMPPException e) { 
-			 Log.v(TAG, "error changing password");
-		 }
+		//change password on server
+		try { 
+			super.changePassword(password);
+		} catch (XMPPException e) { 
+			Log.v(TAG, "error changing password");
+		}
 	}
 
 	/**
