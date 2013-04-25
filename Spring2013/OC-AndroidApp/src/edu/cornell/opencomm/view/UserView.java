@@ -39,8 +39,8 @@ public class UserView extends ImageButton {
 	 * The context in which the view exists
 	 */
 	private Context context;
-	
-	
+
+
 	private User user;
 
 	// private static final int cornerSize = 4;
@@ -59,22 +59,25 @@ public class UserView extends ImageButton {
 
 	private void init() {
 		if (user.compareTo(UserManager.PRIMARY_USER) == 0) {
+			WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+			Display display = wm.getDefaultDisplay();
+			float screenWidth = display.getWidth();
 			Bitmap  bm = getRoundedCornerBitmap(OCBitmapDecoder.getThumbnailFromResource(
 					getResources(), UserManager.PRIMARY_USER.getImage()));
 			int width = bm.getWidth();
-	        int height = bm.getHeight();
-	        float scaleWidth = ((float) OCBitmapDecoder.THUMBNAIL_WIDTH)/width;
-	        float scaleHeight = ((float) OCBitmapDecoder.THUMBNAIL_HEIGTH) / height;
-	        Matrix matrix = new Matrix();
-	        matrix.postScale(scaleWidth, scaleHeight);
-	        this.setImageBitmap(Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true));
+			int height = bm.getHeight();
+			float scaleWidth = ((float) OCBitmapDecoder.THUMBNAIL_WIDTH)/width*(screenWidth/480);
+			float scaleHeight = ((float) OCBitmapDecoder.THUMBNAIL_HEIGTH) / height *(screenWidth/480);
+			Matrix matrix = new Matrix();
+			matrix.postScale(scaleWidth, scaleHeight);
+			this.setImageBitmap(Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true));
 		}
 		else {
 			this.setImageBitmap(getImage());
 		}
 		invalidateLocation();
 	}
-	
+
 	private void invalidateLocation(){
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
 				OCBitmapDecoder.THUMBNAIL_WIDTH,OCBitmapDecoder.THUMBNAIL_HEIGTH);
@@ -90,15 +93,13 @@ public class UserView extends ImageButton {
 	// Redraws the bitmap and makes the edges rounded and adds border color//
 	// Borrowed from:
 	// http://stackoverflow.com/questions/11012556/border-over-a-bitmap-with-rounded-corners-in-android//
-
-	@SuppressWarnings("unused")
 	private Bitmap getRoundedCornerBitmap(Bitmap bitmap) {		
-		
+
 		WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
 		float screenWidth = display.getWidth();
 		float userPicSize = screenWidth * 13/48;
-		
+
 		Bitmap output = Bitmap.createBitmap((int)userPicSize, (int)userPicSize, Bitmap.Config.ARGB_8888);
 		Canvas canvas = new Canvas(output);
 		// just for conversion
@@ -121,27 +122,27 @@ public class UserView extends ImageButton {
 		canvas.drawBitmap(bitmap, null, rect, paint);
 
 		//draw banner
- 		//int color = user.userColor;
- 		paint.setColor(Color.GRAY);
- 		canvas.drawARGB(0, 0, 0, 0);
- 		canvas.drawRect(0, 80, 130, 105, paint);
-		
+		//int color = user.userColor;
+		paint.setColor(Color.GRAY);
+		canvas.drawARGB(0, 0, 0, 0);
+		canvas.drawRect(0, 80, 130, 105, paint);
+
 		//draw user name
- 		//String firstName =user.getVCard().getFirstName();
- 		//String lastName =user.getVCard().getLastName();
- 		//String name = firstName + lastName; 
- 		paint.setColor(Color.WHITE);
+		//String firstName =user.getVCard().getFirstName();
+		//String lastName =user.getVCard().getLastName();
+		//String name = firstName + lastName; 
+		paint.setColor(Color.WHITE);
 		paint.setTextSize(14);
- 		paint.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Light.ttf"));
- 	    paint.setTextAlign(Align.CENTER);
- 		canvas.drawText(user.getUsername().toUpperCase(), 65, 97, paint);
- 		
+		paint.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Light.ttf"));
+		paint.setTextAlign(Align.CENTER);
+		canvas.drawText(user.getUsername().toUpperCase(), 65, 97, paint);
+
 		//draw banner border
 		paint.setColor(Color.BLACK);
 		paint.setStyle(Paint.Style.STROKE);
 		paint.setStrokeWidth(1);
 		canvas.drawRect(0, 80, 130, 105, paint);
-		
+
 		// draw border
 		paint.setColor(Color.BLACK);
 		paint.setStyle(Paint.Style.STROKE);
@@ -149,7 +150,7 @@ public class UserView extends ImageButton {
 		canvas.drawCircle(userPicSize / 2, userPicSize / 2, userPicSize / 2 - 5, paint);
 
 		return output;
-		
+
 	}
 
 	public Bitmap getImage() {
@@ -157,12 +158,12 @@ public class UserView extends ImageButton {
 		Bitmap  bm = getRoundedCornerBitmap(OCBitmapDecoder.getThumbnailFromResource(
 				getResources(), user.getImage()));
 		int width = bm.getWidth();
-        int height = bm.getHeight();
-        float scaleWidth = ((float) OCBitmapDecoder.THUMBNAIL_WIDTH)/width;
-        float scaleHeight = ((float) OCBitmapDecoder.THUMBNAIL_HEIGTH) / height;
-        Matrix matrix = new Matrix();
-        matrix.postScale(scaleWidth, scaleHeight);
-        return Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true);
+		int height = bm.getHeight();
+		float scaleWidth = ((float) OCBitmapDecoder.THUMBNAIL_WIDTH)/width;
+		float scaleHeight = ((float) OCBitmapDecoder.THUMBNAIL_HEIGTH) / height;
+		Matrix matrix = new Matrix();
+		matrix.postScale(scaleWidth, scaleHeight);
+		return Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true);
 	}
 	@Override
 	public void invalidate() {
