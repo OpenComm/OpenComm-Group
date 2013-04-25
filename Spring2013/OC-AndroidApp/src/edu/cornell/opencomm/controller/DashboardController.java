@@ -1,21 +1,14 @@
 package edu.cornell.opencomm.controller;
 
-import java.util.ArrayList;
-
-import org.jivesoftware.smack.XMPPException;
-import org.jivesoftware.smackx.packet.VCard;
-
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.model.EnhancedAccountManager;
-import edu.cornell.opencomm.model.SearchService;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ConferenceView;
+import edu.cornell.opencomm.view.ContactListView;
 import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.LoginView;
 
@@ -52,6 +45,7 @@ public class DashboardController {
 	private static final String TAG = DashboardController.class.getSimpleName();
 
 	private DashboardView dashboardView;
+	private ContactListView contactsView; 
 
 	/**
 	 * DashboardController constructor.
@@ -83,10 +77,14 @@ public class DashboardController {
 	 * Launches Contact List
 	 */
 	public void handleContactsButtonClicked() {
-		int duration = Toast.LENGTH_SHORT;
-		Toast send = Toast.makeText(this.dashboardView.getApplicationContext(),
-				"Contacts Button clicked", duration);
-		send.show();
+		Intent i = new Intent(this.dashboardView, ContactListView.class); 
+		this.dashboardView.startActivity(i); 
+		
+		
+//		int duration = Toast.LENGTH_SHORT;
+//		Toast send = Toast.makeText(this.dashboardView.getApplicationContext(),
+//				"Contacts Button clicked", duration);
+//		send.show();
 		
 //		testing search service
 //		ArrayList<VCard> results = SearchService.searchByEmail("*");

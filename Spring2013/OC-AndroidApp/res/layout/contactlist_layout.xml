@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/contacts_layout">
+
+    <RelativeLayout
+        android:id="@+id/contacts_actionbar"
+        android:layout_width="fill_parent"
+        android:layout_height="42.66dp"
+        android:background="#002e3e" >
+
+        <ImageView
+            android:id="@+id/contacts_backIcon"
+            android:layout_width="8.5dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10.66dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/desc"
+            android:onClick="back"
+            android:src="@drawable/action_back" />
+
+        <ImageView
+            android:id="@+id/contacts_overflowIcon"
+            android:layout_width="5.33dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="24dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/desc"
+            android:onClick="overflow"
+            android:src="@drawable/action_overflow" />
+
+        <TextView
+            android:id="@+id/contacts_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/contacts"
+            android:textColor="#40b7d3"
+            android:textSize="24sp" />
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/contacts_overflowList"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/contacts_actionbar"
+        android:layout_marginRight="10.66dp"
+        android:background="@color/black"
+        android:listSelector="@drawable/selector_bg_list"
+        android:divider="@color/black"
+        android:dividerHeight="0.66dp"
+        android:padding="0.66dp"
+        android:visibility="invisible" />
+
+    <RelativeLayout
+        android:id="@+id/contact_search_background"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_alignTop="@+id/contacts_overflowList"
+        android:background="@color/blue_light" >
+
+        <LinearLayout
+            android:id="@+id/contact_addsearch_searchbar"
+            android:layout_width="226.66dp"
+            android:layout_height="30dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:background="@color/white" >
+
+            <ImageView
+                android:id="@+id/contact_search_button"
+                android:layout_width="25.33dp"
+                android:layout_height="17dp"
+                android:layout_marginLeft="8dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/desc"
+                android:src="@drawable/contact_search" />
+
+            <AutoCompleteTextView
+                android:id="@+id/contact_addsearch_search_input"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:autoLink="none"
+                android:background="@color/white"
+                android:completionThreshold="1"
+                android:dropDownVerticalOffset="6.66dp"
+                android:ems="10"
+                android:gravity="center_vertical"
+                android:hint="@string/search"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textSize="13sp" >
+
+                <requestFocus />
+            </AutoCompleteTextView>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:onClick="add"
+            android:text="@string/add" />
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/contacts_contactlist"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/contact_search_background"
+        android:background="#F2F2F2"
+        android:divider="@color/grey_twentyone"
+        android:dividerHeight="0.66dp"
+        android:paddingLeft="13.33dp"
+        android:paddingRight="13.33dp"
+        android:visibility="visible" >
+
+    </ListView>
+
+</RelativeLayout>
