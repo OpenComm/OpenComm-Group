@@ -129,7 +129,6 @@ public class ContactAddSearchController {
 					Log.d(TAG, s.toString());
 				}
 			} catch (XMPPException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			//Form searchForm = search.getSearchForm();
