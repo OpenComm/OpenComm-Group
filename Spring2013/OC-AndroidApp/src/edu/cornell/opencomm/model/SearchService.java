@@ -194,8 +194,8 @@ public abstract class SearchService {
     * @return String [] - A list of jids of users that match that jid
     * Only call this method when authenticated.
     */
-   public static ArrayList<VCard> searchByJid(String jid) {
-	   ArrayList<VCard> results = new ArrayList<VCard>();
+   public static ArrayList<User> searchByJid(String jid) {
+	   ArrayList<User> results = new ArrayList<User>();
 	   try {
 	    	 Log.v(TAG, "searchByJid method executed");
 	    	 //Create search manager
@@ -218,7 +218,7 @@ public abstract class SearchService {
 	            	String jidFound = jids.next();
 	            	VCard vCard = new VCard();
 	            	vCard.load(NetworkService.getInstance().getConnection(), jidFound);
-	            	results.add(vCard);
+	            	results.add(new User(vCard));
 	            } 
 	         }
 	   } catch (Exception ex) {
@@ -232,8 +232,8 @@ public abstract class SearchService {
     * @return String [] - A list of jids of users that match that email
     * Only call this method when authenticated.
     */
-   public static ArrayList<VCard> searchByEmail(String email) {
-	   ArrayList<VCard> results = new ArrayList<VCard>();
+   public static ArrayList<User> searchByEmail(String email) {
+	   ArrayList<User> results = new ArrayList<User>();
 	   try {
 	    	 Log.v(TAG, "searchByEmail method executed");
 	    	 //Create search manager
@@ -256,7 +256,7 @@ public abstract class SearchService {
 	            	String jidFound = jids.next();
 	            	VCard vCard = new VCard();
 	            	vCard.load(NetworkService.getInstance().getConnection(), jidFound);
-	            	results.add(vCard);
+	            	results.add(new User(vCard));
 	            } 
 	         }
 	   } catch (Exception ex) {
@@ -270,8 +270,8 @@ public abstract class SearchService {
     * @return String [] - A list of jids of users that match that name
     * Only call this method when authenticated.
     */
-   public static ArrayList<VCard> searchByName(String name) {
-	   ArrayList<VCard> results = new ArrayList<VCard>();
+   public static ArrayList<User> searchByName(String name) {
+	   ArrayList<User> results = new ArrayList<User>();
 	   try {
 	    	 Log.v(TAG, "searchByName method executed");
 	    	 //Create search manager
@@ -294,7 +294,7 @@ public abstract class SearchService {
 	            	String jidFound = jids.next();
 	            	VCard vCard = new VCard();
 	            	vCard.load(NetworkService.getInstance().getConnection(), jidFound);
-	            	results.add(vCard);
+	            	results.add(new User(vCard));
 	            } 
 	         }
 	   } catch (Exception ex) {

@@ -107,6 +107,9 @@ public class DashboardController {
 //			e.printStackTrace();
 //		}
 		
+//		testing addUserToBuddyList
+//		NetworkService.getInstance().getConnection()
+		
 		
 		
 	}

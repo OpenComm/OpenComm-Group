@@ -24,6 +24,7 @@ import org.jivesoftware.smackx.packet.LastActivity;
 import org.jivesoftware.smackx.packet.OfflineMessageInfo;
 import org.jivesoftware.smackx.packet.OfflineMessageRequest;
 import org.jivesoftware.smackx.packet.SharedGroupsInfo;
+import org.jivesoftware.smackx.packet.VCard;
 import org.jivesoftware.smackx.provider.AdHocCommandDataProvider;
 import org.jivesoftware.smackx.provider.DataFormProvider;
 import org.jivesoftware.smackx.provider.DelayInformationProvider;
@@ -48,7 +49,6 @@ import edu.cornell.opencomm.audio.JingleController;
 import edu.cornell.opencomm.controller.LoginController.ReturnState;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.Invitation;
-import edu.cornell.opencomm.model.InvitationsList;
 
 import android.util.Log;
 
@@ -191,6 +191,24 @@ public class NetworkService {
 				Log.v(TAG, e.getMessage());
 			}
 			return ReturnState.COULDNT_CONNECT;
+		}
+	}
+	
+	/**
+	 * Adds a user to currently signed in user's buddylist
+	 * @param String - the user we wish to add to the buddylist
+	 * @return boolean - true if add succeeded, false otherwise
+	 */
+	public boolean addUserToBuddyList(String user) {
+		try {
+			VCard vCard = new VCard();
+			vCard.load(xmppConn, user);
+			String[] groups = {};
+			xmppConn.getRoster().createEntry(user + "@opencomm", vCard.getNickName(), groups);
+			return true;
+		} catch (XMPPException e) {
+			e.printStackTrace();
+			return false;
 		}
 	}
 

@@ -142,6 +142,14 @@ public class User implements Comparable<User>, Serializable {
 	public User(Occupant o) {
 		this(o.getJid(), o.getNick(), 0);
 	}
+	
+	public User(VCard vCard) {
+		this.vCard = vCard;
+		this.username = vCard.getJabberId();
+		this.nickname = vCard.getNickName();
+		byte[] bitmapdata = vCard.getAvatar();
+		this.userImage = BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
+	}
 
 	/** @return - the User's JID */
 	public String getUsername() {
