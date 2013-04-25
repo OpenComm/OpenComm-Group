@@ -17,6 +17,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import edu.cornell.opencomm.R;
@@ -67,31 +68,31 @@ public final class ConferenceView extends FragmentActivity implements
 	/*
 	 * controls on this view
 	 */
-	public TextView txtv_ConfTitle;
-/*
+	public TextView conference_title;
+
 	public static ConferenceView getInstance() {
 		if (_instance == null) {
 			_instance = new ConferenceView();
 		}
 		return _instance;
 	}
-*/
-	
+	/*
+	 * TODO: Set conference title to the current conference name (non-Javadoc)
+	 * @see android.support.v4.app.FragmentActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.d(TAG, "onCreate()");
 		// Bind the conference view/activity to the layout
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.conference_layout);
-		// instantiate the handlers
-		txtv_ConfTitle = (TextView) findViewById(R.id.confernecev2_title);
-
+		// instantiate the handlers  
+		conference_title = (TextView) findViewById(R.id.conference_Title);
 		roomLayout = (ViewGroup) findViewById(R.layout.conference_v2);
 		Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
 		conferenceController = ConferenceController.getInstance(this);
 		context = this;
-        System.out.println("IS THIS NULL? "+conferenceController==null);
-		conferenceModel = conferenceController.getRoom();
+		conferenceModel = conferenceController.getRoom();  
 		initPager();
 	}
 

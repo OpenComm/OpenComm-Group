@@ -35,6 +35,7 @@ public class ConferenceController {
 	}
 
 	public Conference getRoom() {
+		room = new Conference("Dummy"); 
 		return room;
 	}
 
@@ -61,7 +62,7 @@ public class ConferenceController {
 	 */
 	public void setTitle(String title) {
 		room.setTitle(title);
-		view.txtv_ConfTitle.setText(title);
+		view.conference_title.setText(title);
 	}
 
 	/**
