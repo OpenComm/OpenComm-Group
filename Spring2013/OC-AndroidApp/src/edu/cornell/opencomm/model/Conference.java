@@ -44,27 +44,43 @@ public class Conference implements Serializable {
 	}
 	
 	/*
-	 * Backend TODO: A method that gets the participants that are currently active in this conference
+	 * Backend : A method that gets the participants that are currently active in this conference
 	 * Active, meaning that the user has entered conference. 
 	 */
 	public ArrayList<User> getActiveParticipants(){
-		return null; 
+		ArrayList<User> users = new ArrayList<User>();
+		Collection<Occupant> occupants = null;
+		try {
+			occupants = chat.getParticipants();
+		} catch (XMPPException e) {
+			e.printStackTrace();
+		}
+		for(Occupant o : occupants){
+			User u = new User(o.getJid(), o.getNick(), 0);
+			users.add(u);
+		}
+		return users;
 	}
 	
 	/*
-	 * Backend TODO: If there are any users that have been invited- put them on waitlist
+	 * Backend : If there are any users that have been invited- put them on waitlist
 	 * 
 	 */
 	public boolean isWaiting(){
-		return true; 
+		if(InvitationsList.getNumberNewInvitations() > 0){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 	
 	/*
-	 * Backend TODO: Any time a user leaves the conference, the users in conference has to updated
+	 * Frontend TODO: Any time a user leaves the conference, the users in conference has to updated
 	 * This function returns a user who has left the conference
 	 */
-	public User hasLeft(){
-		return null; 
+	public void hasLeft(User u){
+		 
 	}
 		
 	// API Functions

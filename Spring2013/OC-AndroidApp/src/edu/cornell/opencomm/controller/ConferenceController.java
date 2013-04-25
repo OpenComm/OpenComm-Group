@@ -35,7 +35,7 @@ public class ConferenceController {
 	}
 
 	public Conference getRoom() {
-		room = new Conference("Dummy"); 
+//		room = new Conference("Dummy"); 
 		return room;
 	}
 
@@ -82,7 +82,7 @@ public class ConferenceController {
 	public void HandleLeave() {
 		if (D)
 			Log.d(TAG, "Leave button clicked");
-		// TODO: add "Handle overflow" functions here
+		HandleLeaveButton();
 	}
 	
 	/**
@@ -91,7 +91,7 @@ public class ConferenceController {
 	public void HandleSetting() {
 		if (D)
 			Log.d(TAG, "Setting button clicked");
-		// TODO: add "Handle overflow" functions here
+		// TODO: switch activity to the My Profile view
 	}
 
 	/**
@@ -122,6 +122,8 @@ public class ConferenceController {
 		if (room.getParticipants().isEmpty()) {
 			room = null;
 		}
+		
+		room.hasLeft(UserManager.PRIMARY_USER);
 	}
 
 	private ArrayList<User> createExampleUsers() {
