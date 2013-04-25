@@ -8,11 +8,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
+import android.widget.TextView;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.controller.ContactAddSearchController;
 import edu.cornell.opencomm.controller.ContactListController;
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.manager.UserManager;
+import edu.cornell.opencomm.model.ContactAddSearchAdapter;
 import edu.cornell.opencomm.model.ContactListAdapter;
 import edu.cornell.opencomm.model.OverflowAdapter;
 import edu.cornell.opencomm.model.User;
@@ -41,7 +45,7 @@ public class ContactListView extends Activity {
 	 */
 	@SuppressWarnings("unused")
 	private static final boolean D = true;
-
+	private boolean isAdd = false;
 	/**
 	 * The TAG for logging
 	 */
@@ -55,6 +59,14 @@ public class ContactListView extends Activity {
 	private ListView contactList; 
 	private ListView overflowList;
 	private String[] options;
+	public static final String AddSearchKey = "ADDSEARCHKEY";
+	private ContactAddSearchController searchController;
+
+	/** Search suggestion variables: list */
+	private AutoCompleteTextView suggestion;
+	private ContactAddSearchAdapter casAdapter;
+
+
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -65,7 +77,6 @@ public class ContactListView extends Activity {
 		//TODO - Change font
 		FontSetter.applySanSerifFont(ContactListView.this,
 				findViewById(R.id.contacts_layout));
-
 	}
 
 	/**
@@ -125,17 +136,35 @@ public class ContactListView extends Activity {
 	/** Add button clicked: add contact to roster */
 	public void add(View v) {
 		contactList.setVisibility(View.INVISIBLE); 
-		ArrayList<User>roster = this.controller.handleAddButtonClicked();
-		clAdapter = new ContactListAdapter(this,
-				R.layout.contactlist_item_layout, roster);
-		contactList = (ListView) findViewById(R.id.contacts_contactlist);
-		contactList.setAdapter(clAdapter);
-		contactList.setOnItemClickListener(new OnItemClickListener() {
+	}
+
+	public void searching(View v){
+		this.isAdd = this.getIntent().getBooleanExtra(
+				ContactListView.AddSearchKey, false);
+		if (this.isAdd) {
+			((TextView) this.findViewById(R.id.contact_addsearch_title))
+			.setText("add");
+		}
+		this.searchController = new ContactAddSearchController(this, this.isAdd);
+		this.initializeSuggestionList();
+	}
+	
+	private void initializeSuggestionList() {
+		ArrayList<String> data = this.controller.getSuggestions();
+		this.casAdapter = new ContactAddSearchAdapter(this,
+				R.layout.contact_addsearch_item_layout, data);
+		this.suggestion = (AutoCompleteTextView) this
+				.findViewById(R.id.contact_addsearch_search_input);
+		this.suggestion.setDropDownAnchor(R.id.contact_addsearch_list);
+		this.suggestion.setDropDownBackgroundResource(R.color.grey_eleven);
+		this.suggestion.setAdapter(casAdapter);
+		// Click event for single list row
+		this.suggestion.setOnItemClickListener(new OnItemClickListener() {
+			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				controller.handleContactClick(clAdapter.getItem(position));
+				controller.handleContactClick(casAdapter.getItem(position));
 			}
-
 		});
 	}
 

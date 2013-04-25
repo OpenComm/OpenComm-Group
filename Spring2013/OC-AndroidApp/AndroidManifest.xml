@@ -62,6 +62,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.grey_eleven" >
         </activity>
+          <activity
+            android:name=".view.ContactListView"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.grey_eleven" >
+        </activity>
+        
+        
         <activity
             android:name=".view.ConferenceCardView"
             android:screenOrientation="portrait"

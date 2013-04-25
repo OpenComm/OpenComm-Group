@@ -16,7 +16,7 @@ import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
-import edu.cornell.opencomm.view.ContactAddSearchView;
+import edu.cornell.opencomm.view.ContactListView;
 
 /**
  * Controller for contact add/search page (ContactAddSearchView). Functionality:<br>
@@ -47,28 +47,28 @@ public class ContactAddSearchController {
 	 */
 	private static final String TAG = ContactAddSearchController.class.getSimpleName();
 	
-	private ContactAddSearchView contactAddSearchView;
+	private ContactListView view;
 
 	private boolean isAdd = false;
 	
 	public ContactAddSearchController(
-			ContactAddSearchView view, boolean isAdd) {
-		this.contactAddSearchView = view;
+			ContactListView view, boolean isAdd) {
+		this.view = view;
 		this.isAdd = isAdd;
 	}
 	/** Back button clicked: launches overriden back press which takes it back to ContactListView */
 	public void handleBackButtonClicked() {
-		this.contactAddSearchView.onBackPressed();
+		this.view.onBackPressed();
 	}
 
 	/**
 	 * Shows/hides Overflow
 	 */
 	public void handleOverflowButtonClicked() {
-		if (this.contactAddSearchView.getOverflowList().getVisibility() == View.INVISIBLE) {
-			this.contactAddSearchView.getOverflowList().setVisibility(View.VISIBLE);
+		if (this.view.getOverflowList().getVisibility() == View.INVISIBLE) {
+			this.view.getOverflowList().setVisibility(View.VISIBLE);
 		} else {
-			this.contactAddSearchView.getOverflowList().setVisibility(View.INVISIBLE);
+			this.view.getOverflowList().setVisibility(View.INVISIBLE);
 		}
 	}
 
@@ -95,12 +95,12 @@ public class ContactAddSearchController {
 		// TODO find corresponding User object that has userStr as email or name
 		//User user = new User(userStr, userStr, 0);
 		if (isAdd) {
-			Toast.makeText(this.contactAddSearchView, "Contact clicked", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this.view, "Contact clicked", Toast.LENGTH_SHORT).show();
 			// TODO [backend] set user as a friend
 			// Toast.makeText(this.contactAddSearchView, "User added to contact", Toast.LENGTH_SHORT).show();
 		}
 		else {
-			Toast.makeText(this.contactAddSearchView, "Contact clicked", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this.view, "Contact clicked", Toast.LENGTH_SHORT).show();
 			/** TODO Uncomment once corresponding User object is found
 			 * Intent i = new Intent(this.contactAddSearchView, ContactCardView.class);
 			i.putExtra(ContactCardView.contactCardKey, user.getUsername());
