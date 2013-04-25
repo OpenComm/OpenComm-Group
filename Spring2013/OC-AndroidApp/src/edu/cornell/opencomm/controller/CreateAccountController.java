@@ -7,6 +7,8 @@ import android.util.Log;
 import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.model.CreateAccountReturnState;
+import edu.cornell.opencomm.model.EnhancedAccountManager;
+import edu.cornell.opencomm.model.SearchService;
 import edu.cornell.opencomm.view.CreateAccountView;
 import edu.cornell.opencomm.view.DashboardView;
 

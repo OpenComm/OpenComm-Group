@@ -1,4 +1,4 @@
-package edu.cornell.opencomm.controller;
+package edu.cornell.opencomm.model;
 
 import org.jivesoftware.smackx.Form;
 import org.jivesoftware.smackx.FormField;
@@ -26,6 +26,7 @@ public abstract class SearchService {
    private static final String TAG = SearchService.class.getSimpleName();
 
    /**
+    * For reseting password purposes. For search purposes use searchByEmail method.
     * @param String - the email address of the user we are looking for
     * @return String - the jid of the user associated with that email (if it exists) - string "0" otherwise.
     */
@@ -196,9 +197,8 @@ public abstract class SearchService {
    public static ArrayList<VCard> searchByJid(String jid) {
 	   ArrayList<VCard> results = new ArrayList<VCard>();
 	   try {
-	    	 Log.v(TAG, "jidAlreadyExists method executed");
-	    	 //Login anonymously and create search manager
-	    	 NetworkService.getInstance().getConnection().loginAnonymously();
+	    	 Log.v(TAG, "searchByJid method executed");
+	    	 //Create search manager
 	         UserSearchManager search = new UserSearchManager(NetworkService.getInstance().getConnection());
 	         //Create search form
 	         Form searchForm = search.getSearchForm("search." + "opencomm");
@@ -208,8 +208,6 @@ public abstract class SearchService {
 	         answerForm.setAnswer("Username", true);
 	         //get search results
 	         ReportedData data = search.getSearchResults(answerForm, "search." + "opencomm");
-	         //Close the connection
-	         NetworkService.getInstance().getConnection().disconnect();
 	         //Hits:
 	         Iterator<Row> rows = data.getRows();
 	         while (rows.hasNext()) {
@@ -237,9 +235,8 @@ public abstract class SearchService {
    public static ArrayList<VCard> searchByEmail(String email) {
 	   ArrayList<VCard> results = new ArrayList<VCard>();
 	   try {
-	    	 Log.v(TAG, "jidAlreadyExists method executed");
-	    	 //Login anonymously and create search manager
-	    	 NetworkService.getInstance().getConnection().loginAnonymously();
+	    	 Log.v(TAG, "searchByEmail method executed");
+	    	 //Create search manager
 	         UserSearchManager search = new UserSearchManager(NetworkService.getInstance().getConnection());
 	         //Create search form
 	         Form searchForm = search.getSearchForm("search." + "opencomm");
@@ -249,8 +246,6 @@ public abstract class SearchService {
 	         answerForm.setAnswer("Email", true);
 	         //get search results
 	         ReportedData data = search.getSearchResults(answerForm, "search." + "opencomm");
-	         //Close the connection
-	         NetworkService.getInstance().getConnection().disconnect();
 	         //Hits:
 	         Iterator<Row> rows = data.getRows();
 	         while (rows.hasNext()) {
@@ -278,9 +273,8 @@ public abstract class SearchService {
    public static ArrayList<VCard> searchByName(String name) {
 	   ArrayList<VCard> results = new ArrayList<VCard>();
 	   try {
-	    	 Log.v(TAG, "jidAlreadyExists method executed");
-	    	 //Login anonymously and create search manager
-	    	 NetworkService.getInstance().getConnection().loginAnonymously();
+	    	 Log.v(TAG, "searchByName method executed");
+	    	 //Create search manager
 	         UserSearchManager search = new UserSearchManager(NetworkService.getInstance().getConnection());
 	         //Create search form
 	         Form searchForm = search.getSearchForm("search." + "opencomm");
@@ -290,8 +284,6 @@ public abstract class SearchService {
 	         answerForm.setAnswer("Name", true);
 	         //get search results
 	         ReportedData data = search.getSearchResults(answerForm, "search." + "opencomm");
-	         //Close the connection
-	         NetworkService.getInstance().getConnection().disconnect();
 	         //Hits:
 	         Iterator<Row> rows = data.getRows();
 	         while (rows.hasNext()) {
