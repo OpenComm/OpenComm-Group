@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 
 import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smackx.muc.Occupant;
 import org.jivesoftware.smackx.packet.VCard;
 
@@ -60,6 +61,8 @@ public class User implements Comparable<User>, Serializable {
 	 * A bitmap of the User's image
 	 */
 	Bitmap userImage;
+	
+	private Presence presence;
 
 	/**
 	 */
@@ -96,6 +99,7 @@ public class User implements Comparable<User>, Serializable {
 		}
 		this.userColor = UserManager.getUserColor(username);
 		this.jCtrl = new JingleController(this);
+		this.presence = NetworkService.getInstance().getConnection().getRoster().getPresence(username + "@opencomm");
 	}
 
 	/**
@@ -139,6 +143,7 @@ public class User implements Comparable<User>, Serializable {
 			}
 		}
 		this.userImage = getBitMap();
+		this.presence = NetworkService.getInstance().getConnection().getRoster().getPresence(username + "@opencomm");
 	}
 
 	public User(Occupant o) {
@@ -151,6 +156,7 @@ public class User implements Comparable<User>, Serializable {
 		this.nickname = vCard.getNickName();
 		byte[] bitmapdata = vCard.getAvatar();
 		this.userImage = BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
+		this.presence = NetworkService.getInstance().getConnection().getRoster().getPresence(username + "@opencomm");
 	}
 
 	/** @return - the User's JID */
