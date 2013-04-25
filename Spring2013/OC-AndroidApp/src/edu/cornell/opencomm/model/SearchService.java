@@ -1,5 +1,6 @@
 package edu.cornell.opencomm.model;
 
+import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smackx.Form;
 import org.jivesoftware.smackx.FormField;
 import org.jivesoftware.smackx.ReportedData;
@@ -208,6 +209,8 @@ public abstract class SearchService {
 	         answerForm.setAnswer("Username", true);
 	         //get search results
 	         ReportedData data = search.getSearchResults(answerForm, "search." + "opencomm");
+	         //get roster (to check if user is already in buddylist, do not include in search results)
+	         Roster roster = NetworkService.getInstance().getConnection().getRoster();
 	         //Hits:
 	         Iterator<Row> rows = data.getRows();
 	         while (rows.hasNext()) {
@@ -216,9 +219,11 @@ public abstract class SearchService {
 				Iterator<String> jids = row.getValues("jid");
 	            while (jids.hasNext()) {
 	            	String jidFound = jids.next();
-	            	VCard vCard = new VCard();
-	            	vCard.load(NetworkService.getInstance().getConnection(), jidFound);
-	            	results.add(new User(vCard));
+	            	if (! roster.contains(jidFound)) {
+	            		VCard vCard = new VCard();
+		            	vCard.load(NetworkService.getInstance().getConnection(), jidFound);
+		            	results.add(new User(vCard));
+	            	}
 	            } 
 	         }
 	   } catch (Exception ex) {
@@ -246,6 +251,8 @@ public abstract class SearchService {
 	         answerForm.setAnswer("Email", true);
 	         //get search results
 	         ReportedData data = search.getSearchResults(answerForm, "search." + "opencomm");
+	         //get roster (to check if user is already in buddylist, do not include in search results)
+	         Roster roster = NetworkService.getInstance().getConnection().getRoster();
 	         //Hits:
 	         Iterator<Row> rows = data.getRows();
 	         while (rows.hasNext()) {
@@ -254,9 +261,11 @@ public abstract class SearchService {
 				Iterator<String> jids = row.getValues("jid");
 	            while (jids.hasNext()) {
 	            	String jidFound = jids.next();
-	            	VCard vCard = new VCard();
-	            	vCard.load(NetworkService.getInstance().getConnection(), jidFound);
-	            	results.add(new User(vCard));
+	            	if (! roster.contains(jidFound)) {
+	            		VCard vCard = new VCard();
+		            	vCard.load(NetworkService.getInstance().getConnection(), jidFound);
+		            	results.add(new User(vCard));
+	            	}
 	            } 
 	         }
 	   } catch (Exception ex) {
@@ -284,6 +293,8 @@ public abstract class SearchService {
 	         answerForm.setAnswer("Name", true);
 	         //get search results
 	         ReportedData data = search.getSearchResults(answerForm, "search." + "opencomm");
+	         //get roster (to check if user is already in buddylist, do not include in search results)
+	         Roster roster = NetworkService.getInstance().getConnection().getRoster();
 	         //Hits:
 	         Iterator<Row> rows = data.getRows();
 	         while (rows.hasNext()) {
@@ -292,9 +303,11 @@ public abstract class SearchService {
 				Iterator<String> jids = row.getValues("jid");
 	            while (jids.hasNext()) {
 	            	String jidFound = jids.next();
-	            	VCard vCard = new VCard();
-	            	vCard.load(NetworkService.getInstance().getConnection(), jidFound);
-	            	results.add(new User(vCard));
+	            	if (! roster.contains(jidFound)) {
+	            		VCard vCard = new VCard();
+		            	vCard.load(NetworkService.getInstance().getConnection(), jidFound);
+		            	results.add(new User(vCard));
+	            	}
 	            } 
 	         }
 	   } catch (Exception ex) {
