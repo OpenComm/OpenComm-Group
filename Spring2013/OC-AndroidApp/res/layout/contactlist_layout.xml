@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/contacts_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:id="@+id/contacts_layout">
+    android:background="#F2F2F2" >
 
     <RelativeLayout
         android:id="@+id/contacts_actionbar"
@@ -101,7 +102,7 @@
                 android:hint="@string/search"
                 android:inputType="text"
                 android:textColor="@color/black"
-                android:textSize="13sp" >
+                android:textSize="20sp" >
 
                 <requestFocus />
             </AutoCompleteTextView>
@@ -124,6 +125,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/contact_search_background"
+        android:layout_above="@+id/contact_addsearch_searchbar"
         android:background="#F2F2F2"
         android:divider="@color/grey_twentyone"
         android:dividerHeight="0.66dp"

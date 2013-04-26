@@ -77,6 +77,13 @@ public class ContactListView extends Activity {
 		//TODO - Change font
 		FontSetter.applySanSerifFont(ContactListView.this,
 				findViewById(R.id.contacts_layout));
+		this.isAdd = this.getIntent().getBooleanExtra(
+				ContactListView.AddSearchKey, false);
+		if (this.isAdd) {
+			((TextView) this.findViewById(R.id.contact_addsearch_title))
+			.setText("add");
+		}
+		this.searchController = new ContactAddSearchController(this, this.isAdd);
 	}
 
 	/**
@@ -85,6 +92,7 @@ public class ContactListView extends Activity {
 	 */
 	private void initializeContactList() {
 		ArrayList<User> allContacts = UserManager.getContactList();
+		System.out.println(allContacts.size()); 
 		clAdapter = new ContactListAdapter(this,
 				R.layout.contactlist_item_layout, allContacts);
 		contactList = (ListView) findViewById(R.id.contacts_contactlist);
@@ -139,16 +147,9 @@ public class ContactListView extends Activity {
 	}
 
 	public void searching(View v){
-		this.isAdd = this.getIntent().getBooleanExtra(
-				ContactListView.AddSearchKey, false);
-		if (this.isAdd) {
-			((TextView) this.findViewById(R.id.contact_addsearch_title))
-			.setText("add");
-		}
-		this.searchController = new ContactAddSearchController(this, this.isAdd);
 		this.initializeSuggestionList();
 	}
-	
+
 	private void initializeSuggestionList() {
 		ArrayList<String> data = this.controller.getSuggestions();
 		this.casAdapter = new ContactAddSearchAdapter(this,

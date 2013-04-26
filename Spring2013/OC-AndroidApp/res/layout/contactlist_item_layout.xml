@@ -11,9 +11,9 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="10.66dp"
-        android:textColor="@color/white"
-        android:lines="1"
         android:ellipsize="end"
+        android:lines="1"
+        android:textColor="@color/black"
         android:textSize="20sp" />
 
     <ImageView
