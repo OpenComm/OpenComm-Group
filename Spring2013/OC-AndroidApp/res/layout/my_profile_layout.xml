@@ -114,7 +114,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="102.66dp"
             android:layout_marginTop="25.33dp"
-            android:text="@string/email"
+            android:text="@string/email_sample1"
             android:textColor="@color/profile_name_label"
             android:textSize="16sp" />
 
