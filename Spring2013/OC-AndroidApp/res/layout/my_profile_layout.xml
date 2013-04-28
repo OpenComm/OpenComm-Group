@@ -84,7 +84,6 @@
             android:layout_marginTop="18.66dp"
             android:text="@string/name"
             android:textColor="@color/profile_name_label"
-            android:textAllCaps="true"
             android:gravity="center"
             android:background = "@color/profile_name_box"
             android:textSize="27.33sp" />
