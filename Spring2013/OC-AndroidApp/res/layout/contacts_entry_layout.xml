@@ -11,6 +11,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="13.33dp"
             android:contentDescription="@string/contact_default_picture_desc" />
+
         <TextView
             android:id="@+id/contact_name"
             android:layout_width="wrap_content"
@@ -19,9 +20,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="24dp"
             android:layout_toLeftOf="@id/contact_picture"
-            android:textSize="20sp"
-            android:textColor="@color/white" />
-
-        
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 		
     </RelativeLayout>
