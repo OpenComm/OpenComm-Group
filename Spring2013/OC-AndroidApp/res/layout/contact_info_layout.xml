@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/contact_info_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="@color/contact_info_background">
+
+    <RelativeLayout
+        android:id="@+id/my_profile_actionbar"
+        android:layout_width="fill_parent"
+        android:layout_height="42.66dp"
+        android:background="@color/grey_thirtythree" >
+
+        <ImageView
+            android:id="@+id/my_profile_backIcon"
+            android:layout_width="8.5dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10.66dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/desc"
+            android:onClick="back"
+            android:src="@drawable/action_back" />
+
+
+        <ImageView
+            android:id="@+id/my_profile_overflowIcon"
+            android:layout_width="5.33dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="24dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/desc"
+            android:onClick="overflow"
+            android:src="@drawable/action_overflow" />
+
+        <ImageView
+            android:id="@+id/my_profile_editIcon"
+            android:layout_width="21.33dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:layout_toLeftOf="@id/my_profile_overflowIcon"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/desc"
+            android:onClick="edit"
+            android:src="@drawable/action_edit" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/my_profile_actionbar"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/my_profile_photo"
+            android:layout_width="103.33dp"
+            android:layout_height="103.33dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="23.33dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/desc"
+            android:src="@drawable/contact_default_image" />
+
+        <TextView
+            android:id="@+id/my_profile_name_label"
+            android:layout_width="240.66dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="18.66dp"
+            android:text="@string/name"
+            android:textColor="@color/profile_name_label"
+            android:gravity="center"
+            android:background = "@color/profile_name_box"
+            android:textSize="27.33sp" />
+
+        <TextView
+            android:id="@+id/my_profile_title_label"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="102.66dp"
+            android:layout_marginTop="25.33dp"
+            android:text="@string/title"
+            android:textColor="@color/profile_name_label"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/my_profile_phone_label"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="102.66dp"
+            android:layout_marginTop="25.33dp"
+            android:text="@string/phone"
+            android:textColor="@color/profile_name_label"
+            android:textSize="16sp" />
+        
+        <TextView
+            android:id="@+id/my_profile_email_label"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="102.66dp"
+            android:layout_marginTop="25.33dp"
+            android:text="@string/email"
+            android:textColor="@color/profile_name_label"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/my_profile_overflowList"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/my_profile_actionbar"
+        android:layout_marginRight="10.66dp"
+        android:background="@color/black"
+        android:divider="@color/black"
+        android:dividerHeight="0.66dp"
+        android:listSelector="@drawable/selector_bg_list"
+        android:padding="0.66dp"
+        android:visibility="invisible" />
+
+</RelativeLayout>
