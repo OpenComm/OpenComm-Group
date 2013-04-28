@@ -106,6 +106,8 @@
     <string name="image_desc">Image</string>
 	<string name="email">email</string>
     <string name="forgot_password_desc">Enter the email address associated with your account. Instructions on resetting your password will be sent to this address. </string>
+    <string name="phone">phone</string>
+    
     
     <string-array name="overflow_dashboard">
         <item>logout</item>

@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/my_profile_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@color/contact_info_background" >
 
     <RelativeLayout
         android:id="@+id/my_profile_actionbar"
@@ -67,94 +68,57 @@
 
         <ImageView
             android:id="@+id/my_profile_photo"
-            android:layout_width="161.33dp"
-            android:layout_height="161.33dp"
+            android:layout_width="103.33dp"
+            android:layout_height="103.33dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="23.33dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/desc"
-            android:scaleType="fitXY"
             android:src="@drawable/contact_default_image" />
 
         <TextView
             android:id="@+id/my_profile_name_label"
-            android:layout_width="232dp"
-            android:layout_height="wrap_content"
+            android:layout_width="240.66dp"
+            android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15.07dp"
+            android:layout_marginTop="18.66dp"
             android:text="@string/name"
-            android:textColor="@color/grey_eightyseven"
-            android:textSize="18.66sp" />
-
-        <TextView
-            android:id="@+id/my_profile_name_content"
-            android:layout_width="232dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="1.5dp"
-            android:text="@string/name_sample"
-            android:textColor="@color/white_ffour"
-            android:textSize="18.66sp" />
+            android:textColor="@color/profile_name_label"
+            android:gravity="center"
+            android:background = "@color/profile_name_box"
+            android:textSize="27.33sp" />
 
         <TextView
             android:id="@+id/my_profile_title_label"
-            android:layout_width="232dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="3.5dp"
+            android:layout_marginLeft="102.66dp"
+            android:layout_marginTop="25.33dp"
             android:text="@string/title"
-            android:textColor="@color/grey_eightyseven"
-            android:textSize="18.66sp" />
+            android:textColor="@color/profile_name_label"
+            android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/my_profile_title_content"
-            android:layout_width="232dp"
+            android:id="@+id/my_profile_phone_label"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="1.5dp"
-            android:text="@string/title_sample"
-            android:textColor="@color/white_ffour"
-            android:textSize="18.66sp" />
-
+            android:layout_marginLeft="102.66dp"
+            android:layout_marginTop="25.33dp"
+            android:text="@string/phone"
+            android:textColor="@color/profile_name_label"
+            android:textSize="16sp" />
+        
         <TextView
             android:id="@+id/my_profile_email_label"
-            android:layout_width="232dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="3.5dp"
+            android:layout_marginLeft="102.66dp"
+            android:layout_marginTop="25.33dp"
             android:text="@string/email"
-            android:textColor="@color/grey_eightyseven"
-            android:textSize="18.66sp" />
+            android:textColor="@color/profile_name_label"
+            android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/my_profile_email_content"
-            android:layout_width="232dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="1.5dp"
-            android:text="@string/email_sample"
-            android:textColor="@color/white_ffour"
-            android:textSize="18.66sp" />
 
-        <TextView
-            android:id="@+id/my_profile_password_label"
-            android:layout_width="232dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="3.5dp"
-            android:text="@string/password"
-            android:textColor="@color/grey_eightyseven"
-            android:textSize="18.66sp" />
-
-        <TextView
-            android:id="@+id/my_profile_password_content"
-            android:layout_width="232dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="1.5dp"
-            android:text="@string/password_sample"
-            android:textColor="@color/white_ffour"
-            android:textSize="18.66sp" />
     </LinearLayout>
 
     <ListView
