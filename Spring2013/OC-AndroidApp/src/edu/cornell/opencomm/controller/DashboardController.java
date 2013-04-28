@@ -118,10 +118,10 @@ public class DashboardController {
 	 * Launches Profile Button
 	 */
 	public void handleProfileButtonClicked() {
-		int duration = Toast.LENGTH_SHORT;
-		Toast send = Toast.makeText(this.dashboardView.getApplicationContext(),
-				"Profile Button clicked", duration);
-		send.show();
+		//int duration = Toast.LENGTH_SHORT;
+		//Toast send = Toast.makeText(this.dashboardView.getApplicationContext(),
+		//		"Profile Button clicked", duration);
+		//send.show();
 		// launch my profile page
 		Intent account = new Intent(this.dashboardView, MyProfileView.class);
 		this.dashboardView.startActivity(account);

@@ -9,9 +9,11 @@ import org.jivesoftware.smackx.Form;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.muc.Occupant;
 
+import android.graphics.Color;
 import android.graphics.Point;
 import android.util.Log;
 
+import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.OCParticipantStatusListener;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.network.NetworkService;
@@ -33,7 +35,8 @@ public class Conference implements Serializable {
 		chat = new MultiUserChat(NetworkService.getInstance().getConnection(),
 				roomName);
 		Log.v(TAG, "creation " + chat.getRoom());
-		users.add(UserManager.PRIMARY_USER); 
+		//users.add(UserManager.PRIMARY_USER); 
+		users = createExampleUsers();
 		chat.addParticipantStatusListener(new OCParticipantStatusListener(this));
 	}
 
@@ -191,6 +194,24 @@ public class Conference implements Serializable {
 
 			return pointList;
 		}
+	}
+	
+	private ArrayList<User> createExampleUsers() {
+		UserManager.userColorTable.put("oc1testorg", Color.YELLOW);
+		UserManager.userColorTable.put("oc2testorg", Color.GREEN);
+		UserManager.userColorTable.put("oc3testorg", Color.BLUE);
+		UserManager.userColorTable.put("oc4testorg", Color.YELLOW);
+		ArrayList<User> users = new ArrayList<User>();
+		users.add(UserManager.PRIMARY_USER);
+		users.add(new User("oc1testorg", "Nora Ng-Quinn",
+				R.drawable.example_picture_1));
+		users.add(new User("oc2testorg", "Risa Naka",
+				R.drawable.example_picture_2));
+		users.add(new User("oc3testorg", "Kris Kooi",
+				R.drawable.example_picture_3));
+		users.add(new User("oc4testorg", "Ankit Singh",
+				R.drawable.example_picture_4));
+		return users;
 	}
 
 }
