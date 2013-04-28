@@ -21,7 +21,7 @@ public class MyProfileView extends Activity{
 		setContentView(R.layout.my_profile_layout);
 		myProfileController=new MyProfileController(this);
 		//set font
-		Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
+		//Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
 	}
 	
 }
