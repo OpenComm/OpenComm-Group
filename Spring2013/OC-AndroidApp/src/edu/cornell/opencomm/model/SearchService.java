@@ -322,36 +322,13 @@ public abstract class SearchService {
    /**
     * @param String - the jid of the user we are looking for
     * @return User - the User object associated with that jid
-    * If the jid doesn't exist, r
+    * If the jid doesn't exist, returns null
     */
    public static User getUser(String jid) {
 	   try {
-	    	 Log.v(TAG, "searchByJid method executed");
-	    	 //Create search manager
-	         UserSearchManager search = new UserSearchManager(NetworkService.getInstance().getConnection());
-	         //Create search form
-	         Form searchForm = search.getSearchForm("search." + "opencomm");
-	         //create answer form
-	         Form answerForm = searchForm.createAnswerForm();
-	         answerForm.setAnswer("search", jid);
-	         answerForm.setAnswer("Username", true);
-	         //get search results
-	         ReportedData data = search.getSearchResults(answerForm, "search." + "opencomm");
-	         //Hits:
-	         Iterator<Row> rows = data.getRows();
-	         if (rows.hasNext()) {
-	            Row row = rows.next();
-	            @SuppressWarnings("unchecked")
-				Iterator<String> jids = row.getValues("jid");
-	            if (jids.hasNext()) {
-	            	String jidFound = jids.next();
-	            	if (jidFound.equalsIgnoreCase(jid)) {
-	            		VCard vCard = new VCard();
-			            vCard.load(NetworkService.getInstance().getConnection(), jidFound);
-			            return new User(vCard);
-	            	}
-	            } 
-	         }
+		   VCard vCard = new VCard();
+		   vCard.load(NetworkService.getInstance().getConnection(), jid + "@opencomm");
+		   return new User(vCard);   
 	   } catch (Exception ex) {
 	         Log.v(TAG, "Caught Exception :"+ex.getMessage());
 	   }
