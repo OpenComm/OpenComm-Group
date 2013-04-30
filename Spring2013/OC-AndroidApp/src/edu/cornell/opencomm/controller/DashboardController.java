@@ -10,7 +10,9 @@ import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ConferenceView;
 import edu.cornell.opencomm.view.ContactListView;
 import edu.cornell.opencomm.view.DashboardView;
+import edu.cornell.opencomm.view.ForgotPsdView;
 import edu.cornell.opencomm.view.LoginView;
+import edu.cornell.opencomm.view.MyProfileView;
 
 /**
  * Controller for Dashboard (DashboardView) Functionality (handled by
@@ -116,10 +118,13 @@ public class DashboardController {
 	 * Launches Profile Button
 	 */
 	public void handleProfileButtonClicked() {
-		int duration = Toast.LENGTH_SHORT;
-		Toast send = Toast.makeText(this.dashboardView.getApplicationContext(),
-				"Profile Button clicked", duration);
-		send.show();
+		//int duration = Toast.LENGTH_SHORT;
+		//Toast send = Toast.makeText(this.dashboardView.getApplicationContext(),
+		//		"Profile Button clicked", duration);
+		//send.show();
+		// launch my profile page
+		Intent account = new Intent(this.dashboardView, MyProfileView.class);
+		this.dashboardView.startActivity(account);
 	}
 
 	public void handleNotificationClicked() {

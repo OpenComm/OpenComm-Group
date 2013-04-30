@@ -272,8 +272,13 @@ public class ConferenceRoomFragment extends Fragment {
 			Log.d("UserTouchListner", "Status : " + status);
 			Log.d("UserTouchListner", "Action : " + event.getAction());
 			Bitmap b = ((UserView) v).getImage();
-			int relativeX = v.getLeft();
-			int relativeY = v.getTop();
+			//TODO: TEST VALUES HERE
+			//int relativeX = v.getLeft();
+			//int relativeY = v.getTop();
+			
+			double relativeX = 0;
+			double relativeY = v.getTop()/1.5;
+			
 			int absoluteX = (int) (event.getX() + relativeX);
 			int absoluteY = (int) (event.getY() + relativeY);
 

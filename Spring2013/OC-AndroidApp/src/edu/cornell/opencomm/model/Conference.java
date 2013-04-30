@@ -3,15 +3,19 @@ package edu.cornell.opencomm.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.Form;
+import org.jivesoftware.smackx.muc.Affiliate;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.muc.Occupant;
 
+import android.graphics.Color;
 import android.graphics.Point;
 import android.util.Log;
 
+import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.OCParticipantStatusListener;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.network.NetworkService;
@@ -33,7 +37,8 @@ public class Conference implements Serializable {
 		chat = new MultiUserChat(NetworkService.getInstance().getConnection(),
 				roomName);
 		Log.v(TAG, "creation " + chat.getRoom());
-		users.add(UserManager.PRIMARY_USER); 
+		//users.add(UserManager.PRIMARY_USER); 
+		//users = createExampleUsers();
 		chat.addParticipantStatusListener(new OCParticipantStatusListener(this));
 	}
 
@@ -43,20 +48,33 @@ public class Conference implements Serializable {
 		chat.addParticipantStatusListener(new OCParticipantStatusListener(this));
 	}
 	
+	public void createUsers(){
+		Log.v(TAG, "there are "+users.size()+" users now");
+		users = this.getActiveParticipants();
+		Log.v(TAG, "there are "+users.size()+" users now");
+	}
+	
 	/*
 	 * Backend : A method that gets the participants that are currently active in this conference
 	 * Active, meaning that the user has entered conference. 
 	 */
 	public ArrayList<User> getActiveParticipants(){
 		ArrayList<User> users = new ArrayList<User>();
-		Collection<Occupant> occupants = null;
-		try {
-			occupants = chat.getParticipants();
-		} catch (XMPPException e) {
-			e.printStackTrace();
-		}
-		for(Occupant o : occupants){
-			User u = new User(o.getJid(), o.getNick(), 0);
+		Iterator<String> s = chat.getOccupants();
+		while(s.hasNext()){
+			String temp = s.next();
+			String[] jid = temp.split("/");
+			Log.v(TAG, "searching for jid: oc1testorg");
+			ArrayList<User> l = SearchService.searchByJid(jid[1]);
+			if(l.isEmpty()){
+				Log.v(TAG, "no search results");
+			}
+			for(User u : l){
+				Log.v(TAG, "search returned "+u.getUsername()+" "+u.getNickname());
+			}
+			Log.v(TAG, temp+" is in users");
+			//TODO: temp should be replaced with user's username and nickname
+			User u = new User(temp, temp, 0);
 			users.add(u);
 		}
 		return users;
@@ -191,6 +209,24 @@ public class Conference implements Serializable {
 
 			return pointList;
 		}
+	}
+	
+	private ArrayList<User> createExampleUsers() {
+		UserManager.userColorTable.put("oc1testorg", Color.YELLOW);
+		UserManager.userColorTable.put("oc2testorg", Color.GREEN);
+		UserManager.userColorTable.put("oc3testorg", Color.BLUE);
+		UserManager.userColorTable.put("oc4testorg", Color.YELLOW);
+		ArrayList<User> users = new ArrayList<User>();
+		users.add(UserManager.PRIMARY_USER);
+		users.add(new User("oc1testorg", "Nora Ng-Quinn",
+				R.drawable.example_picture_1));
+		users.add(new User("oc2testorg", "Risa Naka",
+				R.drawable.example_picture_2));
+		users.add(new User("oc3testorg", "Kris Kooi",
+				R.drawable.example_picture_3));
+		users.add(new User("oc4testorg", "Ankit Singh",
+				R.drawable.example_picture_4));
+		return users;
 	}
 
 }

@@ -111,6 +111,8 @@ public class NetworkService {
 		configure(ProviderManager.getInstance());
 		SmackConfiguration.setPacketReplyTimeout(100000);
 
+		//TODO: set status for accepting buddies
+		
 		// create connection to host:port
 		this.xmppConfig = new ConnectionConfiguration(host, port);
 		this.xmppConfig.setSASLAuthenticationEnabled(true);

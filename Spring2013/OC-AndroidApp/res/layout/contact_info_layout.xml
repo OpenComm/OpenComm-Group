@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/my_profile_layout"
+    android:id="@+id/contact_info_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/contact_info_background" >
+    android:layout_height="match_parent" 
+    android:background="@color/contact_info_background">
 
     <RelativeLayout
         android:id="@+id/my_profile_actionbar"
@@ -23,17 +23,6 @@
             android:onClick="back"
             android:src="@drawable/action_back" />
 
-        <TextView
-            android:id="@+id/my_profile_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="14dp"
-            android:layout_marginLeft="24dp"
-            android:text="@string/my_profile"
-            android:textColor="@color/blue_title"
-            android:textSize="24sp" />
 
         <ImageView
             android:id="@+id/my_profile_overflowIcon"
@@ -117,7 +106,6 @@
             android:text="@string/email_sample1"
             android:textColor="@color/profile_name_label"
             android:textSize="16sp" />
-
 
     </LinearLayout>
 
