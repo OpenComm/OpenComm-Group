@@ -192,7 +192,8 @@ public abstract class SearchService {
    }
    /**
     * @param String - the jid of the user we are looking for
-    * @return String [] - A list of jids of users that match that jid
+    * @return String [] - A list of jids of users that match that jid,
+    * and that aren't already in the currently connected user's Roster
     * Only call this method when authenticated.
     */
    public static ArrayList<User> searchByJid(String jid) {
@@ -234,7 +235,8 @@ public abstract class SearchService {
    
    /**
     * @param String - the email of the user we are looking for
-    * @return String [] - A list of jids of users that match that email
+    * @return String [] - A list of jids of users that match that email,
+    * and that aren't already in the currently connected user's Roster
     * Only call this method when authenticated.
     */
    public static ArrayList<User> searchByEmail(String email) {
@@ -276,7 +278,8 @@ public abstract class SearchService {
    
    /**
     * @param String - the name of the user we are looking for
-    * @return String [] - A list of jids of users that match that name
+    * @return String [] - A list of jids of users that match that name,
+    * and that aren't already in the currently connected user's Roster
     * Only call this method when authenticated.
     */
    public static ArrayList<User> searchByName(String name) {
@@ -315,4 +318,44 @@ public abstract class SearchService {
 	   }
 	   return results;
    }
+   
+   /**
+    * @param String - the jid of the user we are looking for
+    * @return User - the User object associated with that jid
+    * If the jid doesn't exist, r
+    */
+   public static User getUser(String jid) {
+	   try {
+	    	 Log.v(TAG, "searchByJid method executed");
+	    	 //Create search manager
+	         UserSearchManager search = new UserSearchManager(NetworkService.getInstance().getConnection());
+	         //Create search form
+	         Form searchForm = search.getSearchForm("search." + "opencomm");
+	         //create answer form
+	         Form answerForm = searchForm.createAnswerForm();
+	         answerForm.setAnswer("search", jid);
+	         answerForm.setAnswer("Username", true);
+	         //get search results
+	         ReportedData data = search.getSearchResults(answerForm, "search." + "opencomm");
+	         //Hits:
+	         Iterator<Row> rows = data.getRows();
+	         if (rows.hasNext()) {
+	            Row row = rows.next();
+	            @SuppressWarnings("unchecked")
+				Iterator<String> jids = row.getValues("jid");
+	            if (jids.hasNext()) {
+	            	String jidFound = jids.next();
+	            	if (jidFound.equalsIgnoreCase(jid)) {
+	            		VCard vCard = new VCard();
+			            vCard.load(NetworkService.getInstance().getConnection(), jidFound);
+			            return new User(vCard);
+	            	}
+	            } 
+	         }
+	   } catch (Exception ex) {
+	         Log.v(TAG, "Caught Exception :"+ex.getMessage());
+	   }
+	return null;
+   }
+   
 }
