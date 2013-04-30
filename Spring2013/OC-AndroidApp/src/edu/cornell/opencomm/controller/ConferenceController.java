@@ -51,6 +51,8 @@ public class ConferenceController {
 		} catch (Exception e) {
 			Log.v(TAG, e.getMessage());
 		}
+		
+		this.room.createUsers();
 	}
 
 	/**

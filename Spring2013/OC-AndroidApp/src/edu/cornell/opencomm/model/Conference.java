@@ -3,9 +3,11 @@ package edu.cornell.opencomm.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.Form;
+import org.jivesoftware.smackx.muc.Affiliate;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jivesoftware.smackx.muc.Occupant;
 
@@ -36,7 +38,7 @@ public class Conference implements Serializable {
 				roomName);
 		Log.v(TAG, "creation " + chat.getRoom());
 		//users.add(UserManager.PRIMARY_USER); 
-		users = createExampleUsers();
+		//users = createExampleUsers();
 		chat.addParticipantStatusListener(new OCParticipantStatusListener(this));
 	}
 
@@ -46,20 +48,33 @@ public class Conference implements Serializable {
 		chat.addParticipantStatusListener(new OCParticipantStatusListener(this));
 	}
 	
+	public void createUsers(){
+		Log.v(TAG, "there are "+users.size()+" users now");
+		users = this.getActiveParticipants();
+		Log.v(TAG, "there are "+users.size()+" users now");
+	}
+	
 	/*
 	 * Backend : A method that gets the participants that are currently active in this conference
 	 * Active, meaning that the user has entered conference. 
 	 */
 	public ArrayList<User> getActiveParticipants(){
 		ArrayList<User> users = new ArrayList<User>();
-		Collection<Occupant> occupants = null;
-		try {
-			occupants = chat.getParticipants();
-		} catch (XMPPException e) {
-			e.printStackTrace();
-		}
-		for(Occupant o : occupants){
-			User u = new User(o.getJid(), o.getNick(), 0);
+		Iterator<String> s = chat.getOccupants();
+		while(s.hasNext()){
+			String temp = s.next();
+			String[] jid = temp.split("/");
+			Log.v(TAG, "searching for jid: oc1testorg");
+			ArrayList<User> l = SearchService.searchByJid(jid[1]);
+			if(l.isEmpty()){
+				Log.v(TAG, "no search results");
+			}
+			for(User u : l){
+				Log.v(TAG, "search returned "+u.getUsername()+" "+u.getNickname());
+			}
+			Log.v(TAG, temp+" is in users");
+			//TODO: temp should be replaced with user's username and nickname
+			User u = new User(temp, temp, 0);
 			users.add(u);
 		}
 		return users;

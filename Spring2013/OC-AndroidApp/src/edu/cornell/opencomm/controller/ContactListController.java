@@ -15,6 +15,7 @@ import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.SearchService;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
+import edu.cornell.opencomm.view.ContactInfoView;
 import edu.cornell.opencomm.view.ContactListView;
 import edu.cornell.opencomm.view.DashboardView;
 
@@ -41,7 +42,9 @@ public class ContactListController {
 	}
 
 	public void handleContactClick(User item) {
-		// TODO Auto-generated method stub
+		//TODO: how to pass argument to ContactInfoView?
+		Intent i = new Intent(this.view, ContactInfoView.class); 
+		this.view.startActivity(i); 
 	}
 
 	public void handleBackButtonClicked() {
@@ -56,7 +59,6 @@ public class ContactListController {
 
 	public void handleOptionClick(View view2) {
 		// TODO Auto-generated method stub
-
 	}
 
 	/*
@@ -68,7 +70,6 @@ public class ContactListController {
 
 	public void handleContactClick(String item) {
 		// TODO Auto-generated method stub
-
 	}
 
 	/** Obtain all of the possible contacts (email addresses and names) from the OpenComm users and 
