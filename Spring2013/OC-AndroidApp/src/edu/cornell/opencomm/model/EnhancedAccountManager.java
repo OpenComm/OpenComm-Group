@@ -112,7 +112,6 @@ public class EnhancedAccountManager extends AccountManager {
 		Log.v(TAG, reponse);
 		
 		if (reponse.equals("1")) {
-			UserManager.PRIMARY_USER = new User(username, firstName + " " + lastName, 0);
 			VCard vCard = new VCard();
 			vCard.setFirstName(firstName);
 			vCard.setLastName(lastName);
@@ -122,6 +121,7 @@ public class EnhancedAccountManager extends AccountManager {
 			vCard.setNickName(firstName + " " + lastName);
 			try {
 				NetworkService.getInstance().getConnection().login(username, password);
+				UserManager.PRIMARY_USER = new User(vCard);
 				vCard.save(NetworkService.getInstance().getConnection());
 				Log.v(TAG, "user logged in, and vCard created and saved successfully");
 				return CreateAccountReturnState.SUCCEEDED;
