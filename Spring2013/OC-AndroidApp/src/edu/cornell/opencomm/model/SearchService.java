@@ -132,7 +132,7 @@ public abstract class SearchService {
 	            Row row = rows.next();
 	            @SuppressWarnings("unchecked")
 				Iterator<String> emails = row.getValues("email");
-	            
+
 	            String emailFound = null; 
 	            if (emails.hasNext()) {
 	               emailFound = emails.next();
@@ -176,7 +176,7 @@ public abstract class SearchService {
 	            @SuppressWarnings("unchecked")
 				Iterator<String> jids = row.getValues("jid");
 	            String jidFound = null;
-	            
+
 	            if (jids.hasNext()) {
 	               jidFound = jids.next();
 	               if(jidFound.equalsIgnoreCase(jid)){
@@ -192,8 +192,7 @@ public abstract class SearchService {
    }
    /**
     * @param String - the jid of the user we are looking for
-    * @return String [] - A list of jids of users that match that jid,
-    * and that aren't already in the currently connected user's Roster
+    * @return String [] - A list of jids of users that match that jid
     * Only call this method when authenticated.
     */
    public static ArrayList<User> searchByJid(String jid) {
@@ -235,8 +234,7 @@ public abstract class SearchService {
    
    /**
     * @param String - the email of the user we are looking for
-    * @return String [] - A list of jids of users that match that email,
-    * and that aren't already in the currently connected user's Roster
+    * @return String [] - A list of jids of users that match that email
     * Only call this method when authenticated.
     */
    public static ArrayList<User> searchByEmail(String email) {
@@ -278,8 +276,7 @@ public abstract class SearchService {
    
    /**
     * @param String - the name of the user we are looking for
-    * @return String [] - A list of jids of users that match that name,
-    * and that aren't already in the currently connected user's Roster
+    * @return String [] - A list of jids of users that match that name
     * Only call this method when authenticated.
     */
    public static ArrayList<User> searchByName(String name) {
@@ -327,12 +324,11 @@ public abstract class SearchService {
    public static User getUser(String jid) {
 	   try {
 		   VCard vCard = new VCard();
-		   vCard.load(NetworkService.getInstance().getConnection(), jid + "@opencomm");
+		   vCard.load(NetworkService.getInstance().getConnection(), jid);
 		   return new User(vCard);   
 	   } catch (Exception ex) {
 	         Log.v(TAG, "Caught Exception :"+ex.getMessage());
 	   }
-	return null;
+	   return null;
    }
-   
 }

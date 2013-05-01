@@ -99,7 +99,7 @@ public class User implements Comparable<User>, Serializable {
 		}
 		this.userColor = UserManager.getUserColor(username);
 		this.jCtrl = new JingleController(this);
-		this.presence = NetworkService.getInstance().getConnection().getRoster().getPresence(username + "@opencomm");
+		//this.presence = NetworkService.getInstance().getConnection().getRoster().getPresence(username + "@opencomm");
 	}
 
 	/**
