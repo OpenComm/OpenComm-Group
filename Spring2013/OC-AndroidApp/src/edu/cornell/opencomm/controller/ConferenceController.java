@@ -16,6 +16,7 @@ import edu.cornell.opencomm.model.Conference_Dummy;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ConferenceView;
+import edu.cornell.opencomm.view.ContactListView;
 import edu.cornell.opencomm.view.DashboardView;
 
 public class ConferenceController {
@@ -121,11 +122,12 @@ public class ConferenceController {
 
 		room.leave();
 
-		if (room.getParticipants().isEmpty()) {
+		room.hasLeft(UserManager.PRIMARY_USER);
+		if (room.getActiveParticipants().isEmpty()) {
 			room = null;
 		}
-		
-		room.hasLeft(UserManager.PRIMARY_USER);
+		Intent i = new Intent(this.view, DashboardView.class); 
+		this.view.startActivity(i); 
 	}
 
 	private ArrayList<User> createExampleUsers() {

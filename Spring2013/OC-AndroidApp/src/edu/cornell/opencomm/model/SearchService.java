@@ -192,7 +192,8 @@ public abstract class SearchService {
    }
    /**
     * @param String - the jid of the user we are looking for
-    * @return String [] - A list of jids of users that match that jid
+    * @return String [] - A list of jids of users that match that jid,
+    * and that aren't already in the currently connected user's Roster
     * Only call this method when authenticated.
     */
    public static ArrayList<User> searchByJid(String jid) {
@@ -234,7 +235,8 @@ public abstract class SearchService {
    
    /**
     * @param String - the email of the user we are looking for
-    * @return String [] - A list of jids of users that match that email
+    * @return String [] - A list of jids of users that match that email,
+    * and that aren't already in the currently connected user's Roster
     * Only call this method when authenticated.
     */
    public static ArrayList<User> searchByEmail(String email) {
@@ -276,7 +278,8 @@ public abstract class SearchService {
    
    /**
     * @param String - the name of the user we are looking for
-    * @return String [] - A list of jids of users that match that name
+    * @return String [] - A list of jids of users that match that name,
+    * and that aren't already in the currently connected user's Roster
     * Only call this method when authenticated.
     */
    public static ArrayList<User> searchByName(String name) {
@@ -324,11 +327,12 @@ public abstract class SearchService {
    public static User getUser(String jid) {
 	   try {
 		   VCard vCard = new VCard();
-		   vCard.load(NetworkService.getInstance().getConnection(), jid);
+		   vCard.load(NetworkService.getInstance().getConnection(), jid + "@opencomm");
 		   return new User(vCard);   
 	   } catch (Exception ex) {
 	         Log.v(TAG, "Caught Exception :"+ex.getMessage());
 	   }
-	   return null;
+	return null;
    }
+   
 }

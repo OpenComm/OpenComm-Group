@@ -66,23 +66,12 @@ public class Conference implements Serializable {
 			String[] jid = temp.split("/");
 			Log.v(TAG, "searching for jid: "+jid[1]);
 			
-			User u2 = SearchService.getUser(jid[1]);
+			User u = SearchService.getUser(jid[1]);
 			
-			if(u2==null) Log.v(TAG, "search service returned null");
+			if(u==null) Log.v(TAG, "search service returned null");
 			else{
-				Log.v(TAG, "username: "+u2.getUsername()+"   nickname: "+u2.getNickname());
+				Log.v(TAG, "username: "+u.getUsername()+"   nickname: "+u.getNickname());
 			}
-			
-//			ArrayList<User> l = SearchService.searchByJid(jid[1]);
-//			if(l.isEmpty()){
-//				Log.v(TAG, "no search results");
-//			}
-//			for(User u : l){
-//				Log.v(TAG, "search returned "+u.getUsername()+" "+u.getNickname());
-//			}
-			Log.v(TAG, temp+" is in users");
-			//TODO: temp should be replaced with user's username and nickname
-			User u = new User(temp, temp, 0);
 			users.add(u);
 		}
 		return users;
