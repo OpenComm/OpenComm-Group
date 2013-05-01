@@ -118,8 +118,7 @@ public class User implements Comparable<User>, Serializable {
 		this(username, nickname, 0);
 		try {
 			// try to get User's VCard
-			this.vCard.load(NetworkService.getInstance().getConnection(),
-					username);
+			this.vCard.load(NetworkService.getInstance().getConnection(), username);
 		} catch (XMPPException e2) {
 			// if no VCard exists, create one
 			byte[] bytes = null;
@@ -154,8 +153,6 @@ public class User implements Comparable<User>, Serializable {
 		this.vCard = vCard;
 		this.username = vCard.getJabberId();
 		this.nickname = vCard.getNickName();
-		byte[] bitmapdata = vCard.getAvatar();
-		this.userImage = BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
 		this.presence = NetworkService.getInstance().getConnection().getRoster().getPresence(username + "@opencomm");
 	}
 

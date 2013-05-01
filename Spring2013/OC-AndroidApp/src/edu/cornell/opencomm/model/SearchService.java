@@ -327,7 +327,7 @@ public abstract class SearchService {
    public static User getUser(String jid) {
 	   try {
 		   VCard vCard = new VCard();
-		   vCard.load(NetworkService.getInstance().getConnection(), jid);
+		   vCard.load(NetworkService.getInstance().getConnection(), jid + "@opencomm");
 		   return new User(vCard);   
 	   } catch (Exception ex) {
 	         Log.v(TAG, "Caught Exception :"+ex.getMessage());

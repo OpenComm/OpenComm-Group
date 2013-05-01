@@ -2,10 +2,13 @@ package edu.cornell.opencomm.controller;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.model.SearchService;
+import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ConferenceView;
 import edu.cornell.opencomm.view.ContactListView;
@@ -60,10 +63,13 @@ public class DashboardController {
 	 * Launches Conference Info
 	 */
 	public void handleConfInfoButtonClicked() {
-		int duration = Toast.LENGTH_SHORT;
-		Toast send = Toast.makeText(this.dashboardView.getApplicationContext(),
-				"ConfInfo clicked", duration);
-		send.show();
+		//int duration = Toast.LENGTH_SHORT;
+		//Toast send = Toast.makeText(this.dashboardView.getApplicationContext(),
+		//		"ConfInfo clicked", duration);
+		//send.show();
+		User user = SearchService.getUser("oc6testorg");
+		Log.v(TAG, user.getUsername());
+		Log.v(TAG, user.getNickname());
 	}
 
 	/**
