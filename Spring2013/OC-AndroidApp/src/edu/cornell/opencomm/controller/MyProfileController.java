@@ -13,8 +13,8 @@ public class MyProfileController {
 	}
 	
 	public void handleBackClicked() {
-		Intent account = new Intent(this.profileView, DashboardView.class);
-		this.profileView.startActivity(account);
+		Intent i = new Intent(this.profileView, DashboardView.class); 
+		this.profileView.startActivity(i); 
 	}
 	
 }

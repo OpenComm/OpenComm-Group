@@ -117,7 +117,44 @@
            android:background="@drawable/invite_conference_button" />
         
     </LinearLayout>
+    
+     <LinearLayout
+        android:layout_width="40dp"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/my_profile_name_label"
+        android:layout_marginTop="222.66dp"
+        android:layout_marginLeft="49.33dp"
+        android:orientation="vertical" >
 
+        <ImageView
+            android:id="@+id/suicase_icon"
+            android:layout_width="25.33dp"
+            android:layout_height="25.33dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25.33dp"
+            android:contentDescription="@string/desc"
+            android:src="@drawable/suitcase_icon" />
+
+        <ImageView
+            android:id="@+id/telephone_icon"
+            android:layout_width="25.33dp"
+            android:layout_height="25.33dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="23.33dp"
+            android:contentDescription="@string/desc"
+            android:src="@drawable/telephone_icon" />
+        
+        <ImageView
+            android:id="@+id/mail_icon"
+            android:layout_width="25.33dp"
+            android:layout_height="25.33dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="23.33dp"
+            android:contentDescription="@string/desc"
+            android:src="@drawable/mail_icon" />
+        
+    </LinearLayout>
+    
     <ListView
         android:id="@+id/my_profile_overflowList"
         android:layout_width="140dp"
