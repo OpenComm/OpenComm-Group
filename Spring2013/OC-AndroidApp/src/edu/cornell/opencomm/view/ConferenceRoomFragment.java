@@ -260,13 +260,13 @@ public class ConferenceRoomFragment extends Fragment {
 				User a = ((UserView) v).getUser();
 				Bitmap old = ((UserView) v).getImage();
 				a = cuoverlap; 
-				System.out.println(a.getUsername()); 
+				//System.out.println(a.getUsername()); 
 				((UserView) v).setImageBitmap(((UserView) v).getRoundedCornerBitmap(BitmapFactory.decodeResource(getResources(),
 						cuoverlap.getImage()))); 
 				((UserView) v).getUser().setImage(cuoverlap.getImage()); 
 				UserView dummy = userViews.get(cuoverlap);
 				cuoverlap = a; 
-				System.out.println(cuoverlap.getUsername()); 
+				//System.out.println(cuoverlap.getUsername()); 
 				dummy.setImageBitmap(dummy.getRoundedCornerBitmap(old)); 	
 				v.invalidate();
 				Log.i("Drag", "Stopped Dragging");
@@ -301,20 +301,7 @@ public class ConferenceRoomFragment extends Fragment {
 
 		@Override
 		public boolean onLongClick(View v) {
-			if (status != DRAGGING) {
-				RelativeLayout bottom_bar_user = (RelativeLayout) roomLayout
-						.findViewById(R.id.bottom_bar_user_action);
-				RelativeLayout bottom_bar_conference = (RelativeLayout) roomLayout
-						.findViewById(R.id.bottom_bar_conference_action);
-				RelativeLayout bottom_bar_conference_moderator = (RelativeLayout) roomLayout
-						.findViewById(R.id.bottom_bar_conference_action_moderator);
-				RelativeLayout action_bar = (RelativeLayout) roomLayout
-						.findViewById(R.id.action_bar);
-				bottom_bar_user.setVisibility(View.VISIBLE);
-				action_bar.setVisibility(View.VISIBLE);
-				bottom_bar_conference.setVisibility(View.INVISIBLE);
-				bottom_bar_conference_moderator.setVisibility(View.INVISIBLE);
-			}
+			// TODO Auto-generated method stub
 			return false;
 		}
 	}

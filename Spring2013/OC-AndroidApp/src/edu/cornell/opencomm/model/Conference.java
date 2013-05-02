@@ -38,7 +38,7 @@ public class Conference implements Serializable {
 				roomName);
 		Log.v(TAG, "creation " + chat.getRoom());
 		//users.add(UserManager.PRIMARY_USER); 
-		users = createExampleUsers();
+		users = createExampleUsers(); 
 		chat.addParticipantStatusListener(new OCParticipantStatusListener(this));
 	}
 

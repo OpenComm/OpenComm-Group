@@ -3,12 +3,12 @@ package edu.cornell.opencomm.controller;
 import java.util.ArrayList;
 
 import org.jivesoftware.smackx.Form;
-import org.jivesoftware.smackx.pubsub.FormType;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.util.Log;
+import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.Conference;
@@ -16,7 +16,6 @@ import edu.cornell.opencomm.model.Conference_Dummy;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ConferenceView;
-import edu.cornell.opencomm.view.ContactListView;
 import edu.cornell.opencomm.view.DashboardView;
 
 public class ConferenceController {
@@ -75,6 +74,9 @@ public class ConferenceController {
 		if (D)
 			Log.d(TAG, "addPerson button clicked");
 		room.invite(username, "let's chat");
+		int duration = Toast.LENGTH_SHORT;
+		Toast send = Toast.makeText(this.view.getApplicationContext(),"Invitation sent",duration);
+		send.show();
 	}
 
 
@@ -180,13 +182,6 @@ public class ConferenceController {
 			pointList.add(p);
 		}
 		return pointList;
-	}
-
-	public Conference_Dummy getCurrentConference() {
-		Conference_Dummy dummy = new Conference_Dummy("Happening Now",
-				confUserList);
-		System.out.println("Why is dummy dm?" + dummy == null);
-		return dummy;
 	}
 
 }
