@@ -38,7 +38,7 @@ public class Conference implements Serializable {
 				roomName);
 		Log.v(TAG, "creation " + chat.getRoom());
 		//users.add(UserManager.PRIMARY_USER); 
-		//users = createExampleUsers();
+		users = createExampleUsers();
 		chat.addParticipantStatusListener(new OCParticipantStatusListener(this));
 	}
 
@@ -48,11 +48,11 @@ public class Conference implements Serializable {
 		chat.addParticipantStatusListener(new OCParticipantStatusListener(this));
 	}
 	
-	public void createUsers(){
-		Log.v(TAG, "there are "+users.size()+" users now");
-		users = this.getActiveParticipants();
-		Log.v(TAG, "there are "+users.size()+" users now");
-	}
+//	public void createUsers(){
+//		Log.v(TAG, "there are "+users.size()+" users now");
+//		users = this.getActiveParticipants();
+//		Log.v(TAG, "there are "+users.size()+" users now");
+//	}
 	
 	/*
 	 * Backend : A method that gets the participants that are currently active in this conference

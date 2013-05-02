@@ -53,7 +53,7 @@ public class ConferenceController {
 			Log.v(TAG, e.getMessage());
 		}
 		
-		this.room.createUsers();
+		//this.room.createUsers();
 	}
 
 	/**

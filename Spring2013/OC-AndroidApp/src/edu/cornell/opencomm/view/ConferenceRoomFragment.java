@@ -1,15 +1,14 @@
 package edu.cornell.opencomm.view;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashMap;
 
-import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.muc.MultiUserChat;
-import org.jivesoftware.smackx.muc.Occupant;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -32,11 +31,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
-import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.Conference;
-import edu.cornell.opencomm.model.Conference_Dummy;
 import edu.cornell.opencomm.model.User;
 
 /**
@@ -53,7 +50,7 @@ public class ConferenceRoomFragment extends Fragment {
 	public Conference conferenceRoom;
 	// public Conference_Dummy conferenceRoom;
 	boolean DEBUG = true;
-	public ArrayList<UserView> userViews = new ArrayList<UserView>();
+	public HashMap<User, UserView> userViews = new HashMap<User, UserView>();
 	public Context context;
 	public static final int radius = 165;
 
@@ -78,11 +75,6 @@ public class ConferenceRoomFragment extends Fragment {
 			return null;
 		}
 		this.roomLayout = inflater.inflate(layoutId, container, false);
-		// left_gradient = (ImageView)
-		// ((ViewGroup)roomLayout).findViewById(R.id.leftsidechatgradient);
-		// right_gradient = (ImageView)
-		// ((ViewGroup)roomLayout).findViewById(R.id.rightsidechatgradient);
-
 		ViewTreeObserver observer = roomLayout.getViewTreeObserver();
 		observer.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
 
@@ -114,14 +106,6 @@ public class ConferenceRoomFragment extends Fragment {
 		this.context = context;
 	}
 
-	/**
-	 * Add a given userView to this roomFragment's list of UserViews
-	 * 
-	 * @param userView
-	 */
-	public void addUserView(UserView userView) {
-		userViews.add(userView);
-	}
 
 	/**
 	 * Remove a given userView from this roomFragment's list of UserViews
@@ -132,7 +116,7 @@ public class ConferenceRoomFragment extends Fragment {
 		userViews.remove(userView);
 	}
 
-	public ArrayList<UserView> getUserView() {
+	public HashMap<User, UserView> getUserView() {
 		return userViews;
 	}
 
@@ -164,6 +148,7 @@ public class ConferenceRoomFragment extends Fragment {
 			for (User u : userList) {
 
 				UserView uv = new UserView(context, u);
+				userViews.put(u, uv); 
 				// Ankit: Make a primary equal to check
 				if (u.compareTo(UserManager.PRIMARY_USER) == 0) {
 					uv.setOnClickListener(new OnClickListener() {
@@ -177,7 +162,6 @@ public class ConferenceRoomFragment extends Fragment {
 				} else {
 					ConferenceRoomFragment.UserTouchListner listener = new ConferenceRoomFragment.UserTouchListner();
 					uv.setOnTouchListener(listener);
-					System.out.println("7");
 					uv.setOnLongClickListener(listener);
 				}
 				((ViewGroup) roomLayout).addView(uv);
@@ -186,39 +170,12 @@ public class ConferenceRoomFragment extends Fragment {
 
 	}
 
-	public void displayInvitationBar() {
-		RelativeLayout invitationBar = (RelativeLayout) roomLayout
-				.findViewById(R.id.side_chat_invitation_bar);
-		invitationBar.setVisibility(View.INVISIBLE);
-		invitationBar.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				v.setVisibility(View.INVISIBLE);
-				v.invalidate();
-			}
-		});
-		invitationBar.invalidate();
-	}
 
 	public User isOverLapping(int x, int y) {
-		// Collection<Occupant> occList = null;
-		// try {
-		// occList = conferenceRoom.getCUserList()();
-		// } catch (XMPPException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		//
-		// ArrayList<User> list = new ArrayList<User>();
-		// for (Occupant o : occList) {
-		// list.add(new User(o));
-		// }
 		ArrayList<User> users = conferenceRoom.getUsers();
-		// ArrayList<User> users = conferenceRoom.getCUserList();
 		for (User u : users) {
 			if (!(u.compareTo(UserManager.PRIMARY_USER) == 0)
 					&& isOverlapping(new Point(x, y), u.getLocation())) {
-
 				return u;
 			}
 		}
@@ -226,15 +183,19 @@ public class ConferenceRoomFragment extends Fragment {
 	}
 
 	public boolean isOverlapping(Point a, Point b) {
-		int imageWidth = 76;
-		int imageHeight = 76;
+		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+		Display display = wm.getDefaultDisplay();
+		float screenWidth = display.getWidth();
+		float userPicSize = screenWidth * 13/48;		
+		int imageWidth = (int) userPicSize;
+		int imageHeight = (int) userPicSize;
 		Rect rectA = new Rect(a.x, a.y, a.x + imageWidth, a.y + imageHeight);
 		Rect rectB = new Rect(b.x, b.y, b.x + imageWidth, b.y + imageHeight);
 		return rectA.intersect(rectB);
 	}
 
 	public class UserTouchListner implements OnTouchListener,
-			OnLongClickListener {
+	OnLongClickListener {
 		/**
 		 * 
 		 */
@@ -273,15 +234,14 @@ public class ConferenceRoomFragment extends Fragment {
 			Log.d("UserTouchListner", "Action : " + event.getAction());
 			Bitmap b = ((UserView) v).getImage();
 			//TODO: TEST VALUES HERE
-			//int relativeX = v.getLeft();
-			//int relativeY = v.getTop();
-			
-			double relativeX = 0;
-			double relativeY = v.getTop()/1.5;
-			
+			double relativeX = v.getLeft();
+			double relativeY = v.getTop();
+
+//			double relativeX = 0;
+//			double relativeY = v.getTop()/1.5;
+
 			int absoluteX = (int) (event.getX() + relativeX);
 			int absoluteY = (int) (event.getY() + relativeY);
-
 			if (event.getAction() == MotionEvent.ACTION_DOWN) {
 				Log.d("UserTouchListner:", "ACTION_DOWN");
 				status = START_DRAGGING;
@@ -290,36 +250,24 @@ public class ConferenceRoomFragment extends Fragment {
 				Log.d("UserTouchListner", "ACTION_UP");
 				status = STOP_DRAGGING;
 				((ViewGroup) roomLayout).removeView(dittoUser);
-				if (isOnEdge(new Point(absoluteX, absoluteY)) != -1) {
-					String s = (isOnEdge(new Point(absoluteX, absoluteY)) == 0) ? "Left Room"
-							: "Right Room";
-					// TODO : Need to show gradient
-					// if (s.equals("Left Room")){
-					// a.reset();
-					// left_gradient.clearAnimation();
-					// left_gradient.startAnimation(a);
-					//
-					// }
-					// else if(s.equals("Right Room")){
-					// a.reset();
-					// right_gradient.clearAnimation();
-					// right_gradient.startAnimation(a);
-					// }
-					// Send invitation using conf room/muc
-					Toast.makeText(context, "Send Invitation:" + s,
-							Toast.LENGTH_SHORT).show();
-				} else {
-					/*
-					 * ConferenceUser cuoverlap = isOverLapping(absoluteX,
-					 * absoluteY); if (cuoverlap != null) { ConferenceUser
-					 * oldUser = ((UserView) v).getCUser(); Point oldLocation =
-					 * oldUser.getLocation();
-					 * oldUser.setLocation(cuoverlap.getLocation());
-					 * cuoverlap.setLocation(oldLocation); }
-					 */
-				}
-
-				((UserView) v).setImageBitmap(b);
+				User cuoverlap = isOverLapping(absoluteX,absoluteY); 
+				if (cuoverlap != null) { 
+					User oldUser = ((UserView) v).getUser();
+					Point oldLocation = oldUser.getLocation();
+					oldUser.setLocation(cuoverlap.getLocation());
+					cuoverlap.setLocation(oldLocation); 
+				}	
+				User a = ((UserView) v).getUser();
+				Bitmap old = ((UserView) v).getImage();
+				a = cuoverlap; 
+				System.out.println(a.getUsername()); 
+				((UserView) v).setImageBitmap(((UserView) v).getRoundedCornerBitmap(BitmapFactory.decodeResource(getResources(),
+						cuoverlap.getImage()))); 
+				((UserView) v).getUser().setImage(cuoverlap.getImage()); 
+				UserView dummy = userViews.get(cuoverlap);
+				cuoverlap = a; 
+				System.out.println(cuoverlap.getUsername()); 
+				dummy.setImageBitmap(dummy.getRoundedCornerBitmap(old)); 	
 				v.invalidate();
 				Log.i("Drag", "Stopped Dragging");
 			} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
@@ -333,7 +281,6 @@ public class ConferenceRoomFragment extends Fragment {
 					dittoUser.setImageBitmap(b);
 					dittoUser.setPadding(absoluteX, absoluteY, 0, 0);
 					((UserView) v).setImageBitmap(null);
-					// ((UserView)v).setBackgroundResource(R.drawable.greybox);
 					((ViewGroup) roomLayout).addView(dittoUser, params);
 
 				} else if (status == DRAGGING) {
@@ -369,15 +316,6 @@ public class ConferenceRoomFragment extends Fragment {
 				bottom_bar_conference_moderator.setVisibility(View.INVISIBLE);
 			}
 			return false;
-		}
-
-		private int isOnEdge(Point location) {
-			if (location.x + 76 >= roomLayout.getWidth()) {
-				return 1;
-			} else if (location.x <= 0) {
-				return 0;
-			} else
-				return -1;
 		}
 	}
 }

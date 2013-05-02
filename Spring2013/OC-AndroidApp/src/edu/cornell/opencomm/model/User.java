@@ -182,7 +182,7 @@ public class User implements Comparable<User>, Serializable {
 
 	@Override
 	public int compareTo(User arg0) {
-		return (getUsername().compareTo(arg0.getUsername()));
+		return (username.compareTo(arg0.getUsername()));
 		// returns alphabetic comparison of usernames by using string compareTo
 	}
 
@@ -225,6 +225,10 @@ public class User implements Comparable<User>, Serializable {
 	
 	public int getY(){
 		return this.location.y; 
+	}
+
+	public void setImage(int image) {
+		this.image = image; 		
 	}
 }
 

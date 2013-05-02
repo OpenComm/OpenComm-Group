@@ -39,7 +39,7 @@ public class UserView extends ImageButton {
 	 * The context in which the view exists
 	 */
 	private Context context;
-
+	private float screenWidth; 
 
 	private User user;
 
@@ -61,7 +61,7 @@ public class UserView extends ImageButton {
 		if (user.compareTo(UserManager.PRIMARY_USER) == 0) {
 			WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
 			Display display = wm.getDefaultDisplay();
-			float screenWidth = display.getWidth();
+			screenWidth = display.getWidth();
 			Bitmap  bm = getRoundedCornerBitmap(OCBitmapDecoder.getThumbnailFromResource(
 					getResources(), UserManager.PRIMARY_USER.getImage()));
 			int width = bm.getWidth();
@@ -93,13 +93,11 @@ public class UserView extends ImageButton {
 	// Redraws the bitmap and makes the edges rounded and adds border color//
 	// Borrowed from:
 	// http://stackoverflow.com/questions/11012556/border-over-a-bitmap-with-rounded-corners-in-android//
-	private Bitmap getRoundedCornerBitmap(Bitmap bitmap) {		
-
+	public Bitmap getRoundedCornerBitmap(Bitmap bitmap) {	
 		WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
-		float screenWidth = display.getWidth();
+		screenWidth = display.getWidth();
 		float userPicSize = screenWidth * 13/48;
-
 		Bitmap output = Bitmap.createBitmap((int)userPicSize, (int)userPicSize, Bitmap.Config.ARGB_8888);
 		Canvas canvas = new Canvas(output);
 		// just for conversion
@@ -125,23 +123,23 @@ public class UserView extends ImageButton {
 		//int color = user.userColor;
 		paint.setColor(Color.GRAY);
 		canvas.drawARGB(0, 0, 0, 0);
-		canvas.drawRect(0, 80, 130, 105, paint);
+		canvas.drawRect(0, 80*screenWidth/480, 130*screenWidth/480, 105*screenWidth/480, paint);
 
 		//draw user name
 		//String firstName =user.getVCard().getFirstName();
 		//String lastName =user.getVCard().getLastName();
 		//String name = firstName + lastName; 
 		paint.setColor(Color.WHITE);
-		paint.setTextSize(14);
+		paint.setTextSize(14*screenWidth/480);
 		paint.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Light.ttf"));
 		paint.setTextAlign(Align.CENTER);
-		canvas.drawText(user.getUsername().toUpperCase(), 65, 97, paint);
+		canvas.drawText(user.getUsername().toUpperCase(), 65*screenWidth/480, 97*screenWidth/480, paint);
 
 		//draw banner border
 		paint.setColor(Color.BLACK);
 		paint.setStyle(Paint.Style.STROKE);
 		paint.setStrokeWidth(1);
-		canvas.drawRect(0, 80, 130, 105, paint);
+		canvas.drawRect(0, 80*screenWidth/480, 130*screenWidth/480, 105*screenWidth/480, paint);
 
 		// draw border
 		paint.setColor(Color.BLACK);
@@ -159,8 +157,8 @@ public class UserView extends ImageButton {
 				getResources(), user.getImage()));
 		int width = bm.getWidth();
 		int height = bm.getHeight();
-		float scaleWidth = ((float) OCBitmapDecoder.THUMBNAIL_WIDTH)/width;
-		float scaleHeight = ((float) OCBitmapDecoder.THUMBNAIL_HEIGTH) / height;
+		float scaleWidth = ((float) OCBitmapDecoder.THUMBNAIL_WIDTH)/width*(screenWidth/480);
+		float scaleHeight = ((float) OCBitmapDecoder.THUMBNAIL_HEIGTH) / height *(screenWidth/480);
 		Matrix matrix = new Matrix();
 		matrix.postScale(scaleWidth, scaleHeight);
 		return Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true);
@@ -176,10 +174,12 @@ public class UserView extends ImageButton {
 		invalidate();
 	}
 
-
 	public User getUser() {
-		// TODO Auto-generated method stub
 		return user;
+	}
+	
+	public void setUser(User user){
+		this.user = user; 
 	}
 
 }
