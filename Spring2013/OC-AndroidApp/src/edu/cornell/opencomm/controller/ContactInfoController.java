@@ -10,4 +10,8 @@ public class ContactInfoController {
 		this.view = view;
 	}
 
+	public void handleInviteConferenceClick() {
+		// TODO Auto-generated method stub
+	}
+
 }

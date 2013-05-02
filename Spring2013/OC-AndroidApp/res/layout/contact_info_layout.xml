@@ -106,7 +106,16 @@
             android:text="@string/email_sample1"
             android:textColor="@color/profile_name_label"
             android:textSize="16sp" />
-
+    
+        <Button
+           android:id="@+id/invite_conference_button"
+           android:layout_width="258.67dp"
+           android:layout_height="46.67dp"
+           android:layout_gravity="center_horizontal"
+           android:layout_marginTop="25.33dp"
+           android:onClick="inviteConferencePressed"
+           android:background="@drawable/invite_conference_button" />
+        
     </LinearLayout>
 
     <ListView
