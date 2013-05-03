@@ -64,12 +64,13 @@ public class ContactListAdapter extends ArrayAdapter<User> {
 		View vi = convertView;
 		if (convertView == null)
 			vi = inflater.inflate(R.layout.contactlist_item_layout, null);
-		TextView name = (TextView) vi.findViewById(R.id.contactlist_itemtext);
-		ImageView image = (ImageView) vi.findViewById(R.id.contactlist_itemimage);
+		TextView name = (TextView) vi.findViewById(R.id.contact_itemtext);
+		ImageView image = (ImageView) vi.findViewById(R.id.contact_itemimage);
+		View state_view = (View) vi.findViewById(R.id.contact_onlinestate);
 		User contact = this.contacts.get(position);
 		name.setText(contact.getNickname());
-		// TODO [frontend] change image to the person's profile photo
-		FontSetter.applySanSerifFont(this.context, name);
+		// TODO set visibility of state_view here
+		FontSetter.applyRobotoFont(this.context, name);
 		return vi;
 	}
 }

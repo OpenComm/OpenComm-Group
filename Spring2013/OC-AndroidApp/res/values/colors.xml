@@ -9,10 +9,12 @@
     <color name="grey_nineteen">#191919</color>
     <color name="grey_twentyone">#212121</color>
     <color name="grey_thirtythree">#333333</color>
+    <color name="grey_blue">#002e3e</color>
     <color name="grey_dark_opacity_ninety">#E6333333</color>
     <color name="dark_grey_translucent">#E6333333</color>
     <color name="grey_conference_card_title_bar_text">#888888</color>
     <color name="green">#AEE278</color>
+    <color name="green_dark">#2ECE21</color>
     <color name="green_light">#afd478</color>
     <color name="orange">#FFAB63</color>
     <color name="orange_light">#F9a964</color>
