@@ -29,7 +29,6 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.manager.UserManager;

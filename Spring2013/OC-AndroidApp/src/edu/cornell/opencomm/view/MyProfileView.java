@@ -1,9 +1,7 @@
 package edu.cornell.opencomm.view;
 
 import android.app.Activity;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.widget.EditText;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.MyProfileController;
 

@@ -5,23 +5,16 @@ import java.util.ArrayList;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.util.OCBitmapDecoder;
-import edu.cornell.opencomm.view.UserView;
-
 import android.content.Context;
 
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
-import android.graphics.Typeface;
-import android.graphics.Paint.Align;
-import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;

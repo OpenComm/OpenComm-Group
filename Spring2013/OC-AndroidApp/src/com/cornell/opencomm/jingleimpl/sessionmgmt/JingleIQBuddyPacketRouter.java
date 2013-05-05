@@ -11,7 +11,6 @@ import com.cornell.opencomm.jingleimpl.JingleIQPacket;
 import com.cornell.opencomm.jingleimpl.JingleIQProvider;
 
 import edu.cornell.opencomm.audio.JingleController;
-import edu.cornell.opencomm.controller.ConferenceController;
 import edu.cornell.opencomm.model.User;
 
 /**
