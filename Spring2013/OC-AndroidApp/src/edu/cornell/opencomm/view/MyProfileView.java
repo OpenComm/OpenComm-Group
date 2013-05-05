@@ -2,12 +2,7 @@ package edu.cornell.opencomm.view;
 
 import android.app.Activity;
 import android.os.Bundle;
-<<<<<<< HEAD
-=======
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
->>>>>>> fix back button
 import android.widget.TextView;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.MyProfileController;
