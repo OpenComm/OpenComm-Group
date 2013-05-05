@@ -63,7 +63,7 @@ public class UserView extends ImageButton {
 			Display display = wm.getDefaultDisplay();
 			screenWidth = display.getWidth();
 			Bitmap  bm = getRoundedCornerBitmap(OCBitmapDecoder.getThumbnailFromResource(
-					getResources(), UserManager.PRIMARY_USER.getImage()));
+					getResources(), UserManager.PRIMARY_USER.getImage()), user);
 			int width = bm.getWidth();
 			int height = bm.getHeight();
 			float scaleWidth = ((float) OCBitmapDecoder.THUMBNAIL_WIDTH)/width*(screenWidth/480);
@@ -93,7 +93,7 @@ public class UserView extends ImageButton {
 	// Redraws the bitmap and makes the edges rounded and adds border color//
 	// Borrowed from:
 	// http://stackoverflow.com/questions/11012556/border-over-a-bitmap-with-rounded-corners-in-android//
-	public Bitmap getRoundedCornerBitmap(Bitmap bitmap) {	
+	public Bitmap getRoundedCornerBitmap(Bitmap bitmap, User user) {	
 		WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
 		screenWidth = display.getWidth();
@@ -154,7 +154,7 @@ public class UserView extends ImageButton {
 	public Bitmap getImage() {
 		//Consider caching the image?
 		Bitmap  bm = getRoundedCornerBitmap(OCBitmapDecoder.getThumbnailFromResource(
-				getResources(), user.getImage()));
+				getResources(), user.getImage()), user);
 		int width = bm.getWidth();
 		int height = bm.getHeight();
 		float scaleWidth = ((float) OCBitmapDecoder.THUMBNAIL_WIDTH)/width*(screenWidth/480);

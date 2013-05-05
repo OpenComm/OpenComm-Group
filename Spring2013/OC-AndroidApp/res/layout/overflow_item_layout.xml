@@ -10,6 +10,6 @@
         android:layout_height="50dp"
         android:gravity="center_vertical"
         android:paddingLeft="9.66dp"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="18.66sp" />
 </RelativeLayout>
