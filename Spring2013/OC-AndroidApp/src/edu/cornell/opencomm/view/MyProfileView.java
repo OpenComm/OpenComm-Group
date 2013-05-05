@@ -20,7 +20,7 @@ public class MyProfileView extends Activity{
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		//setUserInfo();
+		setUserInfo();
 		setContentView(R.layout.my_profile_layout);
 		myProfileController = new MyProfileController(this);
 		//set font

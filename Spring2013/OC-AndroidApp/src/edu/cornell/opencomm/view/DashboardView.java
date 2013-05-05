@@ -22,8 +22,7 @@ import android.widget.AdapterView.OnItemClickListener;
  * <li>Launches contact list</li>
  * <li>Launches profile info</li>
  * </ul>
- * 
- * Issues [TODO] - [frontend] Implement functionality for action bar and conf
+ *  Issues [TODO] - [frontend] Implement functionality for action bar and conf
  * info
  * 
  * @author Risa Naka [frontend]
