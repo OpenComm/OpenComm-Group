@@ -6,11 +6,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnKeyListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import edu.cornell.opencomm.R;
@@ -55,7 +60,7 @@ public class ContactListView extends Activity {
 	private static final String TAG = ContactListView.class.getSimpleName();
 
 	private ContactListController controller;
-	private ContactListAdapter clAdapter;
+	public ContactListAdapter clAdapter;
 
 	/** Overflow variables: list and its options */
 	private ListView contactList; 
@@ -63,23 +68,22 @@ public class ContactListView extends Activity {
 	private String[] options;
 	public static final String AddSearchKey = "ADDSEARCHKEY";
 	private ContactAddSearchController searchController;
-
 	/** Search suggestion variables: list */
-	private AutoCompleteTextView suggestion;
+	public EditText suggestion;
 	private ContactAddSearchAdapter casAdapter;
-
 	/** data buffer for the contact list */
-	private ArrayList<User> users;
+	//private ArrayList<User> users;
 	
 	
-	/** put the users data in to the buffers */
-	public void setUsersBuffer(ArrayList<User> usersArray)
-	{
-		this.users = usersArray;
+	/** state machine*/
+	public enum state{
+		search,                //searching mode
+		add                    //adding mode
 	}
+	public state mode;
 	
-	/** show the users in buffer on the contact list */
-	public void showUsers()
+	
+	public void showUsers(ArrayList<User> users)
 	{
 		if(clAdapter == null){
 			clAdapter = new ContactListAdapter(this,
@@ -94,12 +98,14 @@ public class ContactListView extends Activity {
 				}
 			});
 		}
-		else
-		{
-			clAdapter.notifyDataSetChanged();
+		
+		else{
+			this.clAdapter.clear();
+			for(int i = 0; i< users.size(); i++)	
+				this.clAdapter.add(users.get(i));
+			this.clAdapter.notifyDataSetChanged();
 		}
 	}
-	
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -107,21 +113,34 @@ public class ContactListView extends Activity {
 		this.controller = new ContactListController(this);
 		this.initializeOverflow();
 		this.initializeContactList();
-		
+		this.mode = state.search;
 		//Done - Change font
 		FontSetter.applyRobotoFont(ContactListView.this,
 				findViewById(R.id.contacts_layout));
 		this.isAdd = this.getIntent().getBooleanExtra(
 				ContactListView.AddSearchKey, false);
-		this.suggestion = (AutoCompleteTextView) this
+		this.suggestion = (EditText) this
 				.findViewById(R.id.contact_addsearch_search_input);
 		if (this.isAdd) {
 			((TextView) this.findViewById(R.id.contact_addsearch_title))
 			.setText("add");
 		}
 		this.searchController = new ContactAddSearchController(this, this.isAdd);
+		
+		suggestion.requestFocus();
+		suggestion.addTextChangedListener(new TextWatcher() {
+		    @Override
+		    public void afterTextChanged(Editable s) {
+		        controller.handleTextChanged();
+		    }
+		    @Override
+		    public void onTextChanged(CharSequence s, int start, int before, int count) {}
+			@Override
+			public void beforeTextChanged(CharSequence arg0, int arg1,
+					int arg2, int arg3) {}
+		});
 	}
-
+	
 	/**
 	 * Initializes the content of contact list. When an item is clicked, user
 	 * feedback is generated and an appropriate action is launched
@@ -132,8 +151,10 @@ public class ContactListView extends Activity {
 		ArrayList<User> initialContacts = createExampleUsers();
 		
 		System.out.println(initialContacts.size()); 
-		setUsersBuffer(initialContacts);
-		showUsers();
+		//setUsersBuffer(initialContacts);
+		//showUsers();
+		
+		showUsers(initialContacts);
 	}
 
 	/**
@@ -173,11 +194,7 @@ public class ContactListView extends Activity {
 		this.controller.handleBackButtonClicked();
 	}
 	
-	/** Back button clicked: search the user input*/
-	public void search(View v) {
-		String userInput = this.suggestion.getText().toString().trim();
-		this.controller.handleSearchButtonClicked(userInput);
-	}
+
 
 	/** Overflow button clicked: flip visibility of overflow list */
 	public void overflow(View v) {
@@ -186,36 +203,13 @@ public class ContactListView extends Activity {
 
 	/** Add button clicked: add contact to roster */
 	public void add(View v) {
-		//TODO: make it fade away
-		contactList.setVisibility(View.INVISIBLE); 
 		String userInput = this.suggestion.getText().toString().trim();
 		if(D)
 			Log.d(TAG, this.suggestion.getText().toString());
-		setUsersBuffer(this.controller.handleAddButtonClicked(userInput));
+		this.controller.handleAddButtonClicked(userInput);
 	}
 
-	public void searching(View v){
-		this.initializeSuggestionList();
-	}
 
-	private void initializeSuggestionList() {
-		ArrayList<String> data = this.controller.getSuggestions();
-		this.casAdapter = new ContactAddSearchAdapter(this,
-				R.layout.contact_addsearch_item_layout, data);
-		this.suggestion = (AutoCompleteTextView) this
-				.findViewById(R.id.contact_addsearch_search_input);
-		this.suggestion.setDropDownAnchor(R.id.contact_addsearch_list);
-		this.suggestion.setDropDownBackgroundResource(R.color.grey_eleven);
-		this.suggestion.setAdapter(casAdapter);
-		// Click event for single list row
-		this.suggestion.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				controller.handleContactClick(casAdapter.getItem(position));
-			}
-		});
-	}
 
 	/** Overriding back button: go back to Dashboard */
 	@Override
@@ -234,6 +228,9 @@ public class ContactListView extends Activity {
 		this.controller.updateContactList();
 		this.initializeContactList();
 	}
+	
+	
+	
 	
 	//TODO: DELETE THIS AFTER INTERGRATION
 	//Create dummy users for test

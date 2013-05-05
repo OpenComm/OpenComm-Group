@@ -19,6 +19,7 @@ import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ContactListView;
 import edu.cornell.opencomm.view.DashboardView;
+import edu.cornell.opencomm.view.ContactListView.state;
 
 public class ContactListController {
 
@@ -30,6 +31,27 @@ public class ContactListController {
 		this.view = view; 
 	}
 
+	
+	//TODO: add the searching or adding functions here
+	public void handleTextChanged()
+	{
+		String userInput = view.suggestion.getText().toString().trim();
+		Log.d(TAG, userInput);
+		
+		if(view.mode == state.search)
+		{
+			//add searching functions here
+			Log.d(TAG,"Searching: " + userInput);
+		}
+		else if(view.mode == state.add)
+		{
+			//add adding functions here
+			Log.d(TAG,"Adding: " + userInput);
+		}
+		
+	}
+	
+	
 	/**
 	 * Shows/hides Overflow
 	 */
@@ -54,14 +76,6 @@ public class ContactListController {
 		
 	}
 	
-	public void handleSearchButtonClicked(String name)
-	{
-		//TODO: SET BUFFER USER HERE
-		Log.v(TAG, "Search Button Clicked");
-		ArrayList<User> results = SearchService.searchByName(name);
-		this.view.setUsersBuffer(results);
-		this.view.showUsers();
-	}
 
 	public void handleBackButtonClicked() {
 		Intent i = new Intent(this.view, DashboardView.class); 
@@ -93,9 +107,25 @@ public class ContactListController {
 	/*
 	 * When user click add button get all the contacts in the roster
 	 */
-	public ArrayList<User> handleAddButtonClicked(String name) {
+	public void handleAddButtonClicked(String name) {
 		//TODO: add the right functions here to get the user array
-		return SearchService.searchByName(name); 
+		
+		if(view.mode == state.search)
+		{
+			//TODO: CHANGE THE BUTTON IMAGE HERE?
+			view.mode = state.add;
+			view.suggestion.setHint(R.string.add_hint);
+			view.suggestion.setText("");
+		}
+		else if(view.mode == state.add)
+		{
+			//TODO: CHANGE THE BUTTON IMAGE HERE?
+			view.mode = state.search;
+			view.suggestion.setHint(R.string.search_hint);	
+		}
+		
+		view.clAdapter.clear();
+		view.clAdapter.notifyDataSetChanged();
 	}
 
 	public void handleContactClick(String item) {

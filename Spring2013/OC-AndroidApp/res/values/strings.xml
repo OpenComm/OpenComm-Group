@@ -17,6 +17,7 @@
     <string name="side_chat_text">invited you to a side chat</string>
     <string name="reset_password">reset password</string>
     <string name="sign_up">sign up</string>
+    <string name="add_hint">Lookup Users</string>
     <string name="remove">remove</string>
     <string name="send_email">send email</string>
     <string name="sidechat">sidechat</string>

@@ -89,10 +89,9 @@
                 android:layout_marginLeft="8dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/desc"
-                android:onClick = "search"
                 android:src="@drawable/contact_search" />
 
-            <AutoCompleteTextView
+            <EditText
                 android:id="@+id/contact_addsearch_search_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -109,7 +108,7 @@
                 android:textSize="20sp" >
 
                 <requestFocus />
-            </AutoCompleteTextView>
+            </EditText>
         </LinearLayout>
 
          <ImageButton
