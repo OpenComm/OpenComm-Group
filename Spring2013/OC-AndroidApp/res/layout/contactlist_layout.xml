@@ -89,6 +89,7 @@
                 android:layout_marginLeft="8dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/desc"
+                android:onClick = "search"
                 android:src="@drawable/contact_search" />
 
             <AutoCompleteTextView

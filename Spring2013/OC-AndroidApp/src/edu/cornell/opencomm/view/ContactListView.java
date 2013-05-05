@@ -166,6 +166,12 @@ public class ContactListView extends Activity {
 	public void back(View v) {
 		this.controller.handleBackButtonClicked();
 	}
+	
+	/** Back button clicked: search the user input*/
+	public void search(View v) {
+		String userInput = this.suggestion.getText().toString().trim();
+		this.controller.handleSearchButtonClicked(userInput);
+	}
 
 	/** Overflow button clicked: flip visibility of overflow list */
 	public void overflow(View v) {

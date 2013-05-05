@@ -89,12 +89,19 @@ public class ContactListAdapter extends ArrayAdapter<User> {
 			vi = inflater.inflate(R.layout.contacts_entry_layout, null);
 		TextView name = (TextView) vi.findViewById(R.id.contact_itemtext);
 		ImageView image = (ImageView) vi.findViewById(R.id.contact_itemimage);
+		
 		View state_view = (View) vi.findViewById(R.id.contact_onlinestate);
 		User contact = this.contacts.get(position);
 		name.setText(contact.getNickname());
 		
-		//OCBitmapDecoder
-		//image.setImageResource(contact.getImage());
+		//TODO: get the online statues of uerser here
+		boolean online = true;
+		// online = getOnlineStatus();
+		if(online)
+			state_view.setVisibility(View.VISIBLE);
+		else
+			state_view.setVisibility(View.INVISIBLE);
+		
 		Bitmap  bm = getRoundedCornerBitmap(OCBitmapDecoder.getThumbnailFromResource(
 				image.getResources(), contact.getImage()));
 		image.setImageBitmap(bm);

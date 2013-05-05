@@ -54,6 +54,11 @@ public class ContactListController {
 		Log.v(TAG, s+"clicked");
 		
 	}
+	
+	public void handleSearchButtonClicked(String name)
+	{
+		//TODO: SET BUFFER USER HERE
+	}
 
 	public void handleBackButtonClicked() {
 		Intent i = new Intent(this.view, DashboardView.class); 
@@ -61,7 +66,6 @@ public class ContactListController {
 	}
 
 	public void updateContactList() {
-		// TODO Auto-generated method stub
 
 	}
 
