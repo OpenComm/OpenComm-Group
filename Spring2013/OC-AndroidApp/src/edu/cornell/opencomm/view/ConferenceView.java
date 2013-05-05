@@ -100,7 +100,7 @@ public final class ConferenceView extends FragmentActivity implements
 				super.getSupportFragmentManager(), fragments);
 		ViewPager pager = (ViewPager) super.findViewById(R.id.threepanelpager);
 		pager.setAdapter(this.mPagerAdapter);
-		pager.setOnPageChangeListener(this);
+		//pager.setOnPageChangeListener(this);
 	}
 
 	private List<Fragment> conferenceFragments = new Vector<Fragment>();
