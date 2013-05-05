@@ -170,8 +170,10 @@ public class ConferenceRoomFragment extends Fragment {
 
 	}
 
-	public void addUser(User u){
-		this.conferenceRoom.addUser(u); 
+	public void addUser(User u, Conference conferenceModel){
+		conferenceRoom = conferenceModel; 
+		this.conferenceRoom.getUsers().add(u); 
+		Log.i("adding users", "" + conferenceRoom.getUsers().size()); 
 		this.createTheCirleOfTrust(); 
 	}
 

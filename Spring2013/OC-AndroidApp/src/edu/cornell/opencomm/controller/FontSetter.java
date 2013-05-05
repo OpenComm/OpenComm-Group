@@ -44,7 +44,7 @@ public class FontSetter {
         	if (D) Log.e(TAG, String.format(
             		"Error occured when trying to apply %s font for %s view", 
             		fontName, root));
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 	
