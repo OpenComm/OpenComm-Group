@@ -65,30 +65,34 @@ public class DashboardController {
 	 * Launches Conference Info
 	 */
 	public void handleConfInfoButtonClicked() {
+
+//		Just making toast
 //		int duration = Toast.LENGTH_SHORT;
 //		Toast send = Toast.makeText(this.dashboardView.getApplicationContext(),
 //				"ConfInfo clicked", duration);
 //		send.show();
 		
 		
-		//ArrayList<User> results = SearchService.searchByName("*");
-		//ArrayList<User> results2 = NetworkService.getInstance().getBuddies();
-		//Log.v(TAG, "Search results found: " + results.size());
-		//Log.v(TAG, "Buddies Found: " + results2.size());
-		User user = SearchService.getUser("oc6testorg");
-		Log.v(TAG, "user nickname: " + user.getNickname());
-		Log.v(TAG, "user jid: " + user.getVCard().getJabberId());
+//		Testing searching by Name
+		ArrayList<User> results = SearchService.searchByName("*");
+		Log.v(TAG, "Search results found: " + results.size());
+		for (User user : results) {
+			Log.v("found user: ", user.getNickname());
+		}
+		
+//		Testing getting buddies and presence of the first one
+//		ArrayList<User> results2 = NetworkService.getInstance().getBuddies();
+//		Log.v(TAG, "Buddies Found: " + results2.size());
+//		Log.v(TAG, "Presence Status of First Buddy: " + results2.get(0).getPresence());
+		
+//		Testing getUser
+//		User user = SearchService.getUser("oc7testorg");
+//		Log.v(TAG, "user nickname: " + user.getNickname());
+//		Log.v(TAG, "user jid: " + user.getVCard().getJabberId());
+
 
 		
-//		testing search service
-//		ArrayList<VCard> results = SearchService.searchByEmail("*");
-//		for (VCard vCard : results) {
-//			Log.v("found user:", vCard.getFirstName() + " " + vCard.getLastName());
-//		}
-		
-//		testing getting user
-//		String jid = NetworkService.getInstance().getConnection().getUser();
-//		Log.v("user logged: ", jid);
+//		testing Account Manager
 //		EnhancedAccountManager.changeName("Antoine Chkaiban");
 //		VCard vCard = new VCard();
 //		try {

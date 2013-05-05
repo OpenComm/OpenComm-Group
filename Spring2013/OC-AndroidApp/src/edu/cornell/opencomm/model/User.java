@@ -142,7 +142,7 @@ public class User implements Comparable<User>, Serializable {
 			}
 		}
 		this.userImage = getBitMap();
-		this.presence = NetworkService.getInstance().getConnection().getRoster().getPresence(username + "@opencomm");
+		this.setPresence(NetworkService.getInstance().getConnection().getRoster().getPresence(username + "@opencomm"));
 	}
 
 	public User(Occupant o) {
@@ -153,7 +153,7 @@ public class User implements Comparable<User>, Serializable {
 		this.vCard = vCard;
 		this.username = vCard.getJabberId();
 		this.nickname = vCard.getNickName();
-		this.presence = NetworkService.getInstance().getConnection().getRoster().getPresence(username + "@opencomm");
+		this.setPresence(NetworkService.getInstance().getConnection().getRoster().getPresence(username + "@opencomm"));
 	}
 
 	/** @return - the User's JID */
@@ -229,6 +229,14 @@ public class User implements Comparable<User>, Serializable {
 
 	public void setImage(int image) {
 		this.image = image; 		
+	}
+
+	public Presence getPresence() {
+		return presence;
+	}
+
+	public void setPresence(Presence presence) {
+		this.presence = presence;
 	}
 }
 
