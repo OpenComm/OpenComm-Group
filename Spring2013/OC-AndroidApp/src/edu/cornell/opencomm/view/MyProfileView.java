@@ -2,6 +2,7 @@ package edu.cornell.opencomm.view;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.MyProfileController;
@@ -34,7 +35,7 @@ public class MyProfileView extends Activity{
 		((TextView)findViewById(R.id.my_profile_name_label)).setText(name);
 	}
 	
-	public void back() {
+	public void back(View v) {
 		myProfileController.handleBackClicked();
 	}
 }
