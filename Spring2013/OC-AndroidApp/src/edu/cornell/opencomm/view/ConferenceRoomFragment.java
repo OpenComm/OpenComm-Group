@@ -235,8 +235,6 @@ public class ConferenceRoomFragment extends Fragment {
 				if (cuoverlap != null) { 
 					User oldUser = ((UserView) v).getUser();
 					Point oldLocation = oldUser.getLocation();
-					oldUser.setLocation(cuoverlap.getLocation());
-					cuoverlap.setLocation(oldLocation);
 					((ViewGroup) roomLayout).removeView(dittoUser);
 					Point newLoc = cuoverlap.getLocation(); 
 					//change the array conference room users 
@@ -254,8 +252,7 @@ public class ConferenceRoomFragment extends Fragment {
 					}
 					Log.i("h and h", ""+h+ " "+ j); 
 					Collections.swap(confUsers, h, j);
-					Bitmap old = ((UserView) v).getImage();
-					int overlap = ((UserView) v).getUser().getImage(); 
+					Bitmap old = ((UserView) v).getImage(); 
 					((UserView) v).setImageBitmap(((UserView) v).getRoundedCornerBitmap(BitmapFactory.decodeResource(getResources(),
 							cuoverlap.getImage()), cuoverlap));   
 					UserView dummy = userViews.get(cuoverlap);
@@ -311,6 +308,9 @@ public class ConferenceRoomFragment extends Fragment {
 		}
 
 		public User isOverLapping(int x, int y) {
+			for (User u: confUsers){
+				Log.i("user list 1", u.getUsername() + u.getX()); 
+			}
 			for (User u : confUsers) {
 				if (!(u.compareTo(UserManager.PRIMARY_USER) == 0)
 						&& isOverlapping(new Point(x, y), u.getLocation())) {
