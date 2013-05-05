@@ -59,7 +59,6 @@ public class JingleIQBuddyPacketRouter {
 										+ "Responder: "
 										+ jiq.getAttributeResponder());
 
-						User user = null;
 						JingleController jCtrl = null;
 						Log.i(JingleIQBuddyPacketRouter.TAG,
 								"Looking for User: " + jiq.getFrom()
@@ -69,13 +68,12 @@ public class JingleIQBuddyPacketRouter {
 								.containsKey(userJid)) {
 							Log.i(JingleIQBuddyPacketRouter.TAG,
 									"Does not contain key " + userJid);
-							/*
-							 * if (!User.getAllUsers().containsKey(userJid)) {
-							 * user = new User(userJid, userJid.split("@")[0],
-							 * 0); } else { user =
-							 * User.getAllUsers().get(userJid); }
-							 */
-							jCtrl = new JingleController(user);
+							if ((jCtrl = JingleController
+									.getUsernameToJingleController().get(
+											userJid)) == null) {
+								User u = new User(userJid, userJid, 0);
+								jCtrl = u.getJingle();
+							}
 							jCtrl.setSID(jiq.getAttributeSID());
 							// TODO update the buddy list <- automatically
 							// completed by the network?
@@ -104,8 +102,6 @@ public class JingleIQBuddyPacketRouter {
 						Log.i(JingleIQBuddyPacketRouter.TAG,
 								"From: " + iq.getFrom() + "To: " + iq.getTo());
 						String fromJID = iq.getFrom().split("/")[0];
-						//ConferenceController.getInstance();
-						// Integrated 4/20/13 by kpk47
 						if (JingleController.getUsernameToJingleController()
 								.containsKey(fromJID)) {
 							JingleController.getUsernameToJingleController()
