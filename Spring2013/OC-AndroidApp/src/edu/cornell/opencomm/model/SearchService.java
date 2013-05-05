@@ -306,7 +306,7 @@ public abstract class SearchService {
 				Iterator<String> jids = row.getValues("jid");
 	            while (jids.hasNext()) {
 	            	String jidFound = jids.next();
-	            	if (! roster.contains(jidFound + "@opencomm")) {
+	            	if (! roster.contains(jidFound)) {
 	            		VCard vCard = new VCard();
 		            	vCard.load(NetworkService.getInstance().getConnection(), jidFound);
 		            	results.add(new User(vCard));

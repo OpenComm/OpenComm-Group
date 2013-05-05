@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.SearchService;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
@@ -73,16 +74,22 @@ public class DashboardController {
 		
 		
 //		Testing searching by Name
-		ArrayList<User> results = SearchService.searchByName("*");
-		Log.v(TAG, "Search results found: " + results.size());
-		for (User user : results) {
-			Log.v("found user: ", user.getNickname());
-		}
+//		ArrayList<User> results = SearchService.searchByName("*");
+//		Log.v(TAG, "Search results found: " + results.size());
+//		for (User user : results) {
+//			Log.v("found user: ", user.getNickname());
+//		}
 		
 //		Testing getting buddies and presence of the first one
 //		ArrayList<User> results2 = NetworkService.getInstance().getBuddies();
 //		Log.v(TAG, "Buddies Found: " + results2.size());
+//		for (User user : results2) {
+//			Log.v("found user: ", user.getNickname());
+//		}
 //		Log.v(TAG, "Presence Status of First Buddy: " + results2.get(0).getPresence());
+		
+		//Testing getting primary user info
+		Log.v(TAG, "Primary user's nickname: " + UserManager.PRIMARY_USER.getUsername());
 		
 //		Testing getUser
 //		User user = SearchService.getUser("oc7testorg");
