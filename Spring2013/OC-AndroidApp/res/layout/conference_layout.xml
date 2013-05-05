@@ -3,14 +3,16 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/white"
-    android:contentDescription="@string/desc"
-    android:onClick="viewClicked" >
+    android:contentDescription="@string/desc" >
 
-    <android.support.v4.view.ViewPager
+    <edu.cornell.opencomm.view.NonSwipeablePager
         android:id="@+id/threepanelpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:contentDescription="@string/desc" >
-    </android.support.v4.view.ViewPager>
+
+    </edu.cornell.opencomm.view.NonSwipeablePager>
 
 </RelativeLayout>
