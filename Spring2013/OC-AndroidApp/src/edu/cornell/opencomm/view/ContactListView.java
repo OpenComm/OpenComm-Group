@@ -81,17 +81,23 @@ public class ContactListView extends Activity {
 	/** show the users in buffer on the contact list */
 	private void showUsers()
 	{
-		clAdapter = new ContactListAdapter(this,
-				R.layout.contactlist_item_layout, users);
-		contactList = (ListView) findViewById(R.id.contacts_contactlist);
-		contactList.setAdapter(clAdapter);
-		contactList.setFooterDividersEnabled(true);
-		contactList.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				controller.handleContactClick(clAdapter.getItem(position));
-			}
-		});
+		if(clAdapter == null){
+			clAdapter = new ContactListAdapter(this,
+					R.layout.contactlist_item_layout, users);
+			contactList = (ListView) findViewById(R.id.contacts_contactlist);
+			contactList.setAdapter(clAdapter);
+			contactList.setFooterDividersEnabled(true);
+			contactList.setOnItemClickListener(new OnItemClickListener() {
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					controller.handleContactClick(clAdapter.getItem(position));
+				}
+			});
+		}
+		else
+		{
+			clAdapter.notifyDataSetChanged();
+		}
 	}
 	
 	
