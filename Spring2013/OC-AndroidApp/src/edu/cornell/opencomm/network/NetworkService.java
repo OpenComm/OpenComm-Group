@@ -1,7 +1,6 @@
 package edu.cornell.opencomm.network;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
@@ -9,7 +8,6 @@ import java.util.Random;
 import org.jivesoftware.smack.AccountManager;
 import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.ConnectionConfiguration;
-import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.SASLAuthentication;
 import org.jivesoftware.smack.SmackConfiguration;
@@ -47,6 +45,7 @@ import org.jivesoftware.smackx.search.UserSearch;
 
 import com.cornell.opencomm.jingleimpl.JingleIQPacket;
 import com.cornell.opencomm.jingleimpl.ReasonElementType;
+import com.cornell.opencomm.jingleimpl.sessionmgmt.JingleIQActionMessages;
 import com.cornell.opencomm.jingleimpl.sessionmgmt.JingleIQBuddyPacketRouter;
 
 import edu.cornell.opencomm.audio.JingleController;

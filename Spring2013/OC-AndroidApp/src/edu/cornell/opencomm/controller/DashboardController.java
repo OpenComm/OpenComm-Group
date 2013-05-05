@@ -15,7 +15,6 @@ import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ConferenceView;
 import edu.cornell.opencomm.view.ContactListView;
 import edu.cornell.opencomm.view.DashboardView;
-import edu.cornell.opencomm.view.ForgotPsdView;
 import edu.cornell.opencomm.view.LoginView;
 import edu.cornell.opencomm.view.MyProfileView;
 

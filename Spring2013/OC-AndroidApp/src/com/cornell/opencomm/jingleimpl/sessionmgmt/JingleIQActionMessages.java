@@ -84,10 +84,6 @@ public class JingleIQActionMessages {
 		IPAddresses.discoverNATedIPs();
 		Vector<String> localIPs = IPAddresses.getLocalInterfaceIPs();
 		c.setAttributeIP(localIPs.get(0));
-		//Vector<String> natIPs = IPAddresses.getNATedIPs();
-		//c.setAttributeIP(natIPs.get(0));
-		
-		
 		
 		Integer port = PortHandler.getInstance().getRecvPort();
 		c.setAttributePort(port.shortValue());
@@ -158,15 +154,12 @@ public class JingleIQActionMessages {
 		IPAddresses.discoverNATedIPs();
 		Vector<String> localIPs = IPAddresses.getLocalInterfaceIPs();
 		c.setAttributeIP(localIPs.get(0));
-		//Vector<String> natIPs = IPAddresses.getNATedIPs();
-		//c.setAttributeIP(natIPs.get(0));
 		
 		
 		Integer port = PortHandler.getInstance().getRecvPort();
 		c.setAttributePort(port.shortValue());
 		
 		buddy.setLocalIPAddress(localIPs.get(0));
-		//buddy.setLocalIPAddress(natIPs.get(0));
 		buddy.setLocalPort(port.shortValue());
 		
 		transport.addCandidate(c);

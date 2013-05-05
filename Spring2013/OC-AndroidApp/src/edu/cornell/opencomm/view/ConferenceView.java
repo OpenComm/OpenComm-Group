@@ -13,17 +13,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.ConferenceController;
 import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.model.ConferenceConstants;
+import edu.cornell.opencomm.model.SearchService;
+import edu.cornell.opencomm.model.User;
 
 /**
  * 
@@ -102,11 +100,12 @@ public final class ConferenceView extends FragmentActivity implements
 				super.getSupportFragmentManager(), fragments);
 		ViewPager pager = (ViewPager) super.findViewById(R.id.threepanelpager);
 		pager.setAdapter(this.mPagerAdapter);
-		pager.setOnPageChangeListener(this);
+		//pager.setOnPageChangeListener(this);
 	}
 
+	private List<Fragment> conferenceFragments = new Vector<Fragment>();
+	
 	private List<Fragment> createFragments() {
-		List<Fragment> conferenceFragments = new Vector<Fragment>();
 		conferenceFragments.add(new ConferenceRoomFragment(this,
 				MAIN_ROOM_LAYOUT, conferenceModel));
 		return conferenceFragments;
@@ -161,7 +160,11 @@ public final class ConferenceView extends FragmentActivity implements
 		// TODO: get username of person to be added (hardcoded for now)
 		Log.v(TAG, "trying to add oc4testorg@opencomm");
 		ConferenceController.getInstance(this).HandleAddPerson(
-				"oc4testorg@opencomm");
+				"oc6testorg@opencomm");
+		User user = SearchService.getUser("oc6@testorg@opencomm"); 
+		ConferenceRoomFragment roomView = (ConferenceRoomFragment) conferenceFragments.get(0); 
+		roomView.addUser(user); 
+		v.invalidate(); 
 	}
 	
 	// triggered when leave button was pressed (on confernece_v2)

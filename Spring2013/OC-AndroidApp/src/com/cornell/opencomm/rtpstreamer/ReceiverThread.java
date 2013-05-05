@@ -168,11 +168,9 @@ public class ReceiverThread extends Thread {
 
 				if (timeout != 0) { // normal receipt of packet
 					tg.stopTone();
-					// track.pause();
 					trackLeft.pause();
 					trackRight.pause();
 
-					// user += track.write(lin2,0,lin2.length);
 					int itd = soundSpatializer.getItd();
 					float[] vol = soundSpatializer.getVol();
 					short[][] ss = soundSpatializer.spatializeSource(lin2, itd);
@@ -180,13 +178,6 @@ public class ReceiverThread extends Thread {
 					trackRight.setStereoVolume(0, vol[1]);
 					user += trackLeft.write(ss[0], 0, ss[0].length);
 					trackRight.write(ss[1], 0, ss[1].length);
-					// user+= trackLeft.write(lin2, 0, lin2.length);
-					// trackRight.write(lin2, 0, lin2.length);
-					// user += track.write(shortToByte(lin2), 0, lin2.length *
-					// 2);
-					// user += track.write(monoToStereo(lin2),0,lin2.length *
-					// 2);
-					// track.play();
 					trackLeft.play();
 					trackRight.play();
 					cnt += 2 * BUFFER_SIZE;
@@ -234,9 +225,6 @@ public class ReceiverThread extends Thread {
 					todo = 875 - headroom;
 					println("insert " + todo);
 					islate = true;
-					// Log.d("ReceiverThread", "Is talking? " +
-					// isTalking(lin2));
-					// user += track.write(lin2,0,todo);
 					int itd = soundSpatializer.getItd();
 					float[] vol = soundSpatializer.getVol();
 					short[][] ss = soundSpatializer.spatializeSource(lin2, itd);
@@ -244,11 +232,6 @@ public class ReceiverThread extends Thread {
 					trackRight.setStereoVolume(0, vol[1]);
 					user += trackLeft.write(ss[0], 0, todo + Math.abs(itd));
 					trackRight.write(ss[1], 0, todo + Math.abs(itd));
-					// user += trackLeft.write(lin2,0,todo);
-					// trackRight.write(lin2,0,todo);
-					// user += track.write(shortToByte(lin2), 0, todo * 2);
-					// Log.d("ReceiverThread", "Lin2's length: " + lin2.length);
-					// user += track.write(monoToStereo(lin),0,2 * todo);
 				} else
 					islate = false;
 
@@ -256,9 +239,6 @@ public class ReceiverThread extends Thread {
 					todo = headroom - 875;
 					println("cut " + todo);
 					if (todo < len) {
-						// Log.d("ReceiverThread", "Is talking? " +
-						// isTalking(lin));
-						// user += track.write(lin,todo, len-todo);
 						int itd = soundSpatializer.getItd();
 						float[] vol = soundSpatializer.getVol();
 						short[][] ss2 = soundSpatializer.spatializeSource(lin,
@@ -269,16 +249,8 @@ public class ReceiverThread extends Thread {
 								len - todo + Math.abs(itd));
 						trackRight.write(ss2[1], todo,
 								len - todo + Math.abs(itd));
-						// user += trackLeft.write(lin,todo, len-todo);
-						// trackRight.write(lin,todo, len-todo);
-						// user += track.write(monoToStereo(lin),todo * 2,
-						// (len-todo) * 2);
-						// user += track.write(shortToByte(lin), todo * 2,
-						// (len-todo) * 2);
 					}
 				} else
-				// Log.d("ReceiverThread", "Is talking? " + isTalking(lin));
-				// user += track.write(lin,0,len); {
 				{
 					int itd = soundSpatializer.getItd();
 					float[] vol = soundSpatializer.getVol();
@@ -288,9 +260,6 @@ public class ReceiverThread extends Thread {
 					user += trackLeft.write(ss2[0], 0, len + Math.abs(itd));
 					trackRight.write(ss2[1], 0, len + Math.abs(itd));
 				}
-				// user += track.write(shortToByte(lin), 0, len * 2);
-				// user += track.write(monoToStereo(lin), 0, len * 2);
-				// calculates loss
 				if (seq != 0) {
 					getseq = gseq & 0xff;
 					expseq = ++seq & 0xff;
@@ -325,8 +294,6 @@ public class ReceiverThread extends Thread {
 		trackRight.stop();
 		trackLeft.release();
 		trackRight.release();
-		// track.stop();
-		// track.release();
 		tg.stopTone();
 		tg.release();
 
@@ -395,7 +362,6 @@ public class ReceiverThread extends Thread {
 				sample = (short) ((audioBuffer[i]) | audioBuffer[i + 1] << 16);
 				totalAbsValue += Math.abs(sample) / (numberOfReadShorts);
 			}
-			// Log.d("ReceiverThread", totalAbsValue)
 			// Analyze temp buffer.
 			tempFloatBuffer[tempIndex % 3] = totalAbsValue;
 			float temp = 0.0f;
@@ -413,5 +379,5 @@ public class ReceiverThread extends Thread {
 			}
 		}
 		return false;
-	} // isTalking method
+	} // end isTalking method
 }
