@@ -66,6 +66,7 @@ public class OCParticipantStatusListener implements ParticipantStatusListener {
 		@Override
 		protected Boolean doInBackground(String... arg0) {
 			String jid = (String) arg0[0];
+			Log.v(TAG, jid);
 			VCard v = new VCard();
 			try {
 				v.load(NetworkService.getInstance().getConnection(), jid);
