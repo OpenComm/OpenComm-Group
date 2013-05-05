@@ -1,5 +1,8 @@
 package edu.cornell.opencomm.controller;
 
+import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smackx.packet.VCard;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -158,7 +161,13 @@ public class LoginController {
 						.getAccountManager().getAccountAttribute("name");
 				// generate primary user
 				// TODO [backend] generate primary user
-				UserManager.PRIMARY_USER = new User(strings[0], name, 0);
+				VCard vCard = new VCard();
+				try {
+					vCard.load(NetworkService.getInstance().getConnection(), strings[0] + "@opencomm");
+					UserManager.PRIMARY_USER = new User(vCard);
+				} catch (XMPPException e) {
+					e.printStackTrace();
+				}
 				break;
 			default:
 				break;

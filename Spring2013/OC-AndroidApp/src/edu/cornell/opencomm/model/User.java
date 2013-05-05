@@ -153,7 +153,12 @@ public class User implements Comparable<User>, Serializable {
 		this.vCard = vCard;
 		this.username = vCard.getJabberId();
 		this.nickname = vCard.getNickName();
+		this.image = R.drawable.contact_default_image;
 		this.setPresence(NetworkService.getInstance().getConnection().getRoster().getPresence(username + "@opencomm"));
+		Log.v(TAG, "Username: " + this.username);
+		this.userColor = UserManager.getUserColor(username);
+		this.jCtrl = new JingleController(this);
+		JingleController.getUsernameToJingleController().put(this.username, this.jCtrl);
 	}
 
 	/** @return - the User's JID */
