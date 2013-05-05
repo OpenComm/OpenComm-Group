@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -98,7 +99,7 @@ public final class ConferenceView extends FragmentActivity implements
 		List<Fragment> fragments = createFragments();
 		mPagerAdapter = new ConferencePageAdapter(
 				super.getSupportFragmentManager(), fragments);
-		ViewPager pager = (ViewPager) super.findViewById(R.id.threepanelpager);
+		NonSwipeablePager pager = (NonSwipeablePager) super.findViewById(R.id.threepanelpager);
 		pager.setAdapter(this.mPagerAdapter);
 		//pager.setOnPageChangeListener(this);
 	}
@@ -210,7 +211,6 @@ public final class ConferenceView extends FragmentActivity implements
 	@Override
 	public void onPageScrolled(int arg0, float arg1, int arg2) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
