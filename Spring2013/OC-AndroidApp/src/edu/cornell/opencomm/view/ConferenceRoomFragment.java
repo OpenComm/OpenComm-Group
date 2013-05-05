@@ -217,6 +217,7 @@ public class ConferenceRoomFragment extends Fragment {
 			Log.d("UserTouchListner", "Status : " + status);
 			Log.d("UserTouchListner", "Action : " + event.getAction());
 			Bitmap b = ((UserView) v).getImage();
+			Log.i("Who is this?", ((UserView) v).getUser().getUsername()); 
 			double relativeX = v.getLeft() - v.getWidth() / 2;
 			double relativeY = v.getTop() - v.getHeight() / 2;
 
@@ -254,17 +255,18 @@ public class ConferenceRoomFragment extends Fragment {
 					Log.i("h and h", ""+h+ " "+ j); 
 					Collections.swap(confUsers, h, j);
 					Bitmap old = ((UserView) v).getImage();
-					int olverlap = ((UserView) v).getUser().getImage(); 
+					int overlap = ((UserView) v).getUser().getImage(); 
 					((UserView) v).setImageBitmap(((UserView) v).getRoundedCornerBitmap(BitmapFactory.decodeResource(getResources(),
 							cuoverlap.getImage()), cuoverlap));   
-					((UserView) v).getUser().setImage(cuoverlap.getImage());
 					UserView dummy = userViews.get(cuoverlap);
 					dummy.setImageBitmap(dummy.getRoundedCornerBitmap(old, oldUser));
-					dummy.getUser().setImage(olverlap); 
 					((UserView) v).setUser(cuoverlap); 
 					dummy.setUser(oldUser); 
-					userViews.put(oldUser, dummy); 
-					userViews.put(dummy.getUser(), ((UserView)v));
+					userViews.put(dummy.getUser(), dummy); 
+					userViews.put(cuoverlap, ((UserView)v));
+					for (User u: confUsers){
+						Log.i("user list", u.getUsername()); 
+					}
 					Log.i("Drag", "Stopped Dragging");
 				}	
 				else{
