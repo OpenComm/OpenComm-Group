@@ -151,11 +151,6 @@ public class MicrophonePusher extends Thread{
 				continue;
 			//mystery math happens here (pulled directly from sipdroid no questions asked)
 			calc(lin,(ring+delay*frame_size)%(frame_size*11),num);
-			/*if (nearend != 0)
-				noise(lin,(ring+delay*frame_size)%(frame_size*11),num,p);
-			else if (nearend == 0)
-				p = 0.9*p + 0.1*s;
-			 */
 			//copy samples read into single frame
 			for (int i = 0; i < num; i++)
 				sample[i] = lin[i+ring%(frame_size*11)];
@@ -172,20 +167,6 @@ public class MicrophonePusher extends Thread{
 		Log.i("MicrophonePusher", "terminating...");
 		queues.clear();
 	}
-
-	/*private void noise(short[] lin,int off,int len,double power) {
-		int i,r = (int)(power*2);
-		short ran;
-
-		if (r == 0) r = 1;
-		for (i = 0; i < len; i += 4) {
-			ran = (short)(random.nextInt(r*2)-r);
-			lin[i+off] = ran;
-			lin[i+off+1] = ran;
-			lin[i+off+2] = ran;
-			lin[i+off+3] = ran;
-		}
-	}*/
 
 	private void calc(short[] lin,int off,int len) {
 		int i,j;

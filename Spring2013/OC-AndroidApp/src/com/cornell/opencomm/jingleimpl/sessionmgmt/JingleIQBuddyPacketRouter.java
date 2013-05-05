@@ -68,17 +68,9 @@ public class JingleIQBuddyPacketRouter {
 								.containsKey(userJid)) {
 							Log.i(JingleIQBuddyPacketRouter.TAG,
 									"Does not contain key " + userJid);
-							if ((jCtrl = JingleController
-									.getUsernameToJingleController().get(
-											userJid)) == null) {
-								User u = new User(userJid, userJid, 0);
-								jCtrl = u.getJingle();
-							}
+							User u = new User(userJid, userJid, 0);
+							jCtrl = u.getJingle();
 							jCtrl.setSID(jiq.getAttributeSID());
-							// TODO update the buddy list <- automatically
-							// completed by the network?
-							// xmppClient.getOngoingChatBuddyList().put(jiq.getFrom(),
-							// buddy);
 							Log.i(JingleIQBuddyPacketRouter.TAG,
 									"Created user: Jsername = "
 											+ jCtrl.getBuddyJID()

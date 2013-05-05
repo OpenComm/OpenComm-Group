@@ -45,6 +45,7 @@ import org.jivesoftware.smackx.search.UserSearch;
 
 import com.cornell.opencomm.jingleimpl.JingleIQPacket;
 import com.cornell.opencomm.jingleimpl.ReasonElementType;
+import com.cornell.opencomm.jingleimpl.sessionmgmt.JingleIQActionMessages;
 import com.cornell.opencomm.jingleimpl.sessionmgmt.JingleIQBuddyPacketRouter;
 
 import edu.cornell.opencomm.audio.JingleController;

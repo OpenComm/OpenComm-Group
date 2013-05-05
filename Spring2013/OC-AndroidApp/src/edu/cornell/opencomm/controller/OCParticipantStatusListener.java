@@ -1,10 +1,18 @@
 package edu.cornell.opencomm.controller;
 
-import org.jivesoftware.smackx.muc.ParticipantStatusListener;
+import java.util.concurrent.ExecutionException;
 
+import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smackx.muc.ParticipantStatusListener;
+import org.jivesoftware.smackx.packet.VCard;
+
+import android.os.AsyncTask;
 import android.util.Log;
 
+import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.Conference;
+import edu.cornell.opencomm.model.User;
+import edu.cornell.opencomm.network.NetworkService;
 
 public class OCParticipantStatusListener implements ParticipantStatusListener {
 
@@ -35,6 +43,44 @@ public class OCParticipantStatusListener implements ParticipantStatusListener {
 	@Override
 	public void joined(String arg0) {
 		Log.v(TAG, arg0 + " joined the room");
+		String[] params = { arg0 };
+		AsyncTask<String, Void, Boolean> a = new JSessionInitiateTask()
+				.execute(params);
+		try {
+			if (a.get()) {
+				Log.v(TAG, "Sent sessionInitiate to " + arg0);
+			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	private class JSessionInitiateTask extends AsyncTask<String, Void, Boolean> {
+
+		@Override
+		protected Boolean doInBackground(String... arg0) {
+			String jid = (String) arg0[0];
+			VCard v = new VCard();
+			try {
+				v.load(NetworkService.getInstance().getConnection(), jid);
+			} catch (XMPPException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			User u = new User(v);
+			u.getJingle()
+					.getJiqActionMessageSender()
+					.sendSessionInitiate(
+							UserManager.PRIMARY_USER.getUsername(), jid,
+							u.getJingle());
+			return true;
+		}
+
 	}
 
 	@Override
