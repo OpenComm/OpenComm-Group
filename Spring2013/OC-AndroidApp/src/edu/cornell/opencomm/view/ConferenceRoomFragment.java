@@ -1,6 +1,7 @@
 package edu.cornell.opencomm.view;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 import org.jivesoftware.smackx.muc.MultiUserChat;
@@ -29,7 +30,6 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.manager.UserManager;
@@ -235,7 +235,37 @@ public class ConferenceRoomFragment extends Fragment {
 					User oldUser = ((UserView) v).getUser();
 					Point oldLocation = oldUser.getLocation();
 					oldUser.setLocation(cuoverlap.getLocation());
-					cuoverlap.setLocation(oldLocation); 
+					cuoverlap.setLocation(oldLocation);
+					((ViewGroup) roomLayout).removeView(dittoUser);
+					Point newLoc = cuoverlap.getLocation(); 
+					//change the array conference room users 
+					int h = 0, j = 0;  
+					for (int i= 0; i < confUsers.size(); i++){
+						User o = confUsers.get(i); 
+						if (oldUser.compareTo(o) == 0){
+							h = i; 
+							cuoverlap.setLocation(oldLocation);    
+						}
+						if (cuoverlap.compareTo(o) == 0){
+							j= i; 
+							oldUser.setLocation(newLoc);  
+						}
+					}
+					Log.i("h and h", ""+h+ " "+ j); 
+					Collections.swap(confUsers, h, j);
+					Bitmap old = ((UserView) v).getImage();
+					int olverlap = ((UserView) v).getUser().getImage(); 
+					((UserView) v).setImageBitmap(((UserView) v).getRoundedCornerBitmap(BitmapFactory.decodeResource(getResources(),
+							cuoverlap.getImage()), cuoverlap));   
+					((UserView) v).getUser().setImage(cuoverlap.getImage());
+					UserView dummy = userViews.get(cuoverlap);
+					dummy.setImageBitmap(dummy.getRoundedCornerBitmap(old, oldUser));
+					dummy.getUser().setImage(olverlap); 
+					((UserView) v).setUser(cuoverlap); 
+					dummy.setUser(oldUser); 
+					userViews.put(oldUser, dummy); 
+					userViews.put(dummy.getUser(), ((UserView)v));
+					Log.i("Drag", "Stopped Dragging");
 				}	
 				else{
 					((UserView) v).setImageBitmap(b);
@@ -275,12 +305,11 @@ public class ConferenceRoomFragment extends Fragment {
 		@Override
 		public boolean onLongClick(View v) {
 			// TODO Auto-generated method stub
-			return false;
+			return true;
 		}
 
 		public User isOverLapping(int x, int y) {
-			ArrayList<User> users = conferenceRoom.getUsers();
-			for (User u : users) {
+			for (User u : confUsers) {
 				if (!(u.compareTo(UserManager.PRIMARY_USER) == 0)
 						&& isOverlapping(new Point(x, y), u.getLocation())) {
 					return u;
