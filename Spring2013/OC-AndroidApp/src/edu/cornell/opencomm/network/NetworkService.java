@@ -1,5 +1,6 @@
 package edu.cornell.opencomm.network;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
@@ -7,6 +8,7 @@ import java.util.Random;
 import org.jivesoftware.smack.AccountManager;
 import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.ConnectionConfiguration;
+import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.SASLAuthentication;
 import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.XMPPConnection;
@@ -49,6 +51,7 @@ import edu.cornell.opencomm.audio.JingleController;
 import edu.cornell.opencomm.controller.LoginController.ReturnState;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.Invitation;
+import edu.cornell.opencomm.model.User;
 
 import android.util.Log;
 
@@ -212,6 +215,23 @@ public class NetworkService {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	public ArrayList<User> getBuddies() {
+		ArrayList<User> results = new ArrayList<User>();
+		Iterator<RosterEntry> entries = xmppConn.getRoster().getEntries().iterator();
+		while (entries.hasNext()) {
+			RosterEntry entry = entries.next();
+			String jid = entry.getUser();
+			VCard vCard = new VCard();
+			try {
+				vCard.load(xmppConn, jid);
+			} catch (XMPPException e) {
+				e.printStackTrace();
+			}
+			results.add(new User(vCard));
+		}
+		return results;
 	}
 
 	public boolean logout() {

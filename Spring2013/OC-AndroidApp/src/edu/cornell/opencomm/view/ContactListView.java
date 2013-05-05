@@ -73,13 +73,13 @@ public class ContactListView extends Activity {
 	
 	
 	/** put the users data in to the buffers */
-	private void setUsersBuffer(ArrayList<User> usersArray)
+	public void setUsersBuffer(ArrayList<User> usersArray)
 	{
 		this.users = usersArray;
 	}
 	
 	/** show the users in buffer on the contact list */
-	private void showUsers()
+	public void showUsers()
 	{
 		if(clAdapter == null){
 			clAdapter = new ContactListAdapter(this,

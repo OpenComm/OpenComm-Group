@@ -1,5 +1,7 @@
 package edu.cornell.opencomm.controller;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -62,36 +64,20 @@ public class DashboardController {
 	 * Launches Conference Info
 	 */
 	public void handleConfInfoButtonClicked() {
-		//int duration = Toast.LENGTH_SHORT;
-		//Toast send = Toast.makeText(this.dashboardView.getApplicationContext(),
-		//		"ConfInfo clicked", duration);
-		//send.show();
-		User user = SearchService.getUser("oc6testorg");
-		Log.v(TAG, user.getUsername());
-		Log.v(TAG, user.getNickname());
-	}
-
-	/**
-	 * Launches Conference List
-	 */
-	public void handleConferencesButtonClicked() {
-		// TODO: go to a dummy conference!
-		Intent i = new Intent(this.dashboardView, ConferenceView.class);
-		this.dashboardView.startActivity(i);
-	}
-
-	/**
-	 * Launches Contact List
-	 */
-	public void handleContactsButtonClicked() {
-		Intent i = new Intent(this.dashboardView, ContactListView.class); 
-		this.dashboardView.startActivity(i); 
-		
-		
 //		int duration = Toast.LENGTH_SHORT;
 //		Toast send = Toast.makeText(this.dashboardView.getApplicationContext(),
-//				"Contacts Button clicked", duration);
+//				"ConfInfo clicked", duration);
 //		send.show();
+		
+		
+		//ArrayList<User> results = SearchService.searchByName("*");
+		//ArrayList<User> results2 = NetworkService.getInstance().getBuddies();
+		//Log.v(TAG, "Search results found: " + results.size());
+		//Log.v(TAG, "Buddies Found: " + results2.size());
+		User user = SearchService.getUser("oc6testorg");
+		Log.v(TAG, "user nickname: " + user.getNickname());
+		Log.v(TAG, "user jid: " + user.getVCard().getJabberId());
+
 		
 //		testing search service
 //		ArrayList<VCard> results = SearchService.searchByEmail("*");
@@ -115,8 +101,23 @@ public class DashboardController {
 //		testing addUserToBuddyList
 //		NetworkService.getInstance().getConnection()
 		
-		
-		
+	}
+
+	/**
+	 * Launches Conference List
+	 */
+	public void handleConferencesButtonClicked() {
+		// TODO: go to a dummy conference!
+		Intent i = new Intent(this.dashboardView, ConferenceView.class);
+		this.dashboardView.startActivity(i);
+	}
+
+	/**
+	 * Launches Contact List
+	 */
+	public void handleContactsButtonClicked() {
+		Intent i = new Intent(this.dashboardView, ContactListView.class); 
+		this.dashboardView.startActivity(i);
 	}
 
 	/**

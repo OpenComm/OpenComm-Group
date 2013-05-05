@@ -57,6 +57,10 @@ public class ContactListController {
 	public void handleSearchButtonClicked(String name)
 	{
 		//TODO: SET BUFFER USER HERE
+		Log.v(TAG, "Search Button Clicked");
+		ArrayList<User> results = SearchService.searchByName(name);
+		this.view.setUsersBuffer(results);
+		this.view.showUsers();
 	}
 
 	public void handleBackButtonClicked() {
