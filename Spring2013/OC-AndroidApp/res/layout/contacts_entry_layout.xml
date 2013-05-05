@@ -2,42 +2,46 @@
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
-		
-        <ImageView
+        
+
+	   
+	   <ImageView
         android:id="@+id/contact_itemimage"
         android:layout_width="42.67dp"
         android:layout_height="42.67dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft = "15dp"
-        
+        android:layout_marginLeft = "12dp"   
         android:adjustViewBounds="true"
         android:contentDescription="@string/desc"
         android:scaleType="centerInside"
         android:src="@drawable/contact_default_image"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:textSize="20sp" 
+        />
     
+	   
     <View
         android:id="@+id/contact_onlinestate"
         android:layout_width="18dp"
         android:layout_height="18dp"
         android:gravity="center_vertical"  
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:layout_margin="12dp"
         android:background="@drawable/state_circle" />
 
     <TextView
         android:id="@+id/contact_itemtext"
-        android:layout_width="wrap_content"
+        android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft = "16dp"
+        android:layout_toRightOf = "@id/contact_itemimage"
         android:ellipsize="end"
-        android:gravity="center"
+        android:gravity="left"
         android:lines="1"
-        android:text="test"
-        android:textColor="@color/black"
-        android:textSize="40sp" />
+        android:textColor="@color/grey_blue"
+        android:textSize="22sp" />
 		
     </RelativeLayout>

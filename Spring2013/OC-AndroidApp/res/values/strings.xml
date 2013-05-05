@@ -118,8 +118,9 @@
         <item>contacts</item>
     </string-array>
     <string-array name="overflow_contacts">
-        <item>conferences</item>
-        <item>profile</item>
+        <item>Sort by Online Status</item>
+        <item>Sort by First Name</item>
+        <item>Sort by Last Name</item>
     </string-array>
     <string-array name="overflow_myaccount">
         <item>conferences</item>

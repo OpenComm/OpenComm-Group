@@ -29,7 +29,7 @@ public class FontSetter {
 	// Design-specified fonts
 	private static String serifFont = "Delicious-Roman.otf";
 	private static String sanserifFont = "Delicious.otf";
-	private static String roboto = "fonts/Roboto-Regular.otf";
+	private static String roboto = "fonts/Roboto-Light.otf";
 	
 	private static void applyFont(Context context, View root, String fontName) {
         try {

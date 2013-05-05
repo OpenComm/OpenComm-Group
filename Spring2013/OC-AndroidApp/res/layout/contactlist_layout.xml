@@ -3,12 +3,14 @@
     android:id="@+id/contacts_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:layout_margin="0dp"
     android:background="#F2F2F2" >
 
     <RelativeLayout
         android:id="@+id/contacts_actionbar"
         android:layout_width="fill_parent"
         android:layout_height="42.66dp"
+    	android:layout_margin="0dp"
         android:background="#002e3e" >
 
         <ImageView
@@ -49,14 +51,15 @@
 
     <ListView
         android:id="@+id/contacts_overflowList"
-        android:layout_width="140dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:layout_marginRight = "10dp"
         android:layout_below="@id/contacts_actionbar"
-        android:layout_marginRight="10.66dp"
-        android:background="@color/black"
+        android:background="@color/white"
         android:listSelector="@drawable/selector_bg_list"
         android:divider="@color/black"
+        android:footerDividersEnabled="true"
         android:dividerHeight="0.66dp"
         android:padding="0.66dp"
         android:visibility="invisible" />
@@ -90,7 +93,7 @@
 
             <AutoCompleteTextView
                 android:id="@+id/contact_addsearch_search_input"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:autoLink="none"
@@ -101,21 +104,24 @@
                 android:gravity="center_vertical"
                 android:hint="@string/search"
                 android:inputType="text"
-                android:textColor="@color/black"
+                android:textColor="@color/grey_blue"
                 android:textSize="20sp" >
 
                 <requestFocus />
             </AutoCompleteTextView>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/button1"
+         <ImageButton
+            android:id="@+id/contactlist_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
+            android:layout_marginRight = "10dp"
             android:onClick="add"
-            android:text="@string/add" />
+            android:src="@drawable/person_add_conference"
+            android:contentDescription="@string/desc"
+             />
 
     </RelativeLayout>
 
@@ -127,10 +133,9 @@
         android:layout_below="@+id/contact_search_background"
         android:layout_above="@+id/contact_addsearch_searchbar"
         android:background="#F2F2F2"
-        android:divider="@color/grey_twentyone"
+        android:divider="@color/grey_blue"
+        android:footerDividersEnabled="true"
         android:dividerHeight="0.66dp"
-        android:paddingLeft="13.33dp"
-        android:paddingRight="13.33dp"
         android:visibility="visible" >
 
     </ListView>

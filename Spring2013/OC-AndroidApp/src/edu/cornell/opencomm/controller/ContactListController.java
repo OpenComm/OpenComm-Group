@@ -11,6 +11,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
+import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.SearchService;
 import edu.cornell.opencomm.model.User;
@@ -33,18 +35,24 @@ public class ContactListController {
 	 * Shows/hides Overflow
 	 */
 	public void handleOverflowButtonClicked() {
+			Log.d(TAG, "overflow button clicked");
 		if (this.view.getOverflowList().getVisibility() == View.INVISIBLE) {
+			Log.d(TAG, "its invisible now, set it visible");
 			this.view.getOverflowList().setVisibility(View.VISIBLE);
+			this.view.getOverflowList().bringToFront();
 		} else {
-			this.view.getOverflowList()
-			.setVisibility(View.INVISIBLE);
+			Log.d(TAG, "its visible now, set it invisible");
+			this.view.getOverflowList().setVisibility(View.INVISIBLE);
 		}
 	}
 
 	public void handleContactClick(User item) {
 		//TODO: how to pass argument to ContactInfoView?
-		Intent i = new Intent(this.view, ContactInfoView.class); 
-		this.view.startActivity(i); 
+		//Intent i = new Intent(this.view, ContactInfoView.class); 
+		//this.view.startActivity(i);
+		String s = item.getNickname();
+		Log.v(TAG, s+"clicked");
+		
 	}
 
 	public void handleBackButtonClicked() {
@@ -57,14 +65,29 @@ public class ContactListController {
 
 	}
 
-	public void handleOptionClick(View view2) {
-		// TODO Auto-generated method stub
+	public void handleOptionClick(View view) {
+		// TODO add functions to handle overflow here
+		String option = ((TextView) view.findViewById(R.id.contactlist_overflow_itemtext))
+				.getText().toString().trim();
+		if (option.equals("Sort by Online Status"))
+		{
+			Log.d(TAG, "Sort by Online Status");
+		}
+		else if(option.equals("Sort by First Name"))
+		{
+			Log.d(TAG, "Sort by First Name");
+		}
+		else if(option.equals("Sort by Last Name"))
+		{
+			Log.d(TAG, "Sort by Last Name");
+		}
 	}
 
 	/*
 	 * When user click add button get all the contacts in the roster
 	 */
 	public ArrayList<User> handleAddButtonClicked(String name) {
+		//TODO: add the right functions here to get the user array
 		return SearchService.searchByName(name); 
 	}
 

@@ -43,7 +43,7 @@ public class OverflowAdapter extends ArrayAdapter<String> {
 	 * @param options - a string array of options to populate the list */
 	public OverflowAdapter(Context context, int textViewResourceId,
 			String[] options) {
-		super(context, R.layout.overflow_item_layout, options);
+		super(context, R.layout.contactlist_overflow_entry_layout, options);
 		this.context = context;
 		this.options = options;
 		this.inflater = (LayoutInflater) context
@@ -57,10 +57,10 @@ public class OverflowAdapter extends ArrayAdapter<String> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View vi = convertView;
 		if (convertView == null)
-			vi = inflater.inflate(R.layout.overflow_item_layout, null);
-		TextView option = (TextView) vi.findViewById(R.id.overflow_itemtext);
+			vi = inflater.inflate(R.layout.contactlist_overflow_entry_layout, null);
+		TextView option = (TextView) vi.findViewById(R.id.contactlist_overflow_itemtext);
 		option.setText(this.options[position]);
-		FontSetter.applySanSerifFont(this.context, vi);
+		FontSetter.applyRobotoFont(this.context, vi);
 		return vi;
 	}
 }
