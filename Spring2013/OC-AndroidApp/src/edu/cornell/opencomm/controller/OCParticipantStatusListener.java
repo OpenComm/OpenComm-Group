@@ -43,7 +43,8 @@ public class OCParticipantStatusListener implements ParticipantStatusListener {
 	@Override
 	public void joined(String arg0) {
 		Log.v(TAG, arg0 + " joined the room");
-		String[] params = { arg0 };
+		String username = arg0.split("/")[1] + "@opencomm";
+		String[] params = { username };
 		AsyncTask<String, Void, Boolean> a = new JSessionInitiateTask()
 				.execute(params);
 		try {
