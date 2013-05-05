@@ -22,7 +22,7 @@ public class MyProfileView extends Activity{
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		setUserInfo();
+		//setUserInfo();
 		setContentView(R.layout.my_profile_layout);
 		myProfileController = new MyProfileController(this);
 		//set font
@@ -31,9 +31,8 @@ public class MyProfileView extends Activity{
 
 	public void setUserInfo(){
 		User user = UserManager.PRIMARY_USER;
-		if (user == null) System.out.println("no user!");
 		String name = user.getUsername();
-		if (name == null) System.out.println("null!!!");
+		System.out.println(name);
 		//still need title and cell phone
 		((TextView)findViewById(R.id.my_profile_name_label)).setText(name);
 	}
