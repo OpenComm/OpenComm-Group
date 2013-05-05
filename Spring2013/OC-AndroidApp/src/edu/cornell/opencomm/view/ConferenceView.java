@@ -217,49 +217,4 @@ public final class ConferenceView extends FragmentActivity implements
 		mPagerAdapter = null;
 		super.onStop();
 	}
-
-//	@Override
-//	public boolean dispatchKeyEvent(KeyEvent event) {
-//		int eventType = event.getKeyCode();
-//		boolean returnType = true;
-//		switch (eventType) {
-//		case KeyEvent.KEYCODE_I:
-//			System.out.println("ConferenceView.dispatchKeyEvent()");
-//			ConferenceRoomFragment fragment = (ConferenceRoomFragment) mPagerAdapter
-//					.getItem(currentPageNumber);
-//			fragment.displayInvitationBar();
-//			break;
-//		case KeyEvent.KEYCODE_J:
-//			// Someone joins the room
-//			break;
-//		case KeyEvent.KEYCODE_E:
-//			// Mod ends the conference
-//			break;
-//		case KeyEvent.KEYCODE_M:
-//			// When you get mode priv
-//			break;
-//		case KeyEvent.KEYCODE_K:
-//			// when someone gets
-//			break;
-//
-//		default:
-//			returnType = super.dispatchKeyEvent(event);
-//			break;
-//		}
-//		return returnType;
-//	}
-//
-//	public void displayInvitationBar() {
-//		RelativeLayout invitationBar = (RelativeLayout) roomLayout
-//				.findViewById(R.id.side_chat_invitation_bar);
-//		invitationBar.setVisibility(View.INVISIBLE);
-//		invitationBar.setOnClickListener(new OnClickListener() {
-//			public void onClick(View v) {
-//				v.setVisibility(View.INVISIBLE);
-//				v.invalidate();
-//			}
-//		});
-//		invitationBar.invalidate();
-//	}
-
 }

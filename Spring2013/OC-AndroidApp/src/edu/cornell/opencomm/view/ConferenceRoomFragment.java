@@ -170,32 +170,16 @@ public class ConferenceRoomFragment extends Fragment {
 
 	}
 
-
-	public User isOverLapping(int x, int y) {
-		ArrayList<User> users = conferenceRoom.getUsers();
-		for (User u : users) {
-			if (!(u.compareTo(UserManager.PRIMARY_USER) == 0)
-					&& isOverlapping(new Point(x, y), u.getLocation())) {
-				return u;
-			}
-		}
-		return null;
+	public void addUser(User u){
+		this.conferenceRoom.addUser(u); 
+		this.createTheCirleOfTrust(); 
 	}
 
-	public boolean isOverlapping(Point a, Point b) {
-		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-		Display display = wm.getDefaultDisplay();
-		float screenWidth = display.getWidth();
-		float userPicSize = screenWidth * 13/48;		
-		int imageWidth = (int) userPicSize;
-		int imageHeight = (int) userPicSize;
-		Rect rectA = new Rect(a.x, a.y, a.x + imageWidth, a.y + imageHeight);
-		Rect rectB = new Rect(b.x, b.y, b.x + imageWidth, b.y + imageHeight);
-		return rectA.intersect(rectB);
-	}
+
 
 	public class UserTouchListner implements OnTouchListener,
 	OnLongClickListener {
+		private ArrayList<User> confUsers = conferenceRoom.getUsers();  
 		/**
 		 * 
 		 */
@@ -233,12 +217,8 @@ public class ConferenceRoomFragment extends Fragment {
 			Log.d("UserTouchListner", "Status : " + status);
 			Log.d("UserTouchListner", "Action : " + event.getAction());
 			Bitmap b = ((UserView) v).getImage();
-			//TODO: TEST VALUES HERE
 			double relativeX = v.getLeft() - v.getWidth() / 2;
 			double relativeY = v.getTop() - v.getHeight() / 2;
-
-//			double relativeX = 0;
-//			double relativeY = v.getTop()/1.5;
 
 			int absoluteX = (int) (event.getX() + relativeX);
 			int absoluteY = (int) (event.getY() + relativeY);
@@ -250,24 +230,17 @@ public class ConferenceRoomFragment extends Fragment {
 				Log.d("UserTouchListner", "ACTION_UP");
 				status = STOP_DRAGGING;
 				((ViewGroup) roomLayout).removeView(dittoUser);
-				User cuoverlap = isOverLapping(absoluteX,absoluteY); 
+				User cuoverlap = this.isOverLapping(absoluteX,absoluteY); 
 				if (cuoverlap != null) { 
 					User oldUser = ((UserView) v).getUser();
 					Point oldLocation = oldUser.getLocation();
 					oldUser.setLocation(cuoverlap.getLocation());
 					cuoverlap.setLocation(oldLocation); 
 				}	
-				User a = ((UserView) v).getUser();
-				Bitmap old = ((UserView) v).getImage();
-				a = cuoverlap; 
-				//System.out.println(a.getUsername()); 
-				((UserView) v).setImageBitmap(((UserView) v).getRoundedCornerBitmap(BitmapFactory.decodeResource(getResources(),
-						cuoverlap.getImage()))); 
-				((UserView) v).getUser().setImage(cuoverlap.getImage()); 
-				UserView dummy = userViews.get(cuoverlap);
-				cuoverlap = a; 
-				//System.out.println(cuoverlap.getUsername()); 
-				dummy.setImageBitmap(dummy.getRoundedCornerBitmap(old)); 	
+				else{
+					((UserView) v).setImageBitmap(b);
+					((UserView) v).invalidate();
+				}
 				v.invalidate();
 				Log.i("Drag", "Stopped Dragging");
 			} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
@@ -303,6 +276,29 @@ public class ConferenceRoomFragment extends Fragment {
 		public boolean onLongClick(View v) {
 			// TODO Auto-generated method stub
 			return false;
+		}
+
+		public User isOverLapping(int x, int y) {
+			ArrayList<User> users = conferenceRoom.getUsers();
+			for (User u : users) {
+				if (!(u.compareTo(UserManager.PRIMARY_USER) == 0)
+						&& isOverlapping(new Point(x, y), u.getLocation())) {
+					return u;
+				}
+			}
+			return null;
+		}
+
+		public boolean isOverlapping(Point a, Point b) {
+			WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+			Display display = wm.getDefaultDisplay();
+			float screenWidth = display.getWidth();
+			float userPicSize = screenWidth * 13/48;		
+			int imageWidth = (int) userPicSize;
+			int imageHeight = (int) userPicSize;
+			Rect rectA = new Rect(a.x, a.y, a.x + imageWidth, a.y + imageHeight);
+			Rect rectB = new Rect(b.x, b.y, b.x + imageWidth, b.y + imageHeight);
+			return rectA.intersect(rectB);
 		}
 	}
 }
