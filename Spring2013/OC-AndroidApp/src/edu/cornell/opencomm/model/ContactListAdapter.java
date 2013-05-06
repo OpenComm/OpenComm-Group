@@ -2,18 +2,15 @@ package edu.cornell.opencomm.model;
 
 import java.util.ArrayList;
 
-import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.controller.FontSetter;
-import edu.cornell.opencomm.util.OCBitmapDecoder;
-import android.content.Context;
+import org.jivesoftware.smack.packet.Presence;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
-
 import android.graphics.Rect;
 import android.util.TypedValue;
 import android.view.Display;
@@ -24,6 +21,9 @@ import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.controller.FontSetter;
+import edu.cornell.opencomm.util.OCBitmapDecoder;
 
 /**
  * ArrayAdapter for Contact List:<br>
@@ -88,9 +88,9 @@ public class ContactListAdapter extends ArrayAdapter<User> {
 		name.setText(contact.getNickname());
 		
 		//TODO: get the online statues of uerser here
-		boolean online = true;
+		Presence online = contact.getPresence();
 		// online = getOnlineStatus();
-		if(online)
+		if(online.isAvailable())
 			state_view.setVisibility(View.VISIBLE);
 		else
 			state_view.setVisibility(View.INVISIBLE);

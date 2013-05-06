@@ -14,7 +14,7 @@
         android:ellipsize="end"
         android:lines="1"
         android:textColor="@color/black"
-        android:textSize="20sp" />
+        android:textSize="15sp" />
 
     <ImageView
         android:id="@+id/contactlist_itemimage"
