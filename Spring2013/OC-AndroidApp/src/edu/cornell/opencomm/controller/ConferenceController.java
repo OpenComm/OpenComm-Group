@@ -61,10 +61,10 @@ public class ConferenceController {
 	 *            the new title
 	 * @return void
 	 */
-	public void setTitle(String title) {
-		room.setTitle(title);
-		view.conference_title.setText(title);
-	}
+//	public void setTitle(String title) {
+//		room.setTitle(title);
+//		view.conference_title.setText(title);
+//	}
 
 	/**
 	 * handle the action when add person button was clicked
@@ -73,9 +73,6 @@ public class ConferenceController {
 		if (D)
 			Log.d(TAG, "addPerson button clicked");
 		room.invite(username, "let's chat");
-		int duration = Toast.LENGTH_SHORT;
-		Toast send = Toast.makeText(this.view.getApplicationContext(),"Invitation sent",duration);
-		send.show();
 	}
 
 

@@ -67,7 +67,7 @@ public final class ConferenceView extends FragmentActivity implements
 	/*
 	 * controls on this view
 	 */
-	public TextView conference_title;
+	//public TextView conference_title;
 
 	public static ConferenceView getInstance() {
 		if (_instance == null) {
@@ -86,7 +86,7 @@ public final class ConferenceView extends FragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.conference_layout);
 		// instantiate the handlers  
-		conference_title = (TextView) findViewById(R.id.conference_Title);
+		//conference_title = (TextView) findViewById(R.id.conference_Title);
 		roomLayout = (ViewGroup) findViewById(R.layout.conference_v2);
 		Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
 		conferenceController = ConferenceController.getInstance(this);
@@ -162,9 +162,9 @@ public final class ConferenceView extends FragmentActivity implements
 		Log.v(TAG, "trying to add oc6testorg@opencomm");
 		ConferenceController.getInstance(this).HandleAddPerson(
 				"oc6testorg@opencomm");
-		User user = SearchService.getUser("oc6@testorg@opencomm"); 
+		User user = SearchService.getUser("oc6testorg"); 
 		ConferenceRoomFragment roomView = (ConferenceRoomFragment) conferenceFragments.get(0); 
-		conferenceModel = conferenceController.getRoom();  
+		conferenceModel = conferenceController.getRoom(); 
 		roomView.addUser(user, conferenceModel); 
 		v.invalidate(); 
 	}
@@ -185,10 +185,10 @@ public final class ConferenceView extends FragmentActivity implements
 		this.startActivity(account);
 	}
 
-	// change the title of the conference ("CONFERENCE NAME" by default)
-	public void renameConference(String title) {
-		conferenceController.setTitle(title);
-	}
+//	// change the title of the conference ("CONFERENCE NAME" by default)
+//	public void renameConference(String title) {
+//		conferenceController.setTitle(title);
+//	}
 
 	// Context Bar methods
 
