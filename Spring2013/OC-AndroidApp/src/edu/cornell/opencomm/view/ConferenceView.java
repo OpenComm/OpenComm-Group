@@ -8,14 +8,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.PowerManager.WakeLock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.ConferenceController;
 import edu.cornell.opencomm.model.Conference;
@@ -60,7 +58,6 @@ public final class ConferenceView extends FragmentActivity implements
 
 	private static ConferenceView _instance = null;
 
-	private WakeLock mWakeLock;
 	private View roomLayout;
 
 	/*
@@ -143,16 +140,6 @@ public final class ConferenceView extends FragmentActivity implements
 	public void returnToPage(int roomIndex) {
 		ViewPager pager = (ViewPager) super.findViewById(R.id.threepanelpager);
 		pager.invalidate();
-	}
-
-	/* [TODO]: check to see if this should be onPause() */
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		if (mWakeLock != null) {
-			mWakeLock.release();
-			mWakeLock = null;
-		}
 	}
 
 	// triggered when add person button was pressed (on confernece_v2)

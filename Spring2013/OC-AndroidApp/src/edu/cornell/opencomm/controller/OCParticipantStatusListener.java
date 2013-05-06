@@ -59,7 +59,6 @@ public class OCParticipantStatusListener implements ParticipantStatusListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
 		}
 	}
 

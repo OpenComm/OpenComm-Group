@@ -3,7 +3,10 @@ package edu.cornell.opencomm.view;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.LoginController;
 import android.os.Bundle;
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -16,7 +19,8 @@ public class LoginView extends Activity {
 	 * Debugging variable: if true, all logs are logged; set to false before
 	 * packaging
 	 */
-	private static final boolean D = true;
+	private static final boolean D = true;	
+	private WakeLock mWakeLock;
 
 	/**
 	 * The TAG for logging
@@ -41,7 +45,9 @@ public class LoginView extends Activity {
 		loginOverlay = (ImageView) findViewById(R.id.login_loginOverlay);
 		signupOverlay = (ImageView) findViewById(R.id.login_signupOverlay);
 		loginController = new LoginController(this);
-		//getSystemService(Context.POWER_SERVICE);
+		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+		mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
+		mWakeLock.acquire();
 	}
 
 	@Override
@@ -51,6 +57,15 @@ public class LoginView extends Activity {
 		return true;
 	}
 	
+	/* [TODO]: check to see if this should be onPause() */
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if (mWakeLock != null) {
+			mWakeLock.release();
+			mWakeLock = null;
+		}
+	}
 	
 	/** Jump to the account creation page when sign-up button is clicked */
 	public void signup(View v) {
