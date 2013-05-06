@@ -127,6 +127,7 @@ public class ContactListController {
 		{
 			//TODO: CHANGE THE BUTTON IMAGE HERE?
 			view.mode = state.search;
+			view.suggestion.setText("");
 			view.suggestion.setHint(R.string.search_hint);	
 			view.showUsers(NetworkService.getInstance().getBuddies());
 		}
