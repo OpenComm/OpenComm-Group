@@ -4,29 +4,23 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnKeyListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.controller.ContactAddSearchController;
 import edu.cornell.opencomm.controller.ContactListController;
 import edu.cornell.opencomm.controller.FontSetter;
-import edu.cornell.opencomm.manager.UserManager;
-import edu.cornell.opencomm.model.ContactAddSearchAdapter;
 import edu.cornell.opencomm.model.ContactListAdapter;
 import edu.cornell.opencomm.model.OverflowAdapter;
 import edu.cornell.opencomm.model.User;
+import edu.cornell.opencomm.network.NetworkService;
 
 /**
  * View for contact list page. Functionality (handled by ContactListController).<br>
@@ -50,13 +44,11 @@ public class ContactListView extends Activity {
 	 * Debugging variable: if true, all logs are logged; set to false before
 	 * packaging
 	 */
-	@SuppressWarnings("unused")
 	private static final boolean D = true;
 	private boolean isAdd = false;
 	/**
 	 * The TAG for logging
 	 */
-	@SuppressWarnings("unused")
 	private static final String TAG = ContactListView.class.getSimpleName();
 
 	private ContactListController controller;
@@ -67,10 +59,8 @@ public class ContactListView extends Activity {
 	private ListView overflowList;
 	private String[] options;
 	public static final String AddSearchKey = "ADDSEARCHKEY";
-	private ContactAddSearchController searchController;
 	/** Search suggestion variables: list */
 	public EditText suggestion;
-	private ContactAddSearchAdapter casAdapter;
 	/** data buffer for the contact list */
 	//private ArrayList<User> users;
 	
@@ -125,7 +115,6 @@ public class ContactListView extends Activity {
 			((TextView) this.findViewById(R.id.contact_addsearch_title))
 			.setText("add");
 		}
-		this.searchController = new ContactAddSearchController(this, this.isAdd);
 		
 		suggestion.requestFocus();
 		suggestion.addTextChangedListener(new TextWatcher() {
@@ -145,19 +134,8 @@ public class ContactListView extends Activity {
 	 * Initializes the content of contact list. When an item is clicked, user
 	 * feedback is generated and an appropriate action is launched
 	 */
-	public void initializeContactList() {
-		
-		//TODO: the current initial contacts are dummy users, change the way we get initial contacts
-		
-		ArrayList<User> initialContacts = controller.buddyList;
-		Log.v(TAG, "Buddies Found: " + initialContacts.size());
-		for (User user : initialContacts) {
-			Log.v("found user: ", user.getNickname() + " and his status is: " + user.getPresence());
-		}
-		//ArrayList<User> initialContacts = createExampleUsers();
-	
-		
-		showUsers(initialContacts);
+	public void initializeContactList() {		
+		showUsers(NetworkService.getInstance().getBuddies());
 	}
 
 	/**
@@ -198,7 +176,6 @@ public class ContactListView extends Activity {
 	}
 	
 
-
 	/** Overflow button clicked: flip visibility of overflow list */
 	public void overflow(View v) {
 		this.controller.handleOverflowButtonClicked();
@@ -211,8 +188,6 @@ public class ContactListView extends Activity {
 			Log.d(TAG, this.suggestion.getText().toString());
 		this.controller.handleAddButtonClicked(userInput);
 	}
-
-
 
 	/** Overriding back button: go back to Dashboard */
 	@Override
@@ -230,29 +205,6 @@ public class ContactListView extends Activity {
 		super.onResume();
 		this.controller.updateContactList();
 		this.initializeContactList();
-	}
-	
-	
-	
-	
-	//TODO: DELETE THIS AFTER INTERGRATION
-	//Create dummy users for test
-	private ArrayList<User> createExampleUsers() {
-		UserManager.userColorTable.put("oc1testorg", Color.YELLOW);
-		UserManager.userColorTable.put("oc2testorg", Color.GREEN);
-		UserManager.userColorTable.put("oc3testorg", Color.BLUE);
-		UserManager.userColorTable.put("oc4testorg", Color.YELLOW);
-		ArrayList<User> users = new ArrayList<User>();
-		//users.add(UserManager.PRIMARY_USER);
-		users.add(new User("oc1testorg", "Nora Ng-Quinn",
-				R.drawable.example_picture_1));
-		users.add(new User("oc2testorg", "Risa Naka",
-				R.drawable.example_picture_2));
-		users.add(new User("oc3testorg", "Kris Kooi",
-				R.drawable.example_picture_3));
-		users.add(new User("oc4testorg", "Ankit Singh",
-				R.drawable.example_picture_4));
-		return users;
 	}
 	
 }

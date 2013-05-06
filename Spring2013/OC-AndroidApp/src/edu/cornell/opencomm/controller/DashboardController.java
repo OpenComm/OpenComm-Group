@@ -2,6 +2,8 @@ package edu.cornell.opencomm.controller;
 
 import java.util.ArrayList;
 
+import org.jivesoftware.smack.packet.Presence;
+
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -84,7 +86,7 @@ public class DashboardController {
 		ArrayList<User> results2 = NetworkService.getInstance().getBuddies();
 		Log.v(TAG, "Buddies Found: " + results2.size());
 		for (User user : results2) {
-			Log.v("found user: ", user.getNickname() + " and his status is: " + user.getPresence());
+			Log.v("found user: ", user.getNickname() + " and his status is: " + user.getPresence());	
 		}
 		
 		//Testing getting primary user info

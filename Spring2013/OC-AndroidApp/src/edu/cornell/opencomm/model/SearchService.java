@@ -9,6 +9,7 @@ import org.jivesoftware.smackx.ReportedData.Row;
 import org.jivesoftware.smackx.packet.VCard;
 import org.jivesoftware.smackx.search.UserSearchManager;
 
+import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.network.NetworkService;
 
 import android.util.Log;
@@ -220,7 +221,7 @@ public abstract class SearchService {
 				Iterator<String> jids = row.getValues("jid");
 	            while (jids.hasNext()) {
 	            	String jidFound = jids.next();
-	            	if (! roster.contains(jidFound)) {
+	            	if (! roster.contains(jidFound) && jidFound != UserManager.PRIMARY_USER.getUsername() + "@opencomm") {
 	            		VCard vCard = new VCard();
 		            	vCard.load(NetworkService.getInstance().getConnection(), jidFound);
 		            	results.add(new User(vCard));
@@ -263,7 +264,7 @@ public abstract class SearchService {
 				Iterator<String> jids = row.getValues("jid");
 	            while (jids.hasNext()) {
 	            	String jidFound = jids.next();
-	            	if (! roster.contains(jidFound)) {
+	            	if (! roster.contains(jidFound) && jidFound != UserManager.PRIMARY_USER.getUsername() + "@opencomm") {
 	            		VCard vCard = new VCard();
 		            	vCard.load(NetworkService.getInstance().getConnection(), jidFound);
 		            	results.add(new User(vCard));
@@ -306,7 +307,7 @@ public abstract class SearchService {
 				Iterator<String> jids = row.getValues("jid");
 	            while (jids.hasNext()) {
 	            	String jidFound = jids.next();
-	            	if (! roster.contains(jidFound)) {
+	            	if (! roster.contains(jidFound) && jidFound != UserManager.PRIMARY_USER.getUsername() + "@opencomm") {
 	            		VCard vCard = new VCard();
 		            	vCard.load(NetworkService.getInstance().getConnection(), jidFound);
 		            	results.add(new User(vCard));

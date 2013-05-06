@@ -1,19 +1,12 @@
 package edu.cornell.opencomm.controller;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.concurrent.ExecutionException;
-
-import org.jivesoftware.smack.XMPPException;
-import org.jivesoftware.smackx.search.UserSearchManager;
-
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.SearchService;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
@@ -30,9 +23,6 @@ public class ContactListController {
 	//Both ArrayLists of users
 	private ArrayList<User> serverResults = new ArrayList<User>();
 	private ArrayList<User> filteredResults = new ArrayList<User>();
-	
-	//BuddyList
-	public ArrayList<User> buddyList = NetworkService.getInstance().getBuddies();
 	
 
 	public ContactListController(ContactListView view){
@@ -138,7 +128,7 @@ public class ContactListController {
 			//TODO: CHANGE THE BUTTON IMAGE HERE?
 			view.mode = state.search;
 			view.suggestion.setHint(R.string.search_hint);	
-			view.initializeContactList();
+			view.showUsers(NetworkService.getInstance().getBuddies());
 		}
 		
 		view.clAdapter.clear();
@@ -157,7 +147,7 @@ public class ContactListController {
 		@Override
 		protected ArrayList<User> doInBackground(String... params) {		
 			ArrayList<User >results = new ArrayList<User>();
-			for (User user : buddyList) {
+			for (User user : NetworkService.getInstance().getBuddies()) {
 				if (user.getNickname().toLowerCase().contains(params[0].toLowerCase())) {
 					results.add(user);
 				}
