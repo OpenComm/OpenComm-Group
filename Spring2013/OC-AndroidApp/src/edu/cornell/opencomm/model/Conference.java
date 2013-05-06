@@ -36,8 +36,8 @@ public class Conference implements Serializable {
 		chat = new MultiUserChat(NetworkService.getInstance().getConnection(),
 				roomName);
 		Log.v(TAG, "creation " + chat.getRoom());
-		//users.add(UserManager.PRIMARY_USER); 
-		users = createExampleUsers(); 
+		users.add(UserManager.PRIMARY_USER); 
+		//users = createExampleUsers(); 
 		chat.addParticipantStatusListener(new OCParticipantStatusListener(this));
 	}
 
