@@ -55,9 +55,6 @@ public class JingleController {
 		jiqActionMessageSender = new JingleIQActionMessages();
 		iqMessageSender = new IQMessages();
 		Log.v(TAG, "make message senders");
-		this.buddyJID = user.getUsername() + NetworkService.DEFAULT_HOSTNAME
-				+ "/OpenComm";
-		Log.v(TAG, buddyJID);
 		jiqActionMessageSender.setConnection(connection);
 		iqMessageSender.setConnection(connection);
 		JingleController.UsernameToJingleController.put(

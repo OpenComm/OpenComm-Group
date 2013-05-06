@@ -45,7 +45,6 @@ import org.jivesoftware.smackx.search.UserSearch;
 
 import com.cornell.opencomm.jingleimpl.JingleIQPacket;
 import com.cornell.opencomm.jingleimpl.ReasonElementType;
-import com.cornell.opencomm.jingleimpl.sessionmgmt.JingleIQActionMessages;
 import com.cornell.opencomm.jingleimpl.sessionmgmt.JingleIQBuddyPacketRouter;
 
 import edu.cornell.opencomm.audio.JingleController;
@@ -393,16 +392,6 @@ public class NetworkService {
 		// FileTransfer
 		pm.addIQProvider("si", "http://jabber.org/protocol/si",
 				new StreamInitiationProvider());
-
-		// [TODO] : Ask Kris
-		// pm.addIQProvider("query","http://jabber.org/protocol/bytestreams",
-		// new BytestreamsProvider());
-		// pm.addIQProvider("open","http://jabber.org/protocol/ibb", new
-		// IBBProviders.Open());
-		// pm.addIQProvider("close","http://jabber.org/protocol/ibb", new
-		// IBBProviders.Close());
-		// pm.addExtensionProvider("data","http://jabber.org/protocol/ibb", new
-		// IBBProviders.Data());
 
 		// Privacy
 		pm.addIQProvider("query", "jabber:iq:privacy", new PrivacyProvider());

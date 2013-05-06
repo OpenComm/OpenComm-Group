@@ -1,7 +1,5 @@
 package edu.cornell.opencomm.controller;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -10,8 +8,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.manager.UserManager;
-import edu.cornell.opencomm.model.SearchService;
-import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ConferenceView;
 import edu.cornell.opencomm.view.ContactListView;

@@ -42,23 +42,25 @@ public class OCParticipantStatusListener implements ParticipantStatusListener {
 
 	@Override
 	public void joined(String arg0) {
-		Log.v(TAG, arg0 + " joined the room");
 		String username = arg0.split("/")[1] + "@opencomm";
-		String[] params = { username };
-		AsyncTask<String, Void, Boolean> a = new JSessionInitiateTask()
-				.execute(params);
-		try {
-			if (a.get()) {
-				Log.v(TAG, "Sent sessionInitiate to " + arg0);
+		Log.v(TAG, "User joined: " + username);
+		if (!username.equals(UserManager.PRIMARY_USER.getUsername())) {
+			String[] params = { username };
+			AsyncTask<String, Void, Boolean> a = new JSessionInitiateTask()
+					.execute(params);
+			try {
+				if (a.get()) {
+					Log.v(TAG, "Sent sessionInitiate to " + arg0);
+				}
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
+		}
 	}
 
 	private class JSessionInitiateTask extends AsyncTask<String, Void, Boolean> {
