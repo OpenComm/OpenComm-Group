@@ -81,22 +81,20 @@ public class DashboardController {
 //		}
 		
 //		Testing getting buddies and presence of the first one
-//		ArrayList<User> results2 = NetworkService.getInstance().getBuddies();
-//		Log.v(TAG, "Buddies Found: " + results2.size());
-//		for (User user : results2) {
-//			Log.v("found user: ", user.getNickname());
-//		}
-//		Log.v(TAG, "Presence Status of First Buddy: " + results2.get(0).getPresence());
+		ArrayList<User> results2 = NetworkService.getInstance().getBuddies();
+		Log.v(TAG, "Buddies Found: " + results2.size());
+		for (User user : results2) {
+			Log.v("found user: ", user.getNickname() + " and his status is: " + user.getPresence());
+		}
 		
 		//Testing getting primary user info
-		Log.v(TAG, "Primary user's nickname: " + UserManager.PRIMARY_USER.getUsername());
+		//Log.v(TAG, "Primary user's nickname: " + UserManager.PRIMARY_USER.getUsername());
 		
 //		Testing getUser
-//		User user = SearchService.getUser("oc7testorg");
+//		User user = SearchService.getUser("oc6testorg");
 //		Log.v(TAG, "user nickname: " + user.getNickname());
-//		Log.v(TAG, "user jid: " + user.getVCard().getJabberId());
-
-
+//		Log.v(TAG, "user jid: " + user.getUsername());
+		
 		
 //		testing Account Manager
 //		EnhancedAccountManager.changeName("Antoine Chkaiban");

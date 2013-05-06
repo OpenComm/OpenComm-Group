@@ -145,14 +145,17 @@ public class ContactListView extends Activity {
 	 * Initializes the content of contact list. When an item is clicked, user
 	 * feedback is generated and an appropriate action is launched
 	 */
-	private void initializeContactList() {
+	public void initializeContactList() {
 		
 		//TODO: the current initial contacts are dummy users, change the way we get initial contacts
-		ArrayList<User> initialContacts = createExampleUsers();
 		
-		System.out.println(initialContacts.size()); 
-		//setUsersBuffer(initialContacts);
-		//showUsers();
+		ArrayList<User> initialContacts = controller.buddyList;
+		Log.v(TAG, "Buddies Found: " + initialContacts.size());
+		for (User user : initialContacts) {
+			Log.v("found user: ", user.getNickname() + " and his status is: " + user.getPresence());
+		}
+		//ArrayList<User> initialContacts = createExampleUsers();
+	
 		
 		showUsers(initialContacts);
 	}
