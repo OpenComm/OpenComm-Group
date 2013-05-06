@@ -25,6 +25,14 @@ public class ContactListController {
 	private static final String TAG = ContactListController.class.getSimpleName();
 	private ContactListView view; 
 
+	
+	//Both ArrayLists of users
+	private ArrayList<User> serverResults = new ArrayList<User>();
+	private ArrayList<User> filteredResults = new ArrayList<User>();
+	
+	//BuddyList
+	public ArrayList<User> buddyList = NetworkService.getInstance().getBuddies();
+	
 
 	public ContactListController(ContactListView view){
 		this.view = view; 
@@ -41,13 +49,21 @@ public class ContactListController {
 		{
 			//add searching functions here
 			Log.d(TAG,"Searching: " + userInput);
+			new FilterBuddies().execute(userInput);
+			
 		}
 		else if(view.mode == state.add)
 		{
 			//add adding functions here
 			Log.d(TAG,"Adding: " + userInput);
+			if (userInput.length() == 3) {
+				new SearchForUsers().execute(userInput);
+			} else if (userInput.length() > 3) {
+				new FilterUsers().execute(userInput);
+			} else {
+				view.showUsers(new ArrayList<User>());
+			}
 		}
-		
 	}
 	
 	
@@ -121,6 +137,7 @@ public class ContactListController {
 			//TODO: CHANGE THE BUTTON IMAGE HERE?
 			view.mode = state.search;
 			view.suggestion.setHint(R.string.search_hint);	
+			view.initializeContactList();
 		}
 		
 		view.clAdapter.clear();
@@ -130,49 +147,70 @@ public class ContactListController {
 	public void handleContactClick(String item) {
 		// TODO Auto-generated method stub
 	}
-
-	/** Obtain all of the possible contacts (email addresses and names) from the OpenComm users and 
-	 * phone contacts with email addresses */
-	private class GetContactSuggestionTask extends AsyncTask<Void, Void, ArrayList<String>> {
+	
+	
+	
+	
+	private class FilterBuddies extends AsyncTask<String, Void, ArrayList<User>> {
+		
+		@Override
+		protected ArrayList<User> doInBackground(String... params) {		
+			ArrayList<User >results = new ArrayList<User>();
+			for (User user : buddyList) {
+				if (user.getNickname().toLowerCase().contains(params[0].toLowerCase())) {
+					results.add(user);
+				}
+			}
+			return results;
+		}
 
 		@Override
-		protected ArrayList<String> doInBackground(Void... params) {
-			ArrayList<String> allContacts = new ArrayList<String>();
-			Iterator<User> iter = UserManager.getContactList().iterator();
-			while (iter.hasNext()) {
-				User u = iter.next();
-				allContacts.add(u.getNickname());
-			}
-			UserSearchManager search = new UserSearchManager(NetworkService.getInstance().getConnection());
-			try {
-				Object[] ss = search.getSearchServices().toArray();
-				for (Object s : ss) {
-					Log.d(TAG, s.toString());
+		protected void onPostExecute(ArrayList<User> results) {
+//			synchronized(filteredResults) {
+				filteredResults = results;
+//			}
+			view.showUsers(filteredResults);
+		}
+	}
+	
+	class FilterUsers extends AsyncTask<String, Void, ArrayList<User>> {
+		
+		@Override
+		protected ArrayList<User> doInBackground(String... params) {		
+			ArrayList<User >results = new ArrayList<User>();
+			for (User user : serverResults) {
+				if (user.getNickname().toLowerCase().contains(params[0].toLowerCase())) {
+					results.add(user);
 				}
-			} catch (XMPPException e) {
-				e.printStackTrace();
 			}
-			//Form searchForm = search.getSearchForm();
-			//Form answerForm = searchForm.createAnswerForm();
-			//answerForm.setAnswer("last", "DeMoro");
-			//ReportedData data = search.getSearchResults(answerForm);
-			// TODO [backend] add all emails and names from OpenComm users to the arraylist
-			// TODO [backend] add all emails and names from the phonebook with emails
-			return allContacts;
+			return results;
 		}
-	}
 
-	/** Get all possible contacts (email addresses and names) from the OpenComm users and 
-	 * phone contacts with email addresses */
-	public ArrayList<String> getSuggestions() {
-		try {
-			return new GetContactSuggestionTask().execute().get();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			e.printStackTrace();
+		@Override
+		protected void onPostExecute(ArrayList<User> results) {
+			synchronized(filteredResults) {
+				filteredResults = results;
+			}
+			view.showUsers(filteredResults);
 		}
-		return new ArrayList<String>();
 	}
+	
+	
+	private class SearchForUsers extends AsyncTask<String, Void, ArrayList<User>> {
+		
+		@Override
+		protected ArrayList<User> doInBackground(String... params) {
+			return SearchService.searchByName(params[0]);
+		}
+
+		@Override
+		protected void onPostExecute(ArrayList<User> results) {
+			synchronized(serverResults) {
+				serverResults = results;
+			}
+			view.showUsers(results);
+		}
+	}
+	
 }
 
