@@ -46,13 +46,13 @@ public class Conference implements Serializable {
 		Log.v(TAG, "joined " + chat.getRoom());
 		chat.addParticipantStatusListener(new OCParticipantStatusListener(this));
 	}
-	
-//	public void createUsers(){
-//		Log.v(TAG, "there are "+users.size()+" users now");
-//		users = this.getActiveParticipants();
-//		Log.v(TAG, "there are "+users.size()+" users now");
-//	}
-	
+
+	//	public void createUsers(){
+	//		Log.v(TAG, "there are "+users.size()+" users now");
+	//		users = this.getActiveParticipants();
+	//		Log.v(TAG, "there are "+users.size()+" users now");
+	//	}
+
 	/*
 	 * Backend : A method that gets the participants that are currently active in this conference
 	 * Active, meaning that the user has entered conference. 
@@ -64,9 +64,9 @@ public class Conference implements Serializable {
 			String temp = s.next();
 			String[] jid = temp.split("/");
 			Log.v(TAG, "searching for jid: "+jid[1]);
-			
+
 			User u = SearchService.getUser(jid[1]);
-			
+
 			if(u==null) Log.v(TAG, "search service returned null");
 			else{
 				Log.v(TAG, "username: "+u.getUsername()+"   nickname: "+u.getNickname());
@@ -75,7 +75,7 @@ public class Conference implements Serializable {
 		}
 		return users;
 	}
-	
+
 	/*
 	 * Backend : If there are any users that have been invited- put them on waitlist
 	 * 
@@ -88,8 +88,8 @@ public class Conference implements Serializable {
 			return false;
 		}
 	}
-	
-		
+
+
 	// API Functions
 
 	public void addPresenceListener() {
@@ -158,7 +158,6 @@ public class Conference implements Serializable {
 		users.remove(u);
 	}
 
-	// TODO
 	public ArrayList<User> updateLocations(Point center, int radius) {
 		ArrayList<Point> pointList = getPoints(users.size(), radius, center);
 		for (int i = 0; i < pointList.size(); i++) {
@@ -170,35 +169,28 @@ public class Conference implements Serializable {
 
 	private ArrayList<Point> getPoints(int users, double radius, Point center) {
 		ArrayList<Point> pointList = new ArrayList<Point>();
-		if (users == 1){
-			int x = center.x - 65; 
-			int y = center.y -65;
-			Point a = new Point(x, y); 
-			pointList.add(a); 
-			return pointList; 
-		}else{
-			Log.d("ConferenceRoom", "Radius :" + radius);
-			Log.d("ConferenceRoom", "Center :" + center.toString());
-			Log.d("ConferenceRoom", "Users :" + users);
-			double startAngle = Math.toRadians(90);
-			double endAngle = Math.toRadians(360);
-			double slice = 2 * Math.PI / users;
-			center.x = center.x - 65;
-			center.y = center.y - 65;
-			for (int i = 0; i < users; i++) {
-				double angle = (startAngle + slice * i) % endAngle;
-				int newX = (int) (center.x + radius * Math.cos(angle));
-				int newY = (int) (center.y + radius * Math.sin(angle));
-				Point p = new Point(newX, newY);
-				Log.d("ConferenceRoom", "Angle :" + angle);
-				Log.d("ConferenceRoom", "Point :" + p);
-				pointList.add(p);
-			}
-
-			return pointList;
+		Log.d("ConferenceRoom", "Radius :" + radius);
+		Log.d("ConferenceRoom", "Center :" + center.toString());
+		Log.d("ConferenceRoom", "Users :" + users);
+		double startAngle = Math.toRadians(90);
+		double endAngle = Math.toRadians(360);
+		double slice = 2 * Math.PI / users;
+		center.x = center.x - 65;
+		center.y = center.y - 65;
+		for (int i = 0; i < users; i++) {
+			double angle = (startAngle + slice * i) % endAngle;
+			int newX = (int) (center.x + radius * Math.cos(angle));
+			int newY = (int) (center.y + radius * Math.sin(angle));
+			Point p = new Point(newX, newY);
+			Log.d("ConferenceRoom", "Angle :" + angle);
+			Log.d("ConferenceRoom", "Point :" + p);
+			pointList.add(p);
 		}
+
+		return pointList;
+
 	}
-	
+
 	private ArrayList<User> createExampleUsers() {
 		UserManager.userColorTable.put("oc1testorg", Color.YELLOW);
 		UserManager.userColorTable.put("oc2testorg", Color.GREEN);
@@ -219,7 +211,7 @@ public class Conference implements Serializable {
 
 	public void hasLeft(User pRIMARY_USER) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
