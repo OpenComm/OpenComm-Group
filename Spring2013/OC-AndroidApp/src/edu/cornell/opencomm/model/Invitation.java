@@ -35,6 +35,7 @@ public class Invitation {
 				.getConnection(), room);
 		try {
 			muc.join(UserManager.PRIMARY_USER.nickname);
+			//to do: accept room configuration
 		} catch (XMPPException e) {
 			System.out.println("Could not join chatroom:" + e);
 		}
