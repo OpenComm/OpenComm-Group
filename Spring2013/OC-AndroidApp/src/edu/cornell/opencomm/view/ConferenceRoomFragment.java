@@ -105,6 +105,8 @@ public class ConferenceRoomFragment extends Fragment {
 	public void setContext(Context context) {
 		this.context = context;
 	}
+	
+	private ArrayList<UserView> actual_views = new ArrayList<UserView>(); 
 
 
 	/**
@@ -148,6 +150,7 @@ public class ConferenceRoomFragment extends Fragment {
 			for (User u : userList) {
 
 				UserView uv = new UserView(context, u);
+				actual_views.add(uv); 
 				userViews.put(u, uv); 
 				// Ankit: Make a primary equal to check
 				if (u.compareTo(UserManager.PRIMARY_USER) == 0) {
@@ -170,8 +173,13 @@ public class ConferenceRoomFragment extends Fragment {
 
 	}
 
-	public void addUser(User u){
-		this.conferenceRoom.addUser(u); 
+	public void addUser(User u, Conference conferenceModel){
+		conferenceRoom = conferenceModel; 
+		this.conferenceRoom.getUsers().add(u);
+		for (UserView uv: actual_views){
+			((ViewGroup) roomLayout).removeView(uv);
+		}
+		Log.i("adding users", "" + conferenceRoom.getUsers().size()); 
 		this.createTheCirleOfTrust(); 
 	}
 
