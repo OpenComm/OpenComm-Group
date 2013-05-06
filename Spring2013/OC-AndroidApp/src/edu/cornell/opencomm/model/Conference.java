@@ -89,13 +89,6 @@ public class Conference implements Serializable {
 		}
 	}
 	
-	/*
-	 * Frontend TODO: Any time a user leaves the conference, the users in conference has to updated
-	 * This function returns a user who has left the conference
-	 */
-	public void hasLeft(User u){
-		 
-	}
 		
 	// API Functions
 
@@ -167,8 +160,7 @@ public class Conference implements Serializable {
 
 	// TODO
 	public ArrayList<User> updateLocations(Point center, int radius) {
-		int noOfusers = this.getUsers().size();
-		ArrayList<Point> pointList = getPoints(noOfusers, radius, center);
+		ArrayList<Point> pointList = getPoints(users.size(), radius, center);
 		for (int i = 0; i < pointList.size(); i++) {
 			// confUserList.get(i).LOCATION = pointList.get(i);
 			users.get(i).setLocation(pointList.get(i));
@@ -223,6 +215,11 @@ public class Conference implements Serializable {
 		users.add(new User("oc4testorg", "Ankit Singh",
 				R.drawable.example_picture_4));
 		return users;
+	}
+
+	public void hasLeft(User pRIMARY_USER) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
