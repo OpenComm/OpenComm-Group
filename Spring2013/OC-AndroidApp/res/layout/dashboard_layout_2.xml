@@ -199,7 +199,7 @@
             android:layout_height="70dp"
             android:layout_marginLeft="55dp"
             android:background="@drawable/personalize"
-            android:onClick="PersonalizePressed" />
+            android:onClick="goToProfile" />
     
        <TextView
         android:id="@+id/personalize"
