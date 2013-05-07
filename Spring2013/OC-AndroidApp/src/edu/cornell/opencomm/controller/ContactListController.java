@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.TextView;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.manager.UserManager;
+import edu.cornell.opencomm.model.SearchService;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ContactListView;

@@ -5,11 +5,13 @@ import edu.cornell.opencomm.controller.LoginController;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.WindowManager.LayoutParams;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -45,9 +47,11 @@ public class LoginView extends Activity {
 		loginOverlay = (ImageView) findViewById(R.id.login_loginOverlay);
 		signupOverlay = (ImageView) findViewById(R.id.login_signupOverlay);
 		loginController = new LoginController(this);
+		getWindow().addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
+		/*
 		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
 		mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
-		mWakeLock.acquire();
+		mWakeLock.acquire();*/
 	}
 
 	@Override
@@ -58,6 +62,7 @@ public class LoginView extends Activity {
 	}
 	
 	/* [TODO]: check to see if this should be onPause() */
+	@SuppressLint("Wakelock")
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();

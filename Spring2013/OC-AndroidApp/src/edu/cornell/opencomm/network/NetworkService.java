@@ -88,7 +88,9 @@ public class NetworkService {
 		for (int i = 0; i < 10; i++) {
 			text[i] = characters.charAt(rng.nextInt(characters.length()));
 		}
-		return new String(text);
+		// TODO: change back once invitations are working
+		//return new String(text);
+		return "OCtestroom";
 	}
 
 	public static NetworkService getInstance() {
