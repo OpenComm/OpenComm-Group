@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/dashboard_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
+ <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:id="@+id/dashboard_layout"
+     android:layout_width="match_parent"
+    android:layout_height="match_parent"  
+    android:background="@color/dashboard_background">
+    
     <RelativeLayout
         android:id="@+id/dashboard_actionbar"
         android:layout_width="fill_parent"
@@ -27,10 +27,10 @@
 
     </RelativeLayout>
 
+
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@id/my_profile_actionbar"
+         android:layout_width="fill_parent"
+         android:layout_height="fill_parent"
         android:orientation="vertical" >
          
         <TextView
@@ -38,18 +38,194 @@
             android:layout_width="240.66dp"
             android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="60.66dp"
+            android:layout_marginTop="66dp"
             android:text="@string/opencomm"
-            android:textColor="@color/black"
+            android:textColor="@color/dashboard_text"
             android:gravity="center"
-            android:textSize="27.33sp" />
+            android:textSize="27.33sp" />      
+       
+                    
+       <TableLayout
+           android:layout_width="200dp"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center_horizontal"
+           android:layout_marginTop="30dp"
+           android:background="@drawable/invitation_background"
+           android:shrinkColumns="*"
+           android:stretchColumns="*">
+           
+       <TableRow
+           android:id="@+id/tableRow1"
+           android:layout_height="wrap_content"
+           android:layout_width="match_parent"
+           android:gravity="center_horizontal">
+           <TextView
+              android:id="@+id/open_invitations"
+               android:layout_marginTop="8dp"
+               android:layout_marginBottom="8dp"
+               android:textSize="20sp"
+               android:gravity="center"
+               android:textColor="@color/dashboard_text"
+               android:text="@string/open_invitations"/>
+       </TableRow>
+                
+       <View
+        android:layout_height="1dip"
+        android:background="@color/black" /> 
+        
+       <TableRow
+           android:id="@+id/tableRow2"
+           android:layout_height="wrap_content"
+           android:layout_width="match_parent"
+           android:paddingLeft="10dp">
+           <TextView
+               android:id="@+id/first_digit"
+               android:layout_width="0dp"
+              android:layout_marginTop="8dp"
+               android:layout_marginBottom="8dp"
+               android:textSize="16sp"
+               android:layout_gravity="center"
+               android:layout_weight="1"
+               android:textColor="@color/dashboard_text"
+               android:text="@string/first_digit" />
+       	 <TextView
+               android:id="@+id/first_invitation"
+               android:layout_marginTop="8dp"
+               android:layout_marginBottom="8dp"
+               android:layout_width="0dp"
+               android:textSize="16sp"
+               android:layout_gravity="center"
+               android:textColor="@color/dashboard_text"
+               android:layout_weight="8"
+               android:text="@string/first_invitation"/>
+       </TableRow>
+       
+       <View
+        android:layout_height="1dip"
+        android:background="@color/invitation_line" /> 
+        
+         <TableRow 
+            android:id="@+id/tableRow3"
+          android:layout_height="wrap_content"
+           android:layout_width="match_parent"
+           android:paddingLeft="10dp">
+           <TextView
+               android:id="@+id/second_digit"
+               android:layout_width="0dp"
+               android:layout_marginTop="8dp"
+               android:layout_marginBottom="8dp"
+               android:textSize="16sp"
+               android:layout_gravity="center"
+               android:layout_weight="1"
+               android:textColor="@color/dashboard_text"
+               android:text="@string/second_digit" />
+       	 <TextView
+               android:id="@+id/second_invitation"
+               android:layout_marginTop="8dp"
+               android:layout_marginBottom="8dp"
+               android:layout_width="0dp"
+               android:textSize="16sp"
+               android:layout_gravity="center"
+               android:textColor="@color/dashboard_text"
+               android:layout_weight="8"
+               android:text="@string/second_invitation"/>
+       </TableRow>
+  
+       <View
+        android:layout_height="1dip"
+        android:background="@color/invitation_line" />
+              
+         <TableRow
+          android:id="@+id/tableRow4"
+           android:layout_height="wrap_content"
+           android:layout_width="match_parent"
+          android:paddingLeft="10dp">
+           <TextView
+			  android:id="@+id/third_digit"
+              android:layout_width="0dp"
+               android:layout_marginTop="8dp"
+               android:layout_marginBottom="8dp"
+               android:textSize="16sp"
+               android:layout_gravity="center"
+               android:layout_weight="1"
+               android:textColor="@color/dashboard_text"
+               android:text="@string/third_digit" />
+       	 <TextView
+               android:id="@+id/third_invitation"
+               android:layout_marginTop="8dp"
+               android:layout_marginBottom="8dp"
+               android:layout_width="0dp"
+               android:textSize="16sp"
+               android:layout_gravity="center"
+               android:textColor="@color/dashboard_text"
+               android:layout_weight="8"
+               android:text="@string/third_invitation"/>
+       </TableRow>       
+       
+       </TableLayout>     
         
         
-        
+    <RelativeLayout
+        android:id="@+id/dashboard_buttons"
+        android:layout_width="200dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp">
+         
+
+    <Button
+        android:id="@+id/contacts_button"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/contacts"
+        android:onClick="goToContacts" />
+    
+    <TextView
+        android:id="@+id/contacts"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+         android:layout_alignStart="@id/contacts_button"   	    
+        android:layout_below="@id/contacts_button"
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        android:text="@string/contacts"
+        android:textColor="@color/dashboard_text"
+        android:textSize="12sp" />
+    
+    <Button
+            android:id="@+id/personalize_button"
+           	 android:layout_toRightOf="@id/contacts_button"
+           	 android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="55dp"
+            android:background="@drawable/personalize"
+            android:onClick="goToProfile" />
+    
+       <TextView
+        android:id="@+id/personalize"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/personalize_button"
+        android:layout_alignStart="@id/personalize_button"
+        android:layout_marginTop="8dp"
+        android:text="@string/personalize"
+        android:gravity="center"
+        android:textColor="@color/dashboard_text"
+        android:textSize="12sp" />
+    
+   	 </RelativeLayout>
+   	      
     </LinearLayout>
+   
+    <ImageView
+        android:layout_width="180.383dp"
+        android:layout_height="24.05dp"
+        android:layout_marginLeft="-30dp"
+        android:layout_marginTop="130dp"       
+        android:contentDescription="@string/image_desc"
+        android:src="@drawable/invitation" />   
     
-    
-    <ListView
+     <ListView
         android:id="@+id/dashboard_overflowList"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
@@ -62,5 +238,5 @@
         android:listSelector="@drawable/selector_bg_list"
         android:padding="0.66dp"
         android:visibility="invisible" />
-
-</RelativeLayout>
+         
+ </RelativeLayout>

@@ -109,7 +109,14 @@
 	<string name="email_sample1">g.bailey@oc.org</string>
     <string name="forgot_password_desc">Enter the email address associated with your account. Instructions on resetting your password will be sent to this address. </string>
     <string name="phone">(555)555-5555</string>
-    
+    <string name="open_invitations">Open Invitations</string>
+    <string name ="personalize">Personalize</string>
+    <string name="first_digit">1</string>
+    <string name="first_invitation">Amy Poehler</string>
+    <string name="second_digit">2</string>
+    <string name="second_invitation">Conan OBrian</string>
+    <string name="third_digit">3</string>
+    <string name="third_invitation">Tiny Fey</string>
     
     <string-array name="overflow_dashboard">
         <item>logout</item>

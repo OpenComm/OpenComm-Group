@@ -33,5 +33,9 @@
     <color name="textbox_grey">#9F9F9F</color>
     <color name = "profile_name_label">#666666</color>
     <color name = "profile_name_box">#EFEFEF</color>
+    <color name="dashboard_invitation">#f2f2f3</color>
     <color name ="contact_info_background">#F2F2F2</color>
+    <color name="dashboard_background">#26c9e4e4</color>
+    <color name="dashboard_text">#373434</color>
+    <color name="invitation_line">#d4d4d4</color>
 </resources>

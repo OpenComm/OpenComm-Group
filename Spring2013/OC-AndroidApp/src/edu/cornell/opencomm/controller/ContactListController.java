@@ -1,11 +1,6 @@
 package edu.cornell.opencomm.controller;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.concurrent.ExecutionException;
-
-import org.jivesoftware.smack.XMPPException;
-import org.jivesoftware.smackx.search.UserSearchManager;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -13,45 +8,41 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import edu.cornell.opencomm.R;
-import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.SearchService;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
+import edu.cornell.opencomm.view.ContactInfoView;
 import edu.cornell.opencomm.view.ContactListView;
-import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.ContactListView.state;
+import edu.cornell.opencomm.view.DashboardView;
 
 public class ContactListController {
 
 	private static final String TAG = ContactListController.class.getSimpleName();
 	private ContactListView view; 
 
-	
+
 	//Both ArrayLists of users
 	private ArrayList<User> serverResults = new ArrayList<User>();
 	private ArrayList<User> filteredResults = new ArrayList<User>();
-	
-	//BuddyList
-	public ArrayList<User> buddyList = NetworkService.getInstance().getBuddies();
-	
+
 
 	public ContactListController(ContactListView view){
 		this.view = view; 
 	}
 
-	
 	//TODO: add the searching or adding functions here
 	public void handleTextChanged()
 	{
 		String userInput = view.suggestion.getText().toString().trim();
 		Log.d(TAG, userInput);
-		
+
 		if(view.mode == state.search)
 		{
 			//add searching functions here
 			Log.d(TAG,"Searching: " + userInput);
 			new FilterBuddies().execute(userInput);
-			
+
 		}
 		else if(view.mode == state.add)
 		{
@@ -66,13 +57,13 @@ public class ContactListController {
 			}
 		}
 	}
-	
-	
+
+
 	/**
 	 * Shows/hides Overflow
 	 */
 	public void handleOverflowButtonClicked() {
-			Log.d(TAG, "overflow button clicked");
+		Log.d(TAG, "overflow button clicked");
 		if (this.view.getOverflowList().getVisibility() == View.INVISIBLE) {
 			Log.d(TAG, "its invisible now, set it visible");
 			this.view.getOverflowList().setVisibility(View.VISIBLE);
@@ -89,9 +80,12 @@ public class ContactListController {
 		//this.view.startActivity(i);
 		String s = item.getNickname();
 		Log.v(TAG, s+"clicked");
-		
+		Intent i = new Intent(this.view, ContactInfoView.class);
+		i.putExtra(ContactInfoView.contactCardKey, item.getUsername());
+		this.view.startActivity(i);
+
 	}
-	
+
 
 	public void handleBackButtonClicked() {
 		Intent i = new Intent(this.view, DashboardView.class); 
@@ -125,7 +119,7 @@ public class ContactListController {
 	 */
 	public void handleAddButtonClicked(String name) {
 		//TODO: add the right functions here to get the user array
-		
+
 		if(view.mode == state.search)
 		{
 			//TODO: CHANGE THE BUTTON IMAGE HERE?
@@ -137,10 +131,11 @@ public class ContactListController {
 		{
 			//TODO: CHANGE THE BUTTON IMAGE HERE?
 			view.mode = state.search;
+			view.suggestion.setText("");
 			view.suggestion.setHint(R.string.search_hint);	
-			view.initializeContactList();
+			view.showUsers(NetworkService.getInstance().getBuddies());
 		}
-		
+
 		view.clAdapter.clear();
 		view.clAdapter.notifyDataSetChanged();
 	}
@@ -148,16 +143,16 @@ public class ContactListController {
 	public void handleContactClick(String item) {
 		// TODO Auto-generated method stub
 	}
-	
-	
-	
-	
+
+
+
+
 	private class FilterBuddies extends AsyncTask<String, Void, ArrayList<User>> {
-		
+
 		@Override
 		protected ArrayList<User> doInBackground(String... params) {		
 			ArrayList<User >results = new ArrayList<User>();
-			for (User user : buddyList) {
+			for (User user : NetworkService.getInstance().getBuddies()) {
 				if (user.getNickname().toLowerCase().contains(params[0].toLowerCase())) {
 					results.add(user);
 				}
@@ -167,15 +162,15 @@ public class ContactListController {
 
 		@Override
 		protected void onPostExecute(ArrayList<User> results) {
-//			synchronized(filteredResults) {
-				filteredResults = results;
-//			}
+			//			synchronized(filteredResults) {
+			filteredResults = results;
+			//			}
 			view.showUsers(filteredResults);
 		}
 	}
-	
+
 	class FilterUsers extends AsyncTask<String, Void, ArrayList<User>> {
-		
+
 		@Override
 		protected ArrayList<User> doInBackground(String... params) {		
 			ArrayList<User >results = new ArrayList<User>();
@@ -195,10 +190,10 @@ public class ContactListController {
 			view.showUsers(filteredResults);
 		}
 	}
-	
-	
+
+
 	private class SearchForUsers extends AsyncTask<String, Void, ArrayList<User>> {
-		
+
 		@Override
 		protected ArrayList<User> doInBackground(String... params) {
 			return SearchService.searchByName(params[0]);
@@ -212,6 +207,6 @@ public class ContactListController {
 			view.showUsers(results);
 		}
 	}
-	
+
 }
 

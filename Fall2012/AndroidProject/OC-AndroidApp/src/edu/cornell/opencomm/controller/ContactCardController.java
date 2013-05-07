@@ -84,7 +84,7 @@ public class ContactCardController {
 		}*/
 	}
 
-		/**
+	/**
 	 * Shows/hides Overflow
 	 */
 	public void handleOverflowButtonClicked() {

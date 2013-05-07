@@ -30,6 +30,10 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".view.ContactInfoView"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name=".view.LoginView"
             android:screenOrientation="portrait" >
             <intent-filter>

@@ -126,7 +126,7 @@ public final class ConferenceView extends FragmentActivity implements
 	 * Exit the conference and return to the conference card page for this
 	 * conference
 	 */
-	public void exitConference() {
+	public void exitConference(View v) {
 		Intent i = new Intent(this, DashboardView.class);
 		onStop();
 		startActivity(i);
