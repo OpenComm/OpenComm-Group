@@ -51,25 +51,25 @@ public class ContactInfoView extends Activity {
 		// get the user that this card represents
 		String nameStr = this.getIntent().getStringExtra(
 				ContactInfoView.contactCardKey);
-		for (User u : SearchService.searchByJid("*")) {
-			if (u.getUsername().equals(nameStr)) {
+		User u = SearchService.getUser(nameStr); 
 				if (u.compareTo(UserManager.PRIMARY_USER) == 0){
-					invite.setVisibility(View.VISIBLE); 
+					invite.setVisibility(View.INVISIBLE); 
 				}
-				else {invite.setVisibility(View.INVISIBLE); }
+				else {invite.setVisibility(View.VISIBLE); }
 				user = u;
 				name.setText(user.getNickname());
 				String mail = user.getVCard().getEmailWork();  
-				if (mail == null) {email.setText("");}
+				if (mail == null) {email.setText("");
+				email.setHint("Enter email address"); }
 				else email.setText(mail); 
 				String number = user.getVCard().getPhoneWork(user.getVCard().getJabberId()); 
 				if (number == null){
 					phoneNumber.setText("");
+					phoneNumber.setHint("Enter phone number"); 
 				} else phoneNumber.setText(number); 
 				title.setText(""); 
 				icon.setBackgroundResource(user.getImage());
-			}
-		}
+		
 		//set font
 		//Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
 		initoverflow(); 
@@ -113,7 +113,7 @@ public class ContactInfoView extends Activity {
 	@Override
 	/** Override onbackPressed: go back to ContactListView */
 	public void onBackPressed() {
-		if (user == UserManager.PRIMARY_USER){
+		if (user.compareTo(UserManager.PRIMARY_USER) == 0){
 			Intent i = new Intent(this, DashboardView.class);
 			this.startActivity(i);
 			this.overridePendingTransition(android.R.anim.slide_in_left,
@@ -128,7 +128,7 @@ public class ContactInfoView extends Activity {
 	}
 
 	public void back(View v){
-		if (user == UserManager.PRIMARY_USER){
+		if (user.compareTo(UserManager.PRIMARY_USER) == 0){
 			Intent i = new Intent(this, DashboardView.class);
 			this.startActivity(i);
 			this.overridePendingTransition(android.R.anim.slide_in_left,
