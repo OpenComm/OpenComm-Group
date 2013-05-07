@@ -58,7 +58,7 @@ public class ContactInfoView extends Activity {
 				else {invite.setVisibility(View.VISIBLE); }
 				user = u;
 				name.setText(user.getNickname());
-				String mail = user.getVCard().getEmailWork();  
+				String mail = user.getVCard().getEmailHome();  
 				if (mail == null) {email.setText("");
 				email.setHint("Enter email address"); }
 				else email.setText(mail); 
