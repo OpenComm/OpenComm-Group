@@ -1,8 +1,11 @@
 package edu.cornell.opencomm.view;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -48,9 +51,13 @@ public class ContactInfoView extends Activity {
 		// get the user that this card represents
 		String nameStr = this.getIntent().getStringExtra(
 				ContactInfoView.contactCardKey);
+		Log.v("CONTACTINFOVIEW", "nameStr is "+nameStr);
 		for (User u : SearchService.searchByJid("*")) {
+			Log.v("CONTACTINFOVIEW**", u.getUsername());
 			if (u.getUsername().equals(nameStr)) {
 				System.out.println(u == null); 
+				Log.v("CONTACTINFOVIEW", "nick "+user.getNickname());
+				Log.v("CONTACTINFOVIEW", "username "+user.getUsername());
 				user = u;
 				name.setText(user.getNickname());
 				email.setText(user.getUsername());

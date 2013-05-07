@@ -32,20 +32,19 @@ public class Conference implements Serializable {
 
 	// CONSTRUCTORS
 
-	public Conference(String roomName) {
-		chat = new MultiUserChat(NetworkService.getInstance().getConnection(),
-				roomName);
+	public Conference(MultiUserChat muc) {
+		chat = muc;
 		Log.v(TAG, "creation " + chat.getRoom());
 		users.add(UserManager.PRIMARY_USER); 
 		//users = createExampleUsers(); 
 		chat.addParticipantStatusListener(new OCParticipantStatusListener(this));
 	}
 
-	public Conference(MultiUserChat muc) {
-		this.chat = muc;
-		Log.v(TAG, "joined " + chat.getRoom());
-		chat.addParticipantStatusListener(new OCParticipantStatusListener(this));
-	}
+//	public Conference(MultiUserChat muc) {
+//		this.chat = muc;
+//		Log.v(TAG, "joined " + chat.getRoom());
+//		chat.addParticipantStatusListener(new OCParticipantStatusListener(this));
+//	}
 
 	//	public void createUsers(){
 	//		Log.v(TAG, "there are "+users.size()+" users now");

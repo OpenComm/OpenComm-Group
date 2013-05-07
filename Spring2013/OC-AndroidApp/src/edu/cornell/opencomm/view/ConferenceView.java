@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smackx.Form;
+import org.jivesoftware.smackx.muc.MultiUserChat;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -19,10 +23,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.ConferenceController;
+import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.model.ConferenceConstants;
 import edu.cornell.opencomm.model.SearchService;
 import edu.cornell.opencomm.model.User;
+import edu.cornell.opencomm.network.NetworkService;
 
 /**
  * 
@@ -89,7 +95,8 @@ public final class ConferenceView extends FragmentActivity implements
 		//conference_title = (TextView) findViewById(R.id.conference_Title);
 		roomLayout = (ViewGroup) findViewById(R.layout.conference_v2);
 		Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
-		conferenceController = ConferenceController.getInstance(this);
+		
+		conferenceController = ConferenceController.getInstance(this, null);
 		context = this;
 		conferenceModel = conferenceController.getRoom();  
 		initPager();
@@ -160,7 +167,7 @@ public final class ConferenceView extends FragmentActivity implements
 	public void addPersonClicked(View v) {
 		// TODO: get username of person to be added (hardcoded for now)
 		Log.v(TAG, "trying to add oc6testorg@opencomm");
-		ConferenceController.getInstance(this).HandleAddPerson(
+		ConferenceController.getInstance(this, null).HandleAddPerson(
 				"oc6testorg@opencomm");
 		User user = SearchService.getUser("oc6testorg"); 
 		ConferenceRoomFragment roomView = (ConferenceRoomFragment) conferenceFragments.get(0); 

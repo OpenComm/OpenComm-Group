@@ -2,6 +2,7 @@ package edu.cornell.opencomm.view;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import edu.cornell.opencomm.R;
@@ -20,8 +21,8 @@ public class MyProfileView extends Activity{
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		setUserInfo();
 		setContentView(R.layout.my_profile_layout);
+		setUserInfo();
 		myProfileController = new MyProfileController(this);
 		//set font
 		//Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
@@ -33,6 +34,10 @@ public class MyProfileView extends Activity{
 		System.out.println(name);
 		//still need title and cell phone
 		((TextView)findViewById(R.id.my_profile_name_label)).setText(name);
+	}
+	
+	public void edit(View v){
+
 	}
 	
 	public void back(View v) {
