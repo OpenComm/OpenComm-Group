@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.MyProfileController;
@@ -19,6 +20,12 @@ public class MyProfileView extends Activity{
 
 	private MyProfileController myProfileController;
 	
+	private static TextView name;
+	private static ImageView icon;
+	private static TextView email;
+	private static TextView phoneNumber;
+	private static TextView title; 
+	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.my_profile_layout);
@@ -32,8 +39,21 @@ public class MyProfileView extends Activity{
 		User user = UserManager.PRIMARY_USER;
 		String name = user.getUsername();
 		System.out.println(name);
-		//still need title and cell phone
+		
 		((TextView)findViewById(R.id.my_profile_name_label)).setText(name);
+		icon = (ImageView) findViewById(R.id.my_profile_photo); 
+		icon.setBackgroundResource(user.getImage());
+		title = (TextView) findViewById(R.id.my_profile_title_label); 
+		title.setText(user.getTitle()); 
+		phoneNumber = (TextView) findViewById(R.id.my_profile_phone_label); 
+		String number = user.getVCard().getPhoneWork(user.getVCard().getJabberId()); 
+		if (number == null){
+			phoneNumber.setText("");
+		} else phoneNumber.setText(number); 
+		email = (TextView) findViewById(R.id.my_profile_email_label);
+		String mail = user.getVCard().getEmailHome();  
+		if (mail == null) {email.setText("");}
+		else email.setText(mail); 
 	}
 	
 	public void edit(View v){
