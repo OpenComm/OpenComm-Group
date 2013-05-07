@@ -13,6 +13,7 @@ import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.ContactInfoController;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.OverflowAdapter;
+import edu.cornell.opencomm.model.SearchService;
 import edu.cornell.opencomm.model.User;
 
 
@@ -47,8 +48,9 @@ public class ContactInfoView extends Activity {
 		// get the user that this card represents
 		String nameStr = this.getIntent().getStringExtra(
 				ContactInfoView.contactCardKey);
-		for (User u : UserManager.getContactList()) {
+		for (User u : SearchService.searchByJid("*")) {
 			if (u.getUsername().equals(nameStr)) {
+				System.out.println(u == null); 
 				user = u;
 				name.setText(user.getNickname());
 				email.setText(user.getUsername());
@@ -104,7 +106,14 @@ public class ContactInfoView extends Activity {
 		this.overridePendingTransition(android.R.anim.slide_in_left,
 				android.R.anim.slide_out_right);
 	}
-	
-	
+
+	public void back(View v){
+		Intent i = new Intent(this, ContactListView.class);
+		this.startActivity(i);
+		this.overridePendingTransition(android.R.anim.slide_in_left,
+				android.R.anim.slide_out_right);
+	}
+
+
 
 }
