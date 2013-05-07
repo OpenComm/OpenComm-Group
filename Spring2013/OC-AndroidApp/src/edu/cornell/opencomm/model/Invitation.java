@@ -34,12 +34,20 @@ public class Invitation {
 		MultiUserChat muc = new MultiUserChat(NetworkService.getInstance()
 				.getConnection(), room);
 		try {
+			//Form form = muc.getConfigurationForm();
+		    //Form answerForm = form.createAnswerForm();
+		    //answerForm.setAnswer("muc#roomconfig_moderatedroom", "1");
+		    //muc.sendConfigurationForm(answerForm);
 			muc.join(UserManager.PRIMARY_USER.nickname);
 			//to do: accept room configuration
 		} catch (XMPPException e) {
 			System.out.println("Could not join chatroom:" + e);
 		}
 		return new Conference(muc);
+	}
+	
+	public String getInviter() {
+		return this.inviter;
 	}
 
 	public void decline() {

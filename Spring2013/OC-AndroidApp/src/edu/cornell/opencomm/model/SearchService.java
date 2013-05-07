@@ -307,7 +307,7 @@ public abstract class SearchService {
 				Iterator<String> jids = row.getValues("jid");
 	            while (jids.hasNext()) {
 	            	String jidFound = jids.next();
-	            	if (! roster.contains(jidFound) && jidFound != UserManager.PRIMARY_USER.getUsername() + "@opencomm") {
+	            	if (! roster.contains(jidFound) && ! jidFound.equalsIgnoreCase(UserManager.PRIMARY_USER.getUsername() + "@opencomm")) {
 	            		VCard vCard = new VCard();
 		            	vCard.load(NetworkService.getInstance().getConnection(), jidFound);
 		            	results.add(new User(vCard));
