@@ -29,7 +29,7 @@ public class ReceiverThread extends Thread {
 	static String codec = "";
 
 	/** Size of the read buffer */
-	public static final int BUFFER_SIZE = 4096;
+	public static final int BUFFER_SIZE = 2048;
 
 	/**
 	 * Maximum blocking time, spent waiting for reading new bytes [milliseconds]
@@ -156,8 +156,8 @@ public class ReceiverThread extends Thread {
 		ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_MUSIC,
 				(ToneGenerator.MIN_VOLUME));
 		// track.play();
-		trackLeft.play();
-		trackRight.play();
+		//trackLeft.play();
+		//trackRight.play();
 		empty();
 		System.gc();
 
@@ -165,8 +165,10 @@ public class ReceiverThread extends Thread {
 		while (running) {
 			try {
 				rtp_socket.receive(rtp_packet);
-
+				Log.v("ReceiverThread", "received an rtp_packet");
+				
 				if (timeout != 0) { // normal receipt of packet
+					Log.v("ReceiverThread", "normal receipt of packet");
 					tg.stopTone();
 					trackLeft.pause();
 					trackRight.pause();
@@ -178,6 +180,7 @@ public class ReceiverThread extends Thread {
 					trackRight.setStereoVolume(0, vol[1]);
 					user += trackLeft.write(ss[0], 0, ss[0].length);
 					trackRight.write(ss[1], 0, ss[1].length);
+					Log.v("ReceiverThread", "wrote " + ss[0].length + " shorts to hardware");
 					trackLeft.play();
 					trackRight.play();
 					cnt += 2 * BUFFER_SIZE;
@@ -188,8 +191,8 @@ public class ReceiverThread extends Thread {
 				if (timeout == 0) {
 					// tg.startTone(ToneGenerator.TONE_SUP_RINGTONE);
 				}
-				rtp_socket.getDatagramSocket().disconnect();
 				if (++timeout > 22) {
+					rtp_socket.getDatagramSocket().disconnect();
 					break;
 				}
 			}
@@ -217,9 +220,8 @@ public class ReceiverThread extends Thread {
 
 				if (cnt <= 500 || cnt2 >= 2 || headroom - 875 < len) {
 					len = rtp_packet.getPayloadLength();
-					G711.alaw2linear(buffer, lin, rtp_packet.getPayloadLength());
-
-				}
+					G711.alaw2linear(buffer, lin, len);
+	}
 
 				if (headroom < 250) {
 					todo = 875 - headroom;
@@ -317,7 +319,7 @@ public class ReceiverThread extends Thread {
 
 	/** Debug output */
 	private static void println(String str) {
-		// System.out.println("RtpStreamReceiver: " + str);
+		Log.v("ReceiverThread", str);
 	}
 
 	/**

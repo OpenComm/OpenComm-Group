@@ -183,8 +183,7 @@
     <TextView
         android:id="@+id/contacts"
         android:layout_width="70dp"
-        android:layout_height="wrap_content"
-         android:layout_alignStart="@id/contacts_button"   	    
+        android:layout_height="wrap_content"  	    
         android:layout_below="@id/contacts_button"
         android:gravity="center"
         android:layout_marginTop="8dp"
@@ -206,7 +205,6 @@
         android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/personalize_button"
-        android:layout_alignStart="@id/personalize_button"
         android:layout_marginTop="8dp"
         android:text="@string/personalize"
         android:gravity="center"

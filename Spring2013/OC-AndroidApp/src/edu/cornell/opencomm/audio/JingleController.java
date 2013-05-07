@@ -282,7 +282,8 @@ public class JingleController {
 						receiver.halt();
 					if (sender.isRunning())
 						sender.halt();
-					pusher.removeQueue(buddyJID);
+					// Maybe this will help?
+					pusher.removeQueue(String.valueOf(PortHandler.getInstance().getSendPort()));
 					if (pusher.isRunning() && pusher.numQueues() == 0)
 						pusher.halt();
 				} else {

@@ -8,6 +8,10 @@ import java.util.concurrent.BlockingQueue;
 import org.sipdroid.net.RtpPacket;
 import org.sipdroid.net.RtpSocket;
 import org.sipdroid.net.SipdroidSocket;
+
+import android.media.AudioFormat;
+import android.media.AudioManager;
+import android.media.AudioTrack;
 import android.util.Log;
 
 /**
@@ -180,6 +184,7 @@ public class SenderThread extends Thread {
 		short[] sample = new short[frame_size];
 
 		Log.i("SenderThread", "ready to send");
+		
 		while (running) {
 
 			//wait for a full frame before taking another sample
@@ -203,7 +208,7 @@ public class SenderThread extends Thread {
 				e1.printStackTrace();
 			}
 			G711.linear2alaw(sample, 0, buffer, frame_size);
-
+		
 			//send it over rtp
 			ring += frame_size;
 			rtp_packet.setSequenceNumber(seqn++);
