@@ -117,6 +117,8 @@ public class Conference implements Serializable {
 	}
 
 	public void invite(String JID, String reason) {
+		Log.v(TAG, ""+ chat.isJoined());
+		Log.v(TAG, ""+chat.getRoom());
 		chat.invite(JID, reason);
 	}
 

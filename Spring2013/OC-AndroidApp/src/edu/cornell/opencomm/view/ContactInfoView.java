@@ -52,19 +52,33 @@ public class ContactInfoView extends Activity {
 		String nameStr = this.getIntent().getStringExtra(
 				ContactInfoView.contactCardKey);
 		Log.v("CONTACTINFOVIEW", "nameStr is "+nameStr);
-		for (User u : SearchService.searchByJid("*")) {
-			Log.v("CONTACTINFOVIEW**", u.getUsername());
-			if (u.getUsername().equals(nameStr)) {
-				System.out.println(u == null); 
-				Log.v("CONTACTINFOVIEW", "nick "+user.getNickname());
-				Log.v("CONTACTINFOVIEW", "username "+user.getUsername());
-				user = u;
-				name.setText(user.getNickname());
-				email.setText(user.getUsername());
-				icon.setBackgroundResource(user.getImage()); 
-				//TODO: Set the other fields - ask Antoine
-			}
+		User newUser = SearchService.getUser(nameStr);
+		if(!(newUser==null)){
+			user = newUser;
+			Log.v("CONTACTINFOVIEW", "username "+user.getUsername());
+			name.setText(user.getVCard().getFirstName()+" "+user.getVCard().getLastName());
+			email.setText(user.getVCard().getEmailHome());
+			icon.setBackgroundResource(user.getImage()); 
+			//TODO: Set the other fields
+			title.setText(user.getTitle());
+			phoneNumber.setText(user.getPhone());
 		}
+		else{
+			Log.v("CONTACTINFOVIEW", "no user found");
+		}
+//		for (User u : SearchService.searchByJid("*")) {
+//			Log.v("CONTACTINFOVIEW**", u.getUsername());
+//			if (u.getUsername().equals(nameStr)) {
+//				System.out.println(u == null); 
+//				Log.v("CONTACTINFOVIEW", "nick "+user.getNickname());
+//				Log.v("CONTACTINFOVIEW", "username "+user.getUsername());
+//				user = u;
+//				name.setText(user.getNickname());
+//				email.setText(user.getUsername());
+//				icon.setBackgroundResource(user.getImage()); 
+//				//TODO: Set the other fields - ask Antoine
+//			}
+//		}
 		//set font
 		//Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
 		initoverflow(); 

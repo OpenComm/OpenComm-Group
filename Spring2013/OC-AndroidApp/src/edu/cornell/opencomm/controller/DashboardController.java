@@ -169,10 +169,10 @@ public class DashboardController {
 	 * </ul>
 	 * */
 	public void handleOptionClick(View view) {
-		String option = ((TextView) view.findViewById(R.id.overflow_itemtext))
-				.getText().toString().trim();
+//		String option = ((TextView) view.findViewById(R.id.overflow_itemtext))
+//				.getText().toString().trim();
 		// if the user selects log out
-		if (option.equals("logout")) {
+		//if (option.equals("logout")) {
 			// log out
 			NetworkService.getInstance().logout();
 			// launch login page
@@ -181,6 +181,6 @@ public class DashboardController {
 			this.dashboardView.overridePendingTransition(
 					android.R.anim.slide_in_left,
 					android.R.anim.slide_out_right);
-		}
+		//}
 	}
 }

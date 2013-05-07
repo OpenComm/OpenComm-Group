@@ -41,16 +41,16 @@ public class ConferenceController {
 
 	private ConferenceController(ConferenceView view, MultiUserChat muc) {
 		this.view = view;
-		this.room = new Conference(muc);
-//		String roomID = NetworkService.generateRoomID()
-//				+ NetworkService.CONF_SERVICE;
-//		try {
-//			this.room.join(UserManager.PRIMARY_USER.getUsername());
-//			this.room.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
-//			Log.v(TAG, "successfully created room " + this.room.toString());
-//		} catch (Exception e) {
-//			Log.v(TAG, e.getMessage());
-//		}
+		String roomID = NetworkService.generateRoomID()
+				+ NetworkService.CONF_SERVICE;
+		try {
+			this.room = new Conference(muc);
+			this.room.join(UserManager.PRIMARY_USER.getUsername());
+			this.room.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
+			Log.v(TAG, "successfully created room " + this.room.toString());
+		} catch (Exception e) {
+			Log.v(TAG, e.getMessage());
+		}
 		
 		//this.room.createUsers();
 	}

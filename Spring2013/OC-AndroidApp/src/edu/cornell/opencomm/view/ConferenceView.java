@@ -96,7 +96,18 @@ public final class ConferenceView extends FragmentActivity implements
 		roomLayout = (ViewGroup) findViewById(R.layout.conference_v2);
 		Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
 		
-		conferenceController = ConferenceController.getInstance(this, null);
+		//TODO: replace with "extra stuff"
+		String roomID = NetworkService.generateRoomID() + NetworkService.CONF_SERVICE;
+		MultiUserChat room = new MultiUserChat(NetworkService.getInstance().getConnection(), roomID);
+		try {
+			room.join(UserManager.PRIMARY_USER.getUsername());
+			room.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
+			Log.v(TAG, "successfully created room " + room.getRoom());
+		} catch (Exception e) {
+			Log.v(TAG, e.getMessage());
+		}
+		
+		conferenceController = ConferenceController.getInstance(this, room);
 		context = this;
 		conferenceModel = conferenceController.getRoom();  
 		initPager();
