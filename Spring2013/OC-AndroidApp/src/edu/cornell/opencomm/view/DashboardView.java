@@ -3,6 +3,7 @@ package edu.cornell.opencomm.view;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.DashboardController;
 import edu.cornell.opencomm.controller.FontSetter;
+import edu.cornell.opencomm.model.InvitationsList;
 import edu.cornell.opencomm.model.OverflowAdapter;
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 /**
  * View for dashboard. Functionality (handled by DashboardController).<br>
@@ -46,13 +49,17 @@ public class DashboardView extends Activity {
 	/** Overflow variables */
 	private String[] options;
 	private ListView overflowList;
+	private TextView first_conference;
 
 	@Override
 	/** Constructor: dashboard view; initializes overflow */
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.dashboard_layout);
+		setContentView(R.layout.dashboard_layout_2);
 		FontSetter.applySanSerifFont(this, findViewById(R.id.dashboard_layout));
+		first_conference = (TextView) findViewById(R.id.second_invitation);
+		//InvitationsList.getInvitations().get(0).getInviter();
+		//first_conference.setText("Blah");
 		this.controller = new DashboardController(this, DashboardView.this);
 		this.initializeOverflow();
 	}
@@ -61,16 +68,13 @@ public class DashboardView extends Activity {
 	 * and an appropriate action is launched */
 	private void initializeOverflow() {
 		this.options = this.getResources().getStringArray(R.array.overflow_dashboard);
-		OverflowAdapter oAdapter = new OverflowAdapter(this,
-				R.layout.overflow_item_layout, this.options);
-		overflowList = (ListView) this
-				.findViewById(R.id.dashboard_overflowList);
+		OverflowAdapter oAdapter = new OverflowAdapter(this, R.layout.overflow_item_layout, this.options);
+		overflowList = (ListView) this.findViewById(R.id.dashboard_overflowList);
 		overflowList.setAdapter(oAdapter);
 		// Click event for single list row
 		overflowList.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				controller.handleOptionClick(view);
 			}
 		});
