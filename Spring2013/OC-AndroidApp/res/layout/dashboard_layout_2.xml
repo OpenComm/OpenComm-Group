@@ -77,20 +77,12 @@
            android:layout_width="match_parent"
            android:paddingLeft="10dp"
 		   android:onClick="goToConfs">
-           <TextView
-               android:id="@+id/first_digit"
-               android:layout_width="0dp"
-               android:layout_marginTop="8dp"
-               android:layout_marginBottom="8dp"
-               android:textSize="16sp"
-               android:layout_gravity="center"
-               android:layout_weight="1"
-               android:textColor="@color/dashboard_text"
-               android:text="@string/first_digit" />
+
        	  <TextView
                android:id="@+id/first_invitation"
                android:layout_marginTop="8dp"
                android:layout_marginBottom="8dp"
+               android:layout_marginLeft="18dp"
                android:layout_width="0dp"
                android:textSize="16sp"
                android:layout_gravity="center"
@@ -117,7 +109,7 @@
                android:layout_gravity="center"
                android:layout_weight="1"
                android:textColor="@color/dashboard_text"
-               android:text="@string/second_digit" />
+               android:text="@string/first_digit" />
        	 <TextView
                android:id="@+id/second_invitation"
                android:layout_marginTop="8dp"
@@ -148,7 +140,7 @@
                android:layout_gravity="center"
                android:layout_weight="1"
                android:textColor="@color/dashboard_text"
-               android:text="@string/third_digit" />
+               android:text="@string/second_digit" />
        	 <TextView
                android:id="@+id/third_invitation"
                android:layout_marginTop="8dp"

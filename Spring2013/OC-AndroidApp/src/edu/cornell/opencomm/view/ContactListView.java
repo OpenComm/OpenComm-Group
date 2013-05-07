@@ -105,16 +105,10 @@ public class ContactListView extends Activity {
 		this.initializeContactList();
 		this.mode = state.search;
 		//Done - Change font
-		FontSetter.applyRobotoFont(ContactListView.this,
-				findViewById(R.id.contacts_layout));
-		this.isAdd = this.getIntent().getBooleanExtra(
-				ContactListView.AddSearchKey, false);
-		this.suggestion = (EditText) this
-				.findViewById(R.id.contact_addsearch_search_input);
-		if (this.isAdd) {
-			((TextView) this.findViewById(R.id.contact_addsearch_title))
-			.setText("add");
-		}
+		FontSetter.applyRobotoFont(ContactListView.this,findViewById(R.id.contacts_layout));
+		this.isAdd = this.getIntent().getBooleanExtra(ContactListView.AddSearchKey, false);
+		this.suggestion = (EditText) this.findViewById(R.id.contact_addsearch_search_input);
+		if (this.isAdd) ((TextView) this.findViewById(R.id.contact_addsearch_title)).setText("add");
 		
 		suggestion.requestFocus();
 		suggestion.addTextChangedListener(new TextWatcher() {

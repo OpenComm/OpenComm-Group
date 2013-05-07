@@ -41,6 +41,6 @@ public class ForgotPsdView extends Activity {
 	
 	/** Called when email button is pressed */
 	public void sendEmailPressed(View v){
-		       forgotPsdController.handleSendEmailClick(getEmail().getText().toString());	
+		forgotPsdController.handleSendEmailClick(getEmail().getText().toString());	
 	}
 }
