@@ -51,7 +51,7 @@ public class DashboardView extends Activity {
 	/** Constructor: dashboard view; initializes overflow */
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.dashboard_layout);
+		setContentView(R.layout.dashboard_layout_2);
 		FontSetter.applySanSerifFont(this, findViewById(R.id.dashboard_layout));
 		this.controller = new DashboardController(this, DashboardView.this);
 		this.initializeOverflow();

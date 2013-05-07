@@ -2,7 +2,7 @@
      android:id="@+id/dashboard_layout"
      android:layout_width="match_parent"
     android:layout_height="match_parent"  
-    android:background="@color/dashboard_background">
+    android:background="@color/white">
     
     <RelativeLayout
         android:id="@+id/dashboard_actionbar"
@@ -11,7 +11,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:background="@color/grey_thirtythree" >
-
 
         <ImageView
             android:id="@+id/dashboardOverflowIcon"
@@ -43,7 +42,6 @@
             android:textColor="@color/dashboard_text"
             android:gravity="center"
             android:textSize="27.33sp" />      
-       
                     
        <TableLayout
            android:layout_width="200dp"
@@ -60,13 +58,13 @@
            android:layout_width="match_parent"
            android:gravity="center_horizontal">
            <TextView
-              android:id="@+id/open_invitations"
+               android:id="@+id/open_invitations"
                android:layout_marginTop="8dp"
                android:layout_marginBottom="8dp"
                android:textSize="20sp"
                android:gravity="center"
                android:textColor="@color/dashboard_text"
-               android:text="@string/open_invitations"/>
+               android:text="@string/conferences"/>
        </TableRow>
                 
        <View
@@ -77,18 +75,19 @@
            android:id="@+id/tableRow2"
            android:layout_height="wrap_content"
            android:layout_width="match_parent"
-           android:paddingLeft="10dp">
+           android:paddingLeft="10dp"
+		   android:onClick="goToConfs">
            <TextView
                android:id="@+id/first_digit"
                android:layout_width="0dp"
-              android:layout_marginTop="8dp"
+               android:layout_marginTop="8dp"
                android:layout_marginBottom="8dp"
                android:textSize="16sp"
                android:layout_gravity="center"
                android:layout_weight="1"
                android:textColor="@color/dashboard_text"
                android:text="@string/first_digit" />
-       	 <TextView
+       	  <TextView
                android:id="@+id/first_invitation"
                android:layout_marginTop="8dp"
                android:layout_marginBottom="8dp"
@@ -183,8 +182,7 @@
     <TextView
         android:id="@+id/contacts"
         android:layout_width="70dp"
-        android:layout_height="wrap_content"
-         android:layout_alignStart="@id/contacts_button"   	    
+        android:layout_height="wrap_content" 	    
         android:layout_below="@id/contacts_button"
         android:gravity="center"
         android:layout_marginTop="8dp"
@@ -193,21 +191,21 @@
         android:textSize="12sp" />
     
     <Button
-            android:id="@+id/personalize_button"
-           	 android:layout_toRightOf="@id/contacts_button"
-           	 android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginLeft="55dp"
-            android:background="@drawable/personalize"
-            android:onClick="goToProfile" />
+        android:id="@+id/personalize_button"
+       	android:layout_toRightOf="@id/contacts_button"
+       	android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="55dp"
+        android:background="@drawable/personalize"
+        android:onClick="goToProfile" />
     
-       <TextView
+    <TextView
         android:id="@+id/personalize"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/personalize_button"
-        android:layout_alignStart="@id/personalize_button"
         android:layout_marginTop="8dp"
+        android:layout_marginLeft="125dp"
         android:text="@string/personalize"
         android:gravity="center"
         android:textColor="@color/dashboard_text"

@@ -112,11 +112,12 @@
     <string name="open_invitations">Open Invitations</string>
     <string name ="personalize">Personalize</string>
     <string name="first_digit">1</string>
-    <string name="first_invitation">Amy Poehler</string>
+    <string name="first_invitation">Create Conference</string>
     <string name="second_digit">2</string>
     <string name="second_invitation">Conan OBrian</string>
     <string name="third_digit">3</string>
     <string name="third_invitation">Tiny Fey</string>
+    <string name="conferences">Conferences</string>
     
     <string-array name="overflow_dashboard">
         <item>logout</item>
