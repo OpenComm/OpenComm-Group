@@ -41,12 +41,10 @@ public class ConferenceController {
 
 	private ConferenceController(ConferenceView view, MultiUserChat muc) {
 		this.view = view;
-		String roomID = NetworkService.generateRoomID()
-				+ NetworkService.CONF_SERVICE;
 		try {
 			this.room = new Conference(muc);
-			this.room.join(UserManager.PRIMARY_USER.getUsername());
-			this.room.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
+//			this.room.join(UserManager.PRIMARY_USER.getUsername());
+//			this.room.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
 			Log.v(TAG, "successfully created room " + this.room.toString());
 		} catch (Exception e) {
 			Log.v(TAG, e.getMessage());
@@ -123,6 +121,8 @@ public class ConferenceController {
 
 		room.hasLeft(UserManager.PRIMARY_USER);
 		if (room.getActiveParticipants().isEmpty()) {
+			Log.v(TAG, "setting room to null");
+			room.destroy();
 			room = null;
 		}
 		Intent i = new Intent(this.view, DashboardView.class); 

@@ -118,9 +118,10 @@ public class DashboardController {
 	/**
 	 * Launches Conference List
 	 */
-	public void handleConferencesButtonClicked() {
+	public void handleConferencesButtonClicked(String roomID) {
 		// TODO: go to a dummy conference!
 		Intent i = new Intent(this.dashboardView, ConferenceView.class);
+		i.putExtra("room_id", roomID);
 		this.dashboardView.startActivity(i);
 	}
 

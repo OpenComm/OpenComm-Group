@@ -54,8 +54,6 @@ public class ContactInfoView extends Activity {
 		// get the user that this card represents
 		String nameStr = this.getIntent().getStringExtra(
 				ContactInfoView.contactCardKey);
-//<<<<<<< HEAD
-//		Log.v("CONTACTINFOVIEW", "nameStr is "+nameStr);
 //		User newUser = SearchService.getUser(nameStr);
 //		if(!(newUser==null)){
 //			user = newUser;
@@ -67,43 +65,24 @@ public class ContactInfoView extends Activity {
 //			title.setText(user.getTitle());
 //			phoneNumber.setText(user.getPhone());
 //		}
-//		else{
-//			Log.v("CONTACTINFOVIEW", "no user found");
-//=======
-//		for (User u : SearchService.searchByJid("*")) {
-//			if (u.getUsername().equals(nameStr)) {
-				User u = SearchService.getUser(nameStr);
-				if (u.compareTo(UserManager.PRIMARY_USER) == 0){
-					invite.setVisibility(View.INVISIBLE); 
-				}
-				else {invite.setVisibility(View.VISIBLE); }
-				user = u;
-				name.setText(user.getNickname());
-				String mail = user.getVCard().getEmailHome();  
-				if (mail == null) {email.setText("");}
-				else email.setText(mail); 
-				String number = user.getVCard().getPhoneWork(user.getVCard().getJabberId()); 
-				if (number == null){
-					phoneNumber.setText("");
-				} else phoneNumber.setText(number); 
-				title.setText(u.getTitle()); 
-				icon.setBackgroundResource(user.getImage());
-//			}
-//>>>>>>> 9b52c5bd64d51d13d2a917dc91a9213b660c77ad
-//		}
-//		for (User u : SearchService.searchByJid("*")) {
-//			Log.v("CONTACTINFOVIEW**", u.getUsername());
-//			if (u.getUsername().equals(nameStr)) {
-//				System.out.println(u == null); 
-//				Log.v("CONTACTINFOVIEW", "nick "+user.getNickname());
-//				Log.v("CONTACTINFOVIEW", "username "+user.getUsername());
-//				user = u;
-//				name.setText(user.getNickname());
-//				email.setText(user.getUsername());
-//				icon.setBackgroundResource(user.getImage()); 
-//				//TODO: Set the other fields - ask Antoine
-//			}
-//		}
+		User u = SearchService.getUser(nameStr); 
+		if (u.compareTo(UserManager.PRIMARY_USER) == 0){
+			invite.setVisibility(View.INVISIBLE); 
+		}
+		else {invite.setVisibility(View.VISIBLE); }
+		user = u;
+		name.setText(user.getNickname());
+		String mail = user.getVCard().getEmailHome();  
+		if (mail == null) {email.setText("");
+			email.setHint("Enter email address"); }
+		else email.setText(mail); 
+		String number = user.getVCard().getPhoneWork(user.getVCard().getJabberId()); 
+		if (number == null){
+			phoneNumber.setText("");
+			phoneNumber.setHint("Enter phone number"); 
+		} else phoneNumber.setText(number); 
+		title.setText(u.getTitle()); 
+		icon.setBackgroundResource(user.getImage());
 		//set font
 		//Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
 		initoverflow(); 

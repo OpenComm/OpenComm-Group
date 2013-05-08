@@ -95,9 +95,9 @@ public final class ConferenceView extends FragmentActivity implements
 		//conference_title = (TextView) findViewById(R.id.conference_Title);
 		roomLayout = (ViewGroup) findViewById(R.layout.conference_v2);
 		Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
-		
-		//TODO: replace with "extra stuff"
-		String roomID = NetworkService.generateRoomID() + NetworkService.CONF_SERVICE;
+		Bundle extras = getIntent().getExtras();
+		String roomID = extras.getString("room_id");
+		//String roomID = NetworkService.generateRoomID() + NetworkService.CONF_SERVICE;
 		MultiUserChat room = new MultiUserChat(NetworkService.getInstance().getConnection(), roomID);
 		try {
 			room.join(UserManager.PRIMARY_USER.getUsername());
@@ -149,9 +149,11 @@ public final class ConferenceView extends FragmentActivity implements
 	 * conference
 	 */
 	public void exitConference(View v) {
-		Intent i = new Intent(this, DashboardView.class);
-		onStop();
-		startActivity(i);
+		Log.v(TAG, "exiting conference");
+		conferenceController.HandleLeave();
+//		Intent i = new Intent(this, DashboardView.class);
+//		onStop();
+//		startActivity(i);
 	}
 
 	/**
@@ -160,6 +162,7 @@ public final class ConferenceView extends FragmentActivity implements
 	 * @param roomIndex
 	 */
 	public void returnToPage(int roomIndex) {
+		Log.v(TAG, "return to page");
 		ViewPager pager = (ViewPager) super.findViewById(R.id.threepanelpager);
 		pager.invalidate();
 	}
@@ -189,15 +192,18 @@ public final class ConferenceView extends FragmentActivity implements
 	
 	// triggered when leave button was pressed (on confernece_v2)
 	public void leaveButtonClicked(View v) {
+		Log.v(TAG, "leave button clicked");
 			conferenceController.HandleLeave();
 	}
 
 	// triggered when setting button was pressed (on confernece_v2)
 	public void settingButtonClicked(View v) {
+		Log.v(TAG, "setting button clicked");
 		conferenceController.HandleSetting();
 	}
 	// triggered when back button was pressed (on confernece_v2)
 	public void backButtonClicked(View v) {
+		Log.v(TAG, "back button clicked");
 		//conferenceController.HandleBackButton();
 		Intent account = new Intent(this, DashboardView.class);
 		this.startActivity(account);

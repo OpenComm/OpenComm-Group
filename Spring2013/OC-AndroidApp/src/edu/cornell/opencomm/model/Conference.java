@@ -125,6 +125,10 @@ public class Conference implements Serializable {
 	public void leave() {
 		chat.leave();
 	}
+	
+	public void destroy(){
+		chat = null;
+	}
 
 	public Collection<Occupant> getParticipants() {
 		try {
