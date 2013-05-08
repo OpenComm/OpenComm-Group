@@ -173,8 +173,8 @@ public class ReceiverThread extends Thread {
 				if (timeout != 0) { // normal receipt of packet
 					Log.v("ReceiverThread", "normal receipt of packet");
 					tg.stopTone();
-					trackLeft.pause();
-					trackRight.pause();
+					//trackLeft.pause();
+					//trackRight.pause();
 
 					int itd = soundSpatializer.getItd();
 					float[] vol = soundSpatializer.getVol();
@@ -192,8 +192,8 @@ public class ReceiverThread extends Thread {
 					trackRight.write(ss[1], 0, ss[1].length);
 					
 					Log.v("ReceiverThread", "wrote " + ss[0].length + " bytes to hardware");
-					trackLeft.play();
-					trackRight.play();
+					//trackLeft.play();
+					//trackRight.play();
 					cnt += 2 * BUFFER_SIZE;
 					empty();
 				}

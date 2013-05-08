@@ -92,8 +92,7 @@ public class NetworkService {
 			text[i] = characters.charAt(rng.nextInt(characters.length()));
 		}
 		// TODO: change back once invitations are working
-		//return new String(text);
-		return "OCtestroom";
+		return new String(text);
 	}
 
 	public static NetworkService getInstance() {
@@ -126,8 +125,8 @@ public class NetworkService {
 		this.xmppConn = new XMPPConnection(xmppConfig);
 		this.accountManager = this.xmppConn.getAccountManager();
 
-		// Audio connection
-		JingleIQBuddyPacketRouter.setup(this.xmppConn);
+		/*// Audio connection
+		JingleIQBuddyPacketRouter.setup(this.xmppConn);*/
 	}// end NetworkService method
 
 	public XMPPConnection getConnection() {
@@ -270,7 +269,8 @@ public class NetworkService {
 
 	public boolean logout() {
 		this.xmppConn.disconnect();
-
+		
+/*
 		// Disconnect audio
 		HashMap<String, JingleController> allJCtrls = JingleController
 				.getUsernameToJingleController();
@@ -285,7 +285,7 @@ public class NetworkService {
 					jCtrl.getBuddyJID(), jCtrl.getSID(), reason, jCtrl);
 			jCtrl.getSessionState().changeSessionState(
 					JingleIQPacket.AttributeActionValues.SESSION_TERMINATE);
-		}
+		}*/
 
 		// reconnect to the server
 		_instance = new NetworkService(DEFAULT_HOST, DEFAULT_PORT);
