@@ -1,11 +1,7 @@
 package edu.cornell.opencomm.controller;
 
-import android.content.Intent;
 import android.view.View;
-import android.widget.TextView;
-import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.view.ContactInfoView;
-import edu.cornell.opencomm.view.MyProfileView;
 
 public class ContactInfoController {
 

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.Form;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 

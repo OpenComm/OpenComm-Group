@@ -2,7 +2,6 @@ package edu.cornell.opencomm.view;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;

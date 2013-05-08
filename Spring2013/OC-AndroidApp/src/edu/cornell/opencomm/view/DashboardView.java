@@ -3,7 +3,6 @@ package edu.cornell.opencomm.view;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.DashboardController;
 import edu.cornell.opencomm.controller.FontSetter;
-import edu.cornell.opencomm.model.InvitationsList;
 import edu.cornell.opencomm.model.OverflowAdapter;
 import edu.cornell.opencomm.network.NetworkService;
 import android.app.Activity;
@@ -14,9 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * View for dashboard. Functionality (handled by DashboardController).<br>
@@ -45,7 +42,6 @@ public class DashboardView extends Activity {
 	/**
 	 * The TAG for logging
 	 */
-	@SuppressWarnings("unused")
 	private static final String TAG = DashboardView.class.getSimpleName();
 
 	private DashboardController controller;

@@ -9,9 +9,6 @@ import org.sipdroid.net.RtpPacket;
 import org.sipdroid.net.RtpSocket;
 import org.sipdroid.net.SipdroidSocket;
 
-import android.media.AudioFormat;
-import android.media.AudioManager;
-import android.media.AudioTrack;
 import android.util.Log;
 
 /**

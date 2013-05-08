@@ -1,7 +1,6 @@
 package edu.cornell.opencomm.network;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -43,16 +42,9 @@ import org.jivesoftware.smackx.provider.VCardProvider;
 import org.jivesoftware.smackx.provider.XHTMLExtensionProvider;
 import org.jivesoftware.smackx.search.UserSearch;
 
-import com.cornell.opencomm.jingleimpl.JingleIQPacket;
-import com.cornell.opencomm.jingleimpl.ReasonElementType;
-import com.cornell.opencomm.jingleimpl.sessionmgmt.JingleIQBuddyPacketRouter;
-
-import edu.cornell.opencomm.audio.JingleController;
 import edu.cornell.opencomm.controller.LoginController.ReturnState;
-import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.Invitation;
 import edu.cornell.opencomm.model.InvitationsList;
-import edu.cornell.opencomm.model.SearchService;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.view.DashboardView;
 

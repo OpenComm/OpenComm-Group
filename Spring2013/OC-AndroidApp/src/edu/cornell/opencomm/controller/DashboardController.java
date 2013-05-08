@@ -2,15 +2,11 @@ package edu.cornell.opencomm.controller;
 
 import java.util.ArrayList;
 
-import org.jivesoftware.smack.packet.Presence;
-
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
-import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
@@ -19,7 +15,6 @@ import edu.cornell.opencomm.view.ContactInfoView;
 import edu.cornell.opencomm.view.ContactListView;
 import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.LoginView;
-import edu.cornell.opencomm.view.MyProfileView;
 
 /**
  * Controller for Dashboard (DashboardView) Functionality (handled by
@@ -50,7 +45,6 @@ public class DashboardController {
 	/**
 	 * The TAG for logging
 	 */
-	@SuppressWarnings("unused")
 	private static final String TAG = DashboardController.class.getSimpleName();
 
 	private DashboardView dashboardView;
