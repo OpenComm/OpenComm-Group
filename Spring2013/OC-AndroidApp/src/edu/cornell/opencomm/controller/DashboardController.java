@@ -15,6 +15,7 @@ import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ConferenceView;
+import edu.cornell.opencomm.view.ContactInfoView;
 import edu.cornell.opencomm.view.ContactListView;
 import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.LoginView;
@@ -139,8 +140,9 @@ public class DashboardController {
 		//		"Profile Button clicked", duration);
 		//send.show();
 		// launch my profile page
-		Intent account = new Intent(this.dashboardView, MyProfileView.class);
-		this.dashboardView.startActivity(account);
+		Intent i = new Intent(this.dashboardView, ContactInfoView.class);
+		i.putExtra(ContactInfoView.contactCardKey, UserManager.PRIMARY_USER.getUsername());
+		this.dashboardView.startActivity(i);
 	}
 
 	public void handleNotificationClicked() {

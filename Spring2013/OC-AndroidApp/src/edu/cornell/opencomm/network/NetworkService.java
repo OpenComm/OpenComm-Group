@@ -51,6 +51,7 @@ import edu.cornell.opencomm.audio.JingleController;
 import edu.cornell.opencomm.controller.LoginController.ReturnState;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.Invitation;
+import edu.cornell.opencomm.model.InvitationsList;
 import edu.cornell.opencomm.model.User;
 
 import android.util.Log;
@@ -164,16 +165,14 @@ public class NetworkService {
 							public void invitationReceived(Connection conn,
 									String room, String inviter, String reason,
 									String password, Message message) {
-								new Invitation(conn, room, inviter, reason, password, message).accept();
-								if (D)
+								InvitationsList.addInvitation(new Invitation(conn, room, inviter, reason, password, message));
+								if (D) {
 									Log.v(TAG, "Invitation received");
-								/*InvitationsList.getInstance().addInvitation(
-										new Invitation(conn, room, inviter,
-												reason, password, message));*/
+								}
 							}
-
 						});
 				return ReturnState.SUCCEEDED;
+				
 			} catch (XMPPException e) {
 				// if login failed
 				try {
@@ -232,6 +231,26 @@ public class NetworkService {
 				e.printStackTrace();
 			}
 			results.add(new User(vCard));
+		}
+		return results;
+	}
+	
+	public ArrayList<User> getOnlineBuddies() {
+		ArrayList<User> results = new ArrayList<User>();
+		Iterator<RosterEntry> entries = xmppConn.getRoster().getEntries().iterator();
+		while (entries.hasNext()) {
+			RosterEntry entry = entries.next();
+			String jid = entry.getUser();
+			VCard vCard = new VCard();
+			try {
+				vCard.load(xmppConn, jid);
+			} catch (XMPPException e) {
+				e.printStackTrace();
+			}
+			User user = new User(vCard);
+			if(user.getPresence().isAvailable()) {
+				results.add(user);
+			}
 		}
 		return results;
 	}

@@ -22,6 +22,7 @@ import com.jstun.demo.DiscoveryTest;
  */
 public class IPAddresses {
 
+	private static final String TAG = "IPAddresses";
 	private static Vector<String> localInterfaceIPs = new Vector<String>();
 	private static Vector<String> natIPs = new Vector<String>();
 	
@@ -94,6 +95,7 @@ public class IPAddresses {
     			}
     		}
     	} catch (SocketException ex) {
+    		Log.v(TAG, ex.getMessage());
     		// do nothing
     	}
 	}

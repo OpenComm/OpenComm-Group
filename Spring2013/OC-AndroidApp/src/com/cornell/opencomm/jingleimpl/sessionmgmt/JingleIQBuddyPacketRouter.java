@@ -2,16 +2,20 @@ package com.cornell.opencomm.jingleimpl.sessionmgmt;
 
 import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.XMPPConnection;
+import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.filter.PacketTypeFilter;
 import org.jivesoftware.smack.packet.IQ;
 import org.jivesoftware.smack.packet.Packet;
 import org.jivesoftware.smack.provider.ProviderManager;
+import org.jivesoftware.smackx.packet.VCard;
+
 import android.util.Log;
 import com.cornell.opencomm.jingleimpl.JingleIQPacket;
 import com.cornell.opencomm.jingleimpl.JingleIQProvider;
 
 import edu.cornell.opencomm.audio.JingleController;
 import edu.cornell.opencomm.model.User;
+import edu.cornell.opencomm.network.NetworkService;
 
 /**
  * This class is a router class for incoming <code>IQ</code> packets. It
@@ -68,12 +72,19 @@ public class JingleIQBuddyPacketRouter {
 								.containsKey(userJid)) {
 							Log.i(JingleIQBuddyPacketRouter.TAG,
 									"Does not contain key " + userJid);
-							User u = new User(userJid, userJid, 0);
+							VCard v = new VCard();
+							try {
+								v.load(NetworkService.getInstance()
+										.getConnection(), userJid);
+							} catch (XMPPException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							User u = new User(v);
 							jCtrl = u.getJingle();
 							jCtrl.setSID(jiq.getAttributeSID());
 							Log.i(JingleIQBuddyPacketRouter.TAG,
-									"Created user: Jsername = "
-											+ jCtrl.getBuddyJID()
+									"Created user: Jsername = " + userJid
 											+ " Session SID: " + jCtrl.getSID());
 							jCtrl.processPacket(jiq);
 						} else {
@@ -82,8 +93,7 @@ public class JingleIQBuddyPacketRouter {
 											userJid);
 							jCtrl.setSID(jiq.getAttributeSID());
 							Log.i(JingleIQBuddyPacketRouter.TAG,
-									"Found user: Username = "
-											+ jCtrl.getBuddyJID());
+									"Found user: Username = " + userJid);
 							jCtrl.processPacket(jiq);
 						}
 
@@ -107,5 +117,4 @@ public class JingleIQBuddyPacketRouter {
 			Log.e(JingleIQBuddyPacketRouter.TAG, e.getMessage());
 		}
 	}
-
 }

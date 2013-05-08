@@ -20,6 +20,8 @@ import android.util.Log;
  * Based off of r473 of Sipdroid's RTPStreamSender class (sipdroid.org).
  */
 public class SenderThread extends Thread {
+	private static final String TAG = "SenderThread";
+
 	/** Whether working in debug mode. */
 	public static boolean DEBUG = true;
 
@@ -158,8 +160,10 @@ public class SenderThread extends Thread {
 	@Override
 	public void run() {
 		Log.i("SenderThread", "started");
-		if (rtp_socket == null)
+		if (rtp_socket == null) {
+			Log.v(TAG, "no socket. halting");
 			return;
+		}
 		byte[] buffer = new byte[frame_size + 12];
 		RtpPacket rtp_packet = new RtpPacket(buffer, 0);
 		rtp_packet.setPayloadType(8);
@@ -219,6 +223,7 @@ public class SenderThread extends Thread {
 				if (m == 2)
 					rtp_socket.send(rtp_packet);
 			} catch (IOException e) {
+				e.printStackTrace();
 			}
 			time += frame_size;
 			m = 1;

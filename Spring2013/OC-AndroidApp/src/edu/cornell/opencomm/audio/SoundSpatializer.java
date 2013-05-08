@@ -1140,25 +1140,8 @@ public class SoundSpatializer {
 				+ SoundSpatializer.spaceVol;
 	}
 
-	/** return a SS-modified source */
 	/**
-	 * public short[] spatializeSource(short[] source) { short[] left = new
-	 * short[0]; short[] right = new short[0]; // if the audio has not been
-	 * updated, update
-	 * 
-	 * // if the sound source is left of the user if (this.itd > 0) { left =
-	 * this.addITDAfter(source); right = this.addITDBefore(source); } // if the
-	 * sound source is right of the user else if (this.itd < 0) { left =
-	 * this.addITDAfter(source); right = this.addITDBefore(source); } // if the
-	 * sound source is right in front of the user; no itd else { left =
-	 * source.clone(); right = source.clone(); } Log.i(SoundSpatializer.TAG,
-	 * "Left and right mono streams have been modified."); // create stereo
-	 * stream return SoundSpatializer.monoToStereo(left, right); } // end write
-	 * method
-	 * 
-	 * 
-	 * // [TODO] This is the one that gets used. Remove the extras /** return a
-	 * SS-modified source
+	 * return a SS-modified source
 	 */
 	public short[][] spatializeSource(short[] source, int itd) {
 		short[] left = null;
@@ -1168,13 +1151,7 @@ public class SoundSpatializer {
 		// this.vol[1] * SoundSpatializer.spaceVol);
 		// if the sound source is left of the user
 		// [TODO] Commented out to remove spatialization
-		/*
-		 * if (itd > 0) { left = this.addITDAfter(source, itd); right =
-		 * this.addITDBefore(source, itd); } // if the sound source is right of
-		 * the user else if (itd < 0) { left = this.addITDAfter(source, itd);
-		 * right = this.addITDBefore(source, itd); } // if the sound source is
-		 * right in front of the user; no itd else {
-		 */
+		
 		left = source.clone();
 		right = source.clone();
 		// }
@@ -1184,11 +1161,24 @@ public class SoundSpatializer {
 		// "Left and right mono streams have been modified.");
 		// create stereo stream
 		// return SoundSpatializer.monoToStereo(left, right);
-	} // end write method
+	}// end write method
 
+	public byte[][] spatializeSource(byte[] source, int itd) {
+		byte[] left = new byte[source.length + (2 * itd)];
+		byte[] right = new byte[source.length + (2 * itd)];
+		if (itd < 0) {
+			System.arraycopy(source, 0, left, 2 * itd, source.length);
+			System.arraycopy(source, 0, right, 0, source.length);
+		} else {
+			System.arraycopy(source, 0, left, 0, source.length);
+			System.arraycopy(source, 0, right, 2 * itd, source.length);
+		}
+		byte[][] bytes = {left, right};
+		return bytes;
+	}
+	
 	public int getItd() {
-		return 0;
-		// return itd;
+		return itd;
 	}
 
 	public float[] getVol() {
@@ -1199,20 +1189,4 @@ public class SoundSpatializer {
 		this.vol = vol;
 	}
 
-	/** write a SS-modified source to the track */
-	/*
-	 * 8public int writeSS(short[] source) { short[] left = new short[0];
-	 * short[] right = new short[0]; // if the audio has not been updated,
-	 * update this.setSS(); // if the sound source is left of the user if
-	 * (this.itd > 0) { left = this.addITDAfter(source); right =
-	 * this.addITDBefore(source); } // if the sound source is right of the user
-	 * else if (this.itd < 0) { left = this.addITDAfter(source); right =
-	 * this.addITDBefore(source); } // if the sound source is right in front of
-	 * the user; no itd else { left = source.clone(); right = source.clone(); }
-	 * Log.i(SoundSpatializer.TAG,
-	 * "Left and right mono streams have been modified."); // create stereo
-	 * stream short[] stereo = SoundSpatializer.monoToStereo(left, right); //
-	 * write the stereo channel into the audiotrack return
-	 * this.audio.write(stereo, 0, stereo.length); } // end write method
-	 */
 }

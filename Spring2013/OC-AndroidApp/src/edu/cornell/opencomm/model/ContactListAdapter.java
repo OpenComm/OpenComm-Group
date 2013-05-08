@@ -55,13 +55,11 @@ public class ContactListAdapter extends ArrayAdapter<User> {
 	private LayoutInflater inflater;
 	private float screenWidth;
 
-	public ContactListAdapter(Context context, 
-			int textViewResourceId, ArrayList<User> contacts) {
+	public ContactListAdapter(Context context, int textViewResourceId, ArrayList<User> contacts) {
 		super(context, R.layout.contactlist_item_layout, contacts);
 		this.context = context;
 		this.contacts = contacts;
-		this.inflater = (LayoutInflater) context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
 		screenWidth = display.getWidth();

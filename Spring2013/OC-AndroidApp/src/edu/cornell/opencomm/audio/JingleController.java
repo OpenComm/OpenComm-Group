@@ -160,9 +160,6 @@ public class JingleController {
 										160, send_socket,
 										this.getRemoteIPAddress(),
 										this.getRemotePort(), queue);
-								// pusher =
-								// AudioPusher.getInstance("/test3.wav",
-								// buddyJID, queue);
 								MicrophonePusher pusher = MicrophonePusher
 										.getInstance(String.valueOf(sendPort),
 												queue);

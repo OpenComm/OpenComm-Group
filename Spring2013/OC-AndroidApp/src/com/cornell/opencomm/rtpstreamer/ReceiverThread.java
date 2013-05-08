@@ -36,6 +36,8 @@ public class ReceiverThread extends Thread {
 	 */
 	public static final int SO_TIMEOUT = 200;
 
+	private static final String TAG = "ReceiverThread";
+
 	/** The RtpSocket */
 	RtpSocket rtp_socket = null;
 
@@ -126,6 +128,7 @@ public class ReceiverThread extends Thread {
 
 		byte[] buffer = new byte[BUFFER_SIZE + 12];
 		rtp_packet = new RtpPacket(buffer, 0);
+		Log.v(TAG, "got a packet!: " + new String(buffer));
 
 		if (DEBUG)
 			println("Reading blocks of max " + buffer.length + " bytes");
@@ -156,13 +159,13 @@ public class ReceiverThread extends Thread {
 		ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_MUSIC,
 				(ToneGenerator.MIN_VOLUME));
 		// track.play();
-		//trackLeft.play();
-		//trackRight.play();
+		trackLeft.play();
+		trackRight.play();
 		empty();
 		System.gc();
 
 		Log.i("ReceiverThread", "started");
-		while (running) {
+		while (true) {
 			try {
 				rtp_socket.receive(rtp_packet);
 				Log.v("ReceiverThread", "received an rtp_packet");
@@ -175,12 +178,20 @@ public class ReceiverThread extends Thread {
 
 					int itd = soundSpatializer.getItd();
 					float[] vol = soundSpatializer.getVol();
-					short[][] ss = soundSpatializer.spatializeSource(lin2, itd);
+					/*short[][] ss = soundSpatializer.spatializeSource(lin2, itd);
 					trackLeft.setStereoVolume(vol[0], 0);
 					trackRight.setStereoVolume(0, vol[1]);
-					user += trackLeft.write(ss[0], 0, ss[0].length);
+					//user += trackLeft.write(ss[0], 0, ss[0].length);
+					//trackRight.write(ss[1], 0, ss[1].length);
+*/					
+					// version with audio as byte[]
+					byte[][] ss = soundSpatializer.spatializeSource(buffer, itd);
+					trackLeft.setStereoVolume(vol[0], 0);
+					trackRight.setStereoVolume(0, vol[1]);
+					trackLeft.write(ss[0], 0, ss[0].length);
 					trackRight.write(ss[1], 0, ss[1].length);
-					Log.v("ReceiverThread", "wrote " + ss[0].length + " shorts to hardware");
+					
+					Log.v("ReceiverThread", "wrote " + ss[0].length + " bytes to hardware");
 					trackLeft.play();
 					trackRight.play();
 					cnt += 2 * BUFFER_SIZE;
@@ -350,6 +361,7 @@ public class ReceiverThread extends Thread {
 		return codec;
 	}
 
+	@SuppressWarnings("unused")
 	private static boolean isTalking(short[] audioBuffer) {
 		int numberOfReadShorts = audioBuffer.length;
 		int audioSize = audioBuffer.length;

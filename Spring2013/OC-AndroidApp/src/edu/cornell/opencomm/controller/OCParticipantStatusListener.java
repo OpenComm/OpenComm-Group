@@ -42,9 +42,11 @@ public class OCParticipantStatusListener implements ParticipantStatusListener {
 
 	@Override
 	public void joined(String arg0) {
-		String username = arg0.split("/")[1] + "@opencomm";
-		Log.v(TAG, "User joined: " + username);
-		if (!username.equals(UserManager.PRIMARY_USER.getUsername())) {
+		String username = arg0.split("/")[1];
+		Log.v(TAG, "User joined: " + username + "@opencomm");
+		if (!username
+				.equals(UserManager.PRIMARY_USER.getUsername().split("@")[0])) {
+			username += "@opencomm";
 			String[] params = { username };
 			AsyncTask<String, Void, Boolean> a = new JSessionInitiateTask()
 					.execute(params);
@@ -53,11 +55,9 @@ public class OCParticipantStatusListener implements ParticipantStatusListener {
 					Log.v(TAG, "Sent sessionInitiate to " + arg0);
 				}
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Log.v(TAG, e.getMessage());
 			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Log.v(TAG, e.getMessage());
 			}
 		}
 	}
@@ -67,20 +67,18 @@ public class OCParticipantStatusListener implements ParticipantStatusListener {
 		@Override
 		protected Boolean doInBackground(String... arg0) {
 			String jid = (String) arg0[0];
-			Log.v(TAG, jid);
 			VCard v = new VCard();
 			try {
 				v.load(NetworkService.getInstance().getConnection(), jid);
 			} catch (XMPPException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Log.v(TAG, e.getMessage());
 			}
 			User u = new User(v);
 			u.getJingle()
 					.getJiqActionMessageSender()
 					.sendSessionInitiate(
-							UserManager.PRIMARY_USER.getUsername(), jid,
-							u.getJingle());
+							UserManager.PRIMARY_USER.getUsername()
+									+ "@opencomm", jid, u.getJingle());
 			return true;
 		}
 
@@ -94,7 +92,7 @@ public class OCParticipantStatusListener implements ParticipantStatusListener {
 
 	@Override
 	public void left(String arg0) {
-		// TODO Auto-generated method stub
+		// TODO : add UI update code
 
 	}
 
