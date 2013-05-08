@@ -7,12 +7,15 @@ import edu.cornell.opencomm.model.InvitationsList;
 import edu.cornell.opencomm.model.OverflowAdapter;
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * View for dashboard. Functionality (handled by DashboardController).<br>
@@ -49,7 +52,7 @@ public class DashboardView extends Activity {
 	/** Overflow variables */
 	private String[] options;
 	private ListView overflowList;
-	private TextView first_conference;
+	public static TextView first_conference;
 
 	@Override
 	/** Constructor: dashboard view; initializes overflow */
@@ -58,11 +61,25 @@ public class DashboardView extends Activity {
 		setContentView(R.layout.dashboard_layout_2);
 		FontSetter.applySanSerifFont(this, findViewById(R.id.dashboard_layout));
 		first_conference = (TextView) findViewById(R.id.second_invitation);
-		//InvitationsList.getInvitations().get(0).getInviter();
-		//first_conference.setText("Blah");
 		this.controller = new DashboardController(this, DashboardView.this);
 		this.initializeOverflow();
 	}
+	
+	
+	public static Handler handler = new Handler();
+	
+	public static void setFirstConference(String inviter) {
+		Log.v(TAG, inviter);
+		Log.v(TAG, (String) first_conference.getText());
+		try {
+			first_conference.setText(inviter);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		Log.v(TAG, (String) first_conference.getText());
+		first_conference.invalidate();
+	}
+	
 
 	/** Initializes the content of overflow. When an item is clicked, user feedback is generated 
 	 * and an appropriate action is launched */

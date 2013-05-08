@@ -52,7 +52,9 @@ import edu.cornell.opencomm.controller.LoginController.ReturnState;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.Invitation;
 import edu.cornell.opencomm.model.InvitationsList;
+import edu.cornell.opencomm.model.SearchService;
 import edu.cornell.opencomm.model.User;
+import edu.cornell.opencomm.view.DashboardView;
 
 import android.util.Log;
 
@@ -139,6 +141,7 @@ public class NetworkService {
 		return this.xmppConn;
 	}
 
+	
 	public ReturnState login(String email, String password) {
 		try {
 			// attempt to connect
@@ -161,12 +164,21 @@ public class NetworkService {
 
 							@Override
 							public void invitationReceived(Connection conn,
-									String room, String inviter, String reason,
+									String room, final String inviter, String reason,
 									String password, Message message) {
-								InvitationsList.addInvitation(new Invitation(conn, room, inviter, reason, password, message));
-								if (D) {
-									Log.v(TAG, "Invitation received");
-								}
+								
+								Invitation invitation = new Invitation(conn, room, inviter, reason, password, message);
+								InvitationsList.addInvitation(invitation);
+								Log.v(TAG, "Invitation received from: "+ invitation.getInviter());
+								final String inviterName = SearchService.getUser(inviter.split("@")[0]).getNickname();
+								DashboardView.handler.post(new Runnable() {
+
+									@Override
+									public void run() {
+										DashboardView.setFirstConference(inviterName);
+									}
+									
+								});
 							}
 						});
 				return ReturnState.SUCCEEDED;
