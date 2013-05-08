@@ -5,6 +5,7 @@ import edu.cornell.opencomm.controller.DashboardController;
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.model.InvitationsList;
 import edu.cornell.opencomm.model.OverflowAdapter;
+import edu.cornell.opencomm.network.NetworkService;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -121,7 +122,13 @@ public class DashboardView extends Activity {
 
 	/** Called when Conferences icon is clicked: opens the conference scheduler */
 	public void goToConfs(View v) {
-		this.controller.handleConferencesButtonClicked();
+		
+		//TODO: replace this with roomID from invitation (the following line will be 
+			//used when creating a new conference, so we need a way to differentiate 
+			//between the two cases)
+		String roomID = NetworkService.generateRoomID() + NetworkService.CONF_SERVICE;
+		
+		this.controller.handleConferencesButtonClicked(roomID);
 	}
 
 	/** Called when Contacts icon is clicked: opens the primary user's contact list */

@@ -1,14 +1,18 @@
 package edu.cornell.opencomm.view;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.ContactInfoController;
 import edu.cornell.opencomm.manager.UserManager;
@@ -31,6 +35,7 @@ public class ContactInfoView extends Activity {
 	private static TextView phoneNumber;
 	private static TextView title; 
 	private ListView overflowList;
+	private static Button invite; 
 	private User user;
 	private String[] options; 
 	public final static String contactCardKey = "ContactCardKey";
@@ -45,19 +50,39 @@ public class ContactInfoView extends Activity {
 		title = (TextView) findViewById(R.id.my_profile_title_label); 
 		phoneNumber = (TextView) findViewById(R.id.my_profile_phone_label); 
 		email = (TextView) findViewById(R.id.my_profile_email_label); 
+		invite = (Button) findViewById(R.id.invite_conference_button); 
 		// get the user that this card represents
 		String nameStr = this.getIntent().getStringExtra(
 				ContactInfoView.contactCardKey);
-		for (User u : SearchService.searchByJid("*")) {
-			if (u.getUsername().equals(nameStr)) {
-				System.out.println(u == null); 
-				user = u;
-				name.setText(user.getNickname());
-				email.setText(user.getUsername());
-				icon.setBackgroundResource(user.getImage()); 
-				//TODO: Set the other fields - ask Antoine
-			}
+//		User newUser = SearchService.getUser(nameStr);
+//		if(!(newUser==null)){
+//			user = newUser;
+//			Log.v("CONTACTINFOVIEW", "username "+user.getUsername());
+//			name.setText(user.getVCard().getFirstName()+" "+user.getVCard().getLastName());
+//			email.setText(user.getVCard().getEmailHome());
+//			icon.setBackgroundResource(user.getImage()); 
+//			//TODO: Set the other fields
+//			title.setText(user.getTitle());
+//			phoneNumber.setText(user.getPhone());
+//		}
+		User u = SearchService.getUser(nameStr); 
+		if (u.compareTo(UserManager.PRIMARY_USER) == 0){
+			invite.setVisibility(View.INVISIBLE); 
 		}
+		else {invite.setVisibility(View.VISIBLE); }
+		user = u;
+		name.setText(user.getNickname());
+		String mail = user.getVCard().getEmailHome();  
+		if (mail == null) {email.setText("");
+			email.setHint("Enter email address"); }
+		else email.setText(mail); 
+		String number = user.getVCard().getPhoneWork(user.getVCard().getJabberId()); 
+		if (number == null){
+			phoneNumber.setText("");
+			phoneNumber.setHint("Enter phone number"); 
+		} else phoneNumber.setText(number); 
+		title.setText(u.getTitle()); 
+		icon.setBackgroundResource(user.getImage());
 		//set font
 		//Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
 		initoverflow(); 
@@ -101,19 +126,34 @@ public class ContactInfoView extends Activity {
 	@Override
 	/** Override onbackPressed: go back to ContactListView */
 	public void onBackPressed() {
-		Intent i = new Intent(this, ContactListView.class);
-		this.startActivity(i);
-		this.overridePendingTransition(android.R.anim.slide_in_left,
-				android.R.anim.slide_out_right);
+		if (user.compareTo(UserManager.PRIMARY_USER) == 0){
+			Intent i = new Intent(this, DashboardView.class);
+			this.startActivity(i);
+			this.overridePendingTransition(android.R.anim.slide_in_left,
+					android.R.anim.slide_out_right);
+		}
+		else{
+			Intent i = new Intent(this, ContactListView.class);
+			this.startActivity(i);
+			this.overridePendingTransition(android.R.anim.slide_in_left,
+					android.R.anim.slide_out_right);
+		}
 	}
 
 	public void back(View v){
-		Intent i = new Intent(this, ContactListView.class);
-		this.startActivity(i);
-		this.overridePendingTransition(android.R.anim.slide_in_left,
-				android.R.anim.slide_out_right);
+		if (user.compareTo(UserManager.PRIMARY_USER) == 0){
+			Intent i = new Intent(this, DashboardView.class);
+			this.startActivity(i);
+			this.overridePendingTransition(android.R.anim.slide_in_left,
+					android.R.anim.slide_out_right);
+		}
+		else{
+			Intent i = new Intent(this, ContactListView.class);
+			this.startActivity(i);
+			this.overridePendingTransition(android.R.anim.slide_in_left,
+					android.R.anim.slide_out_right);
+		}
 	}
-
 
 
 }

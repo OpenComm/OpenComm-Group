@@ -3,6 +3,7 @@ package edu.cornell.opencomm.controller;
 import java.util.ArrayList;
 
 import org.jivesoftware.smackx.Form;
+import org.jivesoftware.smackx.muc.MultiUserChat;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -26,9 +27,9 @@ public class ConferenceController {
 	private static ConferenceController _instance;
 	private ArrayList<User> confUserList = this.createExampleUsers();
 
-	public static ConferenceController getInstance(ConferenceView view) {
+	public static ConferenceController getInstance(ConferenceView view, MultiUserChat muc) {
 		if (_instance == null) {
-			_instance = new ConferenceController(view);
+			_instance = new ConferenceController(view, muc);
 		}
 		return _instance;
 	}
@@ -38,14 +39,12 @@ public class ConferenceController {
 		return room;
 	}
 
-	private ConferenceController(ConferenceView view) {
+	private ConferenceController(ConferenceView view, MultiUserChat muc) {
 		this.view = view;
-		String roomID = NetworkService.generateRoomID()
-				+ NetworkService.CONF_SERVICE;
 		try {
-			this.room = new Conference(roomID);
-			this.room.join(UserManager.PRIMARY_USER.getUsername());
-			this.room.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
+			this.room = new Conference(muc);
+//			this.room.join(UserManager.PRIMARY_USER.getUsername());
+//			this.room.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
 			Log.v(TAG, "successfully created room " + this.room.toString());
 		} catch (Exception e) {
 			Log.v(TAG, e.getMessage());
@@ -122,8 +121,12 @@ public class ConferenceController {
 
 		room.hasLeft(UserManager.PRIMARY_USER);
 		if (room.getActiveParticipants().isEmpty()) {
+			Log.v(TAG, "setting room to null");
+			room.destroy();
 			room = null;
+			_instance = null;
 		}
+		Log.v(TAG, "switching activities");
 		Intent i = new Intent(this.view, DashboardView.class); 
 		this.view.startActivity(i); 
 	}

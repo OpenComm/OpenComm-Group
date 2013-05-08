@@ -16,6 +16,7 @@ import edu.cornell.opencomm.model.SearchService;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ConferenceView;
+import edu.cornell.opencomm.view.ContactInfoView;
 import edu.cornell.opencomm.view.ContactListView;
 import edu.cornell.opencomm.view.DashboardView;
 import edu.cornell.opencomm.view.LoginView;
@@ -117,9 +118,10 @@ public class DashboardController {
 	/**
 	 * Launches Conference List
 	 */
-	public void handleConferencesButtonClicked() {
+	public void handleConferencesButtonClicked(String roomID) {
 		// TODO: go to a dummy conference!
 		Intent i = new Intent(this.dashboardView, ConferenceView.class);
+		i.putExtra("room_id", roomID);
 		this.dashboardView.startActivity(i);
 	}
 
@@ -140,8 +142,9 @@ public class DashboardController {
 		//		"Profile Button clicked", duration);
 		//send.show();
 		// launch my profile page
-		Intent account = new Intent(this.dashboardView, MyProfileView.class);
-		this.dashboardView.startActivity(account);
+		Intent i = new Intent(this.dashboardView, ContactInfoView.class);
+		i.putExtra(ContactInfoView.contactCardKey, UserManager.PRIMARY_USER.getUsername());
+		this.dashboardView.startActivity(i);
 	}
 
 	public void handleNotificationClicked() {
@@ -169,10 +172,10 @@ public class DashboardController {
 	 * </ul>
 	 * */
 	public void handleOptionClick(View view) {
-		String option = ((TextView) view.findViewById(R.id.overflow_itemtext))
-				.getText().toString().trim();
+//		String option = ((TextView) view.findViewById(R.id.overflow_itemtext))
+//				.getText().toString().trim();
 		// if the user selects log out
-		if (option.equals("logout")) {
+		//if (option.equals("logout")) {
 			// log out
 			NetworkService.getInstance().logout();
 			// launch login page
@@ -181,6 +184,6 @@ public class DashboardController {
 			this.dashboardView.overridePendingTransition(
 					android.R.anim.slide_in_left,
 					android.R.anim.slide_out_right);
-		}
+		//}
 	}
 }

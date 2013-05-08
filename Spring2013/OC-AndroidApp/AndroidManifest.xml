@@ -30,7 +30,10 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".view.ContactInfoView"
+            android:name=".view.ContactInfoView" >
+        </activity>
+        <activity 
+            android:name=".view.MyProfileView"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -89,8 +92,6 @@
         <activity android:name=".view.ConferenceView" >
         </activity>
         <activity android:name="edu.cornell.opencomm.view.ChatSpaceViewActivity" >
-        </activity>
-        <activity android:name=".view.MyProfileView" >
         </activity>
     </application>
 

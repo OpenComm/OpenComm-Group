@@ -108,13 +108,14 @@
             android:textSize="16sp" />
     
         <Button
-           android:id="@+id/invite_conference_button"
-           android:layout_width="258.67dp"
-           android:layout_height="46.67dp"
-           android:layout_gravity="center_horizontal"
-           android:layout_marginTop="25.33dp"
-           android:onClick="inviteConferencePressed"
-           android:background="@drawable/invite_conference_button" />
+            android:id="@+id/invite_conference_button"
+            android:layout_width="258.67dp"
+            android:layout_height="46.67dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25.33dp"
+            android:background="@drawable/invite_conference_button"
+            android:onClick="inviteConferencePressed"
+            android:visibility="gone" />
         
     </LinearLayout>
     
