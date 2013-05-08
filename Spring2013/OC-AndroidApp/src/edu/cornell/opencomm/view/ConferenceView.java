@@ -193,7 +193,8 @@ public final class ConferenceView extends FragmentActivity implements
 	// triggered when leave button was pressed (on confernece_v2)
 	public void leaveButtonClicked(View v) {
 		Log.v(TAG, "leave button clicked");
-			conferenceController.HandleLeave();
+		conferenceController.HandleLeave();
+		conferenceController = null;
 	}
 
 	// triggered when setting button was pressed (on confernece_v2)

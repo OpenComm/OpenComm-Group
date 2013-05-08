@@ -124,7 +124,9 @@ public class ConferenceController {
 			Log.v(TAG, "setting room to null");
 			room.destroy();
 			room = null;
+			_instance = null;
 		}
+		Log.v(TAG, "switching activities");
 		Intent i = new Intent(this.view, DashboardView.class); 
 		this.view.startActivity(i); 
 	}
