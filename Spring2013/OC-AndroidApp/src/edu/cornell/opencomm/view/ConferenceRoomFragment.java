@@ -93,7 +93,18 @@ public class ConferenceRoomFragment extends Fragment {
 			}
 		});
 		initializeInvitations(this.roomLayout);
+		
+//		ArrayList<User> activeParticipants = conferenceRoom.getActiveParticipants();
+//		for (User user : activeParticipants) {
+//			if (user.getUsername().equals(UserManager.PRIMARY_USER.getUsername())) {
+//				addUser(user, conferenceRoom);
+//			}
+//		}
+		
 		return this.roomLayout;
+
+
+		
 	}
 	
 	private void initializeInvitations(View v) {

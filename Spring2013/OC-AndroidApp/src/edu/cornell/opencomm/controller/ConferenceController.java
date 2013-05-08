@@ -20,7 +20,7 @@ import edu.cornell.opencomm.view.DashboardView;
 
 public class ConferenceController {
 	static ConferenceView view;
-	Conference room;
+	public Conference room;
 
 	private static final String TAG = "ConferenceController";
 	private static final boolean D = true;

@@ -113,6 +113,7 @@ public final class ConferenceView extends FragmentActivity implements
 		context = this;
 		conferenceModel = conferenceController.getRoom();  
 		initPager();
+		
 	}
 	
 	private void initPager() {
