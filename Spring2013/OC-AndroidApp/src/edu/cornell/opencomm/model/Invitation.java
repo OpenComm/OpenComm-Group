@@ -29,25 +29,13 @@ public class Invitation {
 		this.password = password;
 		this.message = message;
 	}
-
-	public Conference accept() {
-		MultiUserChat muc = new MultiUserChat(NetworkService.getInstance()
-				.getConnection(), room);
-		try {
-			//Form form = muc.getConfigurationForm();
-		    //Form answerForm = form.createAnswerForm();
-		    //answerForm.setAnswer("muc#roomconfig_moderatedroom", "1");
-		    //muc.sendConfigurationForm(answerForm);
-			muc.join(UserManager.PRIMARY_USER.nickname);
-			//to do: accept room configuration
-		} catch (XMPPException e) {
-			System.out.println("Could not join chatroom:" + e);
-		}
-		return new Conference(muc);
-	}
 	
 	public String getInviterName() {
 		return SearchService.getUser(inviter.split("@")[0]).getNickname();
+	}
+	
+	public void process() {
+		processed = true;
 	}
 
 	public void decline() {

@@ -8,13 +8,17 @@ import java.util.Random;
 import org.jivesoftware.smack.AccountManager;
 import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.ConnectionConfiguration;
+import org.jivesoftware.smack.PacketListener;
+import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
 import org.jivesoftware.smack.SASLAuthentication;
 import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.PrivacyList;
+import org.jivesoftware.smack.filter.PacketFilter;
 import org.jivesoftware.smack.packet.Message;
+import org.jivesoftware.smack.packet.Packet;
 import org.jivesoftware.smack.provider.PrivacyProvider;
 import org.jivesoftware.smack.provider.ProviderManager;
 import org.jivesoftware.smackx.GroupChatInvitation;
@@ -115,8 +119,6 @@ public class NetworkService {
 		// BUGFIX for asmack
 		configure(ProviderManager.getInstance());
 		SmackConfiguration.setPacketReplyTimeout(100000);
-
-		//TODO: set status for accepting buddies
 		
 		// create connection to host:port
 		this.xmppConfig = new ConnectionConfiguration(host, port);
@@ -158,6 +160,11 @@ public class NetworkService {
 				Log.v(TAG, "password: " + password);
 				this.xmppConn.login(jid, password, DEFAULT_RESOURCE);
 				Log.v(TAG, "successfully logged in");
+				
+				//Set Roster configuration
+				this.xmppConn.getRoster().setSubscriptionMode(Roster.SubscriptionMode.accept_all);
+				
+				//Add invitations Listener
 				MultiUserChat.addInvitationListener(NetworkService
 						.getInstance().getConnection(),
 						new InvitationListener() {
@@ -176,7 +183,7 @@ public class NetworkService {
 									@Override
 									public void run() {
 										//call any method that changes the UI here
-										//DashboardView.showInvitations(InvitationsList.getInvitations());
+										DashboardView.setConferences(InvitationsList.getInvitations());
 									}
 									
 								});
@@ -219,7 +226,7 @@ public class NetworkService {
 	public boolean addUserToBuddyList(String user) {
 		try {
 			VCard vCard = new VCard();
-			vCard.load(xmppConn, user);
+			vCard.load(xmppConn, user + "@opencomm");
 			String[] groups = {};
 			xmppConn.getRoster().createEntry(user + "@opencomm", vCard.getNickName(), groups);
 			return true;

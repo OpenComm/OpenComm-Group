@@ -1,22 +1,23 @@
 package edu.cornell.opencomm.view;
 
+import java.util.ArrayList;
+
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.DashboardController;
 import edu.cornell.opencomm.controller.FontSetter;
+import edu.cornell.opencomm.model.Invitation;
 import edu.cornell.opencomm.model.InvitationsList;
 import edu.cornell.opencomm.model.OverflowAdapter;
 import edu.cornell.opencomm.network.NetworkService;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * View for dashboard. Functionality (handled by DashboardController).<br>
@@ -48,12 +49,13 @@ public class DashboardView extends Activity {
 	@SuppressWarnings("unused")
 	private static final String TAG = DashboardView.class.getSimpleName();
 
-	private DashboardController controller;
+	private static DashboardController controller;
 
 	/** Overflow variables */
 	private String[] options;
 	private ListView overflowList;
 	public static TextView first_conference;
+	public static TextView second_conference;
 
 	@Override
 	/** Constructor: dashboard view; initializes overflow */
@@ -62,23 +64,55 @@ public class DashboardView extends Activity {
 		setContentView(R.layout.dashboard_layout_2);
 		FontSetter.applySanSerifFont(this, findViewById(R.id.dashboard_layout));
 		first_conference = (TextView) findViewById(R.id.second_invitation);
-		this.controller = new DashboardController(this, DashboardView.this);
+		second_conference = (TextView) findViewById(R.id.third_invitation);
+		controller = new DashboardController(this, DashboardView.this);
+		setConferences(InvitationsList.getInvitations());
 		this.initializeOverflow();
 	}
 	
 	
 	public static Handler handler = new Handler();
 	
-	public static void setFirstConference(String inviter) {
-		Log.v(TAG, inviter);
-		Log.v(TAG, (String) first_conference.getText());
-		try {
-			first_conference.setText(inviter);
-		} catch(Exception e) {
-			e.printStackTrace();
+	public static void setConferences(final ArrayList<Invitation> invitationsList) {
+		if (invitationsList.size() == 1) {
+			first_conference.setText(invitationsList.get(0).getInviterName());
+			first_conference.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					goToInvitation(invitationsList.get(0).room);
+					invitationsList.get(0).process();
+					InvitationsList.removeProcessedInvitations();
+				}
+				
+			});
+			first_conference.invalidate();
+		} else if (invitationsList.size() >= 2) {
+			first_conference.setText(invitationsList.get(0).getInviterName());
+			first_conference.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					goToInvitation(invitationsList.get(0).room);
+					invitationsList.get(0).process();
+					InvitationsList.removeProcessedInvitations();
+				}
+				
+			});
+			second_conference.setText(invitationsList.get(1).getInviterName());
+			second_conference.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					goToInvitation(invitationsList.get(1).room);
+					invitationsList.get(1).process();
+					InvitationsList.removeProcessedInvitations();
+				}
+				
+			});
+			first_conference.invalidate();
+			second_conference.invalidate();
 		}
-		Log.v(TAG, (String) first_conference.getText());
-		first_conference.invalidate();
 	}
 	
 
@@ -106,18 +140,18 @@ public class DashboardView extends Activity {
 	/** Called when notification icon in the action bar is clicked: if notifications are not 
 	 * already visible, display them. Otherwise, hide them. */
 	public void notification(View v) {
-		this.controller.handleNotificationClicked();
+		controller.handleNotificationClicked();
 	}
 
 	/** Called when overflow icon in the action bar is clicked: if overflows are not 
 	 * already visible, display them. Otherwise, hide them. */
 	public void overflow(View v) {
-		this.controller.handleOverflowButtonClicked();
+		controller.handleOverflowButtonClicked();
 	}
 
 	/** Called when Conf Info icon is clicked: opens the current conference in session */
 	public void goToConfInfo(View v) {
-		this.controller.handleConfInfoButtonClicked();
+		controller.handleConfInfoButtonClicked();
 	}
 
 	/** Called when Conferences icon is clicked: opens the conference scheduler */
@@ -128,17 +162,21 @@ public class DashboardView extends Activity {
 			//between the two cases)
 		String roomID = NetworkService.generateRoomID() + NetworkService.CONF_SERVICE;
 		
-		this.controller.handleConferencesButtonClicked(roomID);
+		controller.handleConferencesButtonClicked(roomID);
+	}
+	
+	public static void goToInvitation(String roomID) {
+		controller.handleConferencesButtonClicked(roomID);
 	}
 
 	/** Called when Contacts icon is clicked: opens the primary user's contact list */
 	public void goToContacts(View v) {
-		this.controller.handleContactsButtonClicked();
+		controller.handleContactsButtonClicked();
 	}
 
 	/** Called when Profile icon is clicked: opens the primary user's profile page */
 	public void goToProfile(View v) {
-		this.controller.handleProfileButtonClicked();
+		controller.handleProfileButtonClicked();
 	}
 
 	@Override

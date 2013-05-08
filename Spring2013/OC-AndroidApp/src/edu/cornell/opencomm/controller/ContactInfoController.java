@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 import edu.cornell.opencomm.R;
+import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ContactInfoView;
 import edu.cornell.opencomm.view.MyProfileView;
 
@@ -17,6 +18,7 @@ public class ContactInfoController {
 
 	public void handleInviteConferenceClick() {
 		// TODO Auto-generated method stub
+		NetworkService.getInstance().addUserToBuddyList(view.user.getUsername());
 	}
 
 	//TODO

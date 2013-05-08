@@ -36,7 +36,7 @@ public class ContactInfoView extends Activity {
 	private static TextView title; 
 	private ListView overflowList;
 	private static Button invite; 
-	private User user;
+	public User user;
 	private String[] options; 
 	public final static String contactCardKey = "ContactCardKey";
 	private ContactInfoController contactInfoController;
