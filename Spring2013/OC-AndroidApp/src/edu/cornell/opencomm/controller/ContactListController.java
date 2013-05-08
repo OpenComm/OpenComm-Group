@@ -1,6 +1,8 @@
 package edu.cornell.opencomm.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -25,6 +27,7 @@ public class ContactListController {
 	//Both ArrayLists of users
 	private ArrayList<User> serverResults = new ArrayList<User>();
 	private ArrayList<User> filteredResults = new ArrayList<User>();
+	private ArrayList<User> displayedResults = new ArrayList<User>();
 
 
 	public ContactListController(ContactListView view){
@@ -95,6 +98,40 @@ public class ContactListController {
 	public void updateContactList() {
 
 	}
+	
+	public class FirstNameComparator implements Comparator<User> {
+	    @Override
+	    public int compare(User u1, User u2) {
+	        return u1.getVCard().getFirstName().compareToIgnoreCase(u2.getVCard().getFirstName());
+	    }
+	}
+	
+	public class LastNameComparator implements Comparator<User> {
+	    @Override
+	    public int compare(User u1, User u2) {
+	        return u1.getVCard().getLastName().compareToIgnoreCase(u2.getVCard().getLastName());
+	    }
+	}
+	
+	public class OnlineStatusComparator implements Comparator<User> {
+	    @Override
+	    public int compare(User u1, User u2) {
+	        if (u1.getPresence().isAvailable() && u2.getPresence().isAvailable()) {
+	        	return u1.getVCard().getLastName().compareToIgnoreCase(u2.getVCard().getLastName());
+	        } else if (u1.getPresence().isAvailable() && !u2.getPresence().isAvailable()) {
+	        	return 1;
+	        } else if (!u1.getPresence().isAvailable() && u2.getPresence().isAvailable()) {
+	        	return -1;
+	        } else {
+	        	return u1.getVCard().getLastName().compareToIgnoreCase(u2.getVCard().getLastName());
+	        }
+	    }
+	}
+	
+	public ArrayList<User> orderByName(ArrayList<User> array) {
+		
+		return array;
+	}
 
 	public void handleOptionClick(View view) {
 		// TODO add functions to handle overflow here
@@ -103,14 +140,23 @@ public class ContactListController {
 		if (option.equals("Sort by Online Status"))
 		{
 			Log.d(TAG, "Sort by Online Status");
+			Collections.sort(displayedResults, new OnlineStatusComparator());
+			this.view.showUsers(displayedResults);
+			this.view.getOverflowList().setVisibility(View.INVISIBLE);
 		}
 		else if(option.equals("Sort by First Name"))
 		{
 			Log.d(TAG, "Sort by First Name");
+			Collections.sort(displayedResults, new FirstNameComparator());
+			this.view.showUsers(displayedResults);
+			this.view.getOverflowList().setVisibility(View.INVISIBLE);
 		}
 		else if(option.equals("Sort by Last Name"))
 		{
 			Log.d(TAG, "Sort by Last Name");
+			Collections.sort(displayedResults, new LastNameComparator());
+			this.view.showUsers(displayedResults);
+			this.view.getOverflowList().setVisibility(View.INVISIBLE);
 		}
 	}
 
@@ -162,9 +208,8 @@ public class ContactListController {
 
 		@Override
 		protected void onPostExecute(ArrayList<User> results) {
-			//			synchronized(filteredResults) {
 			filteredResults = results;
-			//			}
+			displayedResults = results;
 			view.showUsers(filteredResults);
 		}
 	}
@@ -186,6 +231,7 @@ public class ContactListController {
 		protected void onPostExecute(ArrayList<User> results) {
 			synchronized(filteredResults) {
 				filteredResults = results;
+				displayedResults = results;
 			}
 			view.showUsers(filteredResults);
 		}
@@ -203,6 +249,7 @@ public class ContactListController {
 		protected void onPostExecute(ArrayList<User> results) {
 			synchronized(serverResults) {
 				serverResults = results;
+				displayedResults = results;
 			}
 			view.showUsers(results);
 		}
