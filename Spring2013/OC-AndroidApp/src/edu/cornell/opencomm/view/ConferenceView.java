@@ -107,7 +107,7 @@ public final class ConferenceView extends FragmentActivity implements
 			Log.v(TAG, e.getMessage());
 		}
 		
-		conferenceController = ConferenceController.getInstance(this);
+		conferenceController = ConferenceController.getInstance(this, room);
 		context = this;
 		conferenceModel = conferenceController.getRoom();  
 		initPager();
@@ -181,10 +181,8 @@ public final class ConferenceView extends FragmentActivity implements
 	public void addPersonClicked(View v) {
 		// TODO: get username of person to be added (hardcoded for now)
 		Log.v(TAG, "trying to add oc7testorg@opencomm");
-		
-		ConferenceController.getInstance(this).HandleAddPerson("oc7testorg@opencomm");
+		ConferenceController.getInstance(this, null).HandleAddPerson("oc7testorg@opencomm");
 		User user = SearchService.getUser("oc7testorg"); 
-
 		ConferenceRoomFragment roomView = (ConferenceRoomFragment) conferenceFragments.get(0); 
 		conferenceModel = conferenceController.getRoom(); 
 		roomView.addUser(user, conferenceModel); 

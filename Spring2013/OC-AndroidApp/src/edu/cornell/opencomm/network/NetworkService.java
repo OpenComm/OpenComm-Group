@@ -167,15 +167,16 @@ public class NetworkService {
 									String room, final String inviter, String reason,
 									String password, Message message) {
 								
-								Invitation invitation = new Invitation(conn, room, inviter, reason, password, message);
+								final Invitation invitation = new Invitation(conn, room, inviter, reason, password, message);
 								InvitationsList.addInvitation(invitation);
-								Log.v(TAG, "Invitation received from: "+ invitation.getInviter());
-								final String inviterName = SearchService.getUser(inviter.split("@")[0]).getNickname();
+								Log.v(TAG, "Invitation received from: "+ invitation.getInviterName());
+								
 								DashboardView.handler.post(new Runnable() {
 
 									@Override
 									public void run() {
-										DashboardView.setFirstConference(inviterName);
+										//call any method that changes the UI here
+										//DashboardView.showInvitations(InvitationsList.getInvitations());
 									}
 									
 								});

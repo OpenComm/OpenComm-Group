@@ -46,8 +46,8 @@ public class Invitation {
 		return new Conference(muc);
 	}
 	
-	public String getInviter() {
-		return this.inviter;
+	public String getInviterName() {
+		return SearchService.getUser(inviter.split("@")[0]).getNickname();
 	}
 
 	public void decline() {
