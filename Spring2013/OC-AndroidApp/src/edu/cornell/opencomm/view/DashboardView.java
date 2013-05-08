@@ -5,14 +5,18 @@ import edu.cornell.opencomm.controller.DashboardController;
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.model.InvitationsList;
 import edu.cornell.opencomm.model.OverflowAdapter;
+import edu.cornell.opencomm.network.NetworkService;
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * View for dashboard. Functionality (handled by DashboardController).<br>
@@ -49,7 +53,7 @@ public class DashboardView extends Activity {
 	/** Overflow variables */
 	private String[] options;
 	private ListView overflowList;
-	private TextView first_conference;
+	public static TextView first_conference;
 
 	@Override
 	/** Constructor: dashboard view; initializes overflow */
@@ -58,11 +62,25 @@ public class DashboardView extends Activity {
 		setContentView(R.layout.dashboard_layout_2);
 		FontSetter.applySanSerifFont(this, findViewById(R.id.dashboard_layout));
 		first_conference = (TextView) findViewById(R.id.second_invitation);
-		//InvitationsList.getInvitations().get(0).getInviter();
-		//first_conference.setText("Blah");
 		this.controller = new DashboardController(this, DashboardView.this);
 		this.initializeOverflow();
 	}
+	
+	
+	public static Handler handler = new Handler();
+	
+	public static void setFirstConference(String inviter) {
+		Log.v(TAG, inviter);
+		Log.v(TAG, (String) first_conference.getText());
+		try {
+			first_conference.setText(inviter);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		Log.v(TAG, (String) first_conference.getText());
+		first_conference.invalidate();
+	}
+	
 
 	/** Initializes the content of overflow. When an item is clicked, user feedback is generated 
 	 * and an appropriate action is launched */
@@ -104,7 +122,13 @@ public class DashboardView extends Activity {
 
 	/** Called when Conferences icon is clicked: opens the conference scheduler */
 	public void goToConfs(View v) {
-		this.controller.handleConferencesButtonClicked();
+		
+		//TODO: replace this with roomID from invitation (the following line will be 
+			//used when creating a new conference, so we need a way to differentiate 
+			//between the two cases)
+		String roomID = NetworkService.generateRoomID() + NetworkService.CONF_SERVICE;
+		
+		this.controller.handleConferencesButtonClicked(roomID);
 	}
 
 	/** Called when Contacts icon is clicked: opens the primary user's contact list */

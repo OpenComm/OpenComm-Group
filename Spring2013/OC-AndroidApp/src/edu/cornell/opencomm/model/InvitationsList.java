@@ -7,7 +7,6 @@ public class InvitationsList {
 	private static ArrayList<Invitation> invitationsList = new ArrayList<Invitation>();
 
 
-
 	public static void addInvitation(Invitation invitation) {
 		invitationsList.add(invitation);
 	}

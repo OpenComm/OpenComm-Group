@@ -67,6 +67,10 @@ public class User implements Comparable<User>, Serializable {
 	/**
 	 */
 	public int userColor;
+	
+	public String phoneNumber = "";
+	
+	public String title = "";
 
 	/**
 	 */
@@ -178,6 +182,22 @@ public class User implements Comparable<User>, Serializable {
 	/** @return - the User's vCard */
 	public VCard getVCard() {
 		return this.vCard;
+	}
+	
+	public String getTitle(){
+		return title;
+	}
+	
+	public String getPhone(){
+		return phoneNumber;
+	}
+	
+	public void setTitle(String s){
+		title = s;
+	}
+	
+	public void setPhone(String s){
+		phoneNumber = s;
 	}
 
 	/** @return - the jingle controller associated with this user */

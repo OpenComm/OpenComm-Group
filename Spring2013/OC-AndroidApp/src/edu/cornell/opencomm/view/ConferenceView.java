@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smackx.Form;
+import org.jivesoftware.smackx.muc.MultiUserChat;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -16,10 +20,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.ConferenceController;
+import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.model.ConferenceConstants;
 import edu.cornell.opencomm.model.SearchService;
 import edu.cornell.opencomm.model.User;
+import edu.cornell.opencomm.network.NetworkService;
 
 /**
  * 
@@ -85,7 +91,19 @@ public final class ConferenceView extends FragmentActivity implements
 		//conference_title = (TextView) findViewById(R.id.conference_Title);
 		roomLayout = (ViewGroup) findViewById(R.layout.conference_v2);
 		Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
-		conferenceController = ConferenceController.getInstance(this);
+		Bundle extras = getIntent().getExtras();
+		String roomID = extras.getString("room_id");
+		//String roomID = NetworkService.generateRoomID() + NetworkService.CONF_SERVICE;
+		MultiUserChat room = new MultiUserChat(NetworkService.getInstance().getConnection(), roomID);
+		try {
+			room.join(UserManager.PRIMARY_USER.getUsername());
+			room.sendConfigurationForm(new Form(Form.TYPE_SUBMIT));
+			Log.v(TAG, "successfully created room " + room.getRoom());
+		} catch (Exception e) {
+			Log.v(TAG, e.getMessage());
+		}
+		
+		conferenceController = ConferenceController.getInstance(this, room);
 		context = this;
 		conferenceModel = conferenceController.getRoom();  
 		initPager();
@@ -127,9 +145,11 @@ public final class ConferenceView extends FragmentActivity implements
 	 * conference
 	 */
 	public void exitConference(View v) {
-		Intent i = new Intent(this, DashboardView.class);
-		onStop();
-		startActivity(i);
+		Log.v(TAG, "exiting conference");
+		conferenceController.HandleLeave();
+//		Intent i = new Intent(this, DashboardView.class);
+//		onStop();
+//		startActivity(i);
 	}
 
 	/**
@@ -138,6 +158,7 @@ public final class ConferenceView extends FragmentActivity implements
 	 * @param roomIndex
 	 */
 	public void returnToPage(int roomIndex) {
+		Log.v(TAG, "return to page");
 		ViewPager pager = (ViewPager) super.findViewById(R.id.threepanelpager);
 		pager.invalidate();
 	}
@@ -145,10 +166,9 @@ public final class ConferenceView extends FragmentActivity implements
 	// triggered when add person button was pressed (on confernece_v2)
 	public void addPersonClicked(View v) {
 		// TODO: get username of person to be added (hardcoded for now)
-		Log.v(TAG, "trying to add oc6testorg@opencomm");
-		ConferenceController.getInstance(this).HandleAddPerson(
-				"oc6testorg@opencomm");
-		User user = SearchService.getUser("oc6testorg"); 
+		Log.v(TAG, "trying to add oc7testorg@opencomm");
+		ConferenceController.getInstance(this, null).HandleAddPerson("oc7testorg@opencomm");
+		User user = SearchService.getUser("oc7testorg"); 
 		ConferenceRoomFragment roomView = (ConferenceRoomFragment) conferenceFragments.get(0); 
 		conferenceModel = conferenceController.getRoom(); 
 		roomView.addUser(user, conferenceModel); 
@@ -157,15 +177,19 @@ public final class ConferenceView extends FragmentActivity implements
 	
 	// triggered when leave button was pressed (on confernece_v2)
 	public void leaveButtonClicked(View v) {
-			conferenceController.HandleLeave();
+		Log.v(TAG, "leave button clicked");
+		conferenceController.HandleLeave();
+		conferenceController = null;
 	}
 
 	// triggered when setting button was pressed (on confernece_v2)
 	public void settingButtonClicked(View v) {
+		Log.v(TAG, "setting button clicked");
 		conferenceController.HandleSetting();
 	}
 	// triggered when back button was pressed (on confernece_v2)
 	public void backButtonClicked(View v) {
+		Log.v(TAG, "back button clicked");
 		//conferenceController.HandleBackButton();
 		Intent account = new Intent(this, DashboardView.class);
 		this.startActivity(account);

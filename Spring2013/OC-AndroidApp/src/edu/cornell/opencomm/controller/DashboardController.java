@@ -117,9 +117,10 @@ public class DashboardController {
 	/**
 	 * Launches Conference List
 	 */
-	public void handleConferencesButtonClicked() {
+	public void handleConferencesButtonClicked(String roomID) {
 		// TODO: go to a dummy conference!
 		Intent i = new Intent(this.dashboardView, ConferenceView.class);
+		i.putExtra("room_id", roomID);
 		this.dashboardView.startActivity(i);
 	}
 
@@ -170,10 +171,10 @@ public class DashboardController {
 	 * </ul>
 	 * */
 	public void handleOptionClick(View view) {
-		String option = ((TextView) view.findViewById(R.id.overflow_itemtext))
-				.getText().toString().trim();
+//		String option = ((TextView) view.findViewById(R.id.overflow_itemtext))
+//				.getText().toString().trim();
 		// if the user selects log out
-		if (option.equals("logout")) {
+		//if (option.equals("logout")) {
 			// log out
 			NetworkService.getInstance().logout();
 			// launch login page
@@ -182,6 +183,6 @@ public class DashboardController {
 			this.dashboardView.overridePendingTransition(
 					android.R.anim.slide_in_left,
 					android.R.anim.slide_out_right);
-		}
+		//}
 	}
 }
