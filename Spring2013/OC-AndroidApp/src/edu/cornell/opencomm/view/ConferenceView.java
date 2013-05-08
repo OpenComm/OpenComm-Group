@@ -17,11 +17,17 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.ConferenceController;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.model.ConferenceConstants;
+import edu.cornell.opencomm.model.InvitationsAdapter;
+import edu.cornell.opencomm.model.OverflowAdapter;
 import edu.cornell.opencomm.model.SearchService;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
@@ -107,11 +113,10 @@ public final class ConferenceView extends FragmentActivity implements
 		conferenceModel = conferenceController.getRoom();  
 		initPager();
 	}
-
+	
 	private void initPager() {
 		List<Fragment> fragments = createFragments();
-		mPagerAdapter = new ConferencePageAdapter(
-				super.getSupportFragmentManager(), fragments);
+		mPagerAdapter = new ConferencePageAdapter(super.getSupportFragmentManager(), fragments);
 		NonSwipeablePager pager = (NonSwipeablePager) super.findViewById(R.id.threepanelpager);
 		pager.setAdapter(this.mPagerAdapter);
 		//pager.setOnPageChangeListener(this);
@@ -120,8 +125,7 @@ public final class ConferenceView extends FragmentActivity implements
 	private List<Fragment> conferenceFragments = new Vector<Fragment>();
 	
 	private List<Fragment> createFragments() {
-		conferenceFragments.add(new ConferenceRoomFragment(this,
-				MAIN_ROOM_LAYOUT, conferenceModel));
+		conferenceFragments.add(new ConferenceRoomFragment(this, MAIN_ROOM_LAYOUT, conferenceModel));
 		return conferenceFragments;
 	}
 
@@ -150,7 +154,6 @@ public final class ConferenceView extends FragmentActivity implements
 //		onStop();
 //		startActivity(i);
 	}
-
 	/**
 	 * Switch the view back to the page with the given index
 	 * 
@@ -165,12 +168,21 @@ public final class ConferenceView extends FragmentActivity implements
 	// triggered when add person button was pressed (on confernece_v2)
 	public void addPersonClicked(View v) {
 		// TODO: get username of person to be added (hardcoded for now)
-		Log.v(TAG, "trying to add oc7testorg@opencomm");
-		ConferenceController.getInstance(this, null).HandleAddPerson("oc7testorg@opencomm");
-		User user = SearchService.getUser("oc7testorg"); 
+		Log.v(TAG, "trying to add oc6testorg@opencomm");
+		/*
+		ConferenceController.getInstance(this, null).HandleAddPerson("oc6testorg@opencomm");
+		User user = SearchService.getUser("oc6testorg"); 
+>>>>>>> Invitations on Conference
 		ConferenceRoomFragment roomView = (ConferenceRoomFragment) conferenceFragments.get(0); 
 		conferenceModel = conferenceController.getRoom(); 
 		roomView.addUser(user, conferenceModel); 
+		*/
+		ConferenceRoomFragment roomView = (ConferenceRoomFragment) conferenceFragments.get(0); 
+		if (roomView.getInvitationsList().getVisibility() == View.INVISIBLE) {
+			roomView.getInvitationsListTitle().setVisibility(View.VISIBLE);
+			roomView.getInvitationsList().setVisibility(View.VISIBLE);
+			roomView.getInvitationsList().bringToFront();
+		}
 		v.invalidate(); 
 	}
 	

@@ -7,7 +7,10 @@ import edu.cornell.opencomm.controller.DashboardController;
 import edu.cornell.opencomm.controller.FontSetter;
 import edu.cornell.opencomm.model.Invitation;
 import edu.cornell.opencomm.model.InvitationsList;
+import edu.cornell.opencomm.model.ContactListAdapter;
 import edu.cornell.opencomm.model.OverflowAdapter;
+import edu.cornell.opencomm.model.InvitationsAdapter;
+import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
 import android.app.Activity;
 import android.os.Bundle;
@@ -53,6 +56,7 @@ public class DashboardView extends Activity {
 	/** Overflow variables */
 	private String[] options;
 	private ListView overflowList;
+
 	public static TextView first_conference;
 	public static TextView second_conference;
 
@@ -67,6 +71,7 @@ public class DashboardView extends Activity {
 		controller = new DashboardController(this, DashboardView.this);
 		setConferences(InvitationsList.getInvitations());
 		this.initializeOverflow();
+		//this.initializeInvitations();
 	}
 	
 	
@@ -115,6 +120,21 @@ public class DashboardView extends Activity {
 	}
 	
 
+	
+/*	
+	private void initializeInvitations() {
+		InvitationsAdapter iAdapter = new InvitationsAdapter(this, R.layout.dashboard_invitations_entry, 
+				this.invitations);
+		invitationsList = (ListView) this.findViewById(R.id.dashboard_invitationsList);
+		invitationsList.setAdapter(iAdapter);
+		invitationsList.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				controller.handleInvitationClick(view);
+			}
+		});
+	}
+*/
 	/** Initializes the content of overflow. When an item is clicked, user feedback is generated 
 	 * and an appropriate action is launched */
 	private void initializeOverflow() {

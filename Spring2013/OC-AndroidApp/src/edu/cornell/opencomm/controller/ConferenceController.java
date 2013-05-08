@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.Conference;
@@ -179,7 +181,4 @@ public class ConferenceController {
 		}
 		return pointList;
 	}
-	
-	
-
 }

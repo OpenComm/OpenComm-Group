@@ -78,5 +78,32 @@
           android:layout_alignParentLeft="true"
           android:layout_alignParentTop="true"
           circleview:cFillColor="#F2F2F2" />
+      <TextView
+        android:id="@+id/conference_invitationsList_title"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/black"
+        android:layout_marginTop = "120dp"
+        android:layout_marginLeft = "60dp"
+        android:paddingTop="10dp"
+        android:paddingLeft="40.66dp"
+        android:background="@drawable/invitation_background"
+        android:text="@string/online_buddies"
+        android:textSize="16sp"
+        android:visibility="invisible" />
+      <ListView
+        android:id="@+id/conference_invitationsList"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop = "160dp"
+        android:layout_marginLeft = "60dp"
+        android:divider="@color/black"
+        android:dividerHeight="0.66dp"
+        android:listSelector="@drawable/selector_bg_list"
+        android:padding="0.66dp"
+        android:background="@drawable/invitation_background"
+        android:visibility="invisible" />
 
 </RelativeLayout>

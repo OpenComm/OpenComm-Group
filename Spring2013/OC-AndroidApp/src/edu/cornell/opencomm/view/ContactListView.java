@@ -76,8 +76,7 @@ public class ContactListView extends Activity {
 	public void showUsers(ArrayList<User> users)
 	{
 		if(clAdapter == null){
-			clAdapter = new ContactListAdapter(this,
-					R.layout.contactlist_item_layout, users);
+			clAdapter = new ContactListAdapter(this, R.layout.contactlist_item_layout, users);
 			contactList = (ListView) findViewById(R.id.contacts_contactlist);
 			contactList.setAdapter(clAdapter);
 			contactList.setFooterDividersEnabled(true);

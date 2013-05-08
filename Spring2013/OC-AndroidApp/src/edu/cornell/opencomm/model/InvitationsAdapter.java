@@ -1,5 +1,7 @@
 package edu.cornell.opencomm.model;
 
+import java.util.ArrayList;
+
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.FontSetter;
 
@@ -19,7 +21,7 @@ import android.widget.TextView;
  * 
  * @author Risa Naka [frontend]
  * */
-public class OverflowAdapter extends ArrayAdapter<String> {
+public class InvitationsAdapter extends ArrayAdapter<User> {
 	/**
 	 * Debugging variable: if true, all logs are logged; set to false before
 	 * packaging
@@ -34,15 +36,15 @@ public class OverflowAdapter extends ArrayAdapter<String> {
 	private static final String TAG = OverflowAdapter.class.getSimpleName();
 
 	private Context context;
-	private String[] options;
+	private ArrayList<User> options;
 	private LayoutInflater inflater;
 
 	/**
 	 * Constructor: populates the overflow list with the given options, in the
 	 * given order
 	 * @param options - a string array of options to populate the list */
-	public OverflowAdapter(Context context, int textViewResourceId, String[] options) {
-		super(context, R.layout.contactlist_overflow_entry_layout, options);
+	public InvitationsAdapter(Context context, int textViewResourceId, ArrayList<User> options) {
+		super(context, R.layout.dashboard_invitations_entry, options);
 		this.context = context;
 		this.options = options;
 		this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -55,9 +57,9 @@ public class OverflowAdapter extends ArrayAdapter<String> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View vi = convertView;
 		if (convertView == null)
-			vi = inflater.inflate(R.layout.contactlist_overflow_entry_layout, null);
-		TextView option = (TextView) vi.findViewById(R.id.contactlist_overflow_itemtext);
-		option.setText(this.options[position]);
+			vi = inflater.inflate(R.layout.dashboard_invitations_entry, null);
+		TextView option = (TextView) vi.findViewById(R.id.invitations_itemtext);
+		option.setText(this.options.get(position).getNickname());
 		FontSetter.applyRobotoFont(this.context, vi);
 		return vi;
 	}
