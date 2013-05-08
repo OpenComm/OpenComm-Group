@@ -79,9 +79,9 @@ public class DashboardView extends Activity {
 
 				@Override
 				public void onClick(View v) {
-					goToInvitation(invitationsList.get(0).room);
+					String room = invitationsList.get(0).room;
+					goToInvitation(room);
 					invitationsList.get(0).process();
-					InvitationsList.removeProcessedInvitations();
 				}
 				
 			});
@@ -92,9 +92,9 @@ public class DashboardView extends Activity {
 
 				@Override
 				public void onClick(View v) {
-					goToInvitation(invitationsList.get(0).room);
+					String room = invitationsList.get(0).room;
+					goToInvitation(room);
 					invitationsList.get(0).process();
-					InvitationsList.removeProcessedInvitations();
 				}
 				
 			});
@@ -103,9 +103,9 @@ public class DashboardView extends Activity {
 
 				@Override
 				public void onClick(View v) {
-					goToInvitation(invitationsList.get(1).room);
+					String room = invitationsList.get(1).room;
+					goToInvitation(room);
 					invitationsList.get(1).process();
-					InvitationsList.removeProcessedInvitations();
 				}
 				
 			});

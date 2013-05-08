@@ -128,7 +128,8 @@ public class ContactListView extends Activity {
 	 * Initializes the content of contact list. When an item is clicked, user
 	 * feedback is generated and an appropriate action is launched
 	 */
-	public void initializeContactList() {		
+	public void initializeContactList() {
+		controller.displayedResults = NetworkService.getInstance().getBuddies();
 		showUsers(NetworkService.getInstance().getBuddies());
 	}
 

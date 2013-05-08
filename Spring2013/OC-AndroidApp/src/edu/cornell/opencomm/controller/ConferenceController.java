@@ -11,12 +11,13 @@ import android.util.Log;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.Conference;
+import edu.cornell.opencomm.model.InvitationsList;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.view.ConferenceView;
 import edu.cornell.opencomm.view.DashboardView;
 
 public class ConferenceController {
-	ConferenceView view;
+	static ConferenceView view;
 	Conference room;
 
 	private static final String TAG = "ConferenceController";
@@ -66,8 +67,6 @@ public class ConferenceController {
 	 * handle the action when add person button was clicked
 	 */
 	public void HandleAddPerson(String username) {
-		if (D)
-			Log.d(TAG, "addPerson button clicked");
 		room.invite(username, "let's chat");
 	}
 
@@ -114,6 +113,7 @@ public class ConferenceController {
 		if (D)
 			Log.d(TAG, "leave button clicked");
 
+		InvitationsList.getInvitations().remove(InvitationsList.getPosition(room.getRoom()));
 		room.leave();
 
 		room.hasLeft(UserManager.PRIMARY_USER);
@@ -123,6 +123,7 @@ public class ConferenceController {
 			room = null;
 			_instance = null;
 		}
+		
 		Log.v(TAG, "switching activities");
 		Intent i = new Intent(this.view, DashboardView.class); 
 		this.view.startActivity(i); 

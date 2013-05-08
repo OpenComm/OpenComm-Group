@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -40,13 +41,13 @@ public final class ConferenceView extends FragmentActivity implements
 	/**
 	 * The conference data model
 	 */
-	private Conference conferenceModel;
+	private static Conference conferenceModel;
 	// private Conference_Dummy conferenceModel;
 
 	/**
 	 * The conference controller
 	 */
-	private ConferenceController conferenceController;
+	private static ConferenceController conferenceController;
 
 	/**
 	 * The conference pager adaptor
@@ -63,7 +64,7 @@ public final class ConferenceView extends FragmentActivity implements
 
 	private static ConferenceView _instance = null;
 
-	private View roomLayout;
+	private static View roomLayout;
 
 	/*
 	 * controls on this view
@@ -117,7 +118,7 @@ public final class ConferenceView extends FragmentActivity implements
 		//pager.setOnPageChangeListener(this);
 	}
 
-	private List<Fragment> conferenceFragments = new Vector<Fragment>();
+	private static List<Fragment> conferenceFragments = new Vector<Fragment>();
 	
 	private List<Fragment> createFragments() {
 		conferenceFragments.add(new ConferenceRoomFragment(this,
@@ -167,11 +168,6 @@ public final class ConferenceView extends FragmentActivity implements
 		// TODO: get username of person to be added (hardcoded for now)
 		Log.v(TAG, "trying to add oc7testorg@opencomm");
 		ConferenceController.getInstance(this, null).HandleAddPerson("oc7testorg@opencomm");
-		User user = SearchService.getUser("oc7testorg"); 
-		ConferenceRoomFragment roomView = (ConferenceRoomFragment) conferenceFragments.get(0); 
-		conferenceModel = conferenceController.getRoom(); 
-		roomView.addUser(user, conferenceModel); 
-		v.invalidate(); 
 	}
 	
 	// triggered when leave button was pressed (on confernece_v2)
@@ -229,5 +225,14 @@ public final class ConferenceView extends FragmentActivity implements
 		conferenceController = null;
 		mPagerAdapter = null;
 		super.onStop();
+	}
+	
+	public static Handler handler = new Handler();
+	
+	public static void userJoined(String username) {
+		User user = SearchService.getUser(username); 
+		ConferenceRoomFragment roomView = (ConferenceRoomFragment) conferenceFragments.get(0); 
+		conferenceModel = conferenceController.getRoom(); 
+		roomView.addUser(user, conferenceModel); 
 	}
 }

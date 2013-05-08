@@ -86,6 +86,11 @@ public class Conference implements Serializable {
 			return false;
 		}
 	}
+	
+	//get room name
+	public String getRoom() {
+		return chat.getRoom();
+	}
 
 
 	// API Functions

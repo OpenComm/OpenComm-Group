@@ -27,7 +27,7 @@ public class ContactListController {
 	//Both ArrayLists of users
 	private ArrayList<User> serverResults = new ArrayList<User>();
 	private ArrayList<User> filteredResults = new ArrayList<User>();
-	private ArrayList<User> displayedResults = new ArrayList<User>();
+	public ArrayList<User> displayedResults = new ArrayList<User>();
 
 
 	public ContactListController(ContactListView view){
@@ -119,19 +119,15 @@ public class ContactListController {
 	        if (u1.getPresence().isAvailable() && u2.getPresence().isAvailable()) {
 	        	return u1.getVCard().getLastName().compareToIgnoreCase(u2.getVCard().getLastName());
 	        } else if (u1.getPresence().isAvailable() && !u2.getPresence().isAvailable()) {
-	        	return 1;
-	        } else if (!u1.getPresence().isAvailable() && u2.getPresence().isAvailable()) {
 	        	return -1;
+	        } else if (!u1.getPresence().isAvailable() && u2.getPresence().isAvailable()) {
+	        	return 1;
 	        } else {
 	        	return u1.getVCard().getLastName().compareToIgnoreCase(u2.getVCard().getLastName());
 	        }
 	    }
 	}
 	
-	public ArrayList<User> orderByName(ArrayList<User> array) {
-		
-		return array;
-	}
 
 	public void handleOptionClick(View view) {
 		// TODO add functions to handle overflow here

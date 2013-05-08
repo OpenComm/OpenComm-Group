@@ -6,17 +6,23 @@ public class InvitationsList {
 
 	private static ArrayList<Invitation> invitationsList = new ArrayList<Invitation>();
 
-
+	
 	public static void addInvitation(Invitation invitation) {
-		invitationsList.add(invitation);
+		synchronized(invitationsList) {
+			invitationsList.add(invitation);
+		}	
 	}
 
-	public static void removeProcessedInvitations() {
+	public static int getPosition(String room) {
+		int i = 0;
 		for (Invitation invitation : invitationsList) {
-			if (invitation.processed = true) {
-				invitationsList.remove(invitation);
+			if (! invitation.room.equals(room)) {
+				i+=1;
+			} else {
+				break;
 			}
 		}
+		return i;
 	}
 
 	public static int getNumberNewInvitations() {

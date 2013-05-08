@@ -8,11 +8,15 @@ import org.jivesoftware.smackx.packet.VCard;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.Conference;
+import edu.cornell.opencomm.model.InvitationsList;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.network.NetworkService;
+import edu.cornell.opencomm.view.ConferenceView;
+import edu.cornell.opencomm.view.DashboardView;
 
 public class OCParticipantStatusListener implements ParticipantStatusListener {
 
@@ -44,9 +48,20 @@ public class OCParticipantStatusListener implements ParticipantStatusListener {
 	public void joined(String arg0) {
 		String username = arg0.split("/")[1];
 		Log.v(TAG, "User joined: " + username + "@opencomm");
-		if (!username
-				.equals(UserManager.PRIMARY_USER.getUsername().split("@")[0])) {
+		if (!username.equals(UserManager.PRIMARY_USER.getUsername().split("@")[0])) {
+			final String username2 = username;
 			username += "@opencomm";
+			
+			ConferenceView.handler.post(new Runnable() {
+
+				@Override
+				public void run() {
+					//call any method that changes the UI here
+					ConferenceView.userJoined(username2);
+				}
+				
+			});
+			
 			String[] params = { username };
 			AsyncTask<String, Void, Boolean> a = new JSessionInitiateTask()
 					.execute(params);
