@@ -2,19 +2,16 @@ package edu.cornell.opencomm.controller;
 
 import java.util.ArrayList;
 
-import org.jivesoftware.smackx.Form;
 import org.jivesoftware.smackx.muc.MultiUserChat;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.util.Log;
-import android.widget.Toast;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.Conference;
 import edu.cornell.opencomm.model.User;
-import edu.cornell.opencomm.network.NetworkService;
 import edu.cornell.opencomm.view.ConferenceView;
 import edu.cornell.opencomm.view.DashboardView;
 

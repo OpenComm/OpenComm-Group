@@ -46,7 +46,6 @@ public class DashboardView extends Activity {
 	/**
 	 * The TAG for logging
 	 */
-	@SuppressWarnings("unused")
 	private static final String TAG = DashboardView.class.getSimpleName();
 
 	private static DashboardController controller;

@@ -3,10 +3,13 @@ package edu.cornell.opencomm.view;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.LoginController;
 import android.os.Bundle;
+import android.os.PowerManager.WakeLock;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.WindowManager.LayoutParams;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -16,7 +19,8 @@ public class LoginView extends Activity {
 	 * Debugging variable: if true, all logs are logged; set to false before
 	 * packaging
 	 */
-	private static final boolean D = true;
+	private static final boolean D = true;	
+	private WakeLock mWakeLock;
 
 	/**
 	 * The TAG for logging
@@ -41,7 +45,11 @@ public class LoginView extends Activity {
 		loginOverlay = (ImageView) findViewById(R.id.login_loginOverlay);
 		signupOverlay = (ImageView) findViewById(R.id.login_signupOverlay);
 		loginController = new LoginController(this);
-		//getSystemService(Context.POWER_SERVICE);
+		getWindow().addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
+		/*
+		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+		mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
+		mWakeLock.acquire();*/
 	}
 
 	@Override
@@ -51,6 +59,16 @@ public class LoginView extends Activity {
 		return true;
 	}
 	
+	/* [TODO]: check to see if this should be onPause() */
+	@SuppressLint("Wakelock")
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if (mWakeLock != null) {
+			mWakeLock.release();
+			mWakeLock = null;
+		}
+	}
 	
 	/** Jump to the account creation page when sign-up button is clicked */
 	public void signup(View v) {

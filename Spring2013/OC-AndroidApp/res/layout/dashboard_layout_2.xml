@@ -174,7 +174,7 @@
     <TextView
         android:id="@+id/contacts"
         android:layout_width="70dp"
-        android:layout_height="wrap_content" 	    
+        android:layout_height="wrap_content" 	  
         android:layout_below="@id/contacts_button"
         android:gravity="center"
         android:layout_marginTop="8dp"

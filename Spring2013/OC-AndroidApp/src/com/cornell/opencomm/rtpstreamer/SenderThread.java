@@ -8,6 +8,7 @@ import java.util.concurrent.BlockingQueue;
 import org.sipdroid.net.RtpPacket;
 import org.sipdroid.net.RtpSocket;
 import org.sipdroid.net.SipdroidSocket;
+
 import android.util.Log;
 
 /**
@@ -16,6 +17,8 @@ import android.util.Log;
  * Based off of r473 of Sipdroid's RTPStreamSender class (sipdroid.org).
  */
 public class SenderThread extends Thread {
+	private static final String TAG = "SenderThread";
+
 	/** Whether working in debug mode. */
 	public static boolean DEBUG = true;
 
@@ -154,8 +157,10 @@ public class SenderThread extends Thread {
 	@Override
 	public void run() {
 		Log.i("SenderThread", "started");
-		if (rtp_socket == null)
+		if (rtp_socket == null) {
+			Log.v(TAG, "no socket. halting");
 			return;
+		}
 		byte[] buffer = new byte[frame_size + 12];
 		RtpPacket rtp_packet = new RtpPacket(buffer, 0);
 		rtp_packet.setPayloadType(8);
@@ -180,6 +185,7 @@ public class SenderThread extends Thread {
 		short[] sample = new short[frame_size];
 
 		Log.i("SenderThread", "ready to send");
+		
 		while (running) {
 
 			//wait for a full frame before taking another sample
@@ -203,7 +209,7 @@ public class SenderThread extends Thread {
 				e1.printStackTrace();
 			}
 			G711.linear2alaw(sample, 0, buffer, frame_size);
-
+		
 			//send it over rtp
 			ring += frame_size;
 			rtp_packet.setSequenceNumber(seqn++);
@@ -214,6 +220,7 @@ public class SenderThread extends Thread {
 				if (m == 2)
 					rtp_socket.send(rtp_packet);
 			} catch (IOException e) {
+				e.printStackTrace();
 			}
 			time += frame_size;
 			m = 1;

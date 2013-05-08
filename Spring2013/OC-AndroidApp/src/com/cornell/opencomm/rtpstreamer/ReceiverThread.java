@@ -29,12 +29,14 @@ public class ReceiverThread extends Thread {
 	static String codec = "";
 
 	/** Size of the read buffer */
-	public static final int BUFFER_SIZE = 4096;
+	public static final int BUFFER_SIZE = 2048;
 
 	/**
 	 * Maximum blocking time, spent waiting for reading new bytes [milliseconds]
 	 */
 	public static final int SO_TIMEOUT = 200;
+
+	private static final String TAG = "ReceiverThread";
 
 	/** The RtpSocket */
 	RtpSocket rtp_socket = null;
@@ -126,6 +128,7 @@ public class ReceiverThread extends Thread {
 
 		byte[] buffer = new byte[BUFFER_SIZE + 12];
 		rtp_packet = new RtpPacket(buffer, 0);
+		Log.v(TAG, "got a packet!: " + new String(buffer));
 
 		if (DEBUG)
 			println("Reading blocks of max " + buffer.length + " bytes");
@@ -162,24 +165,35 @@ public class ReceiverThread extends Thread {
 		System.gc();
 
 		Log.i("ReceiverThread", "started");
-		while (running) {
+		while (true) {
 			try {
 				rtp_socket.receive(rtp_packet);
-
+				Log.v("ReceiverThread", "received an rtp_packet");
+				
 				if (timeout != 0) { // normal receipt of packet
+					Log.v("ReceiverThread", "normal receipt of packet");
 					tg.stopTone();
-					trackLeft.pause();
-					trackRight.pause();
+					//trackLeft.pause();
+					//trackRight.pause();
 
 					int itd = soundSpatializer.getItd();
 					float[] vol = soundSpatializer.getVol();
-					short[][] ss = soundSpatializer.spatializeSource(lin2, itd);
+					/*short[][] ss = soundSpatializer.spatializeSource(lin2, itd);
 					trackLeft.setStereoVolume(vol[0], 0);
 					trackRight.setStereoVolume(0, vol[1]);
-					user += trackLeft.write(ss[0], 0, ss[0].length);
+					//user += trackLeft.write(ss[0], 0, ss[0].length);
+					//trackRight.write(ss[1], 0, ss[1].length);
+*/					
+					// version with audio as byte[]
+					byte[][] ss = soundSpatializer.spatializeSource(buffer, itd);
+					trackLeft.setStereoVolume(vol[0], 0);
+					trackRight.setStereoVolume(0, vol[1]);
+					trackLeft.write(ss[0], 0, ss[0].length);
 					trackRight.write(ss[1], 0, ss[1].length);
-					trackLeft.play();
-					trackRight.play();
+					
+					Log.v("ReceiverThread", "wrote " + ss[0].length + " bytes to hardware");
+					//trackLeft.play();
+					//trackRight.play();
 					cnt += 2 * BUFFER_SIZE;
 					empty();
 				}
@@ -188,8 +202,8 @@ public class ReceiverThread extends Thread {
 				if (timeout == 0) {
 					// tg.startTone(ToneGenerator.TONE_SUP_RINGTONE);
 				}
-				rtp_socket.getDatagramSocket().disconnect();
 				if (++timeout > 22) {
+					rtp_socket.getDatagramSocket().disconnect();
 					break;
 				}
 			}
@@ -217,9 +231,8 @@ public class ReceiverThread extends Thread {
 
 				if (cnt <= 500 || cnt2 >= 2 || headroom - 875 < len) {
 					len = rtp_packet.getPayloadLength();
-					G711.alaw2linear(buffer, lin, rtp_packet.getPayloadLength());
-
-				}
+					G711.alaw2linear(buffer, lin, len);
+	}
 
 				if (headroom < 250) {
 					todo = 875 - headroom;
@@ -317,7 +330,7 @@ public class ReceiverThread extends Thread {
 
 	/** Debug output */
 	private static void println(String str) {
-		// System.out.println("RtpStreamReceiver: " + str);
+		Log.v("ReceiverThread", str);
 	}
 
 	/**
@@ -348,6 +361,7 @@ public class ReceiverThread extends Thread {
 		return codec;
 	}
 
+	@SuppressWarnings("unused")
 	private static boolean isTalking(short[] audioBuffer) {
 		int numberOfReadShorts = audioBuffer.length;
 		int audioSize = audioBuffer.length;

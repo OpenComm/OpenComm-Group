@@ -1,7 +1,6 @@
 package edu.cornell.opencomm.network;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -47,16 +46,9 @@ import org.jivesoftware.smackx.provider.VCardProvider;
 import org.jivesoftware.smackx.provider.XHTMLExtensionProvider;
 import org.jivesoftware.smackx.search.UserSearch;
 
-import com.cornell.opencomm.jingleimpl.JingleIQPacket;
-import com.cornell.opencomm.jingleimpl.ReasonElementType;
-import com.cornell.opencomm.jingleimpl.sessionmgmt.JingleIQBuddyPacketRouter;
-
-import edu.cornell.opencomm.audio.JingleController;
 import edu.cornell.opencomm.controller.LoginController.ReturnState;
-import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.Invitation;
 import edu.cornell.opencomm.model.InvitationsList;
-import edu.cornell.opencomm.model.SearchService;
 import edu.cornell.opencomm.model.User;
 import edu.cornell.opencomm.view.DashboardView;
 
@@ -95,6 +87,7 @@ public class NetworkService {
 		for (int i = 0; i < 10; i++) {
 			text[i] = characters.charAt(rng.nextInt(characters.length()));
 		}
+		// TODO: change back once invitations are working
 		return new String(text);
 	}
 
@@ -126,8 +119,8 @@ public class NetworkService {
 		this.xmppConn = new XMPPConnection(xmppConfig);
 		this.accountManager = this.xmppConn.getAccountManager();
 
-		// Audio connection
-		JingleIQBuddyPacketRouter.setup(this.xmppConn);
+		/*// Audio connection
+		JingleIQBuddyPacketRouter.setup(this.xmppConn);*/
 	}// end NetworkService method
 
 	public XMPPConnection getConnection() {
@@ -275,7 +268,8 @@ public class NetworkService {
 
 	public boolean logout() {
 		this.xmppConn.disconnect();
-
+		
+/*
 		// Disconnect audio
 		HashMap<String, JingleController> allJCtrls = JingleController
 				.getUsernameToJingleController();
@@ -290,7 +284,7 @@ public class NetworkService {
 					jCtrl.getBuddyJID(), jCtrl.getSID(), reason, jCtrl);
 			jCtrl.getSessionState().changeSessionState(
 					JingleIQPacket.AttributeActionValues.SESSION_TERMINATE);
-		}
+		}*/
 
 		// reconnect to the server
 		_instance = new NetworkService(DEFAULT_HOST, DEFAULT_PORT);
@@ -431,16 +425,6 @@ public class NetworkService {
 		// FileTransfer
 		pm.addIQProvider("si", "http://jabber.org/protocol/si",
 				new StreamInitiationProvider());
-
-		// [TODO] : Ask Kris
-		// pm.addIQProvider("query","http://jabber.org/protocol/bytestreams",
-		// new BytestreamsProvider());
-		// pm.addIQProvider("open","http://jabber.org/protocol/ibb", new
-		// IBBProviders.Open());
-		// pm.addIQProvider("close","http://jabber.org/protocol/ibb", new
-		// IBBProviders.Close());
-		// pm.addExtensionProvider("data","http://jabber.org/protocol/ibb", new
-		// IBBProviders.Data());
 
 		// Privacy
 		pm.addIQProvider("query", "jabber:iq:privacy", new PrivacyProvider());

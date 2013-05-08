@@ -1,5 +1,7 @@
 package edu.cornell.opencomm.view;
 
+import java.util.Locale;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -32,7 +34,6 @@ import edu.cornell.opencomm.util.OCBitmapDecoder;
  */
 public class UserView extends ImageButton {
 
-	@SuppressWarnings("unused")
 	private static String LOG_TAG = UserView.class.getName(); // for error
 	// checking
 	/**
@@ -133,7 +134,7 @@ public class UserView extends ImageButton {
 		paint.setTextSize(14*screenWidth/480);
 		paint.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Light.ttf"));
 		paint.setTextAlign(Align.CENTER);
-		canvas.drawText(user.getUsername().toUpperCase(), 65*screenWidth/480, 97*screenWidth/480, paint);
+		canvas.drawText(user.getUsername().toUpperCase(Locale.US), 65*screenWidth/480, 97*screenWidth/480, paint);
 
 		//draw banner border
 		paint.setColor(Color.BLACK);

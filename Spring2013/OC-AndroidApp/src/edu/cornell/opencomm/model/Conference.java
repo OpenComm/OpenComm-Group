@@ -17,7 +17,6 @@ import android.util.Log;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.controller.OCParticipantStatusListener;
 import edu.cornell.opencomm.manager.UserManager;
-import edu.cornell.opencomm.network.NetworkService;
 
 public class Conference implements Serializable {
 

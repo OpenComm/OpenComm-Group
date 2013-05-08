@@ -55,9 +55,6 @@ public class JingleController {
 		jiqActionMessageSender = new JingleIQActionMessages();
 		iqMessageSender = new IQMessages();
 		Log.v(TAG, "make message senders");
-		this.buddyJID = user.getUsername() + NetworkService.DEFAULT_HOSTNAME
-				+ "/OpenComm";
-		Log.v(TAG, buddyJID);
 		jiqActionMessageSender.setConnection(connection);
 		iqMessageSender.setConnection(connection);
 		JingleController.UsernameToJingleController.put(
@@ -163,9 +160,6 @@ public class JingleController {
 										160, send_socket,
 										this.getRemoteIPAddress(),
 										this.getRemotePort(), queue);
-								// pusher =
-								// AudioPusher.getInstance("/test3.wav",
-								// buddyJID, queue);
 								MicrophonePusher pusher = MicrophonePusher
 										.getInstance(String.valueOf(sendPort),
 												queue);
@@ -285,7 +279,8 @@ public class JingleController {
 						receiver.halt();
 					if (sender.isRunning())
 						sender.halt();
-					pusher.removeQueue(buddyJID);
+					// Maybe this will help?
+					pusher.removeQueue(String.valueOf(PortHandler.getInstance().getSendPort()));
 					if (pusher.isRunning() && pusher.numQueues() == 0)
 						pusher.halt();
 				} else {
