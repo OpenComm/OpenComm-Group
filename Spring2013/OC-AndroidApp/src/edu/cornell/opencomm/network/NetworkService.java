@@ -271,8 +271,7 @@ public class NetworkService {
 		
 /*
 		// Disconnect audio
-		HashMap<String, JingleController> allJCtrls = JingleController
-				.getUsernameToJingleController();
+		HashMap<String, JingleController> allJCtrls = JingleController.getUsernameToJingleController();
 		Iterator<String> jCtrlIter = allJCtrls.keySet().iterator();
 		while (jCtrlIter.hasNext()) {
 			JingleController jCtrl = allJCtrls.get(jCtrlIter.next());

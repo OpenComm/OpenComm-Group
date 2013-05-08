@@ -117,6 +117,7 @@
     <string name="second_invitation">None</string>
     <string name="third_invitation">None</string>
     <string name="conferences">Conferences</string>
+    <string name="online_buddies">Online Buddies</string>
     
     <string-array name="overflow_dashboard">
         <item>logout</item>

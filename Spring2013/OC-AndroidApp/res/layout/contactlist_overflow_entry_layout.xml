@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-     >
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/contactlist_overflow_itemtext"
@@ -10,7 +9,7 @@
         android:layout_height="50dp"
         android:gravity="center_vertical"
         android:paddingLeft="9.66dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="13sp" />
     
 </RelativeLayout>

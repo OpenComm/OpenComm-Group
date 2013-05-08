@@ -174,9 +174,11 @@ public class DashboardController {
 			// launch login page
 			Intent i = new Intent(this.dashboardView, LoginView.class);
 			this.dashboardView.startActivity(i);
+			/*
 			this.dashboardView.overridePendingTransition(
 					android.R.anim.slide_in_left,
-					android.R.anim.slide_out_right);
+					android.R.anim.slide_out_right);*/
 		//}
 	}
+
 }

@@ -29,12 +29,19 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.RelativeLayout.LayoutParams;
+import android.widget.TextView;
 import edu.cornell.opencomm.R;
 import edu.cornell.opencomm.manager.UserManager;
 import edu.cornell.opencomm.model.Conference;
+import edu.cornell.opencomm.model.InvitationsAdapter;
+import edu.cornell.opencomm.model.SearchService;
 import edu.cornell.opencomm.model.User;
+import edu.cornell.opencomm.network.NetworkService;
 
 /**
  * @author Spandana Govindgari [frontend], Ankit Singh[frontend],Nora
@@ -53,13 +60,15 @@ public class ConferenceRoomFragment extends Fragment {
 	public HashMap<User, UserView> userViews = new HashMap<User, UserView>();
 	public Context context;
 	public static final int radius = 165;
-
+	
+	private ListView invitationsList;
+	private TextView invitationsListTitle;
+	
 	public ConferenceRoomFragment() {
 	}
 
 	@SuppressLint("ValidFragment")
-	public ConferenceRoomFragment(Context context, int layoutId,
-			Conference conferenceModel) {
+	public ConferenceRoomFragment(Context context, int layoutId, Conference conferenceModel) {
 		this.layoutId = layoutId;
 		this.context = context;
 		this.conferenceRoom = conferenceModel;
@@ -83,9 +92,51 @@ public class ConferenceRoomFragment extends Fragment {
 				createUsers();
 			}
 		});
+		initializeInvitations(this.roomLayout);
 		return this.roomLayout;
 	}
-
+	
+	private void initializeInvitations(View v) {
+		InvitationsAdapter iAdapter = new InvitationsAdapter(v.getContext(), 
+				R.layout.dashboard_invitations_entry, 
+				NetworkService.getInstance().getOnlineBuddies());
+		invitationsList = (ListView) v.findViewById(R.id.conference_invitationsList);
+		invitationsListTitle = (TextView) v.findViewById(R.id.conference_invitationsList_title);
+		invitationsList.setAdapter(iAdapter);
+		// Click event for single list row
+		invitationsList.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				handleInvitationClick(view, position);
+			}
+		});
+	}
+	
+	private ArrayList<User> createExampleUsers() {
+		UserManager.userColorTable.put("oc1testorg", Color.YELLOW);
+		UserManager.userColorTable.put("oc2testorg", Color.GREEN);
+		UserManager.userColorTable.put("oc3testorg", Color.BLUE);
+		UserManager.userColorTable.put("oc4testorg", Color.YELLOW);
+		ArrayList<User> users = new ArrayList<User>();
+		users.add(UserManager.PRIMARY_USER);
+		users.add(new User("oc1testorg", "Nora Ng-Quinn",
+				R.drawable.example_picture_1));
+		users.add(new User("oc2testorg", "Risa Naka",
+				R.drawable.example_picture_2));
+		users.add(new User("oc3testorg", "Kris Kooi",
+				R.drawable.example_picture_3));
+		users.add(new User("oc4testorg", "Ankit Singh",
+				R.drawable.example_picture_4));
+		return users;
+	}
+	
+	public ListView getInvitationsList(){
+		return invitationsList;
+	}
+	public TextView getInvitationsListTitle(){
+		return invitationsListTitle;
+	}
+	
 	private boolean isCreated = false;
 
 	public void createUsers() {
@@ -339,5 +390,15 @@ public class ConferenceRoomFragment extends Fragment {
 			Rect rectB = new Rect(b.x, b.y, b.x + imageWidth, b.y + imageHeight);
 			return rectA.intersect(rectB);
 		}
+	}
+	public void handleInvitationClick(View view, int position) {
+		String username = NetworkService.getInstance().getOnlineBuddies().get(position).getUsername();
+		conferenceRoom.invite(username + "@opencomm", "let's chat");
+		if (getInvitationsList().getVisibility() == View.VISIBLE) {
+			getInvitationsListTitle().setVisibility(View.INVISIBLE);
+			getInvitationsList().setVisibility(View.INVISIBLE);
+		}
+		//User user = SearchService.getUser(username);
+		//this.addUser(user, conferenceRoom); 
 	}
 }
