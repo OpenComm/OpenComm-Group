@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  28 APR 2013 13:50
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  9 MAY 2013 15:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -236,42 +236,244 @@ Missing character: There is no ∞ in font cmr12!
  [7]
 Missing character: There is no ¬ in font cmr12!
 Missing character: There is no ∞ in font cmr12!
+Package epstopdf Info: Source file: <audio.eps>
+(epstopdf)                    date: 2013-05-09 15:08:40
+(epstopdf)                    size: 40311 bytes
+(epstopdf)             Output file: <audio-eps-converted-to.pdf>
+(epstopdf)                    date: 2013-05-09 15:13:13
+(epstopdf)                    size: 13548 bytes
+(epstopdf)             Command: <repstopdf --outfile=audio-eps-converted-to.pdf
+ audio.eps>
+(epstopdf)             \includegraphics on input line 199.
+Package epstopdf Info: Output file is already uptodate.
+ <audio-eps-converted-to.pdf, id=28, 124.465pt x 120.45pt>
+File: audio-eps-converted-to.pdf Graphic file (type pdf)
+
+<use audio-eps-converted-to.pdf>
+Package pdftex.def Info: audio-eps-converted-to.pdf used on input line 199.
+(pdftex.def)             Requested size: 187.89914pt x 181.85448pt.
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ú in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ù in font cmr12!
+ [8 <./audio-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <audio3.eps>
+(epstopdf)                    date: 2013-05-09 15:06:45
+(epstopdf)                    size: 40135 bytes
+(epstopdf)             Output file: <audio3-eps-converted-to.pdf>
+(epstopdf)                    date: 2013-05-09 15:13:15
+(epstopdf)                    size: 19852 bytes
+(epstopdf)             Command: <repstopdf --outfile=audio3-eps-converted-to.pd
+f audio3.eps>
+(epstopdf)             \includegraphics on input line 214.
+Package epstopdf Info: Output file is already uptodate.
+
+<audio3-eps-converted-to.pdf, id=37, 393.47pt x 130.4875pt>
+File: audio3-eps-converted-to.pdf Graphic file (type pdf)
+
+<use audio3-eps-converted-to.pdf>
+Package pdftex.def Info: audio3-eps-converted-to.pdf used on input line 214.
+(pdftex.def)             Requested size: 187.89914pt x 62.31271pt.
 
 No file paper.bbl.
-[8] [9] [10
+[9 <./audio3-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <teammembers.eps>
+(epstopdf)                    date: 2013-05-09 14:53:34
+(epstopdf)                    size: 143287 bytes
+(epstopdf)             Output file: <teammembers-eps-converted-to.pdf>
+(epstopdf)                    date: 2013-05-09 14:54:06
+(epstopdf)                    size: 102280 bytes
+(epstopdf)             Command: <repstopdf --outfile=teammembers-eps-converted-
+to.pdf teammembers.eps>
+(epstopdf)             \includegraphics on input line 229.
+Package epstopdf Info: Output file is already uptodate.
+
+<teammembers-eps-converted-to.pdf, id=44, 351.3125pt x 396.48125pt>
+File: teammembers-eps-converted-to.pdf Graphic file (type pdf)
+
+<use teammembers-eps-converted-to.pdf>
+Package pdftex.def Info: teammembers-eps-converted-to.pdf used on input line 22
+9.
+(pdftex.def)             Requested size: 281.85587pt x 318.1171pt.
+ [10
 
 
-] [11
+ <./teammembers-eps-converted-to.pdf>] [11
 
-] [12
+]
+Package epstopdf Info: Source file: <OpenComm_Login.eps>
+(epstopdf)                    date: 2013-05-09 15:27:34
+(epstopdf)                    size: 3232030 bytes
+(epstopdf)             Output file: <OpenComm_Login-eps-converted-to.pdf>
+(epstopdf)             Command: <repstopdf --outfile=OpenComm_Login-eps-convert
+ed-to.pdf OpenComm_Login.eps>
+(epstopdf)             \includegraphics on input line 247.
+runsystem(repstopdf --outfile=OpenComm_Login-eps-converted-to.pdf OpenComm_Logi
+n.eps)...executed safely (allowed).
 
-] [13
+Package epstopdf Info: Result file: <OpenComm_Login-eps-converted-to.pdf>
+(epstopdf)                    date: 2013-05-09 15:42:32
+(epstopdf)                    size: 201635 bytes.
+ <OpenComm_Login-eps-converted-to.pdf, id=54, 482.80376pt x 804.00375pt>
+File: OpenComm_Login-eps-converted-to.pdf Graphic file (type pdf)
 
-] [14
+<use OpenComm_Login-eps-converted-to.pdf>
+Package pdftex.def Info: OpenComm_Login-eps-converted-to.pdf used on input line
+ 247.
+(pdftex.def)             Requested size: 281.85587pt x 469.38953pt.
+ [12
+
+ <./OpenComm_Login-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <Create_Account.eps>
+(epstopdf)                    date: 2013-05-09 15:28:38
+(epstopdf)                    size: 353671 bytes
+(epstopdf)             Output file: <Create_Account-eps-converted-to.pdf>
+(epstopdf)             Command: <repstopdf --outfile=Create_Account-eps-convert
+ed-to.pdf Create_Account.eps>
+(epstopdf)             \includegraphics on input line 249.
+runsystem(repstopdf --outfile=Create_Account-eps-converted-to.pdf Create_Accoun
+t.eps)...executed safely (allowed).
+
+Package epstopdf Info: Result file: <Create_Account-eps-converted-to.pdf>
+(epstopdf)                    date: 2013-05-09 15:42:35
+(epstopdf)                    size: 57922 bytes.
+ <Create_Account-eps-converted-to.pdf, id=61, 481.8pt x 804.00375pt>
+File: Create_Account-eps-converted-to.pdf Graphic file (type pdf)
+
+<use Create_Account-eps-converted-to.pdf>
+Package pdftex.def Info: Create_Account-eps-converted-to.pdf used on input line
+ 249.
+(pdftex.def)             Requested size: 281.85587pt x 470.35872pt.
+ [13
+
+ <./Create_Account-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <Forgot_Password.eps>
+(epstopdf)                    date: 2013-05-09 15:28:14
+(epstopdf)                    size: 319396 bytes
+(epstopdf)             Output file: <Forgot_Password-eps-converted-to.pdf>
+(epstopdf)             Command: <repstopdf --outfile=Forgot_Password-eps-conver
+ted-to.pdf Forgot_Password.eps>
+(epstopdf)             \includegraphics on input line 251.
+runsystem(repstopdf --outfile=Forgot_Password-eps-converted-to.pdf Forgot_Passw
+ord.eps)...executed safely (allowed).
+
+Package epstopdf Info: Result file: <Forgot_Password-eps-converted-to.pdf>
+(epstopdf)                    date: 2013-05-09 15:42:38
+(epstopdf)                    size: 59716 bytes.
+ <Forgot_Password-eps-converted-to.pdf, id=69, 481.8pt x 804.00375pt>
+File: Forgot_Password-eps-converted-to.pdf Graphic file (type pdf)
+
+<use Forgot_Password-eps-converted-to.pdf>
+Package pdftex.def Info: Forgot_Password-eps-converted-to.pdf used on input lin
+e 251.
+(pdftex.def)             Requested size: 281.85587pt x 470.35872pt.
+ [14
+
+ <./Forgot_Password-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <Dashboard_new.eps>
+(epstopdf)                    date: 2013-05-09 15:29:29
+(epstopdf)                    size: 269979 bytes
+(epstopdf)             Output file: <Dashboard_new-eps-converted-to.pdf>
+(epstopdf)                    date: 2013-05-09 15:38:29
+(epstopdf)                    size: 78089 bytes
+(epstopdf)             Command: <repstopdf --outfile=Dashboard_new-eps-converte
+d-to.pdf Dashboard_new.eps>
+(epstopdf)             \includegraphics on input line 253.
+Package epstopdf Info: Output file is already uptodate.
+ <Dashboard_new-eps-converted-to.pdf, id=76, 481.8pt x 804.00375pt>
+File: Dashboard_new-eps-converted-to.pdf Graphic file (type pdf)
+
+<use Dashboard_new-eps-converted-to.pdf>
+Package pdftex.def Info: Dashboard_new-eps-converted-to.pdf used on input line 
+253.
+(pdftex.def)             Requested size: 281.85587pt x 470.35872pt.
+ [15
+
+ <./Dashboard_new-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <contacts.eps>
+(epstopdf)                    date: 2013-05-09 15:31:13
+(epstopdf)                    size: 111266 bytes
+(epstopdf)             Output file: <contacts-eps-converted-to.pdf>
+(epstopdf)                    date: 2013-05-09 15:38:31
+(epstopdf)                    size: 44653 bytes
+(epstopdf)             Command: <repstopdf --outfile=contacts-eps-converted-to.
+pdf contacts.eps>
+(epstopdf)             \includegraphics on input line 255.
+Package epstopdf Info: Output file is already uptodate.
+ <contacts-eps-converted-to.pdf, id=83, 349.305pt x 577.15625pt>
+File: contacts-eps-converted-to.pdf Graphic file (type pdf)
+
+<use contacts-eps-converted-to.pdf>
+Package pdftex.def Info: contacts-eps-converted-to.pdf used on input line 255.
+(pdftex.def)             Requested size: 281.85587pt x 465.73267pt.
+ [16
+
+ <./contacts-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <personalInfo.eps>
+(epstopdf)                    date: 2013-05-09 15:32:29
+(epstopdf)                    size: 80509 bytes
+(epstopdf)             Output file: <personalInfo-eps-converted-to.pdf>
+(epstopdf)                    date: 2013-05-09 15:38:33
+(epstopdf)                    size: 26147 bytes
+(epstopdf)             Command: <repstopdf --outfile=personalInfo-eps-converted
+-to.pdf personalInfo.eps>
+(epstopdf)             \includegraphics on input line 257.
+Package epstopdf Info: Output file is already uptodate.
+
+<personalInfo-eps-converted-to.pdf, id=90, 350.30875pt x 576.1525pt>
+File: personalInfo-eps-converted-to.pdf Graphic file (type pdf)
+
+<use personalInfo-eps-converted-to.pdf>
+Package pdftex.def Info: personalInfo-eps-converted-to.pdf used on input line 2
+57.
+(pdftex.def)             Requested size: 281.85587pt x 463.59518pt.
+ [17
+
+ <./personalInfo-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <conference5.eps>
+(epstopdf)                    date: 2013-05-09 15:34:18
+(epstopdf)                    size: 84646 bytes
+(epstopdf)             Output file: <conference5-eps-converted-to.pdf>
+(epstopdf)                    date: 2013-05-09 15:38:35
+(epstopdf)                    size: 27692 bytes
+(epstopdf)             Command: <repstopdf --outfile=conference5-eps-converted-
+to.pdf conference5.eps>
+(epstopdf)             \includegraphics on input line 259.
+Package epstopdf Info: Output file is already uptodate.
+ <conference5-eps-converted-to.pdf, id=97, 324.21124pt x 537.00626pt>
+File: conference5-eps-converted-to.pdf Graphic file (type pdf)
+
+<use conference5-eps-converted-to.pdf>
+Package pdftex.def Info: conference5-eps-converted-to.pdf used on input line 25
+9.
+(pdftex.def)             Requested size: 281.85587pt x 466.8803pt.
+ [18
+
+ <./conference5-eps-converted-to.pdf>] [19
+
+] [20
 
 ] (./paper.aux) ) 
 Here is how much of TeX's memory you used:
- 2233 strings out of 493488
- 32055 string characters out of 3141326
- 92702 words of memory out of 3000000
- 5526 multiletter control sequences out of 15000+200000
+ 2284 strings out of 493488
+ 33674 string characters out of 3141326
+ 93702 words of memory out of 3000000
+ 5566 multiletter control sequences out of 15000+200000
  8808 words of font info for 31 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
- 38i,7n,23p,1012b,199s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 38i,7n,23p,1012b,257s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfont
 s/cm/cmbx12.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmr12.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmsy10.pfb>
-Output written on paper.pdf (14 pages, 66931 bytes).
+/cm/cmmi12.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmmi8.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmr12.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/c
+msy10.pfb>
+Output written on paper.pdf (20 pages, 698167 bytes).
 PDF statistics:
- 62 PDF objects out of 1000 (max. 8388607)
- 42 compressed objects within 1 object stream
+ 129 PDF objects out of 1000 (max. 8388607)
+ 81 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 51 words of extra memory for PDF output out of 10000 (max. 10000000)
 

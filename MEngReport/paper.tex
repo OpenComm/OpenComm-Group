@@ -65,24 +65,29 @@ Subteam & Fall 2012 & Spring 2013\\
 \hline
 Publication & Ashley Sams, lead &  \\
   & Natalie Lin &  \\
-  & U & \\
+  & Crystal Qin & \\
+  & Paul Menchov & \\
 \hline
 Design & Ashley Sams, lead & Will Chan, lead\\
   & Will Chan & Jenny Zhao\\
-  & U & Noah Grossman\\
+  & Joey Triska & Noah Grossman\\
+  & Jonathan Kim & \\
 \hline
 Front-End Development & Risa Naka, lead & Heming Ge, lead\\
   & Spandana Govindgari & Lu Yang\\
-  & U & Shuai Lu\\
-  & U & Spandana Govindgari\\
+  & Nora Ng-Quinn & Shuai Lu\\
+  & Ankit Singh & Spandana Govindgari\\
 \hline
 Back-End Development & Kris Kooi, lead & Annie Edmundson, lead\\
   & Alin Barsan & Antoine Chkaiban\\
   & Annie Edmundson & Scarlet Yang\\
-  & Divya Singh &  \\
-  & Somya Singh &  \\
+  & Divya Singhvi &  \\
+  & Somya Singhvi &  \\
   & Vera Kutsenko &  \\
   & Crystal Qin & \\
+  & Kevin Lei & \\
+  & Neelesh Bagga & \\
+  & Brian O'Connor & \\
 \hline
 \end{tabular}
 \vspace{0.3cm}
@@ -120,15 +125,12 @@ This year, we tried the subversion-style workflow, in which all developers clone
 \subsection{Goals}
 \subsection{Practices}
 
-\section{Publication Team}
-\subsection{Goals}
-\subsection{Practices}
-
 \section{Front-End Development Team}
 \subsection{Goals}
 \subsection{Practices}
 
 \section{Back-End Development Team}
+\subsection{Goals}
 We had various goals for this semester and we were successful in achieving most of them:
 \begin{enumerate}
 \item Refactor code
@@ -141,9 +143,9 @@ We had various goals for this semester and we were successful in achieving most 
 
 In all, Backend’s team goals for this semester were to make a simple and robust backend. 
 
-\section{Technologies}
+\subsection{Technologies}
 
-\subsection{Android}
+\subsubsection{Android}
 Android provides a number of building blocks that are reused frequently in our code base. The first is the Activity class, which represents a single task that the user can do. In our application, the user always interacts with a single Activity, which passes data on to subsequent Activities as necessary. Android maintains an Activity stack, which tracks all the Activities that the user has passed through since the start of the application. In this way, we can implement operations such as the back button, which allows us to return to the previous state. Activities in OpenComm include the Login, Dashboard, Conference screens.
 
 It is crucial for blocking or long running operations to execute off of the UI thread, as Android periodically pings this thread to ensure the application has not crashed. The AsyncTask class is used to represent such an operation that needs to be run in the background. Several tasks that involve network communication use AsyncTasks, such as the login and signup button presses. A large part of this semester’s work involved refactoring our code base to move remote procedure calls to AsyncTasks.
@@ -160,31 +162,19 @@ Finally, Android also provides a few odds and ends:
 \item ProgressBar: Used to display “Reconnecting in...” message on timeout
 \end{itemize}
 
-\subsection{XMPP}
+\subsubsection{XMPP}
 Throughout the project, we used the Extensible Messaging and Presence Protocol (XMPP). For a more detailed description, please see Appendix D.
 
-\subsection{Openfire}
+\subsubsection{Openfire}
 Openfire is a real time collaboration (RTC) server licensed under the Open Source Apache License. It uses the only widely adopted open protocol for instant messaging, XMPP (also called Jabber). Openfire is incredibly easy to setup and administer, but offers rock-solid security and performance.
 
 \section{Code Structure}
 
-\subsection{Class Descriptions}
-
-\textbf{Account Creation}
-
-\textbf{Password Reset}
-
-\textbf{Login}
-
-\textbf{Invitations} 
-
-\textbf{Conferences}
-
-\textbf{Whispers}
-
-\subsection{Security}
+The codebase is designed using the Model-View-Controller (MVC) structure.  In this format, all objects, such as conferences and users, are models.  Each model has a corresponding controller that acts as the intermediary between the view (UI) and the model.
 
 \subsection{Future Work}
+\textbf{Backlogged Features} There are additional features that have not yet been implemented.  A detailed list of these features can be seen in Appendix B.  
+
 \textbf{Improving Security} The intermediary web application and OpenFire should run on the same virtual or physical machine, and the User Service plugin should restrict the authorized IP addresses to that of the server (Server $\Rightarrow$ Server Settings $\Rightarrow$ User Service). The last security issue concerns the intermediate server and how the critical data (User Service secret key, SMTP server, SMTP password, encryption key) should be stored. A .htpasswd file should be one solution.
 
 \section{Audio}
@@ -204,7 +194,13 @@ Due to the limit of Dalvik and mobile devices in terms of OS support, CPU speed,
 \subsection{Interaural Time Delay}
 ITD is the difference in the time it takes for the two ears to hear the sound. When the angle is defined from the center of the face to the right, it becomes positive to the right side of the nose, and negative to the left side of the nose. For example, when the angle completely lies on a half line from the center of the head to the left ear, becomes -90°.
 
-The interaural time between two ears is derived using the formula : where  is expressed in radians. Negative delay indicates that the left ear first hears the sound. 
+\begin{figure}[htbp]
+\begin{center}
+    \includegraphics[width=0.4\textwidth]{audio.eps}
+\end{center}
+\end{figure}
+
+The interaural time between two ears is derived using the formula : Interaural Time Delay (s) = (radius$_{head}$/speed$_{sound}$) $\times (\theta + sin \theta)$, where $\theta$ is expressed in radians. Negative delay indicates that the left ear first hears the sound. 
 
 Note that when =4 or =-4 the ITD for a sound located in front of the head and behind the head are identical. This case is known as the “cone of confusion,” so named after the cone created when this case is projected into a 3D sound space. In natural environments, this confusion is resolved with cues from the outer ear, acoustic variances in the environment, or movement of the head. Unfortunately, we are unable to emulate any of these error-correcting phenomena and therefore cannot differentiate between sounds in front of or behind the head.
 
@@ -213,21 +209,13 @@ We experimented with a sound spatialization algorithm proposed by Birchfield and
 \subsection{Volume Difference}
 Volume difference is the difference in volume level perceived by the two ears.  According to the distance law, the sound pressure (volume) emitted by a source is inversely proportional to its distance from the listener.
 
-where distancecenter is the distance from the sound source to the center of the head. Volume is set for each ear accordingly. Additionally, we simulate the sound shadow caused by the head by muting the muting the opposite ear when the audio source is more than 45 degrees from the center. In the future, we hope to emulate the echo that the muted ear would hear from the environment.
+\begin{figure}[htbp]
+\begin{center}
+    \includegraphics[width=0.4\textwidth]{audio3.eps}
+\end{center}
+\end{figure}
 
-\subsection{Implementation}
-
-\section{Summary of Progress by Cycle}
-
-\subsection{Cycle 1: }
-
-\subsection{Cycle 2: }
-
-\subsection{Cycle 3: }
-
-\subsection{Cycle 4: }
-
-\subsection{Cycle 5: }
+where distance$_{center}$ is the distance from the sound source to the center of the head. Volume is set for each ear accordingly. Additionally, we simulate the sound shadow caused by the head by muting the muting the opposite ear when the audio source is more than 45 degrees from the center. In the future, we hope to emulate the echo that the muted ear would hear from the environment.
 
 {\footnotesize \bibliographystyle{acm}
 \bibliography{paper}}
@@ -238,12 +226,37 @@ where distancecenter is the distance from the sound source to the center of the 
 \begin{center}
 \appendix
 \section{Team Members}
+\includegraphics[width=0.6\textwidth]{teammembers.eps}
 
 \clearpage
 \section{Design Backlog}
-
+{\raggedright The following are ideas not implemented into the application.  These ideas will not necessarily be in the final application, but they can serve as a starting point for brainstorming.
+\begin{itemize}
+\item User testing
+\item Allowing users to update their personal information and image
+\item UI showing users leaving conferences
+\item Whisper feature (private conversation with one other member of the conference)
+\item Grouping contacts into sublists
+\item Enhanced error handling throughout application
+\item Security throughout application
+\item Integration of audio over the network
+\end{itemize}
+}
 \clearpage
 \section{View Management}
+\includegraphics[width=0.6\textwidth]{OpenComm_Login.eps}
+\clearpage
+\includegraphics[width=0.6\textwidth]{Create_Account.eps}
+\clearpage
+\includegraphics[width=0.6\textwidth]{Forgot_Password.eps}
+\clearpage
+\includegraphics[width=0.6\textwidth]{Dashboard_new.eps}
+\clearpage
+\includegraphics[width=0.6\textwidth]{contacts.eps}
+\clearpage
+\includegraphics[width=0.6\textwidth]{personalInfo.eps}
+\clearpage
+\includegraphics[width=0.6\textwidth]{conference5.eps}
 
 \clearpage
 \section{The XMPP Protocol}
